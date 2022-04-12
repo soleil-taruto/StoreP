@@ -74,12 +74,8 @@ namespace Charlotte.Tests
 				map = next;
 
 				// 両端の小さい値を除去
-#if false
-				map = map.Where(v => SCommon.MICRO < v).ToArray();
-#else
 				while (map[0] < SCommon.MICRO) map = map.Skip(1).ToArray();
 				while (map[map.Length - 1] < SCommon.MICRO) map = map.Take(map.Length - 1).ToArray();
-#endif
 			}
 
 			using (CsvFileWriter writer = new CsvFileWriter(Common.NextOutputPath() + ".csv"))
@@ -113,13 +109,8 @@ namespace Charlotte.Tests
 			}
 
 			// 両端の小さい値を除去
-#if true
+			// 注意：SPAN-によってインデックスが偶数または奇数の位置が 0 になる。
 			map = map.Where(v => v != 0).ToArray();
-#else
-			// SPAN-によってインデックスが偶数または奇数の位置が 0 になる。
-			while (map[0] == 0) map = map.Skip(1).ToArray();
-			while (map[map.Length - 1] == 0) map = map.Take(map.Length - 1).ToArray();
-#endif
 
 			using (CsvFileWriter writer = new CsvFileWriter(Common.NextOutputPath() + ".csv"))
 			{
