@@ -4,13 +4,10 @@
 
 /*
 	配列に要素を挿入する。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
 	index: 位置
 	element: 要素
-
-	ret: arr
 */
 function InsertElement(arr, index, element)
 {
@@ -25,26 +22,21 @@ function InsertElement(arr, index, element)
 		arr[i] = arr[i - 1];
 	}
 	arr[index] = element;
-	return arr;
 }
 
 /*
 	配列に要素を追加する。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
 	element: 要素
-
-	ret: arr
 */
 function AddElement(arr, element)
 {
-	return InsertElement(arr, arr.length, element);
+	InsertElement(arr, arr.length, element);
 }
 
 /*
 	配列から要素を取り出す。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
 	index: 位置
@@ -69,7 +61,6 @@ function DesertElement(arr, index)
 
 /*
 	配列から要素を取り出す。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
 	index: 位置
@@ -90,7 +81,6 @@ function FastDesertElement(arr, index)
 
 /*
 	配列から最後の要素を取り出す。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
 
@@ -103,30 +93,22 @@ function UnaddElement(arr)
 
 /*
 	配列の要素を入れ替える。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
 	index_A: 入れ替え位置(1)
 	index_B: 入れ替え位置(2)
-
-	ret: arr
 */
 function SwapElement(arr, index_A, index_B)
 {
 	var tmp = arr[index_A];
 	arr[index_A] = arr[index_B];
 	arr[index_B] = tmp;
-
-	return arr;
 }
 
 /*
 	シャッフルする。
-	★引数に指定された配列を変更する。
 
 	arr: 配列
-
-	ret: arr
 */
 function Shuffle(arr)
 {
@@ -134,7 +116,6 @@ function Shuffle(arr)
 	{
 		SwapElement(arr, GetRand(i), i);
 	}
-	return arr;
 }
 
 /*
@@ -142,7 +123,7 @@ function Shuffle(arr)
 
 	arr: 配列
 	offset: 開始位置
-	count: 個数
+	count: 長さ
 
 	ret: 部分配列
 */
@@ -166,6 +147,19 @@ function GetSubArray(arr, offset, count)
 }
 
 /*
+	部分配列(開始位置以降)を返す。
+
+	arr: 配列
+	offset: 開始位置
+
+	ret: 部分配列
+*/
+function GetTrailArray(arr, offset)
+{
+	return GetSubArray(arr, offset, arr.length - offset);
+}
+
+/*
 	配列を複製する。
 
 	arr: 配列
@@ -178,13 +172,10 @@ function CloneArray(arr)
 }
 
 /*
-	マッチした要素を削除する。
-	★引数に指定された配列を変更する。
+	マッチする要素を削除する。
 
 	arr: 配列
 	match: 判定メソッド
-
-	ret: arr
 */
 function RemoveAll(arr, match)
 {
@@ -203,5 +194,17 @@ function RemoveAll(arr, match)
 	{
 		arr.pop();
 	}
-	return arr;
+}
+
+/*
+	偽となる要素(null, undefined, 0, 空文字列など)を除去する。
+
+	arr: 配列
+*/
+function RemoveFalse(arr)
+{
+	RemoveAll(arr, function(token)
+	{
+		return !token;
+	});
 }

@@ -19,15 +19,7 @@
 */
 function MakeXYSpeed(x, y, targetX, targetY, speed)
 {
-	var pt = AngleToPoint(GetAngle(targetX - x, targetY - y), speed);
-
-	var ret =
-	{
-		X: pt.X,
-		Y: pt.Y,
-	};
-
-	return ret;
+	return AngleToPoint(GetAngle(targetX - x, targetY - y), speed);
 }
 
 /*

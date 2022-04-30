@@ -91,19 +91,3 @@ function Join(separator, arr)
 	}
 	return ret;
 }
-
-/*
-	空のトークンを除去する。
-	★引数に指定された配列を変更する。
-
-	arr: 配列
-
-	ret: arr
-*/
-function RemoveEmpty(arr)
-{
-	return RemoveAll(arr, function(token)
-	{
-		return token == "";
-	});
-}
