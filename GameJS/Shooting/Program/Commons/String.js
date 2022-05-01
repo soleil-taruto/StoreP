@@ -48,7 +48,7 @@ function GetTrailString(str, offset)
 */
 function Tokenize(str, separator, limit)
 {
-	if (separator == "")
+	if (!separator) // ? separator is ""
 	{
 		error;
 	}

@@ -197,7 +197,7 @@ function RemoveAll(arr, match)
 }
 
 /*
-	偽となる要素(null, undefined, 0, 空文字列など)を除去する。
+	偽となる要素(false, null, undefined, 0, 空文字列)を除去する。
 
 	arr: 配列
 */

@@ -21,28 +21,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS;
-			yield* GameMain(1);
-			LOGPOS;
-		},
-	},
-	{
-		L : 565,
-		T : 300,
-		W : 200,
-		H : 55,
-		Draw : function()
-		{
-			SetColor("#ffffff");
-			PrintRect(this.L, this.T, this.W, this.H);
-			SetColor("#000000");
-			SetPrint(this.L + 25, this.T + 40, 0);
-			SetFont("32px 'sans-serif'");
-			PrintLine("スタートB");
-		},
-		Pressed : function* ()
-		{
-			LOGPOS;
-			yield* GameMain(2);
+			yield* GameMain();
 			LOGPOS;
 		},
 	},
