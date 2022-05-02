@@ -2,13 +2,13 @@
 	音楽再生・停止
 */
 
-var @@_State = 0; // 0 == 停止中, 1 == 再生中, 2 == フェードアウト中, 3 == 曲停止, 4 == 次の曲を再生
-var @@_Music = null;
-var @@_NextMusic = null;
+var int @@_State = 0; // 0 == 停止中, 1 == 再生中, 2 == フェードアウト中, 3 == 曲停止, 4 == 次の曲を再生
+var SND @@_Music = null;
+var SND @@_NextMusic = null;
 
 // 再生
 // music: 曲
-function Play(music)
+function void Play(SND music)
 {
 	if (!music)
 	{
@@ -38,10 +38,10 @@ function Play(music)
 	@@_Music = music;
 }
 
-var @@_FadeoutFrame;
-var @@_Volume;
+var int @@_FadeoutFrame;
+var double @@_Volume;
 
-function @(UNQN)_EACH()
+function void @(UNQN)_EACH()
 {
 	if (@@_State == 0) // ? 停止中
 	{
@@ -90,7 +90,7 @@ function @(UNQN)_EACH()
 
 // フェードアウト
 // frame: 1～
-function Fadeout(frame)
+function void Fadeout(int frame)
 {
 	if (frame < 1 || !Number.isInteger(frame))
 	{

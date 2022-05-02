@@ -3,7 +3,7 @@
 */
 
 // スクリーンのクリア
-function ClearScreen()
+function void ClearScreen()
 {
 	Context.clearRect(0, 0, Screen_W, Screen_H);
 }
@@ -22,17 +22,20 @@ function ClearScreen()
 		1.0 == 等倍
 		2.0 == 2倍
 		0.5 == 0.5倍
+
+	例：画面の中心に描画
+		Draw(img, Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
 */
-function Draw(image, x, y, a, r, z)
+function void Draw(IMG image, double x, double y, double a, double r, double z)
 {
-	var w = image.naturalWidth;
-	var h = image.naturalHeight;
+	int w = image.naturalWidth;
+	int h = image.naturalHeight;
 
 	w *= z;
 	h *= z;
 
-	var l = x - w / 2;
-	var t = y - h / 2;
+	double l = x - w / 2;
+	double t = y - h / 2;
 
 	Context.translate(x, y);
 	Context.rotate(r);

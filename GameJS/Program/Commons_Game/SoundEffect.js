@@ -2,11 +2,11 @@
 	å¯â âπçƒê∂
 */
 
-var @@_Handles = [];
+var SE_t[] @@_Handles = [];
 
-function SE(se)
+function void SE(SE_t se)
 {
-	var handle = se.Handles[se.Index];
+	var<Audio> handle = se.Handles[se.Index];
 
 	@@_Handles.push(handle);
 
@@ -14,11 +14,11 @@ function SE(se)
 	se.Index %= 3;
 }
 
-function @(UNQN)_EACH()
+function void @(UNQN)_EACH()
 {
 	if (ProcFrame % 2 == 0 && 1 <= @@_Handles.length)
 	{
-		var handle = @@_Handles.shift();
+		var<Audio> handle = @@_Handles.shift();
 
 		handle.play();
 	}

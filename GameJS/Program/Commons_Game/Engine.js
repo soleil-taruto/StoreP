@@ -3,31 +3,31 @@
 */
 
 // 画面の幅
-var Screen_W = 960;
+var int Screen_W = 960;
 
 // 画面の高さ
-var Screen_H = 540;
+var int Screen_H = 540;
 
 // アプリケーション側の処理
-// ジェネレータ関数であること。
-var @@_AppMain;
+// ジェネレータであること。
+var GEN @@_AppMain;
 
 // *_INIT イベントのリスト
-var @@_INIT_Events = [ @(INIT) ];
+var FUNC[] @@_INIT_Events = [ @(INIT) ];
 
 // *_EACH イベントのリスト
-var @@_EACH_Events = [ @(EACH) ];
+var FUNC[] @@_EACH_Events = [ @(EACH) ];
 
 // 描画先Canvasタグ
-var Canvas;
+var T Canvas;
 
 // Canvasを入れておくDivタグ
-var CanvasBox;
+var T CanvasBox;
 
 // ゲーム用メイン
 // appMain: アプリケーション側の処理
-// -- ジェネレータ関数であること。
-function ProcMain(appMain)
+// -- ジェネレータであること。
+function void ProcMain(GEN appMain)
 {
 	@@_AppMain = appMain;
 
@@ -54,21 +54,21 @@ function ProcMain(appMain)
 	@@_Anime();
 }
 
-function @@_Resized()
+function void @@_Resized()
 {
-	var sw = window.innerWidth;
-	var sh = window.innerHeight;
+	int sw = window.innerWidth;
+	int sh = window.innerHeight;
 
-	var w = sw;
-	var h = Math.round((Screen_H * sw) / Screen_W);
+	int w = sw;
+	int h = Math.round((Screen_H * sw) / Screen_W);
 
 	if (sh < h)
 	{
 		h = sh;
 		w = Math.round((Screen_W * sh) / Screen_H);
 	}
-	var l = Math.round((sw - w) / 2);
-	var t = Math.round((sh - h) / 2);
+	int l = Math.round((sw - w) / 2);
+	int t = Math.round((sh - h) / 2);
 
 	Canvas.style.left   = l + "px";
 	Canvas.style.top    = t + "px";
@@ -82,17 +82,17 @@ function @@_Resized()
 }
 
 // リフレッシュレート高過ぎ検知用時間
-var @@_HzChaserTime = 0;
+var int @@_HzChaserTime = 0;
 
 // プロセスフレームカウンタ
-var ProcFrame = 0;
+var int ProcFrame = 0;
 
 // 描画先コンテキスト(描画先スクリーン)
-var Context = null;
+var T Context = null;
 
-function @@_Anime()
+function void @@_Anime()
 {
-	var currTime = new Date().getTime();
+	int currTime = new Date().getTime();
 
 	@@_HzChaserTime = ToRange(
 		@@_HzChaserTime,

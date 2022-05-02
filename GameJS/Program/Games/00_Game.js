@@ -2,7 +2,7 @@
 	ゲーム・メイン
 */
 
-function* GameMain()
+function* GEN GameMain()
 {
 	// Reset
 	{
@@ -53,10 +53,10 @@ function* GameMain()
 	ClearMouseDown();
 }
 
-var @@_Field_L;
-var @@_Field_T;
-var @@_Field_W = 900;
-var @@_Field_H = 500;
+var int @@_Field_L;
+var int @@_Field_T;
+var int @@_Field_W = 900;
+var int @@_Field_H = 500;
 
 function @(UNQN)_INIT()
 {
@@ -64,44 +64,44 @@ function @(UNQN)_INIT()
 	@@_Field_T = ToInt((Screen_H - @@_Field_H) / 2);
 }
 
-function GetField_L()
+function int GetField_L()
 {
 	return @@_Field_L;
 }
 
-function GetField_T()
+function int GetField_T()
 {
 	return @@_Field_T;
 }
 
-function GetField_W()
+function int GetField_W()
 {
 	return @@_Field_W;
 }
 
-function GetField_H()
+function int GetField_H()
 {
 	return @@_Field_H;
 }
 
-function @@_Draw背景()
+function void @@_Draw背景()
 {
-	var bx = 54 - (ProcFrame * 7) % 108;
-	var by = 54;
+	int bx = 54 - (ProcFrame * 7) % 108;
+	int by = 54;
 
-	for (var x = bx; x < GetField_W() + 54; x += 108)
-	for (var y = by; y < GetField_H() + 54; y += 108)
+	for (int x = bx; x < GetField_W() + 54; x += 108)
+	for (int y = by; y < GetField_H() + 54; y += 108)
 	{
 		Draw(P_Wall_0002, GetField_L() + x, GetField_T() + y, 1.0, 0.0, 1.0);
 	}
 }
 
-function @@_DrawPlayer()
+function void @@_DrawPlayer()
 {
 	DrawPlayer();
 }
 
-function @@_DrawEnemies()
+function void @@_DrawEnemies()
 {
 	Enemies = Enemies.filter(function(enemy)
 	{
@@ -109,7 +109,7 @@ function @@_DrawEnemies()
 	});
 }
 
-function @@_DrawShots()
+function void @@_DrawShots()
 {
 	Shots = Shots.filter(function(shot)
 	{
@@ -117,7 +117,7 @@ function @@_DrawShots()
 	});
 }
 
-function @@_DrawTamas()
+function void @@_DrawTamas()
 {
 	Tamas = Tamas.filter(function(tama)
 	{
@@ -125,7 +125,7 @@ function @@_DrawTamas()
 	});
 }
 
-function @@_Draw外枠()
+function void @@_Draw外枠()
 {
 	SetColor("#004080");
 	PrintRect(0, 0, @@_Field_L, Screen_H);
@@ -145,10 +145,10 @@ function @@_Draw外枠()
 }
 
 // ゲームのスコア
-var Score = 0;
-var DispScore = 0; // 表示用 (Scoreを追尾する)
+var int Score = 0;
+var int DispScore = 0; // 表示用 (Scoreを追尾する)
 
-function @@_DrawScore()
+function void @@_DrawScore()
 {
 	// 表示用スコアの追尾
 	if (Math.abs(Score - DispScore) < 30)
@@ -170,11 +170,11 @@ function @@_DrawScore()
 	// スコア表示
 	SetPrint(30, 16, 0);
 	SetColor("#ffffff");
-	SetFont("16px 'メイリオ'");
+	SetFSize(16);
 	PrintLine("Score: " + DispScore);
 }
 
-function @@_自機移動()
+function void @@_自機移動()
 {
 	Player_X = GetMouseX() - @@_Field_L;
 	Player_Y = GetMouseY() - @@_Field_T;
@@ -184,19 +184,19 @@ function @@_自機移動()
 	Player_Y = ToInt(Player_Y);
 }
 
-var @@_Crashed_自機と敵 = false;
+var boolean @@_Crashed_自機と敵 = false;
 
-function @@_当たり判定()
+function void @@_当たり判定()
 {
 	// Reset
 	{
 		@@_Crashed_自機と敵 = false;
 
-		for (var enemy of Enemies)
+		for (var<Enemy_t> enemy of Enemies)
 		{
 			enemy.Crashed = false;
 		}
-		for (var shot of Shots)
+		for (var<Shot_t> shot of Shots)
 		{
 			shot.Crashed = false;
 		}
@@ -206,7 +206,7 @@ function @@_当たり判定()
 	{
 		var crashed = false;
 
-		for (var enemy of Enemies)
+		for (var<Enemy_t> enemy of Enemies)
 		{
 			var d = GetDistance(enemy.X - Player_X, enemy.Y - Player_Y);
 
@@ -247,12 +247,12 @@ function @@_当たり判定()
 	}
 }
 
-function* @@_E_死亡とリスポーン()
+function* GEN @@_E_死亡とリスポーン()
 {
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
-	for (var c = 0; c < 30; c++)
+	for (int c = 0; c < 30; c++)
 	{
 		yield 1;
 	}
@@ -271,7 +271,7 @@ function* @@_E_死亡とリスポーン()
 	var x = -100.0;
 	var y = GetField_T() + GetField_H() / 2;
 
-	for (var c = 0; c < 30; c++)
+	for (int c = 0; c < 30; c++)
 	{
 		var rate = c / 30;
 

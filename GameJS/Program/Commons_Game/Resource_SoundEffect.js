@@ -2,9 +2,9 @@
 	音楽・効果音
 */
 
-function @@_Load(url)
+function SE_t @@_Load(STR url)
 {
-	var ret =
+	var<SE_t> ret =
 	{
 		// ハンドルのリスト(3つ)
 		Handles:
@@ -26,4 +26,4 @@ function @@_Load(url)
 // プリフィクス
 // S_ ... 効果音(SE)
 
-var S_Dummy = @@_Load(Resources.General__muon_mp3); // ★サンプルとしてキープ
+var SE_t S_Dummy = @@_Load(Resources.General__muon_mp3); // ★サンプルとしてキープ

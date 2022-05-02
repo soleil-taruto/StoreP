@@ -5,7 +5,7 @@
 /*
 	ret: value を四捨五入した整数を返す。
 */
-function ToInt(value)
+function int ToInt(double value)
 {
 	return Math.round(value);
 }
@@ -17,7 +17,7 @@ function ToInt(value)
 			2.4 -> 2
 			-3.7 -> 3
 */
-function ToFix(value)
+function int ToFix(double value)
 {
 	return Math.trunc(value);
 }
@@ -25,7 +25,7 @@ function ToFix(value)
 /*
 	value を minval, maxval の範囲に矯正する。
 */
-function ToRange(value, minval, maxval)
+function NUM ToRange(NUM value, NUM minval, NUM maxval)
 {
 	return Math.min(Math.max(value, minval), maxval);
 }
@@ -35,7 +35,7 @@ function ToRange(value, minval, maxval)
 
 	ret: 0 ～ (modulo - 1) の整数をランダムに返す。
 */
-function GetRand(modulo)
+function int GetRand(int modulo)
 {
 	return ToFix(Math.random() * modulo);
 }

@@ -2,7 +2,7 @@
 	音楽・効果音
 */
 
-function @@_Load(url)
+function Audio @@_Load(STR url)
 {
 	LOGPOS;
 	Loading++;
@@ -30,7 +30,7 @@ function @@_Load(url)
 	return audio;
 }
 
-function LoadSoundFileByUrl(url)
+function Audio LoadSoundFileByUrl(STR url)
 {
 	return @@_Load(url);
 }
@@ -40,4 +40,4 @@ function LoadSoundFileByUrl(url)
 // プリフィクス
 // M_ ... 音楽,BGM
 
-var M_Dummy = @@_Load(Resources.General__muon_mp3); // ★サンプルとしてキープ
+var Audio M_Dummy = @@_Load(Resources.General__muon_mp3); // ★サンプルとしてキープ

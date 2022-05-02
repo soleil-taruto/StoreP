@@ -17,7 +17,7 @@
 		Y: 速度-Y
 	}
 */
-function MakeXYSpeed(x, y, targetX, targetY, speed)
+function MAP MakeXYSpeed(double x, double y, double targetX, double targetY, double speed)
 {
 	return AngleToPoint(GetAngle(targetX - x, targetY - y), speed);
 }
@@ -26,14 +26,14 @@ function MakeXYSpeed(x, y, targetX, targetY, speed)
 	原点から見て指定位置の角度を得る。
 	角度は X-軸プラス方向を 0 度として時計回りのラジアン角である。
 	但し X-軸プラス方向は右 Y-軸プラス方向は下である。
-	例えば、真下は Math.PI / 2, 真左は真上は Math.PI * 1.5 になる。
+	例として、真下は Math.PI * 0.5, 真左は真上は Math.PI * 1.5 になる。
 
 	x: 指定位置-X
 	y: 指定位置-Y
 
 	ret: 角度(ラジアン角)
 */
-function GetAngle(x, y)
+function double GetAngle(double x, double y)
 {
 	if (y < 0.0)
 	{
@@ -52,13 +52,13 @@ function GetAngle(x, y)
 		return 0.0;
 	}
 
-	var r1 = 0.0;
-	var r2 = Math.PI / 2.0;
-	var t = y / x;
-	var rm;
-	var rmt;
+	double r1 = 0.0;
+	double r2 = Math.PI / 2.0;
+	double t = y / x;
+	double rm;
+	double rmt;
 
-	for (var c = 1; ; c++)
+	for (int c = 1; ; c++)
 	{
 		rm = (r1 + r2) / 2.0;
 
@@ -93,7 +93,7 @@ function GetAngle(x, y)
 		Y: 位置-Y
 	}
 */
-function AngleToPoint(angle, distance)
+function MAP AngleToPoint(double angle, double distance)
 {
 	var ret =
 	{
@@ -112,7 +112,7 @@ function AngleToPoint(angle, distance)
 
 	ret: 距離
 */
-function GetDistance(x, y)
+function double GetDistance(double x, double y)
 {
 	return Math.sqrt(x * x + y * y);
 }
@@ -126,7 +126,7 @@ function GetDistance(x, y)
 
 	ret: 近づけた後の値
 */
-function Approach(value, dest, rate)
+function double Approach(double value, double dest, double rate)
 {
 	value -= dest;
 	value *= rate;
@@ -156,11 +156,11 @@ function Approach(value, dest, rate)
 			{ Numer: 29, Denom: 30, Rem: 1, Rate: 29 / 30, RemRate: 1 / 30 }
 			{ Numer: 30, Denom: 30, Rem: 0, Rate: 1.0,     RemRate: 0.0    }
 */
-function* CreateScene(frameMax)
+function* GEN CreateScene(int frameMax)
 {
-	for (var frame = 0; frame <= frameMax; frame++)
+	for (int frame = 0; frame <= frameMax; frame++)
 	{
-		var rate = frame / frameMax;
+		double rate = (double)frame / frameMax;
 
 		var scene =
 		{

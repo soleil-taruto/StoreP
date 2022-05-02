@@ -2,7 +2,7 @@
 	共通エフェクト
 */
 
-var @@_Effects = [];
+var GEN[] @@_Effects = [];
 
 /*
 	エフェクトを追加する。
@@ -10,15 +10,17 @@ var @@_Effects = [];
 	effect: ジェネレータであること。
 		ジェネレータが偽を返すと終了と見なす。
 */
-function AddCommonEffect(effect)
+function void AddCommonEffect(GEN effect)
 {
 	@@_Effects.push(effect);
 }
 
-function @(UNQN)_EACH()
+function void @(UNQN)_EACH()
 {
-	@@_Effects = @@_Effects.filter(function(effect)
+	var execute = function(effect)
 	{
 		return effect.next().value;
-	});
+	};
+
+	@@_Effects = @@_Effects.filter(execute);
 }
