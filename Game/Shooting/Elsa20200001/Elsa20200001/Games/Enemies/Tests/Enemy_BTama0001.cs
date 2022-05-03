@@ -32,5 +32,15 @@ namespace Charlotte.Games.Enemies.Tests
 				yield return !DDUtils.IsOutOfScreen(new D2Point(this.X, this.Y), 16.0);
 			}
 		}
+
+		protected override void P_Damaged()
+		{
+			throw null; // never
+		}
+
+		protected override void P_Killed()
+		{
+			// noop
+		}
 	}
 }

@@ -82,5 +82,15 @@ namespace Charlotte.Games.Enemies.Tests
 					throw null; // never
 			}
 		}
+
+		protected override void P_Damaged()
+		{
+			// noop
+		}
+
+		protected override void P_Killed()
+		{
+			// noop
+		}
 	}
 }

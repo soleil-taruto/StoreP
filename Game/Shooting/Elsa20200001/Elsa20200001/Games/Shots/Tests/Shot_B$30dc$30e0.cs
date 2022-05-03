@@ -43,5 +43,10 @@ namespace Charlotte.Games.Shots.Tests
 					enemy.DeadFlag = true;
 			}
 		}
+
+		protected override void P_Killed()
+		{
+			ShotCommon.Killed(this);
+		}
 	}
 }

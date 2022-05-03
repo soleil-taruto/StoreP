@@ -83,12 +83,12 @@ namespace Charlotte
 		{
 			// ---- choose one ----
 
-			//Main4_Release();
+			Main4_Release();
 			//new Test0001().Test01();
 			//new TitleMenuTest().Test01(); // タイトル画面
 			//new GameTest().Test01();
 			//new GameTest().Test02();
-			new GameTest().Test03(); // スクリプトを選択
+			//new GameTest().Test03(); // スクリプトを選択
 			//new NovelTest().Test01();
 			//new NovelTest().Test02();
 			//new NovelTest().Test03(); // シナリオ

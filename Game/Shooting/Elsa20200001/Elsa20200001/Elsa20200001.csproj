@@ -96,6 +96,7 @@
     <Compile Include="GameCommons\DDTouch.cs" />
     <Compile Include="GameProgressMasters\GameProgressMaster.cs" />
     <Compile Include="Games\Confirm.cs" />
+    <Compile Include="Games\Enemies\EnemyCommon.cs" />
     <Compile Include="Games\GameCommon.cs" />
     <Compile Include="Games\GameConsts.cs" />
     <Compile Include="GameCommons\DDCoffeeBreak.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Games\Scripts\Tests\Script_Bステージ0001.cs" />
     <Compile Include="Games\SettingMenu.cs" />
     <Compile Include="Games\Shots\Shot.cs" />
+    <Compile Include="Games\Shots\ShotCommon.cs" />
     <Compile Include="Games\Shots\Tests\Shot_B0001.cs" />
     <Compile Include="Games\Shots\Tests\Shot_Bボム.cs" />
     <Compile Include="Games\TitleMenu.cs" />
