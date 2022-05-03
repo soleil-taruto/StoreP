@@ -16,7 +16,7 @@ namespace Charlotte.Games.Enemies
 		/// <param name="shot">「被弾した敵」に当たった自弾</param>
 		public static void Damaged(Enemy enemy, Shots.Shot shot)
 		{
-			// noop ???
+			// none ???
 		}
 
 		/// <summary>
@@ -25,7 +25,7 @@ namespace Charlotte.Games.Enemies
 		/// <param name="enemy">消滅する敵</param>
 		public static void Killed(Enemy enemy)
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.小爆発(enemy.X, enemy.Y)));
+			DDGround.EL.Add(SCommon.Supplier(Effects.中爆発(enemy.X, enemy.Y)));
 		}
 	}
 }

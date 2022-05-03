@@ -94,8 +94,10 @@ namespace Charlotte.Games.Shots
 
 		/// <summary>
 		/// この自弾の固有の消滅イベント
-		/// 汎用・呼び出し例：ShotCommon.Killed(this);
 		/// </summary>
-		protected abstract void P_Killed();
+		protected virtual void P_Killed()
+		{
+			ShotCommon.Killed(this);
+		}
 	}
 }

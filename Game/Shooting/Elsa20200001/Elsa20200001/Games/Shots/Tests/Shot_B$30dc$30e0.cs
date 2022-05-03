@@ -46,7 +46,7 @@ namespace Charlotte.Games.Shots.Tests
 
 		protected override void P_Killed()
 		{
-			ShotCommon.Killed(this);
+			// noop
 		}
 	}
 }

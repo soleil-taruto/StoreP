@@ -38,15 +38,5 @@ namespace Charlotte.Games.Enemies.Tests
 				yield return true; // 自機をホーミングするので、画面外に出て行かない。
 			}
 		}
-
-		protected override void P_Damaged()
-		{
-			EnemyCommon.Damaged(this);
-		}
-
-		protected override void P_Killed()
-		{
-			EnemyCommon.Killed(this);
-		}
 	}
 }

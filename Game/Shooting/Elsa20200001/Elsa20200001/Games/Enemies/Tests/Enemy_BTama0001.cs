@@ -35,7 +35,7 @@ namespace Charlotte.Games.Enemies.Tests
 
 		protected override void P_Damaged()
 		{
-			throw null; // never
+			// noop
 		}
 
 		protected override void P_Killed()

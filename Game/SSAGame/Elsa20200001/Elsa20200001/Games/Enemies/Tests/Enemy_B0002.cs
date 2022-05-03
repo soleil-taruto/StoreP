@@ -90,11 +90,11 @@ namespace Charlotte.Games.Enemies.Tests
 			this.Frame++;
 		}
 
-		public override void Damaged(Shot shot)
+		protected override void P_Damaged(Shot shot)
 		{
 			//this.X += 10.0 * (shot.FacingLeft ? -1 : 1); // ヒットバック
 			this.HitBackFrame = 1;
-			base.Damaged(shot);
+			base.P_Damaged(shot);
 		}
 	}
 }

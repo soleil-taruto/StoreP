@@ -31,10 +31,5 @@ namespace Charlotte.Games.Shots.Tests
 				yield return !DDUtils.IsOutOfScreen(new D2Point(this.X, this.Y), 16.0);
 			}
 		}
-
-		protected override void P_Killed()
-		{
-			ShotCommon.Killed(this);
-		}
 	}
 }

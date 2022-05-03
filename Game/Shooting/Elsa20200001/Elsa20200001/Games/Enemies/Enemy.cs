@@ -115,20 +115,20 @@ namespace Charlotte.Games.Enemies
 
 		/// <summary>
 		/// この敵の固有の被弾イベント
-		/// -- HPの減少は呼び出し側で行っている。
-		/// 汎用・呼び出し例：EnemyCommon.Damaged(this);
 		/// </summary>
-		protected abstract void P_Damaged();
+		protected virtual void P_Damaged()
+		{
+			EnemyCommon.Damaged(this);
+		}
 
 		/// <summary>
 		/// Killed 複数回実行回避のため、DeadFlag をチェックして Killed を実行する。
 		/// 注意：HP を減らして -1 になったとき Kill を呼んでも(DeadFlag == true になるため) Killed は実行されない！
-		/// -- HP == -1 の可能性がある場合は -- Kill(true);
+		/// -- HP == -1 の可能性がある場合は HP = 0; を忘れずに！
 		/// </summary>
-		/// <param name="force">強制モード</param>
-		public void Kill(bool force = false)
+		public void Kill()
 		{
-			if (force || !this.DeadFlag)
+			if (!this.DeadFlag)
 			{
 				this.DeadFlag = true;
 				this.Killed();
@@ -150,9 +150,11 @@ namespace Charlotte.Games.Enemies
 
 		/// <summary>
 		/// この敵の固有の死亡イベント
-		/// 汎用・呼び出し例：EnemyCommon.Killed(this);
 		/// </summary>
-		protected abstract void P_Killed();
+		protected virtual void P_Killed()
+		{
+			EnemyCommon.Killed(this);
+		}
 
 		/// <summary>
 		/// 追加された死亡イベント・リスト
