@@ -11,7 +11,7 @@
 
 	ret: 部分文字列
 */
-function STR GetSubString(STR str, int offset, int count)
+function <string> GetSubString(<string> str, <int> offset, <int> count)
 {
 	if (offset < 0 || str.length < offset)
 	{
@@ -32,7 +32,7 @@ function STR GetSubString(STR str, int offset, int count)
 
 	ret: 部分文字列
 */
-function STR GetTrailString(STR str, int offset)
+function <string> GetTrailString(<string> str, <int> offset)
 {
 	return GetSubString(str, offset, str.length - offset);
 }
@@ -46,7 +46,7 @@ function STR GetTrailString(STR str, int offset)
 
 	ret: トークン列
 */
-function STR[] Tokenize(STR str, STR separator, int limit)
+function <string[]> Tokenize(<string> str, <string> separator, <int> limit)
 {
 	if (!separator) // ? separator is ""
 	{
@@ -56,7 +56,7 @@ function STR[] Tokenize(STR str, STR separator, int limit)
 
 	while (limit == 0 || dest.length + 1 < limit)
 	{
-		int p = str.indexOf(separator);
+		var<int> p = str.indexOf(separator);
 
 		if (p == -1)
 		{
@@ -77,11 +77,11 @@ function STR[] Tokenize(STR str, STR separator, int limit)
 
 	ret: 連結した文字列
 */
-function STR Join(STR separator, T[] arr)
+function <string> Join(<string> separator, <T[]> arr)
 {
-	var ret = "";
+	var<string> ret = "";
 
-	for (int index = 0; index < arr.length; index++)
+	for (var<int> index = 0; index < arr.length; index++)
 	{
 		if (1 <= index)
 		{

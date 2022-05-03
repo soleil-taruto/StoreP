@@ -2,7 +2,7 @@
 	ゲーム・メイン
 */
 
-function* GEN GameMain()
+function* <generatorForTask> GameMain()
 {
 	// Reset
 	{
@@ -53,10 +53,10 @@ function* GEN GameMain()
 	ClearMouseDown();
 }
 
-var int @@_Field_L;
-var int @@_Field_T;
-var int @@_Field_W = 900;
-var int @@_Field_H = 500;
+var<int> @@_Field_L;
+var<int> @@_Field_T;
+var<int> @@_Field_W = 900;
+var<int> @@_Field_H = 500;
 
 function @(UNQN)_INIT()
 {
@@ -64,27 +64,27 @@ function @(UNQN)_INIT()
 	@@_Field_T = ToInt((Screen_H - @@_Field_H) / 2);
 }
 
-function int GetField_L()
+function <int> GetField_L()
 {
 	return @@_Field_L;
 }
 
-function int GetField_T()
+function <int> GetField_T()
 {
 	return @@_Field_T;
 }
 
-function int GetField_W()
+function <int> GetField_W()
 {
 	return @@_Field_W;
 }
 
-function int GetField_H()
+function <int> GetField_H()
 {
 	return @@_Field_H;
 }
 
-function void @@_Draw背景()
+function <void> @@_Draw背景()
 {
 	int bx = 54 - (ProcFrame * 7) % 108;
 	int by = 54;
@@ -96,12 +96,12 @@ function void @@_Draw背景()
 	}
 }
 
-function void @@_DrawPlayer()
+function <void> @@_DrawPlayer()
 {
 	DrawPlayer();
 }
 
-function void @@_DrawEnemies()
+function <void> @@_DrawEnemies()
 {
 	Enemies = Enemies.filter(function(enemy)
 	{
@@ -109,7 +109,7 @@ function void @@_DrawEnemies()
 	});
 }
 
-function void @@_DrawShots()
+function <void> @@_DrawShots()
 {
 	Shots = Shots.filter(function(shot)
 	{
@@ -117,7 +117,7 @@ function void @@_DrawShots()
 	});
 }
 
-function void @@_DrawTamas()
+function <void> @@_DrawTamas()
 {
 	Tamas = Tamas.filter(function(tama)
 	{
@@ -125,7 +125,7 @@ function void @@_DrawTamas()
 	});
 }
 
-function void @@_Draw外枠()
+function <void> @@_Draw外枠()
 {
 	SetColor("#004080");
 	PrintRect(0, 0, @@_Field_L, Screen_H);
@@ -145,10 +145,10 @@ function void @@_Draw外枠()
 }
 
 // ゲームのスコア
-var int Score = 0;
-var int DispScore = 0; // 表示用 (Scoreを追尾する)
+var<int> Score = 0;
+var<int> DispScore = 0; // 表示用 (Scoreを追尾する)
 
-function void @@_DrawScore()
+function <void> @@_DrawScore()
 {
 	// 表示用スコアの追尾
 	if (Math.abs(Score - DispScore) < 30)
@@ -174,7 +174,7 @@ function void @@_DrawScore()
 	PrintLine("Score: " + DispScore);
 }
 
-function void @@_自機移動()
+function <void> @@_自機移動()
 {
 	Player_X = GetMouseX() - @@_Field_L;
 	Player_Y = GetMouseY() - @@_Field_T;
@@ -184,9 +184,9 @@ function void @@_自機移動()
 	Player_Y = ToInt(Player_Y);
 }
 
-var boolean @@_Crashed_自機と敵 = false;
+var<boolean> @@_Crashed_自機と敵 = false;
 
-function void @@_当たり判定()
+function <void> @@_当たり判定()
 {
 	// Reset
 	{
@@ -215,7 +215,7 @@ function void @@_当たり判定()
 				crashed = true;
 			}
 		}
-		for (var tama of Tamas)
+		for (var<Tama_t> tama of Tamas)
 		{
 			var d = GetDistance(tama.X - Player_X, tama.Y - Player_Y);
 
@@ -247,7 +247,7 @@ function void @@_当たり判定()
 	}
 }
 
-function* GEN @@_E_死亡とリスポーン()
+function* <generator> @@_E_死亡とリスポーン()
 {
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);

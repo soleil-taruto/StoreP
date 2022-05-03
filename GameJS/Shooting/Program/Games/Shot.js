@@ -2,16 +2,20 @@
 	©’e
 */
 
-function CreateShot(x, y)
+function <Shot_t> CreateShot(<double> x, <double> y)
 {
-	var ret =
+	/// Shot_t
+	var<Shot_t> ret =
 	{
 		// ˆÊ’u
-		X: x,
-		Y: y,
+		<double> X: x,
+		<double> Y: y,
+
+		// ƒtƒŒ[ƒ€ˆ—
+		<generatorForTask> Each: null, // late init
 
 		// “G‚ÆÕ“Ë‚µ‚½‚©
-		Crashed: false,
+		<boolean> Crashed: false,
 	};
 
 	ret.Each = @@_Each(ret);
@@ -22,7 +26,7 @@ function CreateShot(x, y)
 /*
 	ret: ? ¶‘¶
 */
-function Shot_Each(shot)
+function <void> Shot_Each(<Shot_t> shot)
 {
 	return shot.Each.next().value;
 }

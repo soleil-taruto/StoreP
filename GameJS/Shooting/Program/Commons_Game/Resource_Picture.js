@@ -2,7 +2,7 @@
 	画像
 */
 
-function Image @@_Load(STR url)
+function <Image> @@_Load(<string> url)
 {
 	LOGPOS;
 	Loading++;
@@ -29,4 +29,4 @@ function Image @@_Load(STR url)
 // プリフィクス
 // P_ ... 画像
 
-var Image P_Dummy = @@_Load(Resources.General__Dummy_png); // ★サンプルとしてキープ
+var<Image> P_Dummy = @@_Load(Resources.General__Dummy_png); // ★サンプルとしてキープ

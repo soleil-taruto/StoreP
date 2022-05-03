@@ -2,12 +2,13 @@
 	音楽・効果音
 */
 
-function SE_t @@_Load(STR url)
+function <SE_t> @@_Load(<string> url)
 {
+	/// SE_t
 	var<SE_t> ret =
 	{
 		// ハンドルのリスト(3つ)
-		Handles:
+		<Audio[]> Handles:
 		[
 			LoadSoundFileByUrl(url),
 			LoadSoundFileByUrl(url),
@@ -15,7 +16,7 @@ function SE_t @@_Load(STR url)
 		],
 
 		// 次に再生するハンドルの位置
-		Index: 0,
+		<int> Index: 0,
 	};
 
 	return ret;
@@ -26,4 +27,4 @@ function SE_t @@_Load(STR url)
 // プリフィクス
 // S_ ... 効果音(SE)
 
-var SE_t S_Dummy = @@_Load(Resources.General__muon_mp3); // ★サンプルとしてキープ
+var <SE_t> S_Dummy = @@_Load(Resources.General__muon_mp3); // ★サンプルとしてキープ

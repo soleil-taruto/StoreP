@@ -13,11 +13,11 @@
 
 	ret:
 	{
-		X: 速度-X
-		Y: 速度-Y
+		<double> X: 速度-X
+		<double> Y: 速度-Y
 	}
 */
-function MAP MakeXYSpeed(double x, double y, double targetX, double targetY, double speed)
+function <D2Point_t> MakeXYSpeed(<double> x, <double> y, <double> targetX, <double> targetY, <double> speed)
 {
 	return AngleToPoint(GetAngle(targetX - x, targetY - y), speed);
 }
@@ -33,7 +33,7 @@ function MAP MakeXYSpeed(double x, double y, double targetX, double targetY, dou
 
 	ret: 角度(ラジアン角)
 */
-function double GetAngle(double x, double y)
+function <double> GetAngle(<double> x, <double> y)
 {
 	if (y < 0.0)
 	{
@@ -52,11 +52,11 @@ function double GetAngle(double x, double y)
 		return 0.0;
 	}
 
-	double r1 = 0.0;
-	double r2 = Math.PI / 2.0;
-	double t = y / x;
-	double rm;
-	double rmt;
+	var<double> r1 = 0.0;
+	var<double> r2 = Math.PI / 2.0;
+	var<double> t = y / x;
+	var<double> rm;
+	var<double> rmt;
 
 	for (int c = 1; ; c++)
 	{
@@ -89,16 +89,16 @@ function double GetAngle(double x, double y)
 
 	ret:
 	{
-		X: 位置-X
-		Y: 位置-Y
+		<double> X: 位置-X
+		<double> Y: 位置-Y
 	}
 */
-function MAP AngleToPoint(double angle, double distance)
+function <D2Point_t> AngleToPoint(<double> angle, <double> distance)
 {
-	var ret =
+	var<D2Point_t> ret =
 	{
-		X: distance * Math.cos(angle),
-		Y: distance * Math.sin(angle),
+		<double> X: distance * Math.cos(angle),
+		<double> Y: distance * Math.sin(angle),
 	};
 
 	return ret;
@@ -112,7 +112,7 @@ function MAP AngleToPoint(double angle, double distance)
 
 	ret: 距離
 */
-function double GetDistance(double x, double y)
+function <double> GetDistance(<double> x, <double> y)
 {
 	return Math.sqrt(x * x + y * y);
 }
@@ -126,7 +126,7 @@ function double GetDistance(double x, double y)
 
 	ret: 近づけた後の値
 */
-function double Approach(double value, double dest, double rate)
+function <double> Approach(<double> value, <double> dest, <double> rate)
 {
 	value -= dest;
 	value *= rate;
@@ -156,19 +156,20 @@ function double Approach(double value, double dest, double rate)
 			{ Numer: 29, Denom: 30, Rem: 1, Rate: 29 / 30, RemRate: 1 / 30 }
 			{ Numer: 30, Denom: 30, Rem: 0, Rate: 1.0,     RemRate: 0.0    }
 */
-function* GEN CreateScene(int frameMax)
+function* <generator Scene_t> CreateScene(<int> frameMax)
 {
-	for (int frame = 0; frame <= frameMax; frame++)
+	for (var<int> frame = 0; frame <= frameMax; frame++)
 	{
-		double rate = (double)frame / frameMax;
+		var<double> rate = (double)frame / frameMax;
 
-		var scene =
+		/// Scene_t
+		var<Scene_t> scene =
 		{
-			Numer: frame,
-			Denom: frameMax,
-			Rate: rate,
-			Rem: frameMax - frame,
-			RemRate: 1.0 - rate,
+			<int> Numer: frame,
+			<int> Denom: frameMax,
+			<double> Rate: rate,
+			<int> Rem: frameMax - frame,
+			<double> RemRate: 1.0 - rate,
 		};
 
 		yield scene;

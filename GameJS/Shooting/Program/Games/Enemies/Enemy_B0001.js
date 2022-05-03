@@ -5,7 +5,7 @@
 /*
 	ê∂ê¨
 */
-function Enemy_B0001_Create(x, y)
+function <Enemy_t> Enemy_B0001_Create(<double> x, <double> y)
 {
 	var ret =
 	{

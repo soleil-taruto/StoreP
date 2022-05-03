@@ -3,7 +3,7 @@
 */
 
 // スクリーンのクリア
-function void ClearScreen()
+function <void> ClearScreen()
 {
 	Context.clearRect(0, 0, Screen_W, Screen_H);
 }
@@ -26,16 +26,16 @@ function void ClearScreen()
 	例：画面の中心に描画
 		Draw(img, Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
 */
-function void Draw(IMG image, double x, double y, double a, double r, double z)
+function <void> Draw(<Image> image, <double> x, <double> y, <double> a, <double> r, <double> z)
 {
-	int w = image.naturalWidth;
-	int h = image.naturalHeight;
+	var<int> w = image.naturalWidth;
+	var<int> h = image.naturalHeight;
 
 	w *= z;
 	h *= z;
 
-	double l = x - w / 2;
-	double t = y - h / 2;
+	var<double> l = x - w / 2;
+	var<double> t = y - h / 2;
 
 	Context.translate(x, y);
 	Context.rotate(r);

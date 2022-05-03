@@ -2,11 +2,11 @@
 	マウス・画面タッチ制御
 */
 
-var boolean @@_Down = false;
-var double @@_X = 0;
-var double @@_Y = 0;
+var<boolean> @@_Down = false;
+var<double> @@_X = 0;
+var<double> @@_Y = 0;
 
-function void @@_ScreenPosToCanvasPos()
+function <void> @@_ScreenPosToCanvasPos()
 {
 	var canvasRect = Canvas.getBoundingClientRect();
 
@@ -16,7 +16,7 @@ function void @@_ScreenPosToCanvasPos()
 	@@_Y *= Screen_H / canvasRect.height;
 }
 
-function void @@_TouchStart(double x, double y)
+function <void> @@_TouchStart(<double> x, <double> y)
 {
 	@@_Down = true;
 	@@_X = x;
@@ -25,7 +25,7 @@ function void @@_TouchStart(double x, double y)
 	@@_ScreenPosToCanvasPos();
 }
 
-function void @@_TouchMove(double x, double y)
+function <void> @@_TouchMove(<double> x, <double> y)
 {
 	@@_X = x;
 	@@_Y = y;
@@ -33,7 +33,7 @@ function void @@_TouchMove(double x, double y)
 	@@_ScreenPosToCanvasPos();
 }
 
-function void @@_TouchEnd(double x, double y)
+function <void> @@_TouchEnd(<double> x, <double> y)
 {
 	@@_Down = false;
 	@@_X = x;
@@ -42,7 +42,7 @@ function void @@_TouchEnd(double x, double y)
 	@@_ScreenPosToCanvasPos();
 }
 
-function FUNC @@_GetEvTouch(FUNC touch)
+function <FUNC> @@_GetEvTouch(<FUNC> touch)
 {
 	var ret = function(event)
 	{
@@ -52,7 +52,7 @@ function FUNC @@_GetEvTouch(FUNC touch)
 	return ret;
 }
 
-function FUNC @@_GetEvMouse(FUNC touch)
+function <FUNC> @@_GetEvMouse(<FUNC> touch)
 {
 	var ret = function(event)
 	{
@@ -62,7 +62,7 @@ function FUNC @@_GetEvMouse(FUNC touch)
 	return ret;
 }
 
-function void @@_INIT()
+function <void> @@_INIT()
 {
 	if (window.ontouchstart === null)
 	{
@@ -79,9 +79,9 @@ function void @@_INIT()
 	}
 }
 
-var int @@_DownCount = 0;
+var<int> @@_DownCount = 0;
 
-function void @@_EACH()
+function <void> @@_EACH()
 {
 	if (1 <= @@_DownCount) // ? 前回_押下
 	{
@@ -115,7 +115,7 @@ function void @@_EACH()
 		1   == 押した。(前回は押下していない, 今回は押下)
 		2～ == 押している。値は押下し続けている長さ(フレーム数)
 */
-function int GetMouseDown()
+function <int> GetMouseDown()
 {
 	return @@_DownCount;
 }
@@ -123,7 +123,7 @@ function int GetMouseDown()
 /*
 	マウスボタンの押下(スクリーン・タッチ)状態をクリアする。
 */
-function void ClearMouseDown()
+function <void> ClearMouseDown()
 {
 	@@_DownCount = 0;
 }
@@ -131,7 +131,7 @@ function void ClearMouseDown()
 /*
 	マウスカーソルの位置を返す。X-座標
 */
-function double GetMouseX()
+function <double> GetMouseX()
 {
 	return @@_X;
 }
@@ -139,7 +139,7 @@ function double GetMouseX()
 /*
 	マウスカーソルの位置を返す。Y-座標
 */
-function double GetMouseY()
+function <double> GetMouseY()
 {
 	return @@_Y;
 }

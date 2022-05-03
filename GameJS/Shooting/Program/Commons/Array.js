@@ -2,7 +2,7 @@
 	配列
 */
 
-function void InsertElement(T[] arr, int index, T element)
+function <void> InsertElement(<T[]> arr, <int> index, <T> element)
 {
 	if (index < 0 || arr.length < index)
 	{
@@ -10,19 +10,19 @@ function void InsertElement(T[] arr, int index, T element)
 	}
 	arr.push(-1);
 
-	for (int i = arr.length - 1; index < i; i--)
+	for (var<int> i = arr.length - 1; index < i; i--)
 	{
 		arr[i] = arr[i - 1];
 	}
 	arr[index] = element;
 }
 
-function void AddElement(T[] arr, T element)
+function <void> AddElement(<T[]> arr, <T> element)
 {
 	InsertElement(arr, arr.length, element);
 }
 
-function void DesertElement(T[] arr, int index)
+function <void> DesertElement(<T[]> arr, <int> index)
 {
 	if (index < 0 || arr.length <= index)
 	{
@@ -30,7 +30,7 @@ function void DesertElement(T[] arr, int index)
 	}
 	var ret = arr[index];
 
-	for (int i = index; i < arr.length - 1; i++)
+	for (var<int> i = index; i < arr.length - 1; i++)
 	{
 		arr[i] = arr[i + 1];
 	}
@@ -38,7 +38,7 @@ function void DesertElement(T[] arr, int index)
 	return ret;
 }
 
-function T FastDesertElement(T[] arr, int index)
+function <T> FastDesertElement(<T[]> arr, <int> index)
 {
 	if (index < 0 || arr.length <= index)
 	{
@@ -50,21 +50,21 @@ function T FastDesertElement(T[] arr, int index)
 	return ret;
 }
 
-function T UnaddElement(T[] arr)
+function <T> UnaddElement(<T[]> arr)
 {
 	return DesertElement(arr, arr.length - 1);
 }
 
-function void SwapElement(T[] arr, int index_A, int index_B)
+function <void> SwapElement(<T[]> arr, <int> index_A, <int> index_B)
 {
-	var tmp = arr[index_A];
+	var<T> tmp = arr[index_A];
 	arr[index_A] = arr[index_B];
 	arr[index_B] = tmp;
 }
 
-function void Shuffle(T[] arr)
+function <void> Shuffle(<T[]> arr)
 {
-	for (int i = arr.length - 1; 2 <= i; i--)
+	for (var<int> i = arr.length - 1; 2 <= i; i--)
 	{
 		SwapElement(arr, GetRand(i), i);
 	}
@@ -79,7 +79,7 @@ function void Shuffle(T[] arr)
 
 	ret: 部分配列
 */
-function T[] GetSubArray(T[] arr, int offset, int count)
+function <T[]> GetSubArray(<T[]> arr, <int> offset, <int> count)
 {
 	if (offset < 0 || arr.length < offset)
 	{
@@ -91,7 +91,7 @@ function T[] GetSubArray(T[] arr, int offset, int count)
 	}
 	var dest = [];
 
-	for (int index = 0; index < count; index++)
+	for (var<int> index = 0; index < count; index++)
 	{
 		dest.push(arr[offset + index]);
 	}
@@ -106,7 +106,7 @@ function T[] GetSubArray(T[] arr, int offset, int count)
 
 	ret: 部分配列
 */
-function T[] GetTrailArray(arr, offset)
+function <T[]> GetTrailArray(<T[]> arr, <int> offset)
 {
 	return GetSubArray(arr, offset, arr.length - offset);
 }
@@ -118,7 +118,7 @@ function T[] GetTrailArray(arr, offset)
 
 	ret: 配列の複製
 */
-function T[] CloneArray(T[] arr)
+function <T[]> CloneArray(<T[]> arr)
 {
 	return GetSubArray(arr, 0, arr.length);
 }
@@ -129,11 +129,11 @@ function T[] CloneArray(T[] arr)
 	arr: 配列
 	match: 判定メソッド
 */
-function void RemoveAll(T[] arr, Func<T_bool> match)
+function <void> RemoveAll(<T[]> arr, <Func T bool> match)
 {
-	int w = 0;
+	var<int> w = 0;
 
-	for (int r = 0; r < arr.length; r++)
+	for (var<int> r = 0; r < arr.length; r++)
 	{
 		// マッチしなければ配列に残すので、w の指す位置へ書き込む。
 		if (!match(arr[r]))
@@ -153,7 +153,7 @@ function void RemoveAll(T[] arr, Func<T_bool> match)
 
 	arr: 配列
 */
-function void RemoveFalse(T[] arr)
+function <void> RemoveFalse(<T[]> arr)
 {
 	var match = function(token)
 	{
