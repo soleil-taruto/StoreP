@@ -63,47 +63,58 @@ namespace Charlotte
 
 		private void Main5(ArgsReader ar)
 		{
-			if (!Directory.Exists(Consts.R_DIR_01))
-				throw new Exception("no R_DIR_01");
+			if (!Directory.Exists(Consts.R_ROOT_DIR))
+				throw new Exception("no R_ROOT_DIR");
 
-			if (!Directory.Exists(Consts.R_DIR_02))
-				throw new Exception("no R_DIR_02");
-
-			if (!Directory.Exists(Consts.W_DIR_01))
-				throw new Exception("no W_DIR_01");
-
-			if (!Directory.Exists(Consts.W_DIR_02))
-				throw new Exception("no W_DIR_02");
+			if (!Directory.Exists(Consts.W_ROOT_DIR))
+				throw new Exception("no W_ROOT_DIR");
 
 			Console.WriteLine("start...");
 
-			DoCopyMain(Consts.R_DIR_01, Consts.W_DIR_01, Consts.SRC_LOCAL_DIR_01);
-			DoCopyMain(Consts.R_DIR_02, Consts.W_DIR_02, Consts.SRC_LOCAL_DIR_02);
+			// 出力先クリア
+			SCommon.DeletePath(Consts.W_ROOT_DIR);
+			SCommon.CreateDir(Consts.W_ROOT_DIR);
 
+			string[] categories = Directory.GetDirectories(Consts.R_ROOT_DIR)
+				.Select(dir => Path.GetFileName(dir))
+				.OrderBy(SCommon.Comp)
+				.ToArray();
+
+			foreach (string category in categories)
+			{
+				string[] projects = Directory.GetDirectories(Path.Combine(Consts.R_ROOT_DIR, category))
+					.Select(dir => Path.GetFileName(dir))
+					.OrderBy(SCommon.Comp)
+					.ToArray();
+
+				foreach (string project in projects)
+				{
+					TryCopySourceDir(category, project, Consts.SRC_LOCAL_DIR_01);
+					TryCopySourceDir(category, project, Consts.SRC_LOCAL_DIR_02);
+					TryCopySourceDir(category, project, Consts.SRC_LOCAL_DIR_03);
+					TryCopySourceDir(category, project, Consts.SRC_LOCAL_DIR_04);
+				}
+			}
 			Console.WriteLine("done!");
 		}
 
-		private void DoCopyMain(string rRootDir, string wRootDir, string srcLocalDir)
+		private void TryCopySourceDir(string category, string project, string srcLocalDir)
 		{
-			SCommon.DeletePath(wRootDir);
-			SCommon.CreateDir(wRootDir);
+			string rDir = Path.Combine(Consts.R_ROOT_DIR, category, project, srcLocalDir);
+			string wDir = Path.Combine(Consts.W_ROOT_DIR, category, project, srcLocalDir);
 
-			string[] projects = Directory.GetDirectories(rRootDir).Select(dir => Path.GetFileName(dir)).ToArray();
+			ProcMain.WriteLog("< " + rDir);
+			ProcMain.WriteLog("> " + wDir);
 
-			foreach (string project in projects)
+			if (Directory.Exists(rDir))
 			{
-				string rDir = Path.Combine(rRootDir, project, srcLocalDir);
-				string wDir = Path.Combine(wRootDir, project, srcLocalDir);
-
-				ProcMain.WriteLog("< " + rDir);
-				ProcMain.WriteLog("> " + wDir);
-
-				if (!Directory.Exists(rDir))
-					throw new Exception("no rDir: " + rDir);
-
 				SCommon.CopyDir(rDir, wDir);
 
 				ProcMain.WriteLog("done");
+			}
+			else
+			{
+				ProcMain.WriteLog("no rDir");
 			}
 		}
 	}
