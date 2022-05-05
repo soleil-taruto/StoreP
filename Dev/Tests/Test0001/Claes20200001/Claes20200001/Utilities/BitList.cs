@@ -7,6 +7,8 @@ namespace Charlotte.Utilities
 {
 	public class BitList
 	{
+		private const int INNER_LEN_MAX = (int)(((long)int.MaxValue + 1) / 4);
+
 		private List<uint> Inner = new List<uint>();
 
 		public BitList()
@@ -14,7 +16,7 @@ namespace Charlotte.Utilities
 
 		public BitList(IEnumerable<bool> data)
 		{
-			uint index = 0u;
+			long index = 0L;
 
 			foreach (bool value in data)
 			{
@@ -22,10 +24,13 @@ namespace Charlotte.Utilities
 			}
 		}
 
-		public bool this[uint index]
+		public bool this[long index]
 		{
 			get
 			{
+				if (index < 0L)
+					throw new ArgumentOutOfRangeException("Bad index: " + index);
+
 				if (this.Inner.Count <= index / 32)
 					return false;
 
@@ -34,6 +39,9 @@ namespace Charlotte.Utilities
 
 			set
 			{
+				if (index < 0L || (long)INNER_LEN_MAX * 32 <= index)
+					throw new ArgumentOutOfRangeException("Bad index: " + index);
+
 				while (this.Inner.Count <= index / 32)
 					this.Inner.Add(0u);
 
