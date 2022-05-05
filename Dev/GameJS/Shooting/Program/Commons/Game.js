@@ -58,7 +58,7 @@ function <double> GetAngle(<double> x, <double> y)
 	var<double> rm;
 	var<double> rmt;
 
-	for (int c = 1; ; c++)
+	for (var<int> c = 1; ; c++)
 	{
 		rm = (r1 + r2) / 2.0;
 

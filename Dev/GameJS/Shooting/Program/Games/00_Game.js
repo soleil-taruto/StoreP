@@ -89,8 +89,8 @@ function <void> @@_Draw背景()
 	int bx = 54 - (ProcFrame * 7) % 108;
 	int by = 54;
 
-	for (int x = bx; x < GetField_W() + 54; x += 108)
-	for (int y = by; y < GetField_H() + 54; y += 108)
+	for (var<int> x = bx; x < GetField_W() + 54; x += 108)
+	for (var<int> y = by; y < GetField_H() + 54; y += 108)
 	{
 		Draw(P_Wall_0002, GetField_L() + x, GetField_T() + y, 1.0, 0.0, 1.0);
 	}
@@ -204,11 +204,11 @@ function <void> @@_当たり判定()
 
 	// 自機と敵
 	{
-		var crashed = false;
+		var<boolean> crashed = false;
 
 		for (var<Enemy_t> enemy of Enemies)
 		{
-			var d = GetDistance(enemy.X - Player_X, enemy.Y - Player_Y);
+			var<double> d = GetDistance(enemy.X - Player_X, enemy.Y - Player_Y);
 
 			if (d < 75)
 			{
@@ -217,7 +217,7 @@ function <void> @@_当たり判定()
 		}
 		for (var<Tama_t> tama of Tamas)
 		{
-			var d = GetDistance(tama.X - Player_X, tama.Y - Player_Y);
+			var<double> d = GetDistance(tama.X - Player_X, tama.Y - Player_Y);
 
 			if (d < 45)
 			{
@@ -233,10 +233,10 @@ function <void> @@_当たり判定()
 
 	// 自弾と敵
 	{
-		for (var enemy of Enemies)
-		for (var shot of Shots)
+		for (var<Enemy_t> enemy of Enemies)
+		for (var<Shot_t> shot of Shots)
 		{
-			var d = GetDistance(enemy.X - shot.X, enemy.Y - shot.Y);
+			var<double> d = GetDistance(enemy.X - shot.X, enemy.Y - shot.Y);
 
 			if (d < 75)
 			{
@@ -247,33 +247,32 @@ function <void> @@_当たり判定()
 	}
 }
 
-function* <generator> @@_E_死亡とリスポーン()
+function* <generatorForTask> @@_E_死亡とリスポーン()
 {
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
-	for (int c = 0; c < 30; c++)
+	for (var<int> c = 0; c < 30; c++)
 	{
 		yield 1;
 	}
 
 	AddCommonEffect(Effect_PlayerDead(GetField_L() + Player_X, GetField_T() + Player_Y));
 
-	for (var enemy of Enemies)
+	for (var<Enemy_t> enemy of Enemies)
 	{
 		AddCommonEffect(Effect_Explode(GetField_L() + enemy.X, GetField_T() + enemy.Y));
 	}
 
 	// スコア調整
-	Score /= 2;
-	Score = ToInt(Score);
+	Score = ToInt(Score / 2);
 
-	var x = -100.0;
-	var y = GetField_T() + GetField_H() / 2;
+	var<double> x = -100.0;
+	var<double> y = GetField_T() + GetField_H() / 2;
 
-	for (int c = 0; c < 30; c++)
+	for (var<int> c = 0; c < 30; c++)
 	{
-		var rate = c / 30;
+		var<double> rate = (double)c / 30;
 
 		@@_自機移動();
 
