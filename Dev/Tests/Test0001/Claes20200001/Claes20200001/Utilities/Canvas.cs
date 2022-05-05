@@ -45,6 +45,7 @@ namespace Charlotte.Utilities
 
 		public static Canvas Load(Bitmap bmp)
 		{
+			ProcMain.WriteLog("Canvas-Load-ST");
 			Canvas canvas = new Canvas(bmp.Width, bmp.Height);
 
 			for (int x = 0; x < bmp.Width; x++)
@@ -61,6 +62,7 @@ namespace Charlotte.Utilities
 						);
 				}
 			}
+			ProcMain.WriteLog("Canvas-Load-ED");
 			return canvas;
 		}
 
@@ -85,6 +87,7 @@ namespace Charlotte.Utilities
 
 		public Bitmap ToBitmap()
 		{
+			ProcMain.WriteLog("Canvas-ToBitmap-ST");
 			Bitmap bmp = new Bitmap(this.W, this.H);
 
 			for (int x = 0; x < this.W; x++)
@@ -94,6 +97,7 @@ namespace Charlotte.Utilities
 					bmp.SetPixel(x, y, this[x, y].ToColor());
 				}
 			}
+			ProcMain.WriteLog("Canvas-ToBitmap-ED");
 			return bmp;
 		}
 
@@ -121,6 +125,7 @@ namespace Charlotte.Utilities
 				w = (int)size.Width;
 				h = (int)size.Height;
 			}
+
 			Canvas canvas = new Canvas(w, h);
 
 			canvas.Fill(new I4Color(0, 0, 0, 255));
@@ -176,6 +181,8 @@ namespace Charlotte.Utilities
 
 		private void DS_Blur(int blurLv, I3Color color)
 		{
+			ProcMain.WriteLog("Canvas-DS_Blur-ST");
+
 			double[, ,] map = new double[2, this.W, this.H];
 			int r = 0;
 
@@ -188,6 +195,8 @@ namespace Charlotte.Utilities
 			}
 			for (int c = 0; c < blurLv; c++)
 			{
+				ProcMain.WriteLog("Canvas-DS_Blur-c: " + c + " / " + blurLv);
+
 				int w = 1 - r;
 
 				for (int x = 0; x < this.W; x++)
@@ -226,6 +235,7 @@ namespace Charlotte.Utilities
 					this[x, y] = new I4Color(color.R, color.G, color.B, SCommon.ToInt(map[r, x, y] * 255.0));
 				}
 			}
+			ProcMain.WriteLog("Canvas-DS_Blur-ED");
 		}
 
 		/// <summary>
@@ -322,6 +332,10 @@ namespace Charlotte.Utilities
 		/// <returns>新しいキャンパス</returns>
 		public Canvas Expand(int w, int h, int xSampling, int ySampling)
 		{
+			ProcMain.WriteLog("Canvas-Expand-ST");
+			ProcMain.WriteLog(string.Format("W: {0:F3} ({1} / {2}) {3}", (double)w / this.W, w, this.W, xSampling));
+			ProcMain.WriteLog(string.Format("H: {0:F3} ({1} / {2}) {3}", (double)h / this.H, h, this.H, ySampling));
+
 			Canvas dest = new Canvas(w, h);
 
 			for (int x = 0; x < w; x++)
@@ -362,6 +376,7 @@ namespace Charlotte.Utilities
 					dest[x, y] = new I4Color(r, g, b, a);
 				}
 			}
+			ProcMain.WriteLog("Canvas-Expand-ED");
 			return dest;
 		}
 
@@ -371,19 +386,13 @@ namespace Charlotte.Utilities
 		/// <param name="color">塗りつぶす色</param>
 		public void Fill(I4Color color)
 		{
-			for (int x = 0; x < this.W; x++)
-			{
-				for (int y = 0; y < this.H; y++)
-				{
-					this[x, y] = color;
-				}
-			}
+			this.FillRect(color, new I4Rect(0, 0, this.W, this.H));
 		}
 
-		// ======
-		// === ここまで_いつもの ===
-		// ======
-
+		/// <summary>
+		/// 指定された色で矩形領域を塗りつぶす。
+		/// </summary>
+		/// <param name="color">塗りつぶす色</param>
 		public void FillRect(I4Color color, I4Rect rect)
 		{
 			for (int x = rect.L; x < rect.R; x++)
@@ -395,6 +404,12 @@ namespace Charlotte.Utilities
 			}
 		}
 
+		/// <summary>
+		/// 指定された色で円を塗りつぶす。
+		/// </summary>
+		/// <param name="color">塗りつぶす色</param>
+		/// <param name="pt">円の中心</param>
+		/// <param name="r">円の半径</param>
 		public void FillCircle(I4Color color, I2Point pt, int r)
 		{
 			int x1 = pt.X - r;
@@ -464,15 +479,6 @@ namespace Charlotte.Utilities
 					}
 				}
 			}
-		}
-
-		public static bool IsSame(I4Color a, I4Color b)
-		{
-			return
-				a.R == b.R &&
-				a.G == b.G &&
-				a.B == b.B &&
-				a.A == b.A;
 		}
 	}
 }
