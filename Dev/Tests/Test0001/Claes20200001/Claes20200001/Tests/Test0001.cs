@@ -78,9 +78,15 @@ namespace Charlotte.Tests
 
 		private void Test03_a(string json)
 		{
-			JsonNode root = JsonNode.Load(json);
+			using (WorkingDir wd = new WorkingDir())
+			{
+				string file = wd.MakePath();
+				File.WriteAllText(file, json, Encoding.UTF8);
 
-			root.WriteToFile(Common.NextOutputPath() + ".json");
+				JsonNode root = JsonNode.LoadFromFile(file);
+
+				root.WriteToFile(Common.NextOutputPath() + ".json");
+			}
 		}
 
 		public void Test04()
