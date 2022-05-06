@@ -43,21 +43,28 @@ namespace Charlotte
 
 		private void Main4()
 		{
+			try
+			{
+				Main5();
+			}
+			catch (Exception ex)
+			{
+				ProcMain.WriteLog(ex);
+
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				Console.ReadLine();
+			}
+		}
+
+		private void Main5()
+		{
 			// -- choose one --
 
-			Main5();
-			//new Test0001().Test01();
+			new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
 
 			// --
-		}
-
-		// Main5 -- テスト用なら Test01 にリネーム/不要なら削除 -- ★要削除
-
-		private void Main5()
-		{
-			// none
 		}
 #else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)

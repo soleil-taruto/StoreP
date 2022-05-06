@@ -40,14 +40,29 @@ namespace Charlotte
 
 		private void Main4()
 		{
+			try
+			{
+				Main5();
+			}
+			catch (Exception ex)
+			{
+				ProcMain.WriteLog(ex);
+
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				Console.ReadLine();
+			}
+		}
+
+		private void Main5()
+		{
 			// -- choose one --
 
 			//new Test0001().Test01();
 			//new Test0001().Test02();
 			//new Test0001().Test03();
-			new Test0001().Test04();
+			//new Test0001().Test04();
 			//new Test0002().Test01();
-			//new Test0003().Test01();
+			new Test0003().Test01();
 
 			// --
 		}

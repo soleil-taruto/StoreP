@@ -40,6 +40,19 @@ namespace Charlotte.Tests
 			bits[31] = false;
 
 			Console.WriteLine("[" + new string(bits.Iterate().Select(bit => bit ? '1' : '0').ToArray()) + "]");
+
+			bits[0] = true;
+			bits[1] = true;
+			bits[2] = true;
+			bits[3] = true;
+			bits[4] = true;
+
+			Console.WriteLine("[" + new string(bits.Iterate().Select(bit => bit ? '1' : '0').ToArray()) + "]");
+
+			bits[1] = false;
+			bits[3] = false;
+
+			Console.WriteLine("[" + new string(bits.Iterate().Select(bit => bit ? '1' : '0').ToArray()) + "]");
 		}
 
 		public void Test02()
