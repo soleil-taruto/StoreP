@@ -37,7 +37,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { "/C", @"C:\home\GitHub\StoreP" }));
+			Main4(new ArgsReader(new string[] { "ss", @"C:\home\GitHub\StoreP" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -53,23 +53,20 @@ namespace Charlotte
 			{
 				Main5(ar);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				ProcMain.WriteLog(e);
+				ProcMain.WriteLog(ex);
 
-				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了しました)");
+				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
 				Console.ReadLine();
 			}
 		}
 
 		private void Main5(ArgsReader ar)
 		{
-			string commitComment = GetCommitComment();
-
-			if (ar.ArgIs("/C"))
-			{
-				commitComment = ar.NextArg();
-			}
+			string commitComment = ar.NextArg();
 			string dir = ar.NextArg();
 
 			ar.End();
@@ -96,6 +93,9 @@ namespace Charlotte
 			if (!File.Exists(Path.Combine(dir, ".gitattributes")))
 				throw new Exception("no .gitattributes: " + dir);
 
+			if (string.IsNullOrEmpty(commitComment))
+				throw new Exception("no commitComment");
+
 			SCommon.Batch(
 				new string[]
 				{
@@ -104,12 +104,6 @@ namespace Charlotte
 				},
 				dir
 				);
-		}
-
-		private static string GetCommitComment()
-		{
-			return "ss";
-			//return "ss-" + SCommon.SimpleDateTime.Now().ToTimeStamp().ToString();
 		}
 	}
 }

@@ -52,11 +52,13 @@ namespace Charlotte
 			{
 				Main5(ar);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				ProcMain.WriteLog(e);
+				ProcMain.WriteLog(ex);
 
-				Console.WriteLine("Press ENTER key. (エラー終了)");
+				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
 				Console.ReadLine();
 			}
 		}
@@ -103,18 +105,18 @@ namespace Charlotte
 			string rDir = Path.Combine(Consts.R_ROOT_DIR, category, project, srcLocalDir);
 			string wDir = Path.Combine(Consts.W_ROOT_DIR, category, project, srcLocalDir);
 
-			ProcMain.WriteLog("< " + rDir);
-			ProcMain.WriteLog("> " + wDir);
-
 			if (Directory.Exists(rDir))
 			{
+				ProcMain.WriteLog("< " + rDir);
+				ProcMain.WriteLog("> " + wDir);
+
 				SCommon.CopyDir(rDir, wDir);
 
 				ProcMain.WriteLog("done");
 			}
 			else
 			{
-				ProcMain.WriteLog("no rDir");
+				ProcMain.WriteLog("no rDir: " + rDir);
 			}
 		}
 	}

@@ -45,10 +45,13 @@ namespace Charlotte.Commons
 			{
 				WriteLog(e);
 
-				//MessageBox.Show("" + e, Path.GetFileNameWithoutExtension(SelfFile ?? APP_TITLE) + " / Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				// ここに到達する場合は想定外の致命的なエラーである。-> 何か出すべき。
+				// ウィンドウ非表示で実行されているかもしれないのでメッセージダイアログを出す。
 
-				Console.WriteLine("Press ENTER key. (Error termination)");
-				Console.ReadLine();
+				MessageBox.Show("" + e, APP_TITLE + " / Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				//Console.WriteLine("Press ENTER key. (Error termination)");
+				//Console.ReadLine();
 			}
 		}
 

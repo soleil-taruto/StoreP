@@ -93,9 +93,14 @@ namespace Charlotte
 			{
 				Main5(ar);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				ProcMain.WriteLog(e);
+				ProcMain.WriteLog(ex);
+
+				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				Console.ReadLine();
 			}
 		}
 
