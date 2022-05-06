@@ -57,7 +57,7 @@ namespace Charlotte
 			{
 				ProcMain.WriteLog(e);
 
-				Console.WriteLine("Press ENTER key. (エラーによりプログラムは終了しました)");
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了しました)");
 				Console.ReadLine();
 			}
 		}
@@ -70,7 +70,7 @@ namespace Charlotte
 			}
 			else
 			{
-				throw new Exception("Bad command-option");
+				throw new Exception("不明なコマンド引数");
 			}
 		}
 
@@ -101,7 +101,8 @@ namespace Charlotte
 
 		private static string GetCommitComment()
 		{
-			return "ss-" + SCommon.SimpleDateTime.Now().ToTimeStamp().ToString();
+			return "ss";
+			//return "ss-" + SCommon.SimpleDateTime.Now().ToTimeStamp().ToString();
 		}
 	}
 }
