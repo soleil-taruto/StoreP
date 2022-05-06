@@ -64,17 +64,26 @@ namespace Charlotte
 
 		private void Main5(ArgsReader ar)
 		{
+			string commitComment = GetCommitComment();
+
 			if (ar.ArgIs("/C"))
 			{
-				Commit(ar.NextArg());
+				commitComment = ar.NextArg();
 			}
-			else
-			{
-				throw new Exception("不明なコマンド引数");
-			}
+			string dir = ar.NextArg();
+
+			ar.End();
+
+			Commit(dir, commitComment);
 		}
 
-		private void Commit(string dir)
+		/// <summary>
+		/// 追加・更新・削除されたファイルをリポジトリに追加・更新・削除(git.exe add *)して
+		/// コミット(git.exe commit -m commitComment)する。
+		/// </summary>
+		/// <param name="dir">リポジトリ-DIR</param>
+		/// <param name="commitComment">コミット時のコメント</param>
+		private void Commit(string dir, string commitComment)
 		{
 			dir = SCommon.MakeFullPath(dir);
 
@@ -86,8 +95,6 @@ namespace Charlotte
 
 			if (!File.Exists(Path.Combine(dir, ".gitattributes")))
 				throw new Exception("no .gitattributes: " + dir);
-
-			string commitComment = GetCommitComment();
 
 			SCommon.Batch(
 				new string[]
