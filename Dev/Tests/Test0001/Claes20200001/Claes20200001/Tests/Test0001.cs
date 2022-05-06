@@ -93,6 +93,7 @@ namespace Charlotte.Tests
 		{
 			Test04_a(@"
 
+<?xml version=""1.0"" encoding=""UTF-8"" ?>
 <root>
 	<Integer>123</Integer>
 	<Float>-123.456</Float>
@@ -106,10 +107,30 @@ namespace Charlotte.Tests
 	<Array><Element>1</Element><Element>2</Element><Element>3</Element></Array>
 </root>
 
-");
+".TrimStart());
+
+			Test04_a(@"
+
+<?xml version=""1.0"" encoding=""UTF-8"" ?>
+<root>
+	<Integer Value=""123""></Integer>
+	<Float Value=""-123.456""></Float>
+	<String Value=""ABC""></String>
+	<Boolean Value=""true""></Boolean>
+	<Map>
+		<Value Value=""1""></Value>
+		<Value Value=""2""></Value>
+		<Value Value=""3""></Value>
+	</Map>
+	<Array><Element Value=""1""></Element><Element Value=""2""></Element><Element Value=""3""></Element></Array>
+</root>
+
+".TrimStart());
 
 			Test04_a("<a/>");
 			Test04_a("<a></a>");
+			Test04_a("<a b=\"c\"/>");
+			Test04_a("<a b=\"c\"></a>");
 		}
 
 		private void Test04_a(string xml)
