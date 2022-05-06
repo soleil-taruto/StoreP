@@ -45,7 +45,7 @@ namespace Charlotte.Games.Enemies
 		// ボス：
 		// -- new Enemy(x, y, hp, Kind_e.ボス)
 
-		public Enemy(double x, double y, int hp, Kind_e kind = Kind_e.通常敵)
+		public Enemy(double x, double y, int hp, Kind_e kind)
 		{
 			this.X = x;
 			this.Y = y;

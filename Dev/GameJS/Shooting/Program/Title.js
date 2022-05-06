@@ -70,7 +70,7 @@ var @@_Buttons =
 	},
 ];
 
-function* TitleMain()
+function* <generatorForTask> TitleMain()
 {
 	for (; ; )
 	{

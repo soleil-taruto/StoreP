@@ -7,13 +7,13 @@ var APP_IDENT = "{c496ce16-4117-4315-8d03-282dc4842266}";
 window.onload = function() { Main(); }; // エントリーポイント呼び出し
 
 // エントリーポイント
-function Main()
+function <void> Main()
 {
 	ProcMain(@@_Main());
 }
 
 // メイン
-function* @@_Main()
+function* <generatorForTask> @@_Main()
 {
 	// リソース読み込み中は待機
 	while (1 <= Loading)
@@ -40,7 +40,7 @@ function* @@_Main()
 }
 
 // 本番用メイン
-function* @@_Main2()
+function* <generatorForTask> @@_Main2()
 {
 	yield* TitleMain();
 }

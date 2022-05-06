@@ -7,12 +7,12 @@
 */
 function <Enemy_t> Enemy_B0001_Create(<double> x, <double> y)
 {
-	var ret =
+	var<Enemy_t> ret =
 	{
-		Each: @@_Each,
-		Dead: @@_Dead,
-		X: x,
-		Y: y,
+		<double> X: x,
+		<double> Y: y,
+		<generatorForTask> Each: @@_Each,
+		<generatorForTask> Dead: @@_Dead,
 	};
 
 	return ret;

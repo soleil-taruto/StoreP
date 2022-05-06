@@ -32,9 +32,9 @@ namespace Charlotte.Games
 		public int SpeedLevel = SPEED_LEVEL_DEF;
 		public int AttackLevel = 0;
 
-		public int DeadFrame = 0; // 0 == 無効, 0< == 死亡中
-		public int RebornFrame = 0; // 0 == 無効, 0< == 登場中
-		public int InvincibleFrame = 0; // 0 == 無効, 0< == 無敵時間中
+		public int DeadFrame = 0; // 0 == 無効, 1～ == 死亡中
+		public int RebornFrame = 0; // 0 == 無効, 1～ == 登場中
+		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 
 		public void Draw()
 		{

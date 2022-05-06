@@ -2,12 +2,15 @@
 	ìGíe
 */
 
-function CreateTama(x, y)
+function <Tama_t> CreateTama(x, y)
 {
-	var ret =
+	/// Tama_t
+	var<Tama_t> ret =
 	{
-		X: x,
-		Y: y,
+		<double> X: x,
+		<double> Y: y,
+
+		<generatorForTask> Each: null, // late init
 	};
 
 	ret.Each = @@_Each(ret);
@@ -18,23 +21,23 @@ function CreateTama(x, y)
 /*
 	ret: ? ê∂ë∂
 */
-function Tama_Each(tama)
+function <boolean> Tama_Each(<Tama_t> tama)
 {
 	return tama.Each.next().value;
 }
 
-function* @@_Each(tama)
+function* <generatorForTask> @@_Each(tama)
 {
-	var speed = MakeXYSpeed(tama.X, tama.Y, Player_X, Player_Y, 3.0);
-	var speedX = speed.X;
-	var speedY = speed.Y;
+	var<double> speed = MakeXYSpeed(tama.X, tama.Y, Player_X, Player_Y, 3.0);
+	var<double> speedX = speed.X;
+	var<double> speedY = speed.Y;
 
 	for (; ; )
 	{
 		tama.X += speedX;
 		tama.Y += speedY;
 
-		var MARGIN = 30.0;
+		var<double> MARGIN = 30.0;
 
 		// âÊñ äOÇ…èoÇΩÇÃÇ≈ëﬁèÍ
 		if (
@@ -59,4 +62,4 @@ function* @@_Each(tama)
 /*
 	ìGíeÉäÉXÉg
 */
-var Tamas = [];
+var<Tama_t[]> Tamas = [];

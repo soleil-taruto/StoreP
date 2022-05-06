@@ -2,7 +2,7 @@
 	“G
 */
 
-function CreateEnemy(x, y)
+function <Enemy_t> CreateEnemy(x, y)
 {
 	var ret =
 	{

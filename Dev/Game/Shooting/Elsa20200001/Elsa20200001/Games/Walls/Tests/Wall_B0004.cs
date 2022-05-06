@@ -11,13 +11,12 @@ namespace Charlotte.Games.Walls.Tests
 	{
 		public override IEnumerable<bool> E_Draw()
 		{
-			return WallCommon.E_フェードイン(this.E_Draw2());
-		}
+			double a = 0.0;
 
-		private IEnumerable<bool> E_Draw2()
-		{
 			for (int frame = 0; ; frame++)
 			{
+				DDDraw.SetAlpha(a);
+
 				{
 					int slide = (int)((frame * 3L) % 108L);
 
@@ -42,6 +41,9 @@ namespace Charlotte.Games.Walls.Tests
 					}
 				}
 
+				DDDraw.Reset();
+				DDUtils.Approach(ref a, 1.0, 0.997);
+				this.FilledFlag = 1.0 - SCommon.MICRO < a;
 				yield return true;
 			}
 		}

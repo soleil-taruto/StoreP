@@ -13,7 +13,7 @@ namespace Charlotte.Games.Enemies.Tests
 	public class Enemy_BTama0001 : Enemy
 	{
 		public Enemy_BTama0001(double x, double y)
-			: base(x, y, 0)
+			: base(x, y, 0, Kind_e.通常敵)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
