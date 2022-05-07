@@ -14,8 +14,12 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
-			new HTTPServer()
+			HTTPServer hs = new HTTPServer()
 			{
+				//PortNo = 80,
+				//Backlog = 300,
+				//ConnectMax = 100,
+				//Interlude = () => !Console.KeyAvailable,
 				HTTPConnected = channel =>
 				{
 					ProcMain.WriteLog(channel.FirstLine);
@@ -32,12 +36,25 @@ namespace Charlotte.Tests
 					//channel.ResHeaderPairs.Add(new string[] { "X-Key-03", "Value-03" });
 					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("Hello, Happy World!") };
 				},
-				//PortNo = 80,
-				//Backlog = 300,
-				//ConnectMax = 100,
-				//Interlude = () => !Console.KeyAvailable,
-			}
-			.Perform();
+			};
+
+			//SockChannel.ThreadTimeoutMillis = 100;
+
+			//HTTPServer.KeepAliveTimeoutMillis = 5000;
+
+			//HTTPServerChannel.RequestTimeoutMillis = -1;
+			//HTTPServerChannel.ResponseTimeoutMillis = -1;
+			//HTTPServerChannel.FirstLineTimeoutMillis = 2000;
+			//HTTPServerChannel.IdleTimeoutMillis = 180000; // 3 min
+			//HTTPServerChannel.BodySizeMax = 300000000; // 300 MB
+
+			//SockCommon.TimeWaitMonitor.CTR_ROT_SEC = 60;
+			//SockCommon.TimeWaitMonitor.COUNTER_NUM = 5;
+			//SockCommon.TimeWaitMonitor.COUNT_LIMIT = 10000;
+
+			// サーバーの設定ここまで
+
+			hs.Perform();
 		}
 	}
 }

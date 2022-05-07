@@ -90,7 +90,6 @@
     <Compile Include="WebServices\HTTPServer.cs" />
     <Compile Include="WebServices\HTTPServerChannel.cs" />
     <Compile Include="WebServices\SockChannel.cs" />
-    <Compile Include="WebServices\SockClient.cs" />
     <Compile Include="WebServices\SockCommon.cs" />
     <Compile Include="WebServices\SockServer.cs" />
   </ItemGroup>
