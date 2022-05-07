@@ -225,7 +225,7 @@ namespace Charlotte
 			IEnumerable<string> htmlLines = this.CreateHtmlLines(releaseMode);
 
 			File.WriteAllLines(
-				Path.Combine(this.OutputDir, releaseMode ? "index.html" : "index_Debug.html"),
+				Path.Combine(this.OutputDir, "index.html"),
 				htmlLines,
 				SCommon.ENCODING_SJIS
 				);
@@ -542,7 +542,7 @@ namespace Charlotte
 							int r = line.IndexOf('<', p + 1);
 
 							if (r != -1 && r < q)
-								throw new Exception("補助コードが入れ子になっていませんか？\n行：" + line);
+								throw new Exception("補助コードは入れ子にできません。\n行：" + line);
 						}
 
 						q++;

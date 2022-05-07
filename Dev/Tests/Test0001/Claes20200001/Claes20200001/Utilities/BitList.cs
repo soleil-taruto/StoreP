@@ -7,7 +7,7 @@ namespace Charlotte.Utilities
 {
 	public class BitList
 	{
-		private const int INNER_LEN_MAX = (int)(((long)int.MaxValue + 1) / 4);
+		private const int INNER_LEN_MAX = (int)(((long)int.MaxValue + 1) / 4); // 2GB
 
 		private List<uint> Inner = new List<uint>();
 

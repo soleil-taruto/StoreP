@@ -84,8 +84,8 @@ C:\Dev\GameJS\Shooting\Program\Games\00_Game.js(148) : Score // 変数
 C:\Dev\GameJS\Shooting\Program\Games\00_Game.js(149) : DispScore // 変数
 C:\Dev\GameJS\Shooting\Program\Games\Effect.js(11) : Effect_Explode // 関数
 C:\Dev\GameJS\Shooting\Program\Games\Effect.js(28) : Effect_PlayerDead // 関数
+C:\Dev\GameJS\Shooting\Program\Games\Enemies\Enemy.js(7) : Enemy_t // 定義
 C:\Dev\GameJS\Shooting\Program\Games\Enemies\Enemy_B0001.js(8) : Enemy_B0001_Create // 関数
-C:\Dev\GameJS\Shooting\Program\Games\Enemies\Types.js(7) : Enemy_t // 定義
 C:\Dev\GameJS\Shooting\Program\Games\Enemy.js(5) : CreateEnemy // 関数
 C:\Dev\GameJS\Shooting\Program\Games\Enemy.js(28) : Enemy_Each // 関数
 C:\Dev\GameJS\Shooting\Program\Games\Enemy.js(94) : Enemies // 変数
@@ -96,9 +96,10 @@ C:\Dev\GameJS\Shooting\Program\Games\Shot.js(7) : Shot_t // 定義
 C:\Dev\GameJS\Shooting\Program\Games\Shot.js(5) : CreateShot // 関数
 C:\Dev\GameJS\Shooting\Program\Games\Shot.js(29) : Shot_Each // 関数
 C:\Dev\GameJS\Shooting\Program\Games\Shot.js(66) : Shots // 変数
+C:\Dev\GameJS\Shooting\Program\Games\Tama.js(7) : Tama_t // 定義
 C:\Dev\GameJS\Shooting\Program\Games\Tama.js(5) : CreateTama // 関数
-C:\Dev\GameJS\Shooting\Program\Games\Tama.js(21) : Tama_Each // 関数
-C:\Dev\GameJS\Shooting\Program\Games\Tama.js(62) : Tamas // 変数
+C:\Dev\GameJS\Shooting\Program\Games\Tama.js(24) : Tama_Each // 関数
+C:\Dev\GameJS\Shooting\Program\Games\Tama.js(65) : Tamas // 変数
 C:\Dev\GameJS\Shooting\Program\Program.js(10) : Main // 関数
 C:\Dev\GameJS\Shooting\Program\Program.js(5) : APP_IDENT // 変数
 C:\Dev\GameJS\Shooting\Program\Tests\Test0001.js(5) : Test01 // 関数
