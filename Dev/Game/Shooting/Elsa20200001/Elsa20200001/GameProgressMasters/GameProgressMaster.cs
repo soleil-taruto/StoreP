@@ -26,26 +26,18 @@ namespace Charlotte.GameProgressMasters
 
 		public void Perform()
 		{
-			// zantei zantei zantei
-			// zantei zantei zantei
-			// zantei zantei zantei
-
 			using (new Game())
 			{
-				Game.I.Script = new Script_Testステージ0001(); // 仮？
+				Game.I.Script = new Script_Testステージ0001();
 				Game.I.Perform();
 			}
 		}
 
 		public void Perform_コンテニュー()
 		{
-			// zantei zantei zantei
-			// zantei zantei zantei
-			// zantei zantei zantei
-
 			using (new Game())
 			{
-				Game.I.Script = new Script_Testステージ0001(); // 仮？
+				Game.I.Script = new Script_Testステージ0001();
 				Game.I.Perform();
 			}
 		}

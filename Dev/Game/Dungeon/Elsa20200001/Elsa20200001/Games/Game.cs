@@ -74,10 +74,12 @@ namespace Charlotte.Games
 						{
 							if (SCommon.CRandom.GetInt(20) == 0) // ? 敵とエンカウント -- 暫定
 							{
+#if false // 未実装なので、抑止
 								using (new Battle())
 								{
 									Battle.I.Perform();
 								}
+#endif
 							}
 						}
 					}

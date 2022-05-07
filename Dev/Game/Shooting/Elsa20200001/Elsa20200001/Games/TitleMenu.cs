@@ -381,7 +381,7 @@ namespace Charlotte.Games
 			{
 				int selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "開発デバッグ用メニュー", new string[]
 				{
-					"スタート_Bステージ0001",
+					"スタート_Script_Testステージ0001",
 					"ノベルパート_テスト0001",
 					"戻る",
 				},
@@ -396,7 +396,7 @@ namespace Charlotte.Games
 
 							using (new Game())
 							{
-								Game.I.Script = new Script_Testステージ0001(); // 仮？
+								Game.I.Script = new Script_Testステージ0001();
 								Game.I.Perform();
 							}
 							this.ReturnTitleMenu();
@@ -409,7 +409,7 @@ namespace Charlotte.Games
 
 							using (new Novel())
 							{
-								Novel.I.Status.Scenario = new Scenario("テスト0001");
+								Novel.I.Status.Scenario = new Scenario("Tests/テスト0001");
 								Novel.I.Perform();
 							}
 							this.ReturnTitleMenu();
