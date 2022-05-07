@@ -22,31 +22,22 @@ namespace Charlotte.Tests
 
 		private void Test01a(string url)
 		{
-			const string RES_FILE = @"C:\temp\Test01a.dat";
+			using (WorkingDir wd = new WorkingDir())
+			{
+				string resFile = wd.MakePath();
 
-			HTTPClient hc = new HTTPClient(url, RES_FILE);
-			hc.Get();
-			string contentType = hc.ResHeaders["Content-Type"];
-			string[] charsetParts = contentType == null ? null : SCommon.ParseIsland(contentType, "charset=", true);
-			string charset = charsetParts == null ? "none" : charsetParts[2].Trim();
-			Console.WriteLine(charset); // cout
-			Encoding encoding;
+				HTTPClient hc = new HTTPClient(url, resFile)
+				{
+					//ConnectTimeoutMillis = 60000, // 1 min
+					//TimeoutMillis = 86400000, // 1 day
+					//IdleTimeoutMillis = 180000, // 3 min
+					//ResBodySizeMax = 1500000000000, // 1.5 TB
+				};
 
-			// charset -> encoding
-			// 他の文字セットがあれば追加すること。
-			if (SCommon.EqualsIgnoreCase(charset, "Shift_JIS"))
-				encoding = SCommon.ENCODING_SJIS;
-			else if (SCommon.EqualsIgnoreCase(charset, "ISO-8859-1"))
-				encoding = Encoding.GetEncoding(28591);
-			else
-				encoding = Encoding.UTF8;
+				hc.Get();
 
-			Console.WriteLine(encoding); // cout
-			string resBodyText = encoding.GetString(File.ReadAllBytes(RES_FILE));
-			//Console.WriteLine(resBodyText); // cout
-			File.WriteAllText(Common.NextOutputPath() + ".txt", resBodyText, Encoding.UTF8);
-
-			SCommon.DeletePath(RES_FILE);
+				File.Copy(resFile, Common.NextOutputPath() + ".txt");
+			}
 		}
 	}
 }

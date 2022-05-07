@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Commons;
 using Charlotte.WebServices;
 
 namespace Charlotte.Tests
@@ -17,6 +18,13 @@ namespace Charlotte.Tests
 			{
 				HTTPConnected = channel =>
 				{
+					ProcMain.WriteLog(channel.FirstLine);
+					ProcMain.WriteLog(channel.Method);
+					ProcMain.WriteLog(channel.PathQuery);
+					ProcMain.WriteLog(channel.HTTPVersion);
+					ProcMain.WriteLog(string.Join(", ", channel.HeaderPairs.Select(pair => pair[0] + "=" + pair[1])));
+					ProcMain.WriteLog(SCommon.Hex.ToString(channel.Body));
+
 					//channel.ResStatus = 200;
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
 					//channel.ResHeaderPairs.Add(new string[] { "X-Key-01", "Value-01" });
