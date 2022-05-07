@@ -10,7 +10,7 @@ using Charlotte.Games.Walls.Tests;
 
 namespace Charlotte.Games.Scripts.Tests
 {
-	public class Script_Bテスト0001 : Script
+	public class Script_Test0001 : Script
 	{
 		protected override IEnumerable<bool> E_EachFrame()
 		{
@@ -18,11 +18,11 @@ namespace Charlotte.Games.Scripts.Tests
 
 			for (; ; )
 			{
-				Game.I.Walls.Add(new Wall_B0001());
+				Game.I.Walls.Add(new Wall_Test0001());
 
 				foreach (DDScene scene in DDSceneUtils.Create(10))
 				{
-					Game.I.Enemies.Add(new Enemy_B0001(
+					Game.I.Enemies.Add(new Enemy_Test0001(
 						GameConsts.FIELD_W + 50.0,
 						100.0 + scene.Rate * 200.0
 						));
@@ -36,7 +36,7 @@ namespace Charlotte.Games.Scripts.Tests
 
 				foreach (DDScene scene in DDSceneUtils.Create(10))
 				{
-					Game.I.Enemies.Add(new Enemy_B0001(
+					Game.I.Enemies.Add(new Enemy_Test0001(
 						GameConsts.FIELD_W + 50.0,
 						GameConsts.FIELD_H - 100.0 - scene.Rate * 200.0
 						));
@@ -48,11 +48,11 @@ namespace Charlotte.Games.Scripts.Tests
 				for (int c = 0; c < 60; c++)
 					yield return true;
 
-				Game.I.Walls.Add(new Wall_B0002());
+				Game.I.Walls.Add(new Wall_Test0002());
 
 				foreach (DDScene scene in DDSceneUtils.Create(20))
 				{
-					Game.I.Enemies.Add(new Enemy_B0001(
+					Game.I.Enemies.Add(new Enemy_Test0001(
 						GameConsts.FIELD_W + 50.0,
 						GameConsts.FIELD_H * DDUtils.Random.Real()
 						));
@@ -66,7 +66,7 @@ namespace Charlotte.Games.Scripts.Tests
 
 				foreach (DDScene scene in DDSceneUtils.Create(20))
 				{
-					Game.I.Enemies.Add(new Enemy_B0001(
+					Game.I.Enemies.Add(new Enemy_Test0001(
 						GameConsts.FIELD_W + 50.0,
 						GameConsts.FIELD_H * DDUtils.Random.Real()
 						));

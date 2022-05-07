@@ -528,27 +528,22 @@ namespace Charlotte.GameCommons
 			return 0;
 		}
 
-		public static Func<bool> Scripter(IEnumerable<int> script)
+		/// <summary>
+		/// スクリプト向け列挙フィルタ
+		/// </summary>
+		/// <param name="script">スクリプト</param>
+		/// <returns>実行状態のスクリプト</returns>
+		public static IEnumerable<bool> Scripter(IEnumerable<int> script)
 		{
-			return SCommon.Supplier(E_Scripter(SCommon.Supplier(script)));
-		}
-
-		private static IEnumerable<bool> E_Scripter(Func<int> a_script)
-		{
-			for (; ; )
+			foreach (int waitCount in script)
 			{
-				int wait = a_script();
-
-				if (
-					wait < 0 ||
-					SCommon.IMAX < wait // ? 大きすぎる
-					)
-					throw new DDError("Bad wait: " + wait);
-
-				if (wait == 0) // ? default(int) -- スクリプト終了
+				if (waitCount == 0) // ? default(int) -- スクリプト終了
 					break;
 
-				for (int c = 0; c < wait; c++)
+				if (waitCount < 0)
+					throw new Exception("Bad waitCount: " + waitCount);
+
+				for (int c = 0; c < waitCount; c++)
 					yield return true;
 			}
 		}

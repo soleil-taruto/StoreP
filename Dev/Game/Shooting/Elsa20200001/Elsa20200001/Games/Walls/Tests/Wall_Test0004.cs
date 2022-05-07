@@ -7,7 +7,7 @@ using Charlotte.GameCommons;
 
 namespace Charlotte.Games.Walls.Tests
 {
-	public class Wall_B0003 : Wall
+	public class Wall_Test0004 : Wall
 	{
 		public override IEnumerable<bool> E_Draw()
 		{
@@ -18,19 +18,19 @@ namespace Charlotte.Games.Walls.Tests
 				DDDraw.SetAlpha(a);
 
 				{
-					int slide = (int)((frame * 7L) % 180L);
+					int slide = (int)((frame * 3L) % 108L);
 
-					for (int dx = -slide; dx < GameConsts.FIELD_W; dx += 180)
+					for (int dx = -slide; dx < GameConsts.FIELD_W; dx += 108)
 					{
-						for (int dy = -15; dy < GameConsts.FIELD_H; dy += 180) // フィールド高 510, 180 * 3 == 540 で 30 はみ出るので 15 上にズラす。
+						for (int dy = -15; dy < GameConsts.FIELD_H; dy += 108) // フィールド高 510, 108 * 5 == 540 で 30 はみ出るので 15 上にズラす。
 						{
-							DDDraw.DrawSimple(Ground.I.Picture.Wall0001, dx, dy);
+							DDDraw.DrawSimple(Ground.I.Picture.Wall0002, dx, dy);
 						}
 					}
 				}
 
 				{
-					int slide = (int)((frame * 17L) % 90L);
+					int slide = (int)((frame * 13L) % 90L);
 
 					for (int dx = -slide; dx < GameConsts.FIELD_W; dx += 90)
 					{

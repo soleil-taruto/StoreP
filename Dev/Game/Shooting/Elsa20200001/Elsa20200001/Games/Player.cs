@@ -75,25 +75,25 @@ namespace Charlotte.Games
 				switch (this.AttackLevel)
 				{
 					case 0:
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y));
 						break;
 
 					case 1:
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y - 16.0));
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y + 16.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y - 16.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y + 16.0));
 						break;
 
 					case 2:
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y - 32.0));
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y));
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y + 32.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y - 32.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y + 32.0));
 						break;
 
 					case 3:
-						Game.I.Shots.Add(new Shot_B0001(this.X + 20.0, this.Y - 48.0));
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y - 16.0));
-						Game.I.Shots.Add(new Shot_B0001(this.X + 38.0, this.Y + 16.0));
-						Game.I.Shots.Add(new Shot_B0001(this.X + 20.0, this.Y + 48.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 20.0, this.Y - 48.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y - 16.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y + 16.0));
+						Game.I.Shots.Add(new Shot_Test0001(this.X + 20.0, this.Y + 48.0));
 						break;
 
 					default:
@@ -106,7 +106,7 @@ namespace Charlotte.Games
 		{
 			if (!Isボム発動中() && DDUtils.CountDown(ref Game.I.Status.ZanBomb))
 			{
-				Game.I.Shots.Add(new Shot_Bボム());
+				Game.I.Shots.Add(new Shot_Testボム0001());
 			}
 		}
 

@@ -8,9 +8,9 @@ using Charlotte.Games.Enemies;
 
 namespace Charlotte.Games.Shots.Tests
 {
-	public class Shot_Bボム : Shot
+	public class Shot_Testボム0001 : Shot
 	{
-		public Shot_Bボム()
+		public Shot_Testボム0001()
 			: base(0.0, 0.0, SCommon.IMAX / 2, true, Shot.Kind_e.ボム)
 		{ }
 

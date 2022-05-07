@@ -16,7 +16,7 @@ namespace Charlotte.Games
 {
 	public class Game : IDisposable
 	{
-		public Script Script = new Script_Bダミー0001(); // 軽量なダミー初期オブジェクト
+		public Script Script = new Script_Test何もなし0001(); // 軽量なダミー初期オブジェクト
 		public GameStatus Status = new GameStatus(); // 軽量なダミー初期オブジェクト
 
 		// <---- prm
@@ -629,10 +629,8 @@ namespace Charlotte.Games
 			{
 				if (
 					enemy.DeadFlag || // ? 敵：死亡
-					enemy is Enemy_BItem ||
-					enemy is Enemy_Bボス0001 ||
-					enemy is Enemy_Bボス0002 ||
-					enemy is Enemy_Bボス0003
+					enemy.Kind == Enemy.Kind_e.アイテム ||
+					enemy.Kind == Enemy.Kind_e.ボス
 					)
 				{
 					// noop

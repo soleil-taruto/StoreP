@@ -10,9 +10,9 @@ namespace Charlotte.Games.Enemies.Tests
 	/// <summary>
 	/// テスト用_敵弾
 	/// </summary>
-	public class Enemy_BTama0001 : Enemy
+	public class Enemy_TestTama0001 : Enemy
 	{
-		public Enemy_BTama0001(double x, double y)
+		public Enemy_TestTama0001(double x, double y)
 			: base(x, y, 0, Kind_e.通常敵)
 		{ }
 

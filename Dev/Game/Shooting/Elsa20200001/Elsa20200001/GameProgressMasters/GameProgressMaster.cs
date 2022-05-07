@@ -32,7 +32,7 @@ namespace Charlotte.GameProgressMasters
 
 			using (new Game())
 			{
-				Game.I.Script = new Script_Bステージ0001(); // 仮？
+				Game.I.Script = new Script_Testステージ0001(); // 仮？
 				Game.I.Perform();
 			}
 		}
@@ -45,7 +45,7 @@ namespace Charlotte.GameProgressMasters
 
 			using (new Game())
 			{
-				Game.I.Script = new Script_Bステージ0001(); // 仮？
+				Game.I.Script = new Script_Testステージ0001(); // 仮？
 				Game.I.Perform();
 			}
 		}

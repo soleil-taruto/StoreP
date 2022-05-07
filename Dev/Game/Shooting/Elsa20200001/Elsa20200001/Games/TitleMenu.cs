@@ -396,7 +396,7 @@ namespace Charlotte.Games
 
 							using (new Game())
 							{
-								Game.I.Script = new Script_Bステージ0001(); // 仮？
+								Game.I.Script = new Script_Testステージ0001(); // 仮？
 								Game.I.Perform();
 							}
 							this.ReturnTitleMenu();
