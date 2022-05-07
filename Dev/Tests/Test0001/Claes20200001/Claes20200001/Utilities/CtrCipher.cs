@@ -10,23 +10,32 @@ namespace Charlotte.Utilities
 	{
 		public static CtrCipher CreateTemporary()
 		{
-			return new CtrCipher(SCommon.CRandom.GetBytes(32));
+			return new CtrCipher(SCommon.CRandom.GetBytes(32), SCommon.CRandom.GetBytes(16));
 		}
 
 		private AESCipher Transformer;
+		private byte[] InitializationVector;
 		private byte[] Counter = new byte[16];
 		private byte[] Buffer = new byte[16];
 		private int Index;
 
-		public CtrCipher(byte[] rawKey)
+		public CtrCipher(byte[] rawKey, byte[] iv)
 		{
+			if (
+				rawKey == null ||
+				iv == null ||
+				iv.Length != 16
+				)
+				throw new ArgumentException();
+
 			this.Transformer = new AESCipher(rawKey);
+			this.InitializationVector = iv;
 			this.Reset();
 		}
 
 		public void Reset()
 		{
-			Array.Clear(this.Counter, 0, 16);
+			Array.Copy(this.InitializationVector, this.Counter, 16);
 			this.Index = 16;
 		}
 
@@ -43,7 +52,7 @@ namespace Charlotte.Utilities
 
 		private void Increment()
 		{
-			for (int index = 0; ; index++)
+			for (int index = 0; index < 16; index++)
 			{
 				if (this.Counter[index] < 255)
 				{
