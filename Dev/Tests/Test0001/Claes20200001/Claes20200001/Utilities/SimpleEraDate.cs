@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Charlotte.Utilities
 {
-	public class WarekiDate
+	public class SimpleEraDate
 	{
 		private int YMD;
 
-		public WarekiDate(int ymd)
+		public SimpleEraDate(int ymd)
 		{
 			// 不正な年月日はケアしない。
 
@@ -328,7 +328,7 @@ namespace Charlotte.Utilities
 
 		#endregion
 
-		private class WarekiInfo
+		private class EraDateInfo
 		{
 			public string Gengou;
 			public int Y;
@@ -342,17 +342,17 @@ namespace Charlotte.Utilities
 			}
 		}
 
-		private WarekiInfo Wareki = null;
+		private EraDateInfo EraDate = null;
 
-		private WarekiInfo GetWareki()
+		private EraDateInfo GetEraDate()
 		{
-			if (this.Wareki == null)
-				this.Wareki = this.GetWareki_Main();
+			if (this.EraDate == null)
+				this.EraDate = this.GetEraDate_Main();
 
-			return this.Wareki;
+			return this.EraDate;
 		}
 
-		private WarekiInfo GetWareki_Main()
+		private EraDateInfo GetEraDate_Main()
 		{
 			EraInfo era;
 
@@ -386,7 +386,7 @@ namespace Charlotte.Utilities
 					y -= era.FirstYMD / 10000 - 1;
 				}
 
-				return new WarekiInfo()
+				return new EraDateInfo()
 				{
 					Gengou = gengou,
 					Y = y,
@@ -401,29 +401,29 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetWareki().Gengou;
+				return this.GetEraDate().Gengou;
 			}
 		}
 
 		/// <summary>
 		/// 和暦・年(文字列)
 		/// </summary>
-		public string Year
+		public string SY
 		{
 			get
 			{
-				return this.GetWareki().Year;
+				return this.GetEraDate().Year;
 			}
 		}
 
 		/// <summary>
 		/// 和暦・年(整数)
 		/// </summary>
-		public int N
+		public int IY
 		{
 			get
 			{
-				return this.GetWareki().Y;
+				return this.GetEraDate().Y;
 			}
 		}
 
@@ -443,14 +443,14 @@ namespace Charlotte.Utilities
 		/// 例：令和1年5月25日
 		/// </summary>
 		/// <returns>和暦の文字列表現</returns>
-		public string ToIntString()
+		public string ToIntYString()
 		{
 			return this.ToString("{0}{2}年{3}月{4}日");
 		}
 
 		public string ToString(string format)
 		{
-			return string.Format(format, this.Gengou, this.Year, this.N, this.M, this.D);
+			return string.Format(format, this.Gengou, this.SY, this.IY, this.M, this.D);
 		}
 	}
 }
