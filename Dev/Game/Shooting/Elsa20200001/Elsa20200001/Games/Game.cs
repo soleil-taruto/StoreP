@@ -76,16 +76,12 @@ namespace Charlotte.Games
 
 			for (this.Frame = 0; ; this.Frame++)
 			{
-				// this.Script が差し替えられた場合を考慮して2度チェックする。
+				// memo: スクリプトの途中で Game.I.Script = scriptNew; として別のスクリプトに遷移して良い。
+				// 但し、スクリプトを差し替えた後で yield return (1以上); を行うこと。
+				// スクリプトを差し替えて列挙が終了すると this.Script.EachFrame() == false となるため、ゲームループを break; してしまう。
+				// yield return 1; としておけば this.Script.EachFrame() == true となり、次の this.Script.EachFrame()で新しいスクリプトが開始される。
 				//
-				// スクリプトの最後に Game.I.Script を差し替えて(yield return せずに)スクリプトが終了した場合、
-				// 列挙が終了してしまうため this.Script.EachFrame() は false を返してしまう。
-				// 次の this.Script.EachFrame() では新しいスクリプトが開始されるため true を返すことになる。
-				//
-				if (
-					!this.Script.EachFrame() &&
-					!this.Script.EachFrame()
-					)
+				if (!this.Script.EachFrame())
 					break;
 
 				if (!this.UserInputDisabled && DDInput.PAUSE.GetInput() == 1) // ポーズ

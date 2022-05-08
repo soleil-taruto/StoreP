@@ -102,6 +102,8 @@ namespace Charlotte.Games.Scripts.Tests
 			yield return 120;
 
 			Game.I.Script = new Script_Testステージ0002(); // 次のステージ
+
+			yield return 1; // Script を差し替えた場合、最後に 1 以上を返す。-- 理由は Script.E_EachFrame に記述
 		}
 	}
 }
