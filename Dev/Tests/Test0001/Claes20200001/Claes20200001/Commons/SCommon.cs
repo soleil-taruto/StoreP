@@ -1018,7 +1018,7 @@ namespace Charlotte.Commons
 					}
 					else if (chr <= 0x7e) // ? ascii
 					{
-						// nop
+						// noop
 					}
 					else if (0xa1 <= chr && chr <= 0xdf) // ? kana
 					{

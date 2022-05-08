@@ -290,7 +290,7 @@ function* <generatorForTask> @@_E_死亡とリスポーン()
 	}
 
 	// 自弾・敵・敵弾クリア
-	Shots = [];
-	Enemies = [];
-	Tamas = [];
+	Shots = <Shot_t[]>[];
+	Enemies = <Enemy_t[]>[];
+	Tamas = <Tama_t[]>[];
 }
