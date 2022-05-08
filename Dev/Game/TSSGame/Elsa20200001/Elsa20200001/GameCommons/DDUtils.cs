@@ -537,9 +537,6 @@ namespace Charlotte.GameCommons
 		{
 			foreach (int waitCount in script)
 			{
-				if (waitCount == 0) // ? default(int) -- スクリプト終了
-					break;
-
 				if (waitCount < 0)
 					throw new Exception("Bad waitCount: " + waitCount);
 

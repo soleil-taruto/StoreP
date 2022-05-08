@@ -335,13 +335,39 @@ namespace Charlotte.Games
 
 					case 1:
 						{
-							this.LeaveTitleMenu();
-
-							using (new GameProgressMaster())
+							selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "コンテニュー", new string[]
 							{
-								GameProgressMaster.I.Perform_コンテニュー();
+								"ステージ 1",
+								"ステージ 2",
+								"ステージ 3",
+								"戻る",
+							},
+							0
+							);
+
+							Script script;
+
+							switch (selectIndex)
+							{
+								case 0: script = new Script_Testステージ0001(); break;
+								case 1: script = new Script_Testステージ0002(); break;
+								case 2: script = new Script_Testステージ0003(); break;
+								case 3: script = null; break;
+
+								default:
+									throw null; // never
 							}
-							this.ReturnTitleMenu();
+
+							if (script != null)
+							{
+								this.LeaveTitleMenu();
+
+								using (new GameProgressMaster())
+								{
+									GameProgressMaster.I.Perform_コンテニュー(script);
+								}
+								this.ReturnTitleMenu();
+							}
 						}
 						break;
 

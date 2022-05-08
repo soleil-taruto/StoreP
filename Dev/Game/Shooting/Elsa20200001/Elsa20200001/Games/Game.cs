@@ -76,7 +76,16 @@ namespace Charlotte.Games
 
 			for (this.Frame = 0; ; this.Frame++)
 			{
-				if (!this.Script.EachFrame())
+				// this.Script が差し替えられた場合を考慮して2度チェックする。
+				//
+				// スクリプトの最後に Game.I.Script を差し替えて(yield return せずに)スクリプトが終了した場合、
+				// 列挙が終了してしまうため this.Script.EachFrame() は false を返してしまう。
+				// 次の this.Script.EachFrame() では新しいスクリプトが開始されるため true を返すことになる。
+				//
+				if (
+					!this.Script.EachFrame() &&
+					!this.Script.EachFrame()
+					)
 					break;
 
 				if (!this.UserInputDisabled && DDInput.PAUSE.GetInput() == 1) // ポーズ

@@ -105,8 +105,6 @@ namespace Charlotte.Games.Scripts.Tests
 
 			DDCurtain.SetCurtain(30, -1.0);
 			yield return 40;
-
-			yield return -1; // Script 終了するために -1 を返す。
 		}
 	}
 }
