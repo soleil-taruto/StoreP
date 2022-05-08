@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Charlotte.Utilities
 {
-	public class SimpleEraDate
+	public class WarekiDate
 	{
 		private int YMD;
 
-		public SimpleEraDate(int ymd)
+		public WarekiDate(int ymd)
 		{
 			// 不正な年月日はケアしない。
 
@@ -328,7 +328,7 @@ namespace Charlotte.Utilities
 
 		#endregion
 
-		private class EraDateInfo
+		private class WarekiInfo
 		{
 			public string Gengou;
 			public int Y;
@@ -342,17 +342,17 @@ namespace Charlotte.Utilities
 			}
 		}
 
-		private EraDateInfo EraDate = null;
+		private WarekiInfo Wareki = null;
 
-		private EraDateInfo GetEraDate()
+		private WarekiInfo GetWareki()
 		{
-			if (this.EraDate == null)
-				this.EraDate = this.GetEraDate_Main();
+			if (this.Wareki == null)
+				this.Wareki = this.GetWareki_Main();
 
-			return this.EraDate;
+			return this.Wareki;
 		}
 
-		private EraDateInfo GetEraDate_Main()
+		private WarekiInfo GetWareki_Main()
 		{
 			EraInfo era;
 
@@ -386,7 +386,7 @@ namespace Charlotte.Utilities
 					y -= era.FirstYMD / 10000 - 1;
 				}
 
-				return new EraDateInfo()
+				return new WarekiInfo()
 				{
 					Gengou = gengou,
 					Y = y,
@@ -401,7 +401,7 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetEraDate().Gengou;
+				return this.GetWareki().Gengou;
 			}
 		}
 
@@ -412,7 +412,7 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetEraDate().Year;
+				return this.GetWareki().Year;
 			}
 		}
 
@@ -423,7 +423,7 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetEraDate().Y;
+				return this.GetWareki().Y;
 			}
 		}
 

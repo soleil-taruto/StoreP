@@ -69,9 +69,10 @@ namespace Charlotte
 			//new Test0006().Test01(); // HTTPClient
 			//new Test0007().Test01(); // HTTPServer
 			//new Test0008().Test01();
-			//new Test0009().Test01();
-			//new Test0009().Test02();
-			new Test0009().Test03();
+			//new Test0009().Test01(); // WarekiDate
+			//new Test0009().Test02(); // WarekiDate
+			//new Test0009().Test03(); // WarekiDate
+			new Test0010().Test01();
 
 			// --
 		}

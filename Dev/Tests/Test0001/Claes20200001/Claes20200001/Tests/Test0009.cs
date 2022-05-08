@@ -28,13 +28,13 @@ namespace Charlotte.Tests
 
 						for (int d = 1; d <= dNum; d++)
 						{
-							SimpleEraDate eraDate = new SimpleEraDate(y * 10000 + m * 100 + d);
+							WarekiDate date = new WarekiDate(y * 10000 + m * 100 + d);
 
 							writer.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} ⇒ {3}"
 								, y
 								, m
 								, d
-								, P_HanDigToZenDig(eraDate.ToString())));
+								, P_HanDigToZenDig(date.ToString())));
 						}
 					}
 				}
@@ -56,13 +56,13 @@ namespace Charlotte.Tests
 					{
 						for (int d = 0; d <= 31; d++)
 						{
-							SimpleEraDate eraDate = new SimpleEraDate(y * 10000 + m * 100 + d);
+							WarekiDate date = new WarekiDate(y * 10000 + m * 100 + d);
 
 							writer.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} ⇒ {3}"
 								, y
 								, m
 								, d
-								, P_HanDigToZenDig(eraDate.ToString())));
+								, P_HanDigToZenDig(date.ToString())));
 						}
 					}
 				}
@@ -80,7 +80,7 @@ namespace Charlotte.Tests
 			{
 				for (int ymd = 0; ymd < 100000000; ymd += SCommon.CRandom.GetRange(1, 100))
 				{
-					SimpleEraDate eraDate = new SimpleEraDate(ymd);
+					WarekiDate date = new WarekiDate(ymd);
 
 					int y = ymd / 10000;
 					int m = (ymd / 100) % 100;
@@ -90,7 +90,7 @@ namespace Charlotte.Tests
 						, y
 						, m
 						, d
-						, P_HanDigToZenDig(eraDate.ToString())));
+						, P_HanDigToZenDig(date.ToString())));
 				}
 			}
 		}
