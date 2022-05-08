@@ -49,7 +49,7 @@ namespace Charlotte.WebServices
 			public byte[] ToByteArray()
 			{
 				byte[] data = File.ReadAllBytes(this.BufferFile);
-				File.WriteAllBytes(this.BufferFile, SCommon.EMPTY_BYTES);
+				SCommon.DeletePath(this.BufferFile);
 				this.WroteSize = 0;
 
 				this.CtrCipher.Reset();
