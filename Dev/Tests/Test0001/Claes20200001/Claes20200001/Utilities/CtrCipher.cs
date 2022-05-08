@@ -20,8 +20,10 @@ namespace Charlotte.Utilities
 		private int Index;
 
 		public CtrCipher(byte[] rawKey)
-			: this(rawKey, new byte[16])
+			: this(rawKey, ZERO_IV)
 		{ }
+
+		private static byte[] ZERO_IV = new byte[16];
 
 		public CtrCipher(byte[] rawKey, byte[] iv)
 		{
