@@ -10,7 +10,7 @@ namespace Charlotte.Utilities
 	{
 		public static CtrCipher CreateTemporary()
 		{
-			return new CtrCipher(SCommon.CRandom.GetBytes(32), SCommon.CRandom.GetBytes(16));
+			return new CtrCipher(SCommon.CRandom.GetBytes(32));
 		}
 
 		private AESCipher Transformer;
@@ -18,6 +18,10 @@ namespace Charlotte.Utilities
 		private byte[] Counter = new byte[16];
 		private byte[] Buffer = new byte[16];
 		private int Index;
+
+		public CtrCipher(byte[] rawKey)
+			: this(rawKey, new byte[16])
+		{ }
 
 		public CtrCipher(byte[] rawKey, byte[] iv)
 		{
