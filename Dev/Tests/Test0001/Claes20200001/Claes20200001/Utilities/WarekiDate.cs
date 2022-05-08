@@ -14,7 +14,7 @@ namespace Charlotte.Utilities
 			// 不正な年月日はケアしない。
 
 			if (ymd < 0)
-				throw new ArgumentException("Bad ymd: " + ymd);
+				ymd = 0;
 
 			this.YMD = ymd;
 		}
