@@ -38,7 +38,7 @@ namespace Charlotte
 		private void Main3()
 		{
 			Main4();
-			//Common.Pause();
+			Common.Pause();
 		}
 
 		private void Main4()
@@ -50,9 +50,6 @@ namespace Charlotte
 			catch (Exception ex)
 			{
 				ProcMain.WriteLog(ex);
-
-				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
-				Console.ReadLine();
 			}
 		}
 

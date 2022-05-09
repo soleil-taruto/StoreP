@@ -455,73 +455,42 @@ namespace Charlotte.Utilities
 		}
 
 		// ====
-		// ここから読み込み (文字列 ⇒ オブジェクト)
+		// ここから読み込み (文字列 ⇒ インスタンス)
 		// ====
 
-		private static Dictionary<string, EraInfo> EraDict = null;
-
-		public static Dictionary<string, EraInfo> GetEraDict()
-		{
-			if (EraDict == null)
-				EraDict = GetEraDict_Main();
-
-			return EraDict;
-		}
-
-		private static Dictionary<string, EraInfo> GetEraDict_Main()
-		{
-			Dictionary<string, EraInfo> dest = new Dictionary<string, EraInfo>();
-
-			foreach (EraInfo era in EraInfos)
-				dest.Add(era.Name, era);
-
-			return dest;
-		}
-
 		/// <summary>
-		/// 元号・年(和暦)・月・日からオブジェクトを生成する。
-		/// </summary>
-		/// <param name="gengou">元号</param>
-		/// <param name="y">年(和暦)</param>
-		/// <param name="m">月</param>
-		/// <param name="d">日</param>
-		/// <returns></returns>
-		public static WarekiDate Create(string gengou, int y, int m, int d)
-		{
-			EraInfo era = GetEraDict()[gengou];
-			int ymd = (era.FirstYMD / 10000 - 1 + y) * 10000 + m * 100 + d;
-			return new WarekiDate(ymd);
-		}
-
-		/// <summary>
-		/// 日付(和暦)文字列からオブジェクトを生成する。
+		/// 日付(和暦)文字列からインスタンスを生成する。
 		/// </summary>
 		/// <param name="str">日付(和暦)文字列</param>
-		/// <returns></returns>
+		/// <returns>インスタンス</returns>
 		public static WarekiDate Create(string str)
 		{
 			if (string.IsNullOrEmpty(str))
 				throw new ArgumentException("空の日付");
 
+			// 正規化
+			str = P_RemoveBlank(str);
 			str = P_ZenDigAlpToHanDigAlp(str);
 			str = str.ToUpper();
 
+			// 「元」の解消
+			str = str.Replace("元年", "1年");
+
+			// アルファベット年号の解消
 			str = str.Replace("M", "明治");
 			str = str.Replace("T", "大正");
 			str = str.Replace("S", "昭和");
 			str = str.Replace("H", "平成");
 			str = str.Replace("R", "令和");
 
-			EraInfo era = EraInfos.Reverse().Where(v => v.Name != null).FirstOrDefault(v => str.Contains(v.Name));
-			string gengou;
+			EraInfo era = EraInfos
+				.Reverse() // 直近の年号から探す。
+				.Concat(new EraInfo[] { new EraInfo(10101, "西暦") })
+				.Where(v => v.Name != null)
+				.FirstOrDefault(v => str.Contains(v.Name));
 
-			if (era == null) // ? 不明な元号 -> 西暦と見なす。
-				gengou = "西暦";
-			else
-				gengou = era.Name;
-
-			str = str.Replace(gengou, "");
-			str = str.Replace("元", "1");
+			if (era == null)
+				throw new ArgumentException("不明な元号");
 
 			string[] symd = SCommon.Tokenize(str, SCommon.DECIMAL, true, true);
 
@@ -530,7 +499,18 @@ namespace Charlotte.Utilities
 
 			int[] ymd = symd.Select(v => int.Parse(v)).ToArray();
 
-			return Create(gengou, ymd[0], ymd[1], ymd[2]);
+			int y = ymd[0];
+			int m = ymd[1];
+			int d = ymd[2];
+
+			return new WarekiDate((era.FirstYMD / 10000 - 1 + y) * 10000 + m * 100 + d);
+		}
+
+		private static string P_RemoveBlank(string str)
+		{
+			return new string(str.Where(chr =>
+				chr > ' ' &&
+				chr != SCommon.MBC_SPACE[0]).ToArray());
 		}
 
 		private static string P_ZenDigAlpToHanDigAlp(string str)

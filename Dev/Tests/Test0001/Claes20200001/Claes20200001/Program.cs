@@ -47,9 +47,6 @@ namespace Charlotte
 			catch (Exception ex)
 			{
 				ProcMain.WriteLog(ex);
-
-				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
-				Console.ReadLine();
 			}
 		}
 
@@ -72,7 +69,8 @@ namespace Charlotte
 			//new Test0009().Test01(); // WarekiDate
 			//new Test0009().Test02(); // WarekiDate
 			//new Test0009().Test03(); // WarekiDate
-			new Test0010().Test01();
+			new Test0009().Test04(); // WarekiDate
+			//new Test0010().Test01();
 
 			// --
 		}

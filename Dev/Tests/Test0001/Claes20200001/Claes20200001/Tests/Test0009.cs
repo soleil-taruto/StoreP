@@ -119,5 +119,37 @@ namespace Charlotte.Tests
 			}
 			return str;
 		}
+
+		public void Test04()
+		{
+			for (int ymd = 0; ymd < 21000000; ymd += SCommon.CRandom.GetRange(1, 100))
+			{
+				WarekiDate date1 = new WarekiDate(ymd);
+
+				int y1 = ymd / 10000;
+				int m1 = (ymd / 100) % 100;
+				int d1 = ymd % 100;
+
+				string str = P_HanDigToZenDig(date1.ToString());
+
+				WarekiDate date2 = WarekiDate.Create(str);
+
+				int y2 = date2.Y;
+				int m2 = date2.M;
+				int d2 = date2.D;
+
+				Console.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} -> {3} -> {4:D4}/{5:D2}/{6:D2}"
+					, y1, m1, d1
+					, str
+					, y2, m2, d2));
+
+				if (
+					y1 != y2 ||
+					m1 != m2 ||
+					d1 != d2
+					)
+					throw null;
+			}
+		}
 	}
 }
