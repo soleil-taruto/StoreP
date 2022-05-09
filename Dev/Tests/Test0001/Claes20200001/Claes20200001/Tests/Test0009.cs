@@ -28,17 +28,33 @@ namespace Charlotte.Tests
 
 						for (int d = 1; d <= dNum; d++)
 						{
-							WarekiDate date = new WarekiDate(y * 10000 + m * 100 + d);
+							JapaneseDate date = new JapaneseDate(y * 10000 + m * 100 + d);
 
 							writer.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} ⇒ {3}"
 								, y
 								, m
 								, d
-								, P_HanDigToZenDig(date.ToString())));
+								, date.ToString()));
 						}
 					}
 				}
 			}
+		}
+
+		private static int GetDayOfMonth(int y, int m)
+		{
+			int d = new int[] { 31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }[m - 1];
+
+			if (d == -1)
+			{
+				bool leapYear = y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
+
+				if (leapYear)
+					d = 29;
+				else
+					d = 28;
+			}
+			return d;
 		}
 
 		/// <summary>
@@ -56,13 +72,13 @@ namespace Charlotte.Tests
 					{
 						for (int d = 0; d <= 31; d++)
 						{
-							WarekiDate date = new WarekiDate(y * 10000 + m * 100 + d);
+							JapaneseDate date = new JapaneseDate(y * 10000 + m * 100 + d);
 
 							writer.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} ⇒ {3}"
 								, y
 								, m
 								, d
-								, P_HanDigToZenDig(date.ToString())));
+								, date.ToString()));
 						}
 					}
 				}
@@ -80,7 +96,7 @@ namespace Charlotte.Tests
 			{
 				for (int ymd = 0; ymd < 100000000; ymd += SCommon.CRandom.GetRange(1, 100))
 				{
-					WarekiDate date = new WarekiDate(ymd);
+					JapaneseDate date = new JapaneseDate(ymd);
 
 					int y = ymd / 10000;
 					int m = (ymd / 100) % 100;
@@ -90,49 +106,24 @@ namespace Charlotte.Tests
 						, y
 						, m
 						, d
-						, P_HanDigToZenDig(date.ToString())));
+						, date.ToString()));
 				}
 			}
-		}
-
-		private int GetDayOfMonth(int y, int m)
-		{
-			int d = new int[] { 31, -1, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }[m - 1];
-
-			if (d == -1)
-			{
-				bool leapYear = y % 4 == 0 && (y % 100 != 0 || y % 400 == 0);
-
-				if (leapYear)
-					d = 29;
-				else
-					d = 28;
-			}
-			return d;
-		}
-
-		private static string P_HanDigToZenDig(string str)
-		{
-			for (int num = 0; num <= 9; num++)
-			{
-				str = str.Replace(SCommon.DECIMAL[num], SCommon.MBC_DECIMAL[num]);
-			}
-			return str;
 		}
 
 		public void Test04()
 		{
 			for (int ymd = 0; ymd < 21000000; ymd += SCommon.CRandom.GetRange(1, 100))
 			{
-				WarekiDate date1 = new WarekiDate(ymd);
+				JapaneseDate date1 = new JapaneseDate(ymd);
 
 				int y1 = ymd / 10000;
 				int m1 = (ymd / 100) % 100;
 				int d1 = ymd % 100;
 
-				string str = P_HanDigToZenDig(date1.ToString());
+				string str = date1.ToString();
 
-				WarekiDate date2 = WarekiDate.Create(str);
+				JapaneseDate date2 = JapaneseDate.Create(str);
 
 				int y2 = date2.Y;
 				int m2 = date2.M;

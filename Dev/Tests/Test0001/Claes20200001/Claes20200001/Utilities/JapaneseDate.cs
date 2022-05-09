@@ -6,11 +6,15 @@ using Charlotte.Commons;
 
 namespace Charlotte.Utilities
 {
-	public class WarekiDate
+	public class JapaneseDate
 	{
 		private int YMD;
 
-		public WarekiDate(int ymd)
+		/// <summary>
+		/// (西暦)年月日からインスタンスを生成する。
+		/// </summary>
+		/// <param name="ymd">(西暦)年月日</param>
+		public JapaneseDate(int ymd)
 		{
 			// 不正な年月日はケアしない。
 
@@ -20,13 +24,17 @@ namespace Charlotte.Utilities
 			this.YMD = ymd;
 		}
 
+		/// <summary>
+		/// (西暦)年月日を取得する。
+		/// </summary>
+		/// <returns>(西暦)年月日</returns>
 		public int GetYMD()
 		{
 			return this.YMD;
 		}
 
 		/// <summary>
-		/// 西暦・年
+		/// (西暦)年
 		/// </summary>
 		public int Y
 		{
@@ -329,7 +337,7 @@ namespace Charlotte.Utilities
 
 		#endregion
 
-		private class WarekiInfo
+		private class JYearInfo
 		{
 			public string Gengou;
 			public int Y;
@@ -343,17 +351,17 @@ namespace Charlotte.Utilities
 			}
 		}
 
-		private WarekiInfo Wareki = null;
+		private JYearInfo JYear = null;
 
-		private WarekiInfo GetWareki()
+		private JYearInfo GetJYear()
 		{
-			if (this.Wareki == null)
-				this.Wareki = this.GetWareki_Main();
+			if (this.JYear == null)
+				this.JYear = this.GetJYear_Main();
 
-			return this.Wareki;
+			return this.JYear;
 		}
 
-		private WarekiInfo GetWareki_Main()
+		private JYearInfo GetJYear_Main()
 		{
 			EraInfo era;
 
@@ -387,7 +395,7 @@ namespace Charlotte.Utilities
 					y -= era.FirstYMD / 10000 - 1;
 				}
 
-				return new WarekiInfo()
+				return new JYearInfo()
 				{
 					Gengou = gengou,
 					Y = y,
@@ -402,7 +410,7 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetWareki().Gengou;
+				return this.GetJYear().Gengou;
 			}
 		}
 
@@ -413,7 +421,7 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetWareki().Year;
+				return this.GetJYear().Year;
 			}
 		}
 
@@ -424,8 +432,19 @@ namespace Charlotte.Utilities
 		{
 			get
 			{
-				return this.GetWareki().Y;
+				return this.GetJYear().Y;
 			}
+		}
+
+		/// <summary>
+		/// 和暦の文字列表現を返す。
+		/// 但し年月日は全角
+		/// 例：令和元年５月２５日
+		/// </summary>
+		/// <returns>和暦の文字列表現</returns>
+		public override string ToString()
+		{
+			return P_HanDigToZenDig(this.ToHalfString());
 		}
 
 		/// <summary>
@@ -433,7 +452,7 @@ namespace Charlotte.Utilities
 		/// 例：令和元年5月25日
 		/// </summary>
 		/// <returns>和暦の文字列表現</returns>
-		public override string ToString()
+		public string ToHalfString()
 		{
 			return this.ToString("{0}{1}年{3}月{4}日");
 		}
@@ -463,7 +482,7 @@ namespace Charlotte.Utilities
 		/// </summary>
 		/// <param name="str">日付(和暦)文字列</param>
 		/// <returns>インスタンス</returns>
-		public static WarekiDate Create(string str)
+		public static JapaneseDate Create(string str)
 		{
 			if (string.IsNullOrEmpty(str))
 				throw new ArgumentException("空の日付");
@@ -473,10 +492,10 @@ namespace Charlotte.Utilities
 			str = P_ZenDigAlpToHanDigAlp(str);
 			str = str.ToUpper();
 
-			// 「元」の解消
-			str = str.Replace("元年", "1年");
+			// 元年の解消
+			str = str.Replace("元年", "1年"); // 元を含む元号があるため、年も含めて置き換える。
 
-			// アルファベット年号の解消
+			// アルファベット元号の解消
 			str = str.Replace("M", "明治");
 			str = str.Replace("T", "大正");
 			str = str.Replace("S", "昭和");
@@ -484,10 +503,9 @@ namespace Charlotte.Utilities
 			str = str.Replace("R", "令和");
 
 			EraInfo era = EraInfos
-				.Reverse() // 直近の年号から探す。
+				.Reverse() // 直近の元号から探す。
 				.Concat(new EraInfo[] { new EraInfo(10101, "西暦") })
-				.Where(v => v.Name != null)
-				.FirstOrDefault(v => str.Contains(v.Name));
+				.FirstOrDefault(v => v.Name != null && str.Contains(v.Name));
 
 			if (era == null)
 				throw new ArgumentException("不明な元号");
@@ -503,14 +521,12 @@ namespace Charlotte.Utilities
 			int m = ymd[1];
 			int d = ymd[2];
 
-			return new WarekiDate((era.FirstYMD / 10000 - 1 + y) * 10000 + m * 100 + d);
+			return new JapaneseDate((era.FirstYMD / 10000 - 1 + y) * 10000 + m * 100 + d);
 		}
 
 		private static string P_RemoveBlank(string str)
 		{
-			return new string(str.Where(chr =>
-				chr > ' ' &&
-				chr != SCommon.MBC_SPACE[0]).ToArray());
+			return new string(str.Where(chr => ' ' < chr && chr != SCommon.MBC_SPACE[0]).ToArray());
 		}
 
 		private static string P_ZenDigAlpToHanDigAlp(string str)
@@ -523,6 +539,15 @@ namespace Charlotte.Utilities
 			{
 				str = str.Replace(SCommon.MBC_ALPHA[index], SCommon.ALPHA[index]);
 				str = str.Replace(SCommon.mbc_alpha[index], SCommon.alpha[index]);
+			}
+			return str;
+		}
+
+		private static string P_HanDigToZenDig(string str)
+		{
+			for (int num = 0; num <= 9; num++)
+			{
+				str = str.Replace(SCommon.DECIMAL[num], SCommon.MBC_DECIMAL[num]);
 			}
 			return str;
 		}

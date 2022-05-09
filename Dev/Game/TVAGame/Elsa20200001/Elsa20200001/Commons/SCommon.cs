@@ -1491,7 +1491,7 @@ namespace Charlotte.Commons
 
 		public static string MBC_CHOUONPU = S_GetString_SJISCodeRange(0x81, 0x5b, 0x5b); // 815b == 長音符 -- ひらがなとカタカナの長音符は同じ文字
 
-		public static string MBC_HIRA = S_GetString_SJISCodeRange(0x82, 0x9f, 0xf1);
+		public static string MBC_HIRA = S_GetString_SJISCodeRange(0x82, 0x9f, 0xf1) + MBC_CHOUONPU;
 		public static string MBC_KANA =
 			S_GetString_SJISCodeRange(0x83, 0x40, 0x7e) +
 			S_GetString_SJISCodeRange(0x83, 0x80, 0x96) + MBC_CHOUONPU;
