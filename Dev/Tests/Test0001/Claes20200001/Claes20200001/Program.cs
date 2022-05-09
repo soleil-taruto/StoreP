@@ -64,13 +64,13 @@ namespace Charlotte
 			//new Test0004().Test02(); // RingCipher
 			//new Test0005().Test01(); // FileCipher
 			//new Test0006().Test01(); // HTTPClient
-			//new Test0007().Test01(); // HTTPServer
+			new Test0007().Test01(); // HTTPServer
 			//new Test0008().Test01();
 			//new Test0009().Test01(); // JapaneseDate
 			//new Test0009().Test02(); // JapaneseDate
 			//new Test0009().Test03(); // JapaneseDate
 			//new Test0009().Test04(); // JapaneseDate
-			new Test0010().Test01();
+			//new Test0010().Test01();
 
 			// --
 		}
