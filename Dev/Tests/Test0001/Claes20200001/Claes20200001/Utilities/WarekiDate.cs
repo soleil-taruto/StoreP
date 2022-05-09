@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Commons;
 
 namespace Charlotte.Utilities
 {
@@ -451,6 +452,99 @@ namespace Charlotte.Utilities
 		public string ToString(string format)
 		{
 			return string.Format(format, this.Gengou, this.SY, this.IY, this.M, this.D);
+		}
+
+		// ====
+		// ここから読み込み (文字列 ⇒ オブジェクト)
+		// ====
+
+		private static Dictionary<string, EraInfo> EraDict = null;
+
+		public static Dictionary<string, EraInfo> GetEraDict()
+		{
+			if (EraDict == null)
+				EraDict = GetEraDict_Main();
+
+			return EraDict;
+		}
+
+		private static Dictionary<string, EraInfo> GetEraDict_Main()
+		{
+			Dictionary<string, EraInfo> dest = new Dictionary<string, EraInfo>();
+
+			foreach (EraInfo era in EraInfos)
+				dest.Add(era.Name, era);
+
+			return dest;
+		}
+
+		/// <summary>
+		/// 元号・年(和暦)・月・日からオブジェクトを生成する。
+		/// </summary>
+		/// <param name="gengou">元号</param>
+		/// <param name="y">年(和暦)</param>
+		/// <param name="m">月</param>
+		/// <param name="d">日</param>
+		/// <returns></returns>
+		public static WarekiDate Create(string gengou, int y, int m, int d)
+		{
+			EraInfo era = GetEraDict()[gengou];
+			int ymd = (era.FirstYMD / 10000 - 1 + y) * 10000 + m * 100 + d;
+			return new WarekiDate(ymd);
+		}
+
+		/// <summary>
+		/// 日付(和暦)文字列からオブジェクトを生成する。
+		/// </summary>
+		/// <param name="str">日付(和暦)文字列</param>
+		/// <returns></returns>
+		public static WarekiDate Create(string str)
+		{
+			if (string.IsNullOrEmpty(str))
+				throw new ArgumentException("空の日付");
+
+			str = P_ZenDigAlpToHanDigAlp(str);
+			str = str.ToUpper();
+
+			str = str.Replace("M", "明治");
+			str = str.Replace("T", "大正");
+			str = str.Replace("S", "昭和");
+			str = str.Replace("H", "平成");
+			str = str.Replace("R", "令和");
+
+			EraInfo era = EraInfos.Reverse().Where(v => v.Name != null).FirstOrDefault(v => str.Contains(v.Name));
+			string gengou;
+
+			if (era == null) // ? 不明な元号 -> 西暦と見なす。
+				gengou = "西暦";
+			else
+				gengou = era.Name;
+
+			str = str.Replace(gengou, "");
+			str = str.Replace("元", "1");
+
+			string[] symd = SCommon.Tokenize(str, SCommon.DECIMAL, true, true);
+
+			if (symd.Length != 3)
+				throw new ArgumentException("年月日の検出失敗");
+
+			int[] ymd = symd.Select(v => int.Parse(v)).ToArray();
+
+			return Create(gengou, ymd[0], ymd[1], ymd[2]);
+		}
+
+		private static string P_ZenDigAlpToHanDigAlp(string str)
+		{
+			for (int num = 0; num <= 9; num++)
+			{
+				str = str.Replace(SCommon.MBC_DECIMAL[num], SCommon.DECIMAL[num]);
+			}
+			for (int index = 0; index < 26; index++)
+			{
+				str = str.Replace(SCommon.MBC_ALPHA[index], SCommon.ALPHA[index]);
+				str = str.Replace(SCommon.mbc_alpha[index], SCommon.alpha[index]);
+			}
+			return str;
 		}
 	}
 }
