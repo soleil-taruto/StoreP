@@ -115,29 +115,91 @@ namespace Charlotte.Tests
 		{
 			for (int ymd = 0; ymd < 21000000; ymd += SCommon.CRandom.GetRange(1, 100))
 			{
+				int y = ymd / 10000;
+				int m = (ymd / 100) % 100;
+				int d = ymd % 100;
+
 				JapaneseDate date1 = new JapaneseDate(ymd);
 
-				int y1 = ymd / 10000;
-				int m1 = (ymd / 100) % 100;
-				int d1 = ymd % 100;
+				int y1 = date1.Y;
+				int m1 = date1.M;
+				int d1 = date1.D;
 
-				string str = date1.ToString();
+				string str1 = date1.ToString();
 
-				JapaneseDate date2 = JapaneseDate.Create(str);
+				JapaneseDate date2 = JapaneseDate.Create(str1);
 
 				int y2 = date2.Y;
 				int m2 = date2.M;
 				int d2 = date2.D;
 
-				Console.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} -> {3} -> {4:D4}/{5:D2}/{6:D2}"
+				string str2 = date2.ToString();
+
+				Console.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} -> {3} -> {4:D4}/{5:D2}/{6:D2} -> {7}"
 					, y1, m1, d1
-					, str
-					, y2, m2, d2));
+					, str1
+					, y2, m2, d2
+					, str2
+					));
 
 				if (
+					y != y1 ||
+					m != m1 ||
+					d != d1 ||
 					y1 != y2 ||
 					m1 != m2 ||
-					d1 != d2
+					d1 != d2 ||
+					str1 != str2
+					)
+					throw null;
+			}
+		}
+
+		public void Test05()
+		{
+			for (int ymd = 0; ymd < 21000000; ymd++)
+			{
+				int y = ymd / 10000;
+				int m = (ymd / 100) % 100;
+				int d = ymd % 100;
+
+				if (
+					12 < m ||
+					31 < d
+					)
+					continue;
+
+				JapaneseDate date1 = new JapaneseDate(ymd);
+
+				int y1 = date1.Y;
+				int m1 = date1.M;
+				int d1 = date1.D;
+
+				string str1 = date1.ToString();
+
+				JapaneseDate date2 = JapaneseDate.Create(str1);
+
+				int y2 = date2.Y;
+				int m2 = date2.M;
+				int d2 = date2.D;
+
+				string str2 = date2.ToString();
+
+				Console.WriteLine(string.Format("{0:D4}/{1:D2}/{2:D2} -> {3} -> {4:D4}/{5:D2}/{6:D2} -> {7}"
+					, y1, m1, d1
+					, str1
+					, y2, m2, d2
+					, str2
+					));
+
+				if (
+					y != y1 ||
+					m != m1 ||
+					d != d1 ||
+					y1 != y2 ||
+					m1 != m2 ||
+					d1 != d2 ||
+					str1 != str2
 					)
 					throw null;
 			}

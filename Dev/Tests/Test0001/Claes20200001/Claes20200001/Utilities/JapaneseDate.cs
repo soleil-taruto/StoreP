@@ -485,7 +485,7 @@ namespace Charlotte.Utilities
 		public static JapaneseDate Create(string str)
 		{
 			if (string.IsNullOrEmpty(str))
-				throw new ArgumentException("空の日付");
+				throw new ArgumentException("和暦変換エラー：空の日付");
 
 			// 正規化
 			str = P_RemoveBlank(str);
@@ -508,12 +508,12 @@ namespace Charlotte.Utilities
 				.FirstOrDefault(v => v.Name != null && str.Contains(v.Name));
 
 			if (era == null)
-				throw new ArgumentException("不明な元号");
+				throw new ArgumentException("和暦変換エラー：不明な元号");
 
 			string[] symd = SCommon.Tokenize(str, SCommon.DECIMAL, true, true);
 
 			if (symd.Length != 3)
-				throw new ArgumentException("年月日の検出失敗");
+				throw new ArgumentException("和暦変換エラー：不正な年月日");
 
 			int[] ymd = symd.Select(v => int.Parse(v)).ToArray();
 
