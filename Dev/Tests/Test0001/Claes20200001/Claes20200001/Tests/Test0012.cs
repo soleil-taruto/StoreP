@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using Charlotte.Commons;
 
 namespace Charlotte.Tests
 {
@@ -51,6 +52,56 @@ namespace Charlotte.Tests
 				}
 				Console.WriteLine(c + " -> " + ans + " +" + (ans - lastAns));
 				lastAns = ans;
+			}
+		}
+
+		public void Test03()
+		{
+			Test03_a(1);
+			Test03_a(3);
+			Test03_a(10);
+			Test03_a(30);
+			Test03_a(100);
+			Test03_a(300);
+			Test03_a(1000);
+			Test03_a(3000);
+			Test03_a(10000);
+			Test03_a(30000);
+			Test03_a(100000);
+			Test03_a(300000);
+			Test03_a(1000000);
+		}
+
+		private void Test03_a(int count)
+		{
+			if (count < 1 || 1000000 < count) // rough limit
+				throw null;
+
+			int l = 0;
+			int r = count;
+
+			while (l + 1 < r)
+			{
+				int m = (l + r) / 2;
+
+				int c = m;
+				int ans = 0;
+
+				for (int d = 1; d <= c; d++)
+				{
+					ans += c / d;
+				}
+
+				if (ans < count)
+					l = m;
+				else
+					r = m;
+			}
+
+			{
+				int c = r;
+
+				Console.WriteLine(count + " -> " + c);
 			}
 		}
 	}
