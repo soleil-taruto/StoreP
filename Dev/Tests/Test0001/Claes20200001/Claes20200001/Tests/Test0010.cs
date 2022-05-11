@@ -28,11 +28,10 @@ namespace Charlotte.Tests
 			// ----
 
 			int range;
-			for (range = 2; range <= count; range *= 2)
+			for (range = 1; range * 2 <= count; range *= 2)
 			{
-				CopyRangeToPoint(lines, 0, range / 2, range / 2);
+				CopyRangeToPoint(lines, 0, range, range);
 			}
-			range /= 2;
 			if (range < count)
 			{
 				CopyRangeToPoint(lines, 0, count - range, range);

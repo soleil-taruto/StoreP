@@ -73,7 +73,8 @@ namespace Charlotte
 			//new Test0009().Test05(); // JapaneseDate
 			//new Test0010().Test01();
 			//new Test0010().Test02();
-			new Test0010().Test03();
+			//new Test0010().Test03();
+			new Test0011().Test01();
 
 			// --
 		}
