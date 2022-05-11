@@ -25,14 +25,24 @@ namespace Charlotte.Tests
 		private class DLCountInfo
 		{
 			/// <summary>
-			/// 集計年月 - 年
+			/// 集計日付 - 年
 			/// </summary>
 			public int Y;
 
 			/// <summary>
-			/// 集計年月 - 月
+			/// 集計日付 - 月
 			/// </summary>
 			public int M;
+
+			/// <summary>
+			/// 集計日付 - 日
+			/// </summary>
+			public int D;
+
+			/// <summary>
+			/// ファイル番号
+			/// </summary>
+			public int FileNo;
 
 			/// <summary>
 			/// ソフト名
@@ -44,9 +54,9 @@ namespace Charlotte.Tests
 			/// </summary>
 			public int Count;
 
-			public string GetYM()
+			public string GetYMD()
 			{
-				return this.Y + "年" + this.M.ToString("D2") + "月";
+				return this.Y + "年" + this.M.ToString("D2") + "月" + this.D.ToString("D2") + "日(" + this.FileNo.ToString("D4") + ")";
 			}
 		}
 
@@ -57,8 +67,9 @@ namespace Charlotte.Tests
 		public void Test01()
 		{
 			List<DLCountInfo> dlCounts = new List<DLCountInfo>();
+			int fileNo = 1;
 
-			foreach (string file in Directory.GetFiles(INPUT_DIR))
+			foreach (string file in Directory.GetFiles(INPUT_DIR).OrderBy(SCommon.Comp)) // 一応ソートしとく
 			{
 				if (!SCommon.EndsWithIgnoreCase(file, INPUT_EXT)) // ? 拡張子が異なる。-> 対象外
 					continue;
@@ -67,6 +78,7 @@ namespace Charlotte.Tests
 
 				int y = -1;
 				int m = -1;
+				int d = -1;
 
 				foreach (string line in lines)
 				{
@@ -76,20 +88,7 @@ namespace Charlotte.Tests
 
 						y = ymd[0];
 						m = ymd[1];
-
-						// 月の前半に作成されたリスト -> 先月分と見なす。
-						// 月の後半に作成されたリスト -> 今月分と見なす。
-
-						if (ymd[2] <= 15) // ? 月の前半 -> 先月にする。
-						{
-							m--;
-
-							if (m < 1)
-							{
-								y--;
-								m = 12;
-							}
-						}
+						d = ymd[2];
 
 						break;
 					}
@@ -111,11 +110,15 @@ namespace Charlotte.Tests
 						{
 							Y = y,
 							M = m,
+							D = d,
+							FileNo = fileNo,
 							SoftName = softName,
 							Count = count,
 						});
 					}
 				}
+
+				fileNo++;
 			}
 
 			string[] softNames = dlCounts.Select(v => v.SoftName).DistinctOrderBy(SCommon.Comp).ToArray();
@@ -129,13 +132,13 @@ namespace Charlotte.Tests
 
 				writer.EndRow();
 
-				foreach (string ym in dlCounts.Select(v => v.GetYM()).DistinctOrderBy(SCommon.Comp))
+				foreach (string ymd in dlCounts.Select(v => v.GetYMD()).DistinctOrderBy(SCommon.Comp))
 				{
-					writer.WriteCell(ym);
+					writer.WriteCell(ymd);
 
 					foreach (string softName in softNames)
 					{
-						DLCountInfo dlCount = dlCounts.FirstOrDefault(v => v.GetYM() == ym && v.SoftName == softName);
+						DLCountInfo dlCount = dlCounts.FirstOrDefault(v => v.GetYMD() == ymd && v.SoftName == softName);
 
 						if (dlCount == null)
 							writer.WriteCell("");
