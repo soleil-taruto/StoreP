@@ -404,6 +404,10 @@ namespace Charlotte.Utilities
 			}
 		}
 
+		// ====
+		// レギュラーここまで、ここから拡張・ツール
+		// ====
+
 		/// <summary>
 		/// 指定された色で円を塗りつぶす。
 		/// </summary>
