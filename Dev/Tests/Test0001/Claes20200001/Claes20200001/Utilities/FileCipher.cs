@@ -8,6 +8,9 @@ using Charlotte.Commons;
 
 namespace Charlotte.Utilities
 {
+	/// <summary>
+	/// RingCipher.cs と同じ方式でファイルの暗号化・復号を行う。
+	/// </summary>
 	public class FileCipher : IDisposable
 	{
 		private AESCipher[] Transformers;
