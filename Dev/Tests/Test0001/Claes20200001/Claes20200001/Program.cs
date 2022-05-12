@@ -74,7 +74,7 @@ namespace Charlotte
 			//new Test0010().Test01();
 			//new Test0010().Test02();
 			//new Test0010().Test03();
-			//new Test0011().Test01(); // Vectorダウンロード数
+			//new Test0011().Test01(); // Vector-ダウンロード数
 			//new Test0012().Test01();
 			//new Test0012().Test02();
 			//new Test0012().Test03();
@@ -85,7 +85,8 @@ namespace Charlotte
 			//new Test0013().Test04();
 			//new Test0013().Test05();
 			//new Test0013().Test06();
-			new Test0013().Test07();
+			//new Test0013().Test07();
+			new Test0013().Test08();
 
 			// --
 		}

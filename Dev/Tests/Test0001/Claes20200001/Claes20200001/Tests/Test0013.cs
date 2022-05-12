@@ -224,5 +224,10 @@ namespace Charlotte.Tests
 				}
 			}
 		}
+
+		public void Test08()
+		{
+			Console.WriteLine("Hello, Happy World!");
+		}
 	}
 }
