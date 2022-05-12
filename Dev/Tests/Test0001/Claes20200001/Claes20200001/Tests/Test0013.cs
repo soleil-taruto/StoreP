@@ -71,7 +71,7 @@ namespace Charlotte.Tests
 			{
 				double snowCoverPerSec = (l + r) / 2;
 
-				Console.WriteLine(snowCoverPerSec.ToString("F20"));
+				Console.WriteLine(snowCoverPerSec.ToString("F30"));
 
 				// ----
 
@@ -84,7 +84,113 @@ namespace Charlotte.Tests
 				int m = (t / 60) % 60;
 				int s = t % 60;
 
-				Console.WriteLine(string.Format("{0:D2}:{1:D2}:{2:D2}", h, m, s));
+				Console.WriteLine(string.Format("雪が降り始めた時刻 ⇒ {0:D2}:{1:D2}:{2:D2} a.m.", h, m, s));
+			}
+		}
+
+		public void Test04()
+		{
+			const double snowCoverPerSec = 0.0001;
+
+			int l = 0;
+			int r = 3600 * 12;
+
+			while (l + 1 < r)
+			{
+				int snowBeganSec = (l + r) / 2;
+				double m1 = 0.0;
+				double m2 = 0.0;
+
+				for (int sec = 0; sec < 3600 * 2; sec++)
+				{
+					double snow = (snowBeganSec + sec) * snowCoverPerSec;
+					double m = 1.0 / snow;
+
+					if (sec < 3600)
+						m1 += m;
+					else
+						m2 += m;
+				}
+
+				if (m1 / m2 < 2.0)
+					r = snowBeganSec;
+				else
+					l = snowBeganSec;
+			}
+
+			{
+				int snowBeganSec = (l + r) / 2;
+
+				Console.WriteLine(snowBeganSec);
+
+				// ----
+
+				int t = 12 * 3600 - snowBeganSec;
+
+				int h = t / 3600;
+				int m = (t / 60) % 60;
+				int s = t % 60;
+
+				Console.WriteLine(string.Format("雪が降り始めた時刻 ⇒ {0:D2}:{1:D2}:{2:D2} a.m.", h, m, s));
+			}
+		}
+
+		public void Test05()
+		{
+			const double snowCoverPerSec = 0.0001;
+
+			double[] ms = new double[3600 * 14];
+
+			for (int sec = 0; sec < ms.Length; sec++)
+			{
+				double snow = sec * snowCoverPerSec;
+				double m = 1.0 / snow;
+
+				Console.WriteLine(sec + " ==> " + m.ToString("F9"));
+
+				ms[sec] = m;
+			}
+			for (int sec = 0; sec < ms.Length - 3600 * 2; sec++)
+			{
+				double m1 = 0.0;
+				double m2 = 0.0;
+
+				for (int c = 0; c < 3600; c++)
+				{
+					m1 += ms[sec + c];
+					m2 += ms[sec + 3600 + c];
+				}
+
+				Console.WriteLine(sec + " ==> " + (m1 / m2).ToString("F3"));
+			}
+
+			// ----
+
+			for (int sec = 0; sec < ms.Length - 3600 * 2; sec++)
+			{
+				double m1 = 0.0;
+				double m2 = 0.0;
+
+				for (int c = 0; c < 3600; c++)
+				{
+					m1 += ms[sec + c];
+					m2 += ms[sec + 3600 + c];
+				}
+
+				double rateOfM1M2 = m1 / m2;
+
+				// 目指すレートは rateOfM1M2 == 2.0
+				//
+				if (1.995 < rateOfM1M2 && rateOfM1M2 < 2.005)
+				{
+					int t = 12 * 3600 - sec;
+
+					int h = t / 3600;
+					int m = (t / 60) % 60;
+					int s = t % 60;
+
+					Console.WriteLine(string.Format("雪が降り始めた時刻 {0:D2}:{1:D2}:{2:D2} a.m. のとき ⇒ {3:F6}", h, m, s, rateOfM1M2));
+				}
 			}
 		}
 	}
