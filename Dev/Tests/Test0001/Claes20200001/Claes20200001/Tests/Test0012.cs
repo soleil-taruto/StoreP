@@ -40,11 +40,11 @@ namespace Charlotte.Tests
 
 		public void Test02()
 		{
-			int lastAns = 0;
+			long lastAns = 0;
 
 			for (int c = 0; c <= 100; c++)
 			{
-				int ans = 0;
+				long ans = 0;
 
 				for (int d = 1; d <= c; d++)
 				{
@@ -70,11 +70,17 @@ namespace Charlotte.Tests
 			Test03_a(100000);
 			Test03_a(300000);
 			Test03_a(1000000);
+			Test03_a(3000000);
+			Test03_a(10000000);
+			Test03_a(30000000);
+			Test03_a(100000000);
+			Test03_a(300000000);
+			Test03_a(1000000000);
 		}
 
 		private void Test03_a(int count)
 		{
-			if (count < 1 || 1000000 < count) // rough limit
+			if (count < 1 || SCommon.IMAX < count) // rough limit
 				throw null;
 
 			int l = 0;
@@ -85,7 +91,7 @@ namespace Charlotte.Tests
 				int m = (l + r) / 2;
 
 				int c = m;
-				int ans = 0;
+				long ans = 0;
 
 				for (int d = 1; d <= c; d++)
 				{
