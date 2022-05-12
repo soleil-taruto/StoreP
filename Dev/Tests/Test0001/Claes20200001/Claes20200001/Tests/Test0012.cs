@@ -110,5 +110,59 @@ namespace Charlotte.Tests
 				Console.WriteLine(count + " -> " + c);
 			}
 		}
+
+		public void Test04()
+		{
+			IEnumerator<long> e1 = Test04_a().GetEnumerator();
+			IEnumerator<long> e2 = Test04_b().GetEnumerator();
+
+			for (int t = 1; t <= 10000; t++)
+			//for (int t = 1; t <= 1000000; t++)
+			{
+				e1.MoveNext();
+				e2.MoveNext();
+
+				long v1 = e1.Current;
+				long v2 = e2.Current;
+
+				Console.WriteLine(t + " ==> " + v1 + ", " + v2);
+
+				if (v1 != v2)
+					throw null; // bug !!!
+			}
+
+			Console.WriteLine("OK!");
+		}
+
+		private IEnumerable<long> Test04_a()
+		{
+			long sum = 0;
+
+			for (int t = 1; ; t++)
+			{
+				for (int n = 1; n <= t; n++)
+				{
+					if (t % n == 0)
+					{
+						sum++;
+					}
+				}
+				yield return sum;
+			}
+		}
+
+		private IEnumerable<long> Test04_b()
+		{
+			for (int t = 1; ; t++)
+			{
+				long sum = 0;
+
+				for (int n = 1; n <= t; n++)
+				{
+					sum += t / n;
+				}
+				yield return sum;
+			}
+		}
 	}
 }
