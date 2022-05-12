@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Charlotte.Commons;
 
 namespace Charlotte.Tests
 {
@@ -190,6 +192,35 @@ namespace Charlotte.Tests
 					int s = t % 60;
 
 					Console.WriteLine(string.Format("雪が降り始めた時刻 {0:D2}:{1:D2}:{2:D2} a.m. のとき ⇒ {3:F6}", h, m, s, rateOfM1M2));
+				}
+			}
+		}
+
+		public void Test06()
+		{
+			using (WorkingDir wd = new WorkingDir())
+			{
+				string file = wd.MakePath();
+
+				Console.WriteLine(file);
+
+				File.WriteAllBytes(file, SCommon.EMPTY_BYTES);
+				//SCommon.DeletePath(file);
+
+				Common.Pause();
+			}
+		}
+
+		public void Test07()
+		{
+			for (int c = 0; c < 5; c++)
+			{
+				using (WorkingDir wd = new WorkingDir())
+				{
+					for (int d = 0; d < 5; d++)
+					{
+						Console.WriteLine(wd.MakePath());
+					}
 				}
 			}
 		}
