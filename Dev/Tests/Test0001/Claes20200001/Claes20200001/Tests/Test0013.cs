@@ -227,7 +227,11 @@ namespace Charlotte.Tests
 
 		public void Test08()
 		{
-			Console.WriteLine("Hello, Happy World!");
+			SCommon.GetJChars().ForEach(chr => Console.Write(chr));
+			Console.WriteLine("");
+
+			File.WriteAllText(Common.NextOutputPath() + ".txt", SCommon.GetJChars());
+			File.WriteAllBytes(Common.NextOutputPath() + ".txt", SCommon.GetJCharBytes().ToArray());
 		}
 	}
 }
