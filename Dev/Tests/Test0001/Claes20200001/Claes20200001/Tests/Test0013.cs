@@ -242,5 +242,139 @@ namespace Charlotte.Tests
 				knownHashes.Add(hash, str);
 			}
 		}
+
+		public void Test09()
+		{
+			Dictionary<string, List<string>> hash_strs = SCommon.CreateDictionary<List<string>>();
+
+			for (int c = 0; c <= 12000000; c++) // 0～1200万 -- OutOfMemory_ギリギリ
+			{
+				string str = "" + c;
+				string hash = "" + str.GetHashCode();
+
+				if (!hash_strs.ContainsKey(hash))
+					hash_strs.Add(hash, new List<string>());
+
+				hash_strs[hash].Add(str);
+			}
+			int collcnt = 0;
+			int collstrcnt = 0;
+			foreach (string hash in hash_strs.Keys) // 衝突したやつ列挙
+			{
+				List<string> strs = hash_strs[hash];
+
+				if (2 <= strs.Count)
+				{
+					collcnt++;
+					collstrcnt += strs.Count;
+					Console.WriteLine(hash + " == " + string.Join(" & ", strs));
+				}
+			}
+			Console.WriteLine(collcnt);
+			Console.WriteLine(collstrcnt);
+
+			// ----
+
+			foreach (string hash in hash_strs.Keys) // 3つ以上衝突したやつ列挙
+			{
+				List<string> strs = hash_strs[hash];
+
+				if (3 <= strs.Count)
+					Console.WriteLine(hash + " == " + string.Join(" & ", strs));
+			}
+		}
+
+		public void Test10()
+		{
+			Test10_a(100);
+			Test10_a(300);
+			Test10_a(1000);
+			Test10_a(3000);
+			Test10_a(10000);
+			Test10_a(30000);
+			Test10_a(100000);
+			Test10_a(300000);
+			Test10_a(1000000);
+		}
+
+		private void Test10_a(int denom)
+		{
+			for (int testcnt = 0; testcnt < 5; testcnt++)
+			{
+				Test10_b(denom);
+			}
+		}
+
+		private void Test10_b(int denom)
+		{
+			HashSet<string> values = SCommon.CreateSet();
+
+			for (int count = 0; count < denom; count++)
+			{
+				values.Add("" + SCommon.CRandom.GetInt(denom));
+			}
+			int numer = values.Count;
+
+			double rate = (double)numer / denom;
+			Console.WriteLine(rate.ToString("F9") + " == " + numer + " / " + denom);
+
+			// だいたい rate == 1 - 1 / e になるっぽい。-- 0.632 くらい
+		}
+
+		public void Test11()
+		{
+			Test11_a(100);
+			Test11_a(300);
+			Test11_a(1000);
+			Test11_a(3000);
+			Test11_a(10000);
+			Test11_a(30000);
+			Test11_a(100000);
+			Test11_a(300000);
+			Test11_a(1000000);
+		}
+
+		private void Test11_a(int denom)
+		{
+			for (int nest = 1; nest <= 10; nest++)
+			{
+				for (int testcnt = 0; testcnt < 3; testcnt++)
+				{
+					Test11_b(denom, nest);
+				}
+			}
+
+			Console.WriteLine("----");
+		}
+
+		private void Test11_b(int denom, int nest)
+		{
+			HashSet<string> values = SCommon.CreateSet();
+
+			int[] table = Enumerable.Range(0, denom)
+				.Select(dummy => SCommon.CRandom.GetInt(denom))
+				.ToArray();
+
+			for (int count = 0; count < denom; count++)
+			{
+				int value = count;
+
+				for (int n = 0; n < nest; n++)
+				{
+					value = table[value];
+				}
+				values.Add("" + value);
+			}
+			int numer = values.Count;
+
+			double rate = (double)numer / denom;
+			Console.WriteLine(rate.ToString("F9") + " (" + nest + ") == " + numer + " / " + denom);
+
+			// だいたい下記くらいになるっぽい。
+			//
+			// nest ==  1 --> rate == 0.632
+			// nest ==  4 --> rate == 0.312
+			// nest == 10 --> rate == 0.158
+		}
 	}
 }
