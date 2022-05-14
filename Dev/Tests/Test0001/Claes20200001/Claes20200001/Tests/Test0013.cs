@@ -227,59 +227,20 @@ namespace Charlotte.Tests
 
 		public void Test08()
 		{
-			for (int c = 0; c < 100; c++)
+			Dictionary<string, string> knownHashes = SCommon.CreateDictionary<string>();
+
+			for (int c = 0; ; c++)
 			{
 				string str = "" + c;
+				string hash = "" + str.GetHashCode();
 
-				Console.WriteLine(str.GetHashCode() + " == " + String_GetHashCode(str));
-			}
-		}
-
-		private int String_GetHashCode(string src)
-		{
-			//Contract.Assert(src[this.Length] == '\0', "src[this.Length] == '\\0'");
-			//Contract.Assert(((int)src) % 4 == 0, "Managed string should start at 4 bytes boundary");
-
-#if true//WIN32
-			int hash1 = (5381 << 16) + 5381;
-#else
-			int hash1 = 5381;
-#endif
-			int hash2 = hash1;
-
-#if true//WIN32
-			// 32 bit machines.
-			string pint = src;
-			int len = src.Length * 2;
-			int p = 0;
-			while (len > 2)
-			{
-				hash1 = ((hash1 << 5) + hash1 + (hash1 >> 27)) ^ (int)pint[p];
-				hash2 = ((hash2 << 5) + hash2 + (hash2 >> 27)) ^ (int)pint[p + 1];
-				p += 2;
-				len -= 4;
-			}
-
-			if (len > 0)
-			{
-				hash1 = ((hash1 << 5) + hash1 + (hash1 >> 27)) ^ (int)pint[p];
-			}
-#else
-			int c;
-			string s = src;
-			for (int i = 0; i < s.Length; i += 2)
-			//while ((c = s[0]) != 0)
-			{
-				c = s[i + 0];
-				hash1 = ((hash1 << 5) + hash1) ^ c;
-				if (s.Length <= i + 1)
+				if (knownHashes.ContainsKey(hash))
+				{
+					Console.WriteLine(hash + " == " + knownHashes[hash] + " & " + str);
 					break;
-				c = s[i + 1];
-				hash2 = ((hash2 << 5) + hash2) ^ c;
-				//s += 2;
+				}
+				knownHashes.Add(hash, str);
 			}
-#endif
-			return hash1 + (hash2 * 1566083941);
 		}
 	}
 }
