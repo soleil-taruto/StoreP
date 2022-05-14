@@ -359,6 +359,9 @@ namespace Charlotte.Commons
 		{
 			if (double.IsNaN(value))
 				throw new Exception("NaN");
+
+			if (double.IsInfinity(value))
+				throw new Exception("Infinity");
 		}
 
 		public static double ToRange(double value, double minval, double maxval)

@@ -87,5 +87,146 @@ namespace Charlotte.Tests
 				}
 			}
 		}
+
+		public void Test02()
+		{
+			Test02_a(new string[] { "123", "ABC", "abc" });
+			Test02_a(new string[] { "123456", "ABCDEF", "abcdef" });
+			Test02_a(new string[] { "123456789", "ABCDEFGHI", "abcdefghi" });
+			Test02_a(new string[] { @"
+
+123456789
+123456789
+123456789
+123456789
+123456789
+123456789
+123456789
+123456789
+123456789
+
+", @"
+
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+ABCDEFGHI
+
+", @"
+
+abcdefghi
+abcdefghi
+abcdefghi
+abcdefghi
+abcdefghi
+abcdefghi
+abcdefghi
+abcdefghi
+abcdefghi
+
+"
+			});
+			Test02_a(new string[] { @"
+
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+", @"
+
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI ABCDEFGHI
+
+", @"
+
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi
+
+"
+			});
+		}
+
+		private void Test02_a(string[] src)
+		{
+			string enc = SCommon.Serializer.I.Join(src);
+
+			int s1 = src.Select(v => v.Length).Sum();
+			int s2 = enc.Length;
+
+			Console.WriteLine((double)s2 / s1);
+		}
+
+		public void Test03()
+		{
+			Console.WriteLine(double.IsNaN(double.NaN)); // True
+			Console.WriteLine(double.IsNaN(double.PositiveInfinity)); // False
+			Console.WriteLine(double.IsNaN(double.NegativeInfinity)); // False
+
+			Console.WriteLine(double.IsInfinity(double.NaN)); // False
+			Console.WriteLine(double.IsInfinity(double.PositiveInfinity)); // True
+			Console.WriteLine(double.IsInfinity(double.NegativeInfinity)); // True
+
+			Console.WriteLine(double.IsPositiveInfinity(double.NaN)); // False
+			Console.WriteLine(double.IsPositiveInfinity(double.PositiveInfinity)); // True
+			Console.WriteLine(double.IsPositiveInfinity(double.NegativeInfinity)); // False
+
+			Console.WriteLine(double.IsNegativeInfinity(double.NaN)); // False
+			Console.WriteLine(double.IsNegativeInfinity(double.PositiveInfinity)); // False
+			Console.WriteLine(double.IsNegativeInfinity(double.NegativeInfinity)); // True
+
+			// ----
+
+			try
+			{
+				SCommon.ToInt(double.NaN);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
+			try
+			{
+				SCommon.ToInt(double.PositiveInfinity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
+			try
+			{
+				SCommon.ToInt(double.NegativeInfinity);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+		}
 	}
 }

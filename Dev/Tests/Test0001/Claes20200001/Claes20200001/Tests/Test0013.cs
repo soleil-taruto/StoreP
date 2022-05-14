@@ -14,6 +14,8 @@ namespace Charlotte.Tests
 			"ASAHI-ROKKA".ForEach(chr => Console.WriteLine(chr));
 		}
 
+		// memo: 除雪車の速度と積雪深を掛けた値が一定としているけど、あってるこれ？
+
 		public void Test02()
 		{
 			for (double snowCoverPerSec = 0.000445; snowCoverPerSec < 0.000455; snowCoverPerSec += 0.000000001)
