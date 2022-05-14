@@ -343,6 +343,16 @@ namespace Charlotte.Commons
 			return new Dictionary<string, V>(new IECompStringIgnoreCase());
 		}
 
+		public static HashSet<string> CreateSet()
+		{
+			return new HashSet<string>(new IECompString());
+		}
+
+		public static HashSet<string> CreateSetIgnoreCase()
+		{
+			return new HashSet<string>(new IECompStringIgnoreCase());
+		}
+
 		public const double MICRO = 1.0 / IMAX;
 
 		private static void CheckNaN(double value)
