@@ -228,5 +228,10 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 				Console.WriteLine(ex.Message);
 			}
 		}
+
+		public void Test04()
+		{
+			Console.WriteLine("HELLO, HAPPY WORLD!");
+		}
 	}
 }
