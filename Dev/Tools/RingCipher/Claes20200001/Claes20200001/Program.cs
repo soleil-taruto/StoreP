@@ -64,8 +64,26 @@ namespace Charlotte
 			}
 		}
 
+		private enum MemoryMode_e
+		{
+			AUTO = 1,
+			FORCE_ON_MEMORY,
+			FORCE_NON_ON_MEMORY,
+		}
+
 		private void Main5(ArgsReader ar)
 		{
+			MemoryMode_e memoryMode = MemoryMode_e.AUTO;
+
+			if (ar.ArgIs("/M+"))
+			{
+				memoryMode = MemoryMode_e.FORCE_ON_MEMORY;
+			}
+			if (ar.ArgIs("/M-"))
+			{
+				memoryMode = MemoryMode_e.FORCE_NON_ON_MEMORY;
+			}
+
 			byte[] rawKey;
 
 			if (ar.ArgIs("/K"))
@@ -141,11 +159,38 @@ namespace Charlotte
 
 			try
 			{
+				bool onMemory;
+
+				if (memoryMode == MemoryMode_e.AUTO)
+				{
+					FileInfo fileInfo = new FileInfo(procTargFile);
+
+					if (fileInfo.Length <= Consts.ON_MEMORY_FILE_SIZE_MAX)
+					{
+						onMemory = true;
+					}
+					else
+					{
+						onMemory = false;
+					}
+				}
+				else if (memoryMode == MemoryMode_e.FORCE_ON_MEMORY)
+				{
+					onMemory = true;
+				}
+				else if (memoryMode == MemoryMode_e.FORCE_NON_ON_MEMORY)
+				{
+					onMemory = false;
+				}
+				else
+				{
+					throw null; // never
+				}
+
+				Console.WriteLine("onMemory: " + onMemory);
 				ProcMain.WriteLog("Start");
 
-				FileInfo procTargFileInfo = new FileInfo(procTargFile);
-
-				if (procTargFileInfo.Length <= Consts.ON_MEMORY_FILE_SIZE_MAX)
+				if (onMemory)
 				{
 					using (RingCipher transformer = new RingCipher(rawKey))
 					{
@@ -170,7 +215,7 @@ namespace Charlotte
 					}
 				}
 
-				ProcMain.WriteLog("Successful!");
+				ProcMain.WriteLog("Successful");
 			}
 			catch
 			{
