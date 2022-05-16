@@ -19,6 +19,7 @@ namespace Charlotte
 		{
 			ProcMain.CUIMain(new Program().Main2);
 		}
+
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
