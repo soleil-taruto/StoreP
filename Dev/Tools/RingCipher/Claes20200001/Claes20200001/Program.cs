@@ -75,11 +75,11 @@ namespace Charlotte
 		{
 			MemoryMode_e memoryMode = MemoryMode_e.AUTO;
 
-			if (ar.ArgIs("/M+"))
+			if (ar.ArgIs("/M"))
 			{
 				memoryMode = MemoryMode_e.FORCE_ON_MEMORY;
 			}
-			if (ar.ArgIs("/M-"))
+			if (ar.ArgIs("/F"))
 			{
 				memoryMode = MemoryMode_e.FORCE_NON_ON_MEMORY;
 			}
@@ -96,7 +96,7 @@ namespace Charlotte
 			}
 			else
 			{
-				throw new Exception("Bad command option (not /K or /P)");
+				throw new Exception("Bad command line option (not /K or /P)");
 			}
 
 			Console.WriteLine("rawKey: " + SCommon.Hex.ToString(rawKey));
@@ -113,7 +113,7 @@ namespace Charlotte
 			}
 			else
 			{
-				throw new Exception("Bad command option (not /E or /D)");
+				throw new Exception("Bad command line option (not /E or /D)");
 			}
 
 			Console.WriteLine("encryptMode: " + encryptMode);
@@ -164,11 +164,11 @@ namespace Charlotte
 				if (memoryMode == MemoryMode_e.AUTO)
 				{
 					FileInfo fileInfo = new FileInfo(procTargFile);
-					long fileLength = fileInfo.Length;
+					long fileSize = fileInfo.Length;
 
-					Console.WriteLine("fileLength: " + fileLength);
+					Console.WriteLine("fileSize: " + fileSize);
 
-					if (fileLength <= Consts.ON_MEMORY_FILE_SIZE_MAX)
+					if (fileSize <= Consts.ON_MEMORY_FILE_SIZE_MAX)
 					{
 						onMemory = true;
 					}
