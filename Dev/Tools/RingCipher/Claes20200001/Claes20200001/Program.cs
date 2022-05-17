@@ -164,8 +164,11 @@ namespace Charlotte
 				if (memoryMode == MemoryMode_e.AUTO)
 				{
 					FileInfo fileInfo = new FileInfo(procTargFile);
+					long fileLength = fileInfo.Length;
 
-					if (fileInfo.Length <= Consts.ON_MEMORY_FILE_SIZE_MAX)
+					Console.WriteLine("fileLength: " + fileLength);
+
+					if (fileLength <= Consts.ON_MEMORY_FILE_SIZE_MAX)
 					{
 						onMemory = true;
 					}
