@@ -84,7 +84,7 @@ namespace Charlotte
 
 		private void ProcJSPFile(string file)
 		{
-			ProcMain.WriteLog("file " + file);
+			ProcMain.WriteLog("file: " + file);
 
 			string text = File.ReadAllText(file, Encoding.UTF8);
 
