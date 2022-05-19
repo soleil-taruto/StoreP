@@ -98,7 +98,7 @@ namespace Charlotte.WebServices
 				{
 					if (src[index] == 0x25) // ? '%'
 					{
-						dest.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(SCommon.GetSubBytes(src, index + 1, 2)), 16));
+						dest.WriteByte((byte)Convert.ToInt32(Encoding.ASCII.GetString(P_GetBytesRange(src, index + 1, 2)), 16));
 						index += 2;
 					}
 					else if (src[index] == 0x2b) // ? '+'
@@ -118,6 +118,13 @@ namespace Charlotte.WebServices
 
 				return Encoding.UTF8.GetString(bytes);
 			}
+		}
+
+		private static byte[] P_GetBytesRange(byte[] src, int offset, int size)
+		{
+			byte[] dest = new byte[size];
+			Array.Copy(src, offset, dest, 0, size);
+			return dest;
 		}
 
 		public string FirstLine;

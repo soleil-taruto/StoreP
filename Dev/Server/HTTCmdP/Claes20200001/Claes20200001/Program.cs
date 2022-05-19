@@ -67,14 +67,15 @@ namespace Charlotte
 			{
 				Main5(ar);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				SockCommon.WriteLog(SockCommon.ErrorLevel_e.FATAL, e);
-			}
+				ProcMain.WriteLog(ex);
 
-			// 実行ファイルのダブルクリックやドキュメントルート(フォルダ)のドラッグアンドドロップで起動して
-			// エラーになった場合、一瞬でコンソールが閉じてしまうので、少しだけ待つ。
-			Thread.Sleep(500);
+				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				Console.ReadLine();
+			}
 		}
 
 		private void Main5(ArgsReader ar)
@@ -231,40 +232,19 @@ namespace Charlotte
 
 			string docRoot = this.DocRoot;
 			string host = GetHeaderValue(channel, "Host");
-			if (host != null)
+			if (host != null && this.Host2DocRoot != null)
 			{
-				string hostName;
-				int hostPortNo;
+				string hostName = host;
 
-				// host -> hostName, hostPortNo
+				// ポート番号除去
 				{
-					int colon = host.IndexOf(':');
+					int colon = hostName.IndexOf(':');
 
 					if (colon != -1)
-					{
-						hostName = host.Substring(0, colon);
-						hostPortNo = int.Parse(host.Substring(colon + 1));
-					}
-					else
-					{
-						hostName = host;
-						hostPortNo = 80;
-					}
+						hostName = hostName.Substring(0, colon);
 				}
 
-				if (hostPortNo != 80) // ポート番号80以外は80へ飛ばす。★自宅サーバー特有の処理
-				{
-					channel.ResStatus = 301;
-					channel.ResHeaderPairs.Add(new string[] { "Location", "http://" + hostName + channel.PathQuery });
-					//channel.ResBody = null;
-
-					goto endFunc;
-				}
-
-				if (
-					this.Host2DocRoot != null &&
-					this.Host2DocRoot.ContainsKey(hostName)
-					)
+				if (this.Host2DocRoot.ContainsKey(hostName))
 					docRoot = this.Host2DocRoot[hostName];
 			}
 
@@ -283,7 +263,7 @@ namespace Charlotte
 
 			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "要求パス：" + urlPath);
 
-			string relPath = Common.ToFairRelPath(urlPath, docRoot.Length);
+			string relPath = urlPath == "/" ? "" : SCommon.ToFairRelPath(urlPath, docRoot.Length);
 			string path = Path.Combine(docRoot, relPath);
 
 			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "目的パス：" + path);
@@ -328,6 +308,10 @@ namespace Charlotte
 					channel.ResBody = E_ReadFile(this.Page404File);
 				}
 			}
+
+		endFunc:
+			channel.ResHeaderPairs.Add(new string[] { "Server", "HTTCmd-P" });
+
 			if (head && channel.ResBody != null)
 			{
 				FileInfo fileInfo = new FileInfo(path);
@@ -337,9 +321,6 @@ namespace Charlotte
 
 				channel.ResBody = null;
 			}
-
-		endFunc:
-			channel.ResHeaderPairs.Add(new string[] { "Server", "HTTCmd-P" });
 
 			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "RES-STATUS " + channel.ResStatus);
 

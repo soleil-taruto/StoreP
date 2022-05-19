@@ -39,7 +39,9 @@ namespace Charlotte.Actions
 				if (group == null)
 					throw new ArgumentNullException("group is null");
 
-				if (!Regex.IsMatch(group, "^[-0-9A-Za-z]+$"))
+				group = SCommon.ToJString(Encoding.ASCII.GetBytes(group), false, false, false, false); // 2bs
+
+				if (Regex.IsMatch("^[-0-9A-Za-z]*$", group))
 					throw new Exception("Bad group: " + group);
 
 				// ----
@@ -52,7 +54,7 @@ namespace Charlotte.Actions
 
 				clientIP = SCommon.ToJString(Encoding.ASCII.GetBytes(clientIP), false, false, false, false); // 2bs
 
-				if (!Regex.IsMatch(clientIP, "^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$"))
+				if (Regex.IsMatch("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", clientIP))
 					throw new Exception("Bad clientIP: " + clientIP);
 
 				DateTime now = DateTime.Now;

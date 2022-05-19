@@ -4,29 +4,38 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 
-namespace Charlotte.Camellias
+namespace Charlotte.Utilities
 {
 	public class CtrCipher : IDisposable
 	{
 		public static CtrCipher CreateTemporary()
 		{
-			return new CtrCipher(SCommon.CRandom.GetBytes(32));
+			return new CtrCipher(SCommon.CRandom.GetBytes(32), SCommon.CRandom.GetBytes(16));
 		}
 
-		private Camellia Camellia;
+		private AESCipher Transformer;
+		private byte[] InitializationVector;
 		private byte[] Counter = new byte[16];
 		private byte[] Buffer = new byte[16];
 		private int Index;
 
-		public CtrCipher(byte[] rawKey)
+		public CtrCipher(byte[] rawKey, byte[] iv)
 		{
-			this.Camellia = new Camellia(rawKey);
+			if (
+				rawKey == null ||
+				iv == null ||
+				iv.Length != 16
+				)
+				throw new ArgumentException();
+
+			this.Transformer = new AESCipher(rawKey);
+			this.InitializationVector = iv;
 			this.Reset();
 		}
 
 		public void Reset()
 		{
-			Array.Clear(this.Counter, 0, 16);
+			Array.Copy(this.InitializationVector, this.Counter, 16);
 			this.Index = 16;
 		}
 
@@ -34,7 +43,7 @@ namespace Charlotte.Camellias
 		{
 			if (this.Index == 16)
 			{
-				this.Camellia.EncryptBlock(this.Counter, this.Buffer);
+				this.Transformer.EncryptBlock(this.Counter, this.Buffer);
 				this.Increment();
 				this.Index = 0;
 			}
@@ -43,7 +52,7 @@ namespace Charlotte.Camellias
 
 		private void Increment()
 		{
-			for (int index = 0; ; index++)
+			for (int index = 0; index < 16; index++)
 			{
 				if (this.Counter[index] < 255)
 				{
@@ -69,10 +78,10 @@ namespace Charlotte.Camellias
 
 		public void Dispose()
 		{
-			if (this.Camellia != null)
+			if (this.Transformer != null)
 			{
-				this.Camellia.Dispose();
-				this.Camellia = null;
+				this.Transformer.Dispose();
+				this.Transformer = null;
 			}
 		}
 	}

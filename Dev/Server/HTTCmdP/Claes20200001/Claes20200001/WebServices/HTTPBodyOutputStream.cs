@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Charlotte.Commons;
-using Charlotte.Camellias;
+using Charlotte.Utilities;
 
 namespace Charlotte.WebServices
 {
@@ -49,7 +49,7 @@ namespace Charlotte.WebServices
 			public byte[] ToByteArray()
 			{
 				byte[] data = File.ReadAllBytes(this.BufferFile);
-				File.WriteAllBytes(this.BufferFile, SCommon.EMPTY_BYTES);
+				SCommon.DeletePath(this.BufferFile);
 				this.WroteSize = 0;
 
 				this.CtrCipher.Reset();

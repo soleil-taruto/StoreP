@@ -28,7 +28,7 @@ namespace Charlotte
 		private ProgramDataFolder()
 		{ }
 
-		private static string RootDir = Path.Combine(Environment.GetEnvironmentVariable("ProgramData"), "CCSP-" + ProcMain.APP_IDENT);
+		private static string RootDir = Path.Combine(Environment.GetEnvironmentVariable("ProgramData"), "CCSP-{c4323a86-2bf7-4f92-8262-daeae5ca0aba}");
 
 		/// <summary>
 		/// 利用者：Action_AccessCounter
