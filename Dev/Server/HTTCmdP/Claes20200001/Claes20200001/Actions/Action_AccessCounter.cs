@@ -101,7 +101,7 @@ namespace Charlotte.Actions
 
 				if (accessHistoryIndex != -1) // ? アクセス履歴に有り
 				{
-					// nop
+					// noop
 				}
 				else // ? アクセス履歴に無し
 				{

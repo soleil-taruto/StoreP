@@ -219,11 +219,11 @@ namespace Charlotte
 			}
 			else if (channel.Method == "GET")
 			{
-				// nop
+				// noop
 			}
 			else if (channel.Method == "POST")
 			{
-				// nop
+				// noop
 			}
 			else
 			{
@@ -309,7 +309,7 @@ namespace Charlotte
 			}
 			if (ActionServer.TryPerform(head, urlPath, channel))
 			{
-				// nop
+				// noop
 			}
 			else if (File.Exists(path))
 			{
