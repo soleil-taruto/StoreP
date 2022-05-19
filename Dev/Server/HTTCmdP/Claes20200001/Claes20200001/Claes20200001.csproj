@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ActionServer.cs" />
     <Compile Include="Actions\Action_AccessCounter.cs" />
+    <Compile Include="Actions\Action_RemoteEndPoint.cs" />
     <Compile Include="Common.cs" />
     <Compile Include="Commons\ArgsReader.cs" />
     <Compile Include="Commons\CsvFileReader.cs" />
