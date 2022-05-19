@@ -162,7 +162,7 @@ namespace Charlotte
 					index = p;
 				}
 			}
-			File.WriteAllText(file, text, new UTF8Encoding(true)); // UTF-8 + BOM
+			File.WriteAllText(file, text, Encoding.UTF8);
 		}
 	}
 }
