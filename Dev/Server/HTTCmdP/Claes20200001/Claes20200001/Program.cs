@@ -284,8 +284,18 @@ namespace Charlotte
 
 			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "要求パス：" + urlPath);
 
-			string relPath = urlPath == "/" ? "" : SCommon.ToFairRelPath(urlPath, docRoot.Length);
-			string path = Path.Combine(docRoot, relPath);
+			string relPath;
+			string path;
+			if (urlPath == "/")
+			{
+				relPath = "_ROOT"; // ダミーで何か入れておく
+				path = docRoot;
+			}
+			else
+			{
+				relPath = SCommon.ToFairRelPath(urlPath, docRoot.Length);
+				path = Path.Combine(docRoot, relPath);
+			}
 
 			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "目的パス：" + path);
 

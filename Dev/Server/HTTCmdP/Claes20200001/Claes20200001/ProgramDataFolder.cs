@@ -26,7 +26,9 @@ namespace Charlotte
 		}
 
 		private ProgramDataFolder()
-		{ }
+		{
+			SCommon.CreateDir(RootDir);
+		}
 
 		private static string RootDir = Path.Combine(Environment.GetEnvironmentVariable("ProgramData"), "CCSP-{c4323a86-2bf7-4f92-8262-daeae5ca0aba}");
 
@@ -36,7 +38,6 @@ namespace Charlotte
 		/// <returns>パス</returns>
 		public string GetAccessCounterFile()
 		{
-			SCommon.CreateDir(RootDir);
 			string file = Path.Combine(RootDir, "AccessCounter.txt");
 
 			if (!File.Exists(file))
