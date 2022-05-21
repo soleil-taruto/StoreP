@@ -371,7 +371,7 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 			List<string> both2 = new List<string>();
 			List<string> only2 = new List<string>();
 
-			SCommon.Merge(list1, list2, SCommon.Comp, v => only1.Add(v), v => both1.Add(v), v => both2.Add(v), v => only2.Add(v));
+			SCommon.Merge(list1, list2, SCommon.Comp, only1, both1, both2, only2);
 
 			if (SCommon.Comp(only1, lo, SCommon.Comp) != 0) // ? 不一致
 				throw null; // bug !
