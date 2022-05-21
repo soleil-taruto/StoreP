@@ -232,15 +232,98 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 		public void Test04()
 		{
-			char[] chrs = SCommon.GetJChars().ToArray();
-
-			using (StreamWriter writer = new StreamWriter(Common.NextOutputPath() + ".txt", false, Encoding.UTF8))
+			using (StreamWriter writer = new StreamWriter(Common.NextOutputPath() + ".txt", false, Encoding.Unicode))
 			{
-				foreach (char chr in SCommon.GetJChars().ToArray())
+				foreach (char chr in SCommon.GetJChars().ToArray().DistinctOrderBy((a, b) => (int)a - (int)b))
 				{
-					writer.WriteLine(chrs.Where(v => v == chr).Count() + " (" + ((int)chr).ToString("x4") + ") " + chr);
+					writer.WriteLine(((int)chr).ToString("x4") + " " + chr);
 				}
 			}
+		}
+
+		public void Test05()
+		{
+			Test05_a(100);
+			Test05_a(300);
+			Test05_a(1000);
+			Test05_a(3000);
+			Test05_a(10000);
+			Test05_a(30000);
+			Test05_a(100000);
+			Test05_a(300000);
+			Test05_a(1000000);
+			Test05_a(3000000);
+		}
+
+		private void Test05_a(int scale)
+		{
+			HashSet<string> hs = SCommon.CreateSet();
+
+			for (int count = 1; count <= scale; count++)
+				hs.Add("" + count);
+
+			for (int step = 1; step <= 10; step++)
+			{
+				HashSet<string> hs2 = SCommon.CreateSet();
+
+				foreach (string h in hs)
+				{
+					string h2 = "" + h.GetHashCode();
+
+					if (!hs2.Contains(h2))
+						hs2.Add(h2);
+				}
+				hs = hs2;
+			}
+			Console.WriteLine(((double)hs.Count / scale).ToString("F6") + " " + scale + " ==> " + hs.Count);
+		}
+
+		public void Test06()
+		{
+			using (CsvFileWriter writer = new CsvFileWriter(Common.NextOutputPath() + ".csv"))
+			{
+				Test06_a(writer, 100);
+				Test06_a(writer, 300);
+				Test06_a(writer, 1000);
+				Test06_a(writer, 3000);
+				Test06_a(writer, 10000);
+				Test06_a(writer, 30000);
+				Test06_a(writer, 100000);
+				Test06_a(writer, 300000);
+				Test06_a(writer, 1000000);
+				Test06_a(writer, 3000000);
+			}
+		}
+
+		private void Test06_a(CsvFileWriter writer, int scale)
+		{
+			Console.WriteLine(scale); // cout
+
+			HashSet<string> hs = SCommon.CreateSet();
+
+			for (int count = 1; count <= scale; count++)
+				hs.Add("" + count);
+
+			for (int step = 1; step <= 30; step++)
+			{
+				Console.WriteLine(scale + ", " + step); // cout
+
+				{
+					HashSet<string> hs2 = SCommon.CreateSet();
+
+					foreach (string h in hs)
+					{
+						string h2 = "" + ((uint)h.GetHashCode() % scale);
+
+						if (!hs2.Contains(h2))
+							hs2.Add(h2);
+					}
+					hs = hs2;
+				}
+
+				writer.WriteCell(((double)hs.Count() / scale).ToString("F9"));
+			}
+			writer.EndRow();
 		}
 	}
 }
