@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.Commons;
+using System.IO;
 
 namespace Charlotte.Tests
 {
@@ -231,7 +232,15 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 		public void Test04()
 		{
-			Console.WriteLine("HELLO, HAPPY WORLD!");
+			char[] chrs = SCommon.GetJChars().ToArray();
+
+			using (StreamWriter writer = new StreamWriter(Common.NextOutputPath() + ".txt", false, Encoding.UTF8))
+			{
+				foreach (char chr in SCommon.GetJChars().ToArray())
+				{
+					writer.WriteLine(chrs.Where(v => v == chr).Count() + " (" + ((int)chr).ToString("x4") + ") " + chr);
+				}
+			}
 		}
 	}
 }
