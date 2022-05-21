@@ -363,7 +363,7 @@ namespace Charlotte.WebServices
 
 		public int ResStatus = 200;
 		public List<string[]> ResHeaderPairs = new List<string[]>();
-		public IEnumerable<byte[]> ResBody = null;
+		public IEnumerable<byte[]> ResBody = null; // ゼロバイトの要素を含んでも良い。null-のときゼロバイトの応答ボディを応答する。
 
 		// <-- HTTPConnected 内で(必要に応じて)設定しなければならないフィールド
 

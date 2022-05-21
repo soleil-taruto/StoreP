@@ -56,5 +56,46 @@ namespace Charlotte.Tests
 
 			hs.Perform();
 		}
+
+		public void Test02()
+		{
+			HTTPServer hs = new HTTPServer()
+			{
+				HTTPConnected = channel =>
+				{
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "application/octet-stream" });
+					channel.ResBody = E_TextBody();
+				},
+			};
+
+			hs.Perform();
+		}
+
+		private IEnumerable<byte[]> E_TextBody()
+		{
+			List<byte[]> buff = new List<byte[]>();
+			int size = 0;
+
+			foreach (byte[] part in E_TextBody_P())
+			{
+				buff.Add(part);
+				size += part.Length;
+
+				if (1000000 < size)
+				{
+					yield return SCommon.Join(buff);
+					size = 0;
+				}
+			}
+			yield return SCommon.Join(buff);
+		}
+
+		private IEnumerable<byte[]> E_TextBody_P()
+		{
+			for (int count = 1; count <= SCommon.IMAX; count++)
+			{
+				yield return Encoding.ASCII.GetBytes(count + "\r\n");
+			}
+		}
 	}
 }
