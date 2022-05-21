@@ -325,5 +325,65 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 			}
 			writer.EndRow();
 		}
+
+		public void Test07()
+		{
+			foreach (int a in new int[] { 10, 30, 100 })
+			{
+				foreach (int b in new int[] { 10, 30, 100 })
+				{
+					foreach (int c in new int[] { 10, 30, 100 })
+					{
+						foreach (int d in new int[] { 10, 30, 100 })
+						{
+							Console.WriteLine(a + ", " + b + ", " + c + ", " + d); // cout
+
+							for (int testcnt = 0; testcnt < 100; testcnt++)
+							{
+								Test07_a(a, b, c, d);
+							}
+						}
+					}
+				}
+			}
+
+			Console.WriteLine("OK!"); // cout
+		}
+
+		private void Test07_a(int loNum, int roNum, int beNum, int valScale)
+		{
+			string[] lo = Enumerable.Range(1, loNum).Select(dummy => SCommon.CRandom.GetInt(valScale) + "_1").ToArray();
+			string[] ro = Enumerable.Range(1, roNum).Select(dummy => SCommon.CRandom.GetInt(valScale) + "_2").ToArray();
+			string[] be = Enumerable.Range(1, beNum).Select(dummy => SCommon.CRandom.GetInt(valScale) + "_B").ToArray();
+
+			Array.Sort(lo, SCommon.Comp);
+			Array.Sort(ro, SCommon.Comp);
+			Array.Sort(be, SCommon.Comp);
+
+			string[] list1 = lo.Concat(be).ToArray();
+			string[] list2 = ro.Concat(be).ToArray();
+
+			SCommon.CRandom.Shuffle(list1);
+			SCommon.CRandom.Shuffle(list2);
+
+			List<string> only1 = new List<string>();
+			List<string> both1 = new List<string>();
+			List<string> both2 = new List<string>();
+			List<string> only2 = new List<string>();
+
+			SCommon.Merge(list1, list2, SCommon.Comp, v => only1.Add(v), v => both1.Add(v), v => both2.Add(v), v => only2.Add(v));
+
+			if (SCommon.Comp(only1, lo, SCommon.Comp) != 0) // ? 不一致
+				throw null; // bug !
+
+			if (SCommon.Comp(both1, be, SCommon.Comp) != 0) // ? 不一致
+				throw null; // bug !
+
+			if (SCommon.Comp(both2, be, SCommon.Comp) != 0) // ? 不一致
+				throw null; // bug !
+
+			if (SCommon.Comp(only2, ro, SCommon.Comp) != 0) // ? 不一致
+				throw null; // bug !
+		}
 	}
 }

@@ -2259,15 +2259,15 @@ namespace Charlotte.Commons
 		/// <summary>
 		/// マージする。
 		/// </summary>
-		/// <typeparam name="T">任意の型</typeparam>
+		/// <typeparam name="T">リストの要素の型</typeparam>
 		/// <param name="list1">リスト1 -- 勝手にソートすることに注意！</param>
 		/// <param name="list2">リスト2 -- 勝手にソートすることに注意！</param>
 		/// <param name="comp">要素の比較メソッド</param>
-		/// <param name="only1">出力先 -- リスト1のみ存在</param>
-		/// <param name="both1">出力先 -- 両方に存在 -- リスト1の要素を追加</param>
-		/// <param name="both2">出力先 -- 両方に存在 -- リスト2の要素を追加</param>
-		/// <param name="only2">出力先 -- リスト2のみ存在</param>
-		public static void Merge<T>(IList<T> list1, IList<T> list2, Comparison<T> comp, List<T> only1, List<T> both1, List<T> both2, List<T> only2)
+		/// <param name="addToOnly1">出力 -- リスト1のみ存在</param>
+		/// <param name="addToBoth1">出力 -- 両方に存在 -- リスト1の要素を追加</param>
+		/// <param name="addToBoth2">出力 -- 両方に存在 -- リスト2の要素を追加</param>
+		/// <param name="addToOnly2">出力 -- リスト2のみ存在</param>
+		public static void Merge<T>(IList<T> list1, IList<T> list2, Comparison<T> comp, Action<T> addToOnly1, Action<T> addToBoth1, Action<T> addToBoth2, Action<T> addToOnly2)
 		{
 			P_Sort(list1, comp);
 			P_Sort(list2, comp);
@@ -2281,25 +2281,25 @@ namespace Charlotte.Commons
 
 				if (ret < 0)
 				{
-					only1.Add(list1[index1++]);
+					addToOnly1(list1[index1++]);
 				}
 				else if (0 < ret)
 				{
-					only2.Add(list2[index2++]);
+					addToOnly2(list2[index2++]);
 				}
 				else
 				{
-					both1.Add(list1[index1++]);
-					both2.Add(list2[index2++]);
+					addToBoth1(list1[index1++]);
+					addToBoth2(list2[index2++]);
 				}
 			}
 			while (index1 < list1.Count)
 			{
-				only1.Add(list1[index1++]);
+				addToOnly1(list1[index1++]);
 			}
 			while (index2 < list2.Count)
 			{
-				only2.Add(list2[index2++]);
+				addToOnly2(list2[index2++]);
 			}
 		}
 
