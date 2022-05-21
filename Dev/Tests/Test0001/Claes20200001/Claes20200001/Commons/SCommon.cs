@@ -2259,7 +2259,7 @@ namespace Charlotte.Commons
 		/// <summary>
 		/// マージする。
 		/// </summary>
-		/// <typeparam name="T">リストの要素の型</typeparam>
+		/// <typeparam name="T">任意の型</typeparam>
 		/// <param name="list1">リスト1 -- 勝手にソートすることに注意！</param>
 		/// <param name="list2">リスト2 -- 勝手にソートすることに注意！</param>
 		/// <param name="comp">要素の比較メソッド</param>
