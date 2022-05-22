@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.Commons;
 using System.IO;
+using Charlotte.Commons;
 
 namespace Charlotte.Tests
 {
@@ -384,6 +384,99 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 			if (SCommon.Comp(only2, ro, SCommon.Comp) != 0) // ? 不一致
 				throw null; // bug !
+		}
+
+		public void Test08()
+		{
+			// サロゲートペアとか無いよね？？？
+
+			foreach (char chr in SCommon.GetJCharCodes())
+			{
+				byte[] chrBytes = new byte[] 
+				{
+					(byte)(chr >> 8), 
+					(byte)(chr & 0xff),
+				};
+
+				string chrStr = SCommon.ENCODING_SJIS.GetString(chrBytes);
+
+				if (chrStr.Length != 1)
+					throw null;
+
+				if (chrStr.ToCharArray().Length != 1)
+					throw null;
+			}
+
+			// ----
+
+			for (byte bChr = 0xa1; bChr <= 0xdf; bChr++)
+			{
+				byte[] chrBytes = new byte[] 
+				{
+					bChr,
+				};
+
+				string chrStr = SCommon.ENCODING_SJIS.GetString(chrBytes);
+
+				if (chrStr.Length != 1)
+					throw null;
+
+				if (chrStr.ToCharArray().Length != 1)
+					throw null;
+			}
+		}
+
+		public void Test09()
+		{
+			for (byte bChr = 0x00; bChr <= 0x7e; bChr++) // ASCII with control-code
+			{
+				Test09_a(bChr);
+			}
+			for (byte bChr = 0xa1; bChr <= 0xdf; bChr++) // 半角カナ
+			{
+				Test09_a(bChr);
+			}
+		}
+
+		private void Test09_a(byte bChr)
+		{
+			char unicode = SCommon.ENCODING_SJIS.GetString(new byte[] { bChr })[0];
+
+			Console.WriteLine(string.Format("{0:x2} => {1:x4} (diff={2})", (int)bChr, (int)unicode, (int)unicode - (int)bChr));
+		}
+
+		public void Test10()
+		{
+			for (int testcnt = 0; testcnt < 10000; testcnt++)
+			{
+				if (testcnt % 100 == 0) Console.WriteLine("testcnt: " + testcnt);
+
+				Test10_a();
+			}
+			Console.WriteLine("OK!");
+		}
+
+		private void Test10_a()
+		{
+			char[] strChrEnt = ("\t\r\n " + SCommon.HALF + SCommon.GetJChars()).ToArray();
+			string str = new string(Enumerable
+				.Range(1, SCommon.CRandom.GetInt(10000))
+				.Select(dummy => SCommon.CRandom.ChooseOne(strChrEnt))
+				.ToArray());
+
+			byte[] b1 = SCommon.GetSJISBytes(str);
+			byte[] b2 = SCommon.ENCODING_SJIS.GetBytes(str);
+
+			// Unicode と SJIS が 1：多 なので一致しないことがある。
+			//
+			//if (SCommon.Comp(b1, b2) != 0) // ? 不一致
+			//throw null;
+
+			string s1 = SCommon.ENCODING_SJIS.GetString(b1);
+			string s2 = SCommon.ENCODING_SJIS.GetString(b2);
+
+			if (s1 != s2)
+				throw null;
 		}
 	}
 }
