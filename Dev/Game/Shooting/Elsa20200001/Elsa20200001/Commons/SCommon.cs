@@ -1133,6 +1133,9 @@ namespace Charlotte.Commons
 
 		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
 		{
+			if (str == null)
+				str = "";
+
 			return ToJString(GetSJISBytes(str), okJpn, okRet, okTab, okSpc);
 		}
 
