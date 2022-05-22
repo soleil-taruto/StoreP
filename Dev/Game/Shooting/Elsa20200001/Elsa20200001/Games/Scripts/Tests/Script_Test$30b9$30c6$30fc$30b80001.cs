@@ -39,32 +39,32 @@ namespace Charlotte.Games.Scripts.Tests
 					return false;
 				});
 
-				if (rand.Real() < scene.Rate * 0.1)
+				if (rand.Single() < scene.Rate * 0.1)
 				{
-					if (rand.Real() < 0.1)
+					if (rand.Single() < 0.1)
 					{
 						Enemy_TestItem.効用_e 効用;
 
-						if (rand_Sub.Real() < 0.1)
+						if (rand_Sub.Single() < 0.1)
 							効用 = Enemy_TestItem.効用_e.ZANKI_UP;
-						else if (rand_Sub.Real() < 0.2)
+						else if (rand_Sub.Single() < 0.2)
 							効用 = Enemy_TestItem.効用_e.BOMB_ADD;
 						else
 							効用 = Enemy_TestItem.効用_e.POWER_UP_WEAPON;
 
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.Real() * GameConsts.FIELD_H).AddKilled(enemy =>
+						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.Single() * GameConsts.FIELD_H).AddKilled(enemy =>
 						{
 							Game.I.Enemies.Add(new Enemy_TestItem(enemy.X, enemy.Y, 効用));
 						}
 						));
 					}
-					else if (rand.Real() < 0.3)
+					else if (rand.Single() < 0.3)
 					{
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.Real() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.Single() * GameConsts.FIELD_H));
 					}
 					else
 					{
-						Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.Real() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.Single() * GameConsts.FIELD_H));
 					}
 				}
 				yield return 1;

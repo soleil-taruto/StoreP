@@ -47,8 +47,8 @@ namespace Charlotte.Games.Enemies.Tests
 
 					picture = Ground.I.Picture.Enemy_B0002_02;
 					SPEED = 0.0;
-					xBuru = (1.0 - rate) * 30.0 * DDUtils.Random.Real();
-					yBuru = (1.0 - rate) * 30.0 * DDUtils.Random.Real();
+					xBuru = (1.0 - rate) * 30.0 * DDUtils.Random.Single();
+					yBuru = (1.0 - rate) * 30.0 * DDUtils.Random.Single();
 				}
 			endHitBack:
 

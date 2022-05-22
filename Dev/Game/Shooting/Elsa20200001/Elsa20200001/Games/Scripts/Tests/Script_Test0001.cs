@@ -54,7 +54,7 @@ namespace Charlotte.Games.Scripts.Tests
 				{
 					Game.I.Enemies.Add(new Enemy_Test0001(
 						GameConsts.FIELD_W + 50.0,
-						GameConsts.FIELD_H * DDUtils.Random.Real()
+						GameConsts.FIELD_H * DDUtils.Random.Single()
 						));
 
 					for (int c = 0; c < 10; c++)
@@ -68,7 +68,7 @@ namespace Charlotte.Games.Scripts.Tests
 				{
 					Game.I.Enemies.Add(new Enemy_Test0001(
 						GameConsts.FIELD_W + 50.0,
-						GameConsts.FIELD_H * DDUtils.Random.Real()
+						GameConsts.FIELD_H * DDUtils.Random.Single()
 						));
 
 					for (int c = 0; c < 10; c++)

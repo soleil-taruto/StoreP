@@ -29,8 +29,8 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 
 			foreach (DDScene scene in DDSceneUtils.Create(120))
 			{
-				double xBuru = DDUtils.Random.Real() * 30.0;
-				double yBuru = DDUtils.Random.Real() * 30.0;
+				double xBuru = DDUtils.Random.Single() * 30.0;
+				double yBuru = DDUtils.Random.Single() * 30.0;
 
 				DDUtils.Approach(ref this.X, targ_x, 0.99);
 				DDUtils.Approach(ref this.Y, targ_y, 0.99);

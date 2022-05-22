@@ -74,16 +74,16 @@ namespace Charlotte.Games
 					{
 						DDUtils.Approach(ref this.PutRate, 0.6, 0.999);
 
-						if (DDUtils.Random.Real() < this.PutRate)
+						if (DDUtils.Random.Single() < this.PutRate)
 						{
-							double r = DDUtils.AToBRate(this.RMin, this.RMax, DDUtils.Random.Real());
+							double r = DDUtils.AToBRate(this.RMin, this.RMax, DDUtils.Random.Single());
 
 							this.Snows.Add(new SnowInfo()
 							{
-								X = DDUtils.Random.Real() * DDConsts.Screen_W,
+								X = DDUtils.Random.Single() * DDConsts.Screen_W,
 								Y = -10.0,
 								R = r,
-								XAdd = DDUtils.Random.Real() * -3.0,
+								XAdd = DDUtils.Random.Single() * -3.0,
 								YAdd = r * 1.5,
 							}
 							.Task
@@ -148,7 +148,7 @@ namespace Charlotte.Games
 							DDUtils.Approach(ref this.PutRate, TARGET_PUT_RATE, PR_APPROACHING_RATE);
 
 							for (int y = 0; y < DDConsts.Screen_H; y += PIC.Get_H())
-								if (DDUtils.Random.Real() < this.PutRate)
+								if (DDUtils.Random.Single() < this.PutRate)
 									this.Tiles.Add(new TileTask() { PIC = PIC, X = DDConsts.Screen_W - slide, Y = y }.Task);
 						}
 						this.Tiles.ExecuteAllTask();
@@ -196,7 +196,7 @@ namespace Charlotte.Games
 							DDUtils.Approach(ref this.PutRate, TARGET_PUT_RATE, PR_APPROACHING_RATE);
 
 							for (int y = 0; y < DDConsts.Screen_H; y += PIC.Get_H())
-								if (DDUtils.Random.Real() < this.PutRate)
+								if (DDUtils.Random.Single() < this.PutRate)
 									this.Tiles.Add(new TileTask() { PIC = PIC, X = DDConsts.Screen_W - slide, Y = y }.Task);
 						}
 						this.Tiles.ExecuteAllTask();
@@ -244,7 +244,7 @@ namespace Charlotte.Games
 							DDUtils.Approach(ref this.PutRate, TARGET_PUT_RATE, PR_APPROACHING_RATE);
 
 							for (int y = 0; y < DDConsts.Screen_H; y += PIC.Get_H())
-								if (DDUtils.Random.Real() < this.PutRate)
+								if (DDUtils.Random.Single() < this.PutRate)
 									this.Tiles.Add(new TileTask() { PIC = PIC, X = DDConsts.Screen_W - slide, Y = y }.Task);
 						}
 						this.Tiles.ExecuteAllTask();
