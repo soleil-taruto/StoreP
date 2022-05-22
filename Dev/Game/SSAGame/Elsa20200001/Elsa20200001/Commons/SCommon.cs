@@ -760,7 +760,7 @@ namespace Charlotte.Commons
 			if (maxLen < str.Length)
 				str = str.Substring(0, maxLen);
 
-			str = SCommon.ToJString(SCommon.ENCODING_SJIS.GetBytes(str), true, false, false, true);
+			str = SCommon.ToJString(str, true, false, false, true);
 
 			string[] words = str.Split('.');
 
@@ -1066,6 +1066,74 @@ namespace Charlotte.Commons
 			{
 				return defval;
 			}
+		}
+
+		public static byte[] GetSJISBytes(string str)
+		{
+			byte[][] unicode2SJIS = P_GetUnicode2SJIS();
+
+			using (MemoryStream dest = new MemoryStream())
+			{
+				foreach (char chr in str)
+				{
+					byte[] chrSJIS = unicode2SJIS[(int)chr];
+
+					if (chrSJIS == null)
+						chrSJIS = new byte[] { 0x3f }; // '?'
+
+					dest.Write(chrSJIS, 0, chrSJIS.Length);
+				}
+				return dest.ToArray();
+			}
+		}
+
+		private static byte[][] P_Unicode2SJIS = null;
+
+		private static byte[][] P_GetUnicode2SJIS()
+		{
+			if (P_Unicode2SJIS == null)
+				P_Unicode2SJIS = P_GetUnicode2SJIS_Main();
+
+			return P_Unicode2SJIS;
+		}
+
+		private static byte[][] P_GetUnicode2SJIS_Main()
+		{
+			byte[][] dest = new byte[0x10000][];
+
+			for (byte bChr = 0x00; bChr <= 0x7e; bChr++) // ASCII with control-code
+			{
+				dest[(int)bChr] = new byte[] { bChr };
+			}
+			for (byte bChr = 0xa1; bChr <= 0xdf; bChr++) // 半角カナ
+			{
+				dest[(int)bChr + 0xfec0] = new byte[] { bChr };
+			}
+
+			// 2バイト文字
+			{
+				char[] unicodes = GetJChars().ToArray();
+				byte[] tblSJIS = GetJCharBytes().ToArray();
+
+				if (unicodes.Length * 2 != tblSJIS.Length) // ? 文字数が合わない。-- サロゲートペアは無いはず！
+					throw null; // never
+
+				for (int index = 0; index < unicodes.Length; index++)
+				{
+					dest[(int)unicodes[index]] = new byte[]
+					{
+						tblSJIS[index * 2 + 0],
+						tblSJIS[index * 2 + 1],
+					};
+				}
+			}
+
+			return dest;
+		}
+
+		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
+		{
+			return ToJString(GetSJISBytes(str), okJpn, okRet, okTab, okSpc);
 		}
 
 		public static string ToJString(byte[] src, bool okJpn, bool okRet, bool okTab, bool okSpc)
