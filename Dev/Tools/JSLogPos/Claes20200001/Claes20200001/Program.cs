@@ -178,7 +178,7 @@ namespace Charlotte
 
 				p += 8;
 
-				if (' ' < _t[p])
+				if (' ' < _t[p] && _t[p] != '(')
 					continue;
 
 				p = _t.First(chr => ' ' < chr, p);
@@ -195,7 +195,7 @@ namespace Charlotte
 				else
 				{
 					{
-						int q = _t.First(chr => (SCommon.DECIMAL + SCommon.ALPHA + SCommon.alpha + "_").Contains((char)chr), p);
+						int q = _t.First(chr => !(SCommon.DECIMAL + SCommon.ALPHA + SCommon.alpha + "_").Contains((char)chr), p);
 
 						if (q == -1)
 							continue;
