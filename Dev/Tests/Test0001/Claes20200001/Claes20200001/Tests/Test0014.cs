@@ -388,7 +388,8 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 		public void Test08()
 		{
-			// サロゲートペアとか無いよね？？？
+			// サロゲートペアとか無いよね？
+			// --> 無い。@ 2022.5.x
 
 			foreach (char chr in SCommon.GetJCharCodes())
 			{
@@ -463,15 +464,6 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 				Test10_b();
 			}
 
-			// ----
-
-			for (int testcnt = 0; testcnt < 3000; testcnt++)
-			{
-				if (testcnt % 100 == 0) Console.WriteLine("c_testcnt: " + testcnt);
-
-				Test10_c();
-			}
-
 			Console.WriteLine("OK!");
 		}
 
@@ -540,27 +532,6 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 				}
 			}
 			return false;
-		}
-
-		private void Test10_c()
-		{
-			string str = new string(Enumerable
-				.Range(1, SCommon.CRandom.GetInt(300))
-				.Select(dummy => (char)SCommon.CRandom.GetUInt16())
-				.ToArray());
-
-			byte[] b1 = SCommon.GetSJISBytes(str);
-			byte[] b2 = SCommon.ENCODING_SJIS.GetBytes(str);
-
-			// b1, b2 <-- ここでは一致しない。
-
-			string s1 = SCommon.ToJString(b1, true, true, true, true);
-			string s2 = SCommon.ToJString(b2, true, true, true, true);
-
-			// 合わない。
-			//
-			//if (s1 != s2) // ? 不一致
-			//throw null;
 		}
 	}
 }
