@@ -1044,18 +1044,13 @@ namespace Charlotte.Commons
 			// 2バイト文字
 			{
 				char[] unicodes = GetJChars().ToArray();
-				byte[] tblSJIS = GetJCharBytes().ToArray();
 
-				if (unicodes.Length * 2 != tblSJIS.Length) // ? 文字数が合わない。-- サロゲートペアは無いはず！
+				if (unicodes.Length * 2 != GetJCharBytes().Count()) // ? 文字数が合わない。-- サロゲートペアは無いはず！
 					throw null; // never
 
-				for (int index = 0; index < unicodes.Length; index++)
+				foreach (char unicode in unicodes)
 				{
-					dest[(int)unicodes[index]] = new byte[]
-					{
-						tblSJIS[index * 2 + 0],
-						tblSJIS[index * 2 + 1],
-					};
+					dest[(int)unicode] = ENCODING_SJIS.GetBytes(new string(new char[] { unicode }));
 				}
 			}
 

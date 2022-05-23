@@ -447,12 +447,22 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 		public void Test10()
 		{
-			for (int testcnt = 0; testcnt < 10000; testcnt++)
+			for (int testcnt = 0; testcnt < 3000; testcnt++)
 			{
-				if (testcnt % 100 == 0) Console.WriteLine("testcnt: " + testcnt);
+				if (testcnt % 100 == 0) Console.WriteLine("a_testcnt: " + testcnt);
 
 				Test10_a();
 			}
+
+			// ----
+
+			for (int testcnt = 0; testcnt < 1000; testcnt++)
+			{
+				if (testcnt % 100 == 0) Console.WriteLine("b_testcnt: " + testcnt);
+
+				Test10_b();
+			}
+
 			Console.WriteLine("OK!");
 		}
 
@@ -460,23 +470,67 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 		{
 			char[] strChrEnt = ("\t\r\n " + SCommon.HALF + SCommon.GetJChars()).ToArray();
 			string str = new string(Enumerable
-				.Range(1, SCommon.CRandom.GetInt(10000))
+				.Range(1, SCommon.CRandom.GetInt(300))
 				.Select(dummy => SCommon.CRandom.ChooseOne(strChrEnt))
 				.ToArray());
 
 			byte[] b1 = SCommon.GetSJISBytes(str);
 			byte[] b2 = SCommon.ENCODING_SJIS.GetBytes(str);
 
-			// Unicode と SJIS が 1：多 なので一致しないことがある。
-			//
-			//if (SCommon.Comp(b1, b2) != 0) // ? 不一致
-			//throw null;
-
-			string s1 = SCommon.ENCODING_SJIS.GetString(b1);
-			string s2 = SCommon.ENCODING_SJIS.GetString(b2);
-
-			if (s1 != s2)
+			if (SCommon.Comp(b1, b2) != 0) // ? 不一致
 				throw null;
+		}
+
+		private void Test10_b()
+		{
+			string str = new string(Enumerable
+				.Range(1, SCommon.CRandom.GetInt(100))
+				.Select(dummy => (char)SCommon.CRandom.GetUInt16())
+				.ToArray());
+
+			byte[] bs = SCommon.GetSJISBytes(str);
+
+			for (int index = 0; index < bs.Length; index++)
+			{
+				byte b = bs[index];
+
+				if (b <= 0x7e || (0xa1 <= b && b <= 0xdf)) // ASCII with control-code || 半角カナ
+				{
+					// noop
+				}
+				else if (!IsSJISChar(bs, index)) // ? 2バイト文字
+				{
+					index++;
+				}
+				else // ? SJIS-の文字ではない。
+				{
+					throw null; // never
+				}
+			}
+		}
+
+		private bool IsSJISChar(byte[] bs, int index)
+		{
+			byte b1 = 0;
+
+			foreach (byte b in SCommon.GetJCharCodes())
+			{
+				if (b1 == 0)
+				{
+					b1 = b;
+				}
+				else
+				{
+					byte b2 = b;
+
+					if (
+						b1 == bs[index + 0] &&
+						b2 == bs[index + 1]
+						)
+						return true;
+				}
+			}
+			return false;
 		}
 	}
 }
