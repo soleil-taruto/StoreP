@@ -103,8 +103,8 @@ namespace Charlotte
 
 				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-				Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
-				Console.ReadLine();
+				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				//Console.ReadLine();
 			}
 		}
 
