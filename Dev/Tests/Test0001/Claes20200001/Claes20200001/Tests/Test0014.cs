@@ -499,7 +499,7 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 				{
 					// noop
 				}
-				else if (!IsSJISChar(bs, index)) // ? 2バイト文字
+				else if (IsSJISChar(bs, index)) // ? 2バイト文字
 				{
 					index++;
 				}
@@ -514,7 +514,7 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 		{
 			byte b1 = 0;
 
-			foreach (byte b in SCommon.GetJCharCodes())
+			foreach (byte b in SCommon.GetJCharBytes())
 			{
 				if (b1 == 0)
 				{
@@ -529,9 +529,58 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 						b2 == bs[index + 1]
 						)
 						return true;
+
+					b1 = 0;
 				}
 			}
 			return false;
+		}
+
+		public void Test11()
+		{
+			for (int testcnt = 0; testcnt < 1000; testcnt++)
+			{
+				if (testcnt % 100 == 0) Console.WriteLine("testcnt: " + testcnt); // cout
+
+				int[] src = Enumerable
+					.Range(0, SCommon.CRandom.GetInt(1000))
+					.Select(dummy => SCommon.CRandom.GetRange(-SCommon.IMAX, SCommon.IMAX))
+					.ToArray();
+
+				int[] dest;
+
+				using (WorkingDir wd = new WorkingDir())
+				{
+					string file = wd.MakePath();
+
+					using (FileStream writer = new FileStream(file, FileMode.Create, FileAccess.Write))
+					{
+						SCommon.WritePartInt(writer, src.Length);
+
+						foreach (int value in src)
+						{
+							SCommon.WritePartInt(writer, value);
+						}
+					}
+
+					// ----
+
+					using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+					{
+						dest = new int[SCommon.ReadPartInt(reader)];
+
+						for (int index = 0; index < dest.Length; index++)
+						{
+							dest[index] = SCommon.ReadPartInt(reader);
+						}
+					}
+				}
+
+				if (SCommon.Comp(src, dest, SCommon.Comp) != 0) // ? 不一致
+					throw null; // bug !
+			}
+
+			Console.WriteLine("OK!"); // cout
 		}
 	}
 }
