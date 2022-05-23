@@ -36,7 +36,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\temp\Ricecake" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -84,6 +84,7 @@ namespace Charlotte
 
 		private class TextData_t
 		{
+			public string FilePath;
 			public byte[] Text;
 
 			// <---- prm
@@ -128,20 +129,30 @@ namespace Charlotte
 				return -1;
 			}
 
-			public string GetPart(int start, int end)
+			public string GetPartString(int start, int end)
 			{
-				List<byte> buff = new List<byte>();
+				return Encoding.ASCII.GetString(this.GetPart(start, end));
+			}
+
+			private byte[] GetPart(int start, int end)
+			{
+				byte[] buff = new byte[end - start];
 
 				for (int index = start; index < end; index++)
-				{
-					buff.Add(this.Text[index]);
-				}
-				return Encoding.ASCII.GetString(buff.ToArray());
+					buff[index - start] = this.Text[index];
+
+				return buff;
 			}
 
 			public int InsertLOGPOS(string lead, string trail, int index)
 			{
-				throw new NotImplementedException();
+				byte[] bLead = this.GetPart(0, index);
+				int lineNumb = bLead.Select(v => v == '\n').Count();
+				byte[] bMid = Encoding.ASCII.GetBytes(lead + Path.GetFileName(this.FilePath) + " (" + lineNumb + ") " + trail);
+				int ret = bLead.Length + bMid.Length;
+				byte[] bTrail = this.GetPart(index, this.Text.Length);
+				this.Text = SCommon.Join(new byte[][] { bLead, bMid, bTrail });
+				return ret;
 			}
 		}
 
@@ -151,7 +162,7 @@ namespace Charlotte
 		{
 			ProcMain.WriteLog("file: " + file);
 
-			_t = new TextData_t() { Text = File.ReadAllBytes(file) };
+			_t = new TextData_t() { FilePath = file, Text = File.ReadAllBytes(file) };
 
 			for (int index = 0; ; )
 			{
@@ -189,7 +200,7 @@ namespace Charlotte
 						if (q == -1)
 							continue;
 
-						name = _t.GetPart(p, q);
+						name = _t.GetPartString(p, q);
 						p = q;
 					}
 
