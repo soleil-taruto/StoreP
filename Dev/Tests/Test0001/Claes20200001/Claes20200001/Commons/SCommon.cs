@@ -999,6 +999,16 @@ namespace Charlotte.Commons
 			}
 		}
 
+		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
+		{
+			if (str == null)
+				str = "";
+
+			return ToJString(GetSJISBytes(str), okJpn, okRet, okTab, okSpc);
+		}
+
+		#region GetSJISBytes
+
 		public static byte[] GetSJISBytes(string str)
 		{
 			byte[][] unicode2SJIS = P_GetUnicode2SJIS();
@@ -1038,7 +1048,7 @@ namespace Charlotte.Commons
 			}
 			for (byte bChr = 0xa1; bChr <= 0xdf; bChr++) // 半角カナ
 			{
-				dest[(int)bChr + 0xfec0] = new byte[] { bChr };
+				dest[SJISHanKanaToUnicodeHanKana((int)bChr)] = new byte[] { bChr };
 			}
 
 			// 2バイト文字
@@ -1057,13 +1067,12 @@ namespace Charlotte.Commons
 			return dest;
 		}
 
-		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
+		private static int SJISHanKanaToUnicodeHanKana(int chr)
 		{
-			if (str == null)
-				str = "";
-
-			return ToJString(GetSJISBytes(str), okJpn, okRet, okTab, okSpc);
+			return chr + 0xfec0;
 		}
+
+		#endregion
 
 		public static string ToJString(byte[] src, bool okJpn, bool okRet, bool okTab, bool okSpc)
 		{
