@@ -36,14 +36,14 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { @"C:\temp\Ricecake" }));
+			Main4(new ArgsReader(new string[] { }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
 
 			// --
 
-			//Common.Pause();
+			Common.Pause();
 		}
 
 		private void Main4(ArgsReader ar)
@@ -82,87 +82,180 @@ namespace Charlotte
 			}
 		}
 
+		private class TextData_t
+		{
+			public byte[] Text;
+
+			// <---- prm
+
+			public int this[int index]
+			{
+				get
+				{
+					if (index < 0 || this.Text.Length <= index)
+						return ' ';
+
+					return this.Text[index];
+				}
+			}
+
+			public int First(string ptn, int index)
+			{
+				byte[] bPtn = Encoding.ASCII.GetBytes(ptn);
+
+				for (; index + bPtn.Length <= this.Text.Length; index++)
+					if (IsSamePart(bPtn, index))
+						return index;
+
+				return -1;
+			}
+
+			private bool IsSamePart(byte[] bPtn, int index)
+			{
+				for (int i = 0; i < bPtn.Length; i++)
+					if (bPtn[i] != this.Text[index + i])
+						return false;
+
+				return true;
+			}
+
+			public int First(Predicate<int> match, int index)
+			{
+				for (; index < this.Text.Length; index++)
+					if (match((int)this.Text[index]))
+						return index;
+
+				return -1;
+			}
+
+			public string GetPart(int start, int end)
+			{
+				List<byte> buff = new List<byte>();
+
+				for (int index = start; index < end; index++)
+				{
+					buff.Add(this.Text[index]);
+				}
+				return Encoding.ASCII.GetString(buff.ToArray());
+			}
+
+			public int InsertLOGPOS(string lead, string trail, int index)
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		private TextData_t _t;
+
 		private void ProcJSPFile(string file)
 		{
 			ProcMain.WriteLog("file: " + file);
 
-			string text = File.ReadAllText(file, Encoding.UTF8);
+			_t = new TextData_t() { Text = File.ReadAllBytes(file) };
 
-			for (int funcPtn = 1; funcPtn <= 2; funcPtn++)
+			for (int index = 0; ; )
 			{
-				for (int index = 0; ; )
+				int p = _t.First("function", index);
+
+				if (p == -1)
+					break;
+
+				index = p + 8; // (暫定)次回検索位置
+
+				if (' ' < _t[p - 1])
+					continue;
+
+				p += 8;
+
+				if (' ' < _t[p])
+					continue;
+
+				p = _t.First(chr => ' ' < chr, p);
+
+				if (p == -1)
+					continue;
+
+				string name;
+
+				if (_t[p] == '(')
 				{
-					int p;
-					string name;
-
-					if (funcPtn == 1)
-					{
-						p = text.IndexOf("function", index);
-
-						if (p == -1)
-							break;
-
-						p += 8;
-
-						if (' ' < text[p] && text[p] != '(')
-						{
-							index = p;
-							continue;
-						}
-						p = Common.FirstPosition(text, p, chr => ' ' < chr);
-
-						if (text[p] == '(')
-						{
-							name = "NO-NAME";
-						}
-						else
-						{
-							int q = Common.FirstPosition(text, p, chr => chr <= ' ' || chr == '(');
-							name = text.Substring(p, q - p);
-							p = Common.FirstPosition(text, q, chr => chr == '(');
-						}
-						p = Common.FirstPosition(text, p, chr => chr == ')');
-						p = Common.FirstPosition(text, p, chr => chr == '{');
-						p++;
-					}
-					else // funcPtn == 2
-					{
-						p = text.IndexOf("=>", index);
-
-						if (p == -1)
-							break;
-
-						p += 2;
-						p = Common.FirstPosition(text, p, chr => ' ' < chr);
-
-						if (text[p] != '{')
-						{
-							index = p;
-							continue;
-						}
-						p++;
-
-						name = "LAMBDA";
-					}
-
-					ProcMain.WriteLog("name: " + name);
-
-					// Insert LOGPOS code
-					{
-						string textLeft = text.Substring(0, p);
-						string textRight = text.Substring(p);
-
-						int lineNumb = textLeft.Where(chr => chr == '\n').Count() + 1;
-
-						textLeft += " if (typeof LOGPOS == 'function') { LOGPOS(\"" + Path.GetFileName(file) + " (" + lineNumb + ") " + name + "\"); }";
-						p = textLeft.Length;
-						text = textLeft + textRight;
-					}
-
-					index = p;
+					name = "NO_NAME";
 				}
+				else
+				{
+					{
+						int q = _t.First(chr => (SCommon.DECIMAL + SCommon.ALPHA + SCommon.alpha + "_").Contains((char)chr), p);
+
+						if (q == -1)
+							continue;
+
+						name = _t.GetPart(p, q);
+						p = q;
+					}
+
+					p = _t.First(chr => ' ' < chr, p);
+
+					if (p == -1 || _t[p] != '(')
+						continue;
+				}
+				p++;
+				p = _t.First(chr => chr == ')', p);
+
+				if (p == -1)
+					continue;
+
+				p++;
+				p = _t.First(chr => chr == '{', p);
+
+				if (p == -1)
+					continue;
+
+				p++;
+				p = _t.InsertLOGPOS(" if (typeof LOGPOS == 'function') { LOGPOS('", name + "'); }", p);
+
+				index = p; // 次回検索位置
 			}
-			File.WriteAllText(file, text, Encoding.UTF8);
+			for (int index = 0; ; )
+			{
+				int p = _t.First("=>", index);
+
+				if (p == -1)
+					break;
+
+				index = p + 2; // (暫定)次回検索位置
+
+				p += 2;
+				p = _t.First(chr => ' ' < chr, p);
+
+				if (p == -1 || _t[p] != '{')
+					continue;
+
+				p++;
+				p = _t.InsertLOGPOS(" if (typeof LOGPOS == 'function') { LOGPOS('", "LAMBDA'); }", p);
+
+				index = p; // 次回検索位置
+			}
+			for (int index = 0; ; )
+			{
+				int p = _t.First("$.ajax", index);
+
+				if (p == -1)
+					break;
+
+				index = p + 6; // (暫定)次回検索位置
+
+				p += 2;
+				p = _t.First(chr => chr == '{', p);
+
+				if (p == -1)
+					continue;
+
+				p++;
+				p = _t.InsertLOGPOS(" LOGPOS_dummy: function() { if (typeof LOGPOS == 'function') { LOGPOS('", "AJAX'); }}(),", p);
+
+				index = p; // 次回検索位置
+			}
+			File.WriteAllBytes(file, _t.Text);
 		}
 	}
 }
