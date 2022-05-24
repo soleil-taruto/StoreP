@@ -136,23 +136,33 @@ namespace Charlotte
 
 			private byte[] GetPart(int start, int end)
 			{
-				byte[] buff = new byte[end - start];
+				if (
+					start < 0 ||
+					end < start ||
+					this.Text.Length < end
+					)
+					throw new ArgumentException(start + ", " + end + ", " + this.Text.Length);
 
-				for (int index = start; index < end; index++)
-					buff[index - start] = this.Text[index];
+				int count = end - start;
+				byte[] buff = new byte[count];
+
+				for (int index = 0; index < count; index++)
+					buff[index] = this.Text[start + index];
 
 				return buff;
 			}
 
 			public int InsertLOGPOS(string lead, string trail, int index)
 			{
+				if (index < 0 || this.Text.Length < index)
+					throw new ArgumentException(index + ", " + this.Text.Length);
+
 				byte[] bLead = this.GetPart(0, index);
-				int lineNumb = bLead.Select(v => v == '\n').Count();
+				int lineNumb = bLead.Select(v => v == '\n').Count() + 1;
 				byte[] bMid = Encoding.ASCII.GetBytes(lead + Path.GetFileName(this.FilePath) + " (" + lineNumb + ") " + trail);
-				int ret = bLead.Length + bMid.Length;
 				byte[] bTrail = this.GetPart(index, this.Text.Length);
 				this.Text = SCommon.Join(new byte[][] { bLead, bMid, bTrail });
-				return ret;
+				return bLead.Length + bMid.Length;
 			}
 		}
 
