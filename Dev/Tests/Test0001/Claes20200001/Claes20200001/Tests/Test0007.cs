@@ -97,5 +97,31 @@ namespace Charlotte.Tests
 				yield return Encoding.ASCII.GetBytes(count + "\r\n");
 			}
 		}
+
+		public void Test03()
+		{
+			HTTPServer hs = new HTTPServer()
+			{
+				HTTPConnected = channel =>
+				{
+					List<string> lines = new List<string>();
+
+					lines.Add(channel.FirstLine);
+					lines.Add(channel.Method);
+					lines.Add(channel.PathQuery);
+					lines.Add(channel.HTTPVersion);
+
+					foreach (string[] headerPair in channel.HeaderPairs)
+						lines.Add(headerPair[0] + " ==> " + headerPair[1]);
+
+					lines.Add("" + channel.Body.Length);
+
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes(SCommon.LinesToText(lines)) };
+				},
+			};
+
+			hs.Perform();
+		}
 	}
 }

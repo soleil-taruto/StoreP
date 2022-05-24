@@ -667,5 +667,54 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 				}
 			}
 		}
+
+		public void Test14()
+		{
+			DateTime stTm;
+			DateTime edTm;
+
+			List<byte[]> blocks = new List<byte[]>();
+
+			for (int count = 1; count <= 200; count++)
+			{
+				Console.WriteLine("テスト.1 " + count);
+
+				blocks.Add(SCommon.CRandom.GetBytes(2000000)); // 2MB
+			}
+			Common.Pause();
+
+			stTm = DateTime.Now;
+			for (int count = 1; count <= 1000; count++)
+			{
+				Console.WriteLine("テスト.2 " + count);
+
+				blocks.Add(SCommon.CRandom.GetBytes(2000000)); // 2MB
+				SCommon.FastDesertElement(blocks, SCommon.CRandom.GetInt(blocks.Count));
+			}
+			edTm = DateTime.Now;
+			Console.WriteLine(edTm - stTm);
+			Common.Pause();
+
+			stTm = DateTime.Now;
+			for (int count = 1; count <= 1000; count++)
+			{
+				Console.WriteLine("テスト.3 " + count);
+
+				blocks.Add(SCommon.CRandom.GetBytes(2000000)); // 2MB
+				SCommon.FastDesertElement(blocks, SCommon.CRandom.GetInt(blocks.Count));
+
+				if (count % 100 == 0)
+					GC.Collect();
+			}
+			edTm = DateTime.Now;
+			Console.WriteLine(edTm - stTm);
+			Common.Pause();
+
+			blocks = null;
+
+			Common.Pause();
+
+			GC.Collect();
+		}
 	}
 }
