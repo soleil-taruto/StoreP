@@ -603,5 +603,69 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 			Console.WriteLine("OK!"); // cout
 		}
+
+		public void Test12()
+		{
+			using (CsvFileWriter writer = new CsvFileWriter(Common.NextOutputPath() + ".csv"))
+			{
+				for (int testcnt = 0; testcnt < 20; testcnt++)
+				{
+					for (int k = 1; k <= 10; k++)
+					{
+						const int DENOM = 1000;
+						double numer = 0.0;
+
+						for (int index = 0; index < DENOM; index++)
+						{
+							double value = 1.0;
+
+							for (int c = 0; c < k; c++)
+							{
+								double v = (double)SCommon.CRandom.GetUInt() / uint.MaxValue; // 0.0 ～ 1.0
+
+								value = Math.Min(value, v);
+							}
+							numer += value;
+						}
+						double ans = numer / DENOM;
+
+						writer.WriteCell(ans.ToString("F9"));
+
+						// ans == 1.0 / (k + 1)
+					}
+					writer.EndRow();
+				}
+			}
+		}
+
+		public void Test13()
+		{
+			using (CsvFileWriter writer = new CsvFileWriter(Common.NextOutputPath() + ".csv"))
+			{
+				for (int k = 1; k <= 10; k++)
+				{
+					Console.WriteLine(k); // cout
+
+					const int DIV = 30;
+					int[] counts = new int[DIV];
+
+					const int DENOM = 1000000;
+
+					for (int index = 0; index < DENOM; index++)
+					{
+						double value = 1.0;
+
+						for (int c = 0; c < k; c++)
+						{
+							double v = (double)SCommon.CRandom.GetUInt() / uint.MaxValue; // 0.0 ～ 1.0
+
+							value = Math.Min(value, v);
+						}
+						counts[Math.Min((int)(value * DIV), DIV - 1)]++;
+					}
+					writer.WriteRow(counts.Select(v => "" + v).ToArray());
+				}
+			}
+		}
 	}
 }
