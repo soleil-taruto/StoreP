@@ -710,11 +710,26 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 			Console.WriteLine(edTm - stTm);
 			Common.Pause();
 
+			stTm = DateTime.Now;
+			for (int count = 1; count <= 1000; count++)
+			{
+				Console.WriteLine("テスト.4 " + count);
+
+				blocks.Add(SCommon.CRandom.GetBytes(2000000)); // 2MB
+				SCommon.FastDesertElement(blocks, SCommon.CRandom.GetInt(blocks.Count));
+				GC.Collect();
+			}
+			edTm = DateTime.Now;
+			Console.WriteLine(edTm - stTm);
+			Common.Pause();
+
 			blocks = null;
 
 			Common.Pause();
 
 			GC.Collect();
+
+			Common.Pause();
 		}
 	}
 }
