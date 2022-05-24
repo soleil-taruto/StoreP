@@ -158,7 +158,7 @@ namespace Charlotte
 					throw new ArgumentException(index + ", " + this.Text.Length);
 
 				byte[] bLead = this.GetPart(0, index);
-				int lineNumb = bLead.Select(v => v == '\n').Count() + 1;
+				int lineNumb = bLead.Where(v => v == '\n').Count() + 1;
 				byte[] bMid = Encoding.ASCII.GetBytes(lead + Path.GetFileName(this.FilePath) + " (" + lineNumb + ") " + trail);
 				byte[] bTrail = this.GetPart(index, this.Text.Length);
 				this.Text = SCommon.Join(new byte[][] { bLead, bMid, bTrail });
@@ -183,7 +183,7 @@ namespace Charlotte
 
 				index = p + 8; // (暫定)次回検索位置
 
-				if (' ' < _t[p - 1])
+				if (' ' < _t[p - 1] && _t[p - 1] != '(' && _t[p - 1] != ':') // (function()... とか name:function() とか許す。
 					continue;
 
 				p += 8;
@@ -226,13 +226,13 @@ namespace Charlotte
 					continue;
 
 				p++;
-				p = _t.First(chr => chr == '{', p);
+				p = _t.First(chr => ' ' < chr, p);
 
-				if (p == -1)
+				if (p == -1 || _t[p] != '{')
 					continue;
 
 				p++;
-				p = _t.InsertLOGPOS(" if (typeof LOGPOS == 'function') { LOGPOS('", name + "'); }", p);
+				p = _t.InsertLOGPOS(" console.log('", name + "');", p);
 
 				index = p; // 次回検索位置
 			}
@@ -252,7 +252,7 @@ namespace Charlotte
 					continue;
 
 				p++;
-				p = _t.InsertLOGPOS(" if (typeof LOGPOS == 'function') { LOGPOS('", "LAMBDA'); }", p);
+				p = _t.InsertLOGPOS(" console.log('", "LAMBDA');", p);
 
 				index = p; // 次回検索位置
 			}
@@ -272,7 +272,7 @@ namespace Charlotte
 					continue;
 
 				p++;
-				p = _t.InsertLOGPOS(" LOGPOS_dummy: function() { if (typeof LOGPOS == 'function') { LOGPOS('", "AJAX'); }}(),", p);
+				p = _t.InsertLOGPOS(" LOGPOS_dummy: function() { console.log('", "AJAX'); }(),", p);
 
 				index = p; // 次回検索位置
 			}
