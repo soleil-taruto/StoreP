@@ -1129,7 +1129,12 @@ namespace Charlotte.Commons
 
 				foreach (char unicode in unicodes)
 				{
-					dest[(int)unicode] = ENCODING_SJIS.GetBytes(new string(new char[] { unicode }));
+					byte[] bJChr = ENCODING_SJIS.GetBytes(new string(new char[] { unicode }));
+
+					if (bJChr.Length != 2) // ? 2バイト文字じゃない。
+						throw null; // never
+
+					dest[(int)unicode] = bJChr;
 				}
 			}
 
