@@ -464,6 +464,15 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 				Test10_b();
 			}
 
+			// ----
+
+			for (int testcnt = 0; testcnt < 3000; testcnt++)
+			{
+				if (testcnt % 100 == 0) Console.WriteLine("c_testcnt: " + testcnt);
+
+				Test10_c();
+			}
+
 			Console.WriteLine("OK!");
 		}
 
@@ -508,6 +517,18 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 					throw null; // never
 				}
 			}
+		}
+
+		public void Test10_c()
+		{
+			string str = new string(Enumerable
+				.Range(1, SCommon.CRandom.GetInt(100))
+				.Select(dummy => (char)SCommon.CRandom.GetUInt16())
+				.ToArray());
+
+			string s = SCommon.ToJString(str, true, true, true, true);
+
+			s.ToString(); // チェックすることが無い。
 		}
 
 		private bool IsSJISChar(byte[] bs, int index)
