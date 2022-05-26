@@ -26,12 +26,13 @@ namespace Charlotte.Tests
 			{
 				string resFile = wd.MakePath();
 
-				HTTPClient hc = new HTTPClient(url, resFile)
+				HTTPClient hc = new HTTPClient(url)
 				{
 					//ConnectTimeoutMillis = 60000, // 1 min
 					//TimeoutMillis = 86400000, // 1 day
 					//IdleTimeoutMillis = 180000, // 3 min
 					//ResBodySizeMax = 1500000000000, // 1.5 TB
+					ResFile = resFile,
 				};
 
 				hc.Get();

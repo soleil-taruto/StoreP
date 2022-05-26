@@ -63,7 +63,7 @@ namespace Charlotte
 			//new Test0004().Test01(); // RingCipher
 			//new Test0004().Test02(); // RingCipher
 			//new Test0005().Test01(); // FileCipher
-			//new Test0006().Test01(); // HTTPClient
+			new Test0006().Test01(); // HTTPClient
 			//new Test0007().Test01(); // HTTPServer
 			//new Test0007().Test02(); // HTTPServer
 			//new Test0007().Test03(); // HTTPServer
@@ -105,7 +105,7 @@ namespace Charlotte
 			//new Test0014().Test11();
 			//new Test0014().Test12();
 			//new Test0014().Test13();
-			new Test0014().Test14();
+			//new Test0014().Test14();
 
 			// --
 		}

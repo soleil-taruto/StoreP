@@ -52,7 +52,10 @@ namespace Charlotte
 		{
 			try
 			{
-				Main5(ar);
+				using (WorkingDir wd = new WorkingDir())
+				{
+					Main5(ar, wd);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -65,7 +68,7 @@ namespace Charlotte
 			}
 		}
 
-		private void Main5(ArgsReader ar)
+		private void Main5(ArgsReader ar, WorkingDir wd)
 		{
 			bool liteMode = ar.ArgIs("/L");
 
@@ -76,12 +79,14 @@ namespace Charlotte
 				hc.ConnectTimeoutMillis = 10000; // 10 sec
 				hc.TimeoutMillis = 15000; // 15 sec
 				hc.IdleTimeoutMillis = 5000; // 5 sec
+				hc.ResBodySizeMax = 3000000000; // 3 GB
 			}
 			else
 			{
 				hc.ConnectTimeoutMillis = 3600000; // 1 hour
 				hc.TimeoutMillis = 86400000; // 1 day
 				hc.IdleTimeoutMillis = 180000; // 3 min
+				hc.ResBodySizeMax = 1500000000000; // 1.5 TB
 			}
 
 			if (ar.ArgIs("/B"))
@@ -98,11 +103,12 @@ namespace Charlotte
 			{
 				if (ar.ArgIs("*"))
 				{
-					throw null; // TODO
+					bodyFile = wd.MakePath();
+					File.WriteAllBytes(bodyFile, SCommon.EMPTY_BYTES); // 空の要求ファイルを作成
 				}
 				else
 				{
-					bodyFile = ar.NextArg();
+					bodyFile = SCommon.ToFullPath(ar.NextArg());
 				}
 			}
 			else
@@ -112,16 +118,21 @@ namespace Charlotte
 
 			if (ar.ArgIs("/R"))
 			{
-				hc.ResFile = ar.NextArg();
+				hc.ResFile = SCommon.ToFullPath(ar.NextArg());
+				File.WriteAllBytes(hc.ResFile, SCommon.EMPTY_BYTES); // 出力テスト
+				SCommon.DeletePath(hc.ResFile);
 			}
 			else
 			{
-				hc.ResFile = null;
+				hc.ResFile = wd.MakePath();
 			}
 
 			ar.End();
 
-			hc.Send(bodyFile);
+			if (bodyFile == null)
+				hc.Get();
+			else
+				hc.Post(bodyFile);
 
 			foreach (KeyValuePair<string, string> pair in hc.ResHeaders)
 				Console.WriteLine(SCommon.ToJString(Encoding.ASCII.GetBytes(pair.Key + " = " + pair.Value), false, false, false, true));

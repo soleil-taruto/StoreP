@@ -13,9 +13,8 @@ namespace Charlotte.Utilities
 	public class HTTPClient
 	{
 		private HttpWebRequest Inner;
-		private string ResFile;
 
-		public HTTPClient(string url, string resFile)
+		public HTTPClient(string url)
 		{
 			if (!InitOnceDone)
 			{
@@ -25,10 +24,6 @@ namespace Charlotte.Utilities
 
 			this.Inner = (HttpWebRequest)HttpWebRequest.Create(url);
 			this.SetProxyNone();
-
-			this.ResFile = resFile;
-			File.WriteAllBytes(this.ResFile, SCommon.EMPTY_BYTES); // 出力テスト
-			SCommon.DeletePath(this.ResFile);
 		}
 
 		private static bool InitOnceDone;
@@ -62,6 +57,12 @@ namespace Charlotte.Utilities
 		/// 応答ボディ最大サイズ_バイト数
 		/// </summary>
 		public long ResBodySizeMax = 1500000000000; // 1.5 TB
+
+		/// <summary>
+		/// 応答ボディ出力ファイル
+		/// null-不可(値を設定しないと例外を投げます)
+		/// </summary>
+		public string ResFile = null;
 
 		/// <summary>
 		/// HTTP versions
@@ -207,16 +208,24 @@ namespace Charlotte.Utilities
 		/// <param name="bodyFile">リクエストボディファイル</param>
 		public void Post(string bodyFile)
 		{
+			if (string.IsNullOrEmpty(bodyFile))
+				throw new ArgumentException("Bad bodyFile");
+
 			this.Send(bodyFile);
 		}
 
-		public void Send(string bodyFile)
+		private void Send(string bodyFile)
 		{
 			this.Send(bodyFile, bodyFile == null ? "GET" : "POST");
 		}
 
-		public void Send(string bodyFile, string method)
+		private void Send(string bodyFile, string method)
 		{
+			if (string.IsNullOrEmpty(this.ResFile))
+				throw new ArgumentException("Bad ResFile");
+
+			// <-- prm check
+
 			DateTime timeoutTime = DateTime.Now + TimeSpan.FromMilliseconds((double)TimeoutMillis);
 
 			this.Inner.Timeout = this.ConnectTimeoutMillis;
@@ -240,7 +249,7 @@ namespace Charlotte.Utilities
 			{
 				this.ResHeaders = SCommon.CreateDictionaryIgnoreCase<string>();
 
-				// header
+				// 受信ヘッダ
 				{
 					const int RES_HEADERS_LEN_MAX = 612000;
 					const int WEIGHT = 1000;
@@ -271,7 +280,7 @@ namespace Charlotte.Utilities
 					}
 				}
 
-				// body
+				// 受信ボディ
 				{
 					long totalSize = 0L;
 
