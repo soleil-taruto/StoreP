@@ -10,7 +10,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Charlotte.Commons;
 using Charlotte.Tests;
-using Charlotte.WebServices;
+using Charlotte.Utilities;
 
 namespace Charlotte
 {
@@ -38,8 +38,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			//Main4(new ArgsReader(new string[] { "http://ccsp.mydns.jp" }));
-			Main4(new ArgsReader(new string[] { "http://ccsp.mydns.jp", "/P", "*" }));
+			Main4(new ArgsReader(new string[] { }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -55,9 +54,14 @@ namespace Charlotte
 			{
 				Main5(ar);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				ProcMain.WriteLog(e);
+				ProcMain.WriteLog(ex);
+
+				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				//Console.ReadLine();
 			}
 		}
 
@@ -88,42 +92,36 @@ namespace Charlotte
 				hc.SetAuthorization(user, password);
 			}
 
-			HTTPClient.BodyInfo body;
+			string bodyFile;
 
 			if (ar.ArgIs("/P"))
 			{
 				if (ar.ArgIs("*"))
 				{
-					body = new HTTPClient.BodyInfo()
-					{
-						MemoryEntity = SCommon.EMPTY_BYTES,
-					};
+					throw null; // TODO
 				}
 				else
 				{
-					body = new HTTPClient.BodyInfo()
-					{
-						EntityFilePath = ar.NextArg(),
-					};
+					bodyFile = ar.NextArg();
 				}
 			}
 			else
 			{
-				body = null;
+				bodyFile = null;
 			}
 
 			if (ar.ArgIs("/R"))
 			{
-				hc.ResBodyFile = ar.NextArg();
+				hc.ResFile = ar.NextArg();
 			}
 			else
 			{
-				hc.ResBodyFile = null;
+				hc.ResFile = null;
 			}
 
 			ar.End();
 
-			hc.Send(body);
+			hc.Send(bodyFile);
 
 			foreach (KeyValuePair<string, string> pair in hc.ResHeaders)
 				Console.WriteLine(SCommon.ToJString(Encoding.ASCII.GetBytes(pair.Key + " = " + pair.Value), false, false, false, true));

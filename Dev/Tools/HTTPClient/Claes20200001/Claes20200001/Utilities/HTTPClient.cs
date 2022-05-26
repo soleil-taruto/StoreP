@@ -8,13 +8,14 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using Charlotte.Commons;
 
-namespace Charlotte.WebServices
+namespace Charlotte.Utilities
 {
 	public class HTTPClient
 	{
 		private HttpWebRequest Inner;
+		private string ResFile;
 
-		public HTTPClient(string url)
+		public HTTPClient(string url, string resFile)
 		{
 			if (!InitOnceDone)
 			{
@@ -24,6 +25,10 @@ namespace Charlotte.WebServices
 
 			this.Inner = (HttpWebRequest)HttpWebRequest.Create(url);
 			this.SetProxyNone();
+
+			this.ResFile = resFile;
+			File.WriteAllBytes(this.ResFile, SCommon.EMPTY_BYTES); // 出力テスト
+			SCommon.DeletePath(this.ResFile);
 		}
 
 		private static bool InitOnceDone;
@@ -41,23 +46,22 @@ namespace Charlotte.WebServices
 		/// <summary>
 		/// 接続を試みてから応答ヘッダを受信し終えるまでのタイムアウト_ミリ秒
 		/// </summary>
-		public int ConnectTimeoutMillis = 20000; // 20 sec
+		public int ConnectTimeoutMillis = 60000; // 1 min
 
 		/// <summary>
 		/// 接続を試みてから全て送受信し終えるまでのタイムアウト_ミリ秒
 		/// </summary>
-		public int TimeoutMillis = 30000; // 30 sec
+		public int TimeoutMillis = 86400000; // 1 day
 
 		/// <summary>
 		/// 応答ヘッダを受信し終えてから全て送受信し終えるまでの間の無通信タイムアウト_ミリ秒
 		/// </summary>
-		public int IdleTimeoutMillis = 10000; // 10 sec
+		public int IdleTimeoutMillis = 180000; // 3 min
 
 		/// <summary>
-		/// 応答ボディを出力するファイル
-		/// null == 無効
+		/// 応答ボディ最大サイズ_バイト数
 		/// </summary>
-		public string ResBodyFile = null;
+		public long ResBodySizeMax = 1500000000000; // 1.5 TB
 
 		/// <summary>
 		/// HTTP versions
@@ -182,25 +186,6 @@ namespace Charlotte.WebServices
 		}
 
 		/// <summary>
-		/// 要求ボディ情報
-		/// </summary>
-		public class BodyInfo
-		{
-			/// <summary>
-			/// オン・メモリ・データ
-			/// null == 無効
-			/// </summary>
-			public byte[] MemoryEntity = null;
-
-			/// <summary>
-			/// オン・ディスク・データ
-			/// ファイル名
-			/// null == 無効
-			/// </summary>
-			public string EntityFilePath = null;
-		}
-
-		/// <summary>
 		/// HEAD-リクエストを実行
 		/// </summary>
 		public void Head()
@@ -213,60 +198,41 @@ namespace Charlotte.WebServices
 		/// </summary>
 		public void Get()
 		{
-			this.Send(null, null);
+			this.Send(null);
 		}
 
 		/// <summary>
 		/// POST-リクエストを実行
 		/// </summary>
-		/// <param name="body">リクエストボディ</param>
-		/// <param name="bodyFile">リクエストボディ・ファイル</param>
-		public void Post(BodyInfo body)
+		/// <param name="bodyFile">リクエストボディファイル</param>
+		public void Post(string bodyFile)
 		{
-			this.Send(body);
+			this.Send(bodyFile);
 		}
 
-		public void Send(BodyInfo body)
+		public void Send(string bodyFile)
 		{
-			this.Send(body, body == null ? "GET" : "POST");
+			this.Send(bodyFile, bodyFile == null ? "GET" : "POST");
 		}
 
-		public void Send(BodyInfo body, string method)
+		public void Send(string bodyFile, string method)
 		{
 			DateTime timeoutTime = DateTime.Now + TimeSpan.FromMilliseconds((double)TimeoutMillis);
 
 			this.Inner.Timeout = this.ConnectTimeoutMillis;
 			this.Inner.Method = method;
 
-			if (body != null)
+			if (bodyFile != null)
 			{
-				long length = 0L;
+				if (!File.Exists(bodyFile))
+					throw new Exception("no bodyFile");
 
-				if (body.MemoryEntity != null)
-				{
-					length += body.MemoryEntity.Length;
-				}
-				if (body.EntityFilePath != null)
-				{
-					length += new FileInfo(body.EntityFilePath).Length;
-				}
-				this.Inner.ContentLength = length;
+				this.Inner.ContentLength = new FileInfo(bodyFile).Length;
 
-				Console.WriteLine("要求ボディのサイズ：" + length);
-
+				using (Stream reader = new FileStream(bodyFile, FileMode.Open, FileAccess.Read))
 				using (Stream writer = this.Inner.GetRequestStream())
 				{
-					if (body.MemoryEntity != null)
-					{
-						SCommon.Write(writer, body.MemoryEntity);
-					}
-					if (body.EntityFilePath != null)
-					{
-						using (FileStream reader = new FileStream(body.EntityFilePath, FileMode.Open, FileAccess.Read))
-						{
-							SCommon.ReadToEnd(reader.Read, writer.Write);
-						}
-					}
+					SCommon.ReadToEnd(reader.Read, writer.Write);
 					writer.Flush();
 				}
 			}
@@ -307,20 +273,14 @@ namespace Charlotte.WebServices
 
 				// body
 				{
-					FileStream writer = null;
-
-					if (this.ResBodyFile != null)
-						writer = new FileStream(this.ResBodyFile, FileMode.Create, FileAccess.Write);
-
-					long totalSize = 0;
+					long totalSize = 0L;
 
 					using (Stream reader = res.GetResponseStream())
+					using (FileStream writer = new FileStream(this.ResFile, FileMode.Create, FileAccess.Write))
 					{
-						ProcMain.WriteLog("受信したサイズ：" + totalSize);
-
 						reader.ReadTimeout = this.IdleTimeoutMillis; // この時間経過すると reader.Read() が例外を投げる。
 
-						byte[] buff = new byte[100000000]; // 100 MB
+						byte[] buff = new byte[20000000]; // 20 MB
 
 						for (; ; )
 						{
@@ -332,24 +292,18 @@ namespace Charlotte.WebServices
 							if (timeoutTime < DateTime.Now)
 								throw new Exception("受信タイムアウト");
 
-							totalSize += readSize;
+							totalSize += (long)readSize;
 
-							if (writer != null)
-								writer.Write(buff, 0, readSize);
+							if (this.ResBodySizeMax < totalSize)
+								throw new Exception("受信データが長すぎます。");
+
+							writer.Write(buff, 0, readSize);
 						}
-					}
-					ProcMain.WriteLog("受信したサイズ：" + totalSize + " 受信完了");
-
-					if (writer != null)
-					{
-						writer.Dispose();
-						writer = null;
 					}
 				}
 			}
 		}
 
 		public Dictionary<string, string> ResHeaders;
-		public byte[] ResBody;
 	}
 }

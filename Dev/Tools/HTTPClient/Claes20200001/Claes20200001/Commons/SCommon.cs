@@ -343,12 +343,25 @@ namespace Charlotte.Commons
 			return new Dictionary<string, V>(new IECompStringIgnoreCase());
 		}
 
+		public static HashSet<string> CreateSet()
+		{
+			return new HashSet<string>(new IECompString());
+		}
+
+		public static HashSet<string> CreateSetIgnoreCase()
+		{
+			return new HashSet<string>(new IECompStringIgnoreCase());
+		}
+
 		public const double MICRO = 1.0 / IMAX;
 
 		private static void CheckNaN(double value)
 		{
 			if (double.IsNaN(value))
 				throw new Exception("NaN");
+
+			if (double.IsInfinity(value))
+				throw new Exception("Infinity");
 		}
 
 		public static double ToRange(double value, double minval, double maxval)
@@ -666,19 +679,21 @@ namespace Charlotte.Commons
 		/// https://github.com/stackprobe/Factory/blob/master/Common/DataConv.c#L503-L552
 		/// </summary>
 		/// <param name="str">対象文字列(対象パス)</param>
-		/// <param name="dirSize">対象パスが存在するディレクトリのフルパスの長さ、考慮しない場合は 0 を指定すること。</param>
+		/// <param name="dirSize">対象パスが存在するディレクトリのフルパスの長さ、考慮しない場合は -1 を指定すること。</param>
 		/// <returns>ローカル名</returns>
 		public static string ToFairLocalPath(string str, int dirSize)
 		{
 			const string CHRS_NG = "\"*/:<>?\\|";
 			const string CHR_ALT = "_";
 
-			int maxLen = Math.Max(0, MY_PATH_MAX - dirSize);
+			if (dirSize != -1)
+			{
+				int maxLen = Math.Max(0, MY_PATH_MAX - dirSize);
 
-			if (maxLen < str.Length)
-				str = str.Substring(0, maxLen);
-
-			str = SCommon.ToJString(SCommon.ENCODING_SJIS.GetBytes(str), true, false, false, true);
+				if (maxLen < str.Length)
+					str = str.Substring(0, maxLen);
+			}
+			str = SCommon.ToJString(str, true, false, false, true);
 
 			string[] words = str.Split('.');
 
@@ -716,15 +731,17 @@ namespace Charlotte.Commons
 				ptkns = new string[] { "_" };
 
 			for (int index = 0; index < ptkns.Length; index++)
-				ptkns[index] = ToFairLocalPath(ptkns[index], 0);
+				ptkns[index] = ToFairLocalPath(ptkns[index], -1);
 
 			path = string.Join("\\", ptkns);
 
-			int maxLen = Math.Max(0, MY_PATH_MAX - dirSize);
+			if (dirSize != -1)
+			{
+				int maxLen = Math.Max(0, MY_PATH_MAX - dirSize);
 
-			if (maxLen < path.Length)
-				path = ToFairLocalPath(path, dirSize);
-
+				if (maxLen < path.Length)
+					path = ToFairLocalPath(path, dirSize);
+			}
 			return path;
 		}
 
@@ -986,6 +1003,86 @@ namespace Charlotte.Commons
 			}
 		}
 
+		public static string ToJString(string str, bool okJpn, bool okRet, bool okTab, bool okSpc)
+		{
+			if (str == null)
+				str = "";
+
+			return ToJString(GetSJISBytes(str), okJpn, okRet, okTab, okSpc);
+		}
+
+		#region GetSJISBytes
+
+		public static byte[] GetSJISBytes(string str)
+		{
+			byte[][] unicode2SJIS = P_GetUnicode2SJIS();
+
+			using (MemoryStream dest = new MemoryStream())
+			{
+				foreach (char chr in str)
+				{
+					byte[] chrSJIS = unicode2SJIS[(int)chr];
+
+					if (chrSJIS == null)
+						chrSJIS = new byte[] { 0x3f }; // '?'
+
+					dest.Write(chrSJIS, 0, chrSJIS.Length);
+				}
+				return dest.ToArray();
+			}
+		}
+
+		private static byte[][] P_Unicode2SJIS = null;
+
+		private static byte[][] P_GetUnicode2SJIS()
+		{
+			if (P_Unicode2SJIS == null)
+				P_Unicode2SJIS = P_GetUnicode2SJIS_Main();
+
+			return P_Unicode2SJIS;
+		}
+
+		private static byte[][] P_GetUnicode2SJIS_Main()
+		{
+			byte[][] dest = new byte[0x10000][];
+
+			for (byte bChr = 0x00; bChr <= 0x7e; bChr++) // ASCII with control-code
+			{
+				dest[(int)bChr] = new byte[] { bChr };
+			}
+			for (byte bChr = 0xa1; bChr <= 0xdf; bChr++) // 半角カナ
+			{
+				dest[SJISHanKanaToUnicodeHanKana((int)bChr)] = new byte[] { bChr };
+			}
+
+			// 2バイト文字
+			{
+				char[] unicodes = GetJChars().ToArray();
+
+				if (unicodes.Length * 2 != GetJCharBytes().Count()) // ? 文字数が合わない。-- サロゲートペアは無いはず！
+					throw null; // never
+
+				foreach (char unicode in unicodes)
+				{
+					byte[] bJChr = ENCODING_SJIS.GetBytes(new string(new char[] { unicode }));
+
+					if (bJChr.Length != 2) // ? 2バイト文字じゃない。
+						throw null; // never
+
+					dest[(int)unicode] = bJChr;
+				}
+			}
+
+			return dest;
+		}
+
+		private static int SJISHanKanaToUnicodeHanKana(int chr)
+		{
+			return chr + 0xfec0;
+		}
+
+		#endregion
+
 		public static string ToJString(byte[] src, bool okJpn, bool okRet, bool okTab, bool okSpc)
 		{
 			if (src == null)
@@ -1018,7 +1115,7 @@ namespace Charlotte.Commons
 					}
 					else if (chr <= 0x7e) // ? ascii
 					{
-						// nop
+						// noop
 					}
 					else if (0xa1 <= chr && chr <= 0xdf) // ? kana
 					{
@@ -1278,6 +1375,44 @@ namespace Charlotte.Commons
 			}
 		}
 
+		public static byte[] GetSHA512(IEnumerable<byte[]> src)
+		{
+			return GetSHA512(writePart =>
+			{
+				foreach (byte[] part in src)
+				{
+					writePart(part, 0, part.Length);
+				}
+			});
+		}
+
+		public static byte[] GetSHA512(Read_d reader)
+		{
+			return GetSHA512(writePart =>
+			{
+				SCommon.ReadToEnd(reader, (buff, offset, count) => writePart(buff, offset, count));
+			});
+		}
+
+		public static byte[] GetSHA512(Action<Write_d> execute)
+		{
+			using (SHA512 sha512 = SHA512.Create())
+			{
+				execute((buff, offset, count) => sha512.TransformBlock(buff, offset, count, null, 0));
+				sha512.TransformFinalBlock(EMPTY_BYTES, 0, 0);
+				return sha512.Hash;
+			}
+		}
+
+		public static byte[] GetSHA512File(string file)
+		{
+			using (SHA512 sha512 = SHA512.Create())
+			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+			{
+				return sha512.ComputeHash(reader);
+			}
+		}
+
 		public static class Hex
 		{
 			public static string ToString(byte[] src)
@@ -1380,7 +1515,7 @@ namespace Charlotte.Commons
 
 		public static string MBC_CHOUONPU = S_GetString_SJISCodeRange(0x81, 0x5b, 0x5b); // 815b == 長音符 -- ひらがなとカタカナの長音符は同じ文字
 
-		public static string MBC_HIRA = S_GetString_SJISCodeRange(0x82, 0x9f, 0xf1);
+		public static string MBC_HIRA = S_GetString_SJISCodeRange(0x82, 0x9f, 0xf1) + MBC_CHOUONPU;
 		public static string MBC_KANA =
 			S_GetString_SJISCodeRange(0x83, 0x40, 0x7e) +
 			S_GetString_SJISCodeRange(0x83, 0x80, 0x96) + MBC_CHOUONPU;
@@ -1660,6 +1795,20 @@ namespace Charlotte.Commons
 
 				remaining -= (long)count;
 				writer(buff, offset, count);
+			};
+		}
+
+		public static Read_d GetLimitedReader(Read_d reader, long remaining)
+		{
+			return (buff, offset, count) =>
+			{
+				if (remaining <= 0L)
+					return -1;
+
+				count = (int)Math.Min((long)count, remaining);
+				count = reader(buff, offset, count);
+				remaining -= (long)count;
+				return count;
 			};
 		}
 
@@ -2190,5 +2339,68 @@ namespace Charlotte.Commons
 		}
 
 		#endregion
+
+		/// <summary>
+		/// マージする。
+		/// </summary>
+		/// <typeparam name="T">任意の型</typeparam>
+		/// <param name="list1">リスト1 -- 勝手にソートすることに注意！</param>
+		/// <param name="list2">リスト2 -- 勝手にソートすることに注意！</param>
+		/// <param name="comp">要素の比較メソッド</param>
+		/// <param name="only1">出力先 -- リスト1のみ存在</param>
+		/// <param name="both1">出力先 -- 両方に存在 -- リスト1の要素を追加</param>
+		/// <param name="both2">出力先 -- 両方に存在 -- リスト2の要素を追加</param>
+		/// <param name="only2">出力先 -- リスト2のみ存在</param>
+		public static void Merge<T>(IList<T> list1, IList<T> list2, Comparison<T> comp, List<T> only1, List<T> both1, List<T> both2, List<T> only2)
+		{
+			P_Sort(list1, comp);
+			P_Sort(list2, comp);
+
+			int index1 = 0;
+			int index2 = 0;
+
+			while (index1 < list1.Count && index2 < list2.Count)
+			{
+				int ret = comp(list1[index1], list2[index2]);
+
+				if (ret < 0)
+				{
+					only1.Add(list1[index1++]);
+				}
+				else if (0 < ret)
+				{
+					only2.Add(list2[index2++]);
+				}
+				else
+				{
+					both1.Add(list1[index1++]);
+					both2.Add(list2[index2++]);
+				}
+			}
+			while (index1 < list1.Count)
+			{
+				only1.Add(list1[index1++]);
+			}
+			while (index2 < list2.Count)
+			{
+				only2.Add(list2[index2++]);
+			}
+		}
+
+		private static void P_Sort<T>(IList<T> list, Comparison<T> comp)
+		{
+			if (list is T[])
+			{
+				Array.Sort((T[])list, comp);
+			}
+			else if (list is List<T>)
+			{
+				((List<T>)list).Sort(comp);
+			}
+			else
+			{
+				throw null; // never
+			}
+		}
 	}
 }
