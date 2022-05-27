@@ -38,7 +38,8 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			//Main4(new ArgsReader(new string[] { "http://stackprobe.ccsp.mydns.jp/_kit/Factory/Factory.clu", "/R", @"C:\temp\Factory.clu" }));
+			Main4(new ArgsReader(new string[] { "http://stackprobe.ccsp.mydns.jp/_kit/Factory/Factory.clu" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -124,7 +125,7 @@ namespace Charlotte
 			}
 			else
 			{
-				hc.ResFile = wd.MakePath();
+				hc.ResFile = null;
 			}
 
 			ar.End();

@@ -60,7 +60,7 @@ namespace Charlotte.Utilities
 
 		/// <summary>
 		/// 応答ボディ出力ファイル
-		/// null-不可(値を設定しないと例外を投げます)
+		/// null == 出力しない。
 		/// </summary>
 		public string ResFile = null;
 
@@ -221,11 +221,6 @@ namespace Charlotte.Utilities
 
 		private void Send(string bodyFile, string method)
 		{
-			if (string.IsNullOrEmpty(this.ResFile))
-				throw new ArgumentException("Bad ResFile");
-
-			// <-- prm check
-
 			DateTime timeoutTime = DateTime.Now + TimeSpan.FromMilliseconds((double)TimeoutMillis);
 
 			this.Inner.Timeout = this.ConnectTimeoutMillis;
@@ -233,6 +228,8 @@ namespace Charlotte.Utilities
 
 			if (bodyFile != null)
 			{
+				ProcMain.WriteLog("BODY-送信開始");
+
 				if (!File.Exists(bodyFile))
 					throw new Exception("no bodyFile");
 
@@ -244,6 +241,8 @@ namespace Charlotte.Utilities
 					SCommon.ReadToEnd(reader.Read, writer.Write);
 					writer.Flush();
 				}
+
+				ProcMain.WriteLog("BODY-送信完了");
 			}
 			using (WebResponse res = this.Inner.GetResponse())
 			{
@@ -282,33 +281,55 @@ namespace Charlotte.Utilities
 
 				// 受信ボディ
 				{
+					ProcMain.WriteLog("RES-BODY-受信開始");
+
 					long totalSize = 0L;
+					long recvCount = 0L;
 
-					using (Stream reader = res.GetResponseStream())
-					using (FileStream writer = new FileStream(this.ResFile, FileMode.Create, FileAccess.Write))
+					FileStream writer =
+						this.ResFile == null ?
+							null :
+							new FileStream(this.ResFile, FileMode.Create, FileAccess.Write);
+
+					try
 					{
-						reader.ReadTimeout = this.IdleTimeoutMillis; // この時間経過すると reader.Read() が例外を投げる。
-
-						byte[] buff = new byte[20000000]; // 20 MB
-
-						for (; ; )
+						using (Stream reader = res.GetResponseStream())
 						{
-							int readSize = reader.Read(buff, 0, buff.Length);
+							reader.ReadTimeout = this.IdleTimeoutMillis; // この時間経過すると reader.Read() が例外を投げる。
 
-							if (readSize <= 0)
-								break;
+							byte[] buff = new byte[20000000]; // 20 MB
 
-							if (timeoutTime < DateTime.Now)
-								throw new Exception("受信タイムアウト");
+							for (; ; )
+							{
+								int readSize = reader.Read(buff, 0, buff.Length);
 
-							totalSize += (long)readSize;
+								if (readSize <= 0)
+									break;
 
-							if (this.ResBodySizeMax < totalSize)
-								throw new Exception("受信データが長すぎます。");
+								if (timeoutTime < DateTime.Now)
+									throw new Exception("受信タイムアウト");
 
-							writer.Write(buff, 0, readSize);
+								totalSize += (long)readSize;
+								recvCount++;
+
+								if (this.ResBodySizeMax < totalSize)
+									throw new Exception("受信データが長すぎます。");
+
+								if (writer != null)
+									writer.Write(buff, 0, readSize);
+							}
 						}
 					}
+					finally
+					{
+						if (writer != null)
+						{
+							writer.Dispose();
+							writer = null;
+						}
+					}
+
+					ProcMain.WriteLog("RES-BODY-受信完了 " + totalSize + " (" + recvCount + ")");
 				}
 			}
 		}
