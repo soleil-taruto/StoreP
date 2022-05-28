@@ -663,7 +663,7 @@ namespace Charlotte.Commons
 		}
 
 		/// <summary>
-		/// 厳しいフルパス化
+		/// 厳しいフルパス化 (慣習的実装)
 		/// </summary>
 		/// <param name="path">パス</param>
 		/// <returns>フルパス</returns>
@@ -699,7 +699,7 @@ namespace Charlotte.Commons
 		}
 
 		/// <summary>
-		/// ゆるいフルパス化
+		/// ゆるいフルパス化 (慣習的実装)
 		/// </summary>
 		/// <param name="path">パス</param>
 		/// <returns>フルパス</returns>
@@ -715,7 +715,7 @@ namespace Charlotte.Commons
 		#region ToFairLocalPath, ToFairRelPath
 
 		/// <summary>
-		/// ローカル名に使用出来ない予約名のリストを返す。
+		/// ローカル名に使用出来ない予約名のリストを返す。(慣習的実装)
 		/// https://github.com/stackprobe/Factory/blob/master/Common/DataConv.c#L460-L491
 		/// </summary>
 		/// <returns>予約名リスト</returns>
@@ -744,7 +744,7 @@ namespace Charlotte.Commons
 		public const int MY_PATH_MAX = 240;
 
 		/// <summary>
-		/// 歴としたローカル名に変換する。
+		/// 歴としたローカル名に変換する。(慣習的実装)
 		/// https://github.com/stackprobe/Factory/blob/master/Common/DataConv.c#L503-L552
 		/// </summary>
 		/// <param name="str">対象文字列(対象パス)</param>

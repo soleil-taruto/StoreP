@@ -80,7 +80,7 @@ namespace Charlotte
 				hc.ConnectTimeoutMillis = 10000; // 10 sec
 				hc.TimeoutMillis = 15000; // 15 sec
 				hc.IdleTimeoutMillis = 5000; // 5 sec
-				hc.ResBodySizeMax = 3000000000; // 3 GB
+				hc.ResBodySizeMax = 333000000; // 333 MB
 			}
 			else
 			{
