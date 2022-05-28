@@ -14,7 +14,7 @@ namespace Charlotte.WebServices
 		{
 			public WorkingDir WD = new WorkingDir();
 			public string BufferFile;
-			public int WroteSize = 0;
+			public long WroteSize = 0;
 			public CtrCipher CtrCipher = CtrCipher.CreateTemporary();
 
 			public InnerInfo()
@@ -38,7 +38,7 @@ namespace Charlotte.WebServices
 				this.WroteSize += count;
 			}
 
-			public int Count
+			public long Count
 			{
 				get
 				{
@@ -57,6 +57,45 @@ namespace Charlotte.WebServices
 				this.CtrCipher.Reset();
 
 				return data;
+			}
+
+			public void ToFile(string destFile)
+			{
+				this.CtrCipher.Reset();
+
+				using (FileStream reader = new FileStream(this.BufferFile, FileMode.Open, FileAccess.Read))
+				using (FileStream writer = new FileStream(destFile, FileMode.Create, FileAccess.Write))
+				{
+					SCommon.ReadToEnd(reader.Read, (buff, offset, count) =>
+					{
+						this.CtrCipher.Mask(buff, offset, count);
+						writer.Write(buff, offset, count);
+					});
+				}
+
+				SCommon.DeletePath(this.BufferFile);
+				this.WroteSize = 0;
+
+				this.CtrCipher.Reset();
+			}
+
+			public void ReadToEnd(SCommon.Write_d writer)
+			{
+				this.CtrCipher.Reset();
+
+				using (FileStream reader = new FileStream(this.BufferFile, FileMode.Open, FileAccess.Read))
+				{
+					SCommon.ReadToEnd(reader.Read, (buff, offset, count) =>
+					{
+						this.CtrCipher.Mask(buff, offset, count);
+						writer(buff, offset, count);
+					});
+				}
+
+				SCommon.DeletePath(this.BufferFile);
+				this.WroteSize = 0;
+
+				this.CtrCipher.Reset();
 			}
 
 			public void Dispose()
@@ -87,7 +126,7 @@ namespace Charlotte.WebServices
 			this.Inner.Write(data, offset, count);
 		}
 
-		public int Count
+		public long Count
 		{
 			get
 			{
@@ -95,9 +134,27 @@ namespace Charlotte.WebServices
 			}
 		}
 
+		/// <summary>
+		/// 書き出されたデータをバイト列に変換して返し、
+		/// この出力ストリームをリセットする。
+		/// </summary>
+		/// <returns>バイト列</returns>
 		public byte[] ToByteArray()
 		{
 			return this.Inner == null ? SCommon.EMPTY_BYTES : this.Inner.ToByteArray();
+		}
+
+		/// <summary>
+		/// 書き出されたデータを出力ファイルに書き出し、
+		/// この出力ストリームをリセットする。
+		/// </summary>
+		/// <param name="destFile">出力ファイル</param>
+		public void ToFile(string destFile)
+		{
+			if (this.Inner == null)
+				File.WriteAllBytes(destFile, SCommon.EMPTY_BYTES);
+			else
+				this.Inner.ToFile(destFile);
 		}
 
 		public void Dispose()

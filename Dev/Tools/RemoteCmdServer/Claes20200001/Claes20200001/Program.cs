@@ -20,6 +20,7 @@ namespace Charlotte
 		{
 			ProcMain.CUIMain(new Program().Main2);
 		}
+
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -86,7 +87,7 @@ namespace Charlotte
 				//HTTPServerChannel.ResponseTimeoutMillis = -1;
 				//HTTPServerChannel.FirstLineTimeoutMillis = 2000;
 				//HTTPServerChannel.IdleTimeoutMillis = 180000;
-				//HTTPServerChannel.BodySizeMax = 300000000;
+				HTTPServerChannel.BodySizeMax = 100000000000000; // 100 TB
 
 				//SockCommon.TimeWaitMonitor.CTR_ROT_SEC = 60;
 				//SockCommon.TimeWaitMonitor.COUNTER_NUM = 5;
@@ -182,8 +183,8 @@ namespace Charlotte
 
 				SCommon.Batch(batch, Path.GetDirectoryName(path), SCommon.StartProcessWindowStyle_e.MINIMIZED);
 
-				channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("OK") };
-				channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=Shift_JIS" });
+				channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("B-OK") };
+				channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
 			}
 			else
 			{
@@ -201,28 +202,16 @@ namespace Charlotte
 				else if (command == "U") // アップロード
 				{
 					SCommon.CreateDir(Path.GetDirectoryName(path));
-					File.WriteAllBytes(path, channel.Body);
+					channel.Body.ToFile(path);
 
-					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("OK") };
-					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
-				}
-				else if (command == "A") // アップロード(追記)
-				{
-					SCommon.CreateDir(Path.GetDirectoryName(path));
-
-					using (FileStream writer = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
-					{
-						SCommon.Write(writer, channel.Body);
-					}
-
-					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("OK") };
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("U-OK") };
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
 				}
 				else if (command == "K") // 削除
 				{
 					SCommon.DeletePath(path);
 
-					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("OK") };
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("K-OK") };
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
 				}
 				else

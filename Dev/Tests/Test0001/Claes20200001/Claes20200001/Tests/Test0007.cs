@@ -27,7 +27,7 @@ namespace Charlotte.Tests
 					ProcMain.WriteLog(channel.PathQuery);
 					ProcMain.WriteLog(channel.HTTPVersion);
 					ProcMain.WriteLog(string.Join(", ", channel.HeaderPairs.Select(pair => pair[0] + "=" + pair[1])));
-					ProcMain.WriteLog(SCommon.Hex.ToString(channel.Body));
+					ProcMain.WriteLog(SCommon.Hex.ToString(channel.Body.ToByteArray()));
 
 					//channel.ResStatus = 200;
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
@@ -114,7 +114,7 @@ namespace Charlotte.Tests
 					foreach (string[] headerPair in channel.HeaderPairs)
 						lines.Add(headerPair[0] + " ==> " + headerPair[1]);
 
-					lines.Add("" + channel.Body.Length);
+					lines.Add("" + channel.Body.Count);
 
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
 					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes(SCommon.LinesToText(lines)) };
