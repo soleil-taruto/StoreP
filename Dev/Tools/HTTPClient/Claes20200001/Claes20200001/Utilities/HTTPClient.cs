@@ -217,7 +217,12 @@ namespace Charlotte.Utilities
 
 			DateTime timeoutTime = DateTime.Now + TimeSpan.FromMilliseconds((double)TimeoutMillis);
 
-			this.Inner.AllowWriteStreamBuffering = false;
+			// 2022.5.29
+			// 送信ファイルをメモリに読み込まない。
+			// これをしないと、送信ファイルをメモリに読み込んでから送信しようとする。-> でかいファイルでメモリ不足になる。
+			{
+				this.Inner.AllowWriteStreamBuffering = false;
+			}
 
 			this.Inner.Timeout = this.ConnectTimeoutMillis;
 			this.Inner.Method = method;
@@ -232,17 +237,12 @@ namespace Charlotte.Utilities
 				if (!File.Exists(bodyFile))
 					throw new Exception("no bodyFile");
 
-				//this.Inner.SendChunked = true;
 				this.Inner.ContentLength = new FileInfo(bodyFile).Length;
 
 				using (Stream reader = new FileStream(bodyFile, FileMode.Open, FileAccess.Read))
 				using (Stream writer = this.Inner.GetRequestStream())
 				{
-					SCommon.ReadToEnd(reader.Read, (buff, offset, count) =>
-					{
-						writer.Write(buff, offset, count);
-						//writer.Flush();
-					});
+					SCommon.ReadToEnd(reader.Read, writer.Write);
 				}
 
 				ProcMain.WriteLog("HTTPClient-SendBody-ED");
