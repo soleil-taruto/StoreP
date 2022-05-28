@@ -38,8 +38,10 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { "http://cdimage.ubuntulinux.jp/releases/22.04/ubuntu-ja-22.04-desktop-amd64.iso", "/R", @"C:\temp\ubuntu-ja-22.04-desktop-amd64.iso" }));
+			//Main4(new ArgsReader(new string[] { "http://cdimage.ubuntulinux.jp/releases/22.04/ubuntu-ja-22.04-desktop-amd64.iso", "/R", @"C:\temp\ubuntu-ja-22.04-desktop-amd64.iso" }));
 			//Main4(new ArgsReader(new string[] { "http://cdimage.ubuntulinux.jp/releases/22.04/ubuntu-ja-22.04-desktop-amd64.iso" }));
+			Main4(new ArgsReader(new string[] { "http://192.168.123.103:60060/U/Test.bin", "/P", @"C:\home\HPStore\auto\temp\Prime_2-3000000000.txt" }));
+			//Main4(new ArgsReader(new string[] { "http://localhost/U/Test.bin", "/P", @"C:\home\HPStore\auto\temp\Prime_2-1000000000.txt" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
