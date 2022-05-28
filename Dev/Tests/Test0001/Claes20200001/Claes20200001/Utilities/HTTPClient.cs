@@ -56,7 +56,7 @@ namespace Charlotte.Utilities
 		/// <summary>
 		/// 応答ボディ最大サイズ_バイト数
 		/// </summary>
-		public long ResBodySizeMax = 1500000000000; // 1.5 TB
+		public long ResBodySizeMax = 100000000000000; // 100 TB
 
 		/// <summary>
 		/// 応答ボディ出力ファイル

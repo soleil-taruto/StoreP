@@ -87,7 +87,7 @@ namespace Charlotte
 				hc.ConnectTimeoutMillis = 3600000; // 1 hour
 				hc.TimeoutMillis = 86400000; // 1 day
 				hc.IdleTimeoutMillis = 180000; // 3 min
-				hc.ResBodySizeMax = 1500000000000; // 1.5 TB
+				hc.ResBodySizeMax = 100000000000000; // 100 TB
 			}
 
 			if (ar.ArgIs("/B"))

@@ -731,5 +731,24 @@ abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi abcdefghi 
 
 			Common.Pause();
 		}
+
+		public void Test15()
+		{
+			Test15_a(@"C:\");
+			Test15_a(@"C:\Dev\Tests\Test0001\Claes20200001\Claes20200001\Tests");
+			Test15_a(@"C:\temp");
+			Test15_a(@"C:\temp\1\2\3\4\5"); // 存在しなくても良いらしい。
+			Test15_a(@"C:\1\2\3\4\5\6\7\8\9");
+			//Test15_a(@"X:\"); // 存在しないドライブは例外を投げる。
+		}
+
+		private void Test15_a(string dir)
+		{
+			Console.WriteLine(dir);
+
+			DriveInfo drvInfo = new DriveInfo(dir);
+
+			Console.WriteLine(drvInfo.AvailableFreeSpace);
+		}
 	}
 }

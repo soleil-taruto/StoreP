@@ -31,7 +31,7 @@ namespace Charlotte.Tests
 					//ConnectTimeoutMillis = 60000, // 1 min
 					//TimeoutMillis = 86400000, // 1 day
 					//IdleTimeoutMillis = 180000, // 3 min
-					//ResBodySizeMax = 1500000000000, // 1.5 TB
+					//ResBodySizeMax = 100000000000000, // 100 TB
 					ResFile = resFile,
 				};
 
