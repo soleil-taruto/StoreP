@@ -191,7 +191,7 @@ namespace Charlotte.Utilities
 		/// </summary>
 		public void Head()
 		{
-			this.Send(null, "HEAD");
+			this.GetOrPost(null, "HEAD");
 		}
 
 		/// <summary>
@@ -199,7 +199,7 @@ namespace Charlotte.Utilities
 		/// </summary>
 		public void Get()
 		{
-			this.Send(null);
+			this.GetOrPost(null, "GET");
 		}
 
 		/// <summary>
@@ -208,19 +208,13 @@ namespace Charlotte.Utilities
 		/// <param name="bodyFile">リクエストボディファイル</param>
 		public void Post(string bodyFile)
 		{
-			if (string.IsNullOrEmpty(bodyFile))
-				throw new ArgumentException("Bad bodyFile");
-
-			this.Send(bodyFile);
+			this.GetOrPost(bodyFile, "POST");
 		}
 
-		private void Send(string bodyFile)
+		private void GetOrPost(string bodyFile, string method)
 		{
-			this.Send(bodyFile, bodyFile == null ? "GET" : "POST");
-		}
+			ProcMain.WriteLog("HTTPClient-ST");
 
-		private void Send(string bodyFile, string method)
-		{
 			DateTime timeoutTime = DateTime.Now + TimeSpan.FromMilliseconds((double)TimeoutMillis);
 
 			this.Inner.Timeout = this.ConnectTimeoutMillis;
@@ -228,7 +222,10 @@ namespace Charlotte.Utilities
 
 			if (bodyFile != null)
 			{
-				ProcMain.WriteLog("BODY-送信開始");
+				ProcMain.WriteLog("HTTPClient-SendBody-ST");
+
+				if (bodyFile == "")
+					throw new Exception("Bad bodyFile");
 
 				if (!File.Exists(bodyFile))
 					throw new Exception("no bodyFile");
@@ -242,7 +239,7 @@ namespace Charlotte.Utilities
 					writer.Flush();
 				}
 
-				ProcMain.WriteLog("BODY-送信完了");
+				ProcMain.WriteLog("HTTPClient-SendBody-ED");
 			}
 			using (WebResponse res = this.Inner.GetResponse())
 			{
@@ -281,7 +278,7 @@ namespace Charlotte.Utilities
 
 				// 受信ボディ
 				{
-					ProcMain.WriteLog("RES-BODY-受信開始");
+					ProcMain.WriteLog("HTTPClient-RecvResBody-ST");
 
 					long totalSize = 0L;
 					long recvCount = 0L;
@@ -329,9 +326,11 @@ namespace Charlotte.Utilities
 						}
 					}
 
-					ProcMain.WriteLog("RES-BODY-受信完了 " + totalSize + " (" + recvCount + ")");
+					ProcMain.WriteLog("HTTPClient-RecvResBody-ED " + totalSize + " (" + recvCount + ")");
 				}
 			}
+
+			ProcMain.WriteLog("HTTPClient-ED");
 		}
 
 		public Dictionary<string, string> ResHeaders;
