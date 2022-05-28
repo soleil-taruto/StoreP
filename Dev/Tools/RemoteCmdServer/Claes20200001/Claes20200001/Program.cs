@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Threading;
 using System.Windows.Forms;
 using Charlotte.Commons;
 using Charlotte.Tests;
 using Charlotte.WebServices;
-using System.Threading;
 
 namespace Charlotte
 {
@@ -202,6 +202,18 @@ namespace Charlotte
 				{
 					SCommon.CreateDir(Path.GetDirectoryName(path));
 					File.WriteAllBytes(path, channel.Body);
+
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("OK") };
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
+				}
+				else if (command == "A") // アップロード(追記)
+				{
+					SCommon.CreateDir(Path.GetDirectoryName(path));
+
+					using (FileStream writer = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
+					{
+						SCommon.Write(writer, channel.Body);
+					}
 
 					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("OK") };
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
