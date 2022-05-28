@@ -153,7 +153,10 @@ namespace Charlotte.WebServices
 		/// <returns>バイト列</returns>
 		public byte[] ToByteArray()
 		{
-			return this.Inner == null ? SCommon.EMPTY_BYTES : this.Inner.ToByteArray();
+			if (this.Inner == null)
+				return SCommon.EMPTY_BYTES;
+			else
+				return this.Inner.ToByteArray();
 		}
 
 		/// <summary>
@@ -167,6 +170,17 @@ namespace Charlotte.WebServices
 				File.WriteAllBytes(destFile, SCommon.EMPTY_BYTES);
 			else
 				this.Inner.ToFile(destFile);
+		}
+
+		/// <summary>
+		/// 書き出されたデータを最後まで読み込み、
+		/// この出力ストリームをリセットする。
+		/// </summary>
+		/// <param name="writer">出力先</param>
+		public void ReadToEnd(SCommon.Write_d writer)
+		{
+			if (this.Inner != null)
+				this.Inner.ReadToEnd(writer);
 		}
 
 		public void Dispose()
