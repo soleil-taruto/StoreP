@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Threading;
 using System.Windows.Forms;
 using Charlotte.Commons;
 using Charlotte.Tests;
 using Charlotte.WebServices;
+using System.Threading;
 
 namespace Charlotte
 {
@@ -20,7 +20,6 @@ namespace Charlotte
 		{
 			ProcMain.CUIMain(new Program().Main2);
 		}
-
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -38,15 +37,15 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			//Main4(new ArgsReader(new string[] { "80", @"..\..\..\..\dat\Batch", @"C:\temp" }));
-			Main4(new ArgsReader(new string[] { "/P", "80", @"..\..\..\..\dat\Batch", @"C:\temp" }));
+			Main4(new ArgsReader(new string[] { "80", @"..\..\..\..\dat\Batch", @"C:\temp" }));
+			//Main4(new ArgsReader(new string[] { "/P", "80", @"..\..\..\..\dat\Batch", @"C:\temp" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
 
 			// --
 
-			//Common.Pause();
+			Common.Pause();
 		}
 
 		private void Main4(ArgsReader ar)
@@ -55,13 +54,15 @@ namespace Charlotte
 			{
 				Main5(ar);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				ProcMain.WriteLog(e);
-			}
+				ProcMain.WriteLog(ex);
 
-			// 終了時のコンソール出力が見えるように、少し待つ。
-			Thread.Sleep(500);
+				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
+				//Console.ReadLine();
+			}
 		}
 
 		private void Main5(ArgsReader ar)
@@ -169,7 +170,7 @@ namespace Charlotte
 
 			if (command == "B") // バッチ実行
 			{
-				string relPath = Common.ToFairRelPath(commandAndParams[1], this.BatchDir.Length);
+				string relPath = SCommon.ToFairRelPath(commandAndParams[1], this.BatchDir.Length);
 				string path = Path.Combine(this.BatchDir, relPath);
 
 				if (!File.Exists(path))
@@ -186,7 +187,7 @@ namespace Charlotte
 			}
 			else
 			{
-				string relPath = Common.ToFairRelPath(commandAndParams[1], this.StoreDir.Length);
+				string relPath = SCommon.ToFairRelPath(commandAndParams[1], this.StoreDir.Length);
 				string path = Path.Combine(this.StoreDir, relPath);
 
 				if (command == "D") // ダウンロード
