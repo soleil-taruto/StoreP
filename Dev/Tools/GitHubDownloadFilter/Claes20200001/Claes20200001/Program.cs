@@ -70,12 +70,12 @@ namespace Charlotte
 			if (!Directory.Exists(rDir))
 				throw new Exception("no rDir");
 
-			string wDir = Path.Combine(Common.GetOutputDir(), "Dev");
-			ProcMain.WriteLog("*1");
+			string wDir = Common.GetOutputDir();
+			ProcMain.WriteLog("出力先へコピーしています...");
 			SCommon.CopyDir(rDir, wDir);
-			ProcMain.WriteLog("*2");
+			ProcMain.WriteLog("出力先へコピーしました。");
 			FilterMain(wDir);
-			ProcMain.WriteLog("*3");
+			ProcMain.WriteLog("完了しました。");
 		}
 
 		private void FilterMain(string rootDir)
@@ -99,7 +99,7 @@ namespace Charlotte
 				{
 					fileData = NewLineToCRLF(fileData).ToArray();
 
-					Console.WriteLine("* " + file);
+					ProcMain.WriteLog("* " + file);
 
 					File.WriteAllBytes(file, fileData);
 				}
@@ -113,8 +113,8 @@ namespace Charlotte
 				{
 					string fileNew = Path.Combine(Path.GetDirectoryName(file), localNameNew);
 
-					Console.WriteLine("< " + file);
-					Console.WriteLine("> " + fileNew);
+					ProcMain.WriteLog("< " + file);
+					ProcMain.WriteLog("> " + fileNew);
 
 					File.Move(file, fileNew);
 				}
@@ -128,8 +128,8 @@ namespace Charlotte
 				{
 					string dirNew = Path.Combine(Path.GetDirectoryName(dir), localNameNew);
 
-					Console.WriteLine("< " + dir);
-					Console.WriteLine("> " + dirNew);
+					ProcMain.WriteLog("< " + dir);
+					ProcMain.WriteLog("> " + dirNew);
 
 					Directory.Move(dir, dirNew);
 				}
