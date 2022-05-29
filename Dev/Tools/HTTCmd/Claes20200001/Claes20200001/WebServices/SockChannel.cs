@@ -136,12 +136,12 @@ namespace Charlotte.WebServices
 
 			while (1 <= size)
 			{
-				int vsDenom = this.Parent.ChannelCount;
-				vsDenom = Math.Max(1, vsDenom); // 2bs
+				//int vsDenom = this.Parent.ChannelCount;
+				//vsDenom = Math.Max(1, vsDenom); // 2bs
 
-				int vSize = 3000000;
-				vSize /= vsDenom * vsDenom;
-				vSize = Math.Max(vSize, 1000); // 2bs
+				int vSize = 4000000;
+				//vSize /= vsDenom;
+				//vSize = Math.Max(vSize, 1000); // 2bs
 				vSize = Math.Min(vSize, size);
 
 				int? sentSize = null;
