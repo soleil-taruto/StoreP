@@ -2,129 +2,126 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using Charlotte.Commons;
-using Charlotte.Utilities;
+using Charlotte.WebServices;
 
 namespace Charlotte.Tests
 {
 	/// <summary>
-	/// FileCipher.cs テスト
+	/// HTTPServer.cs テスト
 	/// </summary>
 	public class Test0005
 	{
 		public void Test01()
 		{
-			for (int size = 0; size < 100; size++)
-				Test01_a(size);
-
-			for (int testcnt = 0; testcnt < 300; testcnt++)
-				Test01_a(SCommon.CRandom.GetRange(100, 1000));
-
-			for (int testcnt = 0; testcnt < 100; testcnt++)
-				Test01_a(SCommon.CRandom.GetRange(1000, 10000));
-
-			for (int testcnt = 0; testcnt < 30; testcnt++)
-				Test01_a(SCommon.CRandom.GetRange(10000, 100000));
-
-			for (int testcnt = 0; testcnt < 10; testcnt++)
-				Test01_a(SCommon.CRandom.GetRange(100000, 1000000));
-
-			ProcMain.WriteLog("OK!");
-		}
-
-		private void Test01_a(int size)
-		{
-			byte[] rawKey = MakeRawKey();
-			byte[] testData = MakeTestData(size);
-			byte[] encData;
-			byte[] decData;
-
-			using (RingCipher transformer = new RingCipher(rawKey))
+			HTTPServer hs = new HTTPServer()
 			{
-				encData = transformer.Encrypt(testData);
-				decData = transformer.Decrypt(encData);
-			}
+				//PortNo = 80,
+				//Backlog = 300,
+				//ConnectMax = 100,
+				//Interlude = () => !Console.KeyAvailable,
+				HTTPConnected = channel =>
+				{
+					ProcMain.WriteLog(channel.FirstLine);
+					ProcMain.WriteLog(channel.Method);
+					ProcMain.WriteLog(channel.PathQuery);
+					ProcMain.WriteLog(channel.HTTPVersion);
+					ProcMain.WriteLog(string.Join(", ", channel.HeaderPairs.Select(pair => pair[0] + "=" + pair[1])));
+					ProcMain.WriteLog(SCommon.Hex.ToString(channel.Body.ToByteArray()));
 
-			ProcMain.WriteLog("K " + rawKey.Length);
-			ProcMain.WriteLog("T " + testData.Length);
-			ProcMain.WriteLog("E " + encData.Length);
-			ProcMain.WriteLog("D " + decData.Length);
+					//channel.ResStatus = 200;
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
+					//channel.ResHeaderPairs.Add(new string[] { "X-Key-01", "Value-01" });
+					//channel.ResHeaderPairs.Add(new string[] { "X-Key-02", "Value-02" });
+					//channel.ResHeaderPairs.Add(new string[] { "X-Key-03", "Value-03" });
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes("Hello, Happy World!") };
+				},
+			};
 
-			PrintHead(rawKey);
-			PrintHead(testData);
-			PrintHead(encData);
-			PrintHead(decData);
+			//SockChannel.ThreadTimeoutMillis = 100;
 
-			byte[] encData2;
-			byte[] decData2;
+			//HTTPServer.KeepAliveTimeoutMillis = 5000;
 
-			using (WorkingDir wd = new WorkingDir())
-			using (FileCipher transformer = new FileCipher(rawKey))
+			//HTTPServerChannel.RequestTimeoutMillis = -1;
+			//HTTPServerChannel.ResponseTimeoutMillis = -1;
+			//HTTPServerChannel.FirstLineTimeoutMillis = 2000;
+			//HTTPServerChannel.IdleTimeoutMillis = 180000; // 3 min
+			//HTTPServerChannel.BodySizeMax = 300000000; // 300 MB
+
+			//SockCommon.TimeWaitMonitor.CTR_ROT_SEC = 60;
+			//SockCommon.TimeWaitMonitor.COUNTER_NUM = 5;
+			//SockCommon.TimeWaitMonitor.COUNT_LIMIT = 10000;
+
+			// サーバーの設定ここまで
+
+			hs.Perform();
+		}
+
+		public void Test02()
+		{
+			HTTPServer hs = new HTTPServer()
 			{
-				string file = wd.MakePath();
-				File.WriteAllBytes(file, testData);
-				transformer.Encrypt(file);
-				encData2 = File.ReadAllBytes(file);
-				transformer.Decrypt(file);
-				decData2 = File.ReadAllBytes(file);
-			}
+				HTTPConnected = channel =>
+				{
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "application/octet-stream" });
+					channel.ResBody = E_TextBody();
+				},
+			};
 
-			ProcMain.WriteLog("e " + encData2.Length);
-			ProcMain.WriteLog("d " + decData2.Length);
-
-			PrintHead(encData2);
-			PrintHead(decData2);
-
-			// 2bs
-			if (testData.Length == encData.Length) // 平文と暗号文は少なくとも長さは違うはず
-				throw null;
-
-			// 2bs
-			if (SCommon.Comp(testData, decData) != 0) // ? 平文と復号した平文の不一致
-				throw null;
-
-			// 暗号文はcRandPartが異なるため(ほぼ確実に)一致しない。
-
-			if (encData.Length != encData2.Length) // ? 暗号文の長さの不一致
-				throw null;
-
-			if (SCommon.Comp(decData, decData2) != 0) // ? 平文の不一致
-				throw null;
+			hs.Perform();
 		}
 
-		private static byte[] MakeRawKey()
+		private IEnumerable<byte[]> E_TextBody()
 		{
-			int size = SCommon.CRandom.ChooseOne(new int[] { 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 128 });
-			return SCommon.CRandom.GetBytes(size);
-		}
+			List<byte[]> buff = new List<byte[]>();
+			int size = 0;
 
-		private static byte[] MakeTestData(int size)
-		{
-			return SCommon.CRandom.GetBytes(size);
-		}
-
-		private static void PrintHead(byte[] data)
-		{
-			const int HEAD_SIZE = 38;
-			bool cutFlag;
-
-			if (HEAD_SIZE < data.Length)
+			foreach (byte[] part in E_TextBody_P())
 			{
-				data = P_GetBytesRange(data, 0, HEAD_SIZE);
-				cutFlag = true;
-			}
-			else
-				cutFlag = false;
+				buff.Add(part);
+				size += part.Length;
 
-			Console.WriteLine(SCommon.Hex.ToString(data) + (cutFlag ? "..." : ""));
+				if (1000000 < size)
+				{
+					yield return SCommon.Join(buff);
+					size = 0;
+				}
+			}
+			yield return SCommon.Join(buff);
 		}
 
-		private static byte[] P_GetBytesRange(byte[] src, int offset, int size)
+		private IEnumerable<byte[]> E_TextBody_P()
 		{
-			byte[] dest = new byte[size];
-			Array.Copy(src, offset, dest, 0, size);
-			return dest;
+			for (int count = 1; count <= SCommon.IMAX; count++)
+			{
+				yield return Encoding.ASCII.GetBytes(count + "\r\n");
+			}
+		}
+
+		public void Test03()
+		{
+			HTTPServer hs = new HTTPServer()
+			{
+				HTTPConnected = channel =>
+				{
+					List<string> lines = new List<string>();
+
+					lines.Add(channel.FirstLine);
+					lines.Add(channel.Method);
+					lines.Add(channel.PathQuery);
+					lines.Add(channel.HTTPVersion);
+
+					foreach (string[] headerPair in channel.HeaderPairs)
+						lines.Add(headerPair[0] + " ==> " + headerPair[1]);
+
+					lines.Add("" + channel.Body.Count);
+
+					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/plain; charset=US-ASCII" });
+					channel.ResBody = new byte[][] { Encoding.ASCII.GetBytes(SCommon.LinesToText(lines)) };
+				},
+			};
+
+			hs.Perform();
 		}
 	}
 }
