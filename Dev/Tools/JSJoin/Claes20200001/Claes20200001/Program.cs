@@ -88,9 +88,12 @@ namespace Charlotte
 			if (File.Exists(outputDir))
 				throw new Exception("outputDir is not directory");
 
+			// 出力先クリア
+			//
 			SCommon.DeletePath(outputDir);
 			SCommon.CreateDir(outputDir);
 
+			// 全ソースファイル取得
 			{
 				string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories)
 					.Where(file => !file.Contains("\\_")) // ? '_' で始まるローカル名を含まない。
@@ -100,6 +103,7 @@ namespace Charlotte
 				this.SourceFiles = files.Select(file => new JSSourceFile(file, wd)).ToArray();
 			}
 
+			// 全リソースファイル取得
 			{
 				string[] files = Directory.GetFiles(resourceDir, "*", SearchOption.AllDirectories)
 					.Where(file => !file.Contains("\\_")) // ? '_' で始まるローカル名を含まない。
@@ -110,6 +114,8 @@ namespace Charlotte
 
 			foreach (JSSourceFile sourceFile in this.SourceFiles)
 			{
+				Console.WriteLine("< " + sourceFile.OriginalFilePath);
+
 				sourceFile.RemoveComments();
 				sourceFile.SolveLiteralStrings();
 				sourceFile.CollectContents();

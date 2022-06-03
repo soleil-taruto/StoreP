@@ -2,7 +2,7 @@
 	エントリーポイント
 */
 
-public int Main()
+public void Main()
 {
 	// TODO
 }

@@ -2,27 +2,32 @@
 	プリミティブ型
 */
 
-class int
+public class void
 {
 	// none
 }
 
-class double
+public class int
 {
 	// none
 }
 
-class string
+public class double
 {
 	// none
 }
 
-class object
+public class string
 {
 	// none
 }
 
-class boolean
+public class object
+{
+	// none
+}
+
+public class boolean
 {
 	// none
 }

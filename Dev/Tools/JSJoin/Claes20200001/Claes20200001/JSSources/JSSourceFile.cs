@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.IO;
 using Charlotte.Commons;
-using System.Text.RegularExpressions;
 
 namespace Charlotte.JSSources
 {
@@ -139,19 +139,33 @@ namespace Charlotte.JSSources
 							index++;
 							chr = text[index];
 
-							// '\b' など、使用しなさそうなエスケープシーケンスは無視する。
-
-							if (chr == 't')
+							if (chr == '0')
+							{
+								chr = '\0';
+							}
+							else if (chr == 'b')
+							{
+								chr = '\b';
+							}
+							else if (chr == 't')
 							{
 								chr = '\t';
-							}
-							else if (chr == 'r')
-							{
-								chr = '\r';
 							}
 							else if (chr == 'n')
 							{
 								chr = '\n';
+							}
+							else if (chr == 'v')
+							{
+								chr = '\v';
+							}
+							else if (chr == 'f')
+							{
+								chr = '\f';
+							}
+							else if (chr == 'r')
+							{
+								chr = '\r';
 							}
 							else if (chr == '"')
 							{
@@ -165,6 +179,10 @@ namespace Charlotte.JSSources
 							{
 								// noop
 							}
+							else if (chr == '`')
+							{
+								// noop
+							}
 							else if (chr == 'x') // \xff
 							{
 								chr = (char)Convert.ToUInt16(new string(new char[]
@@ -172,11 +190,12 @@ namespace Charlotte.JSSources
 									text[index + 1],
 									text[index + 2],
 								}));
+
 								index += 2;
 							}
 							else if (chr == 'u' && text[index + 1] == '{') // \u{ffff}
 							{
-								throw new Exception("対応していないエスケープシーケンス");
+								throw new Exception("対応していないエスケープシーケンス -- \\u{ffff}");
 							}
 							else if (chr == 'u') // \uffff
 							{
@@ -187,6 +206,7 @@ namespace Charlotte.JSSources
 									text[index + 3],
 									text[index + 4],
 								}));
+
 								index += 4;
 							}
 							else
@@ -211,25 +231,25 @@ namespace Charlotte.JSSources
 			{
 				string line = lines[index];
 
+				// クラス・関数・変数
 				if (
-					Regex.IsMatch(line, "^class\\s") ||
 					Regex.IsMatch(line, "^public\\s") ||
 					Regex.IsMatch(line, "^private\\s")
 					)
 				{
-					if (index + 1 < lines.Length && Regex.IsMatch(lines[index + 1], "^\\{(\\s.*)?$"))
+					if (index + 1 < lines.Length && Regex.IsMatch(lines[index + 1], "^[\\{\\[](\\s.*)?$")) // ? 次行がブロック・マップ・配列の開始か
 					{
 						int p;
 
 						for (p = index + 2; ; p++)
-							if (Regex.IsMatch(lines[p], "^\\}(\\s.*)?$"))
+							if (Regex.IsMatch(lines[p], "^[\\}\\]](\\s.*)?$")) // ? ブロック・マップ・配列の終了か
 								break;
 
 						this.Contents.Add(new JSContent()
 						{
 							SourceFile = this,
 							LineNumb = index + 1,
-							Lines = Common.P_GetRange(lines, index, p + 1).ToArray(),
+							Lines = Common.GetBetween(lines, index, p + 1).ToArray(),
 						});
 
 						index = p;
@@ -243,6 +263,14 @@ namespace Charlotte.JSSources
 							Lines = new string[] { lines[index] },
 						});
 					}
+				}
+				else if (line.Trim() == "") // 空行
+				{
+					// noop
+				}
+				else // 空行以外
+				{
+					throw new Exception("作用の無い行を検出しました。行番号：" + (index + 1));
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-class I2Point_t
+public class I2Point_t
 {
 	int X,
 	int Y,
