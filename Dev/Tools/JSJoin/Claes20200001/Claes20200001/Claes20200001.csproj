@@ -69,6 +69,7 @@
     <Compile Include="Consts.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="JSSources\JSClass.cs" />
+    <Compile Include="JSSources\JSConsts.cs" />
     <Compile Include="JSSources\JSContent.cs" />
     <Compile Include="JSSources\JSFunction.cs" />
     <Compile Include="JSSources\JSResourceFile.cs" />

@@ -4,7 +4,7 @@ class I2Point_t
 	int Y,
 }
 
-I2Point_t CreateI2Point(int x, int y)
+public I2Point_t CreateI2Point(int x, int y)
 {
 	I2Point_t ret =
 	{
@@ -15,7 +15,7 @@ I2Point_t CreateI2Point(int x, int y)
 	return ret;
 }
 
-D2Point_t I2PointToD2Point(I2Point_t src)
+public D2Point_t I2PointToD2Point(I2Point_t src)
 {
 	D2Point_t ret = CreateD2Point(
 		src.X,

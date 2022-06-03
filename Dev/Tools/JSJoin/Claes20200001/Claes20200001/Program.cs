@@ -37,7 +37,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\Dev\GameJS\Test0001\Program", @"C:\Dev\GameJS\Test0001\res", @"C:\Dev\GameJS\Test0001\out" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -51,7 +51,10 @@ namespace Charlotte
 		{
 			try
 			{
-				Main5(ar);
+				using (WorkingDir wd = new WorkingDir())
+				{
+					Main5(ar, wd);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -67,7 +70,7 @@ namespace Charlotte
 		private JSSourceFile[] SourceFiles;
 		private JSResourceFile[] ResourceFiles;
 
-		private void Main5(ArgsReader ar)
+		private void Main5(ArgsReader ar, WorkingDir wd)
 		{
 			bool releaseMode = ar.ArgIs("/R");
 			string sourceDir = SCommon.MakeFullPath(ar.NextArg());
@@ -82,8 +85,8 @@ namespace Charlotte
 			if (!Directory.Exists(resourceDir))
 				throw new Exception("no resourceDir");
 
-			if (!Directory.Exists(outputDir))
-				throw new Exception("no outputDir");
+			if (File.Exists(outputDir))
+				throw new Exception("outputDir is not directory");
 
 			SCommon.DeletePath(outputDir);
 			SCommon.CreateDir(outputDir);
@@ -94,7 +97,7 @@ namespace Charlotte
 					.Where(file => Common.ExtIs(file, ".js"))
 					.ToArray();
 
-				this.SourceFiles = files.Select(file => new JSSourceFile(file)).ToArray();
+				this.SourceFiles = files.Select(file => new JSSourceFile(file, wd)).ToArray();
 			}
 
 			{
@@ -107,7 +110,6 @@ namespace Charlotte
 
 			foreach (JSSourceFile sourceFile in this.SourceFiles)
 			{
-				sourceFile.Load();
 				sourceFile.RemoveComments();
 				sourceFile.SolveLiteralStrings();
 				sourceFile.CollectContents();

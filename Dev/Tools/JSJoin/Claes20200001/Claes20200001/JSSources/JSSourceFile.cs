@@ -4,55 +4,55 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Charlotte.Commons;
+using System.Text.RegularExpressions;
 
 namespace Charlotte.JSSources
 {
 	public class JSSourceFile
 	{
+		public string OriginalFilePath;
 		public string FilePath;
 
-		public JSSourceFile(string filePath)
+		public JSSourceFile(string filePath, WorkingDir wd)
 		{
-			this.FilePath = filePath;
-		}
+			this.OriginalFilePath = filePath;
+			this.FilePath = wd.MakePath();
 
-		public char[] Text;
-
-		public void Load()
-		{
-			this.Text = File.ReadAllText(this.FilePath, SCommon.ENCODING_SJIS).ToArray();
+			File.Copy(this.OriginalFilePath, this.FilePath);
 		}
 
 		public void RemoveComments()
 		{
-			for (int index = 0; index < this.Text.Length; )
+			char[] text = File.ReadAllText(this.FilePath, JSConsts.SOURCE_FILE_ENCODING).ToArray();
+
+			for (int index = 0; index < text.Length; )
 			{
-				char chr = this.Text[index];
+				char chr = text[index];
 
 				if (chr == '"') // ? リテラル文字列(ダブルクォート)
 				{
-					index = this.SkipLiteralString(index, '"');
+					index = this.SkipLiteralString(text, index, '"');
 					continue;
 				}
 				if (chr == '\'') // ? リテラル文字列(シングルクォート)
 				{
-					index = this.SkipLiteralString(index, '\'');
+					index = this.SkipLiteralString(text, index, '\'');
 					continue;
 				}
 				if (chr == '/')
 				{
 					index++;
-					chr = this.Text[index];
+					chr = text[index];
 
 					if (chr == '*') // ? C系コメント開始
 					{
 						int p;
 
 						for (p = index + 1; ; p++)
-							if (this.Text[p] == '*' && this.Text[p + 1] == '/') // ? C系コメント終了
+							if (text[p] == '*' && text[p + 1] == '/') // ? C系コメント終了
 								break;
 
-						this.EraseComment(index - 1, p + 2);
+						this.EraseComment(text, index - 1, p + 2);
 						index = p + 2;
 						continue;
 					}
@@ -60,74 +60,84 @@ namespace Charlotte.JSSources
 					{
 						int p;
 
-						for (p = index + 1; p < this.Text.Length; p++)
-							if (this.Text[p] == '\n') // ? C++系コメント終了
+						for (p = index + 1; p < text.Length; p++)
+							if (text[p] == '\n') // ? C++系コメント終了
 								break;
 
-						this.EraseComment(index - 1, p);
+						this.EraseComment(text, index - 1, p);
 						index = p;
 						continue;
 					}
 				}
 				index++;
 			}
+			File.WriteAllText(this.FilePath, new string(text), JSConsts.SOURCE_FILE_ENCODING);
 		}
 
-		private int SkipLiteralString(int index, char literalStringEndChr)
+		private int SkipLiteralString(char[] text, int index, char literalStringEndChr)
 		{
 			int p;
 
 			for (p = index + 1; ; p++)
 			{
-				if (this.Text[p] == literalStringEndChr)
+				if (text[p] == literalStringEndChr)
 					break;
 
 				// ここでは \xff \uffff \u{ffff} を考慮しなくて良い。
 				//
-				if (this.Text[p] == '\\') // ? エスケープ文字 -> スキップ
+				if (text[p] == '\\') // ? エスケープ文字 -> スキップ
 					p++;
 			}
 			return p + 1;
 		}
 
-		private void EraseComment(int start, int end)
+		private void EraseComment(char[] text, int start, int end)
 		{
-			StringBuilder buff = new StringBuilder();
-
 			for (int index = start; index < end; index++)
-			{
-				char chr = this.Text[index];
-
-				if (chr > ' ') // ? 空白系文字ではない。-> 空白にする。
-					chr = ' ';
-
-				this.Text[index] = chr;
-			}
+				if (text[index] > ' ') // ? 空白系文字ではない。
+					text[index] = ' ';
 		}
 
 		public void SolveLiteralStrings()
 		{
-			StringBuilder buff = new StringBuilder();
-			bool insideLiteralString = false;
-			char literalStringEndChr = '\0';
+			string text = File.ReadAllText(this.FilePath, JSConsts.SOURCE_FILE_ENCODING);
+			StringBuilder dest = new StringBuilder();
+			int literalStringEndChr = -1; // リテラル文字列「開始・終了」文字, -1 == リテラル文字列の外
 
-			for (int index = 0; index < this.Text.Length; index++)
+			for (int index = 0; index < text.Length; index++)
 			{
-				char chr = this.Text[index];
+				char chr = text[index];
 
-				if (insideLiteralString)
+				if (literalStringEndChr == -1)
+				{
+					if (chr == '"') // ? リテラル文字列開始(ダブルクォート)
+					{
+						literalStringEndChr = '"';
+						dest.Append('"');
+					}
+					else if (chr == '\'') // ? リテラル文字列開始(シングルクォート)
+					{
+						literalStringEndChr = '\'';
+						dest.Append('"');
+					}
+					else
+					{
+						dest.Append(chr);
+					}
+				}
+				else
 				{
 					if (chr == literalStringEndChr)
 					{
-						insideLiteralString = false;
-						buff.Append('"');
+						literalStringEndChr = -1;
+						dest.Append('"');
 					}
 					else
 					{
 						if (chr == '\\')
 						{
 							index++;
-							chr = this.Text[index];
+							chr = text[index];
 
 							// '\b' など、使用しなさそうなエスケープシーケンスは無視する。
 
@@ -159,12 +169,12 @@ namespace Charlotte.JSSources
 							{
 								chr = (char)Convert.ToUInt16(new string(new char[]
 								{
-									this.Text[index + 1],
-									this.Text[index + 2],
+									text[index + 1],
+									text[index + 2],
 								}));
 								index += 2;
 							}
-							else if (chr == 'u' && this.Text[index + 1] == '{') // \u{ffff}
+							else if (chr == 'u' && text[index + 1] == '{') // \u{ffff}
 							{
 								throw new Exception("対応していないエスケープシーケンス");
 							}
@@ -172,10 +182,10 @@ namespace Charlotte.JSSources
 							{
 								chr = (char)Convert.ToUInt16(new string(new char[]
 								{
-									this.Text[index + 1],
-									this.Text[index + 2],
-									this.Text[index + 3],
-									this.Text[index + 4],
+									text[index + 1],
+									text[index + 2],
+									text[index + 3],
+									text[index + 4],
 								}));
 								index += 4;
 							}
@@ -184,32 +194,57 @@ namespace Charlotte.JSSources
 								throw new Exception("不明なエスケープシーケンス");
 							}
 						}
-						buff.Append(string.Format("\\u{0:x4}", (int)chr));
+						dest.Append(string.Format("\\u{0:x4}", (int)chr));
 					}
-				}
-				else
-				{
-					if (chr == '"')
-					{
-						insideLiteralString = true;
-						literalStringEndChr = '"';
-					}
-					else if (chr == '\'')
-					{
-						insideLiteralString = true;
-						literalStringEndChr = '\'';
-						chr = '"';
-					}
-					buff.Append(chr);
 				}
 			}
-			this.Text = buff.ToString().ToArray();
+			File.WriteAllText(this.FilePath, dest.ToString(), JSConsts.SOURCE_FILE_ENCODING);
 		}
 
-		public List<JSContent> Contents;
+		public List<JSContent> Contents = new List<JSContent>();
 
 		public void CollectContents()
 		{
+			string[] lines = File.ReadAllLines(this.FilePath, JSConsts.SOURCE_FILE_ENCODING);
+
+			for (int index = 0; index < lines.Length; index++)
+			{
+				string line = lines[index];
+
+				if (
+					Regex.IsMatch(line, "^class\\s") ||
+					Regex.IsMatch(line, "^public\\s") ||
+					Regex.IsMatch(line, "^private\\s")
+					)
+				{
+					if (index + 1 < lines.Length && Regex.IsMatch(lines[index + 1], "^\\{(\\s.*)?$"))
+					{
+						int p;
+
+						for (p = index + 2; ; p++)
+							if (Regex.IsMatch(lines[p], "^\\}(\\s.*)?$"))
+								break;
+
+						this.Contents.Add(new JSContent()
+						{
+							SourceFile = this,
+							LineNumb = index + 1,
+							Lines = Common.P_GetRange(lines, index, p + 1).ToArray(),
+						});
+
+						index = p;
+					}
+					else
+					{
+						this.Contents.Add(new JSContent()
+						{
+							SourceFile = this,
+							LineNumb = index + 1,
+							Lines = new string[] { lines[index] },
+						});
+					}
+				}
+			}
 		}
 	}
 }
