@@ -237,7 +237,7 @@ namespace Charlotte
 					dlg.Filter = "テキストファイル(*.txt)|*.txt|すべてのファイル(*.*)|*.*";
 					dlg.FilterIndex = 1;
 					dlg.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-					dlg.FileName = SCommon.SimpleDateTime.Now().ToString("CRandom_{0}-{1:D2}-{2:D2}_{4:D2}-{5:D2}-{6:D2}.txt");
+					dlg.FileName = "Key_" + SCommon.SimpleDateTime.Now().ToTimeStamp() + ".txt";
 
 					if (dlg.ShowDialog() == DialogResult.OK)
 					{
