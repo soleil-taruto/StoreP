@@ -21,7 +21,14 @@ namespace Charlotte.JSSources
 			VARIABLE,
 		}
 
-		public Kind_e GetKind()
+		public Kind_e Kind;
+
+		public void LoadKind()
+		{
+			this.Kind = this.GetKind();
+		}
+
+		private Kind_e GetKind()
 		{
 			string line = this.Lines[0];
 			JSToken[] tokens = JSTokenTools.I.Tokenize(line).ToArray();
@@ -65,17 +72,14 @@ namespace Charlotte.JSSources
 			PRIVATE,
 		}
 
-		private Scope_e? Scope = null;
+		private Scope_e Scope;
 
-		public Scope_e GetScope()
+		public void LoadScope()
 		{
-			if (this.Scope == null)
-				this.Scope = this.GetScope_Main();
-
-			return this.Scope.Value;
+			this.Scope = this.GetScope();
 		}
 
-		private Scope_e GetScope_Main()
+		private Scope_e GetScope()
 		{
 			string line = this.Lines[0];
 			JSToken[] tokens = JSTokenTools.I.Tokenize(line).ToArray();

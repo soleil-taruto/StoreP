@@ -126,7 +126,10 @@ namespace Charlotte
 			}
 			foreach (JSContent content in SCommon.Concat(this.SourceFiles.Select(v => v.Contents)))
 			{
-				switch (content.GetKind())
+				content.LoadKind();
+				content.LoadScope();
+
+				switch (content.Kind)
 				{
 					case JSContent.Kind_e.TEMPLATE:
 						this.Templates.Add(new JSTemplate() { Parent = content });
@@ -141,7 +144,7 @@ namespace Charlotte
 						break;
 
 					default:
-						throw new Exception("Unknon content-kind");
+						throw new Exception("Bad content.kind");
 				}
 			}
 		}
