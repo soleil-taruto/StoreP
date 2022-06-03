@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Charlotte.JSSources
 {
-	public class JSClass
+	public class JSTemplate
 	{
 		public JSContent Parent;
 

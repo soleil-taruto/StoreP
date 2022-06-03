@@ -70,6 +70,10 @@ namespace Charlotte
 		private JSSourceFile[] SourceFiles;
 		private JSResourceFile[] ResourceFiles;
 
+		private List<JSTemplate> Templates = new List<JSTemplate>();
+		private List<JSFunction> Functions = new List<JSFunction>();
+		private List<JSVariable> Variables = new List<JSVariable>();
+
 		private void Main5(ArgsReader ar, WorkingDir wd)
 		{
 			bool releaseMode = ar.ArgIs("/R");
@@ -119,6 +123,26 @@ namespace Charlotte
 				sourceFile.RemoveComments();
 				sourceFile.SolveLiteralStrings();
 				sourceFile.CollectContents();
+			}
+			foreach (JSContent content in SCommon.Concat(this.SourceFiles.Select(v => v.Contents)))
+			{
+				switch (content.GetKind())
+				{
+					case JSContent.Kind_e.TEMPLATE:
+						this.Templates.Add(new JSTemplate() { Parent = content });
+						break;
+
+					case JSContent.Kind_e.FUNCTION:
+						this.Functions.Add(new JSFunction() { Parent = content });
+						break;
+
+					case JSContent.Kind_e.VARIABLE:
+						this.Variables.Add(new JSVariable() { Parent = content });
+						break;
+
+					default:
+						throw new Exception("Unknon content-kind");
+				}
 			}
 		}
 	}

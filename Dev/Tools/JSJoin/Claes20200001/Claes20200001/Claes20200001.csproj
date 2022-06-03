@@ -68,16 +68,19 @@
     <Compile Include="Commons\WorkingDir.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="JSSources\JSClass.cs" />
+    <Compile Include="JSSources\JSTemplate.cs" />
     <Compile Include="JSSources\JSConsts.cs" />
     <Compile Include="JSSources\JSContent.cs" />
     <Compile Include="JSSources\JSFunction.cs" />
     <Compile Include="JSSources\JSResourceFile.cs" />
     <Compile Include="JSSources\JSSourceFile.cs" />
+    <Compile Include="JSSources\JSToken.cs" />
+    <Compile Include="JSSources\JSTokenTools.cs" />
     <Compile Include="JSSources\JSVariable.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Test0001.cs" />
+    <Compile Include="Utilities\BitList.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
