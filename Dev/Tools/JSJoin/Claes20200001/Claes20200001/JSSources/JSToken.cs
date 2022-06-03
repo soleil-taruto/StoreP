@@ -15,6 +15,7 @@ namespace Charlotte.JSSources
 
 		public Kind_e Kind;
 		public string Text;
+		public int ArrayDepth;
 		public int Index;
 
 		// <---- prm

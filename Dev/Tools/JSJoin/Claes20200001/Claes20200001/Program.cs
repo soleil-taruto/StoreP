@@ -102,6 +102,7 @@ namespace Charlotte
 				string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories)
 					.Where(file => !file.Contains("\\_")) // ? '_' で始まるローカル名を含まない。
 					.Where(file => Common.ExtIs(file, ".js"))
+					.OrderBy(SCommon.Comp)
 					.ToArray();
 
 				this.SourceFiles = files.Select(file => new JSSourceFile(file, wd)).ToArray();
@@ -111,6 +112,7 @@ namespace Charlotte
 			{
 				string[] files = Directory.GetFiles(resourceDir, "*", SearchOption.AllDirectories)
 					.Where(file => !file.Contains("\\_")) // ? '_' で始まるローカル名を含まない。
+					.OrderBy(SCommon.Comp)
 					.ToArray();
 
 				this.ResourceFiles = files.Select(file => new JSResourceFile(file)).ToArray();
@@ -146,6 +148,18 @@ namespace Charlotte
 					default:
 						throw new Exception("Bad content.kind");
 				}
+			}
+			foreach (JSTemplate template in this.Templates)
+			{
+				// TODO
+			}
+			foreach (JSFunction function in this.Functions)
+			{
+				// TODO
+			}
+			foreach (JSVariable variable in this.Variables)
+			{
+				// TODO
 			}
 		}
 	}

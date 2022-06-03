@@ -64,6 +64,7 @@ namespace Charlotte.JSSources
 					{
 						Kind = JSToken.Kind_e.SYMBOL,
 						Text = new string(new char[] { chr }),
+						ArrayDepth = 0,
 						Index = index,
 					};
 
@@ -78,23 +79,28 @@ namespace Charlotte.JSSources
 						if (!this.TrailChrs[(int)text[p]])
 							break;
 
+					int q = p;
+
 					// Image_t[][] などの "[]" を含める。
 					//
 					while (
-						p + 1 < text.Length &&
-						text[p + 0] == '[' &&
-						text[p + 1] == ']'
+						q + 1 < text.Length &&
+						text[q + 0] == '[' &&
+						text[q + 1] == ']'
 						)
-						p += 2;
+						q += 2;
+
+					int arrayDepth = (q - p) / 2;
 
 					yield return new JSToken()
 					{
 						Kind = JSToken.Kind_e.WORD,
 						Text = text.Substring(index, p - index),
+						ArrayDepth = arrayDepth,
 						Index = index,
 					};
 
-					index = p;
+					index = q;
 					continue;
 				}
 				index++;
