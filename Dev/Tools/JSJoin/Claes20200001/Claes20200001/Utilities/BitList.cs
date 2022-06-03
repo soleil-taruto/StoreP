@@ -7,7 +7,9 @@ namespace Charlotte.Utilities
 {
 	public class BitList
 	{
-		private const int INNER_LEN_MAX = (int)(((long)int.MaxValue + 1) / 4); // 2GB
+		private const int UINT_SIZE = 4;
+		private const int UINT_BITS = UINT_SIZE * 8;
+		private const int INNER_LEN_MAX = (int)(((long)int.MaxValue + 1) / UINT_SIZE);
 
 		private List<uint> Inner = new List<uint>();
 
@@ -31,24 +33,24 @@ namespace Charlotte.Utilities
 				if (index < 0L)
 					throw new ArgumentOutOfRangeException("Bad index: " + index);
 
-				if (this.Inner.Count <= index / 32)
+				if (this.Inner.Count <= index / UINT_BITS)
 					return false;
 
-				return (this.Inner[(int)(index / 32)] & (1u << (int)(index % 32))) != 0u;
+				return (this.Inner[(int)(index / UINT_BITS)] & (1u << (int)(index % UINT_BITS))) != 0u;
 			}
 
 			set
 			{
-				if (index < 0L || (long)INNER_LEN_MAX * 32 <= index)
+				if (index < 0L || (long)INNER_LEN_MAX * UINT_BITS <= index)
 					throw new ArgumentOutOfRangeException("Bad index: " + index);
 
-				while (this.Inner.Count <= index / 32)
+				while (this.Inner.Count <= index / UINT_BITS)
 					this.Inner.Add(0u);
 
 				if (value)
-					this.Inner[(int)(index / 32)] |= 1u << (int)(index % 32);
+					this.Inner[(int)(index / UINT_BITS)] |= 1u << (int)(index % UINT_BITS);
 				else
-					this.Inner[(int)(index / 32)] &= ~(1u << (int)(index % 32));
+					this.Inner[(int)(index / UINT_BITS)] &= ~(1u << (int)(index % UINT_BITS));
 			}
 		}
 
@@ -58,7 +60,7 @@ namespace Charlotte.Utilities
 
 			for (int index = 0; index < this.Inner.Count; index++)
 			{
-				for (int bit = 0; bit < 32; bit++)
+				for (int bit = 0; bit < UINT_BITS; bit++)
 				{
 					yield return (this.Inner[index] & (1u << bit)) != 0u;
 				}
