@@ -152,15 +152,25 @@ namespace Charlotte
 			foreach (JSTemplate template in this.Templates)
 			{
 				// TODO
+				// TODO
+				// TODO
 			}
 			foreach (JSFunction function in this.Functions)
 			{
+				// TODO
+				// TODO
 				// TODO
 			}
 			foreach (JSVariable variable in this.Variables)
 			{
 				// TODO
+				// TODO
+				// TODO
 			}
+
+			// TODO
+			// TODO
+			// TODO
 		}
 	}
 }
