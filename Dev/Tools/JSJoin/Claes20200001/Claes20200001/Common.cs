@@ -82,10 +82,21 @@ namespace Charlotte
 		/// <returns>比較結果</returns>
 		public static int CompPath(string a, string b)
 		{
-			a = a.Replace('\\', '\t');
-			b = b.Replace('\\', '\t');
+			a = ConvForCompPath(a);
+			b = ConvForCompPath(b);
 
 			return SCommon.CompIgnoreCase(a, b);
+		}
+
+		private static string ConvForCompPath(string str)
+		{
+			string[] tokens = str.Split('\\');
+
+			for (int index = 0; index < tokens.Length; index++)
+				tokens[index] = (index + 1 < tokens.Length ? "2_" : "1_") + tokens[index];
+
+			str = string.Join("\t", tokens);
+			return str;
 		}
 
 		/// <summary>
