@@ -39,5 +39,47 @@ namespace Charlotte.Tests
 				}
 			}
 		}
+
+		public void Test02()
+		{
+			Test02_a(int.MaxValue);
+			Test02_a(int.MaxValue - 1);
+			Test02_a(int.MaxValue - 2);
+			Test02_a(int.MaxValue - 3);
+			Test02_a(0);
+			Test02_a(1);
+			Test02_a(2);
+			Test02_a(3);
+		}
+
+		private void Test02_a(int ymd)
+		{
+			Console.WriteLine(new JapaneseDate(ymd));
+		}
+
+		public void Test03()
+		{
+			for (int y = 1; y <= 9999; y++)
+			{
+				if (y % 100 == 0) Console.WriteLine(y); // cout
+
+				for (int m = 1; m <= 12; m++)
+				{
+					for (int d = 1; d <= 31; d++)
+					{
+						JapaneseDate date = new JapaneseDate(y * 10000 + m * 100 + d);
+						string str = date.ToString();
+						JapaneseDate date2 = JapaneseDate.Create(str);
+
+						if (
+							date2.Y != y ||
+							date2.M != m ||
+							date2.D != d
+							)
+							throw null; // bug !!!
+					}
+				}
+			}
+		}
 	}
 }

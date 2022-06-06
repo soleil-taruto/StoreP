@@ -62,7 +62,9 @@ namespace Charlotte
 			//new Test0005().Test01(); // HTTPServer
 			//new Test0005().Test02(); // HTTPServer
 			//new Test0005().Test03(); // HTTPServer
-			new Test0006().Test01(); // JapaneseDate
+			//new Test0006().Test01(); // JapaneseDate
+			//new Test0006().Test02(); // JapaneseDate
+			new Test0006().Test03(); // JapaneseDate
 
 			// --
 		}
