@@ -2,18 +2,18 @@
 	アプリケーション用メインモジュール
 */
 
-var APP_IDENT = "{38e2fd96-2424-4de8-a020-88d6cfbebef9}"; // アプリ毎に変更する。
+var<string> APP_IDENT = "{38e2fd96-2424-4de8-a020-88d6cfbebef9}"; // アプリ毎に変更する。
 
 window.onload = function() { Main(); }; // エントリーポイント呼び出し
 
 // エントリーポイント
-function Main()
+function <void> Main()
 {
 	ProcMain(@@_Main());
 }
 
 // メイン
-function* @@_Main()
+function* <generatorForTask> @@_Main()
 {
 	// リソース読み込み中は待機
 	while (1 <= Loading)
@@ -40,7 +40,7 @@ function* @@_Main()
 }
 
 // 本番用メイン
-function* @@_Main2()
+function* <generatorForTask> @@_Main2()
 {
 	yield* TitleMain();
 }

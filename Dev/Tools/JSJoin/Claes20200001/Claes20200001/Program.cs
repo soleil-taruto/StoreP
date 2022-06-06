@@ -277,9 +277,9 @@ namespace Charlotte
 				else
 					positionString += " " + sha512_64;
 
-				if (line.StartsWith("LOGPOS;"))
+				if (line.StartsWith("LOGPOS();"))
 				{
-					string trailer = line.Substring(7);
+					string trailer = line.Substring(9);
 
 					if (releaseMode)
 					{
@@ -297,9 +297,9 @@ namespace Charlotte
 						line = indent + "console.log(\"" + positionString + "\");" + trailer;
 					}
 				}
-				else if (line.StartsWith("error;"))
+				else if (line.StartsWith("error();"))
 				{
-					string trailer = line.Substring(6);
+					string trailer = line.Substring(8);
 
 					line = indent + "throw \"" + positionString + "\";" + trailer;
 				}
@@ -566,7 +566,8 @@ namespace Charlotte
 					}
 				}
 
-				line = line.Replace("(double)", "");
+				// キャスト廃止
+				//line = line.Replace("(double)", "");
 				//line = line.Replace("(int)", ""); // ToFix を使用しなければならない。
 
 				lines[index] = line;

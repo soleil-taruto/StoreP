@@ -3,7 +3,7 @@
 */
 
 // スクリーンのクリア
-function ClearScreen()
+function <void> ClearScreen()
 {
 	Context.clearRect(0, 0, Screen_W, Screen_H);
 }
@@ -23,16 +23,16 @@ function ClearScreen()
 		2.0 == 2倍
 		0.5 == 0.5倍
 */
-function Draw(image, x, y, a, r, z)
+function <void> Draw(<Image> image, <double> x, <double> y, <double> a, <double> r, <double> z)
 {
-	var w = image.naturalWidth;
-	var h = image.naturalHeight;
+	var<int> w = image.naturalWidth;
+	var<int> h = image.naturalHeight;
 
 	w *= z;
 	h *= z;
 
-	var l = x - w / 2;
-	var t = y - h / 2;
+	var<double> l = x - w / 2;
+	var<double> t = y - h / 2;
 
 	Context.translate(x, y);
 	Context.rotate(r);

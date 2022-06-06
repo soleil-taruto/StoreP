@@ -2,7 +2,19 @@
 	é©íe
 */
 
-function CreateShot(x, y)
+/@(ASTR)
+
+/// Shot_t
+{
+	<double> X // X-à íu
+	<double> Y // Y-à íu
+	<boolean> Crashed // ìGÇ∆è’ìÀÇµÇΩÇ©
+	<generatorForTask> Each
+}
+
+@(ASTR)/
+
+function <Shot_t> CreateShot(<double> x, <double> y)
 {
 	var ret =
 	{
@@ -22,12 +34,12 @@ function CreateShot(x, y)
 /*
 	ret: ? ê∂ë∂
 */
-function Shot_Each(shot)
+function <boolean> Shot_Each(<Shot_t> shot)
 {
 	return shot.Each.next().value;
 }
 
-function* @@_Each(shot)
+function* <generatorForTask> @@_Each(<Shot_t> shot)
 {
 	for (; ; )
 	{
@@ -59,4 +71,4 @@ function* @@_Each(shot)
 /*
 	é©íeÉäÉXÉg
 */
-var Shots = [];
+var <Shot_t[]> Shots = [];

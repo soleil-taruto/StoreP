@@ -3,4 +3,4 @@
 */
 
 // 現在ロード中のリソースの数
-var Loading = 0;
+var<int> Loading = 0;

@@ -20,9 +20,9 @@ var @@_Buttons =
 		},
 		Pressed : function* ()
 		{
-			LOGPOS;
+			LOGPOS();
 			yield* GameMain();
-			LOGPOS;
+			LOGPOS();
 		},
 	},
 	{
@@ -41,9 +41,9 @@ var @@_Buttons =
 		},
 		Pressed : function* ()
 		{
-			LOGPOS;
+			LOGPOS();
 			yield* CreditMain();
-			LOGPOS;
+			LOGPOS();
 		},
 	},
 	{
@@ -62,15 +62,15 @@ var @@_Buttons =
 		},
 		Pressed : function* ()
 		{
-			LOGPOS;
+			LOGPOS();
 			window.location.href = "..";
 //			window.location.href = "https://www.google.com/";
-			LOGPOS;
+			LOGPOS();
 		},
 	},
 ];
 
-function* TitleMain()
+function* <generatorForTask> TitleMain()
 {
 	for (; ; )
 	{

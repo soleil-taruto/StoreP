@@ -6,25 +6,25 @@
 	音楽
 	Play()関数に渡す。
 */
-function @@_Load(url)
+function <Audio> @@_Load(<string> url)
 {
-	LOGPOS;
+	LOGPOS();
 	Loading++;
 
-	var audio = new Audio(url);
+	var<Audio> audio = new Audio(url);
 
-	var loaded = function()
+	var<Action> loaded = function()
 	{
 		audio.removeEventListener("canplaythrough", loaded);
 		audio.removeEventListener("error", errorLoad);
 
-		LOGPOS;
+		LOGPOS();
 		Loading--;
 	};
 
-	var errorLoad = function()
+	var<Action> errorLoad = function()
 	{
-		error;
+		error();
 	};
 
 	audio.addEventListener("canplaythrough", loaded);
@@ -34,13 +34,23 @@ function @@_Load(url)
 	return audio;
 }
 
+/@(ASTR)
+
+// SE_t
+{
+	<Audio[]> Handles // ハンドルのリスト(3つ)
+	<int> Index // 次に再生するハンドルの位置
+}
+
+@(ASTR)/
+
 /*
 	効果音
 	SE()関数に渡す。
 */
-function @@_LoadSE(url)
+function <SE_t> @@_LoadSE(<string> url)
 {
-	var ret =
+	var<SE_t> ret =
 	{
 		// ハンドルのリスト(3つ)
 		Handles:
@@ -63,6 +73,6 @@ function @@_LoadSE(url)
 // M_ ... 音楽,BGM
 // S_ ... 効果音(SE)
 
-var M_Field = @@_Load(Resources.HMIX__n62_mp3);
+var<Audio> M_Field = @@_Load(Resources.HMIX__n62_mp3);
 
-var S_Explode = @@_LoadSE(Resources.小森平__explosion01_mp3);
+var<SE_t> S_Explode = @@_LoadSE(Resources.小森平__explosion01_mp3);

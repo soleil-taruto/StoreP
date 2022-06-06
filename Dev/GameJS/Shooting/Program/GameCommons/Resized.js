@@ -3,10 +3,10 @@
 */
 
 // 画面リサイズ・イベントのリスト
-var @@_Reactions = [];
+var<Action[]> @@_Reactions = [];
 
 // 画面リサイズ・イベントの追加
-function AddResized(reaction)
+function <void> AddResized(<Action> reaction)
 {
 	@@_Reactions.push(reaction);
 }
@@ -16,17 +16,17 @@ window.onresize = function()
 	@@_Resized();
 };
 
-var @@_TimerId;
+var<int> @@_TimerId;
 
-function @@_Resized()
+function <void> @@_Resized()
 {
 	clearTimeout(@@_TimerId);
 	@@_TimerId = setTimeout(@@_Resized2, 100);
 }
 
-function @@_Resized2()
+function <void> @@_Resized2()
 {
-	for (var event of @@_Reactions)
+	for (var<Action> event of @@_Reactions)
 	{
 		event();
 	}

@@ -2,7 +2,20 @@
 	“G
 */
 
-function CreateEnemy(x, y)
+/@(ASTR)
+
+/// Enemy_t
+{
+	<double> X // X-ˆÊ’u
+	<double> Y // Y-ˆÊ’u
+	<int> HP // ‘Ì—Í
+	<boolean> Crashed // ©’e‚ÆÕ“Ë‚µ‚½‚©
+	<generatorForTask> Each
+}
+
+@(ASTR)/
+
+function <Enemy_t> CreateEnemy(<double> x, <double> y)
 {
 	var ret =
 	{
@@ -25,12 +38,12 @@ function CreateEnemy(x, y)
 /*
 	ret: ? ¶‘¶
 */
-function Enemy_Each(enemy)
+function <boolean> Enemy_Each(<Enemy_t> enemy)
 {
 	return enemy.Each.next().value;
 }
 
-function* @@_Each(enemy)
+function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 {
 	var speedX = Math.random() * -2.0 - 1.0;
 	var speedY = (Math.random() - 0.5) * 6.0;
@@ -91,4 +104,4 @@ function* @@_Each(enemy)
 /*
 	“GƒŠƒXƒg
 */
-var Enemies = [];
+var<Enemy_t> Enemies = [];

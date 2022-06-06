@@ -2,7 +2,7 @@
 	ƒeƒXƒg-0001
 */
 
-function* Test01()
+function* <generatorForTask> Test01()
 {
 	// none
 }

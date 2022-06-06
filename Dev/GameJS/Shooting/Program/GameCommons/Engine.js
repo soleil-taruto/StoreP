@@ -3,31 +3,31 @@
 */
 
 // 画面の幅
-var Screen_W = 960;
+var<int> Screen_W = 960;
 
 // 画面の高さ
-var Screen_H = 540;
+var<int> Screen_H = 540;
 
 // アプリケーション側の処理
 // ジェネレータ関数であること。
-var @@_AppMain;
+var<generatorForTask> @@_AppMain;
 
 // *_INIT イベントのリスト
-var @@_INIT_Events = [ @(INIT) ];
+var<void_function_void[]> @@_INIT_Events = [ @(INIT) ];
 
 // *_EACH イベントのリスト
-var @@_EACH_Events = [ @(EACH) ];
+var<void_function_void[]> @@_EACH_Events = [ @(EACH) ];
 
 // 描画先Canvasタグ
-var Canvas;
+var<canvas_tag> Canvas;
 
 // Canvasを入れておくDivタグ
-var CanvasBox;
+var<div_tag> CanvasBox;
 
 // ゲーム用メイン
 // appMain: アプリケーション側の処理
 // -- ジェネレータ関数であること。
-function ProcMain(appMain)
+function <void> ProcMain(<generatorForTask> appMain)
 {
 	@@_AppMain = appMain;
 
@@ -46,15 +46,15 @@ function ProcMain(appMain)
 
 	for (var event of @@_INIT_Events)
 	{
-		LOGPOS;
+		LOGPOS();
 		event();
-		LOGPOS;
+		LOGPOS();
 	}
 
 	@@_Anime();
 }
 
-function @@_Resized()
+function <void> @@_Resized()
 {
 	var sw = window.innerWidth;
 	var sh = window.innerHeight;
@@ -82,15 +82,15 @@ function @@_Resized()
 }
 
 // リフレッシュレート高過ぎ検知用時間
-var @@_HzChaserTime = 0;
+var<int> @@_HzChaserTime = 0;
 
 // プロセスフレームカウンタ
-var ProcFrame = 0;
+var<int> ProcFrame = 0;
 
 // 描画先コンテキスト(描画先スクリーン)
-var Context = null;
+var<context> Context = null;
 
-function @@_Anime()
+function <void> @@_Anime()
 {
 	var currTime = new Date().getTime();
 

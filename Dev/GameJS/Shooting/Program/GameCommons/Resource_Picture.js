@@ -2,9 +2,9 @@
 	画像
 */
 
-function @@_Load(url)
+function <Image> @@_Load(<string> url)
 {
-	LOGPOS;
+	LOGPOS();
 	Loading++;
 
 	var image = new Image();
@@ -12,13 +12,13 @@ function @@_Load(url)
 	image.src = url;
 	image.onload = function()
 	{
-		LOGPOS;
+		LOGPOS();
 		Loading--;
 	};
 
 	image.onerror = function()
 	{
-		error;
+		error();
 	};
 
 	return image;
@@ -29,12 +29,12 @@ function @@_Load(url)
 // プリフィクス
 // P_ ... 画像
 
-var P_Enemy_0001 = @@_Load(Resources.Picture__Enemy0001_png);
-var P_Player     = @@_Load(Resources.Picture__Player_png);
-var P_Shot_0001  = @@_Load(Resources.Picture__Shot0001_png);
-var P_Tama_0001  = @@_Load(Resources.Picture__Tama0001_png);
-var P_Wall_0002  = @@_Load(Resources.Picture__Wall0002_png);
-var P_Explode =
+var<Image> P_Enemy_0001 = @@_Load(Resources.Picture__Enemy0001_png);
+var<Image> P_Player     = @@_Load(Resources.Picture__Player_png);
+var<Image> P_Shot_0001  = @@_Load(Resources.Picture__Shot0001_png);
+var<Image> P_Tama_0001  = @@_Load(Resources.Picture__Tama0001_png);
+var<Image> P_Wall_0002  = @@_Load(Resources.Picture__Wall0002_png);
+var<Image[]> P_Explode =
 [
 	@@_Load(Resources.ぴぽや倉庫__Explode__0001_png),
 	@@_Load(Resources.ぴぽや倉庫__Explode__0002_png),

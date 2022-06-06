@@ -1,11 +1,11 @@
 /*
-	共通機能・便利機能はできるだけこのファイルに集約する。
+	数学系
 */
 
 /*
 	ret: value を四捨五入した整数を返す。
 */
-function ToInt(value)
+function <int> ToInt(<double> value)
 {
 	return Math.round(value);
 }
@@ -13,7 +13,7 @@ function ToInt(value)
 /*
 	value を minval, maxval の範囲に矯正する。
 */
-function ToRange(value, minval, maxval)
+function <Number> ToRange(<Number> value, <Number> minval, <Number> maxval)
 {
 	return Math.min(Math.max(value, minval), maxval);
 }
@@ -21,7 +21,7 @@ function ToRange(value, minval, maxval)
 /*
 	ret: 0 ～ (modulo - 1) の整数をランダムに返す。
 */
-function GetRand(modulo)
+function <double> GetRand(<int> modulo)
 {
 	return Math.floor(Math.random() * modulo);
 }

@@ -1,5 +1,5 @@
 /*
-	ユーティリティ
+	数学系
 */
 
 /*
@@ -17,17 +17,9 @@
 		Y: 速度-Y
 	}
 */
-function MakeXYSpeed(x, y, targetX, targetY, speed)
+function <D2Point_t> MakeXYSpeed(<double> x, <double> y, <double> targetX, <double> targetY, <double> speed)
 {
-	var pt = AngleToPoint(GetAngle(targetX - x, targetY - y), speed);
-
-	var ret =
-	{
-		X: pt.X,
-		Y: pt.Y,
-	};
-
-	return ret;
+	return AngleToPoint(GetAngle(targetX - x, targetY - y), speed);
 }
 
 /*
@@ -41,7 +33,7 @@ function MakeXYSpeed(x, y, targetX, targetY, speed)
 
 	ret: 角度
 */
-function GetAngle(x, y)
+function <double> GetAngle(<double> x, <double> y)
 {
 	if (y < 0.0)
 	{
@@ -60,13 +52,13 @@ function GetAngle(x, y)
 		return 0.0;
 	}
 
-	var r1 = 0.0;
-	var r2 = Math.PI / 2.0;
-	var t = y / x;
-	var rm;
-	var rmt;
+	var<double> r1 = 0.0;
+	var<double> r2 = Math.PI / 2.0;
+	var<double> t = y / x;
+	var<double> rm;
+	var<double> rmt;
 
-	for (var c = 1; ; c++)
+	for (var<int> c = 1; ; c++)
 	{
 		rm = (r1 + r2) / 2.0;
 
@@ -101,9 +93,9 @@ function GetAngle(x, y)
 		Y: 位置-Y
 	}
 */
-function AngleToPoint(angle, distance)
+function <D2Point_t> AngleToPoint(<double> angle, <double> distance)
 {
-	var ret =
+	var<D2Point_t> ret =
 	{
 		X: distance * Math.cos(angle),
 		Y: distance * Math.sin(angle),
@@ -120,7 +112,7 @@ function AngleToPoint(angle, distance)
 
 	ret: 距離
 */
-function GetDistance(x, y)
+function <double> GetDistance(<double> x, <double> y)
 {
 	return Math.sqrt(x * x + y * y);
 }
@@ -134,7 +126,7 @@ function GetDistance(x, y)
 
 	ret: 近づけた後の値
 */
-function Approach(value, dest, rate)
+function <double> Approach(<double> value, <double> dest, <double> rate)
 {
 	value -= dest;
 	value *= rate;

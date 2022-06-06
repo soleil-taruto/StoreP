@@ -2,9 +2,9 @@
 	å¯â âπçƒê∂
 */
 
-var @@_Handles = [];
+var<Audio[]> @@_Handles = [];
 
-function SE(se)
+function <void> SE(<SE_t> se)
 {
 	var handle = se.Handles[se.Index];
 
@@ -14,7 +14,7 @@ function SE(se)
 	se.Index %= 3;
 }
 
-function @(UNQN)_EACH()
+function <void> @(UNQN)_EACH()
 {
 	if (ProcFrame % 2 == 0 && 1 <= @@_Handles.length)
 	{

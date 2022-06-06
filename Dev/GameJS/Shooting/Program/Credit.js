@@ -2,7 +2,7 @@
 	クレジット
 */
 
-function* CreditMain()
+function* <generatorForTask> CreditMain()
 {
 	ClearMouseDown();
 

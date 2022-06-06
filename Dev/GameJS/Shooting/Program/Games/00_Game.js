@@ -2,7 +2,7 @@
 	ゲーム・メイン
 */
 
-function* GameMain()
+function* <generatorForTask> GameMain()
 {
 	// Reset
 	{
@@ -53,38 +53,38 @@ function* GameMain()
 	ClearMouseDown();
 }
 
-var @@_Field_L;
-var @@_Field_T;
-var @@_Field_W = 900;
-var @@_Field_H = 500;
+var<int> @@_Field_L;
+var<int> @@_Field_T;
+var<int> @@_Field_W = 900;
+var<int> @@_Field_H = 500;
 
-function @(UNQN)_INIT()
+function <void> @(UNQN)_INIT()
 {
 	@@_Field_L = ToInt((Screen_W - @@_Field_W) / 2);
 	@@_Field_T = ToInt((Screen_H - @@_Field_H) / 2);
 }
 
-function GetField_L()
+function <int> GetField_L()
 {
 	return @@_Field_L;
 }
 
-function GetField_T()
+function <int> GetField_T()
 {
 	return @@_Field_T;
 }
 
-function GetField_W()
+function <int> GetField_W()
 {
 	return @@_Field_W;
 }
 
-function GetField_H()
+function <int> GetField_H()
 {
 	return @@_Field_H;
 }
 
-function @@_Draw背景()
+function <void> @@_Draw背景()
 {
 	var bx = 54 - (ProcFrame * 7) % 108;
 	var by = 54;
@@ -96,12 +96,12 @@ function @@_Draw背景()
 	}
 }
 
-function @@_DrawPlayer()
+function <void> @@_DrawPlayer()
 {
 	DrawPlayer();
 }
 
-function @@_DrawEnemies()
+function <void> @@_DrawEnemies()
 {
 	Enemies = Enemies.filter(function(enemy)
 	{
@@ -109,7 +109,7 @@ function @@_DrawEnemies()
 	});
 }
 
-function @@_DrawShots()
+function <void> @@_DrawShots()
 {
 	Shots = Shots.filter(function(shot)
 	{
@@ -117,7 +117,7 @@ function @@_DrawShots()
 	});
 }
 
-function @@_DrawTamas()
+function <void> @@_DrawTamas()
 {
 	Tamas = Tamas.filter(function(tama)
 	{
@@ -125,7 +125,7 @@ function @@_DrawTamas()
 	});
 }
 
-function @@_Draw外枠()
+function <void> @@_Draw外枠()
 {
 	SetColor("#004080");
 	PrintRect(0, 0, @@_Field_L, Screen_H);
@@ -145,10 +145,10 @@ function @@_Draw外枠()
 }
 
 // ゲームのスコア
-var Score = 0;
-var DispScore = 0; // 表示用 (Scoreを追尾する)
+var<int> Score = 0;
+var<int> DispScore = 0; // 表示用 (Scoreを追尾する)
 
-function @@_DrawScore()
+function <void> @@_DrawScore()
 {
 	// 表示用スコアの追尾
 	if (Math.abs(Score - DispScore) < 30)
@@ -247,7 +247,7 @@ function @@_当たり判定()
 	}
 }
 
-function* @@_E_死亡とリスポーン()
+function* <generatorForTask> @@_E_死亡とリスポーン()
 {
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);

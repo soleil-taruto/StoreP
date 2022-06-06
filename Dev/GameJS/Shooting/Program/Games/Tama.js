@@ -2,7 +2,18 @@
 	ìGíe
 */
 
-function CreateTama(x, y)
+/@(ASTR)
+
+/// Tama_t
+{
+	<double> X
+	<double> Y
+	<generatorForTask> Each
+}
+
+@(ASTR)/
+
+function <Tama_t> CreateTama(<double> x, <double> y)
 {
 	var ret =
 	{
@@ -18,12 +29,12 @@ function CreateTama(x, y)
 /*
 	ret: ? ê∂ë∂
 */
-function Tama_Each(tama)
+function <boolean> Tama_Each(<Tama_t> tama)
 {
 	return tama.Each.next().value;
 }
 
-function* @@_Each(tama)
+function* <generatorForTask> @@_Each(<Tama_t> tama)
 {
 	var speed = MakeXYSpeed(tama.X, tama.Y, Player_X, Player_Y, 3.0);
 	var speedX = speed.X;
@@ -59,4 +70,4 @@ function* @@_Each(tama)
 /*
 	ìGíeÉäÉXÉg
 */
-var Tamas = [];
+var<Tama_t[]> Tamas = [];
