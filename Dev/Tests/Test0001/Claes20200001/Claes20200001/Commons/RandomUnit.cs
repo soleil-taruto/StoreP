@@ -100,7 +100,7 @@ namespace Charlotte.Commons
 		public ulong GetULong_M(ulong modulo)
 		{
 			if (modulo == 0ul)
-				throw new ArgumentOutOfRangeException("modulo is zero");
+				throw new Exception("Bad modulo");
 
 			ulong m = (ulong.MaxValue % modulo + 1ul) % modulo;
 			ulong r;

@@ -122,5 +122,31 @@ namespace Charlotte.Tests
 				}
 			}
 		}
+
+		public void Test04()
+		{
+			for (int testcnt = 0; testcnt < 1000; testcnt++)
+			{
+				Console.WriteLine(SCommon.CRandom.GetRange(1000, 9999));
+			}
+			for (int testcnt = 0; testcnt < 1000; testcnt++)
+			{
+				Console.WriteLine(SCommon.CRandom.GetLong(9000) + 1000);
+			}
+
+			// ----
+			// ----
+			// ----
+
+			try
+			{
+				SCommon.CRandom.GetInt(0); // 例外
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+				Console.WriteLine("想定された例外");
+			}
+		}
 	}
 }

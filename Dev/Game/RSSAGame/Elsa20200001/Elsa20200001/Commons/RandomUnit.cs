@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
-using Charlotte.GameCommons;
 
 namespace Charlotte.Commons
 {
@@ -101,7 +100,7 @@ namespace Charlotte.Commons
 		public ulong GetULong_M(ulong modulo)
 		{
 			if (modulo == 0ul)
-				throw new DDError("modulo is zero"); // 難読化のために ArgumentOutOfRangeException を使用しない。
+				throw new Exception("Bad modulo");
 
 			ulong m = (ulong.MaxValue % modulo + 1ul) % modulo;
 			ulong r;
