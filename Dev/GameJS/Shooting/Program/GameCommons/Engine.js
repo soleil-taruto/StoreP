@@ -2,21 +2,15 @@
 	ゲーム用メインモジュール
 */
 
-// 画面の幅
-var<int> Screen_W = 960;
-
-// 画面の高さ
-var<int> Screen_H = 540;
-
-// アプリケーション側の処理
-// ジェネレータ関数であること。
-var<generatorForTask> @@_AppMain;
-
 // *_INIT イベントのリスト
 var<Action[]> @@_INIT_Events = [ @(INIT) ];
 
 // *_EACH イベントのリスト
 var<Action[]> @@_EACH_Events = [ @(EACH) ];
+
+// アプリケーション側の処理
+// ジェネレータ関数であること。
+var<generatorForTask> @@_AppMain;
 
 // 描画先Canvasタグ
 var<canvas_tag> Canvas;
