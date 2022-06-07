@@ -48,6 +48,33 @@ function* <generatorForTask> GameMain()
 		@@_Draw外枠();
 		@@_DrawScore();
 
+		// テスト用 -- 当たり判定表示
+		/*
+		{
+			SetColor("#00000080");
+			PrintRect(GetField_L(), GetField_T(), GetField_W(), GetField_H());
+
+			SetColor("#00ffff80");
+			PrintCircle(GetField_L() + Player_X, GetField_T() + Player_Y, Player_当たり判定_R);
+
+			for (var<Enemy_t> enemy of Enemies)
+			{
+				SetColor("#ffffff80");
+				PrintCircle(GetField_L() + enemy.X, GetField_T() + enemy.Y, enemy.当たり判定_R);
+			}
+			for (var<Shot_t> shot of Shots)
+			{
+				SetColor("#ff00ff80");
+				PrintCircle(GetField_L() + shot.X, GetField_T() + shot.Y, shot.当たり判定_R);
+			}
+			for (var<Tama_t> tama of Tamas)
+			{
+				SetColor("#ffff0080");
+				PrintCircle(GetField_L() + tama.X, GetField_T() + tama.Y, tama.当たり判定_R);
+			}
+		}
+		//*/
+
 		yield 1;
 	}
 	ClearMouseDown();
@@ -192,11 +219,11 @@ function @@_当たり判定()
 	{
 		@@_Crashed_自機と敵 = false;
 
-		for (var enemy of Enemies)
+		for (var<Enemy_t> enemy of Enemies)
 		{
 			enemy.Crashed = false;
 		}
-		for (var shot of Shots)
+		for (var<Shot_t> shot of Shots)
 		{
 			shot.Crashed = false;
 		}
@@ -206,20 +233,20 @@ function @@_当たり判定()
 	{
 		var crashed = false;
 
-		for (var enemy of Enemies)
+		for (var<Enemy_t> enemy of Enemies)
 		{
 			var d = GetDistance(enemy.X - Player_X, enemy.Y - Player_Y);
 
-			if (d < 75)
+			if (d < Player_当たり判定_R + enemy.当たり判定_R)
 			{
 				crashed = true;
 			}
 		}
-		for (var tama of Tamas)
+		for (var<Tama_t> tama of Tamas)
 		{
 			var d = GetDistance(tama.X - Player_X, tama.Y - Player_Y);
 
-			if (d < 45)
+			if (d < Player_当たり判定_R + tama.当たり判定_R)
 			{
 				crashed = true;
 			}
@@ -233,12 +260,12 @@ function @@_当たり判定()
 
 	// 自弾と敵
 	{
-		for (var enemy of Enemies)
-		for (var shot of Shots)
+		for (var<Enemy_t> enemy of Enemies)
+		for (var<Shot_t> shot of Shots)
 		{
 			var d = GetDistance(enemy.X - shot.X, enemy.Y - shot.Y);
 
-			if (d < 75)
+			if (d < enemy.当たり判定_R + shot.当たり判定_R)
 			{
 				enemy.Crashed = true;
 				shot.Crashed = true;
@@ -252,14 +279,14 @@ function* <generatorForTask> @@_E_死亡とリスポーン()
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
-	for (var c = 0; c < 30; c++)
+	for (var<int> c = 0; c < 30; c++)
 	{
 		yield 1;
 	}
 
 	AddCommonEffect(Effect_PlayerDead(GetField_L() + Player_X, GetField_T() + Player_Y));
 
-	for (var enemy of Enemies)
+	for (var<Enemy_t> enemy of Enemies)
 	{
 		AddCommonEffect(Effect_Explode(GetField_L() + enemy.X, GetField_T() + enemy.Y));
 	}
@@ -268,12 +295,12 @@ function* <generatorForTask> @@_E_死亡とリスポーン()
 	Score /= 2;
 	Score = ToInt(Score);
 
-	var x = -100.0;
-	var y = GetField_T() + GetField_H() / 2;
+	var<double> x = -100.0;
+	var<double> y = GetField_T() + GetField_H() / 2;
 
-	for (var c = 0; c < 30; c++)
+	for (var<int> c = 0; c < 30; c++)
 	{
-		var rate = c / 30;
+		var<double> rate = c / 30;
 
 		@@_自機移動();
 

@@ -10,11 +10,20 @@
 	<double> Y // Y-ˆÊ’u
 	<int> HP // ‘Ì—Í
 	<boolean> Crashed // ©’e‚ÆÕ“Ë‚µ‚½‚©
+	<double> “–‚½‚è”»’è_R
 	<generatorForTask> Each
 }
 
 @(ASTR)/
 
+/*
+	“GƒŠƒXƒg
+*/
+var<Enemy_t> Enemies = [];
+
+/*
+	“G¶¬
+*/
 function <Enemy_t> CreateEnemy(<double> x, <double> y)
 {
 	var ret =
@@ -28,6 +37,8 @@ function <Enemy_t> CreateEnemy(<double> x, <double> y)
 
 		// ©’e‚ÆÕ“Ë‚µ‚½‚©
 		Crashed: false,
+
+		“–‚½‚è”»’è_R: 45.0,
 	};
 
 	ret.Each = @@_Each(ret);
@@ -100,8 +111,3 @@ function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 		yield 1;
 	}
 }
-
-/*
-	“GƒŠƒXƒg
-*/
-var<Enemy_t> Enemies = [];

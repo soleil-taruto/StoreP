@@ -8,7 +8,7 @@
 	x: 中心-X
 	y: 中心-Y
 */
-function* Effect_Explode(x, y)
+function* <generatorForTask> Effect_Explode(x, y)
 {
 	for (var image of P_Explode)
 	for (var c = 0; c < 4; c++)
@@ -25,7 +25,7 @@ function* Effect_Explode(x, y)
 	x: 中心-X
 	y: 中心-Y
 */
-function* Effect_PlayerDead(x, y)
+function* <generatorForTask> Effect_PlayerDead(x, y)
 {
 	var FRM_NUM = 60;
 

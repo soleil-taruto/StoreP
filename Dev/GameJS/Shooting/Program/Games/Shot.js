@@ -9,11 +9,20 @@
 	<double> X // X-位置
 	<double> Y // Y-位置
 	<boolean> Crashed // 敵と衝突したか
+	<double> 当たり判定_R
 	<generatorForTask> Each
 }
 
 @(ASTR)/
 
+/*
+	自弾リスト
+*/
+var<Shot_t[]> Shots = [];
+
+/*
+	自弾生成
+*/
 function <Shot_t> CreateShot(<double> x, <double> y)
 {
 	var ret =
@@ -24,6 +33,8 @@ function <Shot_t> CreateShot(<double> x, <double> y)
 
 		// 敵と衝突したか
 		Crashed: false,
+
+		当たり判定_R: 20.0,
 	};
 
 	ret.Each = @@_Each(ret);
@@ -67,8 +78,3 @@ function* <generatorForTask> @@_Each(<Shot_t> shot)
 		yield 1;
 	}
 }
-
-/*
-	自弾リスト
-*/
-var <Shot_t[]> Shots = [];

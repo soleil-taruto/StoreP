@@ -36,7 +36,9 @@ function <void> PrintRectCenter(<double> x, <double> y, <double> w, <double> h)
 */
 function <void> PrintCircle(<double> x, <double> y, <double> r)
 {
-	Context.fillCircle(x, y, r, 0, Math.PI * 2.0, false);
+	Context.beginPath();
+	Context.arc(x, y, r, 0, Math.PI * 2.0, false);
+	Context.fill();
 }
 
 /*

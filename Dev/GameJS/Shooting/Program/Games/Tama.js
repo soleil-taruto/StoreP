@@ -8,17 +8,28 @@
 {
 	<double> X
 	<double> Y
+	<double> “–‚½‚è”»’è_R
 	<generatorForTask> Each
 }
 
 @(ASTR)/
 
+/*
+	“G’eƒŠƒXƒg
+*/
+var<Tama_t[]> Tamas = [];
+
+/*
+	“G’e¶¬
+*/
 function <Tama_t> CreateTama(<double> x, <double> y)
 {
 	var ret =
 	{
 		X: x,
 		Y: y,
+
+		“–‚½‚è”»’è_R: 15.0,
 	};
 
 	ret.Each = @@_Each(ret);
@@ -66,8 +77,3 @@ function* <generatorForTask> @@_Each(<Tama_t> tama)
 		yield 1;
 	}
 }
-
-/*
-	“G’eƒŠƒXƒg
-*/
-var<Tama_t[]> Tamas = [];
