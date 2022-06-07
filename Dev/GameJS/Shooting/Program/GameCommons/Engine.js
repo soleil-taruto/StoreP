@@ -13,10 +13,10 @@ var<int> Screen_H = 540;
 var<generatorForTask> @@_AppMain;
 
 // *_INIT イベントのリスト
-var<void_function_void[]> @@_INIT_Events = [ @(INIT) ];
+var<Action[]> @@_INIT_Events = [ @(INIT) ];
 
 // *_EACH イベントのリスト
-var<void_function_void[]> @@_EACH_Events = [ @(EACH) ];
+var<Action[]> @@_EACH_Events = [ @(EACH) ];
 
 // 描画先Canvasタグ
 var<canvas_tag> Canvas;

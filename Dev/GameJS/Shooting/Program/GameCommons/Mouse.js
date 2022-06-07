@@ -16,7 +16,7 @@ function <void> @@_ScreenPosToCanvasPos()
 	@@_Y *= Screen_H / canvasRect.height;
 }
 
-function <void> @@_TouchStart(x, y)
+function <void> @@_TouchStart(<double> x, <double> y)
 {
 	@@_Down = true;
 	@@_X = x;
@@ -25,7 +25,7 @@ function <void> @@_TouchStart(x, y)
 	@@_ScreenPosToCanvasPos();
 }
 
-function <void> @@_TouchMove(x, y)
+function <void> @@_TouchMove(<double> x, <double> y)
 {
 	@@_X = x;
 	@@_Y = y;
@@ -33,7 +33,7 @@ function <void> @@_TouchMove(x, y)
 	@@_ScreenPosToCanvasPos();
 }
 
-function <void> @@_TouchEnd(x, y)
+function <void> @@_TouchEnd(<double> x, <double> y)
 {
 	@@_Down = false;
 	@@_X = x;
@@ -42,7 +42,7 @@ function <void> @@_TouchEnd(x, y)
 	@@_ScreenPosToCanvasPos();
 }
 
-function <Action_event> @@_GetEvTouch(touch)
+function <Action_event> @@_GetEvTouch(<Action_double_double> touch)
 {
 	var<Action_event> ret = function(event)
 	{
@@ -52,7 +52,7 @@ function <Action_event> @@_GetEvTouch(touch)
 	return ret;
 }
 
-function <Action_event> @@_GetEvMouse(touch)
+function <Action_event> @@_GetEvMouse(<Action_double_double> touch)
 {
 	var<Action_event> ret = function(event)
 	{
