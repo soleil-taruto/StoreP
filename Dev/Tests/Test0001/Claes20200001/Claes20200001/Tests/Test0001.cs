@@ -42,7 +42,7 @@ namespace Charlotte.Tests
 			}
 			for (int testcnt = 0; testcnt < 100; testcnt++)
 			{
-				double value = (double)(SCommon.CRandom.GetUInt64() & ((1UL << 52) - 1)) / (1UL << 52);
+				double value = (double)(SCommon.CRandom.GetULong() & ((1UL << 52) - 1)) / (1UL << 52);
 
 				Console.WriteLine(value.ToString("F20"));
 			}
