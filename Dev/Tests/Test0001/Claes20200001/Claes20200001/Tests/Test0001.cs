@@ -25,5 +25,102 @@ namespace Charlotte.Tests
 			Console.WriteLine(((int)'\\').ToString()); // 92
 			Console.WriteLine(((int)'`').ToString()); // 96
 		}
+
+		public void Test02()
+		{
+			for (int testcnt = 0; testcnt < 100; testcnt++)
+			{
+				double value = (double)SCommon.CRandom.GetInt(SCommon.IMAX) / SCommon.IMAX;
+
+				Console.WriteLine(value.ToString("F20"));
+			}
+			for (int testcnt = 0; testcnt < 100; testcnt++)
+			{
+				double value = (double)SCommon.CRandom.GetLong(SCommon.IMAX_64) / SCommon.IMAX_64;
+
+				Console.WriteLine(value.ToString("F20"));
+			}
+			for (int testcnt = 0; testcnt < 100; testcnt++)
+			{
+				double value = (double)(SCommon.CRandom.GetUInt64() & ((1UL << 52) - 1)) / (1UL << 52);
+
+				Console.WriteLine(value.ToString("F20"));
+			}
+
+			// ----
+			// ----
+			// ----
+
+			{
+				double value = (double)((1UL << 52) - 1);
+
+				Console.WriteLine(value.ToString("F20")); // 4503599627370500.00000000000000000000
+
+				value += 1.0;
+
+				Console.WriteLine(value.ToString("F20")); // 4503599627370500.00000000000000000000
+			}
+
+			// ----
+			// ----
+			// ----
+
+			for (int testcnt = 1; testcnt < 64; testcnt++)
+			{
+				double value = 1.0 + 1.0 / (1UL << testcnt);
+
+				Console.WriteLine(testcnt.ToString("D2") + " ==> " + value.ToString("F20"));
+			}
+
+			Test02_a(0);
+			Test02_a(1);
+			Test02_a(2);
+			Test02_a(3);
+
+			Test02_a(uint.MaxValue - 3);
+			Test02_a(uint.MaxValue - 2);
+			Test02_a(uint.MaxValue - 1);
+			Test02_a(uint.MaxValue);
+
+			// ----
+
+			Test02_b(0);
+			Test02_b(1);
+			Test02_b(2);
+			Test02_b(3);
+
+			Test02_b(SCommon.IMAX - 3);
+			Test02_b(SCommon.IMAX - 2);
+			Test02_b(SCommon.IMAX - 1);
+			Test02_b(SCommon.IMAX);
+		}
+
+		private void Test02_a(uint numer)
+		{
+			double value = (double)numer / uint.MaxValue;
+
+			Console.WriteLine(value.ToString("F20"));
+		}
+
+		private void Test02_b(int numer)
+		{
+			double value = (double)numer / SCommon.IMAX;
+
+			Console.WriteLine(value.ToString("F20"));
+		}
+
+		public void Test03()
+		{
+			for (int c = 0; c < 100; c++)
+			{
+				using (WorkingDir wd = new WorkingDir())
+				{
+					for (int d = 0; d < 100; d++)
+					{
+						Console.WriteLine(wd.MakePath());
+					}
+				}
+			}
+		}
 	}
 }
