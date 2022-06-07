@@ -5,16 +5,16 @@
 /*
 	始点・終点・速度から XY-速度を得る。
 
-	x: 始点-X
-	y: 始点-Y
-	targetX: 終点-X
-	targetY: 終点-Y
+	x: X-始点
+	y: Y-始点
+	targetX: X-終点
+	targetY: Y-終点
 	speed: 速度
 
 	ret:
 	{
-		X: 速度-X
-		Y: 速度-Y
+		X: X-速度
+		Y: Y-速度
 	}
 */
 function <D2Point_t> MakeXYSpeed(<double> x, <double> y, <double> targetX, <double> targetY, <double> speed)
@@ -28,8 +28,8 @@ function <D2Point_t> MakeXYSpeed(<double> x, <double> y, <double> targetX, <doub
 	但し X-軸プラス方向は右 Y-軸プラス方向は下です。
 	例えば、真下は Math.PI / 2, 真上は Math.PI * 1.5 になります。
 
-	x: 指定位置-X
-	y: 指定位置-Y
+	x: X-指定位置
+	y: Y-指定位置
 
 	ret: 角度
 */
@@ -89,8 +89,8 @@ function <double> GetAngle(<double> x, <double> y)
 
 	ret:
 	{
-		X: 位置-X
-		Y: 位置-Y
+		X: X-位置
+		Y: Y-位置
 	}
 */
 function <D2Point_t> AngleToPoint(<double> angle, <double> distance)
@@ -107,8 +107,8 @@ function <D2Point_t> AngleToPoint(<double> angle, <double> distance)
 /*
 	原点から指定位置までの距離を得る。
 
-	x: 指定位置-X
-	y: 指定位置-Y
+	x: X-指定位置
+	y: Y-指定位置
 
 	ret: 距離
 */
