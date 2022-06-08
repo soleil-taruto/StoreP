@@ -78,6 +78,7 @@ namespace Charlotte.Utilities
 
 					// XmlReader が &xxx; を変換(復元)してくれる。
 
+					// 名前空間を除去
 					{
 						int colon = node.Name.IndexOf(':');
 

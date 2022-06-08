@@ -68,6 +68,19 @@ namespace Charlotte
 
 		#endregion
 
+		public static Exception ToThrow(Action routine)
+		{
+			try
+			{
+				routine();
+			}
+			catch (Exception ex)
+			{
+				return ex;
+			}
+			throw new Exception("did not throw");
+		}
+
 		public static void HelloWorld()
 		{
 			Console.WriteLine("Hello, world!");
