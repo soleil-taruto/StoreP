@@ -31,7 +31,7 @@ namespace Charlotte.Utilities
 			get
 			{
 				if (index < 0L)
-					throw new ArgumentOutOfRangeException("Bad index: " + index);
+					throw new ArgumentException("Bad index: " + index);
 
 				if (this.Inner.Count <= index / UINT_BITS)
 					return false;
@@ -42,7 +42,7 @@ namespace Charlotte.Utilities
 			set
 			{
 				if (index < 0L || (long)INNER_LEN_MAX * UINT_BITS <= index)
-					throw new ArgumentOutOfRangeException("Bad index: " + index);
+					throw new ArgumentException("Bad index: " + index);
 
 				while (this.Inner.Count <= index / UINT_BITS)
 					this.Inner.Add(0u);

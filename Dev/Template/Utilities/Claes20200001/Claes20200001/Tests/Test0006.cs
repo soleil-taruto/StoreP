@@ -55,6 +55,17 @@ namespace Charlotte.Tests
 		private void Test02_a(int ymd)
 		{
 			Console.WriteLine(new JapaneseDate(ymd));
+
+			// ----
+
+			{
+				JapaneseDate date = new JapaneseDate(ymd);
+				string str = date.ToString();
+				JapaneseDate date2 = JapaneseDate.Create(str);
+
+				if (date2.GetYMD() != ymd)
+					throw null; // bug !!!
+			}
 		}
 
 		public void Test03()
