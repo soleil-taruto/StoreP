@@ -11,8 +11,8 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
-			Common.ToThrow(() => SCommon.CRandom.GetInt(0));
-			Common.ToThrow(() => SCommon.CRandom.GetLong(0));
+			Common.ToThrowPrint(() => SCommon.CRandom.GetInt(0));
+			Common.ToThrowPrint(() => SCommon.CRandom.GetLong(0));
 		}
 	}
 }
