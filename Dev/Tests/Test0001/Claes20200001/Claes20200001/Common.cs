@@ -83,7 +83,7 @@ namespace Charlotte
 			{
 				return ex;
 			}
-			throw new Exception("did not throw");
+			throw new Exception("Did not throw!");
 		}
 
 		public static void ToThrowPrint(Action routine)

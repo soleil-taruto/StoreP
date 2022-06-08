@@ -14,5 +14,15 @@ namespace Charlotte.Tests
 			Common.ToThrowPrint(() => SCommon.CRandom.GetInt(0));
 			Common.ToThrowPrint(() => SCommon.CRandom.GetLong(0));
 		}
+
+		public void Test02()
+		{
+			for (int testcnt = 0; testcnt < 1000; testcnt++)
+			{
+				double value = (double)SCommon.CRandom.GetUInt() / uint.MaxValue;
+
+				Console.WriteLine(value.ToString("F20"));
+			}
+		}
 	}
 }
