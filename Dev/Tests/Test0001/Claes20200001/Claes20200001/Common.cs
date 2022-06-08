@@ -68,6 +68,11 @@ namespace Charlotte
 
 		#endregion
 
+		public static void HelloWorld()
+		{
+			Console.WriteLine("Hello, world!");
+		}
+
 		public static Exception ToThrow(Action routine)
 		{
 			try
@@ -79,11 +84,6 @@ namespace Charlotte
 				return ex;
 			}
 			throw new Exception("did not throw");
-		}
-
-		public static void HelloWorld()
-		{
-			Console.WriteLine("Hello, world!");
 		}
 	}
 }
