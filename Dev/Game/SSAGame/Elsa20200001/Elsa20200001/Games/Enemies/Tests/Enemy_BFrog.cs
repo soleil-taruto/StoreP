@@ -5,13 +5,13 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_Frog : Enemy
+	public class Enemy_BFrog : Enemy
 	{
 		private DDRandom Random;
 
-		public Enemy_Frog(double x, double y)
+		public Enemy_BFrog(double x, double y)
 			: base(x, y, 3, 3, false)
 		{
 			this.Random = new DDRandom(((uint)x << 16) | (uint)y);

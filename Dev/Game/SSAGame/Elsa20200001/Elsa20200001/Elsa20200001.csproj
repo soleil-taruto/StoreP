@@ -114,10 +114,10 @@
     <Compile Include="Games\Attacks\Attack_Tewi_強攻撃.cs" />
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
-    <Compile Include="Games\Enemies\Enemy_Bird.cs" />
-    <Compile Include="Games\Enemies\Enemy_BirdShit.cs" />
-    <Compile Include="Games\Enemies\Enemy_Dog.cs" />
-    <Compile Include="Games\Enemies\Enemy_Frog.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BBird.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BBirdShit.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BDog.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BFrog.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bアイテム.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bイベント0001.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bセーブ地点.cs" />

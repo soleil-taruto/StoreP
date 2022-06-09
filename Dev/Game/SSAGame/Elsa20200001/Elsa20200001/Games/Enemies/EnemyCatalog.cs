@@ -99,9 +99,9 @@ namespace Charlotte.Games.Enemies
 			new EnemyInfo("テスト用/敵03", () => new Enemy_B0003(X, Y)),
 			new EnemyInfo("テスト用/神奈子", () => new Enemy_B神奈子(X, Y)),
 			new EnemyInfo("テスト用/イベント0001", () => new Enemy_Bイベント0001(X, Y)),
-			new EnemyInfo("テスト用/Dog", () => new Enemy_Dog(X, Y)),
-			new EnemyInfo("テスト用/Frog", () => new Enemy_Frog(X, Y)),
-			new EnemyInfo("テスト用/Bird", () => new Enemy_Bird(X, Y)),
+			new EnemyInfo("テスト用/Dog", () => new Enemy_BDog(X, Y)),
+			new EnemyInfo("テスト用/Frog", () => new Enemy_BFrog(X, Y)),
+			new EnemyInfo("テスト用/Bird", () => new Enemy_BBird(X, Y)),
 
 			// 新しい敵をここへ追加..
 		};
