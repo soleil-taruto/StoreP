@@ -56,7 +56,7 @@ function* <generatorForTask> @@_Each(<Tama_t> tama)
 		tama.X += speedX;
 		tama.Y += speedY;
 
-		var MARGIN = 30.0;
+		var<double> MARGIN = 30.0;
 
 		// âÊñ äOÇ…èoÇΩÇÃÇ≈ëﬁèÍ
 		if (
