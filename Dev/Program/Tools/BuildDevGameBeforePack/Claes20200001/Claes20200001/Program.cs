@@ -99,6 +99,8 @@ namespace Charlotte
 
 		private IEnumerable<string> GetDedokoroLines()
 		{
+			List<string[]> pairs = new List<string[]>();
+
 			foreach (string file in DedokoroFiles)
 			{
 				Console.WriteLine("< " + file); // cout
@@ -113,8 +115,22 @@ namespace Charlotte
 					)
 					throw new Exception("不正な出処ファイル");
 
-				yield return lines[0];
-				yield return lines[1];
+				pairs.Add(new string[]
+				{
+					lines[0],
+					lines[1],
+				});
+			}
+
+			pairs.Sort((a, b) => SCommon.Comp(
+				SCommon.ENCODING_SJIS.GetBytes(a[0]),
+				SCommon.ENCODING_SJIS.GetBytes(b[0])
+				));
+
+			foreach (string[] pair in pairs)
+			{
+				yield return "　" + pair[0];
+				yield return "　" + pair[1];
 				yield return "";
 			}
 		}
