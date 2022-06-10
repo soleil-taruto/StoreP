@@ -43,7 +43,7 @@ namespace Charlotte
 
 			// --
 
-			Common.Pause();
+			//Common.Pause();
 		}
 
 		private void Main4(ArgsReader ar)
@@ -83,7 +83,7 @@ namespace Charlotte
 				throw new Exception("no resourceDir");
 
 			DedokoroFiles = Directory.GetFiles(resourceDir, "_source.txt", SearchOption.AllDirectories);
-			DedokoroText = SCommon.LinesToText(GetDedokoroLines().ToArray()).Trim();
+			DedokoroText = GetDedokoroText();
 
 			foreach (string file in Directory.GetFiles(outputDir, "*.txt", SearchOption.AllDirectories))
 			{
@@ -97,7 +97,7 @@ namespace Charlotte
 			}
 		}
 
-		private IEnumerable<string> GetDedokoroLines()
+		private string GetDedokoroText()
 		{
 			List<string[]> pairs = new List<string[]>();
 
@@ -127,12 +127,18 @@ namespace Charlotte
 				SCommon.ENCODING_SJIS.GetBytes(b[0])
 				));
 
-			foreach (string[] pair in pairs)
+			List<string> dest = new List<string>();
+
+			for (int index = 0; index < pairs.Count; index++)
 			{
-				yield return "　" + pair[0];
-				yield return "　" + pair[1];
-				yield return "";
+				string[] pair = pairs[index];
+
+				dest.Add("　" + pair[0]);
+				dest.Add("　" + pair[1]);
+				dest.Add("");
 			}
+			string ret = SCommon.LinesToText(dest.ToArray()).TrimEnd();
+			return ret;
 		}
 	}
 }
