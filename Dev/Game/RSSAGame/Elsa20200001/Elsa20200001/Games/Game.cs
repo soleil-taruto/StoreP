@@ -99,7 +99,7 @@ namespace Charlotte.Games
 				}
 			}
 
-			this.Wall = WallCreator.Create(this.Map.WallName);
+			this.Wall = WallCatalog.Create(this.Map.WallName);
 
 			MusicCollection.Get(this.Map.MusicName).Play();
 
@@ -1523,11 +1523,11 @@ namespace Charlotte.Games
 
 			switch (this.Status.Equipment)
 			{
-				case GameStatus.Equipment_e.Normal: tableMenu.SetSelectedPosition(0, 1); break;
-				case GameStatus.Equipment_e.跳ねる陰陽玉: tableMenu.SetSelectedPosition(0, 2); break;
-				case GameStatus.Equipment_e.ハンマー陰陽玉: tableMenu.SetSelectedPosition(0, 3); break;
-				case GameStatus.Equipment_e.エアーシューター: tableMenu.SetSelectedPosition(0, 4); break;
-				case GameStatus.Equipment_e.マグネットエアー: tableMenu.SetSelectedPosition(0, 5); break;
+				case ShotCatalog.武器_e.Normal: tableMenu.SetSelectedPosition(0, 1); break;
+				case ShotCatalog.武器_e.跳ねる陰陽玉: tableMenu.SetSelectedPosition(0, 2); break;
+				case ShotCatalog.武器_e.ハンマー陰陽玉: tableMenu.SetSelectedPosition(0, 3); break;
+				case ShotCatalog.武器_e.AirShooter: tableMenu.SetSelectedPosition(0, 4); break;
+				case ShotCatalog.武器_e.MagnetAir: tableMenu.SetSelectedPosition(0, 5); break;
 
 				default:
 					break;
@@ -1546,17 +1546,13 @@ namespace Charlotte.Games
 					tableMenu.AddColumn(130);
 					tableMenu.AddItem(true, "ＥＱＵＩＰＭＥＮＴ", color, borderColor);
 
-					Action<string, GameStatus.Equipment_e, bool> a_addEquipment = (title, equipment, 取得済み) =>
+					Action<string, ShotCatalog.武器_e, bool> a_addEquipment = (title, equipment, 取得済み) =>
 					{
-#if false // メニューを閉じない。
-						Action a_desided = () => this.Status.Equipment = equipment;
-#else // メニューを閉じる。
 						Action a_desided = () =>
 						{
 							this.Status.Equipment = equipment;
 							keepMenu = false;
 						};
-#endif
 
 						if (!取得済み)
 							tableMenu.AddItem(false, title, 未取得Color, 未取得BorderColor, () => { });
@@ -1566,11 +1562,11 @@ namespace Charlotte.Games
 							tableMenu.AddItem(false, title, color, borderColor, a_desided);
 					};
 
-					a_addEquipment("通常武器", GameStatus.Equipment_e.Normal, true);
-					a_addEquipment("跳ねる陰陽玉", GameStatus.Equipment_e.跳ねる陰陽玉, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_跳ねる陰陽玉]);
-					a_addEquipment("ハンマー陰陽玉", GameStatus.Equipment_e.ハンマー陰陽玉, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_ハンマー陰陽玉]);
-					a_addEquipment("ＡｉｒＳｈｏｏｔｅｒ", GameStatus.Equipment_e.エアーシューター, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_エアーシューター]);
-					a_addEquipment("ＭａｇｎｅｔＡｉｒ", GameStatus.Equipment_e.マグネットエアー, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_マグネットエアー]);
+					a_addEquipment("通常武器", ShotCatalog.武器_e.Normal, true);
+					a_addEquipment("跳ねる陰陽玉", ShotCatalog.武器_e.跳ねる陰陽玉, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_跳ねる陰陽玉]);
+					a_addEquipment("ハンマー陰陽玉", ShotCatalog.武器_e.ハンマー陰陽玉, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_ハンマー陰陽玉]);
+					a_addEquipment("ＡｉｒＳｈｏｏｔｅｒ", ShotCatalog.武器_e.AirShooter, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_エアーシューター]);
+					a_addEquipment("ＭａｇｎｅｔＡｉｒ", ShotCatalog.武器_e.MagnetAir, this.Status.InventoryFlags[GameStatus.Inventory_e.取得済み_マグネットエアー]);
 
 					tableMenu.AddColumn(540);
 					tableMenu.AddItem(true, "システム", color, borderColor);
