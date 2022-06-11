@@ -5,11 +5,14 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Shots
+namespace Charlotte.Games.Shots.Tests
 {
-	public class Shot_Normal : Shot
+	/// <summary>
+	/// 自弾_旧実装
+	/// </summary>
+	public class Shot_BNormal : Shot
 	{
-		public Shot_Normal(double x, double y, bool facingLeft)
+		public Shot_BNormal(double x, double y, bool facingLeft)
 			: base(x, y, facingLeft, 1, false, false)
 		{ }
 
