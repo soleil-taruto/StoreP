@@ -93,7 +93,7 @@ namespace Charlotte.Games
 				this.Player.武器 = this.Status.Start_武器;
 			}
 
-			this.Wall = WallCreator.Create(this.Map.WallName);
+			this.Wall = WallCatalog.Create(this.Map.WallName);
 
 			MusicCollection.Get(this.Map.MusicName).Play();
 
@@ -1384,7 +1384,7 @@ namespace Charlotte.Games
 					"デバッグ用メニュー",
 					new string[]
 					{
-						"装備している武器の切り替え [ 現在装備している武器：" + Player.武器_e_Names[(int)this.Player.武器] + " ]",
+						"装備している武器の切り替え [ 現在装備している武器：" + ShotCatalog.武器_e_Names[(int)this.Player.武器] + " ]",
 						"強制遅延 [ 現在の設定：" + DDEngine.SlowdownLevel + " ]",
 						"当たり判定表示 [ 現在の設定：" + this.当たり判定表示 + " ]",
 						"ゲームに戻る",
@@ -1397,7 +1397,7 @@ namespace Charlotte.Games
 				switch (selectIndex)
 				{
 					case 0:
-						this.Player.武器 = (Player.武器_e)(((int)this.Player.武器 + 1) % Enum.GetValues(typeof(Player.武器_e)).Length);
+						this.Player.武器 = (ShotCatalog.武器_e)(((int)this.Player.武器 + 1) % ShotCatalog.武器_e_Names.Length);
 						break;
 
 					case 1:

@@ -15,22 +15,6 @@ namespace Charlotte.Games
 	/// </summary>
 	public class Player
 	{
-		public enum 武器_e
-		{
-			NORMAL,
-			FIRE_BALL,
-			LASER,
-			WAVE_BEAM,
-		}
-
-		public static string[] 武器_e_Names = new string[]
-		{
-			"NORMAL",
-			"FIRE-BALL",
-			"LASER",
-			"WAVE-BEAM",
-		};
-
 		public double X;
 		public double Y;
 		public double YSpeed;
@@ -47,7 +31,7 @@ namespace Charlotte.Games
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
 
-		public 武器_e 武器 = 武器_e.NORMAL;
+		public ShotCatalog.武器_e 武器 = ShotCatalog.武器_e.NORMAL;
 
 		private int PlayerLookLeftFrame = 0;
 
@@ -156,7 +140,7 @@ namespace Charlotte.Games
 
 			switch (this.武器)
 			{
-				case 武器_e.NORMAL:
+				case ShotCatalog.武器_e.NORMAL:
 					if (this.AttackFrame % 6 == 1)
 					{
 						double x = this.X;
@@ -173,7 +157,7 @@ namespace Charlotte.Games
 					}
 					break;
 
-				case 武器_e.FIRE_BALL:
+				case ShotCatalog.武器_e.FIRE_BALL:
 					if (this.AttackFrame % 12 == 1)
 					{
 						double x = this.X;
@@ -190,7 +174,7 @@ namespace Charlotte.Games
 					}
 					break;
 
-				case 武器_e.LASER:
+				case ShotCatalog.武器_e.LASER:
 					// 毎フレーム
 					{
 						double x = this.X;
@@ -207,7 +191,7 @@ namespace Charlotte.Games
 					}
 					break;
 
-				case 武器_e.WAVE_BEAM:
+				case ShotCatalog.武器_e.WAVE_BEAM:
 					if (this.AttackFrame % 12 == 1)
 					{
 						double x = this.X;

@@ -175,6 +175,7 @@
     <Compile Include="Games\MusicCollection.cs" />
     <Compile Include="Games\OmakeMenu.cs" />
     <Compile Include="Games\SettingMenu.cs" />
+    <Compile Include="Games\Shots\ShotCatalog.cs" />
     <Compile Include="Games\Shots\Shot_FireBall.cs" />
     <Compile Include="Games\Shots\Shot_Laser.cs" />
     <Compile Include="Games\Shots\Shot_WaveBeam.cs" />
@@ -196,7 +197,7 @@
     <Compile Include="Games\Tiles\Tile_None.cs" />
     <Compile Include="Games\TitleMenu.cs" />
     <Compile Include="Games\Walls\Wall.cs" />
-    <Compile Include="Games\Walls\WallCreator.cs" />
+    <Compile Include="Games\Walls\WallCatalog.cs" />
     <Compile Include="Games\Walls\Wall_Dark.cs" />
     <Compile Include="Games\Walls\Wall_Simple.cs" />
     <Compile Include="Games\World.cs" />
