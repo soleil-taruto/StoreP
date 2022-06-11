@@ -94,7 +94,7 @@ namespace Charlotte.Games
 				this.Player.選択武器 = this.Status.Start選択武器;
 			}
 
-			this.Wall = WallCreator.Create(this.Map.WallName);
+			this.Wall = WallCatalog.Create(this.Map.WallName);
 
 			MusicCollection.Get(this.Map.MusicName).Play();
 
@@ -299,7 +299,7 @@ namespace Charlotte.Games
 					bool 武器切り替え = !deadOrUID && DDInput.C.GetInput() == 1;
 
 					if (武器切り替え)
-						this.Player.選択武器 = (Player.武器_e)(((int)this.Player.選択武器 + 1) % Player.武器_e_Length);
+						this.Player.選択武器 = (ShotCatalog.武器_e)(((int)this.Player.選択武器 + 1) % ShotCatalog.武器_e_Length);
 				}
 
 				//startDead:

@@ -175,6 +175,7 @@
     <Compile Include="Games\MapCell.cs" />
     <Compile Include="Games\MusicCollection.cs" />
     <Compile Include="Games\SettingMenu.cs" />
+    <Compile Include="Games\Shots\ShotCatalog.cs" />
     <Compile Include="Games\Shots\ShotCommon.cs" />
     <Compile Include="Games\Shots\Shot_Bounce.cs" />
     <Compile Include="Games\Shots\Shot_Normal.cs" />
@@ -203,7 +204,7 @@
     <Compile Include="Games\Tiles\Tile_Wall.cs" />
     <Compile Include="Games\TitleMenu.cs" />
     <Compile Include="Games\Walls\Wall.cs" />
-    <Compile Include="Games\Walls\WallCreator.cs" />
+    <Compile Include="Games\Walls\WallCatalog.cs" />
     <Compile Include="Games\Walls\Wall_Dark.cs" />
     <Compile Include="Games\World.cs" />
     <Compile Include="Games\ぼかし効果.cs" />
