@@ -143,7 +143,6 @@
     <Compile Include="GameCommons\DDTask.cs" />
     <Compile Include="GameCommons\DDTaskList.cs" />
     <Compile Include="GameCommons\DDTouch.cs" />
-    <Compile Include="GameCommons\DDUserDatStrings.cs" />
     <Compile Include="GameCommons\DDUtils.cs" />
     <Compile Include="GameCommons\DDWin32.cs" />
     <Compile Include="GameCommons\MaskGZDataUtils\MaskGZDataEng.cs" />
