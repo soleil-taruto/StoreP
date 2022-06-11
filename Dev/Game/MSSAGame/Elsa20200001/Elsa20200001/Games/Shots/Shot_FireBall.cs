@@ -17,18 +17,23 @@ namespace Charlotte.Games.Shots
 		{
 			// 薄い壁にくっついて撃つと、壁の向こうに射出されてしまうのを防ぐ
 			{
-				foreach (int xd in new int[] { 0, 20, 40 })
+				foreach (int xd in new int[] { 0, 20 })
 				{
-					foreach (int yd in new int[] { -10, 0, 10 })
+					foreach (int yd in new int[] { 0 })
 					{
 						if (Game.I.Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.X - xd * (this.FacingLeft ? -1 : 1), this.Y + yd))).Tile.IsWall())
 						{
-							DDGround.EL.Add(SCommon.Supplier(Effects.FireBall爆発(this.X, this.Y)));
-							goto endFunc;
-							//yield break;
+							this.X -= xd * (this.FacingLeft ? -1 : 1);
+
+							while (Game.I.Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.X, this.Y))).Tile.IsWall())
+								this.X -= 1.0 * (this.FacingLeft ? -1 : 1);
+
+							goto endBlock;
 						}
 					}
 				}
+			endBlock:
+				;
 			}
 
 			double yAdd = 0.0;
@@ -95,9 +100,6 @@ namespace Charlotte.Games.Shots
 
 				yield return !DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y)); // カメラから出たら消滅する。
 			}
-
-		endFunc:
-			;
 		}
 
 		protected override void Killed()
