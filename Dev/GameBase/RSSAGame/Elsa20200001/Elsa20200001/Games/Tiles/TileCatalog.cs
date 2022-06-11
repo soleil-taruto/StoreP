@@ -20,8 +20,6 @@ namespace Charlotte.Games.Tiles
 			public string MemberName; // 表示名
 			public Func<Tile> Creator;
 
-			private const string DEFAULT_GROUP_NAME = "Default";
-
 			/// <summary>
 			/// タイルのカタログ要素を生成する。
 			/// タイルの名前情報_書式：
@@ -66,7 +64,7 @@ namespace Charlotte.Games.Tiles
 					}
 					else
 					{
-						this.GroupName = DEFAULT_GROUP_NAME;
+						this.GroupName = GameConsts.NAME_DEFAULT;
 						this.MemberName = name;
 					}
 				}

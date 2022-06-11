@@ -22,8 +22,6 @@ namespace Charlotte.Games.Enemies
 			public string MemberName; // 表示名
 			public Func<Enemy> Creator;
 
-			private const string DEFAULT_GROUP_NAME = "Default";
-
 			/// <summary>
 			/// 敵のカタログ要素を生成する。
 			/// 敵の名前情報_書式：
@@ -68,7 +66,7 @@ namespace Charlotte.Games.Enemies
 					}
 					else
 					{
-						this.GroupName = DEFAULT_GROUP_NAME;
+						this.GroupName = GameConsts.NAME_DEFAULT;
 						this.MemberName = name;
 					}
 				}
