@@ -93,7 +93,7 @@ namespace Charlotte.Games.Enemies.Tests
 			this.Frame++;
 		}
 
-		public override void P_Damaged(Shot shot)
+		protected override void P_Damaged(Shot shot)
 		{
 			//this.X += 10.0 * (shot.FacingLeft ? -1 : 1); // ヒットバック
 			this.HitBackFrame = 1;

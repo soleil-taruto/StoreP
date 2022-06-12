@@ -133,7 +133,7 @@ namespace Charlotte.Games.Enemies
 		/// この敵の固有の被弾イベント
 		/// </summary>
 		/// <param name="shot">この敵が被弾したプレイヤーの弾</param>
-		public virtual void P_Damaged(Shot shot)
+		protected virtual void P_Damaged(Shot shot)
 		{
 			EnemyCommon.Damaged(this, shot);
 		}
