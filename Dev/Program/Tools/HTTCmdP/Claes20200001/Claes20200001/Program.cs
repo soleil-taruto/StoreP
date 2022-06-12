@@ -253,7 +253,7 @@ namespace Charlotte
 					}
 				}
 
-				if (hostPortNo != 80) // ポート番号80以外は80へ飛ばす。★自宅サーバー特有の処理
+				if (hostName != "localhost" && hostPortNo != 80) // localhostではないとき、ポート番号80以外は80へ飛ばす。★自宅サーバー特有の処理
 				{
 					channel.ResStatus = 301;
 					channel.ResHeaderPairs.Add(new string[] { "Location", "http://" + hostName + channel.PathQuery });
