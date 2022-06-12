@@ -557,7 +557,7 @@ namespace Charlotte.Games
 					shot.CurrCrashedEnemy = null;
 
 					// 壁への衝突
-					// -- 壁への当たり判定は自弾の「中心座標のみ」であることに注意して下さい。
+					// 壁への当たり判定は自弾の「中心座標のみ」であることに注意して下さい。
 					{
 						if (
 							!shot.DeadFlag && // ? 自弾：生存

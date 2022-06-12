@@ -724,13 +724,15 @@ namespace Charlotte.Games
 								// -- 複数の敵に同時に当たると意図通りにならないが、厳格に制御する必要は無いので、看過する。
 
 								if (shot.LastCrashedEnemy == enemy) // ? 直前にクラッシュした -> 複数回クラッシュしない。
+								{
+									shot.CurrCrashedEnemy = enemy;
 									continue;
-
+								}
 								enemy.HP -= shot.AttackPoint;
 
 								if (shot.敵を貫通する)
 								{
-									shot.LastCrashedEnemy = enemy;
+									shot.CurrCrashedEnemy = enemy;
 								}
 								else // ? 敵を貫通しない -> 自弾の攻撃力と敵のHPを相殺
 								{
@@ -790,14 +792,19 @@ namespace Charlotte.Games
 
 				foreach (Shot shot in this.Shots.Iterate())
 				{
-					// 壁への当たり判定は自弾の「中心座標のみ」であることに注意して下さい。
+					shot.CurrCrashedEnemy = shot.LastCrashedEnemy;
+					shot.LastCrashedEnemy = null;
 
-					if (
-						!shot.DeadFlag && // ? 自弾：生存
-						!shot.壁をすり抜ける && // ? この自弾は壁に当たる。
-						this.Map.GetCell(GameCommon.ToTablePoint(shot.X, shot.Y)).Tile.IsWall() // ? 壁に当たった。
-						)
-						shot.Kill();
+					// 壁への衝突
+					// 壁への当たり判定は自弾の「中心座標のみ」であることに注意して下さい。
+					{
+						if (
+							!shot.DeadFlag && // ? 自弾：生存
+							!shot.壁をすり抜ける && // ? この自弾は壁に当たる。
+							this.Map.GetCell(GameCommon.ToTablePoint(shot.X, shot.Y)).Tile.IsWall() // ? 壁に当たった。
+							)
+							shot.Kill();
+					}
 				}
 
 				// ====
