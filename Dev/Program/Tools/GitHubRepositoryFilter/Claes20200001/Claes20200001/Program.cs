@@ -112,7 +112,12 @@ namespace Charlotte
 			{
 				if (IsEmptyDir(path))
 				{
-					File.WriteAllBytes(Path.Combine(path, "$$Empty"), SCommon.EMPTY_BYTES);
+					// HACK: 元からこのファイルがあったのか判別できない。
+					// -- そもそも無いと思う。-- そんな名前のファイルを置かない。
+					// -- 本プログラムをコミット前に複数回実行しても良いようにしたいので、エスケープするなどが出来ない。
+					// --> というわけで看過する。
+
+					File.WriteAllBytes(Path.Combine(path, "$$GHRF_Empty"), SCommon.EMPTY_BYTES);
 				}
 			}
 

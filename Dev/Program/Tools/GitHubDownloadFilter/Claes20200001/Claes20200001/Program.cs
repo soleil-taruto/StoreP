@@ -83,13 +83,20 @@ namespace Charlotte
 			string[] dirs = Directory.GetDirectories(rootDir, "*", SearchOption.AllDirectories);
 			string[] files = Directory.GetFiles(rootDir, "*", SearchOption.AllDirectories);
 
-			Array.Sort(dirs, (a, b) => SCommon.Comp(a, b) * -1); // 逆順 -- 配下のディレクトリから処理するため
+			Array.Sort(dirs, (a, b) => SCommon.Comp(a, b) * -1); // 逆順
 			Array.Sort(files, SCommon.Comp);
 
-			// 1. ファイルの編集
-			// 2. ファイル名の変更
-			// 3. ディレクトリ名の変更(配下のディレクトリから)
-			// ...の順で実行すること。
+			for (int index = 0; index < files.Length; index++) // ファイルの削除
+			{
+				string file = files[index];
+
+				if (SCommon.EqualsIgnoreCase(Path.GetFileName(file), "$$GHRF_Empty"))
+				{
+					SCommon.DeletePath(file);
+					files[index] = null; // 削除マーク
+				}
+			}
+			files = files.Where(file => file != null).ToArray(); // 削除マーク除去
 
 			foreach (string file in files) // ファイルの編集
 			{
