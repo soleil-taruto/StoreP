@@ -136,7 +136,10 @@ namespace Charlotte.Games
 
 		public void Attack()
 		{
-			// 将来的に武器毎にコードが実装され、メソッドがでかくなると思われる。
+			// memo: 将来的に武器毎にコードが実装され、メソッドがでかくなると思われる。
+
+			const double Y_ADD_SHAGAMI = 9.0;
+			const double Y_ADD_STAND = -7.0;
 
 			switch (this.武器)
 			{
@@ -149,9 +152,9 @@ namespace Charlotte.Games
 						x += 30.0 * (this.FacingLeft ? -1 : 1);
 
 						if (1 <= this.ShagamiFrame)
-							y += 10.0;
+							y += Y_ADD_SHAGAMI;
 						else
-							y -= 4.0;
+							y += Y_ADD_STAND;
 
 						Game.I.Shots.Add(new Shot_Normal(x, y, this.FacingLeft));
 					}
@@ -166,9 +169,9 @@ namespace Charlotte.Games
 						x += 50.0 * (this.FacingLeft ? -1 : 1);
 
 						if (1 <= this.ShagamiFrame)
-							y += 10.0;
+							y += Y_ADD_SHAGAMI;
 						else
-							y -= 4.0;
+							y += Y_ADD_STAND;
 
 						Game.I.Shots.Add(new Shot_FireBall(x, y, this.FacingLeft));
 					}
@@ -183,9 +186,9 @@ namespace Charlotte.Games
 						x += 38.0 * (this.FacingLeft ? -1 : 1);
 
 						if (1 <= this.ShagamiFrame)
-							y += 10.0;
+							y += Y_ADD_SHAGAMI;
 						else
-							y -= 4.0;
+							y += Y_ADD_STAND;
 
 						Game.I.Shots.Add(new Shot_Laser(x, y, this.FacingLeft));
 					}
@@ -200,9 +203,9 @@ namespace Charlotte.Games
 						x += 32.0 * (this.FacingLeft ? -1 : 1);
 
 						if (1 <= this.ShagamiFrame)
-							y += 10.0;
+							y += Y_ADD_SHAGAMI;
 						else
-							y -= 4.0;
+							y += Y_ADD_STAND;
 
 						Game.I.Shots.Add(new Shot_WaveBeam(x, y, this.FacingLeft));
 					}
