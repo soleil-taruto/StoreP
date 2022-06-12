@@ -81,6 +81,8 @@ namespace Charlotte.Games
 		/// </summary>
 		public enum Inventory_e
 		{
+			B神奈子を倒した, // テスト用
+
 			取得済み_跳ねる陰陽玉,
 			取得済み_ハンマー陰陽玉,
 			取得済み_エアーシューター,

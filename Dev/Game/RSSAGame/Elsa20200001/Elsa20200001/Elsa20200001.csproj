@@ -93,6 +93,12 @@
     <Compile Include="Games\Enemies\Tests\Enemy_B地蔵.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_B弾.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_B即死トラップ針.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\EnemyCommon_B神奈子.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子0001.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子9901.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子9902.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子_Tama.cs" />
     <Compile Include="Games\GameCommon.cs" />
     <Compile Include="Commons\ArgsReader.cs" />
     <Compile Include="Commons\D2Point.cs" />

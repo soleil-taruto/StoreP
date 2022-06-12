@@ -773,7 +773,7 @@ namespace Charlotte.Games
 
 								if (1 <= enemy.HP) // ? まだ生存している。
 								{
-									enemy.P_Damaged(shot);
+									enemy.Damaged(shot);
 								}
 								else // ? 撃破した。
 								{

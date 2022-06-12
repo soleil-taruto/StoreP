@@ -361,5 +361,7 @@ namespace Charlotte
 			DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\pipo-etcchara002c.png"), // 黄色
 			DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\pipo-etcchara002d.png"), // 白黒
 		};
+
+		public DDPicture Enemy_B神奈子 = DDPictureLoaders.Standard(@"dat\きつね仮\yukkuri-kanako.png");
 	}
 }
