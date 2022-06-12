@@ -5,16 +5,16 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_弾 : Enemy
+	public class Enemy_B弾 : Enemy
 	{
-		public static Enemy_弾 Create自機狙い(double x, double y, double speed, double rot = 0.0)
+		public static Enemy_B弾 Create自機狙い(double x, double y, double speed, double rot = 0.0)
 		{
 			return Create何か狙い(x, y, new D2Point(Game.I.Player.X, Game.I.Player.Y), speed, rot);
 		}
 
-		public static Enemy_弾 Create何か狙い(double x, double y, D2Point targetPt, double speed, double rot = 0.0)
+		public static Enemy_B弾 Create何か狙い(double x, double y, D2Point targetPt, double speed, double rot = 0.0)
 		{
 			double xa;
 			double ya;
@@ -22,13 +22,13 @@ namespace Charlotte.Games.Enemies
 			DDUtils.MakeXYSpeed(x, y, targetPt.X, targetPt.Y, speed, out xa, out ya);
 			DDUtils.Rotate(ref xa, ref ya, rot);
 
-			return new Enemy_弾(x, y, xa, ya);
+			return new Enemy_B弾(x, y, xa, ya);
 		}
 
 		private double XAdd;
 		private double YAdd;
 
-		public Enemy_弾(double x, double y, double xa, double ya)
+		public Enemy_B弾(double x, double y, double xa, double ya)
 			: base(x, y, 0, 3, true)
 		{
 			this.XAdd = xa;

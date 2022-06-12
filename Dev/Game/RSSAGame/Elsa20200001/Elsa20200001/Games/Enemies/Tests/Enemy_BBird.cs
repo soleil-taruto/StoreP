@@ -5,13 +5,13 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_Bird : Enemy
+	public class Enemy_BBird : Enemy
 	{
 		private DDRandom Random;
 
-		public Enemy_Bird(double x, double y)
+		public Enemy_BBird(double x, double y)
 			: base(x, y, 1, 3, false)
 		{
 			this.Random = new DDRandom(((uint)x << 16) | (uint)y);
@@ -68,7 +68,7 @@ namespace Charlotte.Games.Enemies
 						Math.Abs(Game.I.Player.X - this.X) < 100.0
 						)
 					{
-						Game.I.Enemies.Add(new Enemy_BirdShit(this.X, this.Y + 10.0));
+						Game.I.Enemies.Add(new Enemy_BBirdShit(this.X, this.Y + 10.0));
 						break;
 					}
 					yield return true;

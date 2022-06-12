@@ -5,17 +5,17 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
 	/// <summary>
 	/// 即死トラップ
 	/// いわゆる「針」
 	/// </summary>
-	public class Enemy_即死トラップ針 : Enemy
+	public class Enemy_B即死トラップ針 : Enemy
 	{
 		private DDPicture Picture;
 
-		public Enemy_即死トラップ針(double x, double y, DDPicture picture)
+		public Enemy_B即死トラップ針(double x, double y, DDPicture picture)
 			: base(x, y, 0, SCommon.IMAX / 2, false)
 		{
 			this.Picture = picture;

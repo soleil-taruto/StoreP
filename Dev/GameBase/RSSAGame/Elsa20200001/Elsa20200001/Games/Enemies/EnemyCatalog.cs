@@ -111,7 +111,7 @@ namespace Charlotte.Games.Enemies
 			new EnemyInfo("アイテム/ハンマー陰陽玉", () => new Enemy_Item_ハンマー陰陽玉(X, Y)),
 			new EnemyInfo("アイテム/エアーシューター", () => new Enemy_Item_エアーシューター(X, Y)),
 			new EnemyInfo("アイテム/マグネットエアー", () => new Enemy_Item_マグネットエアー(X, Y)),
-			new EnemyInfo("Boss/ゆドレミー", () => new Enemy_Boss_ゆドレミー(X, Y)),
+			new EnemyInfo("Boss/ゆドレミー", () => new Enemy_ゆドレミー(X, Y)),
 
 			// 新しい敵をここへ追加..
 		};

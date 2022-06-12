@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Charlotte.Games.Enemies.Bosses.ゆドレミーs
 {
-	public class Enemy_Boss_ゆドレミー : Enemy
+	public class Enemy_ゆドレミー : Enemy
 	{
-		public Enemy_Boss_ゆドレミー(double x, double y)
+		public Enemy_ゆドレミー(double x, double y)
 			: base(x, y, 0, 0, false)
 		{ }
 

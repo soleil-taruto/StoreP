@@ -5,14 +5,14 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_ノコノコ : Enemy
+	public class Enemy_Bノコノコ : Enemy
 	{
 		private bool 端から落ちない;
 		private bool FacingLeft;
 
-		public Enemy_ノコノコ(double x, double y, bool 端から落ちない, bool facingLeft)
+		public Enemy_Bノコノコ(double x, double y, bool 端から落ちない, bool facingLeft)
 			: base(x, y, 5, 3, false)
 		{
 			this.端から落ちない = 端から落ちない;

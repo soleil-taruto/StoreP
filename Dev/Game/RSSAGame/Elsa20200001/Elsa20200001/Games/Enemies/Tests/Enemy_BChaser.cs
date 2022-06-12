@@ -5,11 +5,11 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_Chaser : Enemy
+	public class Enemy_BChaser : Enemy
 	{
-		public Enemy_Chaser(double x, double y)
+		public Enemy_BChaser(double x, double y)
 			: base(x, y, 3, 3, false)
 		{ }
 
@@ -32,7 +32,7 @@ namespace Charlotte.Games.Enemies
 
 				if (frame != 0 && frame % 240 == 0)
 				{
-					Game.I.Enemies.Add(Enemy_弾.Create自機狙い(this.X, this.Y, 3.0));
+					Game.I.Enemies.Add(Enemy_B弾.Create自機狙い(this.X, this.Y, 3.0));
 				}
 
 				//if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), CHARA_R * 1.2)) // 画面外では休止
