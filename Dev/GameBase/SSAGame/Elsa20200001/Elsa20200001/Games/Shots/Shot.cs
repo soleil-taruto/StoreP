@@ -45,6 +45,12 @@ namespace Charlotte.Games.Shots
 		public Enemy LastCrashedEnemy = null;
 
 		/// <summary>
+		/// 今回クラッシュした敵
+		/// 当たり判定の後で LastCrashedEnemy にセットする。
+		/// </summary>
+		public Enemy CurrCrashedEnemy = null;
+
+		/// <summary>
 		/// 現在のフレームにおける当たり判定を保持する。
 		/// -- Draw によって設定される。
 		/// </summary>
