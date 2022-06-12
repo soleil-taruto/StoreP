@@ -750,10 +750,9 @@ namespace Charlotte.Games
 								}
 
 								// 貫通武器について、貫通中に複数回クラッシュしないように制御する。
+								// -- 複数の敵に同時に当たると意図通りにならないが、厳格に制御する必要は無いので、看過する。
 
-								shot.CurrCrashedEnemies.Add(enemy);
-
-								if (shot.LastCrashedEnemies.Contains(enemy)) // ? 直前にクラッシュした -> 複数回クラッシュしない。
+								if (shot.LastCrashedEnemy == enemy) // ? 直前にクラッシュした -> 複数回クラッシュしない。
 									continue;
 
 								enemy.HP -= shot.AttackPoint;
