@@ -108,5 +108,44 @@ namespace Charlotte.Tests
 			}
 			Directory.SetCurrentDirectory(homeDir);
 		}
+
+		public void Test06()
+		{
+			SCommon.Read_d reader = (buff, offset, count) =>
+			{
+				return count;
+			};
+
+			reader = SCommon.GetLimitedReader(reader, 100);
+
+			if (reader(null, 0, 30) != 30) throw null;
+			if (reader(null, 0, 30) != 30) throw null;
+			if (reader(null, 0, 30) != 30) throw null;
+			if (reader(null, 0, 30) != 10) throw null;
+			if (reader(null, 0, 30) > 0) throw null;
+
+			// ----
+
+			reader = (buff, offset, count) =>
+			{
+				if (count == 70)
+					return -1;
+
+				return count;
+			};
+
+			reader = SCommon.GetLimitedReader(reader, SCommon.IMAX_64);
+
+			if (reader(null, 0, 40) != 40) throw null;
+			if (reader(null, 0, 50) != 50) throw null;
+			if (reader(null, 0, 60) != 60) throw null;
+			if (reader(null, 0, 70) > 0) throw null;
+			if (reader(null, 0, 80) > 0) throw null;
+			if (reader(null, 0, 90) > 0) throw null;
+
+			// ----
+
+			Console.WriteLine("OK!");
+		}
 	}
 }
