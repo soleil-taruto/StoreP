@@ -649,7 +649,7 @@ namespace Charlotte.Commons
 			return path.Substring(oldRoot.Length);
 		}
 
-		public static string PutYen(string path)
+		private static string PutYen(string path)
 		{
 			return Put_INE(path, "\\");
 		}
