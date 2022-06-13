@@ -36,5 +36,29 @@ namespace Charlotte.Tests
 				throw null; // 想定外
 			}
 		}
+
+		public void Test04()
+		{
+			using (CsvFileWriter writer = new CsvFileWriter(Common.NextOutputPath() + ".csv"))
+			{
+				for (int n = 1; n <= 5; n++)
+				{
+					int[] counts = new int[30];
+
+					for (int testcnt = 0; testcnt < 1000000; testcnt++)
+					{
+						double v = 1.0;
+
+						for (int c = 0; c < n; c++)
+						{
+							double r = (double)SCommon.CRandom.GetUInt() / uint.MaxValue;
+							v = Math.Min(v, r);
+						}
+						counts[(int)(v * counts.Length)]++;
+					}
+					writer.WriteRow(counts.Select(v => "" + v).ToArray());
+				}
+			}
+		}
 	}
 }
