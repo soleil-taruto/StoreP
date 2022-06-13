@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Walls
+namespace Charlotte.Games.Walls.Tests
 {
-	public class Wall_ロックマン風 : Wall
+	public class Wall_Bロックマン風 : Wall
 	{
 		protected override IEnumerable<bool> E_Draw()
 		{

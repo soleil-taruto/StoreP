@@ -5,7 +5,6 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Enemies.Tests;
-using Charlotte.Games.Enemies.Bosses.ゆドレミーs;
 using Charlotte.Games.Enemies.Tests.神奈子s;
 
 namespace Charlotte.Games.Enemies
@@ -112,7 +111,6 @@ namespace Charlotte.Games.Enemies
 			new EnemyInfo("エアーシューター:テスト用/アイテム-エアーシューター", () => new Enemy_Item(X, Y, GameStatus.Inventory_e.取得済み_エアーシューター)),
 			new EnemyInfo("マグネットエアー:テスト用/アイテム-マグネットエアー", () => new Enemy_Item(X, Y, GameStatus.Inventory_e.取得済み_マグネットエアー)),
 			new EnemyInfo("テスト用/B神奈子", () => new Enemy_B神奈子(X, Y)),
-			new EnemyInfo("テスト用/ゆドレミー", () => new Enemy_ゆドレミー(X, Y)), // 廃止予定
 
 			// 新しい敵をここへ追加..
 		};

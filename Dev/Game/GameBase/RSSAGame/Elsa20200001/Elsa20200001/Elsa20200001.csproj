@@ -79,7 +79,6 @@
     <Compile Include="GameCommons\DDTableMenu.cs" />
     <Compile Include="GameCommons\DDTouch.cs" />
     <Compile Include="Games\Confirm.cs" />
-    <Compile Include="Games\Enemies\Bosses\ゆドレミーs\Enemy_ゆドレミー.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
     <Compile Include="Games\Enemies\Enemy_Item.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_BBird.cs" />
@@ -212,9 +211,8 @@
     <Compile Include="Games\Tiles\Tile_Waterfall_Front.cs" />
     <Compile Include="Games\Tiles\Tile_Waterfall_Ground.cs" />
     <Compile Include="Games\Tiles\Tile_Brick.cs" />
-    <Compile Include="Games\Walls\Wall_None.cs" />
-    <Compile Include="Games\Walls\Wall_ロックマン風.cs" />
-    <Compile Include="Games\Walls\Wall_東方風.cs" />
+    <Compile Include="Games\Walls\Tests\Wall_Bロックマン風.cs" />
+    <Compile Include="Games\Walls\Tests\Wall_B東方風.cs" />
     <Compile Include="Games\WilyStageStartMotion.cs" />
     <Compile Include="Games\WorldGameMaster.cs" />
     <Compile Include="Games\Player.cs" />
@@ -323,9 +321,7 @@
   <ItemGroup>
     <Content Include="game_app.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="★ここはGameBaseです！\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>

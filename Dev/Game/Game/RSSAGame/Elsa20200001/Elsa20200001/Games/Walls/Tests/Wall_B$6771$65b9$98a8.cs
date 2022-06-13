@@ -5,9 +5,9 @@ using System.Text;
 using Charlotte.GameCommons;
 using Charlotte.Commons;
 
-namespace Charlotte.Games.Walls
+namespace Charlotte.Games.Walls.Tests
 {
-	public class Wall_東方風 : Wall
+	public class Wall_B東方風 : Wall
 	{
 		protected override IEnumerable<bool> E_Draw()
 		{
