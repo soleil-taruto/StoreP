@@ -1911,7 +1911,12 @@ namespace Charlotte.Commons
 
 				count = (int)Math.Min((long)count, remaining);
 				count = reader(buff, offset, count);
-				remaining -= (long)count;
+
+				if (count <= 0) // ? これ以上読み込めない
+					remaining = 0L;
+				else
+					remaining -= (long)count;
+
 				return count;
 			};
 		}
