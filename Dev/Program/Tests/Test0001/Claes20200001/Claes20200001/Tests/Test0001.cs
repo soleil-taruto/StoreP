@@ -145,6 +145,22 @@ namespace Charlotte.Tests
 
 			// ----
 
+			reader = (buff, offset, count) =>
+			{
+				if (count == 60)
+					return 50;
+
+				return count;
+			};
+
+			reader = SCommon.GetLimitedReader(SCommon.GetReader(reader), SCommon.IMAX_64);
+
+			if (reader(null, 0, 40) != 40) throw null;
+			if (reader(null, 0, 50) != 50) throw null;
+			Common.ToThrowPrint(() => reader(null, 0, 60));
+
+			// ----
+
 			Console.WriteLine("OK!");
 		}
 	}
