@@ -2566,5 +2566,24 @@ namespace Charlotte.Commons
 				throw null; // never
 			}
 		}
+
+		public static Exception ToThrow(Action routine)
+		{
+			try
+			{
+				routine();
+			}
+			catch (Exception ex)
+			{
+				return ex;
+			}
+			throw new Exception("例外を投げませんでした。");
+		}
+
+		public static void ToThrowPrint(Action routine)
+		{
+			Console.WriteLine(ToThrow(routine));
+			Console.WriteLine("★★★想定された例外のため処理を続行します。");
+		}
 	}
 }
