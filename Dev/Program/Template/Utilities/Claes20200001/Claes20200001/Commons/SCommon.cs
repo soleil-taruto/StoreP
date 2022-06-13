@@ -1827,6 +1827,10 @@ namespace Charlotte.Commons
 			};
 		}
 
+		// memo: GetLimitedReader は総読み込みサイズの下限を制限しない。
+		// -- 総読み込みサイズ上限・下限ともに length としたい場合は以下のようにする。
+		// ---- SCommon.GetLimitedReader(SCommon.GetReader(reader), length)
+
 		public static Read_d GetLimitedReader(Read_d reader, long remaining)
 		{
 			return (buff, offset, count) =>
@@ -1842,6 +1846,18 @@ namespace Charlotte.Commons
 				else
 					remaining -= (long)count;
 
+				return count;
+			};
+		}
+
+		public static Read_d GetReader(Read_d reader)
+		{
+			return (buff, offset, count) =>
+			{
+				if (reader(buff, offset, count) != count)
+				{
+					throw new Exception("データの途中でファイルの終端に到達しました。");
+				}
 				return count;
 			};
 		}
