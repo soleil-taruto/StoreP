@@ -5,11 +5,11 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_Helmet : Enemy
+	public class Enemy_BHelmet : Enemy
 	{
-		public Enemy_Helmet(double x, double y)
+		public Enemy_BHelmet(double x, double y)
 			: base(x, y, 10, 5, false)
 		{ }
 
@@ -54,9 +54,9 @@ namespace Charlotte.Games.Enemies
 					{
 						int xSign = Game.I.Player.X < this.X ? -1 : 1;
 
-						Game.I.Enemies.Add(new Enemy_弾(this.X, this.Y, 3.5 * xSign, -3.5));
-						Game.I.Enemies.Add(new Enemy_弾(this.X, this.Y, 5.0 * xSign, 0.0));
-						Game.I.Enemies.Add(new Enemy_弾(this.X, this.Y, 3.5 * xSign, 3.5));
+						Game.I.Enemies.Add(new Enemy_B弾(this.X, this.Y, 3.5 * xSign, -3.5));
+						Game.I.Enemies.Add(new Enemy_B弾(this.X, this.Y, 5.0 * xSign, 0.0));
+						Game.I.Enemies.Add(new Enemy_B弾(this.X, this.Y, 3.5 * xSign, 3.5));
 					}
 				}
 

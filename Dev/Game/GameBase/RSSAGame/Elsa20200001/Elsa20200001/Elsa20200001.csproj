@@ -81,23 +81,24 @@
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\Enemies\Bosses\ゆドレミーs\Enemy_ゆドレミー.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
-    <Compile Include="Games\Enemies\Enemy_Bird.cs" />
-    <Compile Include="Games\Enemies\Enemy_BirdShit.cs" />
-    <Compile Include="Games\Enemies\Enemy_Chaser.cs" />
-    <Compile Include="Games\Enemies\Enemy_Dog.cs" />
-    <Compile Include="Games\Enemies\Enemy_Frog.cs" />
-    <Compile Include="Games\Enemies\Enemy_Helmet.cs" />
-    <Compile Include="Games\Enemies\Enemy_天井針.cs" />
-    <Compile Include="Games\Enemies\Enemy_ノコノコ.cs" />
-    <Compile Include="Games\Enemies\Enemy_地蔵.cs" />
-    <Compile Include="Games\Enemies\Enemy_弾.cs" />
-    <Compile Include="Games\Enemies\Enemy_即死トラップ針.cs" />
-    <Compile Include="Games\Enemies\アイテムs\EnemyCommon_Item.cs" />
-    <Compile Include="Games\Enemies\アイテムs\Enemy_Item.cs" />
-    <Compile Include="Games\Enemies\アイテムs\Enemy_Item_跳ねる陰陽玉.cs" />
-    <Compile Include="Games\Enemies\アイテムs\Enemy_Item_ハンマー陰陽玉.cs" />
-    <Compile Include="Games\Enemies\アイテムs\Enemy_Item_エアーシューター.cs" />
-    <Compile Include="Games\Enemies\アイテムs\Enemy_Item_マグネットエアー.cs" />
+    <Compile Include="Games\Enemies\Enemy_Item.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BBird.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BBirdShit.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BChaser.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BDog.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BFrog.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BHelmet.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_B天井針.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_Bノコノコ.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_B地蔵.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_B弾.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_B即死トラップ針.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\EnemyCommon_B神奈子.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子0001.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子9901.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子9902.cs" />
+    <Compile Include="Games\Enemies\Tests\神奈子s\Enemy_B神奈子_Tama.cs" />
     <Compile Include="Games\GameCommon.cs" />
     <Compile Include="Commons\ArgsReader.cs" />
     <Compile Include="Commons\D2Point.cs" />
@@ -200,6 +201,7 @@
     <Compile Include="Games\Tests\GameTestSubMenu.cs" />
     <Compile Include="Games\Tests\GameTestMenu2.cs" />
     <Compile Include="Games\Tests\GameTestSubMenu2.cs" />
+    <Compile Include="Games\Tiles\Tests\Tile_Bボス部屋Shutter.cs" />
     <Compile Include="Games\Tiles\Tile_Brick_Back.cs" />
     <Compile Include="Games\Tiles\Tile_Brick_Front.cs" />
     <Compile Include="Games\Tiles\Tile_Double.cs" />
@@ -288,6 +290,7 @@
     <Compile Include="Tests\Games\TitleMenuTest.cs" />
     <Compile Include="Tests\Games\WorldGameMasterTest.cs" />
     <Compile Include="Tests\Test0001.cs" />
+    <Compile Include="Utilities\BitList.cs" />
     <EmbeddedResource Include="LevelEditors\LevelEditorDlg.resx">
       <DependentUpon>LevelEditorDlg.cs</DependentUpon>
     </EmbeddedResource>

@@ -5,11 +5,11 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_天井針 : Enemy
+	public class Enemy_B天井針 : Enemy
 	{
-		public Enemy_天井針(double x, double y)
+		public Enemy_B天井針(double x, double y)
 			: base(x, y, 0, 4, true)
 		{ }
 

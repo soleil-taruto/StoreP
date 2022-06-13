@@ -5,15 +5,15 @@ using System.Text;
 using Charlotte.GameCommons;
 using Charlotte.Commons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
 	/// <summary>
 	/// 地蔵
 	/// ただの背景
 	/// </summary>
-	public class Enemy_地蔵 : Enemy
+	public class Enemy_B地蔵 : Enemy
 	{
-		public Enemy_地蔵(double x, double y)
+		public Enemy_B地蔵(double x, double y)
 			: base(x, y, 0, 0, false)
 		{ }
 

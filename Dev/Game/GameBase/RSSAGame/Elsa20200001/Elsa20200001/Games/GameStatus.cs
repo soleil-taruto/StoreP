@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Utilities;
 using Charlotte.Games.Shots;
 
 namespace Charlotte.Games
@@ -80,6 +81,8 @@ namespace Charlotte.Games
 		/// </summary>
 		public enum Inventory_e
 		{
+			B神奈子を倒した, // テスト用
+
 			取得済み_跳ねる陰陽玉,
 			取得済み_ハンマー陰陽玉,
 			取得済み_エアーシューター,
@@ -90,32 +93,29 @@ namespace Charlotte.Games
 
 		public class S_InventoryFlags
 		{
-			private List<bool> Flags = new List<bool>();
+			private BitList Flags = new BitList();
 
 			public bool this[Inventory_e inventory]
 			{
 				get
 				{
-					return (int)inventory < this.Flags.Count ? this.Flags[(int)inventory] : false;
+					return this.Flags[(long)inventory];
 				}
 
 				set
 				{
-					while (this.Flags.Count <= (int)inventory)
-						this.Flags.Add(false);
-
-					this.Flags[(int)inventory] = value;
+					this.Flags[(long)inventory] = value;
 				}
 			}
 
 			public string Serialize()
 			{
-				return new string(this.Flags.Select(flag => flag ? '1' : '0').ToArray());
+				return new string(this.Flags.Iterate().Select(flag => flag ? '1' : '0').ToArray());
 			}
 
 			public void Deserialize(string value)
 			{
-				this.Flags = value.Select(chr => chr == '1').ToList();
+				this.Flags = new BitList(value.Select(chr => chr == '1'));
 			}
 		}
 

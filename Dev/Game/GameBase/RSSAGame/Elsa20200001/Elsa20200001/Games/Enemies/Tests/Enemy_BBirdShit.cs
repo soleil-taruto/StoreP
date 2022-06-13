@@ -5,11 +5,11 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies
+namespace Charlotte.Games.Enemies.Tests
 {
-	public class Enemy_BirdShit : Enemy
+	public class Enemy_BBirdShit : Enemy
 	{
-		public Enemy_BirdShit(double x, double y)
+		public Enemy_BBirdShit(double x, double y)
 			: base(x, y, 0, 1, true)
 		{ }
 

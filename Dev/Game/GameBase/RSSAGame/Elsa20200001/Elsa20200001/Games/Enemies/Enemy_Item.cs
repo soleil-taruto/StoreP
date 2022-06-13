@@ -5,16 +5,16 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Enemies.アイテムs
+namespace Charlotte.Games.Enemies
 {
-	public abstract class Enemy_Item : Enemy
+	public class Enemy_Item : Enemy
 	{
-		private int CrystalColorIndex; // 0 - 4 == { 青, 赤, 緑, 黄色, 白黒 }
+		private GameStatus.Inventory_e Inventory;
 
-		public Enemy_Item(double x, double y, int crystalColorIndex)
+		public Enemy_Item(double x, double y, GameStatus.Inventory_e inventory)
 			: base(x, y - 10.0, 0, 0, false)
 		{
-			this.CrystalColorIndex = crystalColorIndex;
+			this.Inventory = inventory;
 		}
 
 		protected override IEnumerable<bool> E_Draw()
@@ -32,11 +32,7 @@ namespace Charlotte.Games.Enemies.アイテムs
 
 				if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 50.0))
 				{
-					DDDraw.SetMosaic();
-					DDDraw.DrawBegin(Ground.I.Picture2.Crystals[this.CrystalColorIndex][DDEngine.ProcFrame / 5 % 3, 2], this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
-					DDDraw.DrawZoom(2.0);
-					DDDraw.DrawEnd();
-					DDDraw.Reset();
+					DDDraw.DrawCenter(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 
 					DDPrint.SetDebug((int)this.X - DDGround.ICamera.X, (int)this.Y - DDGround.ICamera.Y);
 					DDPrint.SetBorder(new I3Color(0, 0, 0));
@@ -53,17 +49,26 @@ namespace Charlotte.Games.Enemies.アイテムs
 		/// このアイテムは取得済みかどうか
 		/// </summary>
 		/// <returns>このアイテムは取得済み</returns>
-		protected abstract bool IsAlreadyCollected();
+		private bool IsAlreadyCollected()
+		{
+			return Game.I.Status.InventoryFlags[this.Inventory];
+		}
 
 		/// <summary>
 		/// このアイテムを取得した時の動作
 		/// </summary>
-		protected abstract void Collected();
+		private void Collected()
+		{
+			Game.I.Status.InventoryFlags[this.Inventory] = true;
+		}
 
 		/// <summary>
 		/// このアイテムの名前を返す。
 		/// </summary>
 		/// <returns>このアイテムの名前</returns>
-		protected abstract string GetTitle();
+		private string GetTitle()
+		{
+			return "アイテム番号-(" + (int)this.Inventory + ")";
+		}
 	}
 }

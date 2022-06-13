@@ -54,6 +54,7 @@ namespace Charlotte.Games
 		public int CamSlideY; // -1 ～ 1
 
 		public int Frame;
+		public bool UserInputDisabled = false;
 
 		public DDTaskList EL_AfterDrawMap = new DDTaskList();
 
@@ -122,6 +123,7 @@ namespace Charlotte.Games
 			{
 				if (
 					//Game.I.Player.Attack == null && // ? プレイヤーの攻撃モーション中ではない。// モーション中でも構わないはず。
+					!this.UserInputDisabled &&
 					DDInput.PAUSE.GetInput() == 1
 					)
 				{
@@ -160,14 +162,14 @@ namespace Charlotte.Games
 
 				// プレイヤー入力
 				{
-					bool deadOrDamage = 1 <= this.Player.DeadFrame || 1 <= this.Player.DamageFrame;
+					bool deadOrDamageOrUID = 1 <= this.Player.DeadFrame || 1 <= this.Player.DamageFrame || this.UserInputDisabled;
 					bool move = false;
 					bool camSlide = false;
 					int jump = 0;
 					bool under = false;
 					int attack = 0;
 
-					if (!deadOrDamage && 1 <= DDInput.DIR_2.GetInput())
+					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_2.GetInput())
 					{
 						I2Point pt1 = GameCommon.ToTablePoint(new D2Point(this.Player.X, this.Player.Y));
 						I2Point pt2 = pt1;
@@ -190,7 +192,7 @@ namespace Charlotte.Games
 
 						under = true;
 					}
-					if (!deadOrDamage && 1 <= DDInput.DIR_8.GetInput())
+					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_8.GetInput())
 					{
 						if (Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.Player.X, this.Player.Y))).Tile.GetKind() == Tile.Kind_e.LADDER)
 						{
@@ -205,12 +207,12 @@ namespace Charlotte.Games
 					int freezeInputFrameBackup = DDEngine.FreezeInputFrame;
 					DDEngine.FreezeInputFrame = 0;
 
-					if (!deadOrDamage && 1 <= DDInput.DIR_4.GetInput())
+					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_4.GetInput())
 					{
 						this.Player.FacingLeft = true;
 						move = true;
 					}
-					if (!deadOrDamage && 1 <= DDInput.DIR_6.GetInput())
+					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_6.GetInput())
 					{
 						this.Player.FacingLeft = false;
 						move = true;
@@ -223,11 +225,11 @@ namespace Charlotte.Games
 						move = false;
 						camSlide = true;
 					}
-					if (!deadOrDamage && 1 <= DDInput.A.GetInput())
+					if (!deadOrDamageOrUID && 1 <= DDInput.A.GetInput())
 					{
 						jump = DDInput.A.GetInput();
 					}
-					if (!deadOrDamage && 1 <= DDInput.B.GetInput())
+					if (!deadOrDamageOrUID && 1 <= DDInput.B.GetInput())
 					{
 						attack = DDInput.B.GetInput();
 					}
@@ -368,7 +370,7 @@ namespace Charlotte.Games
 					{
 						if (攻撃ボタンを押した瞬間撃つ && attack == 1)
 						{
-							if (!deadOrDamage) // 死亡中_攻撃_抑止
+							if (!deadOrDamageOrUID) // 死亡中_攻撃_抑止
 							{
 								this.Player.Shoot(1);
 							}
@@ -386,7 +388,7 @@ namespace Charlotte.Games
 
 						if (攻撃ボタンを押した瞬間撃つ ? 2 <= level : 1 <= chargePct)
 						{
-							if (!deadOrDamage) // 死亡中_攻撃_抑止
+							if (!deadOrDamageOrUID) // 死亡中_攻撃_抑止
 							{
 								this.Player.Shoot(level);
 							}
@@ -820,8 +822,8 @@ namespace Charlotte.Games
 
 				foreach (Shot shot in this.Shots.Iterate())
 				{
-					shot.LastCrashedEnemy = shot.CurrCrashedEnemy;
-					shot.CurrCrashedEnemy = null;
+					shot.CurrCrashedEnemy = shot.LastCrashedEnemy;
+					shot.LastCrashedEnemy = null;
 
 					// 壁への衝突
 					// 壁への当たり判定は自弾の「中心座標のみ」であることに注意して下さい。
