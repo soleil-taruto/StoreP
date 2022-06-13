@@ -226,6 +226,7 @@
     <Compile Include="MainWin.Designer.cs">
       <DependentUpon>MainWin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\BitList.cs" />
     <Compile Include="Novels\Novel.cs" />
     <Compile Include="Novels\NovelAct.cs" />
     <Compile Include="Novels\NovelCommon.cs" />
