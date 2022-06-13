@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.Utilities;
 using Charlotte.Games.Shots;
 
 namespace Charlotte.Games
@@ -93,29 +92,32 @@ namespace Charlotte.Games
 
 		public class S_InventoryFlags
 		{
-			private BitList Flags = new BitList();
+			private List<bool> Flags = new List<bool>();
 
 			public bool this[Inventory_e inventory]
 			{
 				get
 				{
-					return this.Flags[(long)inventory];
+					return (int)inventory < this.Flags.Count ? this.Flags[(int)inventory] : false;
 				}
 
 				set
 				{
-					this.Flags[(long)inventory] = value;
+					while (this.Flags.Count <= (int)inventory)
+						this.Flags.Add(false);
+
+					this.Flags[(int)inventory] = value;
 				}
 			}
 
 			public string Serialize()
 			{
-				return new string(this.Flags.Iterate().Select(flag => flag ? '1' : '0').ToArray());
+				return new string(this.Flags.Select(flag => flag ? '1' : '0').ToArray());
 			}
 
 			public void Deserialize(string value)
 			{
-				this.Flags = new BitList(value.Select(chr => chr == '1'));
+				this.Flags = value.Select(chr => chr == '1').ToList();
 			}
 		}
 

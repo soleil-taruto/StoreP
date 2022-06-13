@@ -288,7 +288,6 @@
     <Compile Include="Tests\Games\TitleMenuTest.cs" />
     <Compile Include="Tests\Games\WorldGameMasterTest.cs" />
     <Compile Include="Tests\Test0001.cs" />
-    <Compile Include="Utilities\BitList.cs" />
     <EmbeddedResource Include="LevelEditors\LevelEditorDlg.resx">
       <DependentUpon>LevelEditorDlg.cs</DependentUpon>
     </EmbeddedResource>
@@ -321,7 +320,9 @@
   <ItemGroup>
     <Content Include="game_app.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="★ここはGameBaseです！\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>
