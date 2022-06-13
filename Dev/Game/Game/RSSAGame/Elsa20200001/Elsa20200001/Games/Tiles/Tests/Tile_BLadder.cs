@@ -5,12 +5,12 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Tiles
+namespace Charlotte.Games.Tiles.Tests
 {
 	/// <summary>
 	/// 梯子
 	/// </summary>
-	public class Tile_Ladder : Tile
+	public class Tile_BLadder : Tile
 	{
 		public override Tile.Kind_e GetKind()
 		{

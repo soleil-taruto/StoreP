@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Tiles
+namespace Charlotte.Games.Tiles.Tests
 {
 	public abstract class Tile_Brick : Tile
 	{

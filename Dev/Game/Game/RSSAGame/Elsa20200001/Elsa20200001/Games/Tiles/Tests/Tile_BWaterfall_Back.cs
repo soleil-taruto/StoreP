@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Tiles
+namespace Charlotte.Games.Tiles.Tests
 {
-	public class Tile_Waterfall_Front : Tile
+	public class Tile_BWaterfall_Back : Tile
 	{
 		/// <summary>
-		/// Ground.I.Picture.Stage02_Chip_f0x の [0]～[3] を想定する。
+		/// Ground.I.Picture.Stage02_Bg_Chip_b0x の [0]～[3] を想定する。
 		/// </summary>
 		private DDPicture[] Pictures;
 
-		public Tile_Waterfall_Front(DDPicture[] pictures)
+		public Tile_BWaterfall_Back(DDPicture[] pictures)
 		{
 			this.Pictures = pictures;
 		}
@@ -25,11 +25,7 @@ namespace Charlotte.Games.Tiles
 
 		public override void Draw(double draw_x, double draw_y, int map_x, int map_y)
 		{
-			DDGround.EL.Add(() =>
-			{
-				DDDraw.DrawCenter(this.Pictures[DDEngine.ProcFrame / 4 % 4], draw_x, draw_y);
-				return false;
-			});
+			DDDraw.DrawCenter(this.Pictures[DDEngine.ProcFrame / 4 % 4], draw_x, draw_y);
 		}
 	}
 }

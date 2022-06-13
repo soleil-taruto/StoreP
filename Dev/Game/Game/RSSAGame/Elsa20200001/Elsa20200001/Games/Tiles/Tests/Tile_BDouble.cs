@@ -4,19 +4,19 @@ using System.Linq;
 using System.Text;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Tiles
+namespace Charlotte.Games.Tiles.Tests
 {
 	/// <summary>
 	/// 標準
 	/// 但し画像を2つ重ねて描画する。
 	/// </summary>
-	public class Tile_Double : Tile
+	public class Tile_BDouble : Tile
 	{
 		private DDPicture Picture_01;
 		private DDPicture Picture_02;
 		private Kind_e Kind;
 
-		public Tile_Double(DDPicture picture_01, DDPicture picture_02, Kind_e kind)
+		public Tile_BDouble(DDPicture picture_01, DDPicture picture_02, Kind_e kind)
 		{
 			this.Picture_01 = picture_01;
 			this.Picture_02 = picture_02;

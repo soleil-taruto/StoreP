@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Charlotte.Games.Tiles
+namespace Charlotte.Games.Tiles.Tests
 {
 	public class Tile_Brick_Front : Tile_Brick
 	{

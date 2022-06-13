@@ -19,6 +19,9 @@ namespace Charlotte.Games.Walls
 			switch (name)
 			{
 				//case Consts.WALL_DEFAULT: wall = new Wall_Dark(); break; // 難読化のため、ここに書けない。
+				//case "B0001": wall = new Wall_B0001(); break; // ★サンプルとしてキープ
+				//case "B0002": wall = new Wall_B0002(); break; // ★サンプルとしてキープ
+				//case "B0003": wall = new Wall_B0003(); break; // ★サンプルとしてキープ
 				case "Dark": wall = new Wall_Dark(); break;
 				case "東方風": wall = new Wall_B東方風(); break;
 				case "ロックマン風": wall = new Wall_Bロックマン風(); break;
