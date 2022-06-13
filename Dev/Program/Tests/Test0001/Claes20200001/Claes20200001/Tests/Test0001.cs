@@ -24,5 +24,17 @@ namespace Charlotte.Tests
 				Console.WriteLine(value.ToString("F20"));
 			}
 		}
+
+		public void Test03()
+		{
+			if (SCommon.GetJChars().Length == SCommon.GetJCharCodes().Count())
+			{
+				Console.WriteLine("JCharsLen-OK!");
+			}
+			else
+			{
+				throw null; // 想定外
+			}
+		}
 	}
 }
