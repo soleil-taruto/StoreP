@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using Charlotte.Commons;
+using System.IO;
 
 namespace Charlotte.Tests
 {
@@ -59,6 +60,53 @@ namespace Charlotte.Tests
 					writer.WriteRow(counts.Select(v => "" + v).ToArray());
 				}
 			}
+		}
+
+		/// <summary>
+		/// SCommon.GetJChars()の文字でファイルが作成可能かチェック
+		/// -- 作成可能である。@ 2022.6.13
+		/// </summary>
+		public void Test05()
+		{
+			const string TEST_DIR = @"C:\temp";
+
+			SCommon.DeletePath(TEST_DIR);
+			SCommon.CreateDir(TEST_DIR);
+
+			string homeDir = Directory.GetCurrentDirectory();
+			Directory.SetCurrentDirectory(TEST_DIR);
+
+			foreach (char chr in SCommon.GetJChars())
+			{
+				Console.WriteLine("[" + chr + "] " + (int)chr);
+
+				string localName = new string(new char[] { chr });
+				string file = TEST_DIR + "\\" + localName;
+
+				if (File.Exists(localName)) throw null;
+				if (File.Exists(file)) throw null;
+
+				File.WriteAllBytes(localName, SCommon.EMPTY_BYTES);
+
+				if (!File.Exists(localName)) throw null;
+				if (!File.Exists(file)) throw null;
+
+				SCommon.DeletePath(localName);
+
+				if (File.Exists(localName)) throw null;
+				if (File.Exists(file)) throw null;
+
+				File.WriteAllBytes(file, SCommon.EMPTY_BYTES);
+
+				if (!File.Exists(localName)) throw null;
+				if (!File.Exists(file)) throw null;
+
+				SCommon.DeletePath(file);
+
+				if (File.Exists(localName)) throw null;
+				if (File.Exists(file)) throw null;
+			}
+			Directory.SetCurrentDirectory(homeDir);
 		}
 	}
 }
