@@ -892,7 +892,7 @@ namespace Charlotte.Commons
 		{
 			if (reader.Read(buff, offset, count) != count)
 			{
-				throw new Exception("データの途中でファイルの終端に到達しました。");
+				throw new Exception("データの途中でストリームの終端に到達しました。");
 			}
 		}
 
@@ -1931,7 +1931,7 @@ namespace Charlotte.Commons
 			{
 				if (reader(buff, offset, count) != count)
 				{
-					throw new Exception("データの途中でファイルの終端に到達しました。");
+					throw new Exception("データの途中でストリームの終端に到達しました。");
 				}
 				return count;
 			};
