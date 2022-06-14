@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Charlotte.Commons;
 using Charlotte.Tests;
+using Charlotte.Utilities;
 
 namespace Charlotte
 {
@@ -19,51 +20,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4();
-			}
-			Common.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			Main4();
-			Common.Pause();
-		}
-
-		private void Main4()
-		{
-			try
-			{
-				Main5();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-		}
-
-		private void Main5()
-		{
-			// -- choose one --
-
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -81,7 +37,8 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { "/W", "100", "0", "0", "0", @"C:\temp\input.png" }));
+			//Main4(new ArgsReader(new string[] { "/B", "0", "0", "0", "100", @"C:\temp" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -110,8 +67,73 @@ namespace Charlotte
 
 		private void Main5(ArgsReader ar)
 		{
-			// TODO
+			I3Color color;
+
+			if (ar.ArgIs("/W"))
+			{
+				color = new I3Color(255, 255, 255);
+			}
+			else if (ar.ArgIs("/B"))
+			{
+				color = new I3Color(0, 0, 0);
+			}
+			else
+			{
+				throw new Exception("Bad command-option (not /W or /B)");
+			}
+
+			int aLT = int.Parse(ar.NextArg());
+			int aRT = int.Parse(ar.NextArg());
+			int aRB = int.Parse(ar.NextArg());
+			int aLB = int.Parse(ar.NextArg());
+
+			if (aLT < 0 || 255 < aLT) throw new Exception("Bad command-option (left top alpha)");
+			if (aRT < 0 || 255 < aRT) throw new Exception("Bad command-option (right top alpha)");
+			if (aRB < 0 || 255 < aRB) throw new Exception("Bad command-option (right bottom alpha)");
+			if (aLB < 0 || 255 < aLB) throw new Exception("Bad command-option (left bottom alpha)");
+
+			string path = SCommon.MakeFullPath(ar.NextArg());
+
+			ar.End();
+
+			string[] files;
+
+			if (File.Exists(path))
+			{
+				files = new string[] { path };
+			}
+			else if (Directory.Exists(path))
+			{
+				files = Directory.GetFiles(path)
+					.Where(file => Common.ExtIn(file, ".bmp", ".gif", ".jpg", ".jpeg", ".png"))
+					.ToArray();
+			}
+			else
+			{
+				throw new Exception("Bad command-option (no input-path)");
+			}
+
+			foreach (string file in files)
+			{
+				string outFile = Path.Combine(Common.GetOutputDir(), Path.GetFileNameWithoutExtension(file) + ".png");
+
+				Console.WriteLine("< " + file);
+				Console.WriteLine("> " + outFile);
+
+				Canvas canvas = Canvas.LoadFromFile(file);
+				Canvas mask = new Canvas(canvas.W, canvas.H);
+				mask.Gradation(
+					dot => true,
+					color.WithAlpha(aLT),
+					color.WithAlpha(aRT),
+					color.WithAlpha(aRB),
+					color.WithAlpha(aLB)
+					);
+				canvas.DrawImage(mask, 0, 0, true);
+				canvas.Save(outFile);
+
+				Console.WriteLine("done");
+			}
 		}
-#endif
 	}
 }

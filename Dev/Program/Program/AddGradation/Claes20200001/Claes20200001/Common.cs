@@ -72,5 +72,16 @@ namespace Charlotte
 		{
 			Console.WriteLine("Hello, world!");
 		}
+
+		/// <summary>
+		/// 指定ファイルの拡張子が指定拡張子のどれかに一致するかどうか判定する。
+		/// </summary>
+		/// <param name="file">指定ファイル</param>
+		/// <param name="exts">指定拡張子</param>
+		/// <returns>指定ファイルの拡張子が指定拡張子のどれかに一致するか</returns>
+		public static bool ExtIn(string file, params string[] exts)
+		{
+			return exts.Any(ext => SCommon.EqualsIgnoreCase(ext, Path.GetExtension(file)));
+		}
 	}
 }
