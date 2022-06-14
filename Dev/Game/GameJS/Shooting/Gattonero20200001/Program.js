@@ -23,7 +23,7 @@ function* <generatorForTask> @@_Main()
 
 		SetColor("#000000");
 		SetPrint(10, 25, 50);
-		SetFont("16px 'メイリオ'");
+		SetFSize(16);
 		PrintLine("リソースを読み込んでいます ...　残り " + Loading + " 個");
 
 		yield 1;

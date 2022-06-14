@@ -56,8 +56,8 @@ function <boolean> Enemy_Each(<Enemy_t> enemy)
 
 function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 {
-	var speedX = Math.random() * -2.0 - 1.0;
-	var speedY = (Math.random() - 0.5) * 6.0;
+	var<double> speedX = GetRand1() * 2.0 - 3.0;
+	var<double> speedY = GetRand2() * 3.0;
 
 	for (; ; )
 	{

@@ -43,22 +43,31 @@ function <void> PrintCircle(<double> x, <double> y, <double> r)
 
 /*
 	フォントをセットする。
-	font: ex. "16px 'メイリオ'"
+	font: ex. "16px 'sans-serif'"
 */
 function <void> SetFont(<string> font)
 {
 	Context.font = font;
 }
 
+/*
+	フォントサイズをセットする。
+	size: ex. 16
+*/
+function <void> SetFSize(<int> size)
+{
+	SetFont(size + "px 'sans-serif'");
+}
+
 var<int> @@_X = 0;
 var<int> @@_Y = 0;
-var<int> @@_YStep = 50;
+var<int> @@_YStep = 0;
 
 /*
 	文字列描画位置をセットする。
 	x: 文字列の左側 X-座標
 	y: 文字列の下側 Y-座標
-	yStep: 改行ステップ Y-軸
+	yStep: 改行ステップ Y-軸 (改行しない場合は 0 を指定すること)
 */
 function <void> SetPrint(<int> x, <int> y, <int> yStep)
 {

@@ -13,10 +13,10 @@ var<Action[]> @@_EACH_Events = [ @(EACH) ];
 var<generatorForTask> @@_AppMain;
 
 // 描画先Canvasタグ
-var<canvas_tag> Canvas;
+var<Tag_Canvas> Canvas;
 
 // Canvasを入れておくDivタグ
-var<div_tag> CanvasBox;
+var<Tag_Div> CanvasBox;
 
 // ゲーム用メイン
 // appMain: アプリケーション側の処理
@@ -38,7 +38,7 @@ function <void> ProcMain(<generatorForTask> appMain)
 	AddResized(@@_Resized);
 	@@_Resized();
 
-	for (var event of @@_INIT_Events)
+	for (var<Action> event of @@_INIT_Events)
 	{
 		LOGPOS();
 		event();
@@ -54,15 +54,15 @@ function <void> @@_Resized()
 	var sh = window.innerHeight;
 
 	var w = sw;
-	var h = Math.round((Screen_H * sw) / Screen_W);
+	var h = ToInt((Screen_H * sw) / Screen_W);
 
 	if (sh < h)
 	{
 		h = sh;
-		w = Math.round((Screen_W * sh) / Screen_H);
+		w = ToInt((Screen_W * sh) / Screen_H);
 	}
-	var l = Math.round((sw - w) / 2);
-	var t = Math.round((sh - h) / 2);
+	var<int> l = ToInt((sw - w) / 2);
+	var<int> t = ToInt((sh - h) / 2);
 
 	Canvas.style.left   = l + "px";
 	Canvas.style.top    = t + "px";
@@ -82,11 +82,11 @@ var<int> @@_HzChaserTime = 0;
 var<int> ProcFrame = 0;
 
 // 描画先コンテキスト(描画先スクリーン)
-var<context> Context = null;
+var<Context2d> Context = null;
 
 function <void> @@_Anime()
 {
-	var currTime = new Date().getTime();
+	var<int> currTime = new Date().getTime();
 
 	@@_HzChaserTime = Math.max(@@_HzChaserTime, currTime - 100);
 	@@_HzChaserTime = Math.min(@@_HzChaserTime, currTime + 100);
@@ -96,7 +96,7 @@ function <void> @@_Anime()
 		Context = Canvas.getContext("2d");
 		@@_AppMain.next();
 
-		for (var event of @@_EACH_Events)
+		for (var<Action> event of @@_EACH_Events)
 		{
 			event();
 		}

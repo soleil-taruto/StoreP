@@ -175,8 +175,14 @@ function <void> @@_Draw外枠()
 var<int> Score = 0;
 var<int> DispScore = 0; // 表示用 (Scoreを追尾する)
 
+// ハイスコア
+var<int> HiScore = 0;
+var<int> DispHiScore = 0; // 表示用 (HiScoreを追尾する)
+
 function <void> @@_DrawScore()
 {
+	HiScore = Math.max(HiScore, Score);
+
 	// 表示用スコアの追尾
 	if (Math.abs(Score - DispScore) < 30)
 	{
@@ -191,14 +197,31 @@ function <void> @@_DrawScore()
 	}
 	else
 	{
-		DispScore = ToInt(Approach(DispScore, Score, 0.7));
+		DispScore = ToInt(Approach(DispScore, Score, 0.8));
+	}
+
+	// 表示用ハイスコアの追尾
+	if (Math.abs(HiScore - DispHiScore) < 30)
+	{
+		if (DispHiScore < HiScore)
+		{
+			DispHiScore++;
+		}
+		else if (HiScore < DispHiScore)
+		{
+			DispHiScore--;
+		}
+	}
+	else
+	{
+		DispHiScore = ToInt(Approach(DispHiScore, HiScore, 0.8));
 	}
 
 	// スコア表示
 	SetPrint(30, 16, 0);
+	SetFSize(16);
 	SetColor("#ffffff");
-	SetFont("16px 'メイリオ'");
-	PrintLine("Score: " + DispScore);
+	PrintLine("Score: " + DispScore + "　HiScore: " + DispHiScore);
 }
 
 function @@_自機移動()

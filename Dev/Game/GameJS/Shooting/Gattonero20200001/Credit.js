@@ -18,7 +18,7 @@ function* <generatorForTask> CreditMain()
 
 		SetColor("#000000");
 		SetPrint(50, 80, 80);
-		SetFont("24px 'ƒƒCƒŠƒI'");
+		SetFSize(24);
 
 		PrintLine("¡‘fŞ’ñ‹Ÿ(ŒhÌ—ª)");
 		PrintLine("HMIX@http://www.hmix.net/");

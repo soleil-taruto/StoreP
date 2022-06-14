@@ -353,6 +353,10 @@ namespace Charlotte.Commons
 			return new HashSet<string>(new IECompStringIgnoreCase());
 		}
 
+		/// <summary>
+		/// とても小さい正数として慣習的に決めた値
+		/// ・doubleの許容誤差として
+		/// </summary>
 		public const double MICRO = 1.0 / IMAX;
 
 		private static void CheckNaN(double value)

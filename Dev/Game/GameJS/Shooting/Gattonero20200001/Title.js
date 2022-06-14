@@ -14,8 +14,8 @@ var @@_Buttons =
 			SetColor("#ffffff");
 			PrintRect(this.L, this.T, this.W, this.H);
 			SetColor("#000000");
-			SetPrint(this.L + 35, this.T + 40);
-			SetFont("32px 'メイリオ'");
+			SetPrint(this.L + 35, this.T + 40, 0);
+			SetFSize(32);
 			PrintLine("スタート");
 		},
 		Pressed : function* ()
@@ -35,8 +35,8 @@ var @@_Buttons =
 			SetColor("#ffff80");
 			PrintRect(this.L, this.T, this.W, this.H);
 			SetColor("#000080");
-			SetPrint(this.L + 35, this.T + 40);
-			SetFont("32px 'メイリオ'");
+			SetPrint(this.L + 35, this.T + 40, 0);
+			SetFSize(32);
 			PrintLine("Credit");
 		},
 		Pressed : function* ()
@@ -56,8 +56,8 @@ var @@_Buttons =
 			SetColor("#ffff80");
 			PrintRect(this.L, this.T, this.W, this.H);
 			SetColor("#000080");
-			SetPrint(this.L + 35, this.T + 40);
-			SetFont("32px 'メイリオ'");
+			SetPrint(this.L + 35, this.T + 40, 0);
+			SetFSize(32);
 			PrintLine("Exit");
 		},
 		Pressed : function* ()
@@ -78,8 +78,8 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(50, 220);
-		SetFont("200px 'メイリオ'");
+		SetPrint(50, 220, 0);
+		SetFSize(200);
 		PrintLine("Shooting");
 
 		for (var button of @@_Buttons)

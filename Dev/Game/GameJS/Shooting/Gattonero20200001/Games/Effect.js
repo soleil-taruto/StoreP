@@ -8,7 +8,7 @@
 	x: 中心-X
 	y: 中心-Y
 */
-function* <generatorForTask> Effect_Explode(x, y)
+function* <generatorForTask> Effect_Explode(<double> x, <double> y)
 {
 	for (var<Image> image of P_Explode)
 	for (var<int> c = 0; c < 4; c++)
@@ -25,7 +25,7 @@ function* <generatorForTask> Effect_Explode(x, y)
 	x: 中心-X
 	y: 中心-Y
 */
-function* <generatorForTask> Effect_PlayerDead(x, y)
+function* <generatorForTask> Effect_PlayerDead(<double> x, <double> y)
 {
 	var<int> FRM_NUM = 60;
 
