@@ -37,8 +37,8 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			//Main4(new ArgsReader(new string[] { "/W", "100", "0", "0", "0", @"C:\temp\input.png" }));
-			Main4(new ArgsReader(new string[] { "/B", "0", "0", "0", "100", @"C:\temp" }));
+			Main4(new ArgsReader(new string[] { "/W", "100", "0", "0", "0", @"C:\temp\input.png" }));
+			//Main4(new ArgsReader(new string[] { "/B", "0", "0", "0", "70", @"C:\temp" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -110,7 +110,7 @@ namespace Charlotte
 			}
 			else
 			{
-				throw new Exception("Bad command-option (no input-path)");
+				throw new Exception("入力ファイル・フォルダがありません。");
 			}
 
 			foreach (string file in files)
