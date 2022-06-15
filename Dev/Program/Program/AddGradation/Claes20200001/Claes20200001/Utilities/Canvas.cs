@@ -488,5 +488,37 @@ namespace Charlotte.Utilities
 				}
 			}
 		}
+
+		public Canvas GetClone()
+		{
+			Canvas dest = new Canvas(this.W, this.H);
+
+			for (int x = 0; x < this.W; x++)
+			{
+				for (int y = 0; y < this.H; y++)
+				{
+					dest[x, y] = this[x, y];
+				}
+			}
+			return dest;
+		}
+
+		/// <summary>
+		/// 指定位置に画像を描画する。
+		/// </summary>
+		/// <param name="src">描画する画像</param>
+		/// <param name="l">描画する領域の左上座標_X-軸</param>
+		/// <param name="t">描画する領域の左上座標_Y-軸</param>
+		/// <param name="drawer">描画ルーチン</param>
+		public void DrawImage(Canvas src, int l, int t, Func<I4Color, I4Color, I4Color> drawer)
+		{
+			for (int x = 0; x < src.W; x++)
+			{
+				for (int y = 0; y < src.H; y++)
+				{
+					this[l + x, t + y] = drawer(this[l + x, t + y], src[x, y]);
+				}
+			}
+		}
 	}
 }

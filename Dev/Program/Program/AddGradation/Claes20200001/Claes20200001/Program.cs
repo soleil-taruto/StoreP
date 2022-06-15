@@ -37,8 +37,8 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { "/W", "100", "0", "0", "0", @"C:\temp\input.png" }));
-			//Main4(new ArgsReader(new string[] { "/B", "0", "0", "0", "100", @"C:\temp" }));
+			//Main4(new ArgsReader(new string[] { "/W", "100", "0", "0", "0", @"C:\temp\input.png" }));
+			Main4(new ArgsReader(new string[] { "/B", "0", "0", "0", "100", @"C:\temp" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -129,7 +129,13 @@ namespace Charlotte
 					color.WithAlpha(aRB),
 					color.WithAlpha(aLB)
 					);
+				Canvas back = canvas.GetClone();
 				canvas.DrawImage(mask, 0, 0, true);
+				canvas.DrawImage(back, 0, 0, (dDot, sDot) =>
+				{
+					dDot.A = sDot.A;
+					return dDot;
+				});
 				canvas.Save(outFile);
 
 				Console.WriteLine("done");
