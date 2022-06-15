@@ -4,12 +4,6 @@
 
 /@(ASTR)
 
-/// D2Point_t
-{
-	<double> X // 位置-X
-	<double> Y // 位置-Y
-}
-
 /// D2Size_t
 {
 	<double> W // 幅
@@ -41,12 +35,6 @@
 	<double> T // 上位置-Y
 	<double> W // 幅
 	<double> H // 高さ
-}
-
-/// I2Point_t
-{
-	<int> X // 位置-X
-	<int> Y // 位置-Y
 }
 
 /// I2Size_t
