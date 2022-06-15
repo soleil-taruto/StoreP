@@ -2,53 +2,195 @@
 	ゲーム・メイン
 */
 
-var<int> Gravity = 2; // 重力方向 (2, 4, 6, 8) == (下, 左, 右, 上)
+var<int> @@_Gravity = 2; // 重力方向 (2, 4, 6, 8) == (下, 左, 右, 上)
 
 /*
 	テーブル
 
 	添字：
-		Table[x][y]
+		@@_Table[x][y]
 
 		x == 0 ～ (Field_XNum - 1)
 		y == 0 ～ (Field_YNum - 1)
 
 	特殊な値：
 		null == 何もない
-
 */
-var<Panel_t[][]> Table;
+var<Panel_t[][]> @@_Table;
+
+/*
+	テーブル座標から描画位置を得る。
+*/
+function <D2Point_t> TablePointToPoint(<I2Point_t> pt)
+{
+	var ret =
+	{
+		X: Field_L + Cell_W * pt.X + Cell_W / 2,
+		Y: Field_T + Cell_H * pt.Y + Cell_H / 2,
+	};
+
+	return ret;
+}
+
+/*
+	描画位置からテーブル座標を得る。
+*/
+function <I2Point_t> PointToTablePoint(<D2Point_t> pt)
+{
+	var<int> x = ToFix((pt.X - Field_L) / Cell_W);
+	var<int> y = ToFix((pt.Y - Field_T) / Cell_H);
+
+	x = ToRange(x, 0, Field_XNum - 1);
+	y = ToRange(y, 0, Field_YNum - 1);
+
+	return CreateI2Point(x, y);
+}
 
 function* <generatorForTask> GameMain()
 {
-	// init Table
+	// init @@_Table
 	{
-		Table = [];
+		@@_Table = [];
 
 		for (var<int> x = 0; x < Field_XNum; x++)
 		{
-			Table[x] = [];
+			@@_Table[x] = [];
 
 			for (var<int> y = 0; y < Field_YNum; y++)
 			{
-				Table[x][y] = null;
+				@@_Table[x][y] = null;
 			}
 		}
 	}
 
+	// 初期パネル配置
 	{
 		var<int> x = ToFix(Field_XNum / 2);
 		var<int> y = ToFix(Field_YNum / 2);
 
 		var<D2Point_t> pt = TablePointToPoint(CreateI2Point(x, y));
 
-		Table[x][y] = CreatePanel(0, pt.X, pt.Y);
+		@@_Table[x][y] = CreatePanel(0, pt.X, pt.Y);
 	}
 
 	ClearMouseDown();
 
 	for (; ; )
 	{
+		var inputGravity = -1; // (-1, 2, 4, 6, 8) == (無入力, 下, 左, 右, 上)
+
+		if (GetMouseDown() == -1) // ? マウス・ボタンを離した。
+		{
+			var<double> x = GetMouseX();
+			var<double> y = GetMouseY();
+
+			// フィールドの中心座標が (0, 0) になるように変更
+			//
+			x -= Field_L + Field_W / 2;
+			y -= Field_T + Field_H / 2;
+
+			if (x - y < 0) // ? 中心から見て左下
+			{
+				if (x + y < 0) // ? 中心から見て左
+				{
+					inputGravity = 4;
+				}
+				else // ? 中心から見て下
+				{
+					inputGravity = 2;
+				}
+			}
+			else // ? 中心から見て右上
+			{
+				if (x + y < 0) // ? 中心から見て上
+				{
+					inputGravity = 8;
+				}
+				else // ? 中心から見て右
+				{
+					inputGravity = 6;
+				}
+			}
+		}
+
+		if (inputGravity != -1)
+		{
+			@@_Gravity = inputGravity;
+
+			// 落下
+			{
+				var<int> dx = 0;
+				var<int> dy = 0;
+
+				if (@@_Gravity == 2)
+				{
+					dy = 1;
+				}
+				else if (@@_Gravity == 4)
+				{
+					dx = -1;
+				}
+				else if (@@_Gravity == 6)
+				{
+					dx = 1;
+				}
+				else if (@@_Gravity == 8)
+				{
+					dy = -1;
+				}
+				else
+				{
+					error();
+				}
+
+				for (var<boolean> moved = true; moved; )
+				{
+					moved = false;
+
+					for (var<int> x = 0; x < Field_XNum; x++)
+					for (var<int> y = 0; y < Field_YNum; y++)
+					{
+						if (@@_Table[x][y] != null)
+						{
+							var<int> nx = x + dx;
+							var<int> ny = y + dy;
+
+							// ? 落下可能か -> 落下する。
+							if (
+								0 <= nx && nx < Field_XNum &&
+								0 <= ny && ny < Field_YNum &&
+								@@_Table[nx][ny] == null
+								)
+							{
+								@@_Table[nx][ny] = @@_Table[x][y];
+								@@_Table[x][y] = null;
+
+								moved = true;
+							}
+						}
+					}
+				}
+
+				// 描画位置再設定
+				{
+					for (var<int> x = 0; x < Field_XNum; x++)
+					for (var<int> y = 0; y < Field_YNum; y++)
+					{
+						if (@@_Table[x][y] != null)
+						{
+							var<D2Point_t> pt = TablePointToPoint(CreateI2Point(x, y));
+
+							MovePanel(@@_Table[x][y], pt.X, pt.Y);
+						}
+					}
+				}
+			}
+		}
+
+		// ====
+		// 描画ここから
+		// ====
+
 		ClearScreen();
 
 		// 枠線描画
@@ -88,9 +230,9 @@ function* <generatorForTask> GameMain()
 			for (var<int> x = 0; x < Field_XNum; x++)
 			for (var<int> y = 0; y < Field_YNum; y++)
 			{
-				if (Table[x][y] != null)
+				if (@@_Table[x][y] != null)
 				{
-					DrawPanel(Table[x][y]);
+					DrawPanel(@@_Table[x][y]);
 				}
 			}
 		}
@@ -102,19 +244,19 @@ function* <generatorForTask> GameMain()
 
 			var<double> G_FAR = 300.0;
 
-			if (Gravity == 2)
+			if (@@_Gravity == 2)
 			{
 				y += G_FAR;
 			}
-			else if (Gravity == 4)
+			else if (@@_Gravity == 4)
 			{
 				x -= G_FAR;
 			}
-			else if (Gravity == 6)
+			else if (@@_Gravity == 6)
 			{
 				x += G_FAR;
 			}
-			else if (Gravity == 8)
+			else if (@@_Gravity == 8)
 			{
 				y -= G_FAR;
 			}
@@ -126,62 +268,7 @@ function* <generatorForTask> GameMain()
 			Draw(P_Gravity, x, y, 1.0, 0.0, 1.0);
 		}
 
-		var inputGravity = 5; // (2, 4, 5, 6, 8) == (下, 左, 無入力, 右, 上)
-
-		if (GetMouseDown() == -1) // ? マウス・ボタンを離した。
-		{
-			var<double> x = GetMouseX();
-			var<double> y = GetMouseY();
-
-			// フィールドの中心座標が (0, 0) になるように変更
-			//
-			x -= Field_L + Field_W / 2;
-			y -= Field_T + Field_H / 2;
-
-			if (x - y < 0) // ? 中心から見て左下
-			{
-				if (x + y < 0) // ? 中心から見て左
-				{
-					inputGravity = 4;
-				}
-				else // ? 中心から見て下
-				{
-					inputGravity = 2;
-				}
-			}
-			else // ? 中心から見て右上
-			{
-				if (x + y < 0) // ? 中心から見て上
-				{
-					inputGravity = 8;
-				}
-				else // ? 中心から見て右
-				{
-					inputGravity = 6;
-				}
-			}
-		}
-
-		if (inputGravity != 5)
-		{
-			Gravity = inputGravity;
-		}
-
 		yield 1;
 	}
 	ClearMouseDown();
-}
-
-/*
-	テーブル座標から描画位置を得る。
-*/
-function <D2Point_t> TablePointToPoint(<I2Point_t> pt)
-{
-	var ret =
-	{
-		X: Field_L + Cell_W * pt.X + Cell_W / 2,
-		Y: Field_T + Cell_H * pt.Y + Cell_H / 2,
-	};
-
-	return ret;
 }

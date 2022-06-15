@@ -75,10 +75,9 @@ C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\00_Consts.js(24) : Field_L // 
 C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\00_Consts.js(27) : Field_T // •Ï”
 C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Effect.js(11) : Effect_Explode // ŠÖ”
 C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Effect.js(28) : Effect_PlayerDead // ŠÖ”
-C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(22) : GameMain // ŠÖ”
-C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(178) : TablePointToPoint // ŠÖ”
-C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(5) : Gravity // •Ï”
-C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(20) : Table // •Ï”
+C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(24) : TablePointToPoint // ŠÖ”
+C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(38) : PointToTablePoint // ŠÖ”
+C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Game.js(49) : GameMain // ŠÖ”
 C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Panel.js(7) : Panel_t // ’è‹`
 C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Panel.js(18) : CreatePanel // ŠÖ”
 C:\Dev\Game\GameJS\Pz2048\Gattonero20200001\Games\Panel.js(31) : MovePanel // ŠÖ”
