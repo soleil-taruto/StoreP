@@ -79,15 +79,25 @@ function* <generatorForTask> GameMain()
 			for (var<int> x = 0; x < Field_XNum; x++)
 			for (var<int> y = 0; y < Field_YNum; y++)
 			{
-				// TODO
-				// TODO
-				// TODO
+				if (Table[x][y] != -1)
+				{
+					Draw(
+						P_”Žšƒpƒlƒ‹[Table[x][y]],
+						Field_L + Cell_W * x + Cell_W / 2,
+						Field_T + Cell_H * y + Cell_H / 2,
+						1.0,
+						0.0,
+						1.0
+						);
+				}
 			}
 		}
 
-		// TODO
-		// TODO
-		// TODO
+		var inputGravity = 5;
+
+		if (
+
+
 
 		yield 1;
 	}
