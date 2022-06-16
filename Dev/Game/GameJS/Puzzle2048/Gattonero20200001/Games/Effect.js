@@ -91,7 +91,7 @@ function* <generatorForTask> @@_Effect_Star(<Image> picture, <double> x, <double
 
 		speed *= speedRate;
 
-		Draw(picture, x, y, scene.RemRate, rot, 1.0);
+		Draw(picture, x, y, 0.666 * scene.RemRate, rot, 1.0);
 
 		rot += rotAdd;
 		rotAdd *= rotAddRate;
