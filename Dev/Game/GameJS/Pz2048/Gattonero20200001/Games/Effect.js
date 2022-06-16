@@ -3,41 +3,18 @@
 */
 
 /*
-	爆発
+	ダミーエフェクト
 
-	x: 中心-X
-	y: 中心-Y
+	追加方法：
+		AddEffect(Effect_Dummy(x, y));
+
+	★サンプルとしてキープ
 */
-function* <generatorForTask> Effect_Explode(<double> x, <double> y)
+function* <generatorForTask> Effect_Dummy(<double> x, <double> y)
 {
-	for (var<Image> image of P_Explode)
-	for (var<int> c = 0; c < 4; c++)
+	for (var<Scene_t> scene of CreateScene(30))
 	{
-		Draw(image, x, y - 50, 1.0, 0.0, 1.0);
-
-		yield 1;
-	}
-}
-
-/*
-	自機消滅
-
-	x: 中心-X
-	y: 中心-Y
-*/
-function* <generatorForTask> Effect_PlayerDead(<double> x, <double> y)
-{
-	var<int> FRM_NUM = 60;
-
-	for (var<int> c = 0; c < FRM_NUM; c++)
-	{
-		var<double> rate = c / FRM_NUM;
-
-		Draw(P_Player, x, y,
-			1.0 - rate,
-			0.0 + rate * 6.0,
-			1.0 + rate * 4.0
-			);
+		Draw(P_Dummy, x, y, 1.0, scene.Rate * Math.PI, 1.0);
 
 		yield 1;
 	}

@@ -115,99 +115,14 @@ function* <generatorForTask> GameMain()
 		{
 			@@_Gravity = inputGravity;
 
-			// óéâ∫
-			{
-				var<int> dx = 0;
-				var<int> dy = 0;
-
-				if (@@_Gravity == 2)
-				{
-					dy = 1;
-				}
-				else if (@@_Gravity == 4)
-				{
-					dx = -1;
-				}
-				else if (@@_Gravity == 6)
-				{
-					dx = 1;
-				}
-				else if (@@_Gravity == 8)
-				{
-					dy = -1;
-				}
-				else
-				{
-					error();
-				}
-
-				for (var<boolean> moved = true; moved; )
-				{
-					moved = false;
-
-					for (var<int> x = 0; x < Field_XNum; x++)
-					for (var<int> y = 0; y < Field_YNum; y++)
-					{
-						if (@@_Table[x][y] != null)
-						{
-							var<int> nx = x + dx;
-							var<int> ny = y + dy;
-
-							// ? óéâ∫â¬î\Ç© -> óéâ∫Ç∑ÇÈÅB
-							if (
-								0 <= nx && nx < Field_XNum &&
-								0 <= ny && ny < Field_YNum &&
-								@@_Table[nx][ny] == null
-								)
-							{
-								@@_Table[nx][ny] = @@_Table[x][y];
-								@@_Table[x][y] = null;
-
-								moved = true;
-							}
-						}
-					}
-				}
-			}
+			yield* @@_GravityChanged();
 		}
 
 		// ====
 		// ï`âÊÇ±Ç±Ç©ÇÁ
 		// ====
 
-		ClearScreen();
-
-		// ògê¸ï`âÊ
-		{
-			var<int> BORDER = 10;
-
-			SetColor("#c0a0a0");
-			PrintRect(
-				Field_L - BORDER,
-				Field_T - BORDER,
-				Field_W + BORDER * 2,
-				Field_H + BORDER * 2
-				);
-
-			for (var<int> x = 0; x < Field_XNum; x++)
-			for (var<int> y = 0; y < Field_YNum; y++)
-			{
-				if ((x + y) % 2 == 0)
-				{
-					SetColor("#a0a0a0");
-				}
-				else
-				{
-					SetColor("#c0c0c0");
-				}
-				PrintRect(
-					Field_L + Cell_W * x,
-					Field_T + Cell_H * y,
-					Cell_W,
-					Cell_H
-					);
-			}
-		}
+		@@_DrawWall();
 
 		// ÉpÉlÉãï`âÊ
 		{
@@ -224,38 +139,232 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
-		// (G)ï`âÊ
-		{
-			var<double> x = Field_L + Field_W / 2;
-			var<double> y = Field_T + Field_H / 2;
-
-			var<double> G_FAR = 300.0;
-
-			if (@@_Gravity == 2)
-			{
-				y += G_FAR;
-			}
-			else if (@@_Gravity == 4)
-			{
-				x -= G_FAR;
-			}
-			else if (@@_Gravity == 6)
-			{
-				x += G_FAR;
-			}
-			else if (@@_Gravity == 8)
-			{
-				y -= G_FAR;
-			}
-			else
-			{
-				error();
-			}
-
-			Draw(P_Gravity, x, y, 1.0, 0.0, 1.0);
-		}
-
 		yield 1;
 	}
 	ClearMouseDown();
+}
+
+function* <generatorForTask> @@_GravityChanged()
+{
+	// óéâ∫ëOï`âÊà íuï€ë∂
+	for (var<int> x = 0; x < Field_XNum; x++)
+	for (var<int> y = 0; y < Field_YNum; y++)
+	{
+		var<Panel_t> panel = @@_Table[x][y];
+
+		if (panel != null)
+		{
+			var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+			panel.DrawPt = draw_pt;
+		}
+	}
+
+	// óéâ∫
+	{
+		var<int> dx = 0;
+		var<int> dy = 0;
+
+		if (@@_Gravity == 2)
+		{
+			dy = 1;
+		}
+		else if (@@_Gravity == 4)
+		{
+			dx = -1;
+		}
+		else if (@@_Gravity == 6)
+		{
+			dx = 1;
+		}
+		else if (@@_Gravity == 8)
+		{
+			dy = -1;
+		}
+		else
+		{
+			error();
+		}
+
+		for (var<boolean> moved = true; moved; )
+		{
+			moved = false;
+
+			for (var<int> x = 0; x < Field_XNum; x++)
+			for (var<int> y = 0; y < Field_YNum; y++)
+			{
+				if (@@_Table[x][y] != null)
+				{
+					var<int> nx = x + dx;
+					var<int> ny = y + dy;
+
+					// ? óéâ∫â¬î\Ç© -> óéâ∫Ç∑ÇÈÅB
+					if (
+						0 <= nx && nx < Field_XNum &&
+						0 <= ny && ny < Field_YNum &&
+						@@_Table[nx][ny] == null
+						)
+					{
+						@@_Table[nx][ny] = @@_Table[x][y];
+						@@_Table[x][y] = null;
+
+						moved = true;
+					}
+				}
+			}
+		}
+	}
+
+	// óéâ∫å„ï`âÊà íuï€ë∂
+	for (var<int> x = 0; x < Field_XNum; x++)
+	for (var<int> y = 0; y < Field_YNum; y++)
+	{
+		var<Panel_t> panel = @@_Table[x][y];
+
+		if (panel != null)
+		{
+			var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+			panel.DrawPtDest = draw_pt;
+
+			// ê⁄ínçœÇ›ÇÃèÍçáÇÕê⁄ínèÛë‘Ç…Ç∑ÇÈÅB
+			{
+				var<double> distance = GetDistance(
+					panel.DrawPt.X - panel.DrawPtDest.X,
+					panel.DrawPt.Y - panel.DrawPtDest.Y
+					);
+
+				if (distance < MICRO)
+				{
+					panel.DrawPtDest = null;
+				}
+			}
+		}
+	}
+
+	// óéâ∫ÉÇÅ[ÉVÉáÉì
+	{
+		var<boolean> moved = true;
+
+		for (var<int> fallCount = 0; moved; fallCount++)
+		{
+			moved = false;
+
+			@@_DrawWall();
+
+			var<double> fallSpeed = fallCount * 3.0;
+
+			for (var<int> x = 0; x < Field_XNum; x++)
+			for (var<int> y = 0; y < Field_YNum; y++)
+			{
+				var<Panel_t> panel = @@_Table[x][y];
+
+				if (panel == null)
+				{
+					continue;
+				}
+				if (panel.DrawPtDest != null) // ? ñ¢ê⁄ín
+				{
+					var<double> distance = GetDistance(
+						panel.DrawPt.X - panel.DrawPtDest.X,
+						panel.DrawPt.Y - panel.DrawPtDest.Y
+						);
+
+					if (distance < fallSpeed) // ? ç°âÒÇ≈ê⁄ínÇ∑ÇÈ
+					{
+						panel.DrawPt.X = panel.DrawPtDest.X;
+						panel.DrawPt.Y = panel.DrawPtDest.Y;
+
+						AddEffect(Effect_Dummy(panel.DrawPt.X, panel.DrawPt.Y)); // ébíË
+
+						panel.DrawPtDest = null;
+					}
+					else // ? ê⁄ínÇ‹Çæ
+					{
+						var<D2Point_t> speed = MakeXYSpeed(panel.DrawPt.X, panel.DrawPt.Y, panel.DrawPtDest.X, panel.DrawPtDest.Y, fallSpeed);
+
+						panel.DrawPt.X += speed.X;
+						panel.DrawPt.Y += speed.Y;
+					}
+
+					moved = true;
+				}
+				DrawPanel(panel, panel.DrawPt.X, panel.DrawPt.Y);
+			}
+
+			yield 1;
+		}
+	}
+}
+
+/*
+	îwåiï`âÊ
+	ëSÉÇÅ[ÉVÉáÉìÇ≈ã§í ÇÃÉpÅ[ÉcÇ‡ï`âÊ
+*/
+function <void> @@_DrawWall()
+{
+	ClearScreen();
+
+	// ògê¸ï`âÊ
+	{
+		var<int> BORDER = 10;
+
+		SetColor("#c0a0a0");
+		PrintRect(
+			Field_L - BORDER,
+			Field_T - BORDER,
+			Field_W + BORDER * 2,
+			Field_H + BORDER * 2
+			);
+
+		for (var<int> x = 0; x < Field_XNum; x++)
+		for (var<int> y = 0; y < Field_YNum; y++)
+		{
+			if ((x + y) % 2 == 0)
+			{
+				SetColor("#a0a0a0");
+			}
+			else
+			{
+				SetColor("#c0c0c0");
+			}
+			PrintRect(
+				Field_L + Cell_W * x,
+				Field_T + Cell_H * y,
+				Cell_W,
+				Cell_H
+				);
+		}
+	}
+
+	// (G)ï`âÊ
+	{
+		var<double> x = Field_L + Field_W / 2;
+		var<double> y = Field_T + Field_H / 2;
+
+		var<double> G_FAR = 300.0;
+
+		if (@@_Gravity == 2)
+		{
+			y += G_FAR;
+		}
+		else if (@@_Gravity == 4)
+		{
+			x -= G_FAR;
+		}
+		else if (@@_Gravity == 6)
+		{
+			x += G_FAR;
+		}
+		else if (@@_Gravity == 8)
+		{
+			y -= G_FAR;
+		}
+		else
+		{
+			error();
+		}
+
+		Draw(P_Gravity, x, y, 1.0, 0.0, 1.0);
+	}
 }

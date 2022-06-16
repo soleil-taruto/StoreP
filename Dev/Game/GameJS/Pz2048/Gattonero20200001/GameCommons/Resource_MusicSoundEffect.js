@@ -36,7 +36,7 @@ function <Audio> @@_Load(<string> url)
 
 /@(ASTR)
 
-// SE_t
+/// SE_t
 {
 	<Audio[]> Handles // ハンドルのリスト(3つ)
 	<int> Index // 次に再生するハンドルの位置

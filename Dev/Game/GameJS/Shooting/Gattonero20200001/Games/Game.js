@@ -307,11 +307,11 @@ function* <generatorForTask> @@_E_死亡とリスポーン()
 		yield 1;
 	}
 
-	AddCommonEffect(Effect_PlayerDead(GetField_L() + Player_X, GetField_T() + Player_Y));
+	AddEffect(Effect_PlayerDead(GetField_L() + Player_X, GetField_T() + Player_Y));
 
 	for (var<Enemy_t> enemy of Enemies)
 	{
-		AddCommonEffect(Effect_Explode(GetField_L() + enemy.X, GetField_T() + enemy.Y));
+		AddEffect(Effect_Explode(GetField_L() + enemy.X, GetField_T() + enemy.Y));
 	}
 
 	// スコア調整

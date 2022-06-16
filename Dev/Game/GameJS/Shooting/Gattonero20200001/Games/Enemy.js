@@ -88,7 +88,7 @@ function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 			{
 				Score += 100;
 				SE(S_Explode);
-				AddCommonEffect(Effect_Explode(GetField_L() + enemy.X, GetField_T() + enemy.Y));
+				AddEffect(Effect_Explode(GetField_L() + enemy.X, GetField_T() + enemy.Y));
 				break;
 			}
 		}

@@ -1,5 +1,5 @@
 /*
-	数学系
+	ゲーム向け共通関数
 */
 
 /*
@@ -133,4 +133,45 @@ function <double> Approach(<double> value, <double> dest, <double> rate)
 	value += dest;
 
 	return value;
+}
+
+/*
+	旧 forscene, DDSceneUtils.Create() と同様のもの
+
+	使用例：
+		for (var scene of CreateScene(30))
+		{
+			// ここへフレーム毎の処理を記述する。
+
+			yield 1;
+		}
+
+		列挙回数：31
+		列挙：
+			{ Numer: 0, Denom: 30, Rem: 30, Rate: 0.0,    RemRate: 1.0     }
+			{ Numer: 1, Denom: 30, Rem: 29, Rate: 1 / 30, RemRate: 29 / 30 }
+			{ Numer: 2, Denom: 30, Rem: 28, Rate: 2 / 30, RemRate: 28 / 30 }
+			...
+			{ Numer: 28, Denom: 30, Rem: 2, Rate: 28 / 30, RemRate: 2 / 30 }
+			{ Numer: 29, Denom: 30, Rem: 1, Rate: 29 / 30, RemRate: 1 / 30 }
+			{ Numer: 30, Denom: 30, Rem: 0, Rate: 1.0,     RemRate: 0.0    }
+*/
+function* <generator_Scene_t> CreateScene(<int> frameMax)
+{
+	for (var<int> frame = 0; frame <= frameMax; frame++)
+	{
+		var<double> rate = frame / frameMax;
+
+		/// Scene_t
+		var<Scene_t> scene =
+		{
+			<int> Numer: frame,
+			<int> Denom: frameMax,
+			<double> Rate: rate,
+			<int> Rem: frameMax - frame,
+			<double> RemRate: 1.0 - rate,
+		};
+
+		yield scene;
+	}
 }

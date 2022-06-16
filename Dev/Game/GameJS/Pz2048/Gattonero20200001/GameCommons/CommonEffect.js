@@ -1,5 +1,5 @@
 /*
-	共通エフェクト
+	エフェクト
 */
 
 var <generatorForTask[]> @@_Effects = [];
@@ -10,7 +10,7 @@ var <generatorForTask[]> @@_Effects = [];
 	effect: ジェネレータであること。
 		ジェネレータが偽を返すと終了と見なす。
 */
-function <void> AddCommonEffect(<generatorForTask> effect)
+function <void> AddEffect(<generatorForTask> effect)
 {
 	@@_Effects.push(effect);
 }
