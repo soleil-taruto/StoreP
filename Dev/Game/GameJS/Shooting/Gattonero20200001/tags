@@ -23,7 +23,7 @@ C:\Dev\Game\GameJS\Shooting\Gattonero20200001\Commons\Types.js(77) : I4Rect_t //
 C:\Dev\Game\GameJS\Shooting\Gattonero20200001\Commons\Types.js(85) : P4Poly_t // íËã`
 C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\00_Consts.js(6) : Screen_W // ïœêî
 C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\00_Consts.js(9) : Screen_H // ïœêî
-C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\CommonEffect.js(13) : AddCommonEffect // ä÷êî
+C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\CommonEffect.js(13) : AddEffect // ä÷êî
 C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\CommonEffect.js(18) : @ // ä÷êî
 C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\Draw.js(6) : ClearScreen // ä÷êî
 C:\Dev\Game\GameJS\Shooting\Gattonero20200001\GameCommons\Draw.js(26) : Draw // ä÷êî
