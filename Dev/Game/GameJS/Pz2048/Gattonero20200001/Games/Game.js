@@ -299,7 +299,7 @@ function* <generatorForTask> @@_GravityChanged()
 
 	if (@@_Fusion())
 	{
-		yield* @@_GravityChanged(); // š—Z‡š
+		yield* @@_GravityChanged(); // šÄ‹Nš
 		return;
 	}
 
