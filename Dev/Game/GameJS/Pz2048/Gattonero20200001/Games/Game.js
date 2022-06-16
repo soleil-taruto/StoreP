@@ -297,7 +297,85 @@ function* <generatorForTask> @@_GravityChanged()
 		}
 	}
 
+	if (@@_Fusion())
+	{
+		yield* @@_GravityChanged(); // ÅöóZçáÅö
+		return;
+	}
+
 	@@_AddNewPanel();
+}
+
+function <boolean> @@_Fusion() // ret: ? óZçáÇµÇΩÅB
+{
+	var<boolean> fusionFlag = false;
+
+	var<int> dx = 0;
+	var<int> dy = 0;
+
+	if (@@_Gravity == 2)
+	{
+		dy = 1;
+	}
+	else if (@@_Gravity == 4)
+	{
+		dx = -1;
+	}
+	else if (@@_Gravity == 6)
+	{
+		dx = 1;
+	}
+	else if (@@_Gravity == 8)
+	{
+		dy = -1;
+	}
+	else
+	{
+		error();
+	}
+
+	var<int[][]> xyList = [];
+
+	for (var<int> x = 0; x < Field_XNum; x++)
+	for (var<int> y = 0; y < Field_YNum; y++)
+	{
+		xyList.push([ x, y ]);
+	}
+
+	Shuffle(xyList);
+
+	for (var<int[]> xy of xyList)
+	{
+		var<int> x = xy[0];
+		var<int> y = xy[1];
+
+		if (@@_Table[x][y] == null)
+		{
+			continue;
+		}
+
+		var<int> nx = x + dx;
+		var<int> ny = y + dy;
+
+		if (
+			0 <= nx && nx < Field_XNum &&
+			0 <= ny && ny < Field_YNum &&
+			@@_Table[nx][ny] != null &&
+			@@_Table[nx][ny].Exponent == @@_Table[x][y].Exponent
+			)
+		{
+			@@_Table[nx][ny] = null;
+			@@_Table[x][y].Exponent++;
+
+			var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+			AddEffect(Effect_Dummy(draw_pt.X, draw_pt.Y)); // ébíË
+
+			fusionFlag = true;
+		}
+	}
+
+	return fusionFlag;
 }
 
 function <void> @@_AddNewPanel()
@@ -351,6 +429,10 @@ function <boolean> @@_TryAddNewPanel() // ret: ? ê›íuäÆóπ
 	}
 
 	@@_Table[x][y] = CreatePanel(GetRand(3));
+
+	var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+	AddEffect(Effect_Dummy(draw_pt.X, draw_pt.Y)); // ébíË
 
 	return true;
 }
