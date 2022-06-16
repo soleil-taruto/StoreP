@@ -275,7 +275,34 @@ function* <generatorForTask> @@_GravityChanged()
 						panel.DrawPt.X = panel.DrawPtDest.X;
 						panel.DrawPt.Y = panel.DrawPtDest.Y;
 
-						AddEffect(Effect_Dummy(panel.DrawPt.X, panel.DrawPt.Y)); // 暫定
+						// 接地エフェクト
+						{
+							var<D2Point_t> effect_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+							var<double> XY_ADD = Cell_W / 2.0;
+
+							if (@@_Gravity == 2)
+							{
+								effect_pt.Y += XY_ADD;
+							}
+							else if (@@_Gravity == 4)
+							{
+								effect_pt.X -= XY_ADD;
+							}
+							else if (@@_Gravity == 6)
+							{
+								effect_pt.X += XY_ADD;
+							}
+							else if (@@_Gravity == 8)
+							{
+								effect_pt.Y -= XY_ADD;
+							}
+							else
+							{
+								error();
+							}
+
+							AddEffect_TouchGround(effect_pt.X, effect_pt.Y, @@_Gravity);
+						}
 
 						panel.DrawPtDest = null;
 					}
@@ -299,34 +326,36 @@ function* <generatorForTask> @@_GravityChanged()
 
 	if (@@_Fusion())
 	{
-		// 融合の余韻
+		yield* @@_融合の余韻(20);
+		yield* @@_GravityChanged(); // ★再起呼び出し★
+		return;
+	}
+	yield* @@_融合の余韻(10);
+
+	@@_AddNewPanel();
+}
+
+function* <generatorForTask> @@_融合の余韻(<int> frameMax)
+{
+	for (var<Scene_t> scene of CreateScene(frameMax))
+	{
+		@@_DrawWall();
+
+		for (var<int> x = 0; x < Field_XNum; x++)
+		for (var<int> y = 0; y < Field_YNum; y++)
 		{
-			for (var<Scene_t> scene of CreateScene(20))
+			var<Panel_t> panel = @@_Table[x][y];
+
+			if (panel != null)
 			{
-				@@_DrawWall();
+				var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
-				for (var<int> x = 0; x < Field_XNum; x++)
-				for (var<int> y = 0; y < Field_YNum; y++)
-				{
-					var<Panel_t> panel = @@_Table[x][y];
-
-					if (panel != null)
-					{
-						var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
-
-						DrawPanel(panel, draw_pt.X, draw_pt.Y);
-					}
-				}
-
-				yield 1;
+				DrawPanel(panel, draw_pt.X, draw_pt.Y);
 			}
 		}
 
-		yield* @@_GravityChanged(); // ★再起★
-		return;
+		yield 1;
 	}
-
-	@@_AddNewPanel();
 }
 
 function <boolean> @@_Fusion() // ret: ? 融合した。
@@ -406,7 +435,7 @@ function <boolean> @@_Fusion() // ret: ? 融合した。
 
 		var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
-		AddEffect(Effect_Dummy(draw_pt.X, draw_pt.Y)); // 暫定
+		AddEffect_Fusion(draw_pt.X, draw_pt.Y); // 融合エフェクト
 	}
 
 	var<boolean> 融合した = 1 <= xyPairs.length;
@@ -491,7 +520,7 @@ function <boolean> @@_TryAddNewPanel() // ret: ? 設置完了
 
 	var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
-	AddEffect(Effect_Dummy(draw_pt.X, draw_pt.Y)); // 暫定
+	AddEffect_BornPanel(draw_pt.X, draw_pt.Y); // パネル追加エフェクト
 
 	return true;
 }

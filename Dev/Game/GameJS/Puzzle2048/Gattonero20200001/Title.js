@@ -5,8 +5,8 @@
 var @@_Buttons =
 [
 	{
-		L : 380,
-		T : 300,
+		L : 300,
+		T : 500,
 		W : 200,
 		H : 55,
 		Draw : function()
@@ -26,8 +26,8 @@ var @@_Buttons =
 		},
 	},
 	{
-		L : 380,
-		T : 370,
+		L : 300,
+		T : 570,
 		W : 200,
 		H : 55,
 		Draw : function()
@@ -47,8 +47,8 @@ var @@_Buttons =
 		},
 	},
 	{
-		L : 380,
-		T : 440,
+		L : 300,
+		T : 640,
 		W : 200,
 		H : 55,
 		Draw : function()
@@ -78,8 +78,8 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(50, 220, 0);
-		SetFSize(200);
+		SetPrint(30, 400, 0);
+		SetFSize(300);
 		PrintLine("2048");
 
 		for (var button of @@_Buttons)
