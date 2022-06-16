@@ -21,7 +21,7 @@ var<Panel_t[][]> @@_Table;
 /*
 	テーブル座標から描画位置を得る。
 */
-function <D2Point_t> TablePointToPoint(<I2Point_t> pt)
+function <D2Point_t> TablePointToDrawPoint(<I2Point_t> pt)
 {
 	var ret =
 	{
@@ -35,7 +35,7 @@ function <D2Point_t> TablePointToPoint(<I2Point_t> pt)
 /*
 	描画位置からテーブル座標を得る。
 */
-function <I2Point_t> PointToTablePoint(<D2Point_t> pt)
+function <I2Point_t> DrawPointToTablePoint(<D2Point_t> pt)
 {
 	var<int> x = ToFix((pt.X - Field_L) / Cell_W);
 	var<int> y = ToFix((pt.Y - Field_T) / Cell_H);
@@ -68,9 +68,7 @@ function* <generatorForTask> GameMain()
 		var<int> x = ToFix(Field_XNum / 2);
 		var<int> y = ToFix(Field_YNum / 2);
 
-		var<D2Point_t> pt = TablePointToPoint(CreateI2Point(x, y));
-
-		@@_Table[x][y] = CreatePanel(0, pt.X, pt.Y);
+		@@_Table[x][y] = CreatePanel(0);
 	}
 
 	ClearMouseDown();
@@ -170,20 +168,6 @@ function* <generatorForTask> GameMain()
 						}
 					}
 				}
-
-				// 描画位置再設定
-				{
-					for (var<int> x = 0; x < Field_XNum; x++)
-					for (var<int> y = 0; y < Field_YNum; y++)
-					{
-						if (@@_Table[x][y] != null)
-						{
-							var<D2Point_t> pt = TablePointToPoint(CreateI2Point(x, y));
-
-							MovePanel(@@_Table[x][y], pt.X, pt.Y);
-						}
-					}
-				}
 			}
 		}
 
@@ -232,7 +216,10 @@ function* <generatorForTask> GameMain()
 			{
 				if (@@_Table[x][y] != null)
 				{
-					DrawPanel(@@_Table[x][y]);
+					var<I2Point_t> table_pt = CreateI2Point(x, y);
+					var<D2Point_t> draw_pt = TablePointToDrawPoint(table_pt);
+
+					DrawPanel(@@_Table[x][y], draw_pt.X, draw_pt.Y);
 				}
 			}
 		}
