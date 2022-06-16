@@ -14,7 +14,7 @@ function* <generatorForTask> Effect_Dummy(<double> x, <double> y)
 {
 	for (var<Scene_t> scene of CreateScene(30))
 	{
-		Draw(P_Dummy, x, y, 1.0, scene.Rate * Math.PI, 1.0);
+		Draw(P_Dummy, x, y, 0.5 - 0.5 * scene.Rate, scene.Rate * Math.PI, 1.0);
 
 		yield 1;
 	}

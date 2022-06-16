@@ -299,6 +299,29 @@ function* <generatorForTask> @@_GravityChanged()
 
 	if (@@_Fusion())
 	{
+		// óZçáÇÃó]âC
+		{
+			for (var<Scene_t> scene of CreateScene(20))
+			{
+				@@_DrawWall();
+
+				for (var<int> x = 0; x < Field_XNum; x++)
+				for (var<int> y = 0; y < Field_YNum; y++)
+				{
+					var<Panel_t> panel = @@_Table[x][y];
+
+					if (panel != null)
+					{
+						var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+						DrawPanel(panel, draw_pt.X, draw_pt.Y);
+					}
+				}
+
+				yield 1;
+			}
+		}
+
 		yield* @@_GravityChanged(); // ÅöçƒãNÅö
 		return;
 	}
@@ -308,8 +331,6 @@ function* <generatorForTask> @@_GravityChanged()
 
 function <boolean> @@_Fusion() // ret: ? óZçáÇµÇΩÅB
 {
-	var<boolean> fusionFlag = false;
-
 	var<int> dx = 0;
 	var<int> dy = 0;
 
@@ -344,6 +365,8 @@ function <boolean> @@_Fusion() // ret: ? óZçáÇµÇΩÅB
 
 	Shuffle(xyList);
 
+	var<int[][]> xyPairs = [];
+
 	for (var<int[]> xy of xyList)
 	{
 		var<int> x = xy[0];
@@ -357,25 +380,61 @@ function <boolean> @@_Fusion() // ret: ? óZçáÇµÇΩÅB
 		var<int> nx = x + dx;
 		var<int> ny = y + dy;
 
+		// ? óZçáÇ∑ÇÈÇ©
 		if (
 			0 <= nx && nx < Field_XNum &&
 			0 <= ny && ny < Field_YNum &&
 			@@_Table[nx][ny] != null &&
-			@@_Table[nx][ny].Exponent == @@_Table[x][y].Exponent
+			@@_Table[nx][ny].Exponent == @@_Table[x][y].Exponent &&
+			@@_F_NotExistInXYPairs(xyPairs, x, y) &&
+			@@_F_NotExistInXYPairs(xyPairs, nx, ny)
 			)
 		{
-			@@_Table[nx][ny] = null;
-			@@_Table[x][y].Exponent++;
-
-			var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
-
-			AddEffect(Effect_Dummy(draw_pt.X, draw_pt.Y)); // ébíË
-
-			fusionFlag = true;
+			xyPairs.push([ x, y, nx, ny ]);
 		}
 	}
 
-	return fusionFlag;
+	for (var<int[]> xyPair of xyPairs)
+	{
+		var x  = xyPair[0];
+		var y  = xyPair[1];
+		var nx = xyPair[2];
+		var ny = xyPair[3];
+
+		@@_Table[nx][ny] = null;
+		@@_Table[x][y].Exponent++;
+
+		var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+		AddEffect(Effect_Dummy(draw_pt.X, draw_pt.Y)); // ébíË
+	}
+
+	var<boolean> óZçáÇµÇΩ = 1 <= xyPairs.length;
+
+	return óZçáÇµÇΩ;
+}
+
+function <boolean> @@_F_NotExistInXYPairs(<int[][]> xyPairs, <int> x, <int> y)
+{
+	for (var<int[]> xyPair of xyPairs)
+	{
+		if (
+			xyPair[0] == x &&
+			xyPair[1] == y
+			)
+		{
+			return false;
+		}
+
+		if (
+			xyPair[2] == x &&
+			xyPair[3] == y
+			)
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 function <void> @@_AddNewPanel()
