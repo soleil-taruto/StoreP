@@ -289,12 +289,70 @@ function* <generatorForTask> @@_GravityChanged()
 
 					moved = true;
 				}
+
 				DrawPanel(panel, panel.DrawPt.X, panel.DrawPt.Y);
 			}
 
 			yield 1;
 		}
 	}
+
+	@@_AddNewPanel();
+}
+
+function <void> @@_AddNewPanel()
+{
+	var<int> count = 0;
+
+	for (var<int> x = 0; x < Field_XNum; x++)
+	for (var<int> y = 0; y < Field_YNum; y++)
+	{
+		if (@@_Table[x][y] != null)
+		{
+			count++;
+		}
+	}
+
+	if (Field_XNum * Field_YNum * 0.5 < count) // ? パネル多い -> もう追加しない。
+	{
+		return;
+	}
+
+	while (!@@_TryAddNewPanel())
+	{
+		// noop
+	}
+}
+
+function <boolean> @@_TryAddNewPanel() // ret: ? 設置完了
+{
+	var<int> x = GetRand(Field_XNum);
+	var<int> y = GetRand(Field_YNum);
+
+	if (@@_Table[x][y] != null)
+	{
+		return false;
+	}
+
+	for (var<int> xc = -1; xc <= 1; xc++)
+	for (var<int> yc = -1; yc <= 1; yc++)
+	{
+		var sx = x + xc;
+		var sy = y + yc;
+
+		if (
+			0 <= sx && sx < Field_XNum &&
+			0 <= sy && sy < Field_YNum &&
+			@@_Table[sx][sy] != null
+			)
+		{
+			return false;
+		}
+	}
+
+	@@_Table[x][y] = CreatePanel(GetRand(3));
+
+	return true;
 }
 
 /*
