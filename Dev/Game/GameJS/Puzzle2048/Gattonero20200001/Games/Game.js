@@ -2,7 +2,7 @@
 	ゲーム・メイン
 */
 
-var<int> @@_Gravity = 2; // 重力方向 (2, 4, 6, 8) == (下, 左, 右, 上)
+var<int> @@_Gravity = -1; // 重力方向 (-1, 2, 4, 6, 8) == (無し, 下, 左, 右, 上)
 
 /*
 	テーブル
@@ -537,11 +537,13 @@ function <void> @@_DrawWall()
 	}
 
 	// (G)描画
+	//
+	if (@@_Gravity != -1)
 	{
 		var<double> x = Field_L + Field_W / 2;
 		var<double> y = Field_T + Field_H / 2;
 
-		var<double> G_FAR = 300.0;
+		var<double> G_FAR = Field_W / 2 + 70.0;
 
 		if (@@_Gravity == 2)
 		{
