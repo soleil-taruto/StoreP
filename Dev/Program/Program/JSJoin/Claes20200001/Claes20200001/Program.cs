@@ -639,7 +639,7 @@ namespace Charlotte
 				});
 			}
 
-			credits.Sort((a, b) => SCommon.Comp(a, b, SCommon.Comp));
+			credits.DistinctOrderBy((a, b) => SCommon.Comp(a, b, SCommon.Comp));
 
 			return SCommon.Concat(credits)
 				.Select(line => "\"" + string.Join("", line.Select(chr => "\\u" + ((int)chr).ToString("x4"))) + "\"")
