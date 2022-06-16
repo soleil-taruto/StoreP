@@ -24,6 +24,11 @@ function* <generatorForTask> CreditMain()
 
 		var<string[]> credits = [ @(CRDT) ];
 
+		if (credits.length == 0)
+		{
+			credits = [ "none", "" ];
+		}
+
 		for (var<int> index = 0; index < credits.length; index += 2)
 		{
 			PrintLine(credits[index] + "@" + credits[index + 1]);

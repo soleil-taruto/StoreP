@@ -21,10 +21,18 @@ function* <generatorForTask> CreditMain()
 		SetFSize(24);
 
 		PrintLine("■素材提供(敬称略)");
-		PrintLine("none");
-//		PrintLine("HMIX　http://www.hmix.net/");
-//		PrintLine("ぴぽや倉庫　https://pipoya.net/sozai/");
-//		PrintLine("小森平　https://taira-komori.jpn.org/");
+
+		var<string[]> credits = [ @(CRDT) ];
+
+		if (credits.length == 0)
+		{
+			credits = [ "none", "" ];
+		}
+
+		for (var<int> index = 0; index < credits.length; index += 2)
+		{
+			PrintLine(credits[index] + "　" + credits[index + 1]);
+		}
 
 		yield 1;
 	}
