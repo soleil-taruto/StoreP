@@ -144,7 +144,7 @@ function <void> AddEffect_Fusion(<double> x, <double> y, <int> exponent, <int> d
 				y,
 				0.6 * scene.RemRate,
 				0.0,
-				1.0 + 1.0 * scene.RemRate
+				1.0 + 1.0 * scene.Rate
 				);
 
 			yield 1;
@@ -170,10 +170,12 @@ function <void> AddEffect_BornPanel(<double> x, <double> y, <int> exponent)
 				P_êîéöÉpÉlÉã[exponent],
 				x,
 				y,
-				0.5 * scene.RemRate,
-				rot * scene.RemRate,
+				scene.Rate,
+				rot,
 				1.0 + 0.5 * scene.RemRate
 				);
+
+			rot *= 0.7;
 
 			yield 1;
 		}
