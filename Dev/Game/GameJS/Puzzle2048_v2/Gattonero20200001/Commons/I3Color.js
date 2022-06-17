@@ -10,9 +10,9 @@
 
 /// I3Color_t
 {
-	<double> R // -1 == –³Œø
-	<double> G
-	<double> B
+	<int> R // -1 == –³Œø
+	<int> G
+	<int> B
 }
 
 @(ASTR)/
@@ -46,4 +46,15 @@ function <I4Color_t> I3ColorToI4Color(<I3Color_t> src, <int> a)
 		src.B,
 		a
 		);
+}
+
+function <string> I3ColorToString(<I3Color_t> src)
+{
+	var ret = "";
+	ret += "#";
+	ret += ZPad(ToHex(src.R), 2, "0");
+	ret += ZPad(ToHex(src.G), 2, "0");
+	ret += ZPad(ToHex(src.B), 2, "0");
+
+	return ret;
 }

@@ -1,7 +1,7 @@
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Credit.js(5) : CreditMain // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Program.js(10) : Main // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Program.js(5) : APP_IDENT // ïœêî
-C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Title.js(73) : TitleMain // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Title.js(86) : TitleMain // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Array.js(5) : InsertElement // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Array.js(20) : AddElement // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Array.js(25) : DesertElement // ä÷êî
@@ -48,10 +48,12 @@ C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I3Color.js(11) : I3Co
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I3Color.js(20) : CreateI3Color // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I3Color.js(32) : I3ColorToD3Color // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I3Color.js(41) : I3ColorToI4Color // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I3Color.js(51) : I3ColorToString // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(11) : I4Color_t // íËã`
-C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(20) : CreateI4Color // ä÷êî
-C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(33) : I4ColorToD4Color // ä÷êî
-C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(43) : I4ColorToI3Color // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(21) : CreateI4Color // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(34) : I4ColorToD4Color // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(44) : I4ColorToI3Color // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Color.js(53) : I4ColorToString // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Rect.js(7) : I4Rect_t // íËã`
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Rect.js(17) : CreateI4Rect // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\I4Rect.js(30) : I4RectToD4Rect // ä÷êî
@@ -63,6 +65,8 @@ C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Math.js(44) : GetRand
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Math.js(52) : GetRand2 // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Math_Consts.js(12) : IMAX // ïœêî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Math_Consts.js(18) : MICRO // ïœêî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\String.js(5) : ZPad // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\String.js(16) : ToHex // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\Commons\Types.js(7) : P4Poly_t // íËã`
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\GameCommons\00_Consts.js(6) : Screen_W // ïœêî
 C:\Dev\Game\GameJS\Puzzle2048_v2\Gattonero20200001\GameCommons\00_Consts.js(9) : Screen_H // ïœêî
