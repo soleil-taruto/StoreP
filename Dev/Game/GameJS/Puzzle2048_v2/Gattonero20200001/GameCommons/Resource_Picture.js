@@ -75,5 +75,3 @@ var<Image> P_”šƒpƒlƒ‹ =
 var<Image> P_Gravity = @@_Load(Resources.Picture__Gravity_png);
 
 var<Image> P_Star_S = @@_Load(Resources.Picture__Œõ‚é¯20_png);
-var<Image> P_Star_M = @@_Load(Resources.Picture__Œõ‚é¯30_png);
-var<Image> P_Star_L = @@_Load(Resources.Picture__Œõ‚é¯50_png);
