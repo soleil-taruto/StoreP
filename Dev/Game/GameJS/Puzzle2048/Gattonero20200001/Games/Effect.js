@@ -70,9 +70,9 @@ function <void> AddEffect_Fusion(<double> x, <double> y)
 
 function <void> AddEffect_BornPanel(<double> x, <double> y)
 {
-	for (var<int> c = 0; c < 5; c++)
+	for (var<int> c = 0; c < 10; c++)
 	{
-		AddEffect(@@_Effect_Star(P_Star_L, x, y, GetRand1() * Math.PI * 2.0, 19.0, 0.666));
+		AddEffect(@@_Effect_Star(P_Star_L, x, y, GetRand1() * Math.PI * 2.0, 23.0, 0.6));
 	}
 }
 

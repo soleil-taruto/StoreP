@@ -69,6 +69,10 @@ function* <generatorForTask> GameMain()
 		var<int> y = ToFix(Field_YNum / 2);
 
 		@@_Table[x][y] = CreatePanel(0);
+
+		var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
+
+		AddEffect_BornPanel(draw_pt.X, draw_pt.Y);
 	}
 
 	ClearMouseDown();
