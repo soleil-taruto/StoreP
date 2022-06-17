@@ -35,7 +35,7 @@ function <I4Color_t> D4ColorToI4Color(<D4Color_t> src)
 	return CreateI4Color(
 		ToInt(src.R * 255.0),
 		ToInt(src.G * 255.0),
-		ToInt(src.B * 255.0)
+		ToInt(src.B * 255.0),
 		ToInt(src.A * 255.0)
 		);
 }

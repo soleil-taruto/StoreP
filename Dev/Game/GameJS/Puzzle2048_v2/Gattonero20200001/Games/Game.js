@@ -72,7 +72,7 @@ function* <generatorForTask> GameMain()
 
 		var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
-		AddEffect_BornPanel(draw_pt.X, draw_pt.Y);
+		AddEffect_BornPanel(draw_pt.X, draw_pt.Y, @@_Table[x][y].Exponent);
 	}
 
 	ClearMouseDown();
@@ -439,7 +439,7 @@ function <boolean> @@_Fusion() // ret: ? 融合した。
 
 		var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
-		AddEffect_Fusion(draw_pt.X, draw_pt.Y); // 融合エフェクト
+		AddEffect_Fusion(draw_pt.X, draw_pt.Y, @@_Table[x][y].Exponent, @@_Gravity); // 融合エフェクト
 	}
 
 	var<boolean> 融合した = 1 <= xyPairs.length;
@@ -524,7 +524,7 @@ function <boolean> @@_TryAddNewPanel() // ret: ? 設置完了
 
 	var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
-	AddEffect_BornPanel(draw_pt.X, draw_pt.Y); // パネル追加エフェクト
+	AddEffect_BornPanel(draw_pt.X, draw_pt.Y, @@_Table[x][y].Exponent); // パネル追加エフェクト
 
 	return true;
 }
