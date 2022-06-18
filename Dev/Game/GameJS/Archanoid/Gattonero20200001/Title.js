@@ -2,10 +2,10 @@
 	É^ÉCÉgÉãâÊñ 
 */
 
-var<int> @@_BUTTON_L = 300;
-var<int> @@_BUTTON_T = 470;
 var<int> @@_BUTTON_W = 200;
 var<int> @@_BUTTON_H = 55;
+var<int> @@_BUTTON_L = ToInt((Screen_W - @@_BUTTON_W) / 2);
+var<int> @@_BUTTON_T = 470;
 var<int> @@_BUTTON_Y_STEP = 70;
 
 var<I3Color_t> @@_BUTTON_BACK_COLOR = CreateI3Color(255, 255, 128);
@@ -55,7 +55,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* ConfigMain();
+			yield* CreditMain();
 			LOGPOS();
 		},
 	},
@@ -87,13 +87,13 @@ function* <generatorForTask> TitleMain()
 {
 	for (; ; )
 	{
-		SetColor("#80a080");
+		SetColor("#a0b0c0");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 400, 0);
-		SetFSize(300);
-		PrintLine("2048");
+		SetPrint(30, 100, 0);
+		SetFSize(60);
+		PrintLine("Åùrchanoid");
 
 		for (var button of @@_Buttons)
 		{

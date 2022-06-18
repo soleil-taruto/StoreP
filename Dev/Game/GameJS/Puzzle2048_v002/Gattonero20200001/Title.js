@@ -55,7 +55,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* ConfigMain();
+			yield* CreditMain();
 			LOGPOS();
 		},
 	},
