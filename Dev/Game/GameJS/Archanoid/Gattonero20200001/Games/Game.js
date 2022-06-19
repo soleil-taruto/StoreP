@@ -2,8 +2,11 @@
 	ƒQ[ƒ€EƒƒCƒ“
 */
 
-var<Block_t[]> @@_Blocks = [];
-var<Ball_t[]> @@_Balls = [];
+// “GƒŠƒXƒg
+var<Enemy_t[]> @@_Enemies = [];
+
+// ©’eƒŠƒXƒg
+var<Shot_t[]> @@_Shots = [];
 
 /*
 	Ëo‰Â”\ƒ{[ƒ‹”
@@ -90,12 +93,12 @@ function* <generatorForTask> GameMain()
 					var<double> xAdd = speed.X;
 					var<double> yAdd = speed.Y;
 
-					@@_Balls.push(CreateBall(x, y, xAdd, yAdd));
+					@@_Shots.push(CreateShot_Ball(x, y, xAdd, yAdd));
 				}
 			}
 			else // ? ËoŠ®—¹
 			{
-				if (@@_Balls.length == 0)
+				if (@@_Shots.length == 0)
 				{
 					completed = true;
 				}
@@ -112,49 +115,99 @@ function* <generatorForTask> GameMain()
 		}
 
 		// ====
-		// •`‰æ‚±‚±‚©‚çH
+		// •`‰æ‚±‚±‚©‚ç
 		// ====
 
-		// ƒuƒƒbƒN•`‰æ
-		for (var<int> index = 0; index < @@_Blocks.length; index++)
+		// “G‚Ì•`‰æ
+		//
+		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
-			if (!DrawBlock(@@_Blocks[index]))
+			if (!DrawEnemy(@@_Enemies[index]))
 			{
-				@@_Blocks[index] = null;
+				@@_Enemies[index] = null;
 			}
 		}
-		RemoveFalse(@@_Blocks);
+		RemoveFalse(@@_Enemies);
 
-		// ƒ{[ƒ‹•`‰æ
-		for (var<int> index = 0; index < @@_Balls.length; index++)
+		// ©’e‚Ì•`‰æ
+		//
+		for (var<int> index = 0; index < @@_Shots.length; index++)
 		{
-			if (!DrawBall(@@_Balls[index]))
+			if (!DrawShot(@@_Shots[index]))
 			{
-				@@_Balls[index] = null;
+				@@_Shots[index] = null;
 			}
 		}
-		RemoveFalse(@@_Balls);
+		RemoveFalse(@@_Shots);
 
-		// “–‚½‚è”»’è
+		// ====
+		// •`‰æ‚±‚±‚Ü‚Å
+		// ====
+
+		// ====
+		// “–‚½‚è”»’è‚±‚±‚©‚ç
+		// ====
+
+		for (var<int> enemyIndex = 0; enemyIndex < @@_Enemies.length; enemyIndex++)
 		{
-			for (var<int> index = 0; index < @@_Balls.length; index++)
-			{
-				var<Ball_t> ball = @@_Balls[index];
+			var<Enemy_t> enemy = @@_Enemies[enemyIndex];
 
-				if (ball.X < 0.0)
+			if (enemy.HP == -1) // ? Šù‚É€–S
+			{
+				continue;
+			}
+
+			for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
+			{
+				var<Shot_t> shot = @@_Shots[shotIndex];
+
+				if (IsCrashed(enemy.Crashed, shot.Crashed)) // ? Õ“Ë‚µ‚Ä‚¢‚éB
 				{
-					ball.XAdd = Math.abs(ball.XAdd);
-				}
-				if (Screen_W < ball.X)
-				{
-					ball.XAdd = Math.abs(ball.XAdd) * -1;
-				}
-				if (ball.Y < 0.0)
-				{
-					ball.YAdd = Math.abs(ball.YAdd);
+					enemy.HP--;
+
+					if (enemy.HP <= 0) // ? €–S‚µ‚½B
+					{
+						enemy.HP = 0; // í‚è‚·‚¬‚ğ‰ğÁ
+
+						KillEnemy(enemy);
+
+						break; // ‚±‚Ì“G‚Í€–S‚µ‚½‚Ì‚ÅAˆÈ~‚Ì©’e‚É‚Â‚¢‚Ä‚Í”»’è•s—vAŸ‚Ì“G‚ÖB
+					}
 				}
 			}
 		}
+
+		for (var<int> index = 0; index < @@_Shots.length; index++) // ‘¤–ÊEã•””½Ë
+		{
+			var<Shot_t> shot = @@_Shots[index];
+
+			if (shot.X < 0.0)
+			{
+				shot.XAdd = Math.abs(shot.XAdd);
+			}
+			if (Screen_W < shot.X)
+			{
+				shot.XAdd = Math.abs(shot.XAdd) * -1;
+			}
+			if (shot.Y < 0.0)
+			{
+				shot.YAdd = Math.abs(shot.YAdd);
+			}
+		}
+
+		// ====
+		// “–‚½‚è”»’è‚±‚±‚Ü‚Å
+		// ====
+
+		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
+		{
+			return enemy.HP == -1; // ? €–S
+		});
+
+		RemoveAll(@@_Shots, function <boolean> (<Shot_t> shot)
+		{
+			return shot.AttackPoint == -1; // ? €–S
+		});
 
 		yield 1;
 	}
