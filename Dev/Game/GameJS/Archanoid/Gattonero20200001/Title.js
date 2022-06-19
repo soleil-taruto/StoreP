@@ -91,7 +91,7 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 100, 0);
+		SetPrint(45, 200, 0);
 		SetFSize(60);
 		PrintLine("Åùrchanoid");
 
