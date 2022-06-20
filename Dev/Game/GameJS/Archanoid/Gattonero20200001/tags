@@ -74,7 +74,7 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(7) : Crash_t
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(18) : CreateCrash_Circle // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(34) : CreateCrash_Rect // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(50) : IsCrashed // ŠÖ”
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(48) : LastCrashed_‰~‚Æ•Ó // •Ï”
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(48) : LastCrashed_‹éŒ`‚ÌŠp‚©‚çŒ©‚½‰~Œ`_Angle // •Ï”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Draw.js(6) : ClearScreen // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Draw.js(26) : Draw // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Effect.js(13) : AddEffect // ŠÖ”
@@ -129,9 +129,9 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(13) : Effect_Dumm
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Game.js(39) : GameMain // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(35) : DrawEnemy // ŠÖ”
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(40) : KillEnemy // ŠÖ”
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(50) : EnemyDead // ŠÖ”
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(37) : DrawEnemy // ŠÖ”
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(42) : KillEnemy // ŠÖ”
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(52) : EnemyDead // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(5) : Enemy_CircleBlock_Kind_e // ’è‹`
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(11) : CreateEnemy_CircleBlock // ŠÖ”
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(7) : Enemy_CircleBlock_Kind_e_SOFT // •Ï”

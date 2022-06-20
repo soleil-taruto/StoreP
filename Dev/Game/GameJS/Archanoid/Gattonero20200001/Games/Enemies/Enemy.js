@@ -28,6 +28,8 @@
 	<Crash_t> Crash // 今フレームの当たり判定置き場
 
 	<Action_Enemy_t> Dead // 死亡イベント
+
+	<string> Name // 敵の名前(種類)
 }
 
 @(ASTR)/

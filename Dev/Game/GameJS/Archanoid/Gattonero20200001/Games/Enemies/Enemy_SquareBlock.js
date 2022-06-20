@@ -16,6 +16,7 @@ function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <En
 		Y: y,
 		HP: hp,
 		Crash: null,
+		Name: "SQUARE",
 
 		// ‚±‚±‚©‚çŒÅ—L
 

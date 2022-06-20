@@ -197,30 +197,45 @@ function* <generatorForTask> GameMain()
 
 					// 跳ね返り
 					{
-						var<double> crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // ブロックから見たボールの角度
+						var<double> crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // ブロックの中心から見たボールの角度
 
-						if (LastCrashed_円と辺)
+						if (enemy.Name == "CIRCLE")
 						{
-							if (crashedAngle < (Math.PI / 4) * 1)
+							// noop
+						}
+						else if (enemy.Name == "SQUARE")
+						{
+							if (LastCrashed_矩形の角から見た円形_Angle != null)
 							{
-								crashedAngle = 0.0;
-							}
-							else if (crashedAngle < (Math.PI / 4) * 3)
-							{
-								crashedAngle = Math.PI / 2;
-							}
-							else if (crashedAngle < (Math.PI / 4) * 5)
-							{
-								crashedAngle = Math.PI;
-							}
-							else if (crashedAngle < (Math.PI / 4) * 7)
-							{
-								crashedAngle = Math.PI * 1.5;
+								crashedAngle = LastCrashed_矩形の角から見た円形_Angle;
 							}
 							else
 							{
-								crashedAngle = 0.0;
+								if (crashedAngle < (Math.PI / 4) * 1)
+								{
+									crashedAngle = 0.0;
+								}
+								else if (crashedAngle < (Math.PI / 4) * 3)
+								{
+									crashedAngle = Math.PI / 2;
+								}
+								else if (crashedAngle < (Math.PI / 4) * 5)
+								{
+									crashedAngle = Math.PI;
+								}
+								else if (crashedAngle < (Math.PI / 4) * 7)
+								{
+									crashedAngle = Math.PI * 1.5;
+								}
+								else
+								{
+									crashedAngle = 0.0;
+								}
 							}
+						}
+						else
+						{
+							error();
 						}
 
 						var<double> shotAngle = GetAngle(shot.XAdd, shot.YAdd);
@@ -240,9 +255,13 @@ function* <generatorForTask> GameMain()
 						{
 							shotAngle = Math.PI - shotAngle;
 						}
-						if (shotAngle < -Math.PI / 2)
+						else if (shotAngle < -Math.PI / 2)
 						{
 							shotAngle = -Math.PI - shotAngle;
+						}
+						else
+						{
+							shotAngle /= 2; // zantei
 						}
 
 						shotAngle += crashedAngle; // 相対角度を解除

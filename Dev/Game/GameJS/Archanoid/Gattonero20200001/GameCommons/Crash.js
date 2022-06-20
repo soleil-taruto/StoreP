@@ -45,13 +45,13 @@ function <Crash_t> CreateCrash_Rect(<D4Rect_t> rect)
 	return ret;
 }
 
-var LastCrashed_‰~‚Æ•Ó = false; // ? ÅŒã‚ÌÕ“Ë‚ª‰~Œ`E‹éŒ`‚©‚Â‹éŒ`‚Ì•Ó(Šp‚Å‚Í‚È‚¢)‚ÉÕ“Ë‚µ‚½‚©
+var<double> LastCrashed_‹éŒ`‚ÌŠp‚©‚çŒ©‚½‰~Œ`_Angle = null;
 
 function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 {
 	// reset
 	{
-		LastCrashed_‰~‚Æ•Ó = false;
+		LastCrashed_‹éŒ`‚ÌŠp‚©‚çŒ©‚½‰~Œ`_Angle = null;
 	}
 
 	if (b.Kind < a.Kind)
@@ -92,7 +92,6 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 			}
 			else // ¶’†’i
 			{
-				LastCrashed_‰~‚Æ•Ó = true;
 				return l2 < x + rad;
 			}
 		}
@@ -108,13 +107,11 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 			}
 			else // ‰E’†’i
 			{
-				LastCrashed_‰~‚Æ•Ó = true;
 				return x - rad < r2;
 			}
 		}
 		else // ^ãE^‚ñ’†E^‰º
 		{
-			LastCrashed_‰~‚Æ•Ó = true;
 			return t2 - rad < y && y < b2 + rad;
 		}
 	}
@@ -137,6 +134,8 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 
 function <boolean> @@_IsCrashed_Circle_Point(<double> x, <double> y, <double> rad, <double> x2, <double> y2)
 {
+	LastCrashed_‹éŒ`‚ÌŠp‚©‚çŒ©‚½‰~Œ`_Angle = GetAngle(x - x2, y - y2);
+
 	var<double> d = GetDistance(x - x2, y - y2)
 
 	return d < rad;
