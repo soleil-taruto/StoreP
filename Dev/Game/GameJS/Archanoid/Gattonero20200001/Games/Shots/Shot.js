@@ -39,7 +39,7 @@ function <boolean> DrawShot(<Shot_t> shot) // ret: ? ¶‘¶
 
 function <void> KillShot(<Shot_t> shot)
 {
-	if (shot.AttackPoint == -1) // ? ‚Ü‚¾€–S‚µ‚Ä‚¢‚È‚¢B
+	if (shot.AttackPoint != -1) // ? ‚Ü‚¾€–S‚µ‚Ä‚¢‚È‚¢B
 	{
 		shot.AttackPoint = -1; // €–S‚³‚¹‚éB
 		ShotDead(shot);

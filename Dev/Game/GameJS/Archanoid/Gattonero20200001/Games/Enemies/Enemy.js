@@ -41,7 +41,7 @@ function <boolean> DrawEnemy(<Enemy_t> enemy) // ret: ? ¶‘¶
 
 function <void> KillEnemy(<Enemy_t> enemy)
 {
-	if (enemy.HP == -1) // ? ‚Ü‚¾€–S‚µ‚Ä‚¢‚È‚¢B
+	if (enemy.HP != -1) // ? ‚Ü‚¾€–S‚µ‚Ä‚¢‚È‚¢B
 	{
 		enemy.HP = -1; // €–S‚³‚¹‚éB
 		EnemyDead(enemy);
