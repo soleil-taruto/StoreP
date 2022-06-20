@@ -184,16 +184,7 @@ function* <generatorForTask> GameMain()
 
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。
 				{
-					enemy.HP -= shot.AttackPoint;
-
-					if (enemy.HP <= 0) // ? 死亡した。
-					{
-						enemy.HP = 0; // 削りすぎを解消
-
-						KillEnemy(enemy);
-
-						break; // この敵は死亡したので、以降の自弾については判定不要、次の敵へ。
-					}
+					// ブロックを撃破した場合でも跳ね返らせるため、跳ね返り処理をダメージ処理の前に行う。
 
 					// 跳ね返り
 					{
@@ -270,6 +261,18 @@ function* <generatorForTask> GameMain()
 
 						shot.XAdd = shotSpeed.X;
 						shot.YAdd = shotSpeed.Y;
+					}
+					// 跳ね返り end
+
+					enemy.HP -= shot.AttackPoint;
+
+					if (enemy.HP <= 0) // ? 死亡した。
+					{
+						enemy.HP = 0; // 削りすぎを解消
+
+						KillEnemy(enemy);
+
+						break; // この敵は死亡したので、以降の自弾については判定不要、次の敵へ。
 					}
 				}
 			}
