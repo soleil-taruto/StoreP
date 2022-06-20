@@ -225,6 +225,15 @@ function* <generatorForTask> GameMain()
 
 						var<double> shotAngle = GetAngle(shot.XAdd, shot.YAdd);
 
+						while (shotAngle + Math.PI < crashedAngle)
+						{
+							crashedAngle -= Math.PI * 2;
+						}
+						while (crashedAngle + Math.PI < shotAngle)
+						{
+							shotAngle -= Math.PI * 2;
+						}
+
 						if (
 							crashedAngle + Math.PI / 2 < shotAngle &&
 							crashedAngle + Math.PI     > shotAngle
