@@ -225,33 +225,27 @@ function* <generatorForTask> GameMain()
 
 						var<double> shotAngle = GetAngle(shot.XAdd, shot.YAdd);
 
-						while (shotAngle + Math.PI < crashedAngle)
-						{
-							crashedAngle -= Math.PI * 2;
-						}
-						while (crashedAngle + Math.PI < shotAngle)
+						shotAngle -= crashedAngle; // ‘Š‘ÎŠp“x‚É•ÏŠ·
+
+						while (Math.PI < shotAngle)
 						{
 							shotAngle -= Math.PI * 2;
 						}
-
-						if (
-							crashedAngle + Math.PI / 2 < shotAngle &&
-							crashedAngle + Math.PI     > shotAngle
-							)
+						while (shotAngle < -Math.PI)
 						{
-							var<double> d = shotAngle - (crashedAngle + Math.PI / 2);
-
-							shotAngle = crashedAngle + d;
+							shotAngle += Math.PI * 2;
 						}
-						if (
-							crashedAngle - Math.PI     < shotAngle &&
-							crashedAngle - Math.PI / 2 > shotAngle
-							)
+
+						if (Math.PI / 2 < shotAngle)
 						{
-							var<double> d = shotAngle - (crashedAngle - Math.PI / 2);
-
-							shotAngle = crashedAngle - d;
+							shotAngle = Math.PI - shotAngle;
 						}
+						if (shotAngle < -Math.PI / 2)
+						{
+							shotAngle = -Math.PI - shotAngle;
+						}
+
+						shotAngle += crashedAngle; // ‘Š‘ÎŠp“x‚ð‰ðœ
 
 						var<D2Point_t> shotSpeed = AngleToPoint(shotAngle, BALL_SPEED);
 

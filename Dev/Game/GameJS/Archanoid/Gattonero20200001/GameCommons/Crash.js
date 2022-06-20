@@ -92,6 +92,7 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 			}
 			else // 左中段
 			{
+				LastCrashed_円と辺 = true;
 				return l2 < x + rad;
 			}
 		}
@@ -107,11 +108,13 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 			}
 			else // 右中段
 			{
+				LastCrashed_円と辺 = true;
 				return x - rad < r2;
 			}
 		}
 		else // 真上・真ん中・真下
 		{
+			LastCrashed_円と辺 = true;
 			return t2 - rad < y && y < b2 + rad;
 		}
 	}
