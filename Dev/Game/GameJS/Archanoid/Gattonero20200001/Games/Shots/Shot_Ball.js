@@ -43,11 +43,6 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		Draw(P_Ball, shot.X, shot.Y, 1.0, 0.0, 1.0);
 
-		if (Screen_H < shot.Y) // ? ê⁄ínÇµÇΩÅB-> è¡ñ≈
-		{
-			KillShot(shot);
-			break;
-		}
 		yield 1;
 	}
 }

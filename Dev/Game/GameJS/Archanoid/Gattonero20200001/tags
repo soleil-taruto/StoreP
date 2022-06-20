@@ -73,7 +73,8 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Commons\Types.js(7) : P4Poly_t //
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(7) : Crash_t // 定義
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(18) : CreateCrash_Circle // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(34) : CreateCrash_Rect // 関数
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(48) : IsCrashed // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(50) : IsCrashed // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Crash.js(48) : LastCrashed_円と辺 // 変数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Draw.js(6) : ClearScreen // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Draw.js(26) : Draw // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Effect.js(13) : AddEffect // 関数
@@ -123,6 +124,7 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\00_Consts.js(18) : Field_W 
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\00_Consts.js(21) : Field_H // 変数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\00_Consts.js(24) : Field_L // 変数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\00_Consts.js(27) : Field_T // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\00_Consts.js(32) : BALL_SPEED // 変数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Game.js(39) : GameMain // 関数
@@ -130,8 +132,16 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(35) : DrawEnemy // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(40) : KillEnemy // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(50) : EnemyDead // 関数
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(16) : CreateEnemy_CircleBlock // 関数
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(16) : CreateEnemy_SquareBlock // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(5) : Enemy_CircleBlock_Kind_e // 定義
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(11) : CreateEnemy_CircleBlock // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(7) : Enemy_CircleBlock_Kind_e_SOFT // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(8) : Enemy_CircleBlock_Kind_e_NORM // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(9) : Enemy_CircleBlock_Kind_e_HARD // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(5) : Enemy_SquareBlock_Kind_e // 定義
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(11) : CreateEnemy_SquareBlock // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(7) : Enemy_SquareBlock_Kind_e_SOFT // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(8) : Enemy_SquareBlock_Kind_e_NORM // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(9) : Enemy_SquareBlock_Kind_e_HARD // 変数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // 定義
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(35) : DrawShot // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(40) : KillShot // 関数

@@ -70,10 +70,11 @@ function* <generatorForTask> GameMain()
 				Draw(P_弾道, pt.X, pt.Y, 0.5, 0.0, 1.0);
 			}
 
-			if (GetMouseDown() == -1)
+			if (GetMouseDown() == -1) // 射出可能 ⇒ 射出中
 			{
 				@@_ShootingFrame = 1;
 				@@_ShootingAngle = shootRad;
+				@@_Return_X = null;
 			}
 		}
 		else // ? 射出中 -- 射出不可
@@ -90,7 +91,7 @@ function* <generatorForTask> GameMain()
 					var<double> x = @@_Shooter_X;
 					var<double> y = Screen_H;
 
-					var<D2Point_t> speed = AngleToPoint(@@_ShootingAngle, 8.0);
+					var<D2Point_t> speed = AngleToPoint(@@_ShootingAngle, BALL_SPEED);
 
 					var<double> xAdd = speed.X;
 					var<double> yAdd = speed.Y;
@@ -106,9 +107,10 @@ function* <generatorForTask> GameMain()
 				}
 			}
 
-			if (completed)
+			if (completed) // 射出中 ⇒ 射出可能
 			{
 				@@_ShootingFrame = 0;
+				@@_Shooter_X = @@_Return_X;
 			}
 			else
 			{
@@ -121,7 +123,7 @@ function* <generatorForTask> GameMain()
 			var<double> x = GetRand1() * Screen_W;
 			var<double> y = -30.0;
 
-			@@_Enemies.push(CreateEnemy_SquareBlock(x, y, 10, 2));
+			@@_Enemies.push(CreateEnemy_SquareBlock(x, y, 10, Enemy_SquareBlock_Kind_e_NORM));
 		}
 
 		// ====
@@ -175,6 +177,11 @@ function* <generatorForTask> GameMain()
 			{
 				var<Shot_t> shot = @@_Shots[shotIndex];
 
+				if (shot.AttackPoint == -1) // ? 既に死亡
+				{
+					continue;
+				}
+
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。
 				{
 					enemy.HP -= shot.AttackPoint;
@@ -186,6 +193,61 @@ function* <generatorForTask> GameMain()
 						KillEnemy(enemy);
 
 						break; // この敵は死亡したので、以降の自弾については判定不要、次の敵へ。
+					}
+
+					// 跳ね返り
+					{
+						var<double> crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // ブロックから見たボールの角度
+
+						if (LastCrashed_円と辺)
+						{
+							if (crashedAngle < (Math.PI / 4) * 1)
+							{
+								crashedAngle = 0.0;
+							}
+							else if (crashedAngle < (Math.PI / 4) * 3)
+							{
+								crashedAngle = Math.PI / 2;
+							}
+							else if (crashedAngle < (Math.PI / 4) * 5)
+							{
+								crashedAngle = Math.PI;
+							}
+							else if (crashedAngle < (Math.PI / 4) * 7)
+							{
+								crashedAngle = Math.PI * 1.5;
+							}
+							else
+							{
+								crashedAngle = 0.0;
+							}
+						}
+
+						var<double> shotAngle = GetAngle(shot.XAdd, shot.YAdd);
+
+						if (
+							crashedAngle + Math.PI / 2 < shotAngle &&
+							crashedAngle + Math.PI     > shotAngle
+							)
+						{
+							var<double> d = shotAngle - (crashedAngle + Math.PI / 2);
+
+							shotAngle = crashedAngle + d;
+						}
+						if (
+							crashedAngle - Math.PI     < shotAngle &&
+							crashedAngle - Math.PI / 2 > shotAngle
+							)
+						{
+							var<double> d = shotAngle - (crashedAngle - Math.PI / 2);
+
+							shotAngle = crashedAngle - d;
+						}
+
+						var<D2Point_t> shotSpeed = AngleToPoint(shotAngle, BALL_SPEED);
+
+						shot.XAdd = shotSpeed.X;
+						shot.YAdd = shotSpeed.Y;
 					}
 				}
 			}
@@ -206,6 +268,29 @@ function* <generatorForTask> GameMain()
 			if (shot.Y < 0.0)
 			{
 				shot.YAdd = Math.abs(shot.YAdd);
+			}
+			if (Screen_H < shot.Y)
+			{
+				shot.AttackPoint = -1;
+
+				if (@@_Return_X == null)
+				{
+					@@_Return_X = shot.X;
+				}
+
+				AddEffect(function* <generatorForTask> ()
+				{
+					var<double> x = shot.X;
+
+					for (var<int> c = 0; c < 20; c++)
+					{
+						x = Approach(x, @@_Return_X, 0.9);
+
+						Draw(P_Ball, x, Screen_H, 0.5, 0.0, 1.0);
+
+						yield 1;
+					}
+				}());
 			}
 		}
 

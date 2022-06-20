@@ -25,3 +25,8 @@ var<int> Field_L = ToInt((Screen_W - Field_W) / 2);
 
 // フィールド上側(px)
 var<int> Field_T = ToInt((Screen_H - Field_H) / 2);
+
+// ----
+
+// 自弾(ボール)の速度
+var<double> BALL_SPEED = 8.0;

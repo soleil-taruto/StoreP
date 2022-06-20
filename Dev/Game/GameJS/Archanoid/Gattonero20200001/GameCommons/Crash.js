@@ -45,8 +45,15 @@ function <Crash_t> CreateCrash_Rect(<D4Rect_t> rect)
 	return ret;
 }
 
+var LastCrashed_‰~‚Æ•Ó = false; // ? ÅŒã‚ÌÕ“Ë‚ª‰~Œ`E‹éŒ`‚©‚Â‹éŒ`‚Ì•Ó(Šp‚Å‚Í‚È‚¢)‚ÉÕ“Ë‚µ‚½‚©
+
 function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 {
+	// reset
+	{
+		LastCrashed_‰~‚Æ•Ó = false;
+	}
+
 	if (b.Kind < a.Kind)
 	{
 		var tmp = a;

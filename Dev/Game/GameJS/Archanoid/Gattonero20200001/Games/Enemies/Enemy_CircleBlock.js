@@ -2,18 +2,13 @@
 	敵 - 円形ブロック
 */
 
-/*
-	生成
+/// Enemy_CircleBlock_Kind_e
+//
+var<int> Enemy_CircleBlock_Kind_e_SOFT = @(AUTO);
+var<int> Enemy_CircleBlock_Kind_e_NORM = @(AUTO);
+var<int> Enemy_CircleBlock_Kind_e_HARD = @(AUTO);
 
-	(x, y): 位置
-	hp: 体力
-	-- 1～
-	kind: 種類
-	-- 1 == SOFT
-	-- 2 == NORM
-	-- 3 == HARD
-*/
-function <Enemy_t> CreateEnemy_CircleBlock(<double> x, <double> y, <int> hp, <int> kind)
+function <Enemy_t> CreateEnemy_CircleBlock(<double> x, <double> y, <int> hp, <Enemy_CircleBlock_Kind_e> kind)
 {
 	var ret =
 	{
@@ -24,7 +19,7 @@ function <Enemy_t> CreateEnemy_CircleBlock(<double> x, <double> y, <int> hp, <in
 
 		// ここから固有
 
-		<int> Kind: kind,
+		<Enemy_CircleBlock_Kind_e> Kind: kind,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -52,15 +47,15 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		var<Image> picture;
 
-		if (enemy.Kind == 1)
+		if (enemy.Kind == Enemy_CircleBlock_Kind_e_SOFT)
 		{
 			picture = P_Circle_Soft;
 		}
-		else if (enemy.Kind == 2)
+		else if (enemy.Kind == Enemy_CircleBlock_Kind_e_NORM)
 		{
 			picture = P_Circle_Norm;
 		}
-		else if (enemy.Kind == 3)
+		else if (enemy.Kind == Enemy_CircleBlock_Kind_e_HARD)
 		{
 			picture = P_Circle_Hard;
 		}
