@@ -128,10 +128,13 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(23) : AddEffect_E
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Game.js(39) : GameMain // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // íËã`
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(35) : DrawEnemy // ä÷êî
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(40) : EnemyDead // ä÷êî
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(40) : KillEnemy // ä÷êî
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(50) : EnemyDead // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(16) : CreateEnemy_CircleBlock // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_SquareBlock.js(16) : CreateEnemy_SquareBlock // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // íËã`
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(33) : DrawShot // ä÷êî
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(35) : DrawShot // ä÷êî
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(40) : KillShot // ä÷êî
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot.js(50) : ShotDead // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Shots\Shot_Ball.js(5) : CreateShot_Ball // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ä÷êî

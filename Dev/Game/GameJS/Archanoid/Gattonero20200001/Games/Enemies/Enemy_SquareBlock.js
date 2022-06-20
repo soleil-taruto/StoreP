@@ -35,40 +35,45 @@ function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <in
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	enemy.Y++;
-
-	// ìñÇΩÇËîªíË_ê›íu
+	for (; ; )
 	{
-		var<double> BLOCK_W = 60;
-		var<double> BLOCK_H = 60;
+		enemy.Y++;
 
-		enemy.Crash = CreateCrash_Rect(CreateD4Rect(enemy.X - BLOCK_W / 2, enemy.Y - BLOCK_H / 2, BLOCK_W, BLOCK_H));
-	}
+		// ìñÇΩÇËîªíË_ê›íu
+		{
+			var<double> BLOCK_W = 60;
+			var<double> BLOCK_H = 60;
 
-	// ====
-	// ï`âÊÇ±Ç±Ç©ÇÁ
-	// ====
+			enemy.Crash = CreateCrash_Rect(CreateD4Rect(enemy.X - BLOCK_W / 2, enemy.Y - BLOCK_H / 2, BLOCK_W, BLOCK_H));
+		}
 
-	var<Image> picture;
+		// ====
+		// ï`âÊÇ±Ç±Ç©ÇÁ
+		// ====
 
-	if (enemy.Kind == 1)
-	{
-		picture = P_Square_Soft;
-	}
-	else if (enemy.Kind == 2)
-	{
-		picture = P_Square_Norm;
-	}
-	else if (enemy.Kind == 3)
-	{
-		picture = P_Square_Hard;
-	}
-	else
-	{
-		error();
-	}
+		var<Image> picture;
 
-	Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+		if (enemy.Kind == 1)
+		{
+			picture = P_Square_Soft;
+		}
+		else if (enemy.Kind == 2)
+		{
+			picture = P_Square_Norm;
+		}
+		else if (enemy.Kind == 3)
+		{
+			picture = P_Square_Hard;
+		}
+		else
+		{
+			error();
+		}
+
+		Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+
+		yield 1;
+	}
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

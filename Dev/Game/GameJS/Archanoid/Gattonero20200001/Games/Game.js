@@ -81,6 +81,8 @@ function* <generatorForTask> GameMain()
 			var<int> SHOOT_PER_FRAME = 10;
 			var<boolean> completed = false;
 
+			@@_ShootingFrame = Math.max(@@_ShootingFrame, SHOOT_PER_FRAME); // フレーム・カウント調整
+
 			if (@@_ShootingFrame / SHOOT_PER_FRAME <= @@_BallStockNum) // ? 射出未完了
 			{
 				if (@@_ShootingFrame % SHOOT_PER_FRAME == 0)
@@ -132,23 +134,25 @@ function* <generatorForTask> GameMain()
 		//
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
+			@@_Enemies[index].Crash = null; // reset
+
 			if (!DrawEnemy(@@_Enemies[index]))
 			{
-				@@_Enemies[index] = null;
+				@@_Enemies[index].HP = -1;
 			}
 		}
-		RemoveFalse(@@_Enemies);
 
 		// 自弾の描画
 		//
 		for (var<int> index = 0; index < @@_Shots.length; index++)
 		{
+			@@_Shots[index].Crash = null; // reset
+
 			if (!DrawShot(@@_Shots[index]))
 			{
-				@@_Shots[index] = null;
+				@@_Shots[index].AttackPoint = -1;
 			}
 		}
-		RemoveFalse(@@_Shots);
 
 		// ====
 		// 描画ここまで
@@ -171,7 +175,7 @@ function* <generatorForTask> GameMain()
 			{
 				var<Shot_t> shot = @@_Shots[shotIndex];
 
-				if (IsCrashed(enemy.Crashed, shot.Crashed)) // ? 衝突している。
+				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。
 				{
 					enemy.HP -= shot.AttackPoint;
 

@@ -68,44 +68,44 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 		var<double> y = a.Y;
 		var<double> rad = a.R;
 
-		var<double> l = b.Rect.L;
-		var<double> t = b.Rect.T;
-		var<double> r = b.Rect.L + b.Rect.W;
-		var<double> b = b.Rect.T + b.Rect.H;
+		var<double> l2 = b.Rect.L;
+		var<double> t2 = b.Rect.T;
+		var<double> r2 = b.Rect.L + b.Rect.W;
+		var<double> b2 = b.Rect.T + b.Rect.H;
 
-		if (x < l) // 左
+		if (x < l2) // 左
 		{
-			if (y < t) // 左上
+			if (y < t2) // 左上
 			{
-				return @@_IsCrashed_Circle_Point(x, y, rad, l, t);
+				return @@_IsCrashed_Circle_Point(x, y, rad, l2, t2);
 			}
-			else if (b < y) // 左下
+			else if (b2 < y) // 左下
 			{
-				return @@_IsCrashed_Circle_Point(x, y, rad, l, b);
+				return @@_IsCrashed_Circle_Point(x, y, rad, l2, b2);
 			}
 			else // 左中段
 			{
-				return l < x + rad;
+				return l2 < x + rad;
 			}
 		}
-		else if (r < x) // 右
+		else if (r2 < x) // 右
 		{
-			if (y < t) // 右上
+			if (y < t2) // 右上
 			{
-				return @@_IsCrashed_Circle_Point(x, y, rad, r, t);
+				return @@_IsCrashed_Circle_Point(x, y, rad, r2, t2);
 			}
-			else if (b < y) // 右下
+			else if (b2 < y) // 右下
 			{
-				return @@_IsCrashed_Circle_Point(x, y, rad, r, b);
+				return @@_IsCrashed_Circle_Point(x, y, rad, r2, b2);
 			}
 			else // 右中段
 			{
-				return x - rad < r;
+				return x - rad < r2;
 			}
 		}
 		else // 真上・真ん中・真下
 		{
-			return t - rad < y && y < b + rad;
+			return t2 - rad < y && y < b2 + rad;
 		}
 	}
 	if (a.Kind == 2 && b.Kind == 2) // ? 矩形 vs 矩形

@@ -35,39 +35,44 @@ function <Enemy_t> CreateEnemy_CircleBlock(<double> x, <double> y, <int> hp, <in
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	enemy.Y++;
-
-	// ìñÇΩÇËîªíË_ê›íu
+	for (; ; )
 	{
-		var<double> BLOCK_RAD = 30;
+		enemy.Y++;
 
-		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, BLOCK_RAD);
-	}
+		// ìñÇΩÇËîªíË_ê›íu
+		{
+			var<double> BLOCK_RAD = 30;
 
-	// ====
-	// ï`âÊÇ±Ç±Ç©ÇÁ
-	// ====
+			enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, BLOCK_RAD);
+		}
 
-	var<Image> picture;
+		// ====
+		// ï`âÊÇ±Ç±Ç©ÇÁ
+		// ====
 
-	if (enemy.Kind == 1)
-	{
-		picture = P_Circle_Soft;
-	}
-	else if (enemy.Kind == 2)
-	{
-		picture = P_Circle_Norm;
-	}
-	else if (enemy.Kind == 3)
-	{
-		picture = P_Circle_Hard;
-	}
-	else
-	{
-		error();
-	}
+		var<Image> picture;
 
-	Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+		if (enemy.Kind == 1)
+		{
+			picture = P_Circle_Soft;
+		}
+		else if (enemy.Kind == 2)
+		{
+			picture = P_Circle_Norm;
+		}
+		else if (enemy.Kind == 3)
+		{
+			picture = P_Circle_Hard;
+		}
+		else
+		{
+			error();
+		}
+
+		Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+
+		yield 1;
+	}
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)
