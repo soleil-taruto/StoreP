@@ -23,9 +23,11 @@
 	// -- 描画
 	// 偽を返すとブロックを破棄する。
 	//
-	<generatorForTask> Draw
+	<generatorForTask> Draw // 今フレームの当たり判定置き場
 
 	<Crash_t> Crash; // 当たり判定
+
+	<Action_Enemy_t> Dead // 死亡イベント
 }
 
 @(ASTR)/
@@ -33,4 +35,19 @@
 function <boolean> DrawShot(<Shot_t> shot) // ret: ? 生存
 {
 	return shot.Draw.next().value;
+}
+
+function <void> KillShot(<Shot_t> shot)
+{
+	if (shot.AttackPoint == -1) // ? まだ死亡していない。
+	{
+		shot.AttackPoint = -1; // 死亡させる。
+		ShotDead(shot);
+	}
+}
+
+// 死亡イベント実行
+function <void> ShotDead(<Shot_t> shot)
+{
+	shot.Dead(shot);
 }

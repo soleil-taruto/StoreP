@@ -41,7 +41,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	{
 		var<double> BLOCK_RAD = 30;
 
-		block.Crash = CreateCrash_Circle(block.X, block.Y, BLOCK_RAD);
+		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, BLOCK_RAD);
 	}
 
 	// ====
@@ -50,15 +50,15 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 	var<Image> picture;
 
-	if (block.Kind == 1)
+	if (enemy.Kind == 1)
 	{
 		picture = P_Circle_Soft;
 	}
-	else if (block.Kind == 2)
+	else if (enemy.Kind == 2)
 	{
 		picture = P_Circle_Norm;
 	}
-	else if (block.Kind == 3)
+	else if (enemy.Kind == 3)
 	{
 		picture = P_Circle_Hard;
 	}
@@ -67,7 +67,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		error();
 	}
 
-	Draw(picture, block.X, block.Y, 1.0, 0.0, 1.0);
+	Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

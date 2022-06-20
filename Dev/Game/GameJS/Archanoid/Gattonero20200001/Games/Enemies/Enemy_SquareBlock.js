@@ -42,7 +42,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		var<double> BLOCK_W = 60;
 		var<double> BLOCK_H = 60;
 
-		block.Crash = CreateCrash_Rect(CreateD4Rect(block.X - BLOCK_W / 2, block.Y - BLOCK_H / 2, BLOCK_W, BLOCK_H));
+		enemy.Crash = CreateCrash_Rect(CreateD4Rect(enemy.X - BLOCK_W / 2, enemy.Y - BLOCK_H / 2, BLOCK_W, BLOCK_H));
 	}
 
 	// ====
@@ -51,15 +51,15 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 	var<Image> picture;
 
-	if (block.Kind == 1)
+	if (enemy.Kind == 1)
 	{
 		picture = P_Square_Soft;
 	}
-	else if (block.Kind == 2)
+	else if (enemy.Kind == 2)
 	{
 		picture = P_Square_Norm;
 	}
-	else if (block.Kind == 3)
+	else if (enemy.Kind == 3)
 	{
 		picture = P_Square_Hard;
 	}
@@ -68,7 +68,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		error();
 	}
 
-	Draw(picture, block.X, block.Y, 1.0, 0.0, 1.0);
+	Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

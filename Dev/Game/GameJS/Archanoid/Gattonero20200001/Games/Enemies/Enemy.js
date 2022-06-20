@@ -37,6 +37,16 @@ function <boolean> DrawEnemy(<Enemy_t> enemy) // ret: ? 生存
 	return enemy.Draw.next().value;
 }
 
+function <void> KillEnemy(<Enemy_t> enemy)
+{
+	if (enemy.HP == -1) // ? まだ死亡していない。
+	{
+		enemy.HP = -1; // 死亡させる。
+		EnemyDead(enemy);
+	}
+}
+
+// 死亡イベント実行
 function <void> EnemyDead(<Enemy_t> enemy)
 {
 	enemy.Dead(enemy);

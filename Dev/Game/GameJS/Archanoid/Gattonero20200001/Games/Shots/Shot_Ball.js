@@ -18,6 +18,7 @@ function <Shot_t> CreateShot_Ball(<doule> x, <double> y, <double> xAdd, <double>
 	};
 
 	ret.Draw = @@_Draw(ret);
+	ret.Dead = @@_Dead;
 
 	return ret;
 }
@@ -44,8 +45,14 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		if (Screen_H < shot.Y) // ? ê⁄ínÇµÇΩÅB-> è¡ñ≈
 		{
+			KillShot(shot);
 			break;
 		}
 		yield 1;
 	}
+}
+
+function <void> @@_Dead(<Shot_t> shot)
+{
+	// TODO
 }

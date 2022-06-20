@@ -45,7 +45,7 @@ function* <generatorForTask> GameMain()
 		var<double> mx = GetMouseX();
 		var<double> my = GetMouseY();
 
-		if (@@_ShootingFrame == 0) // ? 射出中ではない -> 射出方向を描画する。射出もやる。
+		if (@@_ShootingFrame == 0) // ? 射出中ではない -> 射出方向を描画する。射出可能
 		{
 			var<double> sx = @@_Shooter_X;
 			var<double> sy = Screen_H;
@@ -76,7 +76,7 @@ function* <generatorForTask> GameMain()
 				@@_ShootingAngle = shootRad;
 			}
 		}
-		else // ? 射出中
+		else // ? 射出中 -- 射出不可
 		{
 			var<int> SHOOT_PER_FRAME = 10;
 			var<boolean> completed = false;
@@ -114,9 +114,19 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
+		if (GetRand1() < 0.01) // 暫定
+		{
+			var<double> x = GetRand1() * Screen_W;
+			var<double> y = -30.0;
+
+			@@_Enemies.push(CreateEnemy_SquareBlock(x, y, 10, 2));
+		}
+
 		// ====
 		// 描画ここから
 		// ====
+
+		// memo: 死亡しているかチェックするのは「当たり判定」から
 
 		// 敵の描画
 		//
@@ -163,7 +173,7 @@ function* <generatorForTask> GameMain()
 
 				if (IsCrashed(enemy.Crashed, shot.Crashed)) // ? 衝突している。
 				{
-					enemy.HP--;
+					enemy.HP -= shot.AttackPoint;
 
 					if (enemy.HP <= 0) // ? 死亡した。
 					{
