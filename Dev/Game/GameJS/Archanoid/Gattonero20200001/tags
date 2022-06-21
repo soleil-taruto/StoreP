@@ -128,10 +128,13 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\00_Consts.js(32) : BALL_SPE
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Game.js(39) : GameMain // 関数
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // 定義
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(37) : DrawEnemy // 関数
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(42) : KillEnemy // 関数
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(52) : EnemyDead // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(5) : Enemy_Kind_e // 定義
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(12) : Enemy_t // 定義
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(42) : DrawEnemy // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(47) : KillEnemy // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(57) : EnemyDead // 関数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_Kind_e_CIRCLE // 変数
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy.js(8) : Enemy_Kind_e_SQUARE // 変数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(5) : Enemy_CircleBlock_Kind_e // 定義
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(11) : CreateEnemy_CircleBlock // 関数
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\Games\Enemies\Enemy_CircleBlock.js(7) : Enemy_CircleBlock_Kind_e_SOFT // 変数

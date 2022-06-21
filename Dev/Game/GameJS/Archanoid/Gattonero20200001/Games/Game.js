@@ -190,11 +190,11 @@ function* <generatorForTask> GameMain()
 					{
 						var<double> crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // ブロックの中心から見たボールの角度
 
-						if (enemy.Name == "CIRCLE")
+						if (enemy.Kind == Enemy_Kind_e_CIRCLE)
 						{
 							// noop
 						}
-						else if (enemy.Name == "SQUARE")
+						else if (enemy.Kind == Enemy_Kind_e_SQUARE)
 						{
 							if (LastCrashed_矩形の角から見た円形_Angle != null)
 							{

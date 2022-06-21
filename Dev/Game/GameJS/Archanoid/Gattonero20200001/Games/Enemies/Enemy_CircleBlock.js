@@ -12,11 +12,11 @@ function <Enemy_t> CreateEnemy_CircleBlock(<double> x, <double> y, <int> hp, <En
 {
 	var ret =
 	{
+		Kind: Enemy_Kind_e_CIRCLE,
 		X: x,
 		Y: y,
 		HP: hp,
 		Crash: null,
-		Name: "CIRCLE",
 
 		// ‚±‚±‚©‚çŒÅ—L
 

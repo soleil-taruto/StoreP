@@ -12,11 +12,11 @@ function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <En
 {
 	var ret =
 	{
+		Kind: Enemy_Kind_e_SQUARE,
 		X: x,
 		Y: y,
 		HP: hp,
 		Crash: null,
-		Name: "SQUARE",
 
 		// ‚±‚±‚©‚çŒÅ—L
 

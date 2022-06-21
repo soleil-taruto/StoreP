@@ -2,10 +2,17 @@
 	敵
 */
 
+/// Enemy_Kind_e
+//
+var<int> Enemy_Kind_e_CIRCLE = @(AUTO);
+var<int> Enemy_Kind_e_SQUARE = @(AUTO);
+
 /@(ASTR)
 
 /// Enemy_t
 {
+	<Enemy_Kind_e> Kind // 敵の種類
+
 	<double> X // X-位置
 	<double> Y // Y-位置
 
@@ -28,8 +35,6 @@
 	<Crash_t> Crash // 今フレームの当たり判定置き場
 
 	<Action_Enemy_t> Dead // 死亡イベント
-
-	<string> Name // 敵の名前(種類)
 }
 
 @(ASTR)/
