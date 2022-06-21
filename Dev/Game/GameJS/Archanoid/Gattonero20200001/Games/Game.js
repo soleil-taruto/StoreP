@@ -70,6 +70,8 @@ function* <generatorForTask> GameMain()
 				Draw(P_弾道, pt.X, pt.Y, 0.5, 0.0, 1.0);
 			}
 
+			Draw(P_Ball, @@_Shooter_X, Screen_H, 0.5, 0.0, 1.0); // 描画：射出位置
+
 			if (GetMouseDown() == -1) // 射出可能 ⇒ 射出中
 			{
 				@@_ShootingFrame = 1;
@@ -98,6 +100,8 @@ function* <generatorForTask> GameMain()
 
 					@@_Shots.push(CreateShot_Ball(x, y, xAdd, yAdd));
 				}
+
+				Draw(P_Ball, @@_Shooter_X, Screen_H, 0.5, 0.0, 1.0); // 描画：射出位置
 			}
 			else // ? 射出完了
 			{
@@ -105,6 +109,11 @@ function* <generatorForTask> GameMain()
 				{
 					completed = true;
 				}
+			}
+
+			if (@@_Return_X != null)
+			{
+				Draw(P_Ball, @@_Return_X, Screen_H, 0.5, 0.0, 1.0); // 描画：次回射出位置
 			}
 
 			if (completed) // 射出中 ⇒ 射出可能
@@ -118,9 +127,9 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
-		if (GetRand1() < 0.01) // 暫定
+		if (GetRand1() < 0.01) // 敵生成
 		{
-			var<double> x = GetRand1() * Screen_W;
+			var<double> x = GetRand(Screen_W - 60) + 30.0;
 			var<double> y = -30.0;
 
 			var<Enemy_t> enemy;
@@ -135,7 +144,15 @@ function* <generatorForTask> GameMain()
 			case 5: enemy = CreateEnemy_SquareBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
 			}
 
-			@@_Enemies.push(enemy);
+			if (!@@_Enemies.some(function (<Enemy_t> v) // ? 近すぎる別の敵は居ない。
+			{
+				var d = GetDistance(v.X - enemy.X, v.Y - enemy.Y);
+
+				return d < 65.0;
+			}))
+			{
+				@@_Enemies.push(enemy);
+			}
 		}
 
 		// ====

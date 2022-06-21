@@ -22,24 +22,35 @@ function* <generatorForTask> Effect_Dummy(<double> x, <double> y)
 
 function <void> AddEffect_Explode(<double> x, <double> y)
 {
-	for (var<int> c = 0; c < 10; c++)
+	for (var<int> c = 0; c < 30; c++)
 	{
 		AddEffect(function* ()
 		{
-			var<double> rot = GetRand2() * 7.0;
+			var<D2Point_t> pt = CreateD2Point(x, y);
+			var<D2Point_t> speed = AngleToPoint(GetRand1() * Math.PI * 2, 17.0);
+			var<double> rot = GetRand1() * Math.PI * 2;
+			var<double> rotAdd = GetRand2() * 0.1;
 
 			for (var<Scene_t> scene of CreateScene(20))
 			{
 				Draw(
 					P_Star_S,
-					x,
-					y,
-					scene.Rate,
+					pt.X,
+					pt.Y,
+					scene.RemRate,
 					rot,
 					1.0 + 0.5 * scene.RemRate
 					);
 
-				rot *= 0.7;
+				pt.X += speed.X;
+				pt.Y += speed.Y;
+
+				speed.X *= 0.8;
+				speed.Y *= 0.8;
+
+				rot += rotAdd;
+
+				rotAdd *= 0.8;
 
 				yield 1;
 			}
