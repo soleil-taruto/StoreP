@@ -30,6 +30,8 @@
 	<Crash_t> Crash // 今フレームの当たり判定置き場
 
 	<Action_Enemy_t> Dead // 死亡イベント
+
+	<D2Point_t> DestPt // 移動先, null == 無効
 }
 
 @(ASTR)/

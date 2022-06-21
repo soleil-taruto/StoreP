@@ -11,6 +11,7 @@ function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <En
 		Y: y,
 		HP: hp,
 		Crash: null,
+		DestPt: null,
 
 		// ここから固有
 
@@ -27,7 +28,23 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
 	for (; ; )
 	{
-		enemy.Y += ProcFrame % 2;
+		if (enemy.DestPt != null)
+		{
+			enemy.X = Approach(enemy.X, enemy.DestPt.X, 0.9);
+			enemy.Y = Approach(enemy.Y, enemy.DestPt.Y, 0.9);
+
+			// ? 十分近づいた。-> 移動完了
+			if (
+				Math.abs(enemy.X - enemy.DestPt.X) < MICRO &&
+				Math.abs(enemy.Y - enemy.DestPt.Y) < MICRO
+				)
+			{
+				enemy.X = enemy.DestPt.X;
+				enemy.Y = enemy.DestPt.Y;
+
+				enemy.DestPt = null;
+			}
+		}
 
 		// 当たり判定_設置
 		{

@@ -120,38 +120,40 @@ function* <generatorForTask> GameMain()
 			{
 				@@_ShootingFrame = 0;
 				@@_Shooter_X = @@_Return_X;
+
+				for (var<int> c = 0; c < 7; c++) // 追加
+				{
+					var<double> x = 30.0 + c * 60.0;
+					var<double> y = -30.0;
+
+					var<Enemy_t> enemy;
+
+					switch (GetRand(9))
+					{
+					case 0: enemy = CreateEnemy_CircleBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
+					case 1: enemy = CreateEnemy_CircleBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
+					case 2: enemy = CreateEnemy_CircleBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
+					case 3: enemy = CreateEnemy_SquareBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
+					case 4: enemy = CreateEnemy_SquareBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
+					case 5: enemy = CreateEnemy_SquareBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
+					case 6: enemy = null; break;
+					case 7: enemy = null; break;
+					case 8: enemy = null; break;
+					}
+
+					if (enemy != null)
+					{
+						@@_Enemies.push(enemy);
+					}
+				}
+				for (var<Enemy_t> enemy of @@_Enemies) // 落下
+				{
+					enemy.DestPt = CreateD2Point(enemy.X, enemy.Y + 60.0);
+				}
 			}
 			else
 			{
 				@@_ShootingFrame++;
-			}
-		}
-
-		if (GetRand1() < 0.01) // 敵生成
-		{
-			var<double> x = GetRand(Screen_W - 60) + 30.0;
-			var<double> y = -30.0;
-
-			var<Enemy_t> enemy;
-
-			switch (GetRand(6))
-			{
-			case 0: enemy = CreateEnemy_CircleBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
-			case 1: enemy = CreateEnemy_CircleBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
-			case 2: enemy = CreateEnemy_CircleBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
-			case 3: enemy = CreateEnemy_SquareBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
-			case 4: enemy = CreateEnemy_SquareBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
-			case 5: enemy = CreateEnemy_SquareBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
-			}
-
-			if (!@@_Enemies.some(function (<Enemy_t> v) // ? 近すぎる別の敵は居ない。
-			{
-				var d = GetDistance(v.X - enemy.X, v.Y - enemy.Y);
-
-				return d < 65.0;
-			}))
-			{
-				@@_Enemies.push(enemy);
 			}
 		}
 
@@ -353,6 +355,18 @@ function* <generatorForTask> GameMain()
 		// ====
 		// 当たり判定ここまで
 		// ====
+
+		// 画面下部に達したブロックの消去
+		for (var<Enemy_t> enemy of @@_Enemies)
+		{
+			if (
+				enemy.DestPt == null && // ? 移動完了
+				Screen_H - 100.0 < enemy.Y // ? 画面下部に達した。
+				)
+			{
+				KillEnemy(enemy);
+			}
+		}
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
