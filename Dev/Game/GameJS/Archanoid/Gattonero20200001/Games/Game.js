@@ -123,7 +123,19 @@ function* <generatorForTask> GameMain()
 			var<double> x = GetRand1() * Screen_W;
 			var<double> y = -30.0;
 
-			@@_Enemies.push(CreateEnemy_SquareBlock(x, y, 10, Enemy_SquareBlock_Kind_e_NORM));
+			var<Enemy_t> enemy;
+
+			switch (GetRand(6))
+			{
+			case 0: enemy = CreateEnemy_CircleBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
+			case 1: enemy = CreateEnemy_CircleBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
+			case 2: enemy = CreateEnemy_CircleBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
+			case 3: enemy = CreateEnemy_SquareBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
+			case 4: enemy = CreateEnemy_SquareBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
+			case 5: enemy = CreateEnemy_SquareBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
+			}
+
+			@@_Enemies.push(enemy);
 		}
 
 		// ====
@@ -188,11 +200,11 @@ function* <generatorForTask> GameMain()
 
 					// 跳ね返り
 					{
-						var<double> crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // ブロックの中心から見たボールの角度
+						var<double> crashedAngle;
 
 						if (enemy.Kind == Enemy_Kind_e_CIRCLE)
 						{
-							// noop
+							crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // 円形ブロックの中心から見たボールの角度
 						}
 						else if (enemy.Kind == Enemy_Kind_e_SQUARE)
 						{
@@ -202,6 +214,8 @@ function* <generatorForTask> GameMain()
 							}
 							else
 							{
+								crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // 正方形ブロックの中心から見たボールの角度
+
 								if (crashedAngle < (Math.PI / 4) * 1)
 								{
 									crashedAngle = 0.0;

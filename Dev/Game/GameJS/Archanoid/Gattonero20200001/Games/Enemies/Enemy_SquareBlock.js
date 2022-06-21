@@ -2,13 +2,7 @@
 	敵 - 正方形ブロック
 */
 
-/// Enemy_SquareBlock_Kind_e
-//
-var<int> Enemy_SquareBlock_Kind_e_SOFT = @(AUTO);
-var<int> Enemy_SquareBlock_Kind_e_NORM = @(AUTO);
-var<int> Enemy_SquareBlock_Kind_e_HARD = @(AUTO);
-
-function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <Enemy_SquareBlock_Kind_e> kind)
+function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <Enemy_Block_Kind_e> b_kind)
 {
 	var ret =
 	{
@@ -20,7 +14,7 @@ function <Enemy_t> CreateEnemy_SquareBlock(<double> x, <double> y, <int> hp, <En
 
 		// ここから固有
 
-		<Enemy_SquareBlock_Kind_e> Kind: kind,
+		<Enemy_Block_Kind_e> B_Kind: b_kind,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -33,7 +27,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
 	for (; ; )
 	{
-		enemy.Y++;
+		enemy.Y += ProcFrame % 2;
 
 		// 当たり判定_設置
 		{
@@ -49,15 +43,15 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		var<Image> picture;
 
-		if (enemy.Kind == Enemy_SquareBlock_Kind_e_SOFT)
+		if (enemy.B_Kind == Enemy_Block_Kind_e_SOFT)
 		{
 			picture = P_Square_Soft;
 		}
-		else if (enemy.Kind == Enemy_SquareBlock_Kind_e_NORM)
+		else if (enemy.B_Kind == Enemy_Block_Kind_e_NORM)
 		{
 			picture = P_Square_Norm;
 		}
-		else if (enemy.Kind == Enemy_SquareBlock_Kind_e_HARD)
+		else if (enemy.B_Kind == Enemy_Block_Kind_e_HARD)
 		{
 			picture = P_Square_Hard;
 		}
@@ -68,11 +62,18 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
 
+		var<string> text = "" + enemy.HP;
+
+		SetColor(I3ColorToString(CreateI3Color(255, 255, 255)));
+		SetPrint(enemy.X - 6 * text.length, enemy.Y + 8, 0);
+		SetFSize(20);
+		PrintLine(text);
+
 		yield 1;
 	}
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)
 {
-	// TODO
+	EnemyCommon_Dead(enemy);
 }

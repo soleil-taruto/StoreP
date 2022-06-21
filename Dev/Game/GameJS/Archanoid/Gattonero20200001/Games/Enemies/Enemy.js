@@ -2,11 +2,6 @@
 	“G
 */
 
-/// Enemy_Kind_e
-//
-var<int> Enemy_Kind_e_CIRCLE = @(AUTO);
-var<int> Enemy_Kind_e_SQUARE = @(AUTO);
-
 /@(ASTR)
 
 /// Enemy_t
