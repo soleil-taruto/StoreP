@@ -49,8 +49,6 @@ function <I2Point_t> DrawPointToTablePoint(<D2Point_t> pt)
 	return CreateI2Point(x, y);
 }
 
-var<D2Point_t> ReservedClickedPt = null; // 予約されたクリック
-
 function* <generatorForTask> GameMain()
 {
 	// init @@_Table
@@ -84,27 +82,12 @@ function* <generatorForTask> GameMain()
 
 	for (; ; )
 	{
-		var<D2Point_t> clicked_pt = null;
+		var<int> inputGravity = -1; // (-1, 2, 4, 6, 8) == (無入力, 下, 左, 右, 上)
 
 		if (GetMouseDown() == -1) // ? マウス・ボタンを離した。
 		{
 			var<double> x = GetMouseX();
 			var<double> y = GetMouseY();
-
-			clicked_pt = CreateD2Point(x, y);
-		}
-		else if (ReservedClickedPt != null)
-		{
-			clicked_pt = ReservedClickedPt;
-			ReservedClickedPt = null;
-		}
-
-		var<int> inputGravity = -1; // (-1, 2, 4, 6, 8) == (無入力, 下, 左, 右, 上)
-
-		if (clicked_pt != null)
-		{
-			var<double> x = clicked_pt.X;
-			var<double> y = clicked_pt.Y;
 
 			// ====
 			// Press Game-Config-Button BGN
@@ -478,12 +461,9 @@ function* <generatorForTask> @@_融合の余韻(<int> frameMax)
 
 function <void> @@_EachMotion()
 {
-	if (GetMouseDown() == -1)
+	if (GetMouseDown() == -1) // ? マウス・ボタンを離した。
 	{
-		var<double> x = GetMouseX();
-		var<double> y = GetMouseY();
-
-		ReservedClickedPt = CreateD2Point(x, y);
+		AutoMode = false; // オートモード解除
 	}
 }
 
