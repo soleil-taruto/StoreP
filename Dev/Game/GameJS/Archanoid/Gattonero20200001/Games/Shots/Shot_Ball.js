@@ -49,5 +49,5 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 function <void> @@_Dead(<Shot_t> shot)
 {
-	// TODO
+	// noop
 }

@@ -96,7 +96,7 @@ function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 		// 弾を撃つ
 		if (GetRand(100) == 0)
 		{
-			// TODO 画面外・自機に近い場合は撃たない。
+			// HACK: 画面外・自機に近い場合は撃たないようにするべきか。
 
 			Tamas.push(CreateTama(enemy.X, enemy.Y));
 		}
