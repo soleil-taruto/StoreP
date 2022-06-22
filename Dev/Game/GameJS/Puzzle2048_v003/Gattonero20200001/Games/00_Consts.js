@@ -5,13 +5,14 @@
 /*
 	設定ボタンの大きさと位置
 */
-var<int> GameCfgBtn_W = 300;
+var<int> GameCfgBtn_W = 240;
 var<int> GameCfgBtn_H = 85;
-var<int> GameCfgBtn_L_1 = 25;
-var<int> GameCfgBtn_L_2 = 350;
-var<int> GameCfgBtn_L_3 = 675;
-var<int> GameCfgBtn_T_1 = 10;
-var<int> GameCfgBtn_T_2 = 105;
+var<int> GameCfgBtn_L_1 = 8 * 1 + 240 * 0;
+var<int> GameCfgBtn_L_2 = 8 * 2 + 240 * 1;
+var<int> GameCfgBtn_L_3 = 8 * 3 + 240 * 2;
+var<int> GameCfgBtn_L_4 = 8 * 4 + 240 * 3;
+var<int> GameCfgBtn_T_1 = 10 * 1 + 85 * 0;
+var<int> GameCfgBtn_T_2 = 10 * 2 + 85 * 1;
 
 /*
 	フィールド等表示する領域

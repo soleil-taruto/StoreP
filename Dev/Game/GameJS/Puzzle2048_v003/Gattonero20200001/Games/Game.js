@@ -5,6 +5,8 @@
 var<boolean> AutoMode = false;
 var<boolean> AutoMode_CCW = false;
 
+var<int> NewPanelExponentLmt = 3; // 1 ～ P_数字パネル.length
+
 var<int> @@_Gravity = -1; // 重力方向 (-1, 2, 4, 6, 8) == (無し, 下, 左, 右, 上)
 
 /*
@@ -119,6 +121,14 @@ function* <generatorForTask> GameMain()
 				GameConfig_Press_0301();
 			}
 
+			if (
+				GameCfgBtn_L_4 <= x && x < GameCfgBtn_L_4 + GameCfgBtn_W &&
+				GameCfgBtn_T_1 <= y && y < GameCfgBtn_T_1 + GameCfgBtn_H
+				)
+			{
+				GameConfig_Press_0401();
+			}
+
 			// 下段
 
 			if (
@@ -143,6 +153,14 @@ function* <generatorForTask> GameMain()
 				)
 			{
 				GameConfig_Press_0302();
+			}
+
+			if (
+				GameCfgBtn_L_4 <= x && x < GameCfgBtn_L_4 + GameCfgBtn_W &&
+				GameCfgBtn_T_2 <= y && y < GameCfgBtn_T_2 + GameCfgBtn_H
+				)
+			{
+				GameConfig_Press_0402();
 			}
 
 			// ====
@@ -526,6 +544,7 @@ function <boolean> @@_Fusion() // ret: ? 融合した。
 			0 <= ny && ny < Field_YNum &&
 			@@_Table[nx][ny] != null &&
 			@@_Table[nx][ny].Exponent == @@_Table[x][y].Exponent &&
+			@@_Table[nx][ny].Exponent + 1 < P_数字パネル.length && // ? これ以上融合出来ない。(これより大きいパネルが無い)
 			@@_F_NotExistInXYPairs(xyPairs, x, y) &&
 			@@_F_NotExistInXYPairs(xyPairs, nx, ny)
 			)
@@ -627,7 +646,7 @@ function <boolean> @@_TryAddNewPanel() // ret: ? 設置完了
 		}
 	}
 
-	@@_Table[x][y] = CreatePanel(GetRand(3));
+	@@_Table[x][y] = CreatePanel(GetRand(NewPanelExponentLmt));
 
 	var<D2Point_t> draw_pt = TablePointToDrawPoint(CreateI2Point(x, y));
 
@@ -646,14 +665,20 @@ function <void> @@_DrawWall()
 	PrintRect(0, 0, Screen_W, Screen_H);
 
 	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_1, "横幅▲", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_1, "横幅▼", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_1, "Auto(時計回)", AutoMode && !AutoMode_CCW);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_2, "高さ▲", false);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_1, "高さ▲", false);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_1, "NP-Max▲", false);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_4, GameCfgBtn_T_1, "Auto(時計回)", AutoMode && !AutoMode_CCW);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_2, "横幅▼", false);
 	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_2, "高さ▼", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_2, "Auto(反時計)", AutoMode && AutoMode_CCW);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_2, "NP-Max▼", false);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_4, GameCfgBtn_T_2, "Auto(反時計)", AutoMode && AutoMode_CCW);
 
 	SetColor("#a0b0c0");
 	PrintRect(GameArea_L, GameArea_T, GameArea_W, GameArea_H);
+
+	SetPrint(GameArea_L + 5, GameArea_T + 30, 0);
+	SetColor("#000000");
+	PrintLine("NP : 1 ～ " + Math.pow(2, NewPanelExponentLmt - 1));
 
 	// 枠線描画
 	{
@@ -726,8 +751,8 @@ function <void> @@_DrawGaemCfgBtn(<int> l, <int> t, <string> text, <boolean> act
 	SetColor(activated ? "#ffff00" : "#ffffff");
 	PrintRect(l, t, GameCfgBtn_W, GameCfgBtn_H);
 	SetColor("#000000");
-	SetPrint(l + 20, t + 60, 0);
-	SetFSize(40);
+	SetPrint(l + 30, t + 55, 0);
+	SetFSize(28);
 	PrintLine(text);
 }
 

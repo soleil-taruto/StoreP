@@ -15,11 +15,17 @@ function <void> GameConfig_Press_0101()
 
 function <void> GameConfig_Press_0201()
 {
-	Field_XNum--;
+	Field_YNum++;
 	@@_FieldXYNumChanged();
 }
 
 function <void> GameConfig_Press_0301()
+{
+	NewPanelExponentLmt++;
+	@@_NewPanelExponentLmtChanged();
+}
+
+function <void> GameConfig_Press_0401()
 {
 	AutoMode = !AutoMode || AutoMode_CCW;
 	AutoMode_CCW = false;
@@ -29,7 +35,7 @@ function <void> GameConfig_Press_0301()
 
 function <void> GameConfig_Press_0102()
 {
-	Field_YNum++;
+	Field_XNum--;
 	@@_FieldXYNumChanged();
 }
 
@@ -40,6 +46,12 @@ function <void> GameConfig_Press_0202()
 }
 
 function <void> GameConfig_Press_0302()
+{
+	NewPanelExponentLmt--;
+	@@_NewPanelExponentLmtChanged();
+}
+
+function <void> GameConfig_Press_0402()
 {
 	AutoMode = !AutoMode || !AutoMode_CCW;
 	AutoMode_CCW = true;
@@ -80,4 +92,9 @@ function <void> @@_FieldXYNumChanged()
 		}
 		Game_SetTable(wTable);
 	}
+}
+
+function <void> @@_NewPanelExponentLmtChanged()
+{
+	NewPanelExponentLmt = ToRange(NewPanelExponentLmt, 1, P_êîéöÉpÉlÉã.length);
 }
