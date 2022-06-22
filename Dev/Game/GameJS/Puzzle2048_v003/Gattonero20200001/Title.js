@@ -2,8 +2,8 @@
 	ƒ^ƒCƒgƒ‹‰æ–Ê
 */
 
-var<int> @@_BUTTON_L = 300;
-var<int> @@_BUTTON_T = 470;
+var<int> @@_BUTTON_L = 400;
+var<int> @@_BUTTON_T = 800;
 var<int> @@_BUTTON_W = 200;
 var<int> @@_BUTTON_H = 55;
 var<int> @@_BUTTON_Y_STEP = 70;
@@ -91,8 +91,8 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 400, 0);
-		SetFSize(300);
+		SetPrint(30, 600, 0);
+		SetFSize(380);
 		PrintLine("2048");
 
 		for (var button of @@_Buttons)

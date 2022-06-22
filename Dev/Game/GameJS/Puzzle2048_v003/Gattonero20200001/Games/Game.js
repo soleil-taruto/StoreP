@@ -190,6 +190,7 @@ function* <generatorForTask> GameMain()
 			{
 				switch (@@_Gravity)
 				{
+				case -1:
 				case 2: inputGravity = 6; break;
 				case 4: inputGravity = 2; break;
 				case 8: inputGravity = 4; break;
@@ -200,6 +201,7 @@ function* <generatorForTask> GameMain()
 			{
 				switch (@@_Gravity)
 				{
+				case -1:
 				case 2: inputGravity = 4; break;
 				case 4: inputGravity = 8; break;
 				case 8: inputGravity = 6; break;
