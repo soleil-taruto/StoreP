@@ -35,8 +35,8 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 			// ? \•ª‹ß‚Ã‚¢‚½B-> ˆÚ“®Š®—¹
 			if (
-				Math.abs(enemy.X - enemy.DestPt.X) < 0.1 &&
-				Math.abs(enemy.Y - enemy.DestPt.Y) < 0.1
+				Math.abs(enemy.X - enemy.DestPt.X) < 0.5 &&
+				Math.abs(enemy.Y - enemy.DestPt.Y) < 0.5
 				)
 			{
 				enemy.X = enemy.DestPt.X;
