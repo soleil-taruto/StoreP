@@ -9,6 +9,6 @@
 
 </script>
 </head>
-<body>
+<body style="background-color: #808080;">
 </body>
 </html>

@@ -164,7 +164,10 @@ function <void> AddEffect_BornPanel(<double> x, <double> y, <int> exponent)
 	{
 		var<double> rot = GetRand2() * 7.0;
 
-		for (var<Scene_t> scene of CreateScene(20))
+		// オートモード時は早めに終わる。
+		// -- オートモードの時はすぐに落下するため、エフェクトが残っていると違和感があるため。
+
+		for (var<Scene_t> scene of CreateScene(AutoMode ? 10 : 20))
 		{
 			Draw(
 				P_数字パネル[exponent],
