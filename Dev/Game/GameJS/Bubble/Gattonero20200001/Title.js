@@ -5,7 +5,7 @@
 var<int> @@_BUTTON_W = 200;
 var<int> @@_BUTTON_H = 55;
 var<int> @@_BUTTON_L = ToInt((Screen_W - @@_BUTTON_W) / 2);
-var<int> @@_BUTTON_T = 470;
+var<int> @@_BUTTON_T = 500;
 var<int> @@_BUTTON_Y_STEP = 70;
 
 var<I3Color_t> @@_BUTTON_BACK_COLOR = CreateI3Color(255, 255, 128);
@@ -91,9 +91,9 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(45, 200, 0);
-		SetFSize(60);
-		PrintLine("Åùrchanoid");
+		SetPrint(50, 300, 0);
+		SetFSize(90);
+		PrintLine("Bubble_Shooter");
 
 		for (var button of @@_Buttons)
 		{
