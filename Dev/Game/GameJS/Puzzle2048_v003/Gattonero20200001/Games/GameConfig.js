@@ -96,5 +96,6 @@ function <void> @@_FieldXYNumChanged()
 
 function <void> @@_NewPanelExponentLmtChanged()
 {
-	NewPanelExponentLmt = ToRange(NewPanelExponentLmt, 1, P_数字パネル.length);
+	NewPanelExponentLmt = ToRange(NewPanelExponentLmt, 1, 33);
+//	NewPanelExponentLmt = ToRange(NewPanelExponentLmt, 1, P_数字パネル.length);
 }

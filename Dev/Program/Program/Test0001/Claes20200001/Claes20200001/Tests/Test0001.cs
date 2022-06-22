@@ -13,5 +13,22 @@ namespace Charlotte.Tests
 		{
 			SCommon.ToThrowPrint(() => SCommon.ToThrow(() => { }));
 		}
+
+		public void Test02()
+		{
+			for (int exponent = 33; exponent <= 64; exponent++)
+			{
+				double val = Math.Pow(2, exponent);
+
+				Console.WriteLine(exponent + " --> " + T2_Fltr01(val.ToString("e0")));
+			}
+		}
+
+		private string T2_Fltr01(string str)
+		{
+			str = str.Replace("+0", "+");
+			str = str.Replace("+0", "+");
+			return str;
+		}
 	}
 }
