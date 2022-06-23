@@ -168,9 +168,6 @@ function* <generatorForTask> GameMain()
 					@@_Enemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
 					KillShot(shot);
-
-					BubbleRelation_’…’e‚É‚æ‚é”š”­—\–ñ(@@_Enemies, @@_Enemies[@@_Enemies.length - 1]);
-					BubbleRelation_ŒÇ—§‚É‚æ‚é”š”­—\–ñ(@@_Enemies);
 				}
 			}
 		}
@@ -209,11 +206,17 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
+		for (var<Enemy_t> enemy of @@_Enemies)
+		{
+			if (FIELD_B - 100.0 < enemy.Y) // ? ‰º‚·‚¬‚éB
+			{
+				KillEnemy(enemy);
+			}
+		}
+
 		// ====
 		// “–‚½‚è”»’è‚±‚±‚Ü‚Å
 		// ====
-
-		BubbleRelation_—\–ñ‚É‚æ‚é”š”­(@@_Enemies);
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
