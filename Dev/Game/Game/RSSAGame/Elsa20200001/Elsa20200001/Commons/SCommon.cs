@@ -2473,9 +2473,9 @@ namespace Charlotte.Commons
 				return a.GetValueForCompare() != b.GetValueForCompare();
 			}
 
-			public override bool Equals(object other)
+			public override bool Equals(object another)
 			{
-				return other is SimpleDateTime && this == (SimpleDateTime)other;
+				return another is SimpleDateTime && this == (SimpleDateTime)another;
 			}
 
 			public override int GetHashCode()
