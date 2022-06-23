@@ -132,8 +132,8 @@ C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Effect.js(161) : AddE
 C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(29) : TablePointToDrawPoint // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(43) : DrawPointToTablePoint // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(54) : GameMain // ä÷êî
-C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(759) : Game_GetTable // ä÷êî
-C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(764) : Game_SetTable // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(762) : Game_GetTable // ä÷êî
+C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(767) : Game_SetTable // ä÷êî
 C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(5) : AutoMode // ïœêî
 C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(6) : AutoMode_CCW // ïœêî
 C:\Dev\Game\GameJS\Puzzle2048_v003\Gattonero20200001\Games\Game.js(8) : NewPanelExponentLmt // ïœêî

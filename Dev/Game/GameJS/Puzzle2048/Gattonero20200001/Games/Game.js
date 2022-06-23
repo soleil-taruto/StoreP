@@ -488,9 +488,12 @@ function <void> @@_AddNewPanel()
 		return;
 	}
 
-	while (!@@_TryAddNewPanel())
+	for (var<int> c = 0; c < 100; c++) // rough limit -- ƒgƒ‰ƒC‰ñ”
 	{
-		// noop
+		if (@@_TryAddNewPanel())
+		{
+			break;
+		}
 	}
 }
 
