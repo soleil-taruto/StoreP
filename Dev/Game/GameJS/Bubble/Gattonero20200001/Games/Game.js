@@ -130,6 +130,8 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
+		@@_DrawFront();
+
 		// ====
 		// •`‰æ‚±‚±‚Ü‚Å
 		// ====
@@ -166,6 +168,9 @@ function* <generatorForTask> GameMain()
 					@@_Enemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
 					KillShot(shot);
+
+					BubbleRelation_’…’e‚É‚æ‚é”š”­—\–ñ(@@_Enemies, @@_Enemies[@@_Enemies.length - 1]);
+					BubbleRelation_ŒÇ—§‚É‚æ‚é”š”­—\–ñ(@@_Enemies);
 				}
 			}
 		}
@@ -208,6 +213,8 @@ function* <generatorForTask> GameMain()
 		// “–‚½‚è”»’è‚±‚±‚Ü‚Å
 		// ====
 
+		BubbleRelation_—\–ñ‚É‚æ‚é”š”­(@@_Enemies);
+
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
 			return enemy.HP == -1; // ? Ž€–S
@@ -222,8 +229,26 @@ function* <generatorForTask> GameMain()
 	}
 }
 
-function @@_DrawWall()
+function <void> @@_DrawWall()
 {
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
 	PrintRect(0, 0, Screen_W, Screen_H);
+}
+
+function <void> @@_DrawFront()
+{
+	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
+	PrintRect(0, Screen_H - 30, Screen_W, 30);
+
+	for (var<int> c = SubsequentBallColors.length - 1; 0 <= c; c--)
+	{
+		Draw(
+			P_Balls[SubsequentBallColors[c]],
+			15 + (Screen_W - 30) / (SubsequentBallColors.length - 1) * c,
+			Screen_H - 15,
+			1.0,
+			0.0,
+			1.0
+			);
+	}
 }

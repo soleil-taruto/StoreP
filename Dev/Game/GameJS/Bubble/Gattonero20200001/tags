@@ -139,9 +139,9 @@ C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\00_Consts.js(33) : CHARGE_FRAM
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\00_Consts.js(36) : SUBSEQUENT_BALL_MAX // •Ï”
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ŠÖ”
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ŠÖ”
-C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(34) : GameMain // ŠÖ”
-C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(24) : SubsequentBallColors // •Ï”
-C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(32) : ChargeFrame // •Ï”
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(28) : GameMain // ŠÖ”
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(18) : SubsequentBallColors // •Ï”
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(26) : ChargeFrame // •Ï”
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy // ŠÖ”
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // ŠÖ”
