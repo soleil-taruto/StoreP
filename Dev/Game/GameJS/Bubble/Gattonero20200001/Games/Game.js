@@ -168,6 +168,8 @@ function* <generatorForTask> GameMain()
 					@@_Enemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
 					KillShot(shot);
+
+					yield* BubbleRelation_’…’e‚É‚æ‚é”š”­(@@_Enemies, @@_Enemies[@@_Enemies.length - 1]);
 				}
 			}
 		}
@@ -199,6 +201,8 @@ function* <generatorForTask> GameMain()
 				@@_Enemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
 				KillShot(shot);
+
+				yield* BubbleRelation_’…’e‚É‚æ‚é”š”­(@@_Enemies, @@_Enemies[@@_Enemies.length - 1]);
 			}
 			if (FIELD_B < shot.Y)
 			{
