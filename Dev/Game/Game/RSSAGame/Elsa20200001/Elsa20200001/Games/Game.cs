@@ -1089,7 +1089,7 @@ namespace Charlotte.Games
 
 				// 廃止
 				//if (DDKey.GetInput(DX.KEY_INPUT_E) == 1)
-				//    break;
+				//	break;
 
 				I2Point cellPos = GameCommon.ToTablePoint(
 					DDGround.Camera.X + DDMouse.X,

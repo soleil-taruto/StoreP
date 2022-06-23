@@ -46,7 +46,7 @@ namespace Charlotte.Games.Enemies.Tests
 
 				// 壁衝突判定
 				//if (Game.I.Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.X, this.Y))).Tile.IsWall())
-				//    break;
+				//	break;
 
 				if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), CHARA_R * 1.2))
 				{

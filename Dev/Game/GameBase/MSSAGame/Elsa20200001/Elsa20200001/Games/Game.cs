@@ -132,7 +132,7 @@ namespace Charlotte.Games
 
 				// 死亡時にカメラ移動を止める。
 				//if (this.Player.DeadFrame == 0)
-				//    this.カメラ位置調整(false);
+				//	this.カメラ位置調整(false);
 
 				this.カメラ位置調整(false);
 
@@ -773,7 +773,7 @@ namespace Charlotte.Games
 
 			// 不要
 			//if (this.Map.W * GameConsts.TILE_W - DDConsts.Screen_W < GameConsts.TILE_W) // ? カメラの横の可動域が1タイルより狭い場合
-			//    targCamX = (this.Map.W * GameConsts.TILE_W - DDConsts.Screen_W) / 2; // 中心に合わせる。
+			//	targCamX = (this.Map.W * GameConsts.TILE_W - DDConsts.Screen_W) / 2; // 中心に合わせる。
 
 			if (this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H < GameConsts.TILE_H) // ? カメラの縦の可動域が1タイルより狭い場合
 				targCamY = (this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H) / 2; // 中心に合わせる。
@@ -808,7 +808,7 @@ namespace Charlotte.Games
 
 				// 廃止
 				//if (DDKey.GetInput(DX.KEY_INPUT_E) == 1)
-				//    break;
+				//	break;
 
 				I2Point cellPos = GameCommon.ToTablePoint(
 					DDGround.Camera.X + DDMouse.X,
@@ -1212,14 +1212,14 @@ namespace Charlotte.Games
 
 			//switch (this.Status.Equipment)
 			//{
-			//    case GameStatus.Equipment_e.Normal: tableMenu.SetSelectedPosition(0, 1); break;
-			//    case GameStatus.Equipment_e.跳ねる陰陽玉: tableMenu.SetSelectedPosition(0, 2); break;
-			//    case GameStatus.Equipment_e.ハンマー陰陽玉: tableMenu.SetSelectedPosition(0, 3); break;
-			//    case GameStatus.Equipment_e.エアーシューター: tableMenu.SetSelectedPosition(0, 4); break;
-			//    case GameStatus.Equipment_e.マグネットエアー: tableMenu.SetSelectedPosition(0, 5); break;
+			//	case GameStatus.Equipment_e.Normal: tableMenu.SetSelectedPosition(0, 1); break;
+			//	case GameStatus.Equipment_e.跳ねる陰陽玉: tableMenu.SetSelectedPosition(0, 2); break;
+			//	case GameStatus.Equipment_e.ハンマー陰陽玉: tableMenu.SetSelectedPosition(0, 3); break;
+			//	case GameStatus.Equipment_e.エアーシューター: tableMenu.SetSelectedPosition(0, 4); break;
+			//	case GameStatus.Equipment_e.マグネットエアー: tableMenu.SetSelectedPosition(0, 5); break;
 
-			//    default:
-			//        break;
+			//	default:
+			//		break;
 			//}
 
 			for (bool keepMenu = true; keepMenu; )
