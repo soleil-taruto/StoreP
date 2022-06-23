@@ -22,6 +22,14 @@ function <void> AddElement(<T[]> arr, <T> element)
 	InsertElement(arr, arr.length, element);
 }
 
+function <void> AddElements(<T[]> arr, <T[]> elements)
+{
+	for (var<T> element of elements)
+	{
+		AddElement(arr, element);
+	}
+}
+
 function <void> DesertElement(<T[]> arr, <int> index)
 {
 	if (index < 0 || arr.length <= index)

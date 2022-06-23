@@ -6,6 +6,8 @@
 
 /// Shot_t
 {
+	<Shot_Kind_e> Kind // 自弾の種類
+
 	<double> X // X-位置
 	<double> Y // Y-位置
 
@@ -27,7 +29,7 @@
 
 	<Crash_t> Crash; // 今フレームの当たり判定置き場
 
-	<Action_Enemy_t> Dead // 死亡イベント
+	<Action Enemy_t> Dead // 死亡イベント
 }
 
 @(ASTR)/

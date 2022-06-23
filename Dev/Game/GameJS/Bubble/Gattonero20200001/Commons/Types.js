@@ -13,3 +13,20 @@
 }
 
 @(ASTR)/
+
+/*
+	プリミティブ型
+*/
+/// int
+/// double
+/// string
+/// void
+/// generatorForTask
+/// Action
+/// Func
+
+/*
+	標準クラス
+*/
+/// Audio
+/// Image

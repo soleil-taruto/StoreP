@@ -8,8 +8,41 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
+// 追加・敵リスト
+var<Enemy_t[]> @@_AddedEnemies = [];
+
+// 追加・自弾リスト
+var<Shot_t[]> @@_AddedShots = [];
+
+/*
+	次以降の自弾リスト
+	----
+	長さ：SUBSEQUENT_BALL_MAX
+	[0] == 次
+	[SUBSEQUENT_BALL_MAX - 1] == 最後
+*/
+var<BallColor_e[]> SubsequentBallColors;
+
+/*
+	射出チャージ期間
+	----
+	0 == 無効
+	1～ == チャージ期間中
+*/
+var<int> ChargeFrame = 0;
+
 function* <generatorForTask> GameMain()
 {
+	// init SubsequentBallColors
+	{
+		SubsequentBallColors = [];
+
+		for (var<int> c = 0; c < SUBSEQUENT_BALL_MAX; c++)
+		{
+			SubsequentBallColors.push(GetRand(P_Balls.length));
+		}
+	}
+
 	for (; ; )
 	{
 		@@_DrawWall();
@@ -17,10 +50,10 @@ function* <generatorForTask> GameMain()
 		var<double> mx = GetMouseX();
 		var<double> my = GetMouseY();
 
-		if (@@_ShootingFrame == 0) // ? 射出中ではない -> 射出方向を描画する。射出可能
+		if (ChargeFrame == 0) // ? 射出可能
 		{
-			var<double> sx = @@_Shooter_X;
-			var<double> sy = Screen_H;
+			var<double> sx = FIELD_W / 2;
+			var<double> sy = FIELD_H;
 
 			var<double> shootRad = GetAngle(mx - sx, my - sy);
 
@@ -39,93 +72,37 @@ function* <generatorForTask> GameMain()
 				pt.X += sx;
 				pt.Y += sy;
 
-				Draw(P_弾道, pt.X, pt.Y, 0.5, 0.0, 1.0);
+				Draw(P_軌道, pt.X, pt.Y, 0.5, 0.0, 1.0);
 			}
 
-			Draw(P_Ball, @@_Shooter_X, Screen_H, 0.5, 0.0, 1.0); // 描画：射出位置
+			Draw(P_Balls[SubsequentBallColors[0]], sx, sy, 0.5, 0.0, 1.0); // 描画：射出位置
 
-			if (GetMouseDown() == -1) // 射出可能 ⇒ 射出中
+			if (GetMouseDown() == -1) // 射出可能 ⇒ チャージ中
 			{
-				@@_ShootingFrame = 1;
-				@@_ShootingAngle = shootRad;
-				@@_Return_X = null;
+				var<D2Point_t> speed = AngleToPoint(shootRad, BALL_SPEED);
+
+				ChargeFrame = 1;
+				@@_AddedShots.push(CreateShot_Ball(sx, sy, speed.X, speed.Y, SubsequentBallColors[0]));
+				SubsequentBallColors.shift();
+				SubsequentBallColors.push(GetRand(P_Balls.length));
 			}
 		}
-		else // ? 射出中 -- 射出不可
+		else // ? チャージ中
 		{
-			var<int> SHOOT_PER_FRAME = 10;
-			var<boolean> completed = false;
+			var<boolean> ended = false; // ? チャージ終了
 
-			@@_ShootingFrame = Math.max(@@_ShootingFrame, SHOOT_PER_FRAME); // フレーム・カウント調整
-
-			if (@@_ShootingFrame / SHOOT_PER_FRAME <= @@_BallStockNum) // ? 射出未完了
+			if (ChargeFrame == CHARGE_FRAME_MAX)
 			{
-				if (@@_ShootingFrame % SHOOT_PER_FRAME == 0)
-				{
-					var<double> x = @@_Shooter_X;
-					var<double> y = Screen_H;
-
-					var<D2Point_t> speed = AngleToPoint(@@_ShootingAngle, BALL_SPEED);
-
-					var<double> xAdd = speed.X;
-					var<double> yAdd = speed.Y;
-
-					@@_Shots.push(CreateShot_Ball(x, y, xAdd, yAdd));
-				}
-
-				Draw(P_Ball, @@_Shooter_X, Screen_H, 0.5, 0.0, 1.0); // 描画：射出位置
-			}
-			else // ? 射出完了
-			{
-				if (@@_Shots.length == 0)
-				{
-					completed = true;
-				}
+				ended = true;
 			}
 
-			if (@@_Return_X != null)
+			if (ended) // チャージ中 ⇒ 射出可能
 			{
-				Draw(P_Ball, @@_Return_X, Screen_H, 0.5, 0.0, 1.0); // 描画：次回射出位置
+				ChargeFrame = 0;
 			}
-
-			if (completed) // 射出中 ⇒ 射出可能
+			else // まだチャージ中
 			{
-				@@_ShootingFrame = 0;
-				@@_Shooter_X = @@_Return_X;
-
-				for (var<int> c = 0; c < 7; c++) // 追加
-				{
-					var<double> x = 30.0 + c * 60.0;
-					var<double> y = -30.0;
-
-					var<Enemy_t> enemy;
-
-					switch (GetRand(9))
-					{
-					case 0: enemy = CreateEnemy_CircleBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
-					case 1: enemy = CreateEnemy_CircleBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
-					case 2: enemy = CreateEnemy_CircleBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
-					case 3: enemy = CreateEnemy_SquareBlock(x, y, 10, Enemy_Block_Kind_e_SOFT); break;
-					case 4: enemy = CreateEnemy_SquareBlock(x, y, 20, Enemy_Block_Kind_e_NORM); break;
-					case 5: enemy = CreateEnemy_SquareBlock(x, y, 40, Enemy_Block_Kind_e_HARD); break;
-					case 6: enemy = null; break;
-					case 7: enemy = null; break;
-					case 8: enemy = null; break;
-					}
-
-					if (enemy != null)
-					{
-						@@_Enemies.push(enemy);
-					}
-				}
-				for (var<Enemy_t> enemy of @@_Enemies) // 落下
-				{
-					enemy.DestPt = CreateD2Point(enemy.X, enemy.Y + 60.0);
-				}
-			}
-			else
-			{
-				@@_ShootingFrame++;
+				ChargeFrame++;
 			}
 		}
 
@@ -187,98 +164,14 @@ function* <generatorForTask> GameMain()
 
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。
 				{
-					// ブロックを撃破した場合でも跳ね返らせるため、跳ね返り処理をダメージ処理の前に行う。
+					var<D2Point_t> pt = MakeXYSpeed(enemy.X, enemy.Y, shot.X, shot.Y, 30.0);
 
-					// 跳ね返り
-					{
-						var<double> crashedAngle;
+					var<double> x = enemy.X + pt.X;
+					var<double> y = enemy.Y + pt.Y;
 
-						if (enemy.Kind == Enemy_Kind_e_CIRCLE)
-						{
-							crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // 円形ブロックの中心から見たボールの角度
-						}
-						else if (enemy.Kind == Enemy_Kind_e_SQUARE)
-						{
-							if (LastCrashed_矩形の角から見た円形_Angle != null)
-							{
-								crashedAngle = LastCrashed_矩形の角から見た円形_Angle;
-							}
-							else
-							{
-								crashedAngle = GetAngle(shot.X - enemy.X, shot.Y - enemy.Y); // 正方形ブロックの中心から見たボールの角度
+					@@_AddedEnemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
-								if (crashedAngle < (Math.PI / 4) * 1)
-								{
-									crashedAngle = 0.0;
-								}
-								else if (crashedAngle < (Math.PI / 4) * 3)
-								{
-									crashedAngle = Math.PI / 2;
-								}
-								else if (crashedAngle < (Math.PI / 4) * 5)
-								{
-									crashedAngle = Math.PI;
-								}
-								else if (crashedAngle < (Math.PI / 4) * 7)
-								{
-									crashedAngle = Math.PI * 1.5;
-								}
-								else
-								{
-									crashedAngle = 0.0;
-								}
-							}
-						}
-						else
-						{
-							error();
-						}
-
-						var<double> shotAngle = GetAngle(shot.XAdd, shot.YAdd);
-
-						shotAngle -= crashedAngle; // 相対角度に変換
-
-						while (Math.PI < shotAngle)
-						{
-							shotAngle -= Math.PI * 2;
-						}
-						while (shotAngle < -Math.PI)
-						{
-							shotAngle += Math.PI * 2;
-						}
-
-						if (Math.PI / 2 < shotAngle)
-						{
-							shotAngle = Math.PI - shotAngle;
-						}
-						else if (shotAngle < -Math.PI / 2)
-						{
-							shotAngle = -Math.PI - shotAngle;
-						}
-						else
-						{
-							shotAngle /= 2; // zantei
-						}
-
-						shotAngle += crashedAngle; // 相対角度を解除
-
-						var<D2Point_t> shotSpeed = AngleToPoint(shotAngle, BALL_SPEED);
-
-						shot.XAdd = shotSpeed.X;
-						shot.YAdd = shotSpeed.Y;
-					}
-					// 跳ね返り end
-
-					enemy.HP -= shot.AttackPoint;
-
-					if (enemy.HP <= 0) // ? 死亡した。
-					{
-						enemy.HP = 0; // 削りすぎを解消
-
-						KillEnemy(enemy);
-
-						break; // この敵は死亡したので、以降の自弾については判定不要、次の敵へ。
-					}
+					KillShot(shot);
 				}
 			}
 		}
@@ -287,58 +180,39 @@ function* <generatorForTask> GameMain()
 		{
 			var<Shot_t> shot = @@_Shots[index];
 
-			if (shot.X < 0.0)
+			if (shot.AttackPoint == -1) // ? 既に死亡
+			{
+				continue;
+			}
+
+			if (shot.X < FIELD_L)
 			{
 				shot.XAdd = Math.abs(shot.XAdd);
 			}
-			if (Screen_W < shot.X)
+			if (FIELD_R < shot.X)
 			{
 				shot.XAdd = Math.abs(shot.XAdd) * -1;
 			}
-			if (shot.Y < 0.0)
+			if (shot.Y < FIELD_T)
 			{
-				shot.YAdd = Math.abs(shot.YAdd);
+				var<double> x = shot.X;
+				var<double> y = 15.0;
+
+				x = ToRange(x, FIELD_L + 15.0, FIELD_R - 15.0);
+
+				@@_AddedEnemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
+
+				KillShot(shot);
 			}
-			if (Screen_H < shot.Y)
+			if (FIELD_B < shot.Y)
 			{
 				shot.AttackPoint = -1;
-
-				if (@@_Return_X == null)
-				{
-					@@_Return_X = shot.X;
-				}
-
-				AddEffect(function* <generatorForTask> ()
-				{
-					var<double> x = shot.X;
-
-					for (var<int> c = 0; c < 20; c++)
-					{
-						x = Approach(x, @@_Return_X, 0.9);
-
-						Draw(P_Ball, x, Screen_H, 0.5, 0.0, 1.0);
-
-						yield 1;
-					}
-				}());
 			}
 		}
 
 		// ====
 		// 当たり判定ここまで
 		// ====
-
-		// 画面下部に達したブロックの消去
-		for (var<Enemy_t> enemy of @@_Enemies)
-		{
-			if (
-				enemy.DestPt == null && // ? 移動完了
-				Screen_H - 100.0 < enemy.Y // ? 画面下部に達した。
-				)
-			{
-				KillEnemy(enemy);
-			}
-		}
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
@@ -349,6 +223,12 @@ function* <generatorForTask> GameMain()
 		{
 			return shot.AttackPoint == -1; // ? 死亡
 		});
+
+		AddElements(@@_Enemies, @@_AddedEnemies);
+		AddElements(@@_Shots, @@_AddedShots);
+
+		@@_AddedEnemies = [];
+		@@_AddedShots = [];
 
 		yield 1;
 	}
