@@ -8,12 +8,6 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-// 追加・敵リスト
-var<Enemy_t[]> @@_AddedEnemies = [];
-
-// 追加・自弾リスト
-var<Shot_t[]> @@_AddedShots = [];
-
 /*
 	次以降の自弾リスト
 	----
@@ -82,7 +76,7 @@ function* <generatorForTask> GameMain()
 				var<D2Point_t> speed = AngleToPoint(shootRad, BALL_SPEED);
 
 				ChargeFrame = 1;
-				@@_AddedShots.push(CreateShot_Ball(sx, sy, speed.X, speed.Y, SubsequentBallColors[0]));
+				@@_Shots.push(CreateShot_Ball(sx, sy, speed.X, speed.Y, SubsequentBallColors[0]));
 				SubsequentBallColors.shift();
 				SubsequentBallColors.push(GetRand(P_Balls.length));
 			}
@@ -169,7 +163,7 @@ function* <generatorForTask> GameMain()
 					var<double> x = enemy.X + pt.X;
 					var<double> y = enemy.Y + pt.Y;
 
-					@@_AddedEnemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
+					@@_Enemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
 					KillShot(shot);
 				}
@@ -200,7 +194,7 @@ function* <generatorForTask> GameMain()
 
 				x = ToRange(x, FIELD_L + 15.0, FIELD_R - 15.0);
 
-				@@_AddedEnemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
+				@@_Enemies.push(CreateEnemy_Ball(x, y, 1, shot.Color));
 
 				KillShot(shot);
 			}
@@ -223,12 +217,6 @@ function* <generatorForTask> GameMain()
 		{
 			return shot.AttackPoint == -1; // ? 死亡
 		});
-
-		AddElements(@@_Enemies, @@_AddedEnemies);
-		AddElements(@@_Shots, @@_AddedShots);
-
-		@@_AddedEnemies = [];
-		@@_AddedShots = [];
 
 		yield 1;
 	}
