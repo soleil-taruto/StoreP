@@ -8,34 +8,6 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-/*
-	射出可能ボール数
-*/
-var<int> @@_BallStockNum = 10;
-
-/*
-	射出中フレーム
-	0 == 無効
-	1～ == 射出中
-*/
-var<boolean> @@_ShootingFrame = 0;
-
-/*
-	射出角度
-*/
-var<double> @@_ShootingAngle;
-
-/*
-	射出する X-位置
-*/
-var<double> @@_Shooter_X = Screen_W / 2;
-
-/*
-	帰ってきたボールの X-位置
-	null == 無効
-*/
-var<double> @@_Return_X = null;
-
 function* <generatorForTask> GameMain()
 {
 	for (; ; )

@@ -30,28 +30,31 @@
 	<Crash_t> Crash // 今フレームの当たり判定置き場
 
 	<Action_Enemy_t> Dead // 死亡イベント
-
-	<D2Point_t> DestPt // 移動先, null == 無効
 }
 
 @(ASTR)/
 
+/*
+	行動と描画
+*/
 function <boolean> DrawEnemy(<Enemy_t> enemy) // ret: ? 生存
 {
 	return enemy.Draw.next().value;
 }
 
+/*
+	死亡
+*/
 function <void> KillEnemy(<Enemy_t> enemy)
 {
 	if (enemy.HP != -1) // ? まだ死亡していない。
 	{
 		enemy.HP = -1; // 死亡させる。
-		EnemyDead(enemy);
+		@@_DeadEnemy(enemy);
 	}
 }
 
-// 死亡イベント実行
-function <void> EnemyDead(<Enemy_t> enemy)
+function <void> @@_DeadEnemy(<Enemy_t> enemy)
 {
 	enemy.Dead(enemy);
 }

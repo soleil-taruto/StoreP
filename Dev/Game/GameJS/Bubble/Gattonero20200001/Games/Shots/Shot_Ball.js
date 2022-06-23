@@ -23,15 +23,6 @@ function <Shot_t> CreateShot_Ball(<doule> x, <double> y, <double> xAdd, <double>
 	return ret;
 }
 
-/*
-	行動と描画
-	やるべきこと：
-	-- 移動
-	-- 当たり判定設置
-	-- 描画
-	戻り値：
-	-- ? 生存
-*/
 function* <generatorForTask> @@_Draw(<Shot_t> shot)
 {
 	for (; ; )

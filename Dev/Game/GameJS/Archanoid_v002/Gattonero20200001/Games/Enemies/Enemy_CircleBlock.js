@@ -46,8 +46,6 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 			}
 		}
 
-//		enemy.Y += ProcFrame % 2; // “®‚©‚È‚¢‚æI
-
 		// “–‚½‚è”»’è_İ’u
 		{
 			var<double> BLOCK_RAD = 30;

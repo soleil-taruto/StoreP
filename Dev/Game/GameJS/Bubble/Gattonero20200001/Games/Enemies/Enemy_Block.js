@@ -1,21 +1,20 @@
 /*
-	敵 - 円形ブロック
+	敵 - ブロック
 */
 
-function <Enemy_t> CreateEnemy_CircleBlock(<double> x, <double> y, <int> hp, <Enemy_Block_Kind_e> b_kind)
+function <Enemy_t> CreateEnemy_Block(<double> x, <double> y, <int> hp, <string> color)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_CIRCLE,
+		Kind: Enemy_Kind_e_BLOCK,
 		X: x,
 		Y: y,
 		HP: hp,
 		Crash: null,
-		DestPt: null,
 
 		// ここから固有
 
-		<Enemy_Block_Kind_e> B_Kind: b_kind,
+		<string> Color: color,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -46,8 +45,6 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 			}
 		}
 
-//		enemy.Y += ProcFrame % 2; // 動かないよ！
-
 		// 当たり判定_設置
 		{
 			var<double> BLOCK_RAD = 30;
@@ -60,23 +57,6 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		// ====
 
 		var<Image> picture;
-
-		if (enemy.B_Kind == Enemy_Block_Kind_e_SOFT)
-		{
-			picture = P_Circle_Soft;
-		}
-		else if (enemy.B_Kind == Enemy_Block_Kind_e_NORM)
-		{
-			picture = P_Circle_Norm;
-		}
-		else if (enemy.B_Kind == Enemy_Block_Kind_e_HARD)
-		{
-			picture = P_Circle_Hard;
-		}
-		else
-		{
-			error();
-		}
 
 		Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
 

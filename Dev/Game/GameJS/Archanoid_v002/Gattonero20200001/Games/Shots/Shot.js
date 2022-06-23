@@ -23,9 +23,9 @@
 	// -- 描画
 	// 偽を返すとブロックを破棄する。
 	//
-	<generatorForTask> Draw // 今フレームの当たり判定置き場
+	<generatorForTask> Draw
 
-	<Crash_t> Crash; // 当たり判定
+	<Crash_t> Crash; // 今フレームの当たり判定置き場
 
 	<Action_Enemy_t> Dead // 死亡イベント
 }
