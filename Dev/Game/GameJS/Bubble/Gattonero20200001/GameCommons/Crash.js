@@ -54,6 +54,11 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 		LastCrashed_‹éŒ`‚ÌŠp‚©‚çŒ©‚½‰~Œ`_Angle = null;
 	}
 
+	if (a == null || b == null)
+	{
+		return false;
+	}
+
 	if (b.Kind < a.Kind)
 	{
 		var tmp = a;
