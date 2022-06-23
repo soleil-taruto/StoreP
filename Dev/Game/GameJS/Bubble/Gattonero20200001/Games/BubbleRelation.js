@@ -93,15 +93,15 @@ function <void> @@_A_Reached(<Enemy_t> enemy)
 {
 	AddEffect(function* ()
 	{
-		for (var<Scene_t> scene of CreateScene(10))
+		for (var<Scene_t> scene of CreateScene(20))
 		{
 			Draw(
 				P_Balls[enemy.Color],
 				enemy.X,
 				enemy.Y,
-				0.5 * scene.RemRate,
+				1.0 * scene.RemRate,
 				0.0,
-				3.0
+				2.0 + 3.0 * scene.Rate,
 				);
 
 			yield 1;

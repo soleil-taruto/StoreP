@@ -37,6 +37,24 @@ function* <generatorForTask> GameMain()
 		}
 	}
 
+	// 初期ブロック配置
+	{
+		for (var<int> y = 0; y < 10; y++)
+		{
+			for (var<int> x = 0; ; x++)
+			{
+				var<double> px = 17 + 15 * (y % 2) + 30 * x;
+				var<double> py = 15 + 25 * y;
+
+				if (FIELD_R - 15 < px)
+				{
+					break;
+				}
+				@@_Enemies.push(CreateEnemy_Ball(px, py, 1, GetRand(P_Balls.length)));
+			}
+		}
+	}
+
 	for (; ; )
 	{
 		@@_DrawWall();
@@ -210,6 +228,8 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
+		// 下すぎるブロックを消去する。
+		//
 		for (var<Enemy_t> enemy of @@_Enemies)
 		{
 			if (FIELD_B - 100.0 < enemy.Y) // ? 下すぎる。
