@@ -11,17 +11,9 @@
 
 var<double> @@_EXPLODE_R = 45.0;
 
-function* <generatorForTask> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
+function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
 {
-	// メッセージ表示
-	{
-		SetColor("#ffffff60");
-		PrintRect(0, 300, Screen_W, 200);
-		SetColor("#000000");
-		SetPrint(30, 430, 0);
-		SetFSize(80);
-		PrintLine("CHECK-RELATION!");
-	}
+	enemies = CloneArray(enemies);
 
 	for (var<Enemy_t> enemy of enemies)
 	{
@@ -30,51 +22,52 @@ function* <generatorForTask> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, 
 
 	baseEnemy.@@_Reached = 1;
 
-	@@_DoReached(baseEnemy);
+	@@_A_Reached(baseEnemy);
 
-	for (var<boolean> extended = true; extended; )
+	AddEffect(function* ()
 	{
-		extended = false;
-
-		for (var<Enemy_t> enemy of enemies)
+		for (var<boolean> extended = true; extended; )
 		{
-			if (enemy.@@_Reached == 1)
+			extended = false;
+
+			for (var<Enemy_t> enemy of enemies)
 			{
-				enemy.@@_Reached = 2;
-				@@_Extend(enemies, enemy);
-				extended = true;
-				yield 1;
+				if (enemy.@@_Reached == 1)
+				{
+					enemy.@@_Reached = 2;
+					@@_Extend(enemies, enemy);
+					extended = true;
+					yield 1;
+				}
 			}
 		}
-	}
 
-	var<int> count = 0;
+		var<int> count = 0;
 
-	for (var<Enemy_t> enemy of enemies)
-	{
-		if (enemy.@@_Reached == 2)
-		{
-			count++;
-		}
-	}
-
-	/*
-	for (var<int> w = 0; w < 10; w++) // ウェイト
-	{
-		yield 1;
-	}
-	*/
-
-	if (3 <= count)
-	{
 		for (var<Enemy_t> enemy of enemies)
 		{
 			if (enemy.@@_Reached == 2)
 			{
-				KillEnemy(enemy);
+				count++;
 			}
 		}
-	}
+
+		if (3 <= count)
+		{
+			for (var<int> w = 0; w < 10; w++) // ウェイト
+			{
+				yield 1;
+			}
+
+			for (var<Enemy_t> enemy of enemies)
+			{
+				if (enemy.@@_Reached == 2)
+				{
+					KillEnemy(enemy);
+				}
+			}
+		}
+	}());
 }
 
 function <void> @@_Extend(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
@@ -91,19 +84,27 @@ function <void> @@_Extend(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
 		{
 			enemy.@@_Reached = 1;
 
-			@@_DoReached(enemy);
+			@@_A_Reached(enemy);
 		}
 	}
 }
 
-function <void> @@_DoReached(<Enemy_t> enemy)
+function <void> @@_A_Reached(<Enemy_t> enemy)
 {
-	Draw(
-		P_Balls[enemy.Color],
-		enemy.X,
-		enemy.Y,
-		0.5,
-		0.0,
-		3.0
-		);
+	AddEffect(function* ()
+	{
+		for (var<Scene_t> scene of CreateScene(10))
+		{
+			Draw(
+				P_Balls[enemy.Color],
+				enemy.X,
+				enemy.Y,
+				0.5 * scene.RemRate,
+				0.0,
+				3.0
+				);
+
+			yield 1;
+		}
+	}());
 }

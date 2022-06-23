@@ -17,8 +17,18 @@ function <void> AddEffect(<generatorForTask> effect)
 
 function <void> @(UNQN)_EACH()
 {
-	@@_Effects = @@_Effects.filter(<boolean> function(<generatorForTask> effect)
+	for (var<int> index = 0; index < @@_Effects.length; index++)
 	{
-		return effect.next().value;
-	});
+		var<generatorForTask> effect = @@_Effects[index];
+
+		if (effect.next().value) // ? true -> エフェクト継続
+		{
+			// noop
+		}
+		else // ? false -> エフェクト終了
+		{
+			@@_Effects[index] = null;
+		}
+	}
+	RemoveFalse(@@_Effects);
 }
