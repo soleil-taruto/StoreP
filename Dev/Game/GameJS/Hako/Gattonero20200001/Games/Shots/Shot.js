@@ -29,7 +29,7 @@
 
 	<Crash_t> Crash; // 今フレームの当たり判定置き場, null で初期化すること。
 
-	<Action Enemy_t> Dead // 死亡イベント
+	<Action Shot_t> Dead // 死亡イベント
 }
 
 @(ASTR)/

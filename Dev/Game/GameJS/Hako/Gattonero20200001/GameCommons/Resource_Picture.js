@@ -35,18 +35,12 @@ var<Image> P_WhiteCircle = @@_Load(Resources.General__WhiteCircle_png);
 
 // š‚±‚±‚Ü‚ÅŒÅ’è -- ‚¿‰ñ‚è_‹¤’Ê -- ƒTƒ“ƒvƒ‹‚Æ‚µ‚ÄƒL[ƒv
 
-var<Image> P_‹O“¹ = @@_Load(Resources.Picture__‹O“¹_png);
+var<Image> P_Background = @@_Load(Resources.Picture__Background_png);
+var<Image> P_Goal       = @@_Load(Resources.Picture__Goal_png);
+var<Image> P_Player     = @@_Load(Resources.Picture__Player_png);
+var<Image> P_Wall       = @@_Load(Resources.Picture__Wall_png);
+var<Image> P_Star_S     = @@_Load(Resources.Picture__Œõ‚é¯20_png);
 
-var<Image[]> P_Balls =
-[
-	@@_Load(Resources.Picture__00ff00_png),
-	@@_Load(Resources.Picture__00ffff_png),
-	@@_Load(Resources.Picture__0080ff_png),
-	@@_Load(Resources.Picture__ff0000_png),
-	@@_Load(Resources.Picture__ff00ff_png),
-	@@_Load(Resources.Picture__ff8000_png),
-	@@_Load(Resources.Picture__ffff00_png),
-	@@_Load(Resources.Picture__ffffff_png),
-];
-
-var<Image> P_Star_S = @@_Load(Resources.Picture__Œõ‚é¯20_png);
+var<Image> P_Enemy_B = @@_Load(Resources.Picture__“GÂ_png);
+var<Image> P_Enemy_R = @@_Load(Resources.Picture__“GÔ_png);
+var<Image> P_Enemy_G = @@_Load(Resources.Picture__“G—Î_png);

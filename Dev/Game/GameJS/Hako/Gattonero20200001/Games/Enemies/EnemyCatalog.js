@@ -4,4 +4,4 @@
 
 /// Enemy_Kind_e
 //
-var<int> Enemy_Kind_e_BALL = @(AUTO);
+var<int> Enemy_Kind_e_DUMMY = @(AUTO);

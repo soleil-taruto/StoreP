@@ -39,7 +39,7 @@ function <void> AddEffect_Explode(<double> x, <double> y)
 					pt.Y,
 					scene.RemRate,
 					rot,
-					1.0 + 0.5 * scene.RemRate
+					1.0
 					);
 
 				pt.X += speed.X;
