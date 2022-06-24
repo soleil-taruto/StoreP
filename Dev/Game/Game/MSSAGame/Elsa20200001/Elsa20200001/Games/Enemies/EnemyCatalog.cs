@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.GameCommons;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
 using Charlotte.Games.Enemies.Tests;
 using Charlotte.Games.Enemies.Tests.神奈子s;
 

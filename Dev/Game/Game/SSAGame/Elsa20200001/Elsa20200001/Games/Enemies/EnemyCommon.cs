@@ -12,7 +12,7 @@ namespace Charlotte.Games.Enemies
 	{
 		public static void Damaged(Enemy enemy, Shot shot)
 		{
-			// none ???
+			// none
 		}
 
 		public static void Killed(Enemy enemy)

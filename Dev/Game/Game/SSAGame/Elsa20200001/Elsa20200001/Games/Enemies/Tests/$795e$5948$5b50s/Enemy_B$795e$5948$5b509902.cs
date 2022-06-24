@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Tiles;
-using Charlotte.Commons;
 using Charlotte.Games.Tiles.Tests;
 
 namespace Charlotte.Games.Enemies.Tests.神奈子s

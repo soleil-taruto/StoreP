@@ -17,7 +17,7 @@ namespace Charlotte.Games.Enemies
 		/// <param name="shot">「被弾した敵」に当たった自弾</param>
 		public static void Damaged(Enemy enemy, Shot shot)
 		{
-			// noop ???
+			// noop
 		}
 
 		/// <summary>
