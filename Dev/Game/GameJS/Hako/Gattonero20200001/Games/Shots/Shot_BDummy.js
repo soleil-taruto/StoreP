@@ -1,12 +1,14 @@
 /*
-	自弾 - Dummy
+	自弾 - BDummy
+
+	★サンプルとしてキープ
 */
 
-function <Shot_t> CreateShot_00_Dummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)
+function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)
 {
 	var ret =
 	{
-		Kind: Shot_Kind_e_00_DUMMY,
+		Kind: Shot_Kind_e_BDummy,
 		X: x,
 		Y: y,
 		AttackPoint: 1,

@@ -1,12 +1,14 @@
 /*
-	敵 - ボール
+	敵 - BDummy
+
+	★サンプルとしてキープ
 */
 
-function <Enemy_t> CreateEnemy_00_Dummy(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_00_DUMMY,
+		Kind: Enemy_Kind_e_BDummy,
 		X: x,
 		Y: y,
 		HP: hp,
