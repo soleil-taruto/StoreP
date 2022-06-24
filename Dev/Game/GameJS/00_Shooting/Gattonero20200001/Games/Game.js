@@ -82,6 +82,7 @@ function* <generatorForTask> GameMain()
 
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? è’ìÀÇµÇƒÇ¢ÇÈÅB
 				{
+					// ...
 				}
 			}
 		}
@@ -117,14 +118,14 @@ function <void> @@_DrawFront()
 	PrintRect(0, 0, Screen_W, FIELD_T);
 	PrintRect(
 		0,
-		FIELD_T,
+		FIELD_B,
 		Screen_W,
-		Screen_H - FIELD_T
+		Screen_H - FIELD_B
 		);
 	PrintRect(
-		FIELD_L,
+		FIELD_R,
 		0,
-		Screen_W - FIELD_L,
+		Screen_W - FIELD_R,
 		Screen_H
 		);
 }

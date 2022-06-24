@@ -6,7 +6,7 @@ function <Enemy_t> CreateEnemy_00_Dummy(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_DUMMY,
+		Kind: Enemy_Kind_e_00_DUMMY,
 		X: x,
 		Y: y,
 		HP: hp,

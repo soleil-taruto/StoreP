@@ -2,11 +2,11 @@
 	Ž©’e - Dummy
 */
 
-function <Shot_t> CreateShot_Dummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)
+function <Shot_t> CreateShot_00_Dummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)
 {
 	var ret =
 	{
-		Kind: Shot_Kind_e_DUMMY,
+		Kind: Shot_Kind_e_00_DUMMY,
 		X: x,
 		Y: y,
 		AttackPoint: 1,

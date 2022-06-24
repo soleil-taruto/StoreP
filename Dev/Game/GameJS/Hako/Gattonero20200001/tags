@@ -143,13 +143,13 @@ C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // ŠÖ”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy_00_Dummy.js(5) : CreateEnemy_00_Dummy // ŠÖ”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\EnemyCatalog.js(5) : Enemy_Kind_e // ’è‹`
-C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\EnemyCatalog.js(7) : Enemy_Kind_e_DUMMY // •Ï”
+C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\EnemyCatalog.js(7) : Enemy_Kind_e_00_DUMMY // •Ï”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Enemies\EnemyCommon.js(5) : EnemyCommon_Dead // ŠÖ”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // ’è‹`
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\Shot.js(40) : DrawShot // ŠÖ”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\Shot.js(48) : KillShot // ŠÖ”
-C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\Shot_00_Dummy.js(5) : CreateShot_Dummy // ŠÖ”
+C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\Shot_00_Dummy.js(5) : CreateShot_00_Dummy // ŠÖ”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\ShotCatalog.js(5) : Shot_Kind_e // ’è‹`
-C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\ShotCatalog.js(7) : Shot_Kind_e_DUMMY // •Ï”
+C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\ShotCatalog.js(7) : Shot_Kind_e_00_DUMMY // •Ï”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Games\Shots\ShotCommon.js(5) : ShotCommon_Dead // ŠÖ”
 C:\Dev\Game\GameJS\Hako\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ŠÖ”
