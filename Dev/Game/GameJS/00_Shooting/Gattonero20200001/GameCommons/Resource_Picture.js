@@ -7,7 +7,7 @@ function <Image> @@_Load(<string> url)
 	LOGPOS();
 	Loading++;
 
-	var image = new Image();
+	var<Image> image = new Image();
 
 	image.src = url;
 	image.onload = function()
@@ -35,12 +35,4 @@ var<Image> P_WhiteCircle = @@_Load(Resources.General__WhiteCircle_png);
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Image> P_Background = @@_Load(Resources.Picture__Background_png);
-var<Image> P_Goal       = @@_Load(Resources.Picture__Goal_png);
-var<Image> P_Player     = @@_Load(Resources.Picture__Player_png);
-var<Image> P_Wall       = @@_Load(Resources.Picture__Wall_png);
-var<Image> P_Star_S     = @@_Load(Resources.Picture__光る星20_png);
-
-var<Image> P_Enemy_B = @@_Load(Resources.Picture__敵青_png);
-var<Image> P_Enemy_R = @@_Load(Resources.Picture__敵赤_png);
-var<Image> P_Enemy_G = @@_Load(Resources.Picture__敵緑_png);
+var<Image> P_Star_S = @@_Load(Resources.Picture__光る星20_png);

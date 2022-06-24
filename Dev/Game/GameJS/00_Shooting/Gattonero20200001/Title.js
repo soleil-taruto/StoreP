@@ -91,9 +91,9 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 350, 0);
-		SetFSize(260);
-		PrintLine("HAKO");
+		SetPrint(40, 320, 0);
+		SetFSize(160);
+		PrintLine("Template");
 
 		for (var button of @@_Buttons)
 		{
