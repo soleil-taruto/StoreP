@@ -91,9 +91,9 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(50, 300, 0);
-		SetFSize(90);
-		PrintLine("Bubble_Shooter");
+		SetPrint(30, 350, 0);
+		SetFSize(260);
+		PrintLine("HAKO");
 
 		for (var button of @@_Buttons)
 		{

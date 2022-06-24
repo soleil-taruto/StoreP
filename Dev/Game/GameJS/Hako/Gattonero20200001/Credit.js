@@ -20,7 +20,7 @@ function* <generatorForTask> CreditMain()
 		SetPrint(50, 80, 80);
 		SetFSize(24);
 
-		PrintLine("¡‘fŞ’ñ‹Ÿ(ŒhÌ—ª)");
+		PrintLine("¡‘fŞ (•¶šƒR[ƒh‡EŒhÌ—ª)");
 
 		var<string[]> credits = [ @(CRDT) ];
 

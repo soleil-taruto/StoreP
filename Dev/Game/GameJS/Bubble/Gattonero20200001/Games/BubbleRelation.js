@@ -54,7 +54,7 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 
 		if (3 <= count)
 		{
-			for (var<int> w = 0; w < 10; w++) // ウェイト
+			for (var<int> w = 0; w < 30; w++) // ウェイト
 			{
 				yield 1;
 			}

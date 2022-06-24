@@ -97,6 +97,7 @@ function* <generatorForTask> GameMain()
 				@@_Shots.push(CreateShot_Ball(sx, sy, speed.X, speed.Y, SubsequentBallColors[0]));
 				SubsequentBallColors.shift();
 				SubsequentBallColors.push(GetRand(P_Balls.length));
+				@@_Subsequent_ShiftXRate = 1.0;
 			}
 		}
 		else // ? É`ÉÉÅ[ÉWíÜ
@@ -262,6 +263,8 @@ function <void> @@_DrawWall()
 	PrintRect(0, 0, Screen_W, Screen_H);
 }
 
+var<double> @@_Subsequent_ShiftXRate = 0.0; // 0.0 Å` 1.0
+
 function <void> @@_DrawFront()
 {
 	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
@@ -271,11 +274,13 @@ function <void> @@_DrawFront()
 	{
 		Draw(
 			P_Balls[SubsequentBallColors[c]],
-			15 + (Screen_W - 30) / (SubsequentBallColors.length - 1) * c,
+			15 + (Screen_W - 30) / (SubsequentBallColors.length - 1) * (c + @@_Subsequent_ShiftXRate),
 			Screen_H - 15,
 			1.0,
 			0.0,
 			1.0
 			);
 	}
+
+	@@_Subsequent_ShiftXRate = Approach(@@_Subsequent_ShiftXRate, 0.0, 0.9);
 }
