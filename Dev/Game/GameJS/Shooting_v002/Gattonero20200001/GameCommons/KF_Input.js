@@ -1,5 +1,8 @@
 /*
 	入力
+
+	ファイル名 Input.js -> KF_Input.js の理由：
+	本ソースの @@_EACH() を Gamepad.js, Keyboard.js の *_EACH より後に実行する必要がある。
 */
 
 /*
@@ -68,6 +71,10 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 	return counter;
 }
 
+// ----
+// GetInput_X ここから
+// ----
+
 function <int> GetInput_2()
 {
 	return @@_Count_2;
@@ -104,4 +111,25 @@ function <int> GetInput_A()
 function <int> GetInput_B()
 {
 	return @@_Count_B;
+}
+
+// ----
+// GetInput_X ここまで
+// ----
+
+/*
+	キーやボタンの押しっぱなしを連打として検出する。
+
+	使用例：
+		if (IsPound(GetInput_A()))
+		{
+			// ...
+		}
+*/
+function <boolean> IsPound(<int> counter)
+{
+	var<int> POUND_FIRST_DELAY = 17;
+	var<int> POUND_DELAY = 4;
+
+	return counter == 1 || POUND_FIRST_DELAY < counter && (counter - POUND_FIRST_DELAY) % POUND_DELAY == 1;
 }

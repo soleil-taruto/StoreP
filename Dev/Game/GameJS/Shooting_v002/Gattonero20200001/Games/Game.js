@@ -12,14 +12,6 @@ function* <generatorForTask> GameMain()
 {
 	for (; ; )
 	{
-		if (GetMouseDown() == -1)
-		{
-			var<double> x = GetMouseX();
-			var<double> y = GetMouseY();
-
-			AddEffect_Explode(x, y);
-		}
-
 		// ====
 		// ï`âÊÇ±Ç±Ç©ÇÁ
 		// ====
@@ -52,16 +44,6 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
-		SetPrint(100, 100, 30);
-		SetFSize(20);
-		SetColor("#ff8000");
-		PrintLine(GetInput_2());
-		PrintLine(GetInput_4());
-		PrintLine(GetInput_6());
-		PrintLine(GetInput_8());
-		PrintLine(GetInput_A());
-		PrintLine(GetInput_B());
-
 		@@_DrawFront();
 
 		// ====
@@ -92,7 +74,21 @@ function* <generatorForTask> GameMain()
 
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? è’ìÀÇµÇƒÇ¢ÇÈÅB
 				{
-					// ...
+					var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
+
+					enemy.HP -= damagePoint;
+					shot.AttackPoint -= damagePoint;
+
+					if (enemy.HP <= 0) // ? éÄñSÇµÇΩÅB
+					{
+						KillEnemy(enemy);
+						break; // Ç±ÇÃìGÇÕéÄñSÇµÇΩÇÃÇ≈ÅAéüÇÃìGÇ÷êiÇﬁÅB
+					}
+					if (shot.AttackPoint <= 0) // ? çUåÇóÕÇégÇ¢â ÇΩÇµÇΩÅB
+					{
+						KillShot(shot);
+						continue; // Ç±ÇÃé©íeÇÕéÄñSÇµÇΩÇÃÇ≈ÅAéüÇÃé©íeÇ÷êiÇﬁÅB
+					}
 				}
 			}
 		}

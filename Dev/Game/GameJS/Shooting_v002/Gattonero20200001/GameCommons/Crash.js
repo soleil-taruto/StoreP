@@ -54,6 +54,9 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 		LastCrashed_‹éŒ`‚ÌŠp‚©‚çŒ©‚½‰~Œ`_Angle = null;
 	}
 
+	/*
+		Enemy_t.Crash, Shot_t.Crash ‚ªİ’è‚³‚ê‚¸‚É“–‚½‚è”»’è‚É“Ë“ü‚·‚éê‡‚ğ‘z’è‚µ‚Ä
+	*/
 	if (a == null || b == null)
 	{
 		return false;
