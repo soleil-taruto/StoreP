@@ -10,8 +10,12 @@ var<Shot_t[]> @@_Shots = [];
 
 function* <generatorForTask> GameMain()
 {
+	var<generatorForTask> gScenarioTask = ScenarioTask();
+
 	for (; ; )
 	{
+		gScenarioTask.next();
+
 		// ====
 		// •`‰æ‚±‚±‚©‚ç
 		// ====
