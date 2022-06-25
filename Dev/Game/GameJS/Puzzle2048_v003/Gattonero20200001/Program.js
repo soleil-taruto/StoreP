@@ -2,7 +2,7 @@
 	アプリケーション用メインモジュール
 */
 
-var<string> APP_IDENT = "{38e2fd96-2424-4de8-a020-88d6cfbebef9}"; // アプリ毎に変更する。
+var<string> APP_IDENT = "{c9e92c41-52cf-44fe-8c46-b5139531e666}";
 
 window.onload = function() { Main(); }; // エントリーポイント呼び出し
 
