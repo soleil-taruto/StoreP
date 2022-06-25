@@ -16,12 +16,12 @@ var @@_Status = {};
 
 function <void> @@_A_KeyDown(e)
 {
-	@@_Status["" + e.key] = true;
+	@@_Status["" + e.keyCode] = true;
 }
 
 function <void> @@_A_KeyUp(e)
 {
-	@@_Status["" + e.key] = false;
+	@@_Status["" + e.keyCode] = false;
 }
 
 var @@_Counters = {};
@@ -64,7 +64,7 @@ function <void> @@_EACH()
 /*
 	特定のキーの押下状態を得る。
 
-	key: キー名
+	key: キーコード
 
 	戻り値：
 		-1  == キーを離した。
@@ -72,9 +72,10 @@ function <void> @@_EACH()
 		1   == キーを押した。
 		2～ == キーを押し続けている。
 */
-function <int> GetKeyInput(<string> key)
+function <int> GetKeyInput(<int> keyCode)
 {
 	var ret;
+	var key = "" + keyCode;
 
 	if (key in @@_Counters)
 	{
@@ -91,7 +92,7 @@ function <int> GetKeyInput(<string> key)
 	全てのキーの押下状態を得る。
 
 	戻り値：連想配列
-		キー：キー名
+		キー：キーコードの文字列表現(10進数)
 		値：
 			-1  == キーを離した。
 			1   == キーを押した。

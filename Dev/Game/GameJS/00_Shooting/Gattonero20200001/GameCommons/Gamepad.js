@@ -48,6 +48,18 @@ function <void> @@_EACH()
 			}
 		}
 	}
+
+	// –µ‚‚µ‚½“ü—Í‚ğ‰ğÁ
+	{
+		if (@@_Dir_2 && @@_Dir_8)
+		{
+			@@_Dir_2 = false;
+		}
+		if (@@_Dir_4 && @@_Dir_6)
+		{
+			@@_Dir_4 = false;
+		}
+	}
 }
 
 function <boolean> GetPadInput_2()
@@ -72,5 +84,21 @@ function <boolean> GetPadInput_8()
 
 function <boolean> GetPadInput(<int> index)
 {
+	if (index == 102)
+	{
+		return GetPadInput_2();
+	}
+	if (index == 104)
+	{
+		return GetPadInput_4();
+	}
+	if (index == 106)
+	{
+		return GetPadInput_6();
+	}
+	if (index == 108)
+	{
+		return GetPadInput_8();
+	}
 	return !!@@_Status[index];
 }
