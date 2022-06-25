@@ -6,13 +6,8 @@ var<string> APP_IDENT = "{c9e92c41-52cf-44fe-8c46-b5139531e666}";
 
 window.onload = function()
 {
-	@@_MainB1();
+	Main();
 };
-
-function <void> @@_MainB1()
-{
-	@(ENTRY_POINT)
-}
 
 function <void> Main()
 {
