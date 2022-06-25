@@ -54,6 +54,10 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 		LastCrashed_矩形の角から見た円形_Angle = null;
 	}
 
+	/*
+		Enemy_t.Crash, Shot_t.Crash が設定されずに当たり判定に突入する場合を想定して。
+		当たり判定無しの場合 Crash は null のまま。
+	*/
 	if (a == null || b == null)
 	{
 		return false;
