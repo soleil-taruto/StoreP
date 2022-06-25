@@ -4,15 +4,21 @@
 
 var<string> APP_IDENT = "{c9e92c41-52cf-44fe-8c46-b5139531e666}";
 
-window.onload = function() { Main(); }; // エントリーポイント呼び出し
+window.onload = function()
+{
+	@@_MainB1();
+};
 
-// エントリーポイント
+function <void> @@_MainB1()
+{
+	@(ENTRY_POINT)
+}
+
 function <void> Main()
 {
 	ProcMain(@@_Main());
 }
 
-// メイン
 function* <generatorForTask> @@_Main()
 {
 	// リソース読み込み中は待機
