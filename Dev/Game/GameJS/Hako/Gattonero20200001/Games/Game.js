@@ -55,14 +55,12 @@ function* <generatorForTask> GameMain()
 		SetPrint(100, 100, 30);
 		SetFSize(20);
 		SetColor("#ff8000");
-		for (var c = 0; c < 10; c++)
-		{
-			PrintLine(GetPadInput(c));
-		}
-		PrintLine(GetPadInput_2());
-		PrintLine(GetPadInput_4());
-		PrintLine(GetPadInput_6());
-		PrintLine(GetPadInput_8());
+		PrintLine(GetInput_2());
+		PrintLine(GetInput_4());
+		PrintLine(GetInput_6());
+		PrintLine(GetInput_8());
+		PrintLine(GetInput_A());
+		PrintLine(GetInput_B());
 
 		@@_DrawFront();
 
