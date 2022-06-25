@@ -7,7 +7,7 @@ function <Image> @@_Load(<string> url)
 	LOGPOS();
 	Loading++;
 
-	var<Image> image = new Image();
+	var image = new Image();
 
 	image.src = url;
 	image.onload = function()
