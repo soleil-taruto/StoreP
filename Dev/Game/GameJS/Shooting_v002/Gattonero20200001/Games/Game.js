@@ -10,11 +10,15 @@ var<Shot_t[]> @@_Shots = [];
 
 function* <generatorForTask> GameMain()
 {
-	var<generatorForTask> gScenarioTask = ScenarioTask();
+	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
+	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
 
 	for (; ; )
 	{
-		gScenarioTask.next();
+		if (!f_scenarioTask())
+		{
+			break;
+		}
 
 		// ====
 		// •`‰æ‚±‚±‚©‚ç
@@ -22,12 +26,22 @@ function* <generatorForTask> GameMain()
 
 		@@_DrawWall();
 
-		// memo: €–S‚µ‚Ä‚¢‚é‚©ƒ`ƒFƒbƒN‚·‚é‚Ì‚Íu“–‚½‚è”»’èv‚©‚ç
+		// ”wŒi‚Ì•`‰æ
+		//
+		if (!f_backgroundTask())
+		{
+			error();
+		}
 
 		// “G‚Ì•`‰æ
 		//
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
+			if (@@_Enemies[index].HP == -1) // ? Šù‚É€–S
+			{
+				continue;
+			}
+
 			@@_Enemies[index].Crash = null; // reset
 
 			if (!DrawEnemy(@@_Enemies[index]))
@@ -40,6 +54,11 @@ function* <generatorForTask> GameMain()
 		//
 		for (var<int> index = 0; index < @@_Shots.length; index++)
 		{
+			if (@@_Shots[index].AttackPoint == -1) // ? Šù‚É€–S
+			{
+				continue;
+			}
+
 			@@_Shots[index].Crash = null; // reset
 
 			if (!DrawShot(@@_Shots[index]))
