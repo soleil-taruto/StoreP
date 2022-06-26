@@ -142,8 +142,15 @@ namespace Charlotte.Games
 					this.DebugPause();
 				}
 
-				if (this.Player.DeadFrame == 0)
-					this.カメラ位置調整(false);
+				{
+					//bool disabled = false;
+					bool disabled = 1 <= this.Player.DeadFrame; // プレイヤー死亡中はカメラ移動抑止
+
+					if (!disabled)
+					{
+						this.カメラ位置調整(false);
+					}
+				}
 
 				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_E) == 1) // エディットモード(デバッグ用)
 				{
@@ -651,15 +658,19 @@ namespace Charlotte.Games
 				this.EL_AfterDrawMap.ExecuteAllTask();
 				this.Player.Draw();
 
-				// memo: DeadFlag をチェックするのは「当たり判定」から
-
 				foreach (Enemy enemy in this.Enemies.Iterate())
 				{
+					if (enemy.DeadFlag) // ? 敵：既に死亡
+						continue;
+
 					enemy.Crash = DDCrashUtils.None(); // reset
 					enemy.Draw();
 				}
 				foreach (Shot shot in this.Shots.Iterate())
 				{
+					if (shot.DeadFlag) // ? 自弾：既に死亡
+						continue;
+
 					shot.Crash = DDCrashUtils.None(); // reset
 					shot.Draw();
 				}

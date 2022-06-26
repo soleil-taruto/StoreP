@@ -131,11 +131,15 @@ namespace Charlotte.Games
 					this.DebugPause();
 				}
 
-				// 死亡時にカメラ移動を止める。
-				//if (this.Player.DeadFrame == 0)
-				//	this.カメラ位置調整(false);
+				{
+					bool disabled = false;
+					//bool disabled = 1 <= this.Player.DeadFrame; // プレイヤー死亡中はカメラ移動抑止
 
-				this.カメラ位置調整(false);
+					if (!disabled)
+					{
+						this.カメラ位置調整(false);
+					}
+				}
 
 				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_E) == 1) // エディットモード(デバッグ用)
 				{
@@ -430,8 +434,6 @@ namespace Charlotte.Games
 				this.DrawMap();
 				this.Player.Draw();
 
-				// memo: DeadFlag をチェックするのは「当たり判定」から
-
 				foreach (Enemy enemy in this.Enemies.Iterate())
 				{
 					enemy.Crash = DDCrashUtils.None(); // reset
@@ -513,7 +515,7 @@ namespace Charlotte.Games
 								{
 									enemy.HP = 0; // 過剰に削った分を正す。
 									enemy.Kill();
-									break; // この敵は死亡したので、この敵について以降の当たり判定は不要
+									goto nextEnemy; // この敵は死亡したので、この敵について以降の当たり判定は不要
 								}
 
 								// ★ 敵_被弾ここまで
@@ -549,9 +551,16 @@ namespace Charlotte.Games
 
 						// ★ 自機_被弾ここまで
 					}
+
+				nextEnemy:
+					;
 				}
 
-				foreach (Shot shot in this.Shots.Iterate())
+				// ====
+				// 当たり判定ここまで
+				// ====
+
+				foreach (Shot shot in this.Shots.Iterate()) // 自弾・フレーム事後処理
 				{
 					shot.CurrCrashedEnemy = shot.LastCrashedEnemy;
 					shot.LastCrashedEnemy = null;
@@ -562,15 +571,11 @@ namespace Charlotte.Games
 						if (
 							!shot.DeadFlag && // ? 自弾：生存
 							!shot.壁をすり抜ける && // ? この自弾は壁に当たる。
-						this.Map.GetCell(GameCommon.ToTablePoint(shot.X, shot.Y)).Tile.GetKind() == Tile.Kind_e.WALL // ? 壁に当たった。
+							this.Map.GetCell(GameCommon.ToTablePoint(shot.X, shot.Y)).Tile.GetKind() == Tile.Kind_e.WALL // ? 壁に当たった。
 							)
 							shot.Kill();
 					}
 				}
-
-				// ====
-				// 当たり判定ここまで
-				// ====
 
 				f_ゴミ回収();
 

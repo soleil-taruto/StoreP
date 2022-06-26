@@ -512,15 +512,19 @@ namespace Charlotte.Games
 				this.DrawMap();
 				this.Player.Draw();
 
-				// memo: DeadFlag をチェックするのは「当たり判定」から
-
 				foreach (Enemy enemy in this.Enemies.Iterate())
 				{
+					if (enemy.DeadFlag) // ? 敵：既に死亡
+						continue;
+
 					enemy.Crash = DDCrashUtils.None(); // reset
 					enemy.Draw();
 				}
 				foreach (Shot shot in this.Shots.Iterate())
 				{
+					if (shot.DeadFlag) // ? 自弾：既に死亡
+						continue;
+
 					shot.Crash = DDCrashUtils.None(); // reset
 					shot.Draw();
 				}
