@@ -792,7 +792,7 @@ namespace Charlotte.Games
 								{
 									enemy.HP = 0; // 過剰に削った分を正す。
 									enemy.Kill();
-									break; // この敵は死亡したので、この敵について以降の当たり判定は不要
+									goto nextEnemy; // この敵は死亡したので、この敵について以降の当たり判定は不要
 								}
 
 								// ★ 敵_被弾ここまで
@@ -829,6 +829,9 @@ namespace Charlotte.Games
 
 						// ★ 自機_被弾ここまで
 					}
+
+				nextEnemy:
+					;
 				}
 
 				foreach (Shot shot in this.Shots.Iterate())
