@@ -138,9 +138,11 @@ C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\00_Consts.js(30) : BallColor_e
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\00_Consts.js(33) : CHARGE_FRAME_MAX // 変数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\00_Consts.js(36) : SUBSEQUENT_BALL_MAX // 変数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\BubbleRelation.js(14) : BubbleRelation_着弾による爆発 // 関数
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\BubbleRelation2.js(12) : BubbleRelation_孤立したブロックを除去_Start // 関数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // 関数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // 関数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(28) : GameMain // 関数
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(290) : GetEnemies // 関数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(18) : SubsequentBallColors // 変数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(26) : ChargeFrame // 変数
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // 定義

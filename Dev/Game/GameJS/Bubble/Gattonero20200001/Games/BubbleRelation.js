@@ -64,6 +64,11 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 				if (enemy.@@_Reached == 2)
 				{
 					KillEnemy(enemy);
+
+					for (var<int> w = 0; w < 5; w++) // ウェイト
+					{
+						yield 1;
+					}
 				}
 			}
 		}

@@ -55,6 +55,8 @@ function* <generatorForTask> GameMain()
 		}
 	}
 
+	BubbleRelation_ŒÇ—§‚µ‚½ƒuƒƒbƒN‚ğœ‹_Start();
+
 	for (; ; )
 	{
 		@@_DrawWall();
@@ -283,4 +285,9 @@ function <void> @@_DrawFront()
 	}
 
 	@@_Subsequent_ShiftXRate = Approach(@@_Subsequent_ShiftXRate, 0.0, 0.9);
+}
+
+function <Enemy_t[]> GetEnemies()
+{
+	return @@_Enemies;
 }
