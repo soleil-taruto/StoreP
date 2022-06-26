@@ -37,6 +37,7 @@ function* <generatorForTask> GameMain()
 		}
 	}
 
+/*
 	// 初期ブロック配置
 	{
 		for (var<int> y = 0; y < 10; y++)
@@ -54,6 +55,7 @@ function* <generatorForTask> GameMain()
 			}
 		}
 	}
+*/
 
 	BubbleRelation_孤立したブロックを除去_Start();
 

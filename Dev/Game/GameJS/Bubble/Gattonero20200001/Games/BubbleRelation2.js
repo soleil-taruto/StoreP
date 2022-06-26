@@ -16,6 +16,11 @@ function <void> BubbleRelation_孤立したブロックを除去_Start()
 		for (; ; )
 		{
 			yield* @@_Main();
+
+			for (var<int> w = 0; w < 10; w++) // ウェイト
+			{
+				yield 1;
+			}
 		}
 	}());
 }
@@ -72,10 +77,13 @@ function* <generatorForTask> @@_Main()
 		{
 			KillEnemy(enemy);
 
-			for (var<int> w = 0; w < 2; w++) // ウェイト
+			/*
+			for (var<int> w = 0; w < 5; w++) // ウェイト
 			{
 				yield 1;
 			}
+			*/
+			yield 1;
 		}
 	}
 }
