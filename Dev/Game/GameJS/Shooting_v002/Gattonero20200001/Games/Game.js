@@ -134,12 +134,18 @@ function* <generatorForTask> GameMain()
 	}
 }
 
+/*
+	”w–Ê•`‰æ
+*/
 function <void> @@_DrawWall()
 {
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(0, 0, Screen_W, Screen_H);
+	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
 }
 
+/*
+	‘O–Ê•`‰æ
+*/
 function <void> @@_DrawFront()
 {
 	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
