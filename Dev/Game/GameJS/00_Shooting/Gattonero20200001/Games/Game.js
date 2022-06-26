@@ -12,7 +12,7 @@ function* <generatorForTask> GameMain()
 {
 	for (; ; )
 	{
-		if (GetMouseDown() == -1)
+		if (GetMouseDown() == -1) // ★サンプル -- 要削除
 		{
 			var<double> x = GetMouseX();
 			var<double> y = GetMouseY();
@@ -26,12 +26,17 @@ function* <generatorForTask> GameMain()
 
 		@@_DrawWall();
 
-		// memo: 死亡しているかチェックするのは「当たり判定」から
+		DrawPlayer(); // プレイヤーの描画
 
 		// 敵の描画
 		//
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
+			if (@@_Enemies[index].HP == -1) // ? 既に死亡
+			{
+				continue;
+			}
+
 			@@_Enemies[index].Crash = null; // reset
 
 			if (!DrawEnemy(@@_Enemies[index]))
@@ -44,12 +49,30 @@ function* <generatorForTask> GameMain()
 		//
 		for (var<int> index = 0; index < @@_Shots.length; index++)
 		{
+			if (@@_Shots[index].AttackPoint == -1) // ? 既に死亡
+			{
+				continue;
+			}
+
 			@@_Shots[index].Crash = null; // reset
 
 			if (!DrawShot(@@_Shots[index]))
 			{
 				@@_Shots[index].AttackPoint = -1;
 			}
+		}
+
+		// ★サンプル -- 要削除
+		{
+			SetColor("#ffffff");
+			SetPrint(100, 100, 30);
+			SetFSize(20);
+			PrintLine(GetInput_2());
+			PrintLine(GetInput_4());
+			PrintLine(GetInput_6());
+			PrintLine(GetInput_8());
+			PrintLine(GetInput_A());
+			PrintLine(GetInput_B());
 		}
 
 		@@_DrawFront();
@@ -82,7 +105,21 @@ function* <generatorForTask> GameMain()
 
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。
 				{
-					// ...
+					var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
+
+					enemy.HP -= damagePoint;
+					shot.AttackPoint -= damagePoint;
+
+					if (enemy.HP <= 0) // ? 死亡した。
+					{
+						KillEnemy(enemy);
+						break; // この敵は死亡したので、次の敵へ進む。
+					}
+					if (shot.AttackPoint <= 0) // ? 攻撃力を使い果たした。
+					{
+						KillShot(shot);
+						continue; // この自弾は死亡したので、次の自弾へ進む。
+					}
 				}
 			}
 		}
@@ -105,12 +142,18 @@ function* <generatorForTask> GameMain()
 	}
 }
 
+/*
+	背面描画
+*/
 function <void> @@_DrawWall()
 {
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(0, 0, Screen_W, Screen_H);
+	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
 }
 
+/*
+	前面描画
+*/
 function <void> @@_DrawFront()
 {
 	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
