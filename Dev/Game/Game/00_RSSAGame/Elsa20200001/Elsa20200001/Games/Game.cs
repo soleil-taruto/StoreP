@@ -834,7 +834,11 @@ namespace Charlotte.Games
 					;
 				}
 
-				foreach (Shot shot in this.Shots.Iterate())
+				// ====
+				// 当たり判定ここまで
+				// ====
+
+				foreach (Shot shot in this.Shots.Iterate()) // 自弾・フレーム事後処理
 				{
 					shot.CurrCrashedEnemy = shot.LastCrashedEnemy;
 					shot.LastCrashedEnemy = null;
@@ -850,10 +854,6 @@ namespace Charlotte.Games
 							shot.Kill();
 					}
 				}
-
-				// ====
-				// 当たり判定ここまで
-				// ====
 
 				f_ゴミ回収();
 
