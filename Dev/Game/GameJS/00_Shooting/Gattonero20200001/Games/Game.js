@@ -20,6 +20,11 @@ function* <generatorForTask> GameMain()
 			AddEffect_Explode(x, y);
 		}
 
+		if (GetRand1() < 0.01) // ★サンプル -- 要削除
+		{
+			@@_Enemies.push(CreateEnemy_BDummy(GetRand(Screen_W), 0.0, 10));
+		}
+
 		// ====
 		// 描画ここから
 		// ====
@@ -77,6 +82,24 @@ function* <generatorForTask> GameMain()
 
 		@@_DrawFront();
 
+		if (1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		{
+			SetColor("#000000a0");
+			PrintRect(0, 0, Screen_W, Screen_H);
+			SetColor("#ffffffa0");
+
+			DrawCrash(PlayerCrash);
+
+			for (var<Enemy_t> enemy of @@_Enemies)
+			{
+				DrawCrash(enemy.Crash);
+			}
+			for (var<Shot_t> shot of @@_Shots)
+			{
+				DrawCrash(shot.Crash);
+			}
+		}
+
 		// ====
 		// 描画ここまで
 		// ====
@@ -103,7 +126,7 @@ function* <generatorForTask> GameMain()
 					continue;
 				}
 
-				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。
+				if (IsCrashed(enemy.Crash, shot.Crash)) // ? 衝突している。敵 vs 自弾
 				{
 					var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
 
@@ -120,6 +143,22 @@ function* <generatorForTask> GameMain()
 						KillShot(shot);
 						continue; // この自弾は死亡したので、次の自弾へ進む。
 					}
+				}
+			}
+
+			if (enemy.HP == -1) // ? 既に死亡 (2回目)
+			{
+				continue;
+			}
+
+			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
+			{
+				// ★サンプル -- 要削除
+				{
+					AddEffect_Explode(PlayerX, PlayerY);
+
+					PlayerX = FIELD_L + FIELD_W / 2;
+					PlayerY = FIELD_T + FIELD_H / 2;
 				}
 			}
 		}
@@ -140,6 +179,16 @@ function* <generatorForTask> GameMain()
 
 		yield 1;
 	}
+}
+
+function <Enemy_t[]> GetEnemies()
+{
+	return @@_Enemies;
+}
+
+function <Shot_t[]> GetShots()
+{
+	return @@_Shots;
 }
 
 /*
