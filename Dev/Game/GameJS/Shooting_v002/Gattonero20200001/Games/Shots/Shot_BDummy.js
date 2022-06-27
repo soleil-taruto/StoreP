@@ -35,7 +35,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 25.0);
 
-		Draw(P_Balls[shot.Color], shot.X, shot.Y, 1.0, ProcFrame / 20.0, 1.0);
+		Draw(P_Dummy, shot.X, shot.Y, 1.0, ProcFrame / 20.0, 1.0);
 
 		yield 1;
 	}

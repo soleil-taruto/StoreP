@@ -21,7 +21,7 @@ function <Crash_t> CreateCrash_Circle(<double> x, <double> y, <double> r)
 	{
 		Kind: 1,
 
-		// 以下円形固有
+		// ここから固有
 
 		<double> X: x, // 中心の X-座標
 		<double> Y: y, // 中心の Y-座標
@@ -37,7 +37,7 @@ function <Crash_t> CreateCrash_Rect(<D4Rect_t> rect)
 	{
 		Kind: 2,
 
-		// 以下矩形固有
+		// ここから固有
 
 		<D4Rect_t> Rect: rect, // 領域
 	};
@@ -45,15 +45,8 @@ function <Crash_t> CreateCrash_Rect(<D4Rect_t> rect)
 	return ret;
 }
 
-var<double> LastCrashed_矩形の角から見た円形_Angle = null;
-
 function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 {
-	// reset
-	{
-		LastCrashed_矩形の角から見た円形_Angle = null;
-	}
-
 	/*
 		Enemy_t.Crash, Shot_t.Crash が設定されずに当たり判定に突入する場合を想定して。
 		当たり判定無しの場合 Crash は null のまま。
@@ -143,9 +136,31 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 
 function <boolean> @@_IsCrashed_Circle_Point(<double> x, <double> y, <double> rad, <double> x2, <double> y2)
 {
-	LastCrashed_矩形の角から見た円形_Angle = GetAngle(x - x2, y - y2);
-
-	var<double> d = GetDistance(x - x2, y - y2)
+	var<double> d = GetDistance(x - x2, y - y2);
 
 	return d < rad;
+}
+
+/*
+	当たり判定の描画 (デバッグ用)
+	呼び出す前に SetColor をセットすること。
+*/
+function <void> DrawCrash(<Crash_t> crash)
+{
+	if (crash == null) // ? 当たり判定無し
+	{
+		// noop
+	}
+	else if (crash.Kind == 1) // ? 円形
+	{
+		PrintCircle(crash.X, crash.Y, Math.max(3.0, crash.R));
+	}
+	else if (crash.Kind == 2) // ? 矩形
+	{
+		PrintRect(crash.Rect.L, crash.Rect.T, crash.Rect.W, crash.Rect.H);
+	}
+	else
+	{
+		error(); // 不正な種類
+	}
 }

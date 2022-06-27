@@ -28,7 +28,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 {
 	for (; ; )
 	{
-		D2Point_t speed = AngleToPoint(shot.Angle, shot.Speed);
+		var<D2Point_t> speed = AngleToPoint(shot.Angle, shot.Speed);
 
 		shot.X += speed.XAdd;
 		shot.Y += speed.YAdd;
