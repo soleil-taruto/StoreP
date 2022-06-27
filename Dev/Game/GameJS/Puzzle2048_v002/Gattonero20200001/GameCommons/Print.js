@@ -25,7 +25,7 @@ function <void> PrintRect(<double> l, <double> t, <double> w, <double> h)
 	矩形を描画する。
 	(x, y, w, h): 中心 X-座標, 中心 Y-座標, 幅, 高さ
 */
-function <void> PrintRectCenter(<double> x, <double> y, <double> w, <double> h)
+function <void> PrintRect_XYWH(<double> x, <double> y, <double> w, <double> h)
 {
 	Context.fillRect(x - w / 2, y - h / 2, w, h);
 }

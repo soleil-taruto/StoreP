@@ -72,7 +72,7 @@ function* <generatorForTask> @@_Each(<Tama_t> tama)
 
 		// •`‰æ test
 //		SetColor("#00ffff");
-//		PrintRectCenter(GetField_L() + tama.X, GetField_T() + tama.Y, 20, 20);
+//		PrintRect_XYWH(GetField_L() + tama.X, GetField_T() + tama.Y, 20, 20);
 
 		yield 1;
 	}

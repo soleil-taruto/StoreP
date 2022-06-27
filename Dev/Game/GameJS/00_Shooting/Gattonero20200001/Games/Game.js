@@ -13,18 +13,13 @@ function* <generatorForTask> GameMain()
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
 	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
 
-
-
-	// TODO
-	// TODO
-	// TODO
-	// TODO
-	// TODO
-
-
-
 	for (; ; )
 	{
+		if (!f_scenarioTask())
+		{
+			break;
+		}
+
 		if (GetMouseDown() == -1) // ★サンプル -- 要削除
 		{
 			var<double> x = GetMouseX();
@@ -33,16 +28,16 @@ function* <generatorForTask> GameMain()
 			AddEffect_Explode(x, y);
 		}
 
-		if (GetRand1() < 0.01) // ★サンプル -- 要削除
-		{
-			@@_Enemies.push(CreateEnemy_BDummy(GetRand(Screen_W), 0.0, 10));
-		}
-
 		// ====
 		// 描画ここから
 		// ====
 
 		@@_DrawWall();
+
+		if (!f_backgroundTask())
+		{
+			error();
+		}
 
 		DrawPlayer(); // プレイヤーの描画
 

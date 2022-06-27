@@ -3,7 +3,8 @@ C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\00_Consts.js(9) : Screen_H // ï
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Credit.js(5) : CreditMain // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Program.js(12) : Main // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Program.js(5) : APP_IDENT // ïœêî
-C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Title.js(86) : TitleMain // ä÷êî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Setting.js(5) : SettingMain // ä÷êî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Title.js(59) : TitleMain // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\00_Consts.js(23) : IMAX // ïœêî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\00_Consts.js(29) : MICRO // ïœêî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\Array.js(5) : InsertElement // ä÷êî
@@ -73,6 +74,7 @@ C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\Math.js(36) : GetRand /
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\Math.js(44) : GetRand1 // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\Math.js(52) : GetRand2 // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\SCommon.js(5) : Supplier // ä÷êî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\SCommon.js(15) : Repeat // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\String.js(5) : ZPad // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\String.js(16) : ToHex // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Commons\Types.js(7) : P4Poly_t // íËã`
@@ -131,7 +133,7 @@ C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(44) : @ //
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(93) : Fadeout // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ä÷êî
-C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(28) : PrintRectCenter // ä÷êî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(28) : PrintRect_XYWH // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(37) : PrintCircle // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(48) : SetFont // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(57) : SetFSize // ä÷êî
@@ -152,15 +154,17 @@ C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(10) : FIELD_
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(11) : FIELD_H // ïœêî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(12) : FIELD_R // ïœêî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(13) : FIELD_B // ïœêî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Background.js(5) : BackgroundTask // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(11) : GameMain // ä÷êî
-C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(184) : GetEnemies // ä÷êî
-C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(189) : GetShots // ä÷êî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(192) : GetEnemies // ä÷êî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(197) : GetShots // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(23) : DrawPlayer // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(8) : PlayerX // ïœêî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(9) : PlayerY // ïœêî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(14) : PlayerCrash // ïœêî
+C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Scenario.js(5) : ScenarioTask // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // íËã`
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy // ä÷êî
 C:\Dev\Game\GameJS\00_Shooting\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // ä÷êî

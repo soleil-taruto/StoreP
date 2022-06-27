@@ -73,7 +73,7 @@ function* <generatorForTask> @@_Each(<Shot_t> shot)
 
 		// •`‰æ test
 //		SetColor("#ffffff");
-//		PrintRectCenter(GetField_L() + shot.X, GetField_T() + shot.Y, 10, 10);
+//		PrintRect_XYWH(GetField_L() + shot.X, GetField_T() + shot.Y, 10, 10);
 
 		yield 1;
 	}

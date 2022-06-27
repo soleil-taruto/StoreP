@@ -13,5 +13,5 @@ function <void> DrawPlayer()
 
 	// test
 //	SetColor("#ffa000");
-//	PrintRectCenter(GetField_L() + Player_X, GetField_T() + Player_Y, 20, 20);
+//	PrintRect_XYWH(GetField_L() + Player_X, GetField_T() + Player_Y, 20, 20);
 }

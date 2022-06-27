@@ -4,17 +4,11 @@
 
 function* <generatorForTask> BackgroundTask()
 {
-	yield* @@_Wait(60);
-
-	// TODO
-	// TODO
-	// TODO
-}
-
-function* <generatorForTask> @@_Wait(<int> frameMax)
-{
-	for (var<int> frame = 0; frame < frameLmt; frame++)
+	// ★サンプル -- 要削除
 	{
-		yield 1;
+		for (; ; )
+		{
+			yield* Repeat(1, 60); // 60フレーム待つ。-- ウェイトはこの様に記述する。
+		}
 	}
 }

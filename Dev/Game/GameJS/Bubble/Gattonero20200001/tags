@@ -103,7 +103,7 @@ C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Music.js(44) : @ // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Music.js(93) : Fadeout // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ä÷êî
-C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(28) : PrintRectCenter // ä÷êî
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(28) : PrintRect_XYWH // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(37) : PrintCircle // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(48) : SetFont // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\GameCommons\Print.js(57) : SetFSize // ä÷êî
@@ -142,7 +142,7 @@ C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\BubbleRelation2.js(12) : Bubbl
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(28) : GameMain // ä÷êî
-C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(292) : GetEnemies // ä÷êî
+C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(290) : GetEnemies // ä÷êî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(18) : SubsequentBallColors // ïœêî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Game.js(26) : ChargeFrame // ïœêî
 C:\Dev\Game\GameJS\Bubble\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // íËã`

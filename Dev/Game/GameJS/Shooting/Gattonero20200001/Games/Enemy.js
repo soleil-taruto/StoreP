@@ -106,7 +106,7 @@ function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 
 		// •`‰æ test
 //		SetColor("#00ff00");
-//		PrintRectCenter(GetField_L() + enemy.X, GetField_T() + enemy.Y, 20, 20);
+//		PrintRect_XYWH(GetField_L() + enemy.X, GetField_T() + enemy.Y, 20, 20);
 
 		yield 1;
 	}

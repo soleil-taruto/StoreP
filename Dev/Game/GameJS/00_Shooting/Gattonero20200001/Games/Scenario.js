@@ -4,17 +4,16 @@
 
 function* <generatorForTask> ScenarioTask()
 {
-	yield* @@_Wait(60);
-
-	// TODO
-	// TODO
-	// TODO
-}
-
-function* <generatorForTask> @@_Wait(<int> frameLmt)
-{
-	for (var<int> frame = 0; frame < frameLmt; frame++)
+	// ★サンプル -- 要削除
 	{
-		yield 1;
+		for (; ; )
+		{
+			if (GetRand1() < 0.2)
+			{
+				GetEnemies().push(CreateEnemy_BDummy(GetRand(Screen_W), 0.0, 10));
+			}
+
+			yield* Repeat(1, 20); // 20フレーム待つ。-- ウェイトはこの様に記述する。
+		}
 	}
 }
