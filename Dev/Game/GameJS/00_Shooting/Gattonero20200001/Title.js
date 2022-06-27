@@ -58,55 +58,25 @@ var @@_Buttons =
 
 function* <generatorForTask> TitleMain()
 {
+	var<int> selectIndex = 0;
+
 	for (; ; )
 	{
-		SetColor("#a0b0c0");
-		PrintRect(0, 0, Screen_W, Screen_H);
-
-		SetColor("#000000");
-		SetPrint(40, 320, 0);
-		SetFSize(160);
-		PrintLine("Template");
-
-		var<int> buttonIndex = 0;
-		for (var button of @@_Buttons)
+		selectIndex = SimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.filter(v => v.Text), function <void> ()
 		{
-			SetColor(I3ColorToString(@@_BUTTON_BACK_COLOR));
-			PrintRect(
-				@@_BUTTON_L,
-				@@_BUTTON_T + @@_BUTTON_Y_STEP * buttonIndex,
-				@@_BUTTON_W,
-				@@_BUTTON_H
-				);
-			SetColor(I3ColorToString(@@_BUTTON_TEXT_COLOR));
-			SetPrint(
-				@@_BUTTON_L + @@_BUTTON_TEXT_L,
-				@@_BUTTON_T + @@_BUTTON_TEXT_T + @@_BUTTON_Y_STEP * buttonIndex, 0);
-			SetFSize(@@_BUTTON_TEXT_FONT_SIZE);
-			PrintLine(button.Text);
+			SetColor("#a0b0c0");
+			PrintRect(0, 0, Screen_W, Screen_H);
 
-			if (GetMouseDown() == -1)
-			{
-				var<int> l = @@_BUTTON_L;
-				var<int> t = @@_BUTTON_T + @@_BUTTON_Y_STEP * buttonIndex;
-				var<int> w = @@_BUTTON_W;
-				var<int> h = @@_BUTTON_H;
+			SetColor("#000000");
+			SetPrint(40, 320, 0);
+			SetFSize(160);
+			PrintLine("Template");
+		});
 
-				if (
-					l < GetMouseX() && GetMouseX() < l + w &&
-					t < GetMouseY() && GetMouseY() < t + h
-					)
-				{
-					ClearMouseDown();
-					yield* button.Pressed();
-					ClearMouseDown();
-					break;
-				}
-			}
+		FreezeInput();
+		yield* @@_Buttons[selectIndex].Pressed();
+		FreezeInput();
 
-			buttonIndex++;
-		}
-
-		yield 1;
+		//yield 1; // •s—v
 	}
 }

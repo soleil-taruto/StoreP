@@ -4,7 +4,7 @@
 
 function* <generatorForTask> SettingMain()
 {
-	ClearMouseDown();
+	FreezeInput();
 
 	for (; ; )
 	{
@@ -28,5 +28,5 @@ function* <generatorForTask> SettingMain()
 
 		yield 1;
 	}
-	ClearMouseDown();
+	FreezeInput();
 }

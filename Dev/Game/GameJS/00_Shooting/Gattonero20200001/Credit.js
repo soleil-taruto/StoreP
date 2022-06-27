@@ -4,7 +4,7 @@
 
 function* <generatorForTask> CreditMain()
 {
-	ClearMouseDown();
+	FreezeInput();
 
 	for (; ; )
 	{
@@ -40,5 +40,5 @@ function* <generatorForTask> CreditMain()
 
 		yield 1;
 	}
-	ClearMouseDown();
+	FreezeInput();
 }

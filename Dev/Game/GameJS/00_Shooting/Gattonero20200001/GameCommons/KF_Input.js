@@ -71,28 +71,33 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 	return counter;
 }
 
+function <int> @@_GetInput(<int> counter)
+{
+	return 1 <= FreezeInputFrame ? 0 : counter;
+}
+
 // ----
 // GetInput_X ここから
 // ----
 
 function <int> GetInput_2()
 {
-	return @@_Count_2;
+	return @@_GetInput(@@_Count_2);
 }
 
 function <int> GetInput_4()
 {
-	return @@_Count_4;
+	return @@_GetInput(@@_Count_4);
 }
 
 function <int> GetInput_6()
 {
-	return @@_Count_6;
+	return @@_GetInput(@@_Count_6);
 }
 
 function <int> GetInput_8()
 {
-	return @@_Count_8;
+	return @@_GetInput(@@_Count_8);
 }
 
 /*
@@ -101,7 +106,7 @@ function <int> GetInput_8()
 */
 function <int> GetInput_A()
 {
-	return @@_Count_A;
+	return @@_GetInput(@@_Count_A);
 }
 
 /*
@@ -110,7 +115,7 @@ function <int> GetInput_A()
 */
 function <int> GetInput_B()
 {
-	return @@_Count_B;
+	return @@_GetInput(@@_Count_B);
 }
 
 // ----
@@ -132,4 +137,23 @@ function <boolean> IsPound(<int> counter)
 	var<int> POUND_DELAY = 4;
 
 	return counter == 1 || POUND_FIRST_DELAY < counter && (counter - POUND_FIRST_DELAY) % POUND_DELAY == 1;
+}
+
+// 入力抑止フレーム数
+var<int> FreezeInputFrame = 0;
+
+function @(UNQN)_EACH()
+{
+	FreezeInputFrame = CountDown(FreezeInputFrame);
+}
+
+function <void> FreezeInput_Frame(<int> frame) // frame: 1 == このフレームのみ, 2 == このフレームと次のフレーム ...
+{
+	ClearMouseDown();
+	FreezeInputFrame = Math.max(FreezeInputFrame, frame); // frame より長いフレーム数が既に設定されていたら、そちらを優先する。
+}
+
+function <void> FreezeInput()
+{
+	FreezeInput_Frame(1);
 }
