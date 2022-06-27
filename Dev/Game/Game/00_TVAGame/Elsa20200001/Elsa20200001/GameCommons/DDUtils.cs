@@ -527,22 +527,5 @@ namespace Charlotte.GameCommons
 			if (value > 0) return 1;
 			return 0;
 		}
-
-		/// <summary>
-		/// スクリプト向け列挙フィルタ
-		/// </summary>
-		/// <param name="script">スクリプト</param>
-		/// <returns>実行状態のスクリプト</returns>
-		public static IEnumerable<bool> Scripter(IEnumerable<int> script)
-		{
-			foreach (int waitCount in script)
-			{
-				if (waitCount < 0)
-					throw new Exception("Bad waitCount: " + waitCount);
-
-				for (int c = 0; c < waitCount; c++)
-					yield return true;
-			}
-		}
 	}
 }

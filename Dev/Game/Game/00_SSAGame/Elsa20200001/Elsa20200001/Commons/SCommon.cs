@@ -479,6 +479,16 @@ namespace Charlotte.Commons
 			throw getError();
 		}
 
+		// memo: 2022.6.27
+		//
+		// 列挙の入れ子：
+		// foreach (var relay in 内部の列挙メソッド()) yield return relay;
+		// という記述で対応する。
+		//
+		// 待ち：
+		// foreach (var relay in Enumerable.Repeat(true, 待ちフレーム数)) yield return relay;
+		// という記述で対応する。
+
 		/// <summary>
 		/// 列挙をゲッターメソッドでラップします。
 		/// 例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }

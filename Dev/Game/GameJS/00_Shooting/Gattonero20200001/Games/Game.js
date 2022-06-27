@@ -10,6 +10,19 @@ var<Shot_t[]> @@_Shots = [];
 
 function* <generatorForTask> GameMain()
 {
+	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
+	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
+
+
+
+	// TODO
+	// TODO
+	// TODO
+	// TODO
+	// TODO
+
+
+
 	for (; ; )
 	{
 		if (GetMouseDown() == -1) // šƒTƒ“ƒvƒ‹ -- —víœ
