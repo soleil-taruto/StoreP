@@ -35,6 +35,8 @@ namespace Charlotte.GameCommons
 			}
 		}
 
+		public const int _DUMMY_キーのフィールド名を探すためにF12で飛んで行く用 = DX.KEY_INPUT_0;
+
 		public static int GetInput(int keyId)
 		{
 			// keyId == DX.KEY_INPUT_RETURN etc.
