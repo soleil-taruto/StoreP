@@ -11,21 +11,29 @@
 
 var<double> @@_EXPLODE_R = 45.0;
 
+var<boolean> @@_Busy = false;
+
 function <void> BubbleRelation_’…’e‚É‚æ‚é”š”­(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
 {
 	enemies = CloneArray(enemies);
 
-	for (var<Enemy_t> enemy of enemies)
-	{
-		enemy.@@_Reached = 0;
-	}
-
-	baseEnemy.@@_Reached = 1;
-
-	@@_A_Reached(baseEnemy);
-
 	AddEffect(function* ()
 	{
+		while (@@_Busy)
+		{
+			yield 1;
+		}
+		@@_Busy = true;
+
+		for (var<Enemy_t> enemy of enemies)
+		{
+			enemy.@@_Reached = 0;
+		}
+
+		baseEnemy.@@_Reached = 1;
+
+		@@_A_Reached(baseEnemy);
+
 		for (var<boolean> extended = true; extended; )
 		{
 			extended = false;
@@ -72,6 +80,8 @@ function <void> BubbleRelation_’…’e‚É‚æ‚é”š”­(<Enemy_t[]> enemies, <Enemy_t> bas
 				}
 			}
 		}
+
+		@@_Busy = false;
 	}());
 }
 
