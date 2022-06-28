@@ -4,6 +4,13 @@
 
 function* <generatorForTask> CreditMain()
 {
+	var<string[]> credits = [ @(CRDT) ];
+
+	if (credits.length == 0)
+	{
+		credits = [ "none", "" ];
+	}
+
 	FreezeInput();
 
 	for (; ; )
@@ -17,24 +24,18 @@ function* <generatorForTask> CreditMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(50, 80, 80);
-		SetFSize(24);
+		SetPrint(30, 50, 24);
+		SetFSize(20);
 
 		PrintLine("■素材 (文字コード順・敬称略)");
-
-		var<string[]> credits = [ @(CRDT) ];
-
-		if (credits.length == 0)
-		{
-			credits = [ "none", "" ];
-		}
+		PrintLine("");
 
 		for (var<int> index = 0; index < credits.length; index += 2)
 		{
 			PrintLine(credits[index] + "　" + credits[index + 1]);
 		}
 
-		SetPrint(Screen_W - 400, Screen_H - 20, 0);
+		SetPrint(Screen_W - 320, Screen_H - 20, 0);
 		SetFSize(20);
 		PrintLine("画面をクリックするとタイトルに戻ります");
 

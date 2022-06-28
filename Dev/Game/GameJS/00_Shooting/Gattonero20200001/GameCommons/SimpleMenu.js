@@ -3,7 +3,8 @@
 */
 
 var<int> @@_ITEM_H = 30;
-var<int> @@_TEXT_T = 20;
+var<int> @@_TEXT_T = 22;
+var<int> @@_TEXT_FONT_SIZE = 20;
 
 var<int> DSM_Desided = false;
 
@@ -65,16 +66,16 @@ function <int> DrawSimpleMenu(<int> selectIndex, <int> x, <int> y, <int> yStep, 
 	{
 		if (index == selectIndex)
 		{
-			SetColor("#ffff00a0");
+			SetColor("#ffff00");
 		}
 		else
 		{
-			SetColor("#ffffffa0");
+			SetColor("#ffffff");
 		}
 		PrintRect(0, y + yStep * index, Screen_W, @@_ITEM_H);
 		SetColor("#000000");
 		SetPrint(x, y + yStep * index + @@_TEXT_T, 0);
-		SetFSize(16);
+		SetFSize(@@_TEXT_FONT_SIZE);
 		PrintLine((index == selectIndex ? "[>] " : "[ ] ") + items[index]);
 	}
 	return selectIndex;
