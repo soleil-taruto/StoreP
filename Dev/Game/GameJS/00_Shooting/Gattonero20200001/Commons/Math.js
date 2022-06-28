@@ -67,5 +67,5 @@ function <double> GetRand2()
 */
 function <double> GetRand3(<double> minval, <double> maxval)
 {
-	return GetRand() * (maxval - minval) + minval;
+	return GetRand1() * (maxval - minval) + minval;
 }

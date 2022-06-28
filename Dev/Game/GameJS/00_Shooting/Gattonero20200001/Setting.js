@@ -15,9 +15,9 @@ gameLoop:
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 50, 24);
+		SetPrint(30, 50, 50);
 		SetFSize(20);
-		PrintLine("設定");
+		PrintLine("■設定");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
@@ -73,7 +73,7 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 50, 24);
+		SetPrint(30, 50, 50);
 		SetFSize(20);
 		PrintLine("ゲームパッドの" + name + "ボタン設定");
 		PrintLine("割り当てるボタンを押して下さい。");
