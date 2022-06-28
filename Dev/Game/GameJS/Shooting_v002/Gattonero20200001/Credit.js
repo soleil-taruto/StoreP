@@ -4,11 +4,11 @@
 
 function* <generatorForTask> CreditMain()
 {
-	ClearMouseDown();
+	FreezeInput();
 
 	for (; ; )
 	{
-		if (GetMouseDown() == -1)
+		if (GetMouseDown() == -1 || GetInput_A() == 1)
 		{
 			break;
 		}
@@ -40,5 +40,5 @@ function* <generatorForTask> CreditMain()
 
 		yield 1;
 	}
-	ClearMouseDown();
+	FreezeInput();
 }

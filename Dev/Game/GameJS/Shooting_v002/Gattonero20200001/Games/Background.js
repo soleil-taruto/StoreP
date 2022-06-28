@@ -4,17 +4,5 @@
 
 function* <generatorForTask> BackgroundTask()
 {
-	yield* @@_Wait(60);
-
-	// TODO
-	// TODO
-	// TODO
-}
-
-function* <generatorForTask> @@_Wait(<int> frameLmt)
-{
-	for (var<int> frame = 0; frame < frameLmt; frame++)
-	{
-		yield 1;
-	}
+	yield* Repeat(1, 60);
 }

@@ -2,35 +2,10 @@
 	タイトル画面
 */
 
-var<int> @@_BUTTON_W = 200;
-var<int> @@_BUTTON_H = 55;
-var<int> @@_BUTTON_L = ToInt((Screen_W - @@_BUTTON_W) / 2);
-var<int> @@_BUTTON_T = 500;
-var<int> @@_BUTTON_Y_STEP = 70;
-
-var<I3Color_t> @@_BUTTON_BACK_COLOR = CreateI3Color(255, 255, 128);
-var<I3Color_t> @@_BUTTON_TEXT_COLOR = CreateI3Color(0, 0, 0);
-
-var<int> @@_BUTTON_TEXT_L = 35;
-var<int> @@_BUTTON_TEXT_T = 40;
-var<int> @@_BUTTON_TEXT_FONT_SIZE = 32;
-
 var @@_Buttons =
 [
 	{
-		L : @@_BUTTON_L,
-		T : @@_BUTTON_T + @@_BUTTON_Y_STEP * 0,
-		W : @@_BUTTON_W,
-		H : @@_BUTTON_H,
-		Draw : function()
-		{
-			SetColor("#ffffff");
-			PrintRect(this.L, this.T, this.W, this.H);
-			SetColor(I3ColorToString(@@_BUTTON_TEXT_COLOR));
-			SetPrint(this.L + @@_BUTTON_TEXT_L, this.T + @@_BUTTON_TEXT_T, 0);
-			SetFSize(@@_BUTTON_TEXT_FONT_SIZE);
-			PrintLine("スタート");
-		},
+		Text: "スタート",
 		Pressed : function* ()
 		{
 			LOGPOS();
@@ -39,19 +14,16 @@ var @@_Buttons =
 		},
 	},
 	{
-		L : @@_BUTTON_L,
-		T : @@_BUTTON_T + @@_BUTTON_Y_STEP * 1,
-		W : @@_BUTTON_W,
-		H : @@_BUTTON_H,
-		Draw : function()
+		Text: "設定",
+		Pressed : function* ()
 		{
-			SetColor(I3ColorToString(@@_BUTTON_BACK_COLOR));
-			PrintRect(this.L, this.T, this.W, this.H);
-			SetColor(I3ColorToString(@@_BUTTON_TEXT_COLOR));
-			SetPrint(this.L + @@_BUTTON_TEXT_L, this.T + @@_BUTTON_TEXT_T, 0);
-			SetFSize(@@_BUTTON_TEXT_FONT_SIZE);
-			PrintLine("Credit");
+			LOGPOS();
+			yield* SettingMain();
+			LOGPOS();
 		},
+	},
+	{
+		Text: "Credit",
 		Pressed : function* ()
 		{
 			LOGPOS();
@@ -60,19 +32,7 @@ var @@_Buttons =
 		},
 	},
 	{
-		L : @@_BUTTON_L,
-		T : @@_BUTTON_T + @@_BUTTON_Y_STEP * 2,
-		W : @@_BUTTON_W,
-		H : @@_BUTTON_H,
-		Draw : function()
-		{
-			SetColor(I3ColorToString(@@_BUTTON_BACK_COLOR));
-			PrintRect(this.L, this.T, this.W, this.H);
-			SetColor(I3ColorToString(@@_BUTTON_TEXT_COLOR));
-			SetPrint(this.L + @@_BUTTON_TEXT_L, this.T + @@_BUTTON_TEXT_T, 0);
-			SetFSize(@@_BUTTON_TEXT_FONT_SIZE);
-			PrintLine("Exit");
-		},
+		Text: "Exit",
 		Pressed : function* ()
 		{
 			LOGPOS();
@@ -85,33 +45,25 @@ var @@_Buttons =
 
 function* <generatorForTask> TitleMain()
 {
+	var<int> selectIndex = 0;
+
 	for (; ; )
 	{
 		SetColor("#a0b0c0");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 350, 0);
-		SetFSize(260);
-		PrintLine("HAKO");
+		SetPrint(40, 320, 0);
+		SetFSize(160);
+		PrintLine("Template");
 
-		for (var button of @@_Buttons)
+		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
+
+		if (DSM_Desided)
 		{
-			button.Draw();
-
-			if (GetMouseDown() == -1)
-			{
-				if (
-					button.L < GetMouseX() && GetMouseX() < button.L + button.W &&
-					button.T < GetMouseY() && GetMouseY() < button.T + button.H
-					)
-				{
-					ClearMouseDown();
-					yield* button.Pressed();
-					ClearMouseDown();
-					break;
-				}
-			}
+			FreezeInput();
+			yield* @@_Buttons[selectIndex].Pressed();
+			FreezeInput();
 		}
 		yield 1;
 	}

@@ -93,7 +93,7 @@ C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Music.js(44) : @ // ä
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Music.js(93) : Fadeout // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ä÷êî
-C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(28) : PrintRectCenter // ä÷êî
+C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(28) : PrintRect_XYWH // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(37) : PrintCircle // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(48) : SetFont // ä÷êî
 C:\Dev\Game\GameJS\Archanoid\Gattonero20200001\GameCommons\Print.js(57) : SetFSize // ä÷êî

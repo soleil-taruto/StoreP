@@ -2,19 +2,6 @@
 	ƒ^ƒCƒgƒ‹‰æ–Ê
 */
 
-var<int> @@_BUTTON_W = 200;
-var<int> @@_BUTTON_H = 55;
-var<int> @@_BUTTON_L = ToInt((Screen_W - @@_BUTTON_W) / 2);
-var<int> @@_BUTTON_T = Screen_H - 300;
-var<int> @@_BUTTON_Y_STEP = 70;
-
-var<I3Color_t> @@_BUTTON_BACK_COLOR = CreateI3Color(255, 255, 128);
-var<I3Color_t> @@_BUTTON_TEXT_COLOR = CreateI3Color(0, 0, 0);
-
-var<int> @@_BUTTON_TEXT_L = 35;
-var<int> @@_BUTTON_TEXT_T = 40;
-var<int> @@_BUTTON_TEXT_FONT_SIZE = 32;
-
 var @@_Buttons =
 [
 	{
