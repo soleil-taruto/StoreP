@@ -62,21 +62,22 @@ function* <generatorForTask> TitleMain()
 
 	for (; ; )
 	{
-		selectIndex = SimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.filter(v => v.Text), function <void> ()
+		SetColor("#a0b0c0");
+		PrintRect(0, 0, Screen_W, Screen_H);
+
+		SetColor("#000000");
+		SetPrint(40, 320, 0);
+		SetFSize(160);
+		PrintLine("Template");
+
+		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
+
+		if (DSM_Desided)
 		{
-			SetColor("#a0b0c0");
-			PrintRect(0, 0, Screen_W, Screen_H);
-
-			SetColor("#000000");
-			SetPrint(40, 320, 0);
-			SetFSize(160);
-			PrintLine("Template");
-		});
-
-		FreezeInput();
-		yield* @@_Buttons[selectIndex].Pressed();
-		FreezeInput();
-
-		//yield 1; // •s—v
+			FreezeInput();
+			yield* @@_Buttons[selectIndex].Pressed();
+			FreezeInput();
+		}
+		yield 1;
 	}
 }

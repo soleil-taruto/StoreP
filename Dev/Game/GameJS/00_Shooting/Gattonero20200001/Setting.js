@@ -8,7 +8,7 @@ function* <generatorForTask> SettingMain()
 
 	for (; ; )
 	{
-		if (GetMouseDown() == -1)
+		if (GetMouseDown() == -1 || GetInput_A() == 1)
 		{
 			break;
 		}
