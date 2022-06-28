@@ -31,11 +31,19 @@ function <Number> ToRange(<Number> value, <Number> minval, <Number> maxval)
 }
 
 /*
-	ret: 0 ～ (modulo - 1) の整数をランダムに返す。
+	0 ～ (modulo - 1) の整数をランダムに返す。
 */
 function <int> GetRand(<int> modulo)
 {
 	return Math.floor(Math.random() * modulo);
+}
+
+/*
+	minval ～ maxval の乱数を返す。(int)
+*/
+function <int> GetRandRange(<int> minval, <int> maxval)
+{
+	return GetRand((maxval - minval) + 1) + minval;
 }
 
 /*
@@ -52,4 +60,12 @@ function <double> GetRand1()
 function <double> GetRand2()
 {
 	return GetRand1() * 2.0 - 1.0;
+}
+
+/*
+	minval ～ maxval の乱数を返す。(double)
+*/
+function <double> GetRand3(<double> minval, <double> maxval)
+{
+	return GetRand1() * (maxval - minval) + minval;
 }
