@@ -10,16 +10,8 @@ var<Shot_t[]> @@_Shots = [];
 
 function* <generatorForTask> GameMain()
 {
-	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
-	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
-
 	for (; ; )
 	{
-		if (!f_scenarioTask())
-		{
-			break;
-		}
-
 		if (GetMouseDown() == -1) // ★サンプル -- 要削除
 		{
 			var<double> x = GetMouseX();
@@ -33,11 +25,6 @@ function* <generatorForTask> GameMain()
 		// ====
 
 		@@_DrawWall();
-
-		if (!f_backgroundTask())
-		{
-			error();
-		}
 
 		DrawPlayer(); // プレイヤーの描画
 

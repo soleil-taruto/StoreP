@@ -24,7 +24,7 @@ function <void> AddEffect_Explode(<double> x, <double> y)
 {
 	for (var<int> c = 0; c < 30; c++)
 	{
-		AddEffect(function* ()
+		AddEffect(function* <generatorForTask> ()
 		{
 			var<D2Point_t> pt = CreateD2Point(x, y);
 			var<D2Point_t> speed = AngleToPoint(GetRand1() * Math.PI * 2, 17.0);
