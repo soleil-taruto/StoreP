@@ -11,7 +11,7 @@ var<int> PANEL_Y_GAP = 20;
 var<int> PANEL_X_NUM = 4;
 var<int> PANEL_Y_NUM = 4;
 
-function* <generatorForTask> RoomSelectMenu()
+function* <generatorForTask> MapSelectMenu()
 {
 	FreezeInput();
 
@@ -61,7 +61,7 @@ function* <generatorForTask> RoomSelectMenu()
 			SetColor("#ffffff");
 			PrintRect(l, t, PANEL_W, PANEL_H);
 			SetColor("#000000");
-			SetPrint(l + 20, t + 100, 0);
+			SetPrint(l + 30, t + 100, 0);
 			SetFSize(80);
 			PrintLine(ZPad(index + 1, 2, "0"));
 
@@ -73,10 +73,10 @@ function* <generatorForTask> RoomSelectMenu()
 	FreezeInput();
 }
 
-function* <void> @@_Game(<int> stageIndex)
+function* <void> @@_Game(<int> startMapIndex)
 {
-	for (var<int> index = stageIndex; index < GetMapCount(); index++)
+	for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
 	{
-		yield* GameMain(index);
+		yield* GameMain(mapIndex);
 	}
 }

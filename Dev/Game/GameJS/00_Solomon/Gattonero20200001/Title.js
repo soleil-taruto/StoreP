@@ -9,7 +9,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* RoomSelectMenu();
+			yield* MapSelectMenu();
 			LOGPOS();
 		},
 	},

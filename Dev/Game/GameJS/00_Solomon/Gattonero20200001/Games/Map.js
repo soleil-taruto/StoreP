@@ -55,11 +55,11 @@ var<Map_t> Map = null;
 /*
 	ƒ}ƒbƒv‚ğ“Ç‚İ‚Ş
 
-	index: 0 ` (GetMapCount() - 1)
+	mapIndex: 0 ` (GetMapCount() - 1)
 */
-function <void> LoadMap(<int> index)
+function <void> LoadMap(<int> mapIndex)
 {
-	var<string[]> lines = MAPS[index];
+	var<string[]> lines = MAPS[mapIndex];
 
 	if (lines.length != MAP_Y_SIZE)
 	{
