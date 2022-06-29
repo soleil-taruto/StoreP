@@ -15,8 +15,8 @@ var<int> FIELD_B = FIELD_T + FIELD_H;
 /*
 	マップ・サイズ (テーブルサイズ)
 */
-var<int> MAP_X_NUM = 20;
-var<int> MAP_Y_NUM = 15;
+var<int> MAP_X_SIZE = 20;
+var<int> MAP_Y_SIZE = 15;
 
 /*
 	マップセル・サイズ (ドット単位・画面上のサイズ)

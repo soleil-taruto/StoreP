@@ -38,7 +38,9 @@ function* <generatorForTask> RoomSelectMenu()
 					0.0
 					))
 				{
+					FreezeInput();
 					yield* @@_Game(index);
+					FreezeInput();
 				}
 			}
 		}
@@ -71,10 +73,10 @@ function* <generatorForTask> RoomSelectMenu()
 	FreezeInput();
 }
 
-function <void> @@_Game(<int> stageIndex)
+function* <void> @@_Game(<int> stageIndex)
 {
 	for (var<int> index = stageIndex; index < GetMapCount(); index++)
 	{
-		GameMain(index);
+		yield* GameMain(index);
 	}
 }

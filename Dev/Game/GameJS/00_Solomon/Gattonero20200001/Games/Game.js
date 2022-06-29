@@ -10,8 +10,18 @@ var<Shot_t[]> @@_Shots = [];
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
+	// reset
+	{
+		@@_Enemies = [];
+		@@_Shots = [];
+	}
+
 	LoadMap(mapIndex);
 
+	PlayerX = Map.StartPt.X;
+	PlayerY = Map.StartPt.Y;
+
+gameLoop:
 	for (; ; )
 	{
 		if (GetMouseDown() == -1) // ★サンプル -- 要削除
@@ -152,10 +162,17 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 			{
 				// ★サンプル -- 要削除
 				{
-					AddEffect_Explode(PlayerX, PlayerY);
+					if (enemy.Kind == Enemy_Kind_e_Goal)
+					{
+						break gameLoop; // 次のステージへ
+					}
+					else
+					{
+						AddEffect_Explode(PlayerX, PlayerY);
 
-					PlayerX = FIELD_L + FIELD_W / 2;
-					PlayerY = FIELD_T + FIELD_H / 2;
+						PlayerX = FIELD_L + FIELD_W / 2;
+						PlayerY = FIELD_T + FIELD_H / 2;
+					}
 				}
 			}
 		}
@@ -195,6 +212,18 @@ function <void> @@_DrawWall()
 {
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
 	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
+
+	for (var<int> x = 0; x < MAP_X_SIZE; x++)
+	for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+	{
+		var<int> dx = FIELD_L + x * MAP_CELL_W + MAP_CELL_W / 2;
+		var<int> dy = FIELD_T + y * MAP_CELL_H + MAP_CELL_H / 2;
+
+		if (Map.Table[x][y].WallFlag)
+		{
+			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
+		}
+	}
 }
 
 /*
