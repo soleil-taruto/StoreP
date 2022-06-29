@@ -257,11 +257,14 @@ function <void> @@_DrawFront()
 
 function* <generatorForTask> @@_StartMotion()
 {
-	for (; ; )
-	{
-	}
+	// TODO
+	// TODO
+	// TODO
 }
 
 function* <generatorForTask> @@_GoalMotion()
 {
+	// TODO
+	// TODO
+	// TODO
 }
