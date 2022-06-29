@@ -229,6 +229,12 @@ function <void> @@_DrawWall()
 		if (Map.Table[x][y].WallFlag)
 		{
 			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
+
+			// TODO “G—Î
+		}
+		else
+		{
+			Draw(P_”wŒi, dx, dy, 1.0, 0.0, 1.0);
 		}
 	}
 }
