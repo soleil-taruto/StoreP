@@ -7,7 +7,7 @@
 var<int> MapCellType_e_Wall = @(AUTO);
 var<int> MapCellType_e_None = @(AUTO);
 var<int> MapCellType_e_Start = @(AUTO);
-var<int> MapCellType_e_Enemy_Goal = @(AUTO);
+var<int> MapCellType_e_Goal = @(AUTO);
 var<int> MapCellType_e_Enemy_BDummy = @(AUTO);
 
 /@(ASTR)
@@ -45,6 +45,8 @@ function <int> GetMapCount()
 	return MAPS.length;
 }
 
+var<Map_t> @@_Map = null;
+
 /*
 	É}ÉbÉvÇì«Ç›çûÇﬁ
 
@@ -52,7 +54,5 @@ function <int> GetMapCount()
 */
 function <void> LoadMap(<int> index)
 {
-	// TODO
-	// TODO
-	// TODO
+	@@_Map = {};
 }

@@ -8,7 +8,7 @@ var<Enemy_t[]> @@_Enemies = [];
 // ©’eƒŠƒXƒg
 var<Shot_t[]> @@_Shots = [];
 
-function* <generatorForTask> GameMain()
+function* <generatorForTask> GameMain(<int> mapIndex)
 {
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
 	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());

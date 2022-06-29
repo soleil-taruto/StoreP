@@ -35,4 +35,4 @@ var<Image> P_WhiteCircle = @@_Load(Resources.General__WhiteCircle_png);
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Image> P_Star_S = @@_Load(Resources.Picture__光る星20_png);
+var<Image> P_Star_S = @@_Load(Resources.Picture__Tests__光る星20_png);

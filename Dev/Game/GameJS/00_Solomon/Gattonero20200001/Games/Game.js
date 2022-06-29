@@ -8,8 +8,10 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-function* <generatorForTask> GameMain()
+function* <generatorForTask> GameMain(<int> mapIndex)
 {
+	LoadMap(mapIndex);
+
 	for (; ; )
 	{
 		if (GetMouseDown() == -1) // ★サンプル -- 要削除
