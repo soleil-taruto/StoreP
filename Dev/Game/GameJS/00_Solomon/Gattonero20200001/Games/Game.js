@@ -21,6 +21,10 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	PlayerX = Map.StartPt.X;
 	PlayerY = Map.StartPt.Y;
 
+	yield* @@_StartMotion();
+
+	FreezeInput();
+
 gameLoop:
 	for (; ; )
 	{
@@ -162,9 +166,11 @@ gameLoop:
 			{
 				// ★サンプル -- 要削除
 				{
-					if (enemy.Kind == Enemy_Kind_e_Goal)
+					if (enemy.Kind == Enemy_Kind_e_Goal) // ? ゴール到達 -> 次のステージへ
 					{
-						break gameLoop; // 次のステージへ
+						yield* @@_GoalMotion();
+
+						break gameLoop;
 					}
 					else
 					{
@@ -193,6 +199,7 @@ gameLoop:
 
 		yield 1;
 	}
+	FreezeInput();
 }
 
 function <Enemy_t[]> GetEnemies()
@@ -246,4 +253,15 @@ function <void> @@_DrawFront()
 		Screen_W - FIELD_R,
 		Screen_H
 		);
+}
+
+function* <generatorForTask> @@_StartMotion()
+{
+	for (; ; )
+	{
+	}
+}
+
+function* <generatorForTask> @@_GoalMotion()
+{
 }
