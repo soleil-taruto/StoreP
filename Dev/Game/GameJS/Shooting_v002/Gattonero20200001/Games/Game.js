@@ -20,13 +20,16 @@ function* <generatorForTask> GameMain()
 			break;
 		}
 
-		if (GetMouseDown() == -1) // ★サンプル -- 要削除
+		// ★サンプル
+		/*
+		if (GetMouseDown() == -1)
 		{
 			var<double> x = GetMouseX();
 			var<double> y = GetMouseY();
 
 			AddEffect_Explode(x, y);
 		}
+		*/
 
 		// ====
 		// 描画ここから
@@ -77,7 +80,8 @@ function* <generatorForTask> GameMain()
 			}
 		}
 
-		// ★サンプル -- 要削除
+		// ★サンプル
+		/*
 		{
 			SetColor("#ffffff");
 			SetPrint(100, 100, 30);
@@ -89,6 +93,7 @@ function* <generatorForTask> GameMain()
 			PrintLine(GetInput_A());
 			PrintLine(GetInput_B());
 		}
+		*/
 
 		@@_DrawFront();
 
@@ -163,13 +168,24 @@ function* <generatorForTask> GameMain()
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				// ★サンプル -- 要削除
+				// ★サンプル
+				/*
 				{
 					AddEffect_Explode(PlayerX, PlayerY);
 
 					PlayerX = FIELD_L + FIELD_W / 2;
 					PlayerY = FIELD_T + FIELD_H / 2;
 				}
+				*/
+
+				// ----
+				// ----
+				// ----
+
+				AddEffect_Explode(PlayerX, PlayerY);
+
+				PlayerX = FIELD_L + FIELD_W / 2;
+				PlayerY = FIELD_T + FIELD_H / 2;
 			}
 		}
 
