@@ -541,6 +541,69 @@ namespace Charlotte.Commons
 			return ret;
 		}
 
+		public static T GetElement<T>(IList<T> list, int index, T defval)
+		{
+			if (index < list.Count)
+			{
+				return list[index];
+			}
+			else
+			{
+				return defval;
+			}
+		}
+
+		public static T[] JoinArray<T>(T[] arr, T[] arrForAdd)
+		{
+			if (
+				arr == null ||
+				arrForAdd == null
+				)
+				throw new ArgumentException();
+
+			T[] dest = new T[arr.Length + arrForAdd.Length];
+
+			Array.Copy(arr, 0, dest, 0, arr.Length);
+			Array.Copy(arrForAdd, 0, dest, arr.Length, arrForAdd.Length);
+
+			return dest;
+		}
+
+		public static T[] InsertArray<T>(T[] arr, int index, T[] arrForInsert)
+		{
+			if (
+				arr == null ||
+				arrForInsert == null ||
+				index < 0 || arr.Length < index
+				)
+				throw new ArgumentException();
+
+			T[] dest = new T[arr.Length + arrForInsert.Length];
+
+			Array.Copy(arr, 0, dest, 0, index);
+			Array.Copy(arrForInsert, 0, dest, index, arrForInsert.Length);
+			Array.Copy(arr, index, dest, index + arrForInsert.Length, arr.Length - index);
+
+			return dest;
+		}
+
+		public static T[] RemoveArray<T>(T[] arr, int index, int count)
+		{
+			if (
+				arr == null ||
+				index < 0 || arr.Length < index ||
+				count < 0 || arr.Length - index < count
+				)
+				throw new ArgumentException();
+
+			T[] dest = new T[arr.Length - count];
+
+			Array.Copy(arr, 0, dest, 0, index);
+			Array.Copy(arr, index + count, dest, index, arr.Length - (index + count));
+
+			return dest;
+		}
+
 		private const int IO_TRY_MAX = 10;
 
 		public static void DeletePath(string path)
