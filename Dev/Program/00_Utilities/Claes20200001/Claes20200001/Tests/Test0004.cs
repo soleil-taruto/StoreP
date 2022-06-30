@@ -37,7 +37,7 @@ namespace Charlotte.Tests
 
 				hc.Get();
 
-				File.Copy(resFile, Common.NextOutputPath() + ".txt");
+				File.Copy(resFile, SCommon.NextOutputPath() + ".txt");
 			}
 		}
 	}

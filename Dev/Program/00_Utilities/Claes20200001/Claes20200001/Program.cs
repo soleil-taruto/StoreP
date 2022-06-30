@@ -29,13 +29,13 @@ namespace Charlotte
 			{
 				Main4();
 			}
-			Common.OpenOutputDirIfCreated();
+			SCommon.OpenOutputDirIfCreated();
 		}
 
 		private void Main3()
 		{
 			Main4();
-			Common.Pause();
+			SCommon.Pause();
 		}
 
 		private void Main4()

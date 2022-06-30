@@ -15,7 +15,7 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
-			string file = Common.NextOutputPath() + ".txt";
+			string file = SCommon.NextOutputPath() + ".txt";
 
 			using (StreamWriter writer = new StreamWriter(file, false, Encoding.UTF8))
 			{
