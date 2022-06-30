@@ -10,6 +10,9 @@ namespace Charlotte
 {
 	public static class Common
 	{
-		// none
+		public static void HelloWorld()
+		{
+			Console.WriteLine("Hello, world!");
+		}
 	}
 }
