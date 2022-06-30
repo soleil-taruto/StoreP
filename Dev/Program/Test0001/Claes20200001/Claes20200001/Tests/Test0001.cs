@@ -29,6 +29,27 @@ namespace Charlotte.Tests
 				SCommon.InsertRange(new int[] { 99, 98, 97 }, 3, new int[] { }))); // 99, 98, 97
 			Console.WriteLine(string.Join(", ",
 				SCommon.InsertRange(new int[] { 1, 2, 3, 4 }, 2, new int[] { }))); // 1, 2, 3, 4
+
+			// ----
+
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 1, 2))); // 1, 4
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 0, 4))); // 空
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { }, 0, 0))); // 空
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 0, 3))); // 4
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 1, 3))); // 1
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 0, 0))); // 1, 2, 3, 4
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 1, 0))); // 1, 2, 3, 4
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 2, 0))); // 1, 2, 3, 4
+			Console.WriteLine(string.Join(", ",
+				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 3, 0))); // 1, 2, 3, 4
 		}
 	}
 }
