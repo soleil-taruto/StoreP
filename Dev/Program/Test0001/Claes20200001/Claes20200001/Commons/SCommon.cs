@@ -474,55 +474,28 @@ namespace Charlotte.Commons
 			}
 		}
 
-		public static T[] AddArray<T>(T[] arr, T[] arrForAdd)
+		public static IEnumerable<T> InsertRange<T>(IEnumerable<T> list, int index, IEnumerable<T> listForInsert)
 		{
 			if (
-				arr == null ||
-				arrForAdd == null
+				list == null ||
+				listForInsert == null ||
+				index < 0 || list.Count() < index
 				)
 				throw new ArgumentException();
 
-			T[] dest = new T[arr.Length + arrForAdd.Length];
-
-			Array.Copy(arr, 0, dest, 0, arr.Length);
-			Array.Copy(arrForAdd, 0, dest, arr.Length, arrForAdd.Length);
-
-			return dest;
+			return list.Take(index).Concat(listForInsert).Concat(list.Skip(index));
 		}
 
-		public static T[] InsertArray<T>(T[] arr, int index, T[] arrForInsert)
+		public static IEnumerable<T> RemoveRange<T>(IEnumerable<T> list, int index, int count)
 		{
 			if (
-				arr == null ||
-				arrForInsert == null ||
-				index < 0 || arr.Length < index
+				list == null ||
+				index < 0 || list.Count() < index ||
+				count < 0 || list.Count() - index < count
 				)
 				throw new ArgumentException();
 
-			T[] dest = new T[arr.Length + arrForInsert.Length];
-
-			Array.Copy(arr, 0, dest, 0, index);
-			Array.Copy(arrForInsert, 0, dest, index, arrForInsert.Length);
-			Array.Copy(arr, index, dest, index + arrForInsert.Length, arr.Length - index);
-
-			return dest;
-		}
-
-		public static T[] RemoveArray<T>(T[] arr, int index, int count)
-		{
-			if (
-				arr == null ||
-				index < 0 || arr.Length < index ||
-				count < 0 || arr.Length - index < count
-				)
-				throw new ArgumentException();
-
-			T[] dest = new T[arr.Length - count];
-
-			Array.Copy(arr, 0, dest, 0, index);
-			Array.Copy(arr, index + count, dest, index, arr.Length - (index + count));
-
-			return dest;
+			return list.Take(index).Concat(list.Skip(index + count));
 		}
 
 		private const int IO_TRY_MAX = 10;
