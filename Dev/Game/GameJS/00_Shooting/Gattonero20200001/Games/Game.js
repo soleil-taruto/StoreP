@@ -20,6 +20,14 @@ function* <generatorForTask> GameMain()
 			break;
 		}
 
+		if (GetMouseDown() == -1) // ★サンプル -- 要削除
+		{
+			var<double> x = GetMouseX();
+			var<double> y = GetMouseY();
+
+			AddEffect_Explode(x, y);
+		}
+
 		// ====
 		// 描画ここから
 		// ====
@@ -33,7 +41,7 @@ function* <generatorForTask> GameMain()
 			error();
 		}
 
-		DrawPlayer();
+		DrawPlayer(); // プレイヤーの描画
 
 		// 敵の描画
 		//
@@ -67,6 +75,19 @@ function* <generatorForTask> GameMain()
 			{
 				@@_Shots[index].AttackPoint = -1;
 			}
+		}
+
+		// ★サンプル -- 要削除
+		{
+			SetColor("#ffffff");
+			SetPrint(100, 100, 30);
+			SetFSize(20);
+			PrintLine(GetInput_2());
+			PrintLine(GetInput_4());
+			PrintLine(GetInput_6());
+			PrintLine(GetInput_8());
+			PrintLine(GetInput_A());
+			PrintLine(GetInput_B());
 		}
 
 		@@_DrawFront();
