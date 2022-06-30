@@ -52,9 +52,9 @@ namespace Charlotte.Games
 
 						d++; // Skip
 
-						cell.TileName = Common.GetElement(tokens, d++, GameConsts.TILE_NONE);
+						cell.TileName = SCommon.GetElement(tokens, d++, GameConsts.TILE_NONE);
 						cell.Tile = TileCatalog.Create(cell.TileName);
-						cell.EnemyName = Common.GetElement(tokens, d++, GameConsts.ENEMY_NONE);
+						cell.EnemyName = SCommon.GetElement(tokens, d++, GameConsts.ENEMY_NONE);
 
 						// 新しい項目をここへ追加..
 
@@ -71,8 +71,8 @@ namespace Charlotte.Games
 			}
 			this.W = w;
 			this.H = h;
-			this.WallName = Common.GetElement(lines, c++, GameConsts.NAME_DEFAULT);
-			this.MusicName = Common.GetElement(lines, c++, GameConsts.NAME_DEFAULT);
+			this.WallName = SCommon.GetElement(lines, c++, GameConsts.NAME_DEFAULT);
+			this.MusicName = SCommon.GetElement(lines, c++, GameConsts.NAME_DEFAULT);
 		}
 
 		public void Save()
