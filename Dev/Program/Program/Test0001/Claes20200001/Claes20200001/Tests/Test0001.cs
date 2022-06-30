@@ -30,5 +30,10 @@ namespace Charlotte.Tests
 			str = str.Replace("+0", "+");
 			return str;
 		}
+
+		public void Test03()
+		{
+			Console.WriteLine("めじょまっきーん");
+		}
 	}
 }
