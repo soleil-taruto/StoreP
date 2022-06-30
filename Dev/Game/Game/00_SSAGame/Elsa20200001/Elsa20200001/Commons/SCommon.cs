@@ -553,7 +553,7 @@ namespace Charlotte.Commons
 			}
 		}
 
-		public static T[] JoinArray<T>(T[] arr, T[] arrForAdd)
+		public static T[] AddArray<T>(T[] arr, T[] arrForAdd)
 		{
 			if (
 				arr == null ||
