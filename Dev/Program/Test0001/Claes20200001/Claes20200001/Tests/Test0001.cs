@@ -50,6 +50,36 @@ namespace Charlotte.Tests
 				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 2, 0))); // 1, 2, 3, 4
 			Console.WriteLine(string.Join(", ",
 				SCommon.RemoveRange(new int[] { 1, 2, 3, 4 }, 3, 0))); // 1, 2, 3, 4
+
+			// ----
+
+			SCommon.ToThrowPrint(() =>
+				SCommon.InsertRange((int[])null, 0, null));
+			SCommon.ToThrowPrint(() =>
+				SCommon.InsertRange(null, 0, new int[] { 9, 8, 7 }));
+			SCommon.ToThrowPrint(() =>
+				SCommon.InsertRange(new int[] { 1, 2, 3 }, 0, null));
+			SCommon.ToThrowPrint(() =>
+				SCommon.InsertRange(new int[] { 1, 2, 3 }, -1, new int[] { 9, 8, 7 }));
+			SCommon.ToThrowPrint(() =>
+				SCommon.InsertRange(new int[] { 1, 2, 3 }, 4, new int[] { 9, 8, 7 }));
+
+			// ----
+
+			SCommon.ToThrowPrint(() =>
+				SCommon.RemoveRange((int[])null, 0, 0));
+			SCommon.ToThrowPrint(() =>
+				SCommon.RemoveRange(new int[] { 1, 2, 3 }, 0, 4));
+			SCommon.ToThrowPrint(() =>
+				SCommon.RemoveRange(new int[] { 1, 2, 3 }, 4, 0));
+			SCommon.ToThrowPrint(() =>
+				SCommon.RemoveRange(new int[] { 1, 2, 3 }, -1, 0));
+			SCommon.ToThrowPrint(() =>
+				SCommon.RemoveRange(new int[] { 1, 2, 3 }, 0, -1));
+
+			// ----
+
+			Console.WriteLine("OK!");
 		}
 	}
 }

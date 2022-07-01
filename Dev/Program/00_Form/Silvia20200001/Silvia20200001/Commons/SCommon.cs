@@ -476,10 +476,12 @@ namespace Charlotte.Commons
 
 		public static IEnumerable<T> InsertRange<T>(IEnumerable<T> list, int index, IEnumerable<T> listForInsert)
 		{
+			int listCount = list.Count();
+
 			if (
 				list == null ||
 				listForInsert == null ||
-				index < 0 || list.Count() < index
+				index < 0 || listCount < index
 				)
 				throw new ArgumentException();
 
@@ -488,10 +490,12 @@ namespace Charlotte.Commons
 
 		public static IEnumerable<T> RemoveRange<T>(IEnumerable<T> list, int index, int count)
 		{
+			int listCount = list.Count();
+
 			if (
 				list == null ||
-				index < 0 || list.Count() < index ||
-				count < 0 || list.Count() - index < count
+				index < 0 || listCount < index ||
+				count < 0 || listCount - index < count
 				)
 				throw new ArgumentException();
 
