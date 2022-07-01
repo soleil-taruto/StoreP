@@ -20,6 +20,10 @@ namespace Charlotte.Tests
 			Test01a("https://www.amazon.co.jp");
 		}
 
+		/// <summary>
+		/// ★クライアント実行テンプレート
+		/// </summary>
+		/// <param name="url"></param>
 		private void Test01a(string url)
 		{
 			using (WorkingDir wd = new WorkingDir())
@@ -28,16 +32,16 @@ namespace Charlotte.Tests
 
 				HTTPClient hc = new HTTPClient(url)
 				{
-					//ConnectTimeoutMillis = 60000, // 1 min
-					//TimeoutMillis = 86400000, // 1 day
-					//IdleTimeoutMillis = 180000, // 3 min
-					//ResBodySizeMax = 100000000000000, // 100 TB
+					ConnectTimeoutMillis = 60000, // 1 min
+					TimeoutMillis = 86400000, // 1 day
+					IdleTimeoutMillis = 180000, // 3 min
+					ResBodySizeMax = 100000000000000, // 100 TB
 					ResFile = resFile,
 				};
 
 				hc.Get();
 
-				File.Copy(resFile, SCommon.NextOutputPath() + ".txt");
+				File.Copy(resFile, SCommon.NextOutputPath() + ".txt"); // ★サンプル -- 要削除
 			}
 		}
 	}
