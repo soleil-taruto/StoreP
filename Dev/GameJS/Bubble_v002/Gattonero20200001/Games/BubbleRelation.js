@@ -12,13 +12,26 @@
 var<double> @@_EXPLODE_R = 45.0;
 
 var<boolean> @@_Busy = false;
+var<Enemy_t> @@_ComboBaseEnemy = null;
 
-function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
+/*
+	comboEnmey: null == 着弾先無し
+*/
+function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> baseEnemy, <Enemy_t> comboEnemy)
 {
 	enemies = CloneArray(enemies);
 
 	AddEffect(function* ()
 	{
+		if (
+			comboEnemy != null &&
+			comboEnemy.@@_Reached == 2
+			)
+		{
+			@@_ComboBaseEnemy = baseEnemy;
+			@@_A_Reached(baseEnemy);
+		}
+
 		while (@@_Busy)
 		{
 			yield 1;
@@ -67,24 +80,48 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 				yield 1;
 			}
 
-			for (var<Enemy_t> enemy of enemies)
+			if (@@_ComboBaseEnemy == null) // ? 通常の爆発
 			{
-				if (enemy.@@_Reached == 2)
+				for (var<Enemy_t> enemy of enemies)
 				{
-					KillEnemy(enemy);
-
-					/*
-					for (var<int> w = 0; w < 5; w++) // ウェイト
+					if (enemy.@@_Reached == 2)
 					{
+						KillEnemy(enemy);
+
+						/*
+						for (var<int> w = 0; w < 5; w++) // ウェイト
+						{
+							yield 1;
+						}
+						*/
 						yield 1;
 					}
-					*/
-					yield 1;
+				}
+			}
+			else // ? コンボ
+			{
+				for (var<Enemy_t> enemy of enemies)
+				{
+					if (enemy.@@_Reached == 2)
+					{
+						enemy.@@_Reached = 0;
+						enemy.Color = @@_ComboBaseEnemy.Color;
+						@@_A_Reached(enemy);
+
+						/*
+						for (var<int> w = 0; w < 5; w++) // ウェイト
+						{
+							yield 1;
+						}
+						*/
+						yield 1;
+					}
 				}
 			}
 		}
 
 		@@_Busy = false;
+		@@_ComboBaseEnemy = null;
 	}());
 }
 

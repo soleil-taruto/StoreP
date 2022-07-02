@@ -9,7 +9,7 @@ var<Enemy_t[]> @@_Enemies = [];
 var<Shot_t[]> @@_Shots = [];
 
 // “G‚ÌF”
-var<int> EnemyColorLmt = 2;
+var<int> EnemyColorLmt = 3;
 
 /*
 	ŸˆÈ~‚Ì©’eƒŠƒXƒg
