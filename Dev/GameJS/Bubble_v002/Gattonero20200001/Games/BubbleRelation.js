@@ -11,15 +11,17 @@
 
 var<double> @@_EXPLODE_R = 45.0;
 
-var<boolean> @@_Busy = false;
+var<int> @@_Busy = 0; // 0 == 暇, 1 == 処理中, 2 == コンボ中
 
-function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
+function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> baseEnemy, <Enemy_t> 着弾先_enemy)
 {
+	var<boolean> comboMode = false;
+
 	enemies = CloneArray(enemies);
 
 	AddEffect(function* ()
 	{
-		while (@@_Busy)
+		while (@@_Busy == 2)
 		{
 			yield 1;
 		}
@@ -43,7 +45,7 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 				if (enemy.@@_Reached == 1)
 				{
 					enemy.@@_Reached = 2;
-					@@_Extend(enemies, enemy);
+					@@_Extend(enemies, enemy, baseEnemy.Color);
 					extended = true;
 					yield 1;
 				}
@@ -67,34 +69,38 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 				yield 1;
 			}
 
-			for (var<Enemy_t> enemy of enemies)
+			if (!@@_Combo) // ? コンボ発動中ではない -> 爆破する。
 			{
-				if (enemy.@@_Reached == 2)
+				for (var<Enemy_t> enemy of enemies)
 				{
-					KillEnemy(enemy);
-
-					/*
-					for (var<int> w = 0; w < 5; w++) // ウェイト
+					if (enemy.@@_Reached == 2)
 					{
+						KillEnemy(enemy);
+
+						/*
+						for (var<int> w = 0; w < 5; w++) // ウェイト
+						{
+							yield 1;
+						}
+						*/
 						yield 1;
 					}
-					*/
-					yield 1;
 				}
 			}
 		}
 
 		@@_Busy = false;
+		@@_Combo = false;
 	}());
 }
 
-function <void> @@_Extend(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
+function <void> @@_Extend(<Enemy_t[]> enemies, <Enemy_t> baseEnemy, <BallColor_e> targetColor)
 {
 	for (var<Enemy_t> enemy of enemies)
 	{
 		if (
 			enemy.@@_Reached == 0 &&
-			enemy.Color == baseEnemy.Color && // 同じ色のみ伝搬する。
+			enemy.Color == targetColor &&
 			Math.abs(enemy.X - baseEnemy.X) < @@_EXPLODE_R &&
 			Math.abs(enemy.Y - baseEnemy.Y) < @@_EXPLODE_R &&
 			GetDistance(enemy.X - baseEnemy.X, enemy.Y - baseEnemy.Y) < @@_EXPLODE_R

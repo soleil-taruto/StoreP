@@ -204,7 +204,7 @@ function* <generatorForTask> GameMain()
 
 					KillShot(shot);
 
-					BubbleRelation_’…’e‚É‚æ‚é”š”­(@@_Enemies, @@_Enemies[@@_Enemies.length - 1]);
+					BubbleRelation_’…’e‚É‚æ‚é”š”­(@@_Enemies, @@_Enemies[@@_Enemies.length - 1], enemy);
 				}
 			}
 		}
@@ -237,7 +237,7 @@ function* <generatorForTask> GameMain()
 
 				KillShot(shot);
 
-				BubbleRelation_’…’e‚É‚æ‚é”š”­(@@_Enemies, @@_Enemies[@@_Enemies.length - 1]);
+				BubbleRelation_’…’e‚É‚æ‚é”š”­(@@_Enemies, @@_Enemies[@@_Enemies.length - 1], null);
 			}
 			if (FIELD_B < shot.Y)
 			{

@@ -30,7 +30,7 @@ var<int> BallColor_e_ORANGE  = 5;
 var<int> BallColor_e_YELLOW  = 6;
 
 // チャージ・フレーム数
-var<int> CHARGE_FRAME_MAX = 20;
+var<int> CHARGE_FRAME_MAX = 5;
 
 // 次以降の自弾リスト・サイズ
 var<int> SUBSEQUENT_BALL_MAX = 20;
