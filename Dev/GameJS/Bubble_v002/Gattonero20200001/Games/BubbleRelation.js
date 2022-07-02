@@ -23,6 +23,8 @@ function <void> BubbleRelation_’…’e‚É‚æ‚é”š”­(<Enemy_t[]> enemies, <Enemy_t> bas
 
 	AddEffect(function* ()
 	{
+		yield* @@_LiteLock_Enter();
+
 		if (
 			comboEnemy != null &&
 			comboEnemy.@@_Reached == 2 &&
@@ -38,6 +40,7 @@ function <void> BubbleRelation_’…’e‚É‚æ‚é”š”­(<Enemy_t[]> enemies, <Enemy_t> bas
 			yield 1;
 		}
 		@@_Busy = true;
+		@@_LiteLock_Leave();
 
 		for (var<Enemy_t> enemy of enemies)
 		{
@@ -163,4 +166,28 @@ function <void> @@_A_Reached(<Enemy_t> enemy)
 			yield 1;
 		}
 	}());
+}
+
+var<boolean[]> @@_LLFlagStack = [ false, false, false, false, false, false, false, false, false, false ];
+
+function* <generatorForTask> @@_LiteLock_Enter()
+{
+	for (var<int> c = 0; c < @@_LLFlagStack.length; c++)
+	{
+		while (@@_LLFlagStack[c])
+		{
+			yield 1;
+		}
+		@@_LLFlagStack[c] = true;
+
+		if (1 <= c)
+		{
+			@@_LLFlagStack[c - 1] = false;
+		}
+	}
+}
+
+function <void> @@_LiteLock_Leave()
+{
+	@@_LLFlagStack[@@_LLFlagStack.length - 1] = false;
 }
