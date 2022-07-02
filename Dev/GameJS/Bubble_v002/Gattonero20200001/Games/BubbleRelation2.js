@@ -17,7 +17,7 @@ function <void> BubbleRelation_孤立したブロックを除去_Start()
 		{
 			yield* @@_Main();
 
-			for (var<int> w = 0; w < 10; w++) // ウェイト
+			for (var<int> w = 0; w < 30; w++) // ウェイト
 			{
 				yield 1;
 			}
@@ -50,6 +50,8 @@ function* <generatorForTask> @@_Main()
 
 	Shuffle(enemies);
 
+	var<int> extendCount = 0;
+
 	for (var<boolean> extended = true; extended; )
 	{
 		extended = false;
@@ -61,7 +63,12 @@ function* <generatorForTask> @@_Main()
 				enemy.@@_Reached = 2;
 				@@_Extend(enemies, enemy);
 				extended = true;
-				yield 1;
+				extendCount++;
+
+				if (extendCount % 5 == 0)
+				{
+					yield 1;
+				}
 			}
 		}
 	}

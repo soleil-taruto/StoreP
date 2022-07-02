@@ -25,7 +25,8 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 	{
 		if (
 			comboEnemy != null &&
-			comboEnemy.@@_Reached == 2
+			comboEnemy.@@_Reached == 2 &&
+			comboEnemy.Color != baseEnemy.Color
 			)
 		{
 			@@_ComboBaseEnemy = baseEnemy;
@@ -80,19 +81,42 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 				yield 1;
 			}
 
-			for (var<Enemy_t> enemy of enemies)
+			if (@@_ComboBaseEnemy == null) // ? 通常の爆発
 			{
-				if (enemy.@@_Reached == 2)
+				for (var<Enemy_t> enemy of enemies)
 				{
-					KillEnemy(enemy);
-
-					/*
-					for (var<int> w = 0; w < 5; w++) // ウェイト
+					if (enemy.@@_Reached == 2)
 					{
+						KillEnemy(enemy);
+
+						/*
+						for (var<int> w = 0; w < 5; w++) // ウェイト
+						{
+							yield 1;
+						}
+						*/
 						yield 1;
 					}
-					*/
-					yield 1;
+				}
+			}
+			else // ? コンボ
+			{
+				for (var<Enemy_t> enemy of enemies)
+				{
+					if (enemy.@@_Reached == 2)
+					{
+						enemy.@@_Reached = 0;
+						enemy.Color = @@_ComboBaseEnemy.Color;
+						@@_A_Reached(enemy);
+
+						/*
+						for (var<int> w = 0; w < 5; w++) // ウェイト
+						{
+							yield 1;
+						}
+						*/
+						yield 1;
+					}
 				}
 			}
 		}
@@ -108,13 +132,7 @@ function <void> @@_Extend(<Enemy_t[]> enemies, <Enemy_t> baseEnemy)
 	{
 		if (
 			enemy.@@_Reached == 0 &&
-			(
-				enemy.Color == baseEnemy.Color ||
-				(
-					@@_ComboBaseEnemy != null &&
-					@@_ComboBaseEnemy.Color == enemy.Color
-				)
-			) &&
+			enemy.Color == baseEnemy.Color && // 同じ色のみ伝搬する。
 			Math.abs(enemy.X - baseEnemy.X) < @@_EXPLODE_R &&
 			Math.abs(enemy.Y - baseEnemy.Y) < @@_EXPLODE_R &&
 			GetDistance(enemy.X - baseEnemy.X, enemy.Y - baseEnemy.Y) < @@_EXPLODE_R
