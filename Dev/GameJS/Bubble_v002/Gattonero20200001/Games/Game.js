@@ -8,6 +8,9 @@ var<Enemy_t[]> @@_Enemies = [];
 // é©íeÉäÉXÉg
 var<Shot_t[]> @@_Shots = [];
 
+// ìGÇÃêFêî
+var<int> EnemyColorLmt = 2;
+
 /*
 	éüà»ç~ÇÃé©íeÉäÉXÉg
 	----
@@ -27,13 +30,17 @@ var<int> ChargeFrame = 0;
 
 function* <generatorForTask> GameMain()
 {
+	Shuffle(P_Balls);
+
+	var<generatorForTask> g_scenario = ScenarioTask();
+
 	// init SubsequentBallColors
 	{
 		SubsequentBallColors = [];
 
 		for (var<int> c = 0; c < SUBSEQUENT_BALL_MAX; c++)
 		{
-			SubsequentBallColors.push(GetRand(P_Balls.length));
+			SubsequentBallColors.push(GetRand(EnemyColorLmt));
 		}
 	}
 
@@ -41,16 +48,18 @@ function* <generatorForTask> GameMain()
 	{
 		for (var<int> y = 0; y < 10; y++)
 		{
+			var<int> step = y;
+
 			for (var<int> x = 0; ; x++)
 			{
-				var<double> px = 17 + 15 * (y % 2) + 30 * x;
+				var<double> px = 17 + 15 * (step % 2) + 30 * x;
 				var<double> py = 15 + 25 * y;
 
 				if (FIELD_R - 15 < px)
 				{
 					break;
 				}
-				@@_Enemies.push(CreateEnemy_Ball(px, py, 1, GetRand(P_Balls.length)));
+				@@_Enemies.push(CreateEnemy_Ball(px, py, 1, GetRand(EnemyColorLmt)));
 			}
 		}
 	}
@@ -59,6 +68,11 @@ function* <generatorForTask> GameMain()
 
 	for (; ; )
 	{
+		if (!g_scenario.next().value)
+		{
+			error();
+		}
+
 		@@_DrawWall();
 
 		var<double> mx = GetMouseX();
@@ -98,7 +112,7 @@ function* <generatorForTask> GameMain()
 				ChargeFrame = 1;
 				@@_Shots.push(CreateShot_Ball(sx, sy, speed.X, speed.Y, SubsequentBallColors[0]));
 				SubsequentBallColors.shift();
-				SubsequentBallColors.push(GetRand(P_Balls.length));
+				SubsequentBallColors.push(GetRand(EnemyColorLmt));
 				@@_Subsequent_ShiftXRate = 1.0;
 			}
 		}

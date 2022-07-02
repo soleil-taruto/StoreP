@@ -96,10 +96,11 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Types.js(43) : Image // íË
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Types.js(44) : Gamepad // íËã`
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Types.js(45) : GamepadButton // íËã`
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(7) : Crash_t // íËã`
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(18) : CreateCrash_Circle // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(34) : CreateCrash_Rect // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(48) : IsCrashed // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(148) : DrawCrash // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(19) : CreateCrash_Point // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(25) : CreateCrash_Circle // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(42) : CreateCrash_Rect // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(56) : IsCrashed // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Crash.js(156) : DrawCrash // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Draw.js(6) : ClearScreen // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Draw.js(26) : Draw // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Effect.js(13) : AddEffect // ä÷êî

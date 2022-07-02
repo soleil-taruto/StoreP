@@ -27,6 +27,9 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
 	for (; ; )
 	{
+		enemy.Y += 0.1;
+//		enemy.Y += ProcFrame % 10 == 0 ? 1 : 0;
+
 		// ìñÇΩÇËîªíË_ê›íu
 		{
 			var<double> BLOCK_RAD = 15;
