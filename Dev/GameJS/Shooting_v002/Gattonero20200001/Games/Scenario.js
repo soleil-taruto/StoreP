@@ -6,12 +6,13 @@ function* <generatorForTask> ScenarioTask()
 {
 	// -- choose one --
 
-	yield* @@_Main();
+	yield* @@_Test01();
+//	yield* @@_Main();
 
 	// --
 }
 
-function* <generatorForTask> @@_Main()
+function* <generatorForTask> @@_Test01()
 {
 	/*
 	for (; ; )
@@ -67,4 +68,11 @@ function* <generatorForTask> @@_Main()
 
 		yield 1;
 	}
+}
+
+var<generatorForTask[]> @@_Tasks = [];
+
+function* <generatorForTask> @@_Main()
+{
+
 }

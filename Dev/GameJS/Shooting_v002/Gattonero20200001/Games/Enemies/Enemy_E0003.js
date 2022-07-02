@@ -54,10 +54,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 function <int> @@_DrawYield(<Enemy_t> enemy)
 {
-	enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 50.0);
-
-	Draw(P_Enemy0003, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
-
+	EnemyCommon_Draw(enemy);
 	return 1;
 }
 

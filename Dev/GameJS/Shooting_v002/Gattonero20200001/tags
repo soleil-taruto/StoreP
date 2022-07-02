@@ -216,6 +216,7 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Enemies\EnemyCatalog.js(13) 
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Enemies\EnemyCatalog.js(14) : Enemy_Kind_e_E0007 // •Ï”
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Enemies\EnemyCatalog.js(15) : Enemy_Kind_e_E0008 // •Ï”
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Enemies\EnemyCommon.js(5) : EnemyCommon_Dead // ŠÖ”
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Enemies\EnemyCommon.js(10) : EnemyCommon_Draw // ŠÖ”
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // ’è‹`
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Shots\Shot.js(40) : DrawShot // ŠÖ”
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Shots\Shot.js(48) : KillShot // ŠÖ”
