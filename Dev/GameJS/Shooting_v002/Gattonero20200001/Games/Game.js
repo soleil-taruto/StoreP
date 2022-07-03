@@ -106,46 +106,56 @@ function* <generatorForTask> GameMain()
 				continue;
 			}
 
-			for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
+			if (enemy.HP != 0) // ? ñ≥ìGÇ≈ÇÕÇ»Ç¢ÅB
 			{
-				var<Shot_t> shot = @@_Shots[shotIndex];
+				for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
+				{
+					var<Shot_t> shot = @@_Shots[shotIndex];
 
-				if (shot.AttackPoint == -1) // ? ä˘Ç…éÄñS
+					if (shot.AttackPoint == -1) // ? ä˘Ç…éÄñS
+					{
+						continue;
+					}
+
+					if (IsCrashed(enemy.Crash, shot.Crash)) // ? è’ìÀÇµÇƒÇ¢ÇÈÅBìG vs é©íe
+					{
+						var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
+
+						enemy.HP -= damagePoint;
+						shot.AttackPoint -= damagePoint;
+
+						if (enemy.HP <= 0) // ? éÄñSÇµÇΩÅB
+						{
+							KillEnemy(enemy);
+							break; // Ç±ÇÃìGÇÕéÄñSÇµÇΩÇÃÇ≈ÅAéüÇÃìGÇ÷êiÇﬁÅB
+						}
+						if (shot.AttackPoint <= 0) // ? çUåÇóÕÇégÇ¢â ÇΩÇµÇΩÅB
+						{
+							KillShot(shot);
+							continue; // Ç±ÇÃé©íeÇÕéÄñSÇµÇΩÇÃÇ≈ÅAéüÇÃé©íeÇ÷êiÇﬁÅB
+						}
+					}
+				}
+
+				if (enemy.HP == -1) // ? ä˘Ç…éÄñS (2âÒñ⁄)
 				{
 					continue;
 				}
-
-				if (IsCrashed(enemy.Crash, shot.Crash)) // ? è’ìÀÇµÇƒÇ¢ÇÈÅBìG vs é©íe
-				{
-					var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
-
-					enemy.HP -= damagePoint;
-					shot.AttackPoint -= damagePoint;
-
-					if (enemy.HP <= 0) // ? éÄñSÇµÇΩÅB
-					{
-						KillEnemy(enemy);
-						break; // Ç±ÇÃìGÇÕéÄñSÇµÇΩÇÃÇ≈ÅAéüÇÃìGÇ÷êiÇﬁÅB
-					}
-					if (shot.AttackPoint <= 0) // ? çUåÇóÕÇégÇ¢â ÇΩÇµÇΩÅB
-					{
-						KillShot(shot);
-						continue; // Ç±ÇÃé©íeÇÕéÄñSÇµÇΩÇÃÇ≈ÅAéüÇÃé©íeÇ÷êiÇﬁÅB
-					}
-				}
-			}
-
-			if (enemy.HP == -1) // ? ä˘Ç…éÄñS (2âÒñ⁄)
-			{
-				continue;
 			}
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? è’ìÀÇµÇƒÇ¢ÇÈÅBìG vs é©ã@
 			{
-				AddEffect_Explode(PlayerX, PlayerY);
+				if (enemy.Kind == Enemy_Kind_e_Item) // ? ÉAÉCÉeÉÄ -> éÊìæ
+				{
+					// TODO
+				}
+				else // ? ÇªÇÍà»äO(ìG) -> îÌíe
+				{
+					AddEffect_Explode(PlayerX, PlayerY);
 
-				PlayerX = FIELD_L + FIELD_W / 2;
-				PlayerY = FIELD_T + FIELD_H / 2;
+					PlayerX = FIELD_L + FIELD_W / 2;
+					PlayerY = FIELD_T + FIELD_H / 2;
+				}
 			}
 		}
 

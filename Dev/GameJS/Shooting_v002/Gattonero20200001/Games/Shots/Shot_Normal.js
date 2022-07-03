@@ -30,8 +30,17 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 	{
 		var<D2Point_t> speed = AngleToPoint(shot.Angle, shot.Speed);
 
-		shot.X += speed.XAdd;
-		shot.Y += speed.YAdd;
+		shot.X += speed.X;
+		shot.Y += speed.Y;
+
+		if (IsOut(
+			CreateD2Point(shot.X, shot.Y),
+			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
+			50.0
+			))
+		{
+			break;
+		}
 
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 10.0);
 

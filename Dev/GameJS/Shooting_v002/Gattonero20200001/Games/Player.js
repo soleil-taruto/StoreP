@@ -56,12 +56,12 @@ function <void> DrawPlayer()
 		PlayerY = ToRange(PlayerY, FIELD_T, FIELD_B);
 	}
 
-	if (1 <= GetInput_B() && ProcFrame % 10 == 0) // UŒ‚
+	if (1 <= GetInput_B() && ProcFrame % 4 == 0) // UŒ‚
 	{
-		GetShots().push(CreateShot_BDummy(PlayerX, PlayerY, 0.0, -10.0));
+		GetShots().push(CreateShot_Normal(PlayerX, PlayerY, Math.PI * 1.5, 20.0));
 	}
 
-	PlayerCrash = CreateCrash_Circle(PlayerX, PlayerY, MICRO);
+	PlayerCrash = CreateCrash_Point(PlayerX, PlayerY);
 
-	Draw(P_Dummy, PlayerX, PlayerY, 1.0, Math.PI / 4, 1.0);
+	Draw(P_Player, PlayerX, PlayerY, 1.0, 0.0, 1.0);
 }
