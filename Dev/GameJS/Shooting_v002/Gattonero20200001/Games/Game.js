@@ -106,41 +106,42 @@ function* <generatorForTask> GameMain()
 				continue;
 			}
 
-			if (enemy.HP != 0) // ? –³“G‚Å‚Í‚È‚¢B
+			for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
 			{
-				for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
-				{
-					var<Shot_t> shot = @@_Shots[shotIndex];
+				var<Shot_t> shot = @@_Shots[shotIndex];
 
-					if (shot.AttackPoint == -1) // ? Šù‚É€–S
-					{
-						continue;
-					}
-
-					if (IsCrashed(enemy.Crash, shot.Crash)) // ? Õ“Ë‚µ‚Ä‚¢‚éB“G vs ©’e
-					{
-						var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
-
-						enemy.HP -= damagePoint;
-						shot.AttackPoint -= damagePoint;
-
-						if (enemy.HP <= 0) // ? €–S‚µ‚½B
-						{
-							KillEnemy(enemy);
-							break; // ‚±‚Ì“G‚Í€–S‚µ‚½‚Ì‚ÅAŸ‚Ì“G‚Öi‚ŞB
-						}
-						if (shot.AttackPoint <= 0) // ? UŒ‚—Í‚ğg‚¢‰Ê‚½‚µ‚½B
-						{
-							KillShot(shot);
-							continue; // ‚±‚Ì©’e‚Í€–S‚µ‚½‚Ì‚ÅAŸ‚Ì©’e‚Öi‚ŞB
-						}
-					}
-				}
-
-				if (enemy.HP == -1) // ? Šù‚É€–S (2‰ñ–Ú)
+				if (shot.AttackPoint == -1) // ? Šù‚É€–S
 				{
 					continue;
 				}
+				if (enemy.HP == 0) // ? –³“G -> ©’e‚Æ‚ÍÕ“Ë‚µ‚È‚¢B
+				{
+					continue;
+				}
+
+				if (IsCrashed(enemy.Crash, shot.Crash)) // ? Õ“Ë‚µ‚Ä‚¢‚éB“G vs ©’e
+				{
+					var<int> damagePoint = Math.min(enemy.HP, shot.AttackPoint);
+
+					enemy.HP -= damagePoint;
+					shot.AttackPoint -= damagePoint;
+
+					if (enemy.HP <= 0) // ? €–S‚µ‚½B
+					{
+						KillEnemy(enemy);
+						break; // ‚±‚Ì“G‚Í€–S‚µ‚½‚Ì‚ÅAŸ‚Ì“G‚Öi‚ŞB
+					}
+					if (shot.AttackPoint <= 0) // ? UŒ‚—Í‚ğg‚¢‰Ê‚½‚µ‚½B
+					{
+						KillShot(shot);
+						continue; // ‚±‚Ì©’e‚Í€–S‚µ‚½‚Ì‚ÅAŸ‚Ì©’e‚Öi‚ŞB
+					}
+				}
+			}
+
+			if (enemy.HP == -1) // ? Šù‚É€–S (2‰ñ–Ú)
+			{
+				continue;
 			}
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? Õ“Ë‚µ‚Ä‚¢‚éB“G vs ©‹@
@@ -151,10 +152,9 @@ function* <generatorForTask> GameMain()
 				}
 				else // ? ‚»‚êˆÈŠO(“G) -> ”í’e
 				{
-					AddEffect_Explode(PlayerX, PlayerY);
+					yield* @@_PlayerDead();
 
-					PlayerX = FIELD_L + FIELD_W / 2;
-					PlayerY = FIELD_T + FIELD_H / 2;
+					PlayerBornFrame = 1;
 				}
 			}
 		}
@@ -216,4 +216,18 @@ function <void> @@_DrawFront()
 		Screen_W - FIELD_R,
 		Screen_H
 		);
+}
+
+/*
+	ƒvƒŒƒCƒ„[‚Ì”í’eƒ‚[ƒVƒ‡ƒ“
+*/
+function* <generatorForTask> @@_PlayerDead()
+{
+	SetColor("#ff000040");
+	PrintRect(0, 0, Screen_W, Screen_H);
+
+	for (var<Scene_t> scene of CreateScene(20))
+	{
+		yield 1;
+	}
 }

@@ -14,6 +14,25 @@ var<double> PlayerY = FIELD_T + FIELD_H / 2;
 var<Crash_t> PlayerCrash = null;
 
 /*
+	再登場フレーム・最大値
+*/
+var<int> PLAYER_BORN_FRAME_MAX = 30;
+
+/*
+	再登場フレーム
+	-- 再登場を開始するには 1 をセットすること。
+	0 == 無効
+	1 ～ PLAYER_BORN_FRAME_MAX == 再登場中
+*/
+var<int> PlayerBornFrame = 0;
+
+/*
+	再登場中の描画位置
+*/
+var<double> @@_Born_X;
+var<double> @@_Born_Y;
+
+/*
 	行動と描画
 	処理すべきこと：
 	-- 行動
@@ -22,6 +41,35 @@ var<Crash_t> PlayerCrash = null;
 */
 function <void> DrawPlayer()
 {
+	if (1 <= PlayerBornFrame) // ? 再登場中
+	{
+		var<double> rate = PlayerBornFrame / PLAYER_BORN_FRAME_MAX;
+		var<double> remRate = 1.0 - rate;
+
+		if (PlayerBornFrame == 1) // ? 初回
+		{
+			@@_Born_X = FIELD_L + FIELD_W / 2;
+			@@_Born_Y = FIELD_B + 100.0;
+		}
+
+		@@_Born_X = Approach(@@_Born_X, PlayerX, remRate);
+		@@_Born_Y = Approach(@@_Born_Y, PlayerY, remRate);
+
+		PlayerCrash = null; // 当たり判定無し。
+
+		Draw(P_Player, @@_Born_X, @@_Born_Y, 1.0, remRate * remRate * 10.0, 1.0);
+
+		if (PlayerBornFrame < PLAYER_BORN_FRAME_MAX)
+		{
+			PlayerBornFrame++;
+		}
+		else
+		{
+			PlayerBornFrame = 0;
+		}
+		return;
+	}
+
 	// 移動
 	{
 		var<double> SPEED;
