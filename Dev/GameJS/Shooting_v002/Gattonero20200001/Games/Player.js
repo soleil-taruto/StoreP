@@ -14,11 +14,6 @@ var<double> PlayerY = FIELD_T + FIELD_H / 2;
 var<Crash_t> PlayerCrash = null;
 
 /*
-	再登場フレーム・最大値
-*/
-var<int> PLAYER_BORN_FRAME_MAX = 30;
-
-/*
 	再登場フレーム
 	-- 再登場を開始するには 1 をセットすること。
 	0 == 無効
@@ -31,11 +26,6 @@ var<int> PlayerBornFrame = 0;
 */
 var<double> @@_Born_X;
 var<double> @@_Born_Y;
-
-/*
-	無敵状態フレーム・最大値
-*/
-var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
 
 /*
 	無敵状態フレーム

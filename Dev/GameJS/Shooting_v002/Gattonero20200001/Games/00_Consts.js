@@ -11,3 +11,21 @@ var<int> FIELD_W = Screen_W - 100;
 var<int> FIELD_H = Screen_H - 100;
 var<int> FIELD_R = FIELD_L + FIELD_W;
 var<int> FIELD_B = FIELD_T + FIELD_H;
+
+// ----
+// プレイヤー情報用_ここから
+// ----
+
+/*
+	再登場フレーム・最大値
+*/
+var<int> PLAYER_BORN_FRAME_MAX = 30;
+
+/*
+	無敵状態フレーム・最大値
+*/
+var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
+
+// ----
+// プレイヤー情報用_ここまで
+// ----
