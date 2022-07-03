@@ -32,7 +32,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	while (FIELD_L < enemy.Y)
 	{
 		{
-			var<double> X_ADD = 2.0;
+			var<double> X_ADD = 4.0;
 
 			if (Math.abs(enemy.X - PlayerX) < X_ADD)
 			{
@@ -49,7 +49,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 			}
 		}
 
-		enemy.Y -= 4.0;
+		enemy.Y -= 8.0;
 
 		yield @@_DrawYield(enemy);
 	}

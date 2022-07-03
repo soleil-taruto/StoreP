@@ -155,6 +155,7 @@ function* <generatorForTask> GameMain()
 					yield* @@_PlayerDead();
 
 					PlayerBornFrame = 1;
+					break; // 被弾したので当たり判定終了
 				}
 			}
 		}
@@ -223,11 +224,48 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_PlayerDead()
 {
+	var<generatorForTask[]> bk_effects = EjectEffects(); // エフェクト全て除去
+
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
 	for (var<Scene_t> scene of CreateScene(20))
 	{
 		yield 1;
+	}
+
+	SetEffects(bk_effects); // エフェクト復元
+
+	// 敵クリア
+	//
+	for (var<Enemy_t> enemy of @@_Enemies)
+	{
+		// アイテムは除外
+		if (enemy.Kind == Enemy_Kind_e_Item)
+		{
+			// noop
+		}
+		// TODO: ボスクラスの敵も除外
+		/*
+		else if (
+			enemy.Kind == Enemy_Kind_e_BOSS_01 ||
+			enemy.Kind == Enemy_Kind_e_BOSS_02 ||
+			enemy.Kind == Enemy_Kind_e_BOSS_03
+			)
+		{
+			// noop
+		}
+		*/
+		else
+		{
+			KillEnemy(enemy);
+		}
+	}
+
+	// 自弾クリア
+	//
+	for (var<Shot_t> shot of @@_Shots)
+	{
+		KillShot(shot);
 	}
 }
