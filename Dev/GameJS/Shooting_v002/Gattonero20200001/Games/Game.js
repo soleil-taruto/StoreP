@@ -19,7 +19,8 @@ function* <generatorForTask> GameMain()
 		PlayerY = FIELD_T + FIELD_H / 2;
 		PlayerBornFrame = 0;
 		PlayerInvincibleFrame = 0;
-		PlayerAttackLv = 1;
+//		PlayerAttackLv = 1;
+PlayerAttackLv = 3; // TODO
 		PlayerZankiNum = 3;
 	}
 

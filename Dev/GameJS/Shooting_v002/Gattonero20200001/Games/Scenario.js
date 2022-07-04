@@ -145,7 +145,7 @@ function* <generatorForTask> @@_Main()
 			GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
 
 			yield* Wait(20);
-		}*/
+		}
 
 		yield* Wait(60);
 
@@ -170,5 +170,26 @@ function* <generatorForTask> @@_Main()
 		}
 
 		yield* Wait(90);
+		*/
+
+		for (var<int> c = 0; c < 20; c++)
+		{
+			GetEnemies().push(CreateEnemy_E0005(GetRand3(300, 400), FIELD_T - 25, 5));
+
+			yield* Wait(20);
+		}
+
+		yield* Wait(60);
+
+		for (var<int> c = 0; c < 20; c++)
+		{
+			GetEnemies().push(EnemyCommon_ToShooter(
+				CreateEnemy_E0005(GetRand3(100, 600), FIELD_T - 25, 5)
+				));
+
+			yield* Wait(20);
+		}
+
+		yield* Wait(60);
 	}
 }
