@@ -40,7 +40,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 			break;
 		}
 
-		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 20.0);
+		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 16.0);
 
 		Draw(P_Tama0001, enemy.X, enemy.Y, 1.0, frame / 13.0, 1.0);
 

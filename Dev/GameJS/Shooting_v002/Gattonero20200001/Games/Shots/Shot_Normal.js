@@ -42,7 +42,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 			break;
 		}
 
-		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 10.0);
+		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 16.0);
 
 		Draw(P_Shot0001, shot.X, shot.Y, 1.0, shot.Angle, 1.0);
 

@@ -62,7 +62,7 @@ function <void> DrawPlayer()
 
 		if (1 <= GetInput_A()) // ? ’á‘¬ˆÚ“®
 		{
-			SPEED = 1.0;
+			SPEED = 2.5;
 		}
 		else // ? ‚‘¬ˆÚ“®
 		{

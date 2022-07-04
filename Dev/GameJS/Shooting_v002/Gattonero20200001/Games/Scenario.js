@@ -73,7 +73,7 @@ function* <generatorForTask> @@_Test01()
 function* <generatorForTask> @@_Main()
 {
 	for (; ; )
-	{
+	{/*
 		yield* Wait(30);
 
 		for (var<int> c = 0; c < 10; c++)
@@ -145,7 +145,7 @@ function* <generatorForTask> @@_Main()
 			GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
 
 			yield* Wait(20);
-		}
+		}*/
 
 		yield* Wait(60);
 

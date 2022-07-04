@@ -36,7 +36,7 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 
 		SetPrint(ToInt(enemy.X - str.length * 5), ToInt(enemy.Y - 30), 0);
 		SetFSize(16);
-		SetColor("#a00000");
+		SetColor(enemy.Kind == Enemy_Kind_e_E0006 ? "#000000" : "#ffffff");
 		PrintLine(str);
 	}
 }
