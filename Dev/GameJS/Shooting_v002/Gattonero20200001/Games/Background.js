@@ -7,9 +7,15 @@
 	108 = 27 * 4
 	108 = 36 * 3
 
+	108 = 9 * 12
+	108 = 12 * 9
+	108 = 18 * 6
 */
 
 var<TaskManager_t> @@_Tasks = CreateTaskManager();
+var<TaskManager_t> @@_Tasks_01 = CreateTaskManager();
+var<TaskManager_t> @@_Tasks_02 = CreateTaskManager();
+var<TaskManager_t> @@_Tasks_03 = CreateTaskManager();
 
 function* <generatorForTask> BackgroundTask()
 {
@@ -18,6 +24,9 @@ function* <generatorForTask> BackgroundTask()
 	for (; ; )
 	{
 		ExecuteAllTask(@@_Tasks);
+		ExecuteAllTask(@@_Tasks_01);
+		ExecuteAllTask(@@_Tasks_02);
+		ExecuteAllTask(@@_Tasks_03);
 
 		if (!f_Main())
 		{
@@ -36,12 +45,14 @@ function* <generatorForTask> @@_Main()
 		{
 			for (var<int> x = 0; x < 7; x++)
 			{
-				AddTask(@@_Tasks, function* <generatorForTask> ()
+				AddTask(@@_Tasks_01, function* <generatorForTask> ()
 				{
 					for (var<int> y = 0; ; y++)
 					{
 						var<double> dx = FIELD_L + 28 + x * 108;
-						var<double> dy = FIELD_T - 54 + y * 18;
+						var<double> dy = FIELD_T - 54 + y * 9;
+
+						dx += 28 * -1;
 
 						if (FIELD_B + 54 < dy)
 						{
@@ -49,6 +60,78 @@ function* <generatorForTask> @@_Main()
 						}
 
 						Draw(P_Wall0001, dx, dy, 1.0, 0.0, 1.0);
+
+						yield 1;
+					}
+				}());
+			}
+
+			yield* Wait(12);
+		}
+	}());
+
+	AddTask(@@_Tasks, function* <generatorForTask> ()
+	{
+		for (; ; )
+		{
+			for (var<int> x = 0; x < 7; x++)
+			{
+				if (GetRand1() < 0.2)
+				{
+					continue;
+				}
+
+				AddTask(@@_Tasks_02, function* <generatorForTask> ()
+				{
+					for (var<int> y = 0; ; y++)
+					{
+						var<double> dx = FIELD_L + 28 + x * 108;
+						var<double> dy = FIELD_T - 54 + y * 12;
+
+						dx += 28 * 0;
+
+						if (FIELD_B + 54 < dy)
+						{
+							break;
+						}
+
+						Draw(P_Wall0002, dx, dy, 1.0, 0.0, 1.0);
+
+						yield 1;
+					}
+				}());
+			}
+
+			yield* Wait(9);
+		}
+	}());
+
+	AddTask(@@_Tasks, function* <generatorForTask> ()
+	{
+		for (; ; )
+		{
+			for (var<int> x = 0; x < 7; x++)
+			{
+				if (GetRand1() < 0.4)
+				{
+					continue;
+				}
+
+				AddTask(@@_Tasks_03, function* <generatorForTask> ()
+				{
+					for (var<int> y = 0; ; y++)
+					{
+						var<double> dx = FIELD_L + 28 + x * 108;
+						var<double> dy = FIELD_T - 54 + y * 18;
+
+						dx += 28 * 1;
+
+						if (FIELD_B + 54 < dy)
+						{
+							break;
+						}
+
+						Draw(P_Wall0003, dx, dy, 1.0, 0.0, 1.0);
 
 						yield 1;
 					}
