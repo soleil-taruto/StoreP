@@ -1,0 +1,54 @@
+/*
+	“G - “G’e
+*/
+
+function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <double> yAdd)
+{
+	var ret =
+	{
+		Kind: Enemy_Kind_e_Tama,
+		X: x,
+		Y: y,
+		HP: 0,
+		Crash: null,
+
+		// ‚±‚±‚©‚çŒÅ—L
+
+		<double> XAdd: xAdd,
+		<double> YAdd: yAdd,
+	};
+
+	ret.Draw = @@_Draw(ret);
+	ret.Dead = @@_Dead;
+
+	return ret;
+}
+
+function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
+{
+	for (; ; )
+	{
+		enemy.X += enemy.XAdd;
+		enemy.Y += enemy.YAdd;
+
+		if (IsOut(
+			CreateD2Point(enemy.X, enemy.Y),
+			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
+			50.0
+			))
+		{
+			break;
+		}
+
+		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 20.0);
+
+		Draw(P_Tama0001, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+
+		yield 1;
+	}
+}
+
+function <void> @@_Dead(<Enemy_t> enemy)
+{
+	EnemyCommon_Dead(enemy);
+}
