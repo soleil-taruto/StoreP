@@ -29,4 +29,14 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 	enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 50.0);
 
 	Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+
+	// HP •\Ž¦
+	{
+		var<string> str = "" + enemy.HP;
+
+		SetPrint(ToInt(enemy.X - str.length * 5), ToInt(enemy.Y - 30), 0);
+		SetFSize(16);
+		SetColor("#ffff00");
+		PrintLine(str);
+	}
 }

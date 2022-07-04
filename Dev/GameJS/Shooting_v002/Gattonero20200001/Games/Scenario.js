@@ -6,8 +6,8 @@ function* <generatorForTask> ScenarioTask()
 {
 	// -- choose one --
 
-	yield* @@_Test01();
-//	yield* @@_Main();
+//	yield* @@_Test01();
+	yield* @@_Main();
 
 	// --
 }
@@ -70,9 +70,53 @@ function* <generatorForTask> @@_Test01()
 	}
 }
 
-var<generatorForTask[]> @@_Tasks = [];
-
 function* <generatorForTask> @@_Main()
 {
+	for (; ; )
+	{
+		yield* Wait(30);
 
+		for (var<int> c = 0; c < 10; c++)
+		{
+			GetEnemies().push(CreateEnemy_E0001(600, FIELD_T - 25, 5));
+
+			yield* Wait(20);
+		}
+
+		yield* Wait(30);
+
+		for (var<int> c = 0; c < 10; c++)
+		{
+			GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+
+			yield* Wait(20);
+		}
+
+		yield* Wait(90);
+
+		GetEnemies().push(EnemyCommon_ToItemer(
+			CreateEnemy_E0003(FIELD_L + FIELD_W / 2, FIELD_T - 25, 25),
+			Enemy_Item_Kind_e_PowerUp
+			));
+
+		yield* Wait(120);
+
+		for (var<int> c = 0; c < 10; c++)
+		{
+			GetEnemies().push(CreateEnemy_E0001(100, FIELD_T - 25, 5));
+
+			yield* Wait(20);
+		}
+
+		yield* Wait(30);
+
+		for (var<int> c = 0; c < 10; c++)
+		{
+			GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+
+			yield* Wait(20);
+		}
+
+		yield* Wait(60);
+	}
 }

@@ -50,3 +50,5 @@ var<Image> P_Enemy0005 = @@_Load(Resources.Picture__Enemy0005_png);
 var<Image> P_Enemy0006 = @@_Load(Resources.Picture__Enemy0006_png);
 var<Image> P_Enemy0007 = @@_Load(Resources.Picture__Enemy0007_png);
 var<Image> P_Enemy0008 = @@_Load(Resources.Picture__Enemy0008_png);
+var<Image> P_PowerUpItem = @@_Load(Resources.Picture__PowerUpItem_png);
+var<Image> P_ZankiUpItem = @@_Load(Resources.Picture__ZankiUpItem_png);

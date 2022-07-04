@@ -15,3 +15,8 @@ var<int> Enemy_Kind_e_E0007 = @(AUTO);
 var<int> Enemy_Kind_e_E0008 = @(AUTO);
 var<int> Enemy_Kind_e_Item = @(AUTO);
 var<int> Enemy_Kind_e_Tama = @(AUTO);
+
+/// Enemy_Item_Kind_e
+//
+var<int> Enemy_Item_Kind_e_PowerUp = @(AUTO);
+var<int> Enemy_Item_Kind_e_ZankiUp = @(AUTO);

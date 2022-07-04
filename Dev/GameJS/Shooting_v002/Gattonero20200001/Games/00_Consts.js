@@ -26,6 +26,11 @@ var<int> PLAYER_BORN_FRAME_MAX = 30;
 */
 var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
 
+/*
+	攻撃レベル・最大値
+*/
+var<int> PLAYER_ATTACK_LV_MAX = 3;
+
 // ----
 // プレイヤー情報用_ここまで
 // ----

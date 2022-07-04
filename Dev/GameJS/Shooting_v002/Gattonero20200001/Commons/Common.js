@@ -20,6 +20,11 @@ function* <T[]> Repeat(<T> value, <int> count)
 	}
 }
 
+function* <generatorForTask> Wait(<int> count)
+{
+	yield* Repeat(1, count);
+}
+
 function <int> CountDown(<int> count)
 {
 	if (1 < count)

@@ -10,6 +10,19 @@ var<Shot_t[]> @@_Shots = [];
 
 function* <generatorForTask> GameMain()
 {
+	// reset
+	{
+		@@_Enemies = [];
+		@@_Shots = [];
+
+		PlayerX = FIELD_L + FIELD_W / 2;
+		PlayerY = FIELD_T + FIELD_H / 2;
+		PlayerBornFrame = 0;
+		PlayerInvincibleFrame = 0;
+		PlayerAttackLv = 1;
+		PlayerZankiNum = 3;
+	}
+
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
 	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
 
@@ -148,7 +161,24 @@ function* <generatorForTask> GameMain()
 			{
 				if (enemy.Kind == Enemy_Kind_e_Item) // ? ƒAƒCƒeƒ€ -> Žæ“¾
 				{
-					// TODO
+					var<Enemy_Item_Kind_e> itemKind = GetEnemyItemKind(enemy);
+
+					switch (itemKind)
+					{
+					case Enemy_Item_Kind_e_PowerUp:
+						PlayerAttackLv = Math.min(PlayerAttackLv + 1, PLAYER_ATTACK_LV_MAX);
+						break;
+
+					case Enemy_Item_Kind_e_ZankiUp:
+						PlayerZankiNum++;
+						break;
+
+					default:
+						error();
+					}
+
+					KillEnemy(enemy);
+					break; // ‚±‚Ì“G(ƒAƒCƒeƒ€)‚ÍŽ€–S‚µ‚½‚Ì‚ÅAŽŸ‚Ì“G‚Öi‚ÞB
 				}
 				else // ? ‚»‚êˆÈŠO(“G) -> ”í’e
 				{

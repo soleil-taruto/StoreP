@@ -36,6 +36,18 @@ var<double> @@_Born_Y;
 var<int> PlayerInvincibleFrame = 0;
 
 /*
+	UŒ‚ƒŒƒxƒ‹
+	1 ` PLAYER_ATTACK_LV_MAX
+*/
+var<int> PlayerAttackLv = 1;
+
+/*
+	c‹@
+	0 `
+*/
+var<int> PlayerZankiNum = 3;
+
+/*
 	s“®‚Æ•`‰æ
 	ˆ—‚·‚×‚«‚±‚ÆF
 	-- s“®
@@ -114,7 +126,26 @@ function <void> DrawPlayer()
 
 	if (1 <= GetInput_B() && ProcFrame % 4 == 0) // UŒ‚
 	{
-		GetShots().push(CreateShot_Normal(PlayerX, PlayerY, Math.PI * 1.5, 20.0));
+		switch (PlayerAttackLv)
+		{
+		case 1:
+			GetShots().push(CreateShot_Normal(PlayerX, PlayerY, Math.PI * 1.5, 20.0));
+			break;
+
+		case 2:
+			GetShots().push(CreateShot_Normal(PlayerX - 10, PlayerY, Math.PI * 1.5, 20.0));
+			GetShots().push(CreateShot_Normal(PlayerX + 10, PlayerY, Math.PI * 1.5, 20.0));
+			break;
+
+		case 3:
+			GetShots().push(CreateShot_Normal(PlayerX - 20, PlayerY, Math.PI * 1.5, 20.0));
+			GetShots().push(CreateShot_Normal(PlayerX,      PlayerY, Math.PI * 1.5, 20.0));
+			GetShots().push(CreateShot_Normal(PlayerX + 20, PlayerY, Math.PI * 1.5, 20.0));
+			break;
+
+		default:
+			error();
+		}
 	}
 
 	if (1 <= PlayerInvincibleFrame) // ? –³“Gó‘Ô
