@@ -73,7 +73,7 @@ function* <generatorForTask> @@_Test01()
 function* <generatorForTask> @@_Main()
 {
 	for (; ; )
-	{/* TODO
+	{
 		yield* Wait(30);
 
 		for (var<int> c = 0; c < 10; c++)
@@ -170,7 +170,6 @@ function* <generatorForTask> @@_Main()
 		}
 
 		yield* Wait(90);
-		*/
 
 		for (var<int> c = 0; c < 20; c++)
 		{
@@ -191,5 +190,116 @@ function* <generatorForTask> @@_Main()
 		}
 
 		yield* Wait(60);
+
+		// ★★★ウェーブの追加はここへ
+
+		// 以下適当...
+
+		for (var<int> w = 0; w < 900; w++)
+		{
+			if (GetRand1() < 0.02)
+			{
+				switch(GetRand(8))
+				{
+				case 0:
+					GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 1:
+					GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 2:
+					GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 3:
+					GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 4:
+					GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 5:
+					GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 6:
+					GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 7:
+					GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+				}
+			}
+
+			yield 1;
+		}
+
+		for (; ; )
+		{
+			if (GetRand1() < 0.02)
+			{
+				switch(GetRand(8))
+				{
+				case 0:
+					GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 1:
+					GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 2:
+					GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 3:
+					GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 4:
+					GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 5:
+					GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 6:
+					GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+
+				case 7:
+					GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+					break;
+				}
+
+				{
+					var<Enemy_t> enemy = GetEnemies()[GetEnemies().length - 1];
+
+					if (GetRand1() < 0.3)
+					{
+						EnemyCommon_ToShooter(enemy);
+					}
+					if (GetRand1() < 0.3)
+					{
+						var<Enemy_Item_Kind_e> itemKind;
+
+						switch (GetRand(2))
+						{
+						case 0: itemKind = Enemy_Item_Kind_e_PowerUp; break;
+						case 1: itemKind = Enemy_Item_Kind_e_ZankiUp; break;
+						}
+
+						EnemyCommon_ToItemer(enemy, itemKind);
+					}
+				}
+			}
+
+			yield 1;
+		}
 	}
 }
