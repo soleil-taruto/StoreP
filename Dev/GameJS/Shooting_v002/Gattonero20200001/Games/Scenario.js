@@ -73,7 +73,7 @@ function* <generatorForTask> @@_Test01()
 function* <generatorForTask> @@_Main()
 {
 	for (; ; )
-	{/*
+	{/* TODO
 		yield* Wait(30);
 
 		for (var<int> c = 0; c < 10; c++)
