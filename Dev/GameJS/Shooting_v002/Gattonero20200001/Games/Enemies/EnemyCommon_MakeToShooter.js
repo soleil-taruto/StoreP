@@ -5,31 +5,37 @@
 /*
 	Enemy_t 追加フィールド
 	{
-		<generatorForTask> @@_Each
+		<generatorForTask> @@_ShooterFlag // シューター化したか -- HACK: 不使用
 	}
 */
 
+/*
+	雑魚敵のシューター化
+
+	使用例：
+		var<Enemy_t> enemy = CreateEnemy_XXX();
+		EnemyCommon_MakeToShooter(enemy);
+*/
 function <void> EnemyCommon_MakeToShooter(<Enemy_t> enemy)
 {
-	enemy.@@_Each = @@_Each(enemy);
+	enemy.@@_ShooterFlag = true; // HACK: 不使用
+
+	AddEffect(@@_Each(enemy));
 }
 
-function <void> EnemyCommon_ShooterEach(<Enemy_t> enemy)
-{
-	if (enemy.@@_Each) // ? シューター化されている。
-	{
-		if (!enemy.@@_Each.next().value) // ? タスク終了 -> 想定外
-		{
-			error();
-		}
-	}
-}
-
+/*
+	タスク
+*/
 function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 {
-	for (var<int> c = 0; ; c++)
+	for (var<int> frame = 0; ; frame++)
 	{
-		if (1 <= c && c % 30 == 0)
+		if (enemy.HP == -1) // ? 既に死亡 -> 終了
+		{
+			break;
+		}
+
+		if (1 <= frame && frame % 30 == 0)
 		{
 			@@_Shoot(enemy);
 		}

@@ -26,8 +26,6 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 		error();
 	}
 
-	EnemyCommon_ShooterEach(enemy);
-
 	enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 50.0);
 
 	Draw(picture, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
