@@ -39,7 +39,7 @@ function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 			break;
 		}
 
-		if (1 <= frame && frame % 30 == 0)
+		if ((frame + 60) % 90 == 0)
 		{
 			@@_Shoot(enemy);
 		}

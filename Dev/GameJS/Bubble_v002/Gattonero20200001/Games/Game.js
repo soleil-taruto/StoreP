@@ -40,7 +40,7 @@ function* <generatorForTask> GameMain()
 
 		for (var<int> c = 0; c < SUBSEQUENT_BALL_MAX; c++)
 		{
-			SubsequentBallColors.push(GetRand(EnemyColorLmt));
+			@@_SubsequentBallColors_AddNew();
 		}
 	}
 
@@ -112,7 +112,7 @@ function* <generatorForTask> GameMain()
 				ChargeFrame = 1;
 				@@_Shots.push(CreateShot_Ball(sx, sy, speed.X, speed.Y, SubsequentBallColors[0]));
 				SubsequentBallColors.shift();
-				SubsequentBallColors.push(GetRand(EnemyColorLmt));
+				@@_SubsequentBallColors_AddNew();
 				@@_Subsequent_ShiftXRate = 1.0;
 			}
 		}
@@ -304,4 +304,24 @@ function <void> @@_DrawFront()
 function <Enemy_t[]> GetEnemies()
 {
 	return @@_Enemies;
+}
+
+function <void> @@_SubsequentBallColors_AddNew()
+{
+	var<BallColor_e> ballColor;
+
+	if (1 <= SubsequentBallColors.length)
+	{
+		do
+		{
+			ballColor = GetRand(EnemyColorLmt);
+		}
+		while(ballColor == SubsequentBallColors[SubsequentBallColors.length - 1]);
+	}
+	else
+	{
+		ballColor = GetRand(EnemyColorLmt);
+	}
+
+	SubsequentBallColors.push(ballColor);
 }

@@ -26,7 +26,7 @@ function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <doub
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	for (; ; )
+	for (var<int> frame = 0; ; frame++)
 	{
 		enemy.X += enemy.XAdd;
 		enemy.Y += enemy.YAdd;
@@ -42,7 +42,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 20.0);
 
-		Draw(P_Tama0001, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+		Draw(P_Tama0001, enemy.X, enemy.Y, 1.0, frame / 13.0, 1.0);
 
 		yield 1;
 	}
