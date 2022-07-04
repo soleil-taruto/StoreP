@@ -13,14 +13,18 @@
 	雑魚敵のシューター化
 
 	使用例：
+		var<Enemy_t> enemy = EnemyCommon_ToShooter(CreateEnemy_XXX());
+		----
 		var<Enemy_t> enemy = CreateEnemy_XXX();
-		EnemyCommon_MakeToShooter(enemy);
+		EnemyCommon_ToShooter(enemy);
 */
-function <void> EnemyCommon_MakeToShooter(<Enemy_t> enemy)
+function <Enemy_t> EnemyCommon_ToShooter(<Enemy_t> enemy)
 {
 	enemy.@@_ShooterFlag = true; // HACK: 不使用
 
 	AddEffect(@@_Each(enemy));
+
+	return enemy;
 }
 
 /*
