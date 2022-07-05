@@ -81,10 +81,10 @@ function <SE_t> @@_LoadSE(<string> url)
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Audio> M_Stage01     = @@_Load(Resources.hmix__n138_mp3);
-var<Audio> M_Stage02     = @@_Load(Resources.hmix__n70_mp3);
-var<Audio> M_Stage03     = @@_Load(Resources.hmix__n13_mp3);
-var<Audio> M_Ending      = @@_Load(Resources.hmix__n118_mp3);
+var<Audio> M_Stage01     = @@_Load(Resources.HMIX__n138_mp3);
+var<Audio> M_Stage02     = @@_Load(Resources.HMIX__n70_mp3);
+var<Audio> M_Stage03     = @@_Load(Resources.HMIX__n13_mp3);
+var<Audio> M_Ending      = @@_Load(Resources.HMIX__n118_mp3);
 var<Audio> M_Stage01Boss = @@_Load(Resources.ユーフルカ__Battle_Vampire_loop_m4a);
 var<Audio> M_Stage02Boss = @@_Load(Resources.ユーフルカ__Battle_Conflict_loop_m4a);
 var<Audio> M_Stage03Boss = @@_Load(Resources.ユーフルカ__Battle_Vampire_loop_m4a);

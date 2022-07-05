@@ -81,7 +81,7 @@ function <SE_t> @@_LoadSE(<string> url)
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Audio> M_Field = @@_Load(Resources.hmix__n62_mp3);
+var<Audio> M_Field = @@_Load(Resources.HMIX__n62_mp3);
 
 var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.出処不明__EnemyDamaged_wav);
 var<SE_t> S_PlayerShoot = @@_LoadSE(Resources.出処不明__PlayerShoot_wav);
