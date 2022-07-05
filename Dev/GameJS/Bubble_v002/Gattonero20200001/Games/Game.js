@@ -310,17 +310,17 @@ function <void> @@_SubsequentBallColors_AddNew()
 {
 	var<BallColor_e> ballColor;
 
-	if (1 <= SubsequentBallColors.length)
+	if (SubsequentBallColors.length == 0)
+	{
+		ballColor = GetRand(EnemyColorLmt);
+	}
+	else
 	{
 		do
 		{
 			ballColor = GetRand(EnemyColorLmt);
 		}
 		while(ballColor == SubsequentBallColors[SubsequentBallColors.length - 1]);
-	}
-	else
-	{
-		ballColor = GetRand(EnemyColorLmt);
 	}
 
 	SubsequentBallColors.push(ballColor);

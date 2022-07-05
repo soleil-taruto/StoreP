@@ -19,8 +19,7 @@ function* <generatorForTask> GameMain()
 		PlayerY = FIELD_T + FIELD_H / 2;
 		PlayerBornFrame = 0;
 		PlayerInvincibleFrame = 0;
-//		PlayerAttackLv = 1;
-PlayerAttackLv = 3; // TODO
+		PlayerAttackLv = 1;
 		PlayerZankiNum = 3;
 	}
 
@@ -276,7 +275,7 @@ function* <generatorForTask> @@_PlayerDead()
 		{
 			// noop
 		}
-		// TODO: ボスクラスの敵も除外
+		// ボスクラスの敵も除外
 		/*
 		else if (
 			enemy.Kind == Enemy_Kind_e_BOSS_01 ||

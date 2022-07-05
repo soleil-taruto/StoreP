@@ -3,13 +3,16 @@
 
 	----
 
+	108 = 9 * 12
+	108 = 12 * 9
+	108 = 18 * 6
+
+	- - -
+
 	108 = 18 * 6
 	108 = 27 * 4
 	108 = 36 * 3
 
-	108 = 9 * 12
-	108 = 12 * 9
-	108 = 18 * 6
 */
 
 var<TaskManager_t> @@_Tasks = CreateTaskManager();
@@ -144,6 +147,8 @@ function* <generatorForTask> @@_Main()
 
 	for (; ; )
 	{
-		yield* Wait(60); // TODO
+		// none
+
+		yield 1;
 	}
 }
