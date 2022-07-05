@@ -174,7 +174,7 @@ function* <generatorForTask> @@_Ending()
 
 	for (; ; )
 	{
-		rate = Approach(rate, 0.3, 0.993);
+		rate = Approach(rate, 0.4, 0.993);
 
 		if (GetRand1() < rate)
 		{

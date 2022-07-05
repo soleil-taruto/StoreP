@@ -28,13 +28,12 @@ function* <generatorForTask> GameMain()
 		PlayerZankiNum = 3;
 
 		Score = 0;
+		BackgroundPhase = 0;
 	}
 
 	SetCurtain_FD(0, -1.0);
 	SetCurtain();
 	FreezeInput();
-
-	Play(M_Field);
 
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
 	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
@@ -359,21 +358,15 @@ function* <generatorForTask> @@_PlayerDead()
 	for (var<Enemy_t> enemy of @@_Enemies)
 	{
 		// アイテムは除外
-		if (enemy.Kind == Enemy_Kind_e_Item)
+		if (IsEnemyItem(enemy))
 		{
 			// noop
 		}
 		// ボスクラスの敵も除外
-		/*
-		else if (
-			enemy.Kind == Enemy_Kind_e_BOSS_01 ||
-			enemy.Kind == Enemy_Kind_e_BOSS_02 ||
-			enemy.Kind == Enemy_Kind_e_BOSS_03
-			)
+		else if (IsEnemyBoss(enemy))
 		{
 			// noop
 		}
-		*/
 		else
 		{
 			KillEnemy(enemy);

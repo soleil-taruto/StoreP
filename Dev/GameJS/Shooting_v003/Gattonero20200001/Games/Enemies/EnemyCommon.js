@@ -75,3 +75,16 @@ function <boolean> IsEnemyTama(<Enemy_t> enemy)
 
 	return ret;
 }
+
+/*
+	指定された敵は「ボス」か判定する。
+*/
+function <boolean> IsEnemyBoss(<Enemy_t> enemy)
+{
+	var ret =
+		enemy.Kind == Enemy_Kind_e_Boss01 ||
+		enemy.Kind == Enemy_Kind_e_Boss02 ||
+		enemy.Kind == Enemy_Kind_e_Boss03;
+
+	return ret;
+}

@@ -74,9 +74,22 @@ function* <generatorForTask> @@_Test01()
 
 function* <generatorForTask> @@_Test02()
 {
+	var<Audio[]> musics =
+	[
+		M_Stage01,
+		M_Stage01Boss,
+		M_Stage02,
+		M_Stage02Boss,
+		M_Stage03,
+		M_Stage03Boss,
+		M_Ending,
+	];
+
 	for (; ; )
 	{
-		yield* Wait(900);
+		Play(musics[BackgroundPhase]);
+
+		yield* Wait(60 * 25);
 
 		BackgroundPhase++;
 		BackgroundPhase %= 7;
@@ -85,134 +98,133 @@ function* <generatorForTask> @@_Test02()
 
 function* <generatorForTask> @@_Main()
 {
-	for (; ; )
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
 	{
-		yield* Wait(30);
+		GetEnemies().push(CreateEnemy_E0001(600, FIELD_T - 25, 5));
 
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0001(600, FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(30);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(90);
-
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0003(FIELD_L + FIELD_W / 2, FIELD_T - 25, 25),
-			Enemy_Item_Kind_e_PowerUp
-			));
-
-		yield* Wait(180);
-
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0005(FIELD_L + FIELD_W / 3, FIELD_T - 25, 5),
-			Enemy_Item_Kind_e_ZankiUp
-			));
-
-		yield* Wait(120);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0001(100, FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(30);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(90);
-
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 1, FIELD_T - 25, 10),
-			Enemy_Item_Kind_e_PowerUp
-			));
-
-		yield* Wait(90);
-
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 2, FIELD_T - 25, 10),
-			Enemy_Item_Kind_e_ZankiUp
-			));
-
-		yield* Wait(120);
-
-		for (var<int> c = 0; c < 20; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(60);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(EnemyCommon_ToShooter(
-				CreateEnemy_E0001(600, FIELD_T - 25, 5)
-				));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(30);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(EnemyCommon_ToShooter(
-				CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5)
-				));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(90);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), FIELD_T - 25, 5));
-
-			yield* Wait(30);
-		}
-
-		yield* Wait(90);
-
-		for (var<int> c = 0; c < 20; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0005(GetRand3(300, 400), FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(60);
-
-		for (var<int> c = 0; c < 20; c++)
-		{
-			GetEnemies().push(EnemyCommon_ToShooter(
-				CreateEnemy_E0005(GetRand3(100, 600), FIELD_T - 25, 5)
-				));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(60);
-
-		// ★★★ウェーブの追加はここへ
+		yield* Wait(20);
 	}
+
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(90);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0003(FIELD_L + FIELD_W / 2, FIELD_T - 25, 25),
+		Enemy_Item_Kind_e_PowerUp
+		));
+
+	yield* Wait(180);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0005(FIELD_L + FIELD_W / 3, FIELD_T - 25, 5),
+		Enemy_Item_Kind_e_ZankiUp
+		));
+
+	yield* Wait(120);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0001(100, FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(90);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 1, FIELD_T - 25, 10),
+		Enemy_Item_Kind_e_PowerUp
+		));
+
+	yield* Wait(90);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 2, FIELD_T - 25, 10),
+		Enemy_Item_Kind_e_ZankiUp
+		));
+
+	yield* Wait(120);
+
+	for (var<int> c = 0; c < 20; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(60);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(EnemyCommon_ToShooter(
+			CreateEnemy_E0001(600, FIELD_T - 25, 5)
+			));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(EnemyCommon_ToShooter(
+			CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5)
+			));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(90);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), FIELD_T - 25, 5));
+
+		yield* Wait(30);
+	}
+
+	yield* Wait(90);
+
+	for (var<int> c = 0; c < 20; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0005(GetRand3(300, 400), FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(60);
+
+	for (var<int> c = 0; c < 20; c++)
+	{
+		GetEnemies().push(EnemyCommon_ToShooter(
+			CreateEnemy_E0005(GetRand3(100, 600), FIELD_T - 25, 5)
+			));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(60);
+
+	// TODO
+	// TODO
+	// TODO
 }

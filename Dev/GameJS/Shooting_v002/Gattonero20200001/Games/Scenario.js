@@ -73,201 +73,198 @@ function* <generatorForTask> @@_Test01()
 
 function* <generatorForTask> @@_Main()
 {
-	for (; ; )
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
 	{
-		yield* Wait(30);
+		GetEnemies().push(CreateEnemy_E0001(600, FIELD_T - 25, 5));
 
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0001(600, FIELD_T - 25, 5));
+		yield* Wait(20);
+	}
 
-			yield* Wait(20);
-		}
+	yield* Wait(30);
 
-		yield* Wait(30);
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
 
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+		yield* Wait(20);
+	}
 
-			yield* Wait(20);
-		}
+	yield* Wait(90);
 
-		yield* Wait(90);
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0003(FIELD_L + FIELD_W / 2, FIELD_T - 25, 25),
+		Enemy_Item_Kind_e_PowerUp
+		));
 
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0003(FIELD_L + FIELD_W / 2, FIELD_T - 25, 25),
-			Enemy_Item_Kind_e_PowerUp
+	yield* Wait(180);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0005(FIELD_L + FIELD_W / 3, FIELD_T - 25, 5),
+		Enemy_Item_Kind_e_ZankiUp
+		));
+
+	yield* Wait(120);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0001(100, FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(90);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 1, FIELD_T - 25, 10),
+		Enemy_Item_Kind_e_PowerUp
+		));
+
+	yield* Wait(90);
+
+	GetEnemies().push(EnemyCommon_ToItemer(
+		CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 2, FIELD_T - 25, 10),
+		Enemy_Item_Kind_e_ZankiUp
+		));
+
+	yield* Wait(120);
+
+	for (var<int> c = 0; c < 20; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
+
+		yield* Wait(20);
+	}
+
+	yield* Wait(60);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(EnemyCommon_ToShooter(
+			CreateEnemy_E0001(600, FIELD_T - 25, 5)
 			));
 
-		yield* Wait(180);
+		yield* Wait(20);
+	}
 
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0005(FIELD_L + FIELD_W / 3, FIELD_T - 25, 5),
-			Enemy_Item_Kind_e_ZankiUp
+	yield* Wait(30);
+
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(EnemyCommon_ToShooter(
+			CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5)
 			));
 
-		yield* Wait(120);
+		yield* Wait(20);
+	}
 
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0001(100, FIELD_T - 25, 5));
+	yield* Wait(90);
 
-			yield* Wait(20);
-		}
+	for (var<int> c = 0; c < 10; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), FIELD_T - 25, 5));
 
 		yield* Wait(30);
+	}
 
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+	yield* Wait(90);
 
-			yield* Wait(20);
-		}
+	for (var<int> c = 0; c < 20; c++)
+	{
+		GetEnemies().push(CreateEnemy_E0005(GetRand3(300, 400), FIELD_T - 25, 5));
 
-		yield* Wait(90);
+		yield* Wait(20);
+	}
 
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 1, FIELD_T - 25, 10),
-			Enemy_Item_Kind_e_PowerUp
+	yield* Wait(60);
+
+	for (var<int> c = 0; c < 20; c++)
+	{
+		GetEnemies().push(EnemyCommon_ToShooter(
+			CreateEnemy_E0005(GetRand3(100, 600), FIELD_T - 25, 5)
 			));
 
-		yield* Wait(90);
+		yield* Wait(20);
+	}
 
-		GetEnemies().push(EnemyCommon_ToItemer(
-			CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 2, FIELD_T - 25, 10),
-			Enemy_Item_Kind_e_ZankiUp
-			));
+	yield* Wait(60);
 
-		yield* Wait(120);
+	// ★★★ウェーブの追加はここへ
 
-		for (var<int> c = 0; c < 20; c++)
+	// 以下、ランダムを永久に
+
+	for (var<int> frame = 0; ; frame++)
+	{
+		if (GetRand1() < Math.min(0.02 + frame / 360000.0, 0.09)) // 1分で0.01上がる, 0.02～0.09
 		{
-			GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(60);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(EnemyCommon_ToShooter(
-				CreateEnemy_E0001(600, FIELD_T - 25, 5)
-				));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(30);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(EnemyCommon_ToShooter(
-				CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5)
-				));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(90);
-
-		for (var<int> c = 0; c < 10; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), FIELD_T - 25, 5));
-
-			yield* Wait(30);
-		}
-
-		yield* Wait(90);
-
-		for (var<int> c = 0; c < 20; c++)
-		{
-			GetEnemies().push(CreateEnemy_E0005(GetRand3(300, 400), FIELD_T - 25, 5));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(60);
-
-		for (var<int> c = 0; c < 20; c++)
-		{
-			GetEnemies().push(EnemyCommon_ToShooter(
-				CreateEnemy_E0005(GetRand3(100, 600), FIELD_T - 25, 5)
-				));
-
-			yield* Wait(20);
-		}
-
-		yield* Wait(60);
-
-		// ★★★ウェーブの追加はここへ
-
-		// 以下適当...
-
-		for (var<int> frame = 0; ; frame++)
-		{
-			if (GetRand1() < Math.min(0.02 + frame / 360000.0, 0.09)) // 1分で0.01上がる, 0.02～0.09
+			switch(GetRand(8))
 			{
-				switch(GetRand(8))
-				{
-				case 0:
-					GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 0:
+				GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 1:
-					GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 1:
+				GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 2:
-					GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 2:
+				GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 3:
-					GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 3:
+				GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 4:
-					GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 4:
+				GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 5:
-					GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 5:
+				GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 6:
-					GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
+			case 6:
+				GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 
-				case 7:
-					GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-				}
-
-				if (900 <= frame)
-				{
-					var<Enemy_t> enemy = GetEnemies()[GetEnemies().length - 1];
-
-					if (GetRand1() < 0.3)
-					{
-						EnemyCommon_ToShooter(enemy);
-					}
-					if (GetRand1() < 0.01)
-					{
-						var<Enemy_Item_Kind_e> itemKind;
-
-						switch (GetRand(2))
-						{
-						case 0: itemKind = Enemy_Item_Kind_e_PowerUp; break;
-						case 1: itemKind = Enemy_Item_Kind_e_ZankiUp; break;
-						}
-
-						EnemyCommon_ToItemer(enemy, itemKind);
-					}
-				}
+			case 7:
+				GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				break;
 			}
 
-			yield 1;
+			if (900 <= frame)
+			{
+				var<Enemy_t> enemy = GetEnemies()[GetEnemies().length - 1];
+
+				if (GetRand1() < 0.3)
+				{
+					EnemyCommon_ToShooter(enemy);
+				}
+				if (GetRand1() < 0.01)
+				{
+					var<Enemy_Item_Kind_e> itemKind;
+
+					switch (GetRand(2))
+					{
+					case 0: itemKind = Enemy_Item_Kind_e_PowerUp; break;
+					case 1: itemKind = Enemy_Item_Kind_e_ZankiUp; break;
+					}
+
+					EnemyCommon_ToItemer(enemy, itemKind);
+				}
+			}
 		}
+
+		yield 1;
 	}
 }
