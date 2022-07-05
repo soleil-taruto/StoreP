@@ -76,7 +76,7 @@ function* <generatorForTask> @@_Test02()
 {
 	for (; ; )
 	{
-		yield* Wait(600);
+		yield* Wait(900);
 
 		BackgroundPhase++;
 		BackgroundPhase %= 7;

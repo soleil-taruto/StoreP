@@ -57,7 +57,7 @@ function* <generatorForTask> BackgroundTask()
 			a = 0.0;
 		}
 
-		a = Approach(a, 1.0, 0.98);
+		a = Approach(a, 1.0, 0.99);
 
 		Alpha = 1.0;
 		Task_01();
@@ -90,7 +90,7 @@ function* <generatorForTask> @@_Field(<Image> picture, <double> speedMax)
 
 	for (var<int> frame = 0; ; frame++)
 	{
-		speed = Approach(speed, speedMax, 0.99);
+		speed = Approach(speed, speedMax, 0.997);
 		t += speed;
 
 		while (0.0 < t)
@@ -148,12 +148,12 @@ function* <generatorForTask> @@_Boss(<Image[]> pictures)
 		if (0.0 < hi) { hi -= 108.0; }
 
 		@@_DrawVertTiles(FIELD_L + 54,  lw, pictures[0]);
+		@@_DrawVertTiles(FIELD_L + 646, lw, pictures[0]);
 		@@_DrawVertTiles(FIELD_L + 148, md, pictures[1]);
+		@@_DrawVertTiles(FIELD_L + 552, md, pictures[1]);
 		@@_DrawVertTiles(FIELD_L + 242, hi, pictures[2]);
 		@@_DrawVertTiles(FIELD_L + 350, hi, pictures[2]);
 		@@_DrawVertTiles(FIELD_L + 458, hi, pictures[2]);
-		@@_DrawVertTiles(FIELD_L + 552, md, pictures[1]);
-		@@_DrawVertTiles(FIELD_L + 646, lw, pictures[0]);
 
 		yield 1;
 	}
@@ -174,7 +174,7 @@ function* <generatorForTask> @@_Ending()
 
 	for (; ; )
 	{
-		rate = Approach(rate, 0.1, 0.99);
+		rate = Approach(rate, 0.1, 0.993);
 
 		if (GetRand1() < rate)
 		{
