@@ -7,7 +7,8 @@ function* <generatorForTask> ScenarioTask()
 	// -- choose one --
 
 //	yield* @@_Test01();
-	yield* @@_Test02();
+//	yield* @@_Test02();
+	yield* @@_Test03();
 //	yield* @@_Main();
 
 	// --
@@ -89,10 +90,24 @@ function* <generatorForTask> @@_Test02()
 	{
 		Play(musics[BackgroundPhase]);
 
-		yield* Wait(60 * 25);
+		yield* Wait(60 * 30);
 
 		BackgroundPhase++;
 		BackgroundPhase %= 7;
+	}
+}
+
+function* <generatorForTask> @@_Test03()
+{
+	BackgroundPhase = 1;
+
+	Play(M_Stage01Boss);
+
+	GetEnemies().push(CreateEnemy_Boss01(FIELD_L + FIELD_W / 2, -100.0, 100));
+
+	for (; ; )
+	{
+		yield 1;
 	}
 }
 
