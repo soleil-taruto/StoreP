@@ -7,7 +7,8 @@ function* <generatorForTask> ScenarioTask()
 	// -- choose one --
 
 //	yield* @@_Test01();
-	yield* @@_Main();
+	yield* @@_Test02();
+//	yield* @@_Main();
 
 	// --
 }
@@ -68,6 +69,17 @@ function* <generatorForTask> @@_Test01()
 		}
 
 		yield 1;
+	}
+}
+
+function* <generatorForTask> @@_Test02()
+{
+	for (; ; )
+	{
+		yield* Wait(600);
+
+		BackgroundPhase++;
+		BackgroundPhase %= 7;
 	}
 }
 
@@ -202,72 +214,5 @@ function* <generatorForTask> @@_Main()
 		yield* Wait(60);
 
 		// ★★★ウェーブの追加はここへ
-
-		// 以下適当...
-
-		for (var<int> frame = 0; ; frame++)
-		{
-			if (GetRand1() < Math.min(0.02 + frame / 360000.0, 0.09)) // 1分で0.01上がる, 0.02～0.09
-			{
-				switch(GetRand(8))
-				{
-				case 0:
-					GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 1:
-					GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 2:
-					GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 3:
-					GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 4:
-					GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 5:
-					GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 6:
-					GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 7:
-					GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-				}
-
-				if (900 <= frame)
-				{
-					var<Enemy_t> enemy = GetEnemies()[GetEnemies().length - 1];
-
-					if (GetRand1() < 0.3)
-					{
-						EnemyCommon_ToShooter(enemy);
-					}
-					if (GetRand1() < 0.01)
-					{
-						var<Enemy_Item_Kind_e> itemKind;
-
-						switch (GetRand(2))
-						{
-						case 0: itemKind = Enemy_Item_Kind_e_PowerUp; break;
-						case 1: itemKind = Enemy_Item_Kind_e_ZankiUp; break;
-						}
-
-						EnemyCommon_ToItemer(enemy, itemKind);
-					}
-				}
-			}
-
-			yield 1;
-		}
 	}
 }
