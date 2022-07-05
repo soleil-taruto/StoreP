@@ -24,8 +24,8 @@ var<double> Alpha = 1.0;
 
 function* <generatorForTask> BackgroundTask()
 {
-	Task_01 = function() { return true; }
-	Task_02 = function() { return true; }
+	Task_01 = function() { return true; };
+	Task_02 = function() { return true; };
 
 	var<int> currBgPh = -1;
 	var<double> a = 0.0;
@@ -174,7 +174,7 @@ function* <generatorForTask> @@_Ending()
 
 	for (; ; )
 	{
-		rate = Approach(rate, 0.1, 0.993);
+		rate = Approach(rate, 0.3, 0.993);
 
 		if (GetRand1() < rate)
 		{
