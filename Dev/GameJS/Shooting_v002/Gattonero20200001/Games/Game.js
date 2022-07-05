@@ -8,6 +8,11 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
+/*
+	スコア
+*/
+var<int> Score = 0;
+
 function* <generatorForTask> GameMain()
 {
 	// reset
@@ -21,6 +26,8 @@ function* <generatorForTask> GameMain()
 		PlayerInvincibleFrame = 0;
 		PlayerAttackLv = 1;
 		PlayerZankiNum = 3;
+
+		Score = 0;
 	}
 
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
@@ -247,6 +254,11 @@ function <void> @@_DrawFront()
 		Screen_W - FIELD_R,
 		Screen_H
 		);
+
+	SetColor(I3ColorToString(CreateI3Color(40, 60, 80)));
+	SetPrint(10, 20, 0);
+	SetFSize(16);
+	PrintLine("aaaa");
 }
 
 /*

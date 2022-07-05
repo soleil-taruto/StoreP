@@ -83,6 +83,7 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Math.js(60) : GetRand2 // 
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Math.js(68) : GetRand3 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\String.js(5) : ZPad // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\String.js(16) : ToHex // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\String.js(42) : RevStr // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Types.js(7) : P4Poly_t // íËã`
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Types.js(20) : int // íËã`
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Types.js(21) : double // íËã`
@@ -195,12 +196,13 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\00_Consts.js(13) : FIELD_B /
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\00_Consts.js(22) : PLAYER_BORN_FRAME_MAX // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\00_Consts.js(27) : PLAYER_INVINCIBLE_FRAME_MAX // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\00_Consts.js(32) : PLAYER_ATTACK_LV_MAX // ïœêî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Background.js(20) : BackgroundTask // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Background.js(23) : BackgroundTask // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(11) : GameMain // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(212) : GetEnemies // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(217) : GetShots // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(16) : GameMain // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(218) : GetEnemies // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(223) : GetShots // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(14) : Score // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Player.js(57) : DrawPlayer // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Player.js(8) : PlayerX // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Player.js(9) : PlayerY // ïœêî
