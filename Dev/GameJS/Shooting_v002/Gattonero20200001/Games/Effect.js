@@ -72,7 +72,7 @@ function <void> AddEffect_ShotExplode(<double> x, <double> y)
 				y,
 				scene.RemRate,
 				rot,
-				1.0 + 2.0 * scene.Rate
+				1.0 + 4.0 * scene.Rate
 				);
 
 			yield 1;
@@ -94,7 +94,7 @@ function <void> AddEffect_TamaExplode(<double> x, <double> y)
 				y,
 				scene.RemRate,
 				rot,
-				1.0 + 2.0 * scene.Rate
+				1.0 + 4.0 * scene.Rate
 				);
 
 			yield 1;
