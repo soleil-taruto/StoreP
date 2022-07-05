@@ -135,6 +135,10 @@ function* <generatorForTask> GameMain()
 				{
 					continue;
 				}
+				if (enemy.HP == 0) // ? –³“G -> ©’e‚Æ‚ÍÕ“Ë‚µ‚È‚¢B
+				{
+					continue;
+				}
 
 				if (IsCrashed(enemy.Crash, shot.Crash)) // ? Õ“Ë‚µ‚Ä‚¢‚éB“G vs ©’e
 				{
