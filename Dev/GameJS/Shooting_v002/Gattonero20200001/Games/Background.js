@@ -52,10 +52,10 @@ function* <generatorForTask> @@_Main()
 				{
 					for (var<int> y = 0; ; y++)
 					{
-						var<double> dx = FIELD_L + 28 + x * 108;
+						var<double> dx = FIELD_L + 26 + x * 108;
 						var<double> dy = FIELD_T - 54 + y * 9;
 
-						dx += 28 * -1;
+						dx += 26 * -1;
 
 						if (FIELD_B + 54 < dy)
 						{
@@ -88,10 +88,10 @@ function* <generatorForTask> @@_Main()
 				{
 					for (var<int> y = 0; ; y++)
 					{
-						var<double> dx = FIELD_L + 28 + x * 108;
+						var<double> dx = FIELD_L + 26 + x * 108;
 						var<double> dy = FIELD_T - 54 + y * 12;
 
-						dx += 28 * 0;
+						dx += 26 * 0;
 
 						if (FIELD_B + 54 < dy)
 						{
@@ -124,10 +124,10 @@ function* <generatorForTask> @@_Main()
 				{
 					for (var<int> y = 0; ; y++)
 					{
-						var<double> dx = FIELD_L + 28 + x * 108;
+						var<double> dx = FIELD_L + 26 + x * 108;
 						var<double> dy = FIELD_T - 54 + y * 18;
 
-						dx += 28 * 1;
+						dx += 26 * 1;
 
 						if (FIELD_B + 54 < dy)
 						{

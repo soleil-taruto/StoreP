@@ -146,11 +146,14 @@ function <void> DrawPlayer()
 		default:
 			error();
 		}
+
+		SE(S_PlayerShoot);
 	}
 
 	if (1 <= PlayerInvincibleFrame) // ? 無敵状態
 	{
-		PlayerCrash = null; // 当たり判定無し。
+//		PlayerCrash = null; // 当たり判定無し。
+		PlayerCrash = CreateCrash_Point(PlayerX, PlayerY); // アイテムを取れるように当たり判定は必要！
 
 		Draw(P_Player, PlayerX, PlayerY, 0.5, 0.0, 1.0);
 

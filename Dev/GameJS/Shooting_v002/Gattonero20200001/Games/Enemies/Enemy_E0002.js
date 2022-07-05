@@ -69,5 +69,6 @@ function <int> @@_DrawYield(<Enemy_t> enemy)
 
 function <void> @@_Dead(<Enemy_t> enemy)
 {
+	EnemyCommon_AddScore(200);
 	EnemyCommon_Dead(enemy);
 }

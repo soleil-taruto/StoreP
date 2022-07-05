@@ -41,6 +41,11 @@ function <generatorForTask[]> GetEffects()
 }
 */
 
+function <void> ClearAllEffect()
+{
+	@@_Effects = [];
+}
+
 function <generatorForTask[]> EjectEffects()
 {
 	var ret = @@_Effects;

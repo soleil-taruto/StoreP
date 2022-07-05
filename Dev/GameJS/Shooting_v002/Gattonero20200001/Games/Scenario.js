@@ -29,6 +29,7 @@ function* <generatorForTask> @@_Test01()
 	for (; ; )
 	{
 		if (GetRand1() < 0.02)
+//		if (GetRand1() < 0.09) // –³—ƒQ[
 		{
 			switch(GetRand(8))
 			{
@@ -171,6 +172,15 @@ function* <generatorForTask> @@_Main()
 
 		yield* Wait(90);
 
+		for (var<int> c = 0; c < 10; c++)
+		{
+			GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), FIELD_T - 25, 5));
+
+			yield* Wait(30);
+		}
+
+		yield* Wait(90);
+
 		for (var<int> c = 0; c < 20; c++)
 		{
 			GetEnemies().push(CreateEnemy_E0005(GetRand3(300, 400), FIELD_T - 25, 5));
@@ -195,52 +205,9 @@ function* <generatorForTask> @@_Main()
 
 		// ˆÈ‰º“K“–...
 
-		for (var<int> w = 0; w < 900; w++)
+		for (var<int> frame = 0; ; frame++)
 		{
-			if (GetRand1() < 0.02)
-			{
-				switch(GetRand(8))
-				{
-				case 0:
-					GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 1:
-					GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 2:
-					GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 3:
-					GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 4:
-					GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 5:
-					GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 6:
-					GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-
-				case 7:
-					GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
-					break;
-				}
-			}
-
-			yield 1;
-		}
-
-		for (; ; )
-		{
-			if (GetRand1() < 0.02)
+			if (GetRand1() < Math.min(0.02 + frame / 360000.0, 0.09)) // 1•ª‚Å0.01ã‚ª‚é, 0.02`0.09
 			{
 				switch(GetRand(8))
 				{
@@ -277,6 +244,7 @@ function* <generatorForTask> @@_Main()
 					break;
 				}
 
+				if (900 <= frame)
 				{
 					var<Enemy_t> enemy = GetEnemies()[GetEnemies().length - 1];
 
@@ -284,7 +252,7 @@ function* <generatorForTask> @@_Main()
 					{
 						EnemyCommon_ToShooter(enemy);
 					}
-					if (GetRand1() < 0.3)
+					if (GetRand1() < 0.01)
 					{
 						var<Enemy_Item_Kind_e> itemKind;
 

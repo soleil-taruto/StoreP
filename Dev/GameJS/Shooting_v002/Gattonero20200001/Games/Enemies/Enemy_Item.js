@@ -38,7 +38,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 			break;
 		}
 
-		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 90.0);
+		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 200.0, 140.0));
 
 		{
 			var<Image> picture;
@@ -61,7 +61,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 function <void> @@_Dead(<Enemy_t> enemy)
 {
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_AddScore(50);
+//	EnemyCommon_Dead(enemy); // 敵ではないので、通常の敵_死亡イベントは適用しない。
+
+//	AddEffect_PlayerPowerUp(PlayerX, PlayerY); // TODO
+	SE(S_PowerUp);
 }
 
 function <Enemy_Item_Kind_e> GetEnemyItemKind(<Enemy_t> enemy)

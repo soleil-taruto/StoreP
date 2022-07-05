@@ -38,7 +38,7 @@ function <Audio> @@_Load(<string> url)
 
 /// SE_t
 {
-	<Audio[]> Handles // ハンドルのリスト(3つ)
+	<Audio[]> Handles // ハンドルのリスト(5つ)
 	<int> Index // 次に再生するハンドルの位置
 }
 
@@ -52,12 +52,14 @@ function <SE_t> @@_LoadSE(<string> url)
 {
 	var<SE_t> ret =
 	{
-		// ハンドルのリスト(3つ)
+		// ハンドルのリスト(5つ)
 		Handles:
 		[
-			@@_Load(url),
-			@@_Load(url),
-			@@_Load(url),
+			@@_Load(url), // 1
+			@@_Load(url), // 2
+			@@_Load(url), // 3
+			@@_Load(url), // 4
+			@@_Load(url), // 5
 		],
 
 		// 次に再生するハンドルの位置
@@ -78,3 +80,10 @@ function <SE_t> @@_LoadSE(<string> url)
 //var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_wav); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
+
+var<Audio> M_Field = @@_Load(Resources.hmix__n62_mp3);
+
+var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.出処不明__EnemyDamaged_wav);
+var<SE_t> S_PlayerShoot = @@_LoadSE(Resources.出処不明__PlayerShoot_wav);
+var<SE_t> S_EnemyDead = @@_LoadSE(Resources.小森平__explosion01_wav);
+var<SE_t> S_PowerUp = @@_LoadSE(Resources.小森平__powerup03_mp3);

@@ -4,7 +4,15 @@
 
 function <void> EnemyCommon_Dead(<Enemy_t> enemy)
 {
-	AddEffect_Explode(enemy.X, enemy.Y);
+	if (IsEnemyTama(enemy)) // ? 敵弾
+	{
+		AddEffect_TamaExplode(enemy.X, enemy.Y);
+	}
+	else
+	{
+		AddEffect_Explode(enemy.X, enemy.Y);
+		SE(S_EnemyDead);
+	}
 }
 
 function <void> EnemyCommon_Draw(<Enemy_t> enemy)
@@ -39,4 +47,31 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 		SetColor(enemy.Kind == Enemy_Kind_e_E0006 ? "#000000" : "#ffffff");
 		PrintLine(str);
 	}
+}
+
+function <void> EnemyCommon_AddScore(<int> scoreAdd)
+{
+	Score += scoreAdd;
+}
+
+/*
+	指定された敵は「アイテム」か判定する。
+*/
+function <boolean> IsEnemyItem(<Enemy_t> enemy)
+{
+	var ret =
+		enemy.Kind == Enemy_Kind_e_Item;
+
+	return ret;
+}
+
+/*
+	指定された敵は「敵弾」か判定する。
+*/
+function <boolean> IsEnemyTama(<Enemy_t> enemy)
+{
+	var ret =
+		enemy.Kind == Enemy_Kind_e_Tama;
+
+	return ret;
 }

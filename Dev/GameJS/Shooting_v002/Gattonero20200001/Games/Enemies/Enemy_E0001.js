@@ -56,5 +56,6 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 function <void> @@_Dead(<Enemy_t> enemy)
 {
+	EnemyCommon_AddScore(100);
 	EnemyCommon_Dead(enemy);
 }

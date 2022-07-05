@@ -30,9 +30,16 @@ function* <generatorForTask> GameMain()
 		Score = 0;
 	}
 
+	SetCurtain_FD(0, -1.0);
+	SetCurtain();
+	FreezeInput();
+
+	Play(M_Field);
+
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
 	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
 
+gameLoop:
 	for (; ; )
 	{
 		if (!f_scenarioTask())
@@ -146,6 +153,11 @@ function* <generatorForTask> GameMain()
 					enemy.HP -= damagePoint;
 					shot.AttackPoint -= damagePoint;
 
+					if (1 <= enemy.HP) // ? “G_¶‘¶ -> “Gƒ_ƒ[ƒWˆ— -- HACK: ŒÂ•Ê‚Éˆ—‚·‚é‚×‚«‚©H
+					{
+						SE(S_EnemyDamaged);
+					}
+
 					if (enemy.HP <= 0) // ? €–S‚µ‚½B
 					{
 						KillEnemy(enemy);
@@ -187,10 +199,23 @@ function* <generatorForTask> GameMain()
 					KillEnemy(enemy);
 					break; // ‚±‚Ì“G(ƒAƒCƒeƒ€)‚Í€–S‚µ‚½‚Ì‚ÅAŸ‚Ì“G‚Öi‚ŞB
 				}
+				else if (
+					1 <= PlayerBornFrame && // ? Ä“oê’†
+					1 <= PlayerInvincibleFrame // ? –³“Gó‘Ô’†
+					)
+				{
+					// ”í’e‚µ‚È‚¢B
+				}
 				else // ? ‚»‚êˆÈŠO(“G) -> ”í’e
 				{
 					yield* @@_PlayerDead();
 
+					if (PlayerZankiNum < 1) // ? c‹@ƒ[ƒ
+					{
+						break gameLoop;
+					}
+
+					PlayerZankiNum--;
 					PlayerBornFrame = 1;
 					break; // ”í’e‚µ‚½‚Ì‚Å“–‚½‚è”»’èI—¹
 				}
@@ -213,6 +238,45 @@ function* <generatorForTask> GameMain()
 
 		yield 1;
 	}
+
+	Fadeout(90);
+
+	for (var<Scene_t> scene of CreateScene(80)) // —]‰C‚Ì‚æ‚¤‚È...
+	{
+		@@_DrawWall();
+
+		// ”wŒi‚Ì•`‰æ
+		//
+		if (!f_backgroundTask())
+		{
+			error();
+		}
+
+		@@_DrawFront();
+
+		yield 1;
+	}
+
+	SetCurtain_FD(30, -1.0);
+
+	for (var<Scene_t> scene of CreateScene(40))
+	{
+		@@_DrawWall();
+
+		// ”wŒi‚Ì•`‰æ
+		//
+		if (!f_backgroundTask())
+		{
+			error();
+		}
+
+		@@_DrawFront();
+
+		yield 1;
+	}
+
+	ClearAllEffect(); // ŒÀÁ–Å‚Å‚Í‚È‚¢ƒGƒtƒFƒNƒg‚à‚ ‚é‚Ì‚ÅAƒNƒŠƒA‚Í•K{I
+	FreezeInput();
 }
 
 function <Enemy_t[]> GetEnemies()
@@ -239,7 +303,7 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
+	SetColor(I3ColorToString(CreateI3Color(50, 100, 150)));
 	PrintRect(0, 0, FIELD_L, Screen_H);
 	PrintRect(0, 0, Screen_W, FIELD_T);
 	PrintRect(
@@ -255,10 +319,22 @@ function <void> @@_DrawFront()
 		Screen_H
 		);
 
-	SetColor(I3ColorToString(CreateI3Color(40, 60, 80)));
-	SetPrint(10, 20, 0);
+	var<string> strPower;
+
+	switch (PlayerAttackLv)
+	{
+	case 1: strPower = "¡  "; break;
+	case 2: strPower = "¡¡ "; break;
+	case 3: strPower = "¡¡¡"; break;
+
+	default:
+		error();
+	}
+
+	SetColor(I3ColorToString(CreateI3Color(255, 255, 255)));
+	SetPrint(10, 25, 0);
 	SetFSize(16);
-	PrintLine("aaaa");
+	PrintLine("Zanki: " + PlayerZankiNum + "@Power: " + strPower + "@Score: " + Score);
 }
 
 /*
