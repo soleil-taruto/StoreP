@@ -4,12 +4,19 @@
 
 function* <generatorForTask> ScenarioTask()
 {
-	// -- choose one --
+	if (DEBUG)
+	{
+		// -- choose one --
 
-//	yield* @@_Test01();
-	yield* @@_Main();
+//		yield* @@_Test01();
+		yield* @@_Main();
 
-	// --
+		// --
+	}
+	else
+	{
+		yield* @@_Main();
+	}
 }
 
 function* <generatorForTask> @@_Test01()
