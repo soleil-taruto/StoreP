@@ -51,6 +51,8 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 
 		@@_A_Reached(baseEnemy);
 
+		var<int> extendCount = 0;
+
 		for (var<boolean> extended = true; extended; )
 		{
 			extended = false;
@@ -62,7 +64,12 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 					enemy.@@_Reached = 2;
 					@@_Extend(enemies, enemy);
 					extended = true;
-					yield 1;
+					extendCount++;
+
+					if (extendCount % 5 == 0)
+					{
+						yield 1;
+					}
 				}
 			}
 		}
@@ -86,19 +93,19 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 
 			if (@@_ComboBaseEnemy == null) // ? 通常の爆発
 			{
+				Shuffle(enemies);
+
 				for (var<Enemy_t> enemy of enemies)
 				{
 					if (enemy.@@_Reached == 2)
 					{
 						KillEnemy(enemy);
+						extendCount++;
 
-						/*
-						for (var<int> w = 0; w < 5; w++) // ウェイト
+						if (extendCount % 2 == 0) // 重いので 5 -> 2
 						{
 							yield 1;
 						}
-						*/
-						yield 1;
 					}
 				}
 			}
@@ -111,14 +118,12 @@ function <void> BubbleRelation_着弾による爆発(<Enemy_t[]> enemies, <Enemy_t> bas
 						enemy.@@_Reached = 0;
 						enemy.Color = @@_ComboBaseEnemy.Color;
 						@@_A_Reached(enemy);
+						extendCount++;
 
-						/*
-						for (var<int> w = 0; w < 5; w++) // ウェイト
+						if (extendCount % 5 == 0)
 						{
 							yield 1;
 						}
-						*/
-						yield 1;
 					}
 				}
 			}
@@ -168,7 +173,12 @@ function <void> @@_A_Reached(<Enemy_t> enemy)
 	}());
 }
 
-var<boolean[]> @@_LLFlagStack = [ false, false, false, false, false, false, false, false, false, false ];
+var<boolean[]> @@_LLFlagStack =
+[
+	false, false, false, false, false, false, false, false, false, false,
+	false, false, false, false, false, false, false, false, false, false,
+	false, false, false, false, false, false, false, false, false, false,
+];
 
 function* <generatorForTask> @@_LiteLock_Enter()
 {

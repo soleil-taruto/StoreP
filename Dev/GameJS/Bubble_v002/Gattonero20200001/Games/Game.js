@@ -309,8 +309,13 @@ function <Enemy_t[]> GetEnemies()
 function <void> @@_SubsequentBallColors_AddNew()
 {
 	var<BallColor_e> ballColor;
+	var<BallColor_e[]> 最近見かけない色s = @@_Get最近見かけない色s();
 
-	if (SubsequentBallColors.length == 0)
+	if (1 <= 最近見かけない色s.length)
+	{
+		ballColor = 最近見かけない色s[GetRand(最近見かけない色s.length)];
+	}
+	else if (SubsequentBallColors.length == 0)
 	{
 		ballColor = GetRand(EnemyColorLmt);
 	}
@@ -324,4 +329,30 @@ function <void> @@_SubsequentBallColors_AddNew()
 	}
 
 	SubsequentBallColors.push(ballColor);
+}
+
+function <BallColor_e[]> @@_Get最近見かけない色s()
+{
+	var<int> count = EnemyColorLmt + 2;
+
+	if (SubsequentBallColors.length < count)
+	{
+		return [];
+	}
+
+	var<BallColor_e> remColors = [];
+
+	for (var<int> index = 0; index < EnemyColorLmt; index++)
+	{
+		remColors.push(index);
+	}
+
+	for (var<int> index = 1; index <= count; index++)
+	{
+		var<BallColor_e> color = SubsequentBallColors[SubsequentBallColors.length - index];
+
+		RemoveAll(remColors, v => v == color);
+	}
+
+	return remColors;
 }
