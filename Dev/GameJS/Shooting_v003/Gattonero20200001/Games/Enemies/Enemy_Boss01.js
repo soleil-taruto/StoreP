@@ -14,8 +14,8 @@ function <Enemy_t> CreateEnemy_Boss01(<double> x, <double> y, <int> hp)
 
 		// ‚±‚±‚©‚çŒÅ—L
 
-		<double> DestX: undefined,
-		<double> DestY: undefined,
+		<double> DestX: -1.0,
+		<double> DestY: -1.0,
 
 		<double> Speed: 0.0,
 	};
