@@ -9,7 +9,8 @@ function* <generatorForTask> ScenarioTask()
 //	yield* @@_Test01();
 //	yield* @@_Test02();
 //	yield* @@_Test03();
-	yield* @@_Main();
+	yield* @@_Test04();
+//	yield* @@_Main();
 
 	// --
 }
@@ -111,6 +112,12 @@ function* <generatorForTask> @@_Test03()
 	}
 }
 
+function* <generatorForTask> @@_Test04()
+{
+	BackgroundPhase = 6;
+	yield* Scenario_Ending();
+}
+
 function* <generatorForTask> @@_Main()
 {
 	BackgroundPhase = 0;
@@ -131,21 +138,6 @@ function* <generatorForTask> @@_Main()
 	BackgroundPhase++;
 	yield* Scenario_Stage03Boss();
 
-	// ====
-	// Ending
-	// ====
-
 	BackgroundPhase++;
-	Play(M_Ending);
-
-	yield* Wait(180);
-
-	for (; ; )
-	{
-		if (GetInput_A() == 1)
-		{
-			break;
-		}
-		yield 1;
-	}
+	yield* Scenario_Ending();
 }
