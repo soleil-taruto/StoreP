@@ -28,7 +28,7 @@ function* <generatorForTask> Scenario_Stage03()
 
 	GetEnemies().push(EnemyCommon_ToItemer(
 		CreateEnemy_E0003(GetRand3(50, 650), FIELD_T - 25, 5),
-		Enemy_Item_Kind_e_PowerUp
+		Enemy_Item_Kind_e_ZankiUp
 		));
 
 	yield* Wait(60);

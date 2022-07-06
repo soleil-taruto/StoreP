@@ -114,15 +114,12 @@ function* <generatorForTask> @@_Test03()
 function* <generatorForTask> @@_Main()
 {
 	BackgroundPhase = 0;
-
 	yield* Scenario_Stage01();
 
 	BackgroundPhase++;
-
 	yield* Scenario_Stage02();
 
 	BackgroundPhase++;
-
 	yield* Scenario_Stage03();
 
 	// ====
