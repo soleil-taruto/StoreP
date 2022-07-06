@@ -13,6 +13,7 @@ function* <generatorForTask> GameMain()
 	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
 	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
 
+gameLoop:
 	for (; ; )
 	{
 		if (!f_scenarioTask())

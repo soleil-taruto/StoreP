@@ -274,7 +274,7 @@ gameLoop:
 		yield 1;
 	}
 
-	ClearAllEffect(); // 時限消滅ではないエフェクトもあるので、クリアは必須！
+	ClearAllEffect(); // 時限消滅ではないエフェクトを考慮して、クリアは必須とする。
 	FreezeInput();
 }
 
