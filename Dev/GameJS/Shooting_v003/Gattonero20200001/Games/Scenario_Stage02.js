@@ -1,16 +1,16 @@
 /*
-	シナリオ - ステージ 01
+	シナリオ - ステージ 02
 */
 
-function* <generatorForTask> Scenario_Stage01()
+function* <generatorForTask> Scenario_Stage02()
 {
-	Play(M_Stage01);
+	Play(M_Stage02);
 
 	yield* Wait(60);
 
 	for (var<int> c = 0; c < 10; c++)
 	{
-		GetEnemies().push(CreateEnemy_E0001(600, FIELD_T - 25, 5));
+		GetEnemies().push(CreateEnemy_E0005(GetRand3(50, 650), FIELD_T - 25, 5));
 
 		yield* Wait(20);
 	}
@@ -19,7 +19,7 @@ function* <generatorForTask> Scenario_Stage01()
 
 	for (var<int> c = 0; c < 10; c++)
 	{
-		GetEnemies().push(CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5));
+		GetEnemies().push(CreateEnemy_E0006(GetRand3(50, 650), FIELD_T - 25, 5));
 
 		yield* Wait(20);
 	}
@@ -27,14 +27,14 @@ function* <generatorForTask> Scenario_Stage01()
 	yield* Wait(60);
 
 	GetEnemies().push(EnemyCommon_ToItemer(
-		CreateEnemy_E0006(GetRand3(50, 650), FIELD_T - 25, 5),
+		CreateEnemy_E0008(GetRand3(50, 650), FIELD_T - 25, 5),
 		Enemy_Item_Kind_e_PowerUp
 		));
 
 	yield* Wait(60);
 
 	GetEnemies().push(EnemyCommon_ToItemer(
-		CreateEnemy_E0007(GetRand3(50, 650), FIELD_T - 25, 5),
+		CreateEnemy_E0002(GetRand3(50, 650), FIELD_T - 25, 5),
 		Enemy_Item_Kind_e_PowerUp
 		));
 
@@ -43,7 +43,7 @@ function* <generatorForTask> Scenario_Stage01()
 	for (var<int> c = 0; c < 10; c++)
 	{
 		GetEnemies().push(EnemyCommon_ToShooter(
-			CreateEnemy_E0003(GetRand3(50, 650), FIELD_T - 25, 5)
+			CreateEnemy_E0001(GetRand3(50, 650), FIELD_T - 25, 5)
 			));
 
 		yield* Wait(20);
@@ -55,12 +55,12 @@ function* <generatorForTask> Scenario_Stage01()
 	// BOSS
 	// ====
 
-	Play(M_Stage01Boss);
+	Play(M_Stage02Boss);
 	BackgroundPhase++;
 
 	yield* Wait(30);
 
-	GetEnemies().push(CreateEnemy_Boss01(FIELD_L + FIELD_W / 2, -100.0, 300));
+	GetEnemies().push(CreateEnemy_Boss02(FIELD_L + FIELD_W / 2, -100.0, 300));
 
 	for (; ; ) // ボスが死ぬまで待つ。
 	{
