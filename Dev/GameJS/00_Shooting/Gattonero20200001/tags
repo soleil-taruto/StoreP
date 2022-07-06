@@ -188,8 +188,8 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Background.js(5) : BackgroundT
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(11) : GameMain // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(198) : GetEnemies // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(203) : GetShots // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(199) : GetEnemies // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(204) : GetShots // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(23) : DrawPlayer // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(8) : PlayerX // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(9) : PlayerY // ïœêî
