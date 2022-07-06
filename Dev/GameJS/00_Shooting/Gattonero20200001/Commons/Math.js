@@ -69,3 +69,11 @@ function <double> GetRand3(<double> minval, <double> maxval)
 {
 	return GetRand1() * (maxval - minval) + minval;
 }
+
+/*
+	配列の要素(1つ)をランダムで返す。
+*/
+function <T> ChooseOne(<T[]> arr)
+{
+	return arr[GetRand(arr.length)];
+}
