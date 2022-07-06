@@ -1,12 +1,12 @@
 /*
-	“G - Boss01
+	“G - Boss02
 */
 
-function <Enemy_t> CreateEnemy_Boss01(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Boss02(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Boss01,
+		Kind: Enemy_Kind_e_Boss02,
 		X: x,
 		Y: y,
 		HP: hp,
@@ -38,7 +38,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 100.0);
 
-		Draw(P_Enemy0005, enemy.X, enemy.Y, 1.0, 0.0, 2.0);
+		Draw(P_Enemy0001, enemy.X, enemy.Y, 1.0, 0.0, 2.0);
 
 		yield 1;
 	}
