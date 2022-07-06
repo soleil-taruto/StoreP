@@ -28,7 +28,7 @@ namespace Charlotte.Novels
 
 					Novel.I.Status.Surfaces.RemoveAll(v => v.InstanceName == instanceName);
 
-					Surface surface = SurfaceCreator.Create(typeName, instanceName);
+					Surface surface = SurfaceCatalog.Create(typeName, instanceName);
 
 					Novel.I.Status.Surfaces.Add(surface);
 				}

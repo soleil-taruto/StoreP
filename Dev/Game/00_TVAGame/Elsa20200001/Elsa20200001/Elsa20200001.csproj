@@ -239,7 +239,7 @@
     <Compile Include="Novels\ScenarioCommand.cs" />
     <Compile Include="Novels\ScenarioPage.cs" />
     <Compile Include="Novels\Surfaces\Surface.cs" />
-    <Compile Include="Novels\Surfaces\SurfaceCreator.cs" />
+    <Compile Include="Novels\Surfaces\SurfaceCatalog.cs" />
     <Compile Include="Novels\Surfaces\Surface_MessageWindow.cs" />
     <Compile Include="Novels\Surfaces\Surface_Select.cs" />
     <Compile Include="Novels\Surfaces\Surface_System.cs" />
