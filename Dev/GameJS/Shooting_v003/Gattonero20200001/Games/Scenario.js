@@ -117,17 +117,26 @@ function* <generatorForTask> @@_Main()
 	yield* Scenario_Stage01();
 
 	BackgroundPhase++;
+	yield* Scenario_Stage01Boss();
+
+	BackgroundPhase++;
 	yield* Scenario_Stage02();
 
 	BackgroundPhase++;
+	yield* Scenario_Stage02Boss();
+
+	BackgroundPhase++;
 	yield* Scenario_Stage03();
+
+	BackgroundPhase++;
+	yield* Scenario_Stage03Boss();
 
 	// ====
 	// Ending
 	// ====
 
-	Play(M_Ending);
 	BackgroundPhase++;
+	Play(M_Ending);
 
 	yield* Wait(180);
 

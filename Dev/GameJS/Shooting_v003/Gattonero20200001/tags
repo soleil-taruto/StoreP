@@ -237,8 +237,11 @@ C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Player.js(42) : PlayerAttack
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Player.js(48) : PlayerZankiNum // ïœêî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario.js(5) : ScenarioTask // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario_Stage01.js(5) : Scenario_Stage01 // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario_Stage01Boss.js(5) : Scenario_Stage01Boss // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario_Stage02.js(5) : Scenario_Stage02 // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario_Stage02Boss.js(5) : Scenario_Stage02Boss // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario_Stage03.js(5) : Scenario_Stage03 // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Scenario_Stage03Boss.js(5) : Scenario_Stage03Boss // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // íËã`
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // ä÷êî

@@ -50,26 +50,4 @@ function* <generatorForTask> Scenario_Stage01()
 	}
 
 	yield* Wait(180);
-
-	// ====
-	// BOSS
-	// ====
-
-	Play(M_Stage01Boss);
-	BackgroundPhase++;
-
-	yield* Wait(30);
-
-	GetEnemies().push(CreateEnemy_Boss01(FIELD_L + FIELD_W / 2, -100.0, 300));
-
-	for (; ; ) // ƒ{ƒX‚ªŽ€‚Ê‚Ü‚Å‘Ò‚ÂB
-	{
-		if (!GetEnemies().some(v => IsEnemyBoss(v)))
-		{
-			break;
-		}
-		yield 1;
-	}
-
-	yield* Wait(90);
 }
