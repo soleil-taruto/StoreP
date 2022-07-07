@@ -54,7 +54,7 @@ namespace Charlotte.Games.Enemies.Tests
 				DDGround.KeptMainScreen = tmp;
 			}
 
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 
 			DDCurtain.SetCurtain(10, -1.0);
 

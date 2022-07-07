@@ -21,9 +21,10 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	PlayerX = Map.StartPt.X;
 	PlayerY = Map.StartPt.Y;
 
-	yield* @@_StartMotion();
-
+	SetCurtain();
 	FreezeInput();
+
+	yield* @@_StartMotion();
 
 gameLoop:
 	for (; ; )
@@ -172,6 +173,25 @@ gameLoop:
 		{
 			return shot.AttackPoint == -1; // ? Ž€–S
 		});
+
+		yield 1;
+	}
+
+	SetCurtain_FD(30, -1.0);
+	Fadeout(30);
+
+	for (var<Scene_t> scene of CreateScene(40))
+	{
+		@@_DrawWall();
+
+		// ”wŒi‚Ì•`‰æ
+		//
+		if (!f_backgroundTask())
+		{
+			error();
+		}
+
+		@@_DrawFront();
 
 		yield 1;
 	}
