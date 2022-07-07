@@ -28,14 +28,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 gameLoop:
 	for (; ; )
 	{
-		if (GetMouseDown() == -1) // ★サンプル -- 要削除
-		{
-			var<double> x = GetMouseX();
-			var<double> y = GetMouseY();
-
-			AddEffect_Explode(x, y);
-		}
-
 		// ====
 		// 描画ここから
 		// ====
@@ -76,19 +68,6 @@ gameLoop:
 			{
 				@@_Shots[index].AttackPoint = -1;
 			}
-		}
-
-		// ★サンプル -- 要削除
-		{
-			SetColor("#ffffff");
-			SetPrint(100, 100, 30);
-			SetFSize(20);
-			PrintLine(GetInput_2());
-			PrintLine(GetInput_4());
-			PrintLine(GetInput_6());
-			PrintLine(GetInput_8());
-			PrintLine(GetInput_A());
-			PrintLine(GetInput_B());
 		}
 
 		@@_DrawFront();
@@ -164,21 +143,18 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				// ★サンプル -- 要削除
+				if (enemy.Kind == Enemy_Kind_e_Goal) // ? ゴール到達 -> 次のステージへ
 				{
-					if (enemy.Kind == Enemy_Kind_e_Goal) // ? ゴール到達 -> 次のステージへ
-					{
-						yield* @@_GoalMotion();
+					yield* @@_GoalMotion();
 
-						break gameLoop;
-					}
-					else
-					{
-						AddEffect_Explode(PlayerX, PlayerY);
+					break gameLoop;
+				}
+				else
+				{
+					AddEffect_Explode(PlayerX, PlayerY);
 
-						PlayerX = FIELD_L + FIELD_W / 2;
-						PlayerY = FIELD_T + FIELD_H / 2;
-					}
+					PlayerX = FIELD_L + FIELD_W / 2;
+					PlayerY = FIELD_T + FIELD_H / 2;
 				}
 			}
 		}

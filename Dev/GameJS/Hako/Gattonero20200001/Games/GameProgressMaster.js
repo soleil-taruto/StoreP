@@ -16,6 +16,7 @@ function* <generatorForTask> MapSelectMenu()
 	var<int> selectX = 0;
 	var<int> selectY = 0;
 
+	SetCurtain();
 	FreezeInput();
 
 	for (; ; )
@@ -119,6 +120,7 @@ function* <generatorForTask> MapSelectMenu()
 
 		yield 1;
 	}
+
 	FreezeInput();
 }
 

@@ -307,7 +307,7 @@ namespace Charlotte.Games
 				}
 
 				//startDead:
-				if (1 <= this.Player.DeadFrame) // プレイヤー死亡中の処理
+				if (1 <= this.Player.DeadFrame) // ? プレイヤー死亡中
 				{
 					if (GameConsts.PLAYER_DEAD_FRAME_MAX < ++this.Player.DeadFrame)
 					{
@@ -318,25 +318,26 @@ namespace Charlotte.Games
 					int frame = this.Player.DeadFrame; // 値域 == 2 ～ GameConsts.PLAYER_DEAD_FRAME_MAX
 					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_DEAD_FRAME_MAX, frame);
 
-					// ----
-
-					const int HIT_BACK_FRAME_MAX = 30;
-					double hitBackRate = DDUtils.RateAToB(2, HIT_BACK_FRAME_MAX, frame);
-
-					if (hitBackRate < 1.0)
+					// プレイヤー死亡中の処理
 					{
-						double invHitBackRate = 1.0 - hitBackRate;
+						const int HIT_BACK_FRAME_MAX = 30;
+						double hitBackRate = DDUtils.RateAToB(2, HIT_BACK_FRAME_MAX, frame);
 
-						D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 10.0 * invHitBackRate);
+						if (hitBackRate < 1.0)
+						{
+							double invHitBackRate = 1.0 - hitBackRate;
 
-						this.Player.X -= speed.X;
-						this.Player.Y -= speed.Y;
+							D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 10.0 * invHitBackRate);
+
+							this.Player.X -= speed.X;
+							this.Player.Y -= speed.Y;
+						}
 					}
 				}
 				//endDead:
 
 				//startDamage:
-				if (1 <= this.Player.DamageFrame) // プレイヤー・ダメージ中の処理
+				if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
 				{
 					if (GameConsts.PLAYER_DAMAGE_FRAME_MAX < ++this.Player.DamageFrame)
 					{
@@ -347,8 +348,7 @@ namespace Charlotte.Games
 					int frame = this.Player.DamageFrame; // 値域 == 2 ～ GameConsts.PLAYER_DAMAGE_FRAME_MAX
 					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_DAMAGE_FRAME_MAX, frame);
 
-					// ----
-
+					// プレイヤー・ダメージ中の処理
 					{
 						D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 5.0);
 
@@ -370,7 +370,7 @@ namespace Charlotte.Games
 			endDamage:
 
 				//startInvincible:
-				if (1 <= this.Player.InvincibleFrame) // プレイヤー無敵時間中の処理
+				if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
 				{
 					if (GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++this.Player.InvincibleFrame)
 					{
@@ -380,9 +380,10 @@ namespace Charlotte.Games
 					int frame = this.Player.InvincibleFrame; // 値域 == 2 ～ GameConsts.PLAYER_INVINCIBLE_FRAME_MAX
 					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_INVINCIBLE_FRAME_MAX, frame);
 
-					// ----
-
-					// noop
+					// プレイヤー無敵時間中の処理
+					{
+						// none
+					}
 				}
 			endInvincible:
 

@@ -87,7 +87,7 @@ var<Audio> M_Stage03     = @@_Load(Resources.HMIX__n13_mp3);
 var<Audio> M_Ending      = @@_Load(Resources.HMIX__n118_mp3);
 var<Audio> M_Stage01Boss = @@_Load(Resources.ユーフルカ__Battle_Vampire_loop_m4a);
 var<Audio> M_Stage02Boss = @@_Load(Resources.ユーフルカ__Battle_Conflict_loop_m4a);
-var<Audio> M_Stage03Boss = @@_Load(Resources.ユーフルカ__Battle_Vampire_loop_m4a);
+var<Audio> M_Stage03Boss = @@_Load(Resources.ユーフルカ__Battle_rapier_loop_m4a);
 
 var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.出処不明__EnemyDamaged_wav);
 var<SE_t> S_PlayerShoot  = @@_LoadSE(Resources.出処不明__PlayerShoot_wav);

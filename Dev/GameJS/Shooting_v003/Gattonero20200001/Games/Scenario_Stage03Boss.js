@@ -4,6 +4,11 @@
 
 function* <generatorForTask> Scenario_Stage03Boss()
 {
+	for (var<Enemy_t> enemy of GetEnemies())
+	{
+		KillEnemy(enemy);
+	}
+
 	Play(M_Stage03Boss);
 
 	yield* Wait(30);

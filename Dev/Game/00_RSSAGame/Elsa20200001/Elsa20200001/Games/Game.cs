@@ -404,7 +404,7 @@ namespace Charlotte.Games
 				}
 
 				//startDead:
-				if (1 <= this.Player.DeadFrame) // プレイヤー死亡中の処理
+				if (1 <= this.Player.DeadFrame) // ? プレイヤー死亡中
 				{
 					if (GameConsts.PLAYER_DEAD_FRAME_MAX < ++this.Player.DeadFrame)
 					{
@@ -415,29 +415,30 @@ namespace Charlotte.Games
 					int frame = this.Player.DeadFrame; // 値域 == 2 ～ GameConsts.PLAYER_DEAD_FRAME_MAX
 					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_DEAD_FRAME_MAX, frame);
 
-					// ---- Dead
-
-					if (frame == 2) // init
+					// プレイヤー死亡中の処理
 					{
-						DDMain.KeepMainScreen();
-
-						foreach (DDScene scene in DDSceneUtils.Create(30))
+						if (frame == 2) // 初回
 						{
-							DDDraw.DrawSimple(DDGround.KeptMainScreen.ToPicture(), 0, 0);
-							DDEngine.EachFrame();
-						}
-						if (!DDUtils.IsOutOfCamera(new D2Point(this.Player.X, this.Player.Y))) // 画面外で死亡したら視覚効果は無し
-						{
-							Effects.ティウンティウン_AddToEL(this.Player.X, this.Player.Y);
-						}
+							DDMain.KeepMainScreen();
 
-						// TODO: SE
+							foreach (DDScene scene in DDSceneUtils.Create(30))
+							{
+								DDDraw.DrawSimple(DDGround.KeptMainScreen.ToPicture(), 0, 0);
+								DDEngine.EachFrame();
+							}
+							if (!DDUtils.IsOutOfCamera(new D2Point(this.Player.X, this.Player.Y))) // 画面外で死亡したら視覚効果は無し
+							{
+								Effects.ティウンティウン_AddToEL(this.Player.X, this.Player.Y);
+							}
+
+							// TODO: SE
+						}
 					}
 				}
 				//endDead:
 
 				//startDamage:
-				if (1 <= this.Player.DamageFrame) // プレイヤー・ダメージ中の処理
+				if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
 				{
 					if (GameConsts.PLAYER_DAMAGE_FRAME_MAX < ++this.Player.DamageFrame)
 					{
@@ -449,20 +450,21 @@ namespace Charlotte.Games
 					int frame = this.Player.DamageFrame; // 値域 == 2 ～ GameConsts.PLAYER_DAMAGE_FRAME_MAX
 					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_DAMAGE_FRAME_MAX, frame);
 
-					// ---- Damage
+					// プレイヤー・ダメージ中の処理
+					{
+						if (frame == 2) // init
+							this.Player.YSpeed = 0.0;
 
-					if (frame == 2) // init
-						this.Player.YSpeed = 0.0;
+						if (frame % 30 == 2)
+							DDGround.EL.Add(SCommon.Supplier(Effects.ヒットバック(Game.I.Player.X, Game.I.Player.Y - 50.0)));
 
-					if (frame % 30 == 2)
-						DDGround.EL.Add(SCommon.Supplier(Effects.ヒットバック(Game.I.Player.X, Game.I.Player.Y - 50.0)));
-
-					this.Player.X -= 1.0 * (this.Player.FacingLeft ? -1 : 1);
+						this.Player.X -= 1.0 * (this.Player.FacingLeft ? -1 : 1);
+					}
 				}
 			endDamage:
 
 				//startInvincible:
-				if (1 <= this.Player.InvincibleFrame) // プレイヤー無敵時間中の処理
+				if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
 				{
 					if (GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++this.Player.InvincibleFrame)
 					{
@@ -472,9 +474,10 @@ namespace Charlotte.Games
 					int frame = this.Player.InvincibleFrame; // 値域 == 2 ～ GameConsts.PLAYER_INVINCIBLE_FRAME_MAX
 					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_INVINCIBLE_FRAME_MAX, frame);
 
-					// ---- Invincible
-
-					// noop
+					// プレイヤー無敵時間中の処理
+					{
+						// none
+					}
 				}
 			endInvincible:
 
