@@ -183,14 +183,6 @@ gameLoop:
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
-
-		// ”wŒi‚Ì•`‰æ
-		//
-		if (!f_backgroundTask())
-		{
-			error();
-		}
-
 		@@_DrawFront();
 
 		yield 1;
