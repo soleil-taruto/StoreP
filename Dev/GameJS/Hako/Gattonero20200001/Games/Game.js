@@ -178,7 +178,7 @@ gameLoop:
 	}
 
 	SetCurtain_FD(30, -1.0);
-	Fadeout(30);
+	Fadeout();
 
 	for (var<Scene_t> scene of CreateScene(40))
 	{
