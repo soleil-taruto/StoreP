@@ -96,7 +96,7 @@ function <void> DrawPlayer()
 
 		if (1 <= PlayerJumpFrame) // ? ƒWƒƒƒ“ƒv’†
 		{
-			var<int> JUMP_FRAME_MAX = 22;
+			var<int> JUMP_FRAME_MAX = 11;
 
 			if (1 <= jump && PlayerJumpFrame < JUMP_FRAME_MAX)
 			{

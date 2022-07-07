@@ -64,6 +64,9 @@ namespace Charlotte.Games
 		/// </summary>
 		public const double PLAYER_SLOW_SPEED = 2.0;
 
+		/// <summary>
+		/// プレイヤーキャラクタのジャンプ初速度
+		/// </summary>
 		public const double PLAYER_ジャンプ初速度 = -16.0;
 
 		// 上昇が速すぎると、脳天判定より先に側面判定に引っ掛かってしまう可能性がある。
