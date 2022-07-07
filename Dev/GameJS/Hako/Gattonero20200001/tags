@@ -153,7 +153,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Mouse.js(134) : GetMouseX // ŠÖ
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Mouse.js(142) : GetMouseY // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Music.js(11) : Play // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Music.js(44) : @ // ŠÖ”
-C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Music.js(93) : Fadeout // ŠÖ”
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Music.js(92) : Fadeout // ŠÖ”
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Music.js(99) : Fadeout_F // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Print.js(33) : PrintRect_LTRB // ŠÖ”
@@ -198,8 +199,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\00_Consts.js(25) : MAP_CELL_H // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(11) : GameMain // ŠÖ”
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(205) : GetEnemies // ŠÖ”
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(210) : GetShots // ŠÖ”
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(203) : GetEnemies // ŠÖ”
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(208) : GetShots // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\GameProgressMaster.js(14) : MapSelectMenu // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(5) : MapCellType_e // ’è‹`
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(15) : MapCell_t // ’è‹`

@@ -86,7 +86,8 @@ C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Mouse.js(134) : GetM
 C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Mouse.js(142) : GetMouseY // ä÷êî
 C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Music.js(11) : Play // ä÷êî
 C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Music.js(44) : @ // ä÷êî
-C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Music.js(93) : Fadeout // ä÷êî
+C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Music.js(92) : Fadeout // ä÷êî
+C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Music.js(99) : Fadeout_F // ä÷êî
 C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ä÷êî
 C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ä÷êî
 C:\Dev\GameJS\Puzzle2048_v003\Gattonero20200001\GameCommons\Print.js(28) : PrintRect_XYWH // ä÷êî
