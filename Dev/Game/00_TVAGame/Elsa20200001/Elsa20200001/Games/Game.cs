@@ -599,7 +599,7 @@ namespace Charlotte.Games
 
 			if (this.Status.ExitDirection == 5)
 			{
-				DDMusicUtils.Fade();
+				DDMusicUtils.Fadeout();
 				DDCurtain.SetCurtain(30, -1.0);
 
 				foreach (DDScene scene in DDSceneUtils.Create(40))

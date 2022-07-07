@@ -53,7 +53,7 @@ namespace Charlotte.Novels.Surfaces
 		private void MusicFileChanged()
 		{
 			if (this.MusicFile == null)
-				DDMusicUtils.Fade();
+				DDMusicUtils.Fadeout();
 			else
 				DDCCResource.GetMusic(this.MusicFile).Play();
 		}

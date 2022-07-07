@@ -86,7 +86,7 @@ namespace Charlotte.Games.Tests
 
 				//DDEngine.EachFrame(); // 不要
 			}
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))

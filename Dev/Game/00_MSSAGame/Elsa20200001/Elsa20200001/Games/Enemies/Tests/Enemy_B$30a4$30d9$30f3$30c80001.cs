@@ -55,7 +55,6 @@ namespace Charlotte.Games.Enemies.Tests
 			}
 
 			DDMusicUtils.Fadeout();
-
 			DDCurtain.SetCurtain(10, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(20))

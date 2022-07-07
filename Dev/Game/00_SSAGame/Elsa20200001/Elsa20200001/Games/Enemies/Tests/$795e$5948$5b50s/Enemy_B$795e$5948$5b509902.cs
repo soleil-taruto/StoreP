@@ -24,7 +24,7 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 		{
 			// ---- game_制御 ----
 
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 
 			// ----
 

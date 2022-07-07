@@ -271,7 +271,7 @@ namespace Charlotte.Games
 				DDEngine.EachFrame();
 			}
 		endMenu:
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))
@@ -422,7 +422,7 @@ namespace Charlotte.Games
 
 		private void LeaveTitleMenu()
 		{
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))

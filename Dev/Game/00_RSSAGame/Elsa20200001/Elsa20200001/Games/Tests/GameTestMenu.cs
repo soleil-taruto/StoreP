@@ -87,7 +87,7 @@ namespace Charlotte.Games.Tests
 				}
 			}
 		endMenu:
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))

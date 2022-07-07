@@ -238,7 +238,7 @@ namespace Charlotte.Novels
 			}
 
 			DDCurtain.SetCurtain(30, -1.0);
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))
 			{
