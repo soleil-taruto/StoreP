@@ -646,6 +646,8 @@ namespace Charlotte.Games
 					this.カメラ位置調整(true);
 				}
 
+				// プレイヤーの当たり判定を plCrash にセットする。
+
 				DDCrash plCrash;
 
 				if (1 <= this.Player.AirborneFrame)

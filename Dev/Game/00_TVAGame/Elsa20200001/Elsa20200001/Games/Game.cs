@@ -425,6 +425,8 @@ namespace Charlotte.Games
 					this.Player.Attack();
 				}
 
+				// プレイヤーの当たり判定を plCrash にセットする。
+
 				DDCrash plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
 
 				// ====

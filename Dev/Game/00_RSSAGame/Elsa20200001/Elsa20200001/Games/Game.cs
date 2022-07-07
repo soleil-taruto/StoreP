@@ -648,6 +648,8 @@ namespace Charlotte.Games
 					this.カメラ位置調整(true);
 				}
 
+				// プレイヤーの当たり判定を plCrash にセットする。
+
 				DDCrash plCrash = this.Player.GetCrash();
 				//DDCrash plCrash = DDCrashUtils.Circle(new D2Point(this.Player.X, this.Player.Y), 10.0);
 				//DDCrash plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
