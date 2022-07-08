@@ -20,7 +20,7 @@ namespace Charlotte.Tests.Games
 		{
 			using (new WorldGameMaster())
 			{
-				WorldGameMaster.I.World = new World("Stage1/t1001");
+				WorldGameMaster.I.World = new World("Tests/t1001");
 				WorldGameMaster.I.Status = new GameStatus();
 				WorldGameMaster.I.Perform();
 			}
@@ -32,15 +32,15 @@ namespace Charlotte.Tests.Games
 
 			// ---- choose one ----
 
-			startMapName = "Stage1/t1001";
-			//startMapName = "Stage1/t1002";
-			//startMapName = "Stage1/t1003";
-			//startMapName = "Stage1/t1004";
+			startMapName = "Tests/t1001";
+			//startMapName = "Tests/t1002";
+			//startMapName = "Tests/t1003";
+			//startMapName = "Tests/t1004";
 
-			//startMapName = "Stage2/Start";
-			//startMapName = "Stage2/Room_02";
-			//startMapName = "Stage2/Room_03";
-			//startMapName = "Stage2/Room_04";
+			//startMapName = "Tests/Room_01";
+			//startMapName = "Tests/Room_02";
+			//startMapName = "Tests/Room_03";
+			//startMapName = "Tests/Room_04";
 
 			// ----
 

@@ -281,21 +281,23 @@ namespace Charlotte.Games
 
 			for (; ; )
 			{
-				int selectIndex = this.SimpleMenu.Perform(20, 20, 30, 24, "開発デバッグ用メニュー", new string[]
+				int selectIndex = this.SimpleMenu.Perform(20, 20, 26, 24, "開発デバッグ用メニュー", new string[]
 				{
 					"ノベルパートテスト",
-					"Stage1", // 左下
-					"Stage2", // 下
-					"Stage3", // 右下
-					"Stage4", // 左
-					"Stage5", // 中央
-					"Stage6", // 右
-					"Stage7", // 左上
-					"Stage8", // 上
-					"Stage9", // 右上
-					"Stage5-2", // 中央(2面)
-					"Stage5-3", // 中央(3面)
-					"Stage5-4", // 中央(4面)
+					"テスト1",
+					"テスト2",
+					"Stage1",
+					"Stage2",
+					"Stage3",
+					"Stage4",
+					"Stage5",
+					"Stage5-2",
+					"Stage5-3",
+					"Stage5-4",
+					"Stage6",
+					"Stage7",
+					"Stage8",
+					"Stage9",
 					"Game用テストメニュー",
 					"Game用テストメニュー.2",
 					"戻る",
@@ -318,19 +320,21 @@ namespace Charlotte.Games
 						}
 						break;
 
-					case 1: a_gameStart("Stage1/t1001"); break;
-					case 2: a_gameStart("Stage2/t1001"); break;
-					case 3: a_gameStart("Stage3/t1001"); break;
-					case 4: a_gameStart("Stage4/t1001"); break;
-					case 5: a_gameStart("Stage5/t1001"); break;
-					case 6: a_gameStart("Stage6/t1001"); break;
-					case 7: a_gameStart("Stage7/t1001"); break;
-					case 8: a_gameStart("Stage8/t1001"); break;
-					case 9: a_gameStart("Stage9/t1001"); break;
-					case 10: a_gameStart("Stage5/t2001"); break;
-					case 11: a_gameStart("Stage5/t3001"); break;
-					case 12: a_gameStart("Stage5/t4001"); break;
-					case 13:
+					case 1: a_gameStart("Tests/t1001"); break;
+					case 2: a_gameStart("Tests/Room_01"); break;
+					case 3: a_gameStart("Stage1/Start"); break;
+					case 4: a_gameStart("Stage2/Start"); break;
+					case 5: a_gameStart("Stage3/Start"); break;
+					case 6: a_gameStart("Stage4/Start"); break;
+					case 7: a_gameStart("Stage5/Start"); break;
+					case 8: a_gameStart("Stage5-2/Start"); break;
+					case 9: a_gameStart("Stage5-3/Start"); break;
+					case 10: a_gameStart("Stage5-4/Start"); break;
+					case 11: a_gameStart("Stage6/Start"); break;
+					case 12: a_gameStart("Stage7/Start"); break;
+					case 13: a_gameStart("Stage8/Start"); break;
+					case 14: a_gameStart("Stage9/Start"); break;
+					case 15:
 						{
 							this.LeaveTitleMenu();
 
@@ -343,7 +347,7 @@ namespace Charlotte.Games
 						}
 						break;
 
-					case 14:
+					case 16:
 						{
 							this.LeaveTitleMenu();
 
@@ -355,7 +359,7 @@ namespace Charlotte.Games
 						}
 						break;
 
-					case 15:
+					case 17:
 						goto endMenu;
 
 					default:
@@ -382,7 +386,7 @@ namespace Charlotte.Games
 
 		private void ReturnTitleMenu()
 		{
-			DDTouch.Touch(); // 曲再生の前に -- .Play() で Touch した曲を解放してしまわないように
+			DDTouch.Touch(); // 曲再生の前にタッチする。-- .Play() で Touch した曲を解放してしまわないように
 			Ground.I.Music.Title.Play();
 
 			//DDCurtain.SetCurtain(0, -1.0);

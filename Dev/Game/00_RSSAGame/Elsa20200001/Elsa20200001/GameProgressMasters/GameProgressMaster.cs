@@ -55,15 +55,15 @@ namespace Charlotte.GameProgressMasters
 		private string[] StageNo2StartMapName = new string[]
 		{
 			null,
-			"Stage1/t0001", // Stage1
-			"Stage2/t0001", // Stage2
-			"Stage3/t0001", // Stage3
-			"Stage4/t0001", // Stage4
-			"Stage5/t0001", // Stage5
-			"Stage6/t0001", // Stage6
-			"Stage7/t0001", // Stage7
-			"Stage8/t0001", // Stage8
-			"Stage9/t0001", // Stage9
+			"Stage1/Start", // Stage1
+			"Stage2/Start", // Stage2
+			"Stage3/Start", // Stage3
+			"Stage4/Start", // Stage4
+			"Stage5/Start", // Stage5
+			"Stage6/Start", // Stage6
+			"Stage7/Start", // Stage7
+			"Stage8/Start", // Stage8
+			"Stage9/Start", // Stage9
 		};
 
 		private string[] StageNo2AfterNovelScenarioName = new string[]
@@ -152,10 +152,10 @@ namespace Charlotte.GameProgressMasters
 
 		private string[] WilyStageIndex2StartMapName = new string[]
 		{
-			null, // ワイリーステージ.1 == StageNo2StartMapName[5]
-			"Stage5_1/t0001", // ワイリーステージ.2
-			"Stage5_2/t0001", // ワイリーステージ.3
-			"Stage5_3/t0001", // ワイリーステージ.4(Final)
+			null, // ワイリーステージ.1 -- StageNo2StartMapName[5] と同じなので、ここには定義しない。
+			"Stage5-2/Start", // ワイリーステージ.2
+			"Stage5-3/Start", // ワイリーステージ.3
+			"Stage5-4/Start", // ワイリーステージ.4(Final)
 		};
 
 		private void WilyStageLoop(GameStatus gameStatus)
