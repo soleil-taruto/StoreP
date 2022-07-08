@@ -10,6 +10,7 @@ namespace Charlotte.Games
 	/// <summary>
 	/// ゲームの状態を保持する。
 	/// プレイヤーのレベルとか保有アイテムといった概念が入ってくることを想定して、独立したクラスとする。
+	/// パスワードは、このインスタンスから生成される。
 	/// </summary>
 	public class GameStatus
 	{

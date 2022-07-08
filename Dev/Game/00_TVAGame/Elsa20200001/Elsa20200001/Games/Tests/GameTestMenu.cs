@@ -85,6 +85,7 @@ namespace Charlotte.Games.Tests
 					default:
 						throw new DDError();
 				}
+				//DDEngine.EachFrame(); // 不要
 			}
 		endMenu:
 			DDMusicUtils.Fadeout();

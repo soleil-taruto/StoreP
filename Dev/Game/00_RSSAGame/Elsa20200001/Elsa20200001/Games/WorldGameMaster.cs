@@ -12,6 +12,10 @@ namespace Charlotte.Games
 
 		// <---- prm
 
+		public Game.EndReason_e EndReason = Game.EndReason_e.ReturnToTitleMenu;
+
+		// <---- ret
+
 		public static WorldGameMaster I;
 
 		public WorldGameMaster()
@@ -34,10 +38,12 @@ namespace Charlotte.Games
 					Game.I.Status = this.Status;
 					Game.I.Perform();
 
+					this.EndReason = Game.I.EndReason;
+
 					switch (this.Status.ExitDirection)
 					{
 						case 5:
-							return;
+							goto endLoop;
 
 						case 4:
 							this.World.Move(-1, 0);
@@ -64,6 +70,8 @@ namespace Charlotte.Games
 					}
 				}
 			}
+		endLoop:
+			;
 		}
 	}
 }

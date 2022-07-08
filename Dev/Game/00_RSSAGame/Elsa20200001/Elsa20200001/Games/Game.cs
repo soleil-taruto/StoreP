@@ -83,10 +83,20 @@ namespace Charlotte.Games
 				}
 			}
 
-			// ステータス反映(入場時)
+			// ★★★★★ *****PSH (<-このパターンで検索できるようにしておく)
+			// プレイヤー・ステータス反映(マップ入場時)
+			// その他の反映箇所：
+			// -- マップ退場時
+			// -- セーブ時
 			{
+				// すべきこと：
+				// -- ゲーム状態を this.Status から各方面に展開・反映する。
+
 				this.Player.HP = this.Status.StartHP;
 				this.Player.FacingLeft = this.Status.StartFacingLeft;
+				//plStatus = this.Status.StartPlayerStatus;
+
+				// ★ここまでサンプルとしてキープ
 
 				if (this.Status.StartPlayerStatus != null)
 				{
@@ -933,11 +943,20 @@ namespace Charlotte.Games
 				マップ移動.Perform(this.Map, nextMap, DDGround.Camera, this.Status.ExitDirection, plStatus);
 			}
 
-			// ステータス反映(退場時)
+			// ★★★★★ *****PSH (<-このパターンで検索できるようにしておく)
+			// プレイヤー・ステータス反映(マップ退場時)
+			// その他の反映箇所：
+			// -- マップ入場時
+			// -- セーブ時
 			{
+				// すべきこと：
+				// -- 各方面に展開されているゲーム状態を this.Status に反映・格納する。
+
 				this.Status.StartHP = this.Player.HP;
 				this.Status.StartFacingLeft = this.Player.FacingLeft;
 				this.Status.StartPlayerStatus = plStatus;
+
+				// ★ここまでサンプルとしてキープ
 			}
 
 			// ★★★ end of Perform() ★★★

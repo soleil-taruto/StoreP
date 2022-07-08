@@ -100,20 +100,21 @@ namespace Charlotte.GameProgressMasters
 
 				Game.EndReason_e endReason;
 
-				using (new Game())
+				using (new WorldGameMaster())
 				{
-					Game.I.World = new World(startMapName);
-					Game.I.Status = gameStatus;
-					Game.I.Perform();
+					WorldGameMaster.I.World = new World(startMapName);
+					WorldGameMaster.I.Status = gameStatus;
+					WorldGameMaster.I.Perform();
 
-					endReason = Game.I.EndReason;
+					endReason = WorldGameMaster.I.EndReason;
 
 					// ステージクリアによるインベントリの変更(武器取得)は Game.I.Perform() 内で行うこと。
 				}
 				if (endReason == Game.EndReason_e.ReturnToTitleMenu)
 					break;
 
-				// この時点で endReason == Game.EndReason_e.StageClear しか有り得ない。
+				if (endReason != Game.EndReason_e.StageClear)
+					throw null; // never
 
 				string afterNovelScenarioName = this.StageNo2AfterNovelScenarioName[stageNo];
 
@@ -179,7 +180,8 @@ namespace Charlotte.GameProgressMasters
 				if (endReason == Game.EndReason_e.ReturnToTitleMenu)
 					break;
 
-				// この時点で endReason == Game.EndReason_e.StageClear しか有り得ない。
+				if (endReason != Game.EndReason_e.StageClear)
+					throw null; // never
 
 				gameStatus.WilyStageIndex++;
 			}
