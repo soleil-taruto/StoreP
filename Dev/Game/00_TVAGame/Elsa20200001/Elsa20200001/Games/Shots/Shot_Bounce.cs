@@ -44,7 +44,7 @@ namespace Charlotte.Games.Shots
 					}
 					if (bounced)
 					{
-						DDGround.EL.Add(SCommon.Supplier(Effects.跳ねた(this.X, this.Y)));
+						DDGround.EL.Add(SCommon.Supplier(Effects.B跳ねた(this.X, this.Y)));
 						bouncedCount++;
 
 						if (BOUNCE_MAX <= bouncedCount)

@@ -54,7 +54,7 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 			if (cell.Tile is Tile_Bボス部屋Shutter)
 				cell.Tile = TileCatalog.Create("芝"); // restore
 
-			DDGround.EL.Add(SCommon.Supplier(Effects.閉鎖_開放(x * GameConsts.TILE_W + GameConsts.TILE_W / 2, y * GameConsts.TILE_H + GameConsts.TILE_H / 2)));
+			DDGround.EL.Add(SCommon.Supplier(Effects.B閉鎖と開放(x * GameConsts.TILE_W + GameConsts.TILE_W / 2, y * GameConsts.TILE_H + GameConsts.TILE_H / 2)));
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace Charlotte.Games.Shots
 	{
 		public static void Killed(Shot shot)
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.小爆発(shot.X, shot.Y)));
+			DDGround.EL.Add(SCommon.Supplier(Effects.B小爆発(shot.X, shot.Y)));
 		}
 	}
 }

@@ -1110,7 +1110,7 @@ namespace Charlotte.Games
 						this.Player.X = cellPos.X * GameConsts.TILE_W + GameConsts.TILE_W / 2;
 						this.Player.Y = cellPos.Y * GameConsts.TILE_H + GameConsts.TILE_H / 2;
 
-						DDGround.EL.Add(SCommon.Supplier(Effects.中爆発(this.Player.X, this.Player.Y))); // アクションが分かるように
+						DDGround.EL.Add(SCommon.Supplier(Effects.B中爆発(this.Player.X, this.Player.Y))); // アクションが分かるように
 					}
 					else if (1 <= DDMouse.R.GetInput())
 					{

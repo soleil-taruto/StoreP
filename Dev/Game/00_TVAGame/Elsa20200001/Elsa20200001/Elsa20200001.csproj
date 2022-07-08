@@ -295,6 +295,7 @@
     <Content Include="game_app.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Games\Shots\Tests\" />
     <Folder Include="★ここはゲームのテンプレートです！\" />
   </ItemGroup>
   <ItemGroup>

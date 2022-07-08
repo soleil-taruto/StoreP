@@ -17,7 +17,7 @@ namespace Charlotte.Games.Enemies
 
 		public static void Killed(Enemy enemy)
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.中爆発(enemy.X, enemy.Y)));
+			DDGround.EL.Add(SCommon.Supplier(Effects.B中爆発(enemy.X, enemy.Y)));
 		}
 	}
 }

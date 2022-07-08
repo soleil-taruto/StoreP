@@ -30,7 +30,7 @@ namespace Charlotte.Games
 			}
 		}
 
-		public static IEnumerable<bool> 小爆発(double x, double y) // ★サンプルとしてキープ
+		public static IEnumerable<bool> B小爆発(double x, double y) // ★サンプルとしてキープ
 		{
 			foreach (DDScene scene in DDSceneUtils.Create(5))
 			{
@@ -45,12 +45,12 @@ namespace Charlotte.Games
 			}
 		}
 
-		public static IEnumerable<bool> 中爆発(double x, double y) // ★サンプルとしてキープ
+		public static IEnumerable<bool> B中爆発(double x, double y) // ★サンプルとしてキープ
 		{
 			foreach (DDScene scene in DDSceneUtils.Create(10))
 			{
 				DDDraw.SetAlpha(0.7);
-				DDDraw.SetBright(1.0, 0.6, 0.3);
+				DDDraw.SetBright(0.5, 1.0, 0.5);
 				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(1.5 * scene.Rate);
 				DDDraw.DrawEnd();
@@ -60,14 +60,31 @@ namespace Charlotte.Games
 			}
 		}
 
-		public static IEnumerable<bool> 大爆発(double x, double y) // ★サンプルとしてキープ
+		public static IEnumerable<bool> B大爆発(double x, double y) // ★サンプルとしてキープ
 		{
-			foreach (DDScene scene in DDSceneUtils.Create(10))
+			foreach (DDScene scene in DDSceneUtils.Create(15))
 			{
 				DDDraw.SetAlpha(0.7);
-				DDDraw.SetBright(0.6, 0.8, 1.0);
+				DDDraw.SetBright(0.5, 1.0, 1.0);
 				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(3.0 * scene.Rate);
+				DDDraw.DrawEnd();
+				DDDraw.Reset();
+
+				yield return true;
+			}
+		}
+
+		public static IEnumerable<bool> B閉鎖と開放(double x, double y)
+		{
+			foreach (DDScene scene in DDSceneUtils.Create(15))
+			{
+				DDDraw.SetAlpha(0.5);
+				DDDraw.SetBright(0.0, 1.0, 1.0);
+				DDDraw.DrawBegin(Ground.I.Picture.WhiteBox, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
+				DDDraw.DrawSetSize(GameConsts.TILE_W, GameConsts.TILE_H);
+				DDDraw.DrawZoom(1.0 - scene.Rate * 0.5);
+				DDDraw.DrawRotate(Math.PI * 2.0 * scene.Rate);
 				DDDraw.DrawEnd();
 				DDDraw.Reset();
 
@@ -83,53 +100,6 @@ namespace Charlotte.Games
 				DDDraw.SetBright(0.5, 1.0, 1.0);
 				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.5 + 1.0 * scene.Rate);
-				DDDraw.DrawEnd();
-				DDDraw.Reset();
-
-				yield return true;
-			}
-		}
-
-		public static IEnumerable<bool> バズーカ発射(double x, double y)
-		{
-			foreach (DDScene scene in DDSceneUtils.Create(5))
-			{
-				DDDraw.SetAlpha(0.7);
-				DDDraw.SetBright(1.0, 0.5, 0.5);
-				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
-				DDDraw.DrawZoom(1.0 * scene.Rate);
-				DDDraw.DrawEnd();
-				DDDraw.Reset();
-
-				yield return true;
-			}
-		}
-
-		public static IEnumerable<bool> ほむらシールド終了(double x, double y)
-		{
-			foreach (DDScene scene in DDSceneUtils.Create(10))
-			{
-				DDDraw.SetAlpha(1.0 - scene.Rate);
-				DDDraw.SetBright(0.0, 0.0, 0.0);
-				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
-				DDDraw.DrawZoom(0.5 + 1.0 * scene.Rate);
-				DDDraw.DrawEnd();
-				DDDraw.Reset();
-
-				yield return true;
-			}
-		}
-
-		public static IEnumerable<bool> 閉鎖_開放(double x, double y)
-		{
-			foreach (DDScene scene in DDSceneUtils.Create(15))
-			{
-				DDDraw.SetAlpha(0.5);
-				DDDraw.SetBright(0.0, 1.0, 1.0);
-				DDDraw.DrawBegin(Ground.I.Picture.WhiteBox, x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
-				DDDraw.DrawSetSize(GameConsts.TILE_W, GameConsts.TILE_H);
-				DDDraw.DrawZoom(1.0 - scene.Rate * 0.5);
-				DDDraw.DrawRotate(Math.PI * 2.0 * scene.Rate);
 				DDDraw.DrawEnd();
 				DDDraw.Reset();
 
