@@ -20,7 +20,7 @@ namespace Charlotte.Games
 		// 全てのパラメータはデフォルト値で初期化すること。
 		// ****
 
-		private const int MAX_HP = 10; // test
+		private const int MAX_HP = 10;
 
 		/// <summary>
 		/// プレイヤーの最大HP

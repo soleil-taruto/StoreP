@@ -163,9 +163,14 @@ namespace Charlotte.Games
 			// -- マップ入場時
 			// -- マップ退場時
 			{
+				// すべきこと：
+				// -- 各方面に展開されているゲーム状態を gameStatus に反映・格納する。
+
 				gameStatus.StartHP = Game.I.Player.HP;
 				gameStatus.StartFaceDirection = Game.I.Player.FaceDirection;
 				gameStatus.Start選択武器 = Game.I.Player.選択武器;
+
+				// ★ここまでサンプルとしてキープ
 			}
 
 			SaveGame(gameStatus);

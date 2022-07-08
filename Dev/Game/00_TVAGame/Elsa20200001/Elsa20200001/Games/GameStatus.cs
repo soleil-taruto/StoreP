@@ -11,23 +11,26 @@ namespace Charlotte.Games
 	/// <summary>
 	/// ゲームの状態を保持する。
 	/// プレイヤーのレベルとか保有アイテムといった概念が入ってくることを想定して、独立したクラスとする。
+	/// セーブ時、このインスタンスが保存される。
 	/// </summary>
 	public class GameStatus
 	{
-		// (テスト時など)特にフィールドを設定せずにインスタンスを生成する使い方を想定して、
+		// ****
+		// テスト時など、特にフィールドを設定せずにインスタンスを生成する使い方を想定して、
 		// 全てのパラメータはデフォルト値で初期化すること。
+		// ****
 
-		// Game, Game.Player のフィールド名と被らないように HP -> StartHP のようにすること。
+		private const int MAX_HP = 10;
 
 		/// <summary>
 		/// プレイヤーの最大HP
 		/// </summary>
-		public int MaxHP = 10;
+		public int MaxHP = MAX_HP;
 
 		/// <summary>
 		/// プレイヤーのHP
 		/// </summary>
-		public int StartHP = 10;
+		public int StartHP = MAX_HP;
 
 		/// <summary>
 		/// スタート地点の Direction 値
