@@ -9,6 +9,8 @@ using Charlotte.Games;
 using Charlotte.Tests;
 using Charlotte.Tests.Games;
 using Charlotte.Tests.Novels;
+using Charlotte.Games.Enemies;
+using Charlotte.Games.Tiles;
 
 namespace Charlotte
 {
@@ -35,6 +37,9 @@ namespace Charlotte
 		{
 			// *.INIT
 			{
+				EnemyCatalog.INIT();
+				TileCatalog.INIT();
+
 				// アプリ固有 >
 
 				//RippleEffect.INIT();

@@ -65,15 +65,15 @@ namespace Charlotte.Games.Enemies.Tests
 			switch (this.効用)
 			{
 				case 効用_e.WEAPON_BOUNCE:
-					Game.I.Player.選択武器 = ShotCatalog.武器_e.BOUNCE;
+					Game.I.Player.選択武器 = ShotCatalog.武器_e.B_BOUNCE;
 					break;
 
 				case 効用_e.WEAPON_SPREAD:
-					Game.I.Player.選択武器 = ShotCatalog.武器_e.SPREAD;
+					Game.I.Player.選択武器 = ShotCatalog.武器_e.B_SPREAD;
 					break;
 
 				case 効用_e.WEAPON_WAVE:
-					Game.I.Player.選択武器 = ShotCatalog.武器_e.WAVE;
+					Game.I.Player.選択武器 = ShotCatalog.武器_e.B_WAVE;
 					break;
 
 				default:

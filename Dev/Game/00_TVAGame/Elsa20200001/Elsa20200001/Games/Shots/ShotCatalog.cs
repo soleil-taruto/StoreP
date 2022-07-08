@@ -9,12 +9,20 @@ namespace Charlotte.Games.Shots
 	{
 		public enum 武器_e
 		{
+			B_NORMAL,
+			B_WAVE,
+			B_SPREAD,
+			B_BOUNCE,
 			NORMAL,
-			WAVE,
-			SPREAD,
-			BOUNCE,
 		}
 
-		public static int 武器_e_Length = Enum.GetValues(typeof(武器_e)).Length;
+		public static string[] 武器_e_Names = new string[]
+		{
+			"テスト用 NORMAL",
+			"テスト用 WAVE",
+			"テスト用 SPREAD",
+			"テスト用 BOUNCE",
+			"NORMAL",
+		};
 	}
 }

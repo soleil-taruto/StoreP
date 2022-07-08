@@ -6,6 +6,7 @@ using Charlotte.GameCommons;
 using Charlotte.Commons;
 using Charlotte.Games.Enemies;
 using Charlotte.Games.Shots;
+using Charlotte.Games.Shots.Tests;
 
 namespace Charlotte.Games
 {
@@ -24,7 +25,7 @@ namespace Charlotte.Games
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
-		public ShotCatalog.武器_e 選択武器 = ShotCatalog.武器_e.NORMAL;
+		public ShotCatalog.武器_e 選択武器 = ShotCatalog.武器_e.B_NORMAL;
 
 		public void Draw()
 		{
@@ -75,37 +76,37 @@ namespace Charlotte.Games
 
 			switch (this.選択武器)
 			{
-				case ShotCatalog.武器_e.NORMAL:
+				case ShotCatalog.武器_e.B_NORMAL:
 					if (this.AttackFrame % 10 == 1)
 					{
 						Game.I.Shots.Add(new Shot_Normal(this.X, this.Y, this.FaceDirection));
 					}
 					break;
 
-				case ShotCatalog.武器_e.WAVE:
+				case ShotCatalog.武器_e.B_WAVE:
 					if (this.AttackFrame % 20 == 1)
 					{
-						Game.I.Shots.Add(new Shot_Wave(this.X, this.Y, this.FaceDirection, this.Attack_Wave_左回転Sw));
+						Game.I.Shots.Add(new Shot_BWave(this.X, this.Y, this.FaceDirection, this.Attack_Wave_左回転Sw));
 						this.Attack_Wave_左回転Sw = !this.Attack_Wave_左回転Sw;
 					}
 					break;
 
-				case ShotCatalog.武器_e.SPREAD:
+				case ShotCatalog.武器_e.B_SPREAD:
 					if (this.AttackFrame % 10 == 1)
 					{
 						for (int c = -2; c <= 2; c++)
 						{
-							Game.I.Shots.Add(new Shot_Spread(this.X, this.Y, this.FaceDirection, 0.3 * c));
+							Game.I.Shots.Add(new Shot_BSpread(this.X, this.Y, this.FaceDirection, 0.3 * c));
 						}
 					}
 					break;
 
-				case ShotCatalog.武器_e.BOUNCE:
+				case ShotCatalog.武器_e.B_BOUNCE:
 					if (this.AttackFrame % 25 == 1)
 					{
 						for (int c = -1; c <= 1; c++)
 						{
-							Game.I.Shots.Add(new Shot_Bounce(this.X, this.Y, GameCommon.Rotate(this.FaceDirection, c)));
+							Game.I.Shots.Add(new Shot_BBounce(this.X, this.Y, GameCommon.Rotate(this.FaceDirection, c)));
 						}
 					}
 					break;

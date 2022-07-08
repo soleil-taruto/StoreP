@@ -308,7 +308,7 @@ namespace Charlotte.Games
 					bool 武器切り替え = !deadOrUID && DDInput.C.GetInput() == 1;
 
 					if (武器切り替え)
-						this.Player.選択武器 = (ShotCatalog.武器_e)(((int)this.Player.選択武器 + 1) % ShotCatalog.武器_e_Length);
+						this.Player.選択武器 = (ShotCatalog.武器_e)(((int)this.Player.選択武器 + 1) % ShotCatalog.武器_e_Names.Length);
 				}
 
 				//startDead:

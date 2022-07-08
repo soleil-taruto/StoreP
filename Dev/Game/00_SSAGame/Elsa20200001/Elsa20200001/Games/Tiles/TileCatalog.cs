@@ -15,7 +15,7 @@ namespace Charlotte.Games.Tiles
 	{
 		private class TileInfo
 		{
-			public string Name; // 敵の名前 -- マップ上の配置とか識別に使用する。変更してはならない。
+			public string Name; // タイルの名前 -- マップ上の配置とか識別に使用する。変更してはならない。
 			public string GroupName; // 表示グループ名
 			public string MemberName; // 表示名
 			public Func<Tile> Creator;
@@ -85,6 +85,15 @@ namespace Charlotte.Games.Tiles
 
 			// 新しいタイルをここへ追加..
 		};
+
+		public static void INIT()
+		{
+			SCommon.ForEachPair(Tiles, (a, b) =>
+			{
+				if (a.Name == b.Name)
+					throw new DDError("タイルの名前の重複：" + a.Name);
+			});
+		}
 
 		private static string[] _names = null;
 

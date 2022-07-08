@@ -5,23 +5,17 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Shots
+namespace Charlotte.Games.Shots.Tests
 {
-	public class Shot_Spread : Shot
+	public class Shot_BNormal : Shot
 	{
-		private double R;
-
-		public Shot_Spread(double x, double y, int direction, double r)
-			: base(x, y, direction, 1, false, false)
-		{
-			this.R = r;
-		}
+		public Shot_BNormal(double x, double y, int direction)
+			: base(x, y, direction, 3, false, false)
+		{ }
 
 		protected override IEnumerable<bool> E_Draw()
 		{
 			D2Point speed = GameCommon.GetXYSpeed(this.Direction, 10.0);
-
-			DDUtils.Rotate(ref speed.X, ref speed.Y, this.R);
 
 			for (int frame = 0; ; frame++)
 			{

@@ -6,13 +6,13 @@ using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Tiles;
 
-namespace Charlotte.Games.Shots
+namespace Charlotte.Games.Shots.Tests
 {
-	public class Shot_Bounce : Shot
+	public class Shot_BBounce : Shot
 	{
 		// 跳ね返り可能な間は「壁をすり抜ける」を真にしておく。
 
-		public Shot_Bounce(double x, double y, int direction)
+		public Shot_BBounce(double x, double y, int direction)
 			: base(x, y, direction, 1, true, false)
 		{ }
 

@@ -177,10 +177,11 @@
     <Compile Include="Games\SettingMenu.cs" />
     <Compile Include="Games\Shots\ShotCatalog.cs" />
     <Compile Include="Games\Shots\ShotCommon.cs" />
-    <Compile Include="Games\Shots\Shot_Bounce.cs" />
     <Compile Include="Games\Shots\Shot_Normal.cs" />
-    <Compile Include="Games\Shots\Shot_Spread.cs" />
-    <Compile Include="Games\Shots\Shot_Wave.cs" />
+    <Compile Include="Games\Shots\Tests\Shot_BBounce.cs" />
+    <Compile Include="Games\Shots\Tests\Shot_BNormal.cs" />
+    <Compile Include="Games\Shots\Tests\Shot_BSpread.cs" />
+    <Compile Include="Games\Shots\Tests\Shot_BWave.cs" />
     <Compile Include="Games\Tests\GameTestMenu.cs" />
     <Compile Include="Games\Tests\GameTestMenu2.cs" />
     <Compile Include="Games\Tests\GameTestSubMenu.cs" />
@@ -198,7 +199,7 @@
     <Compile Include="Games\WorldGameMaster.cs" />
     <Compile Include="Games\Player.cs" />
     <Compile Include="Games\Shots\Shot.cs" />
-    <Compile Include="Games\Shots\Shot_B0001.cs" />
+    <Compile Include="Games\Shots\Tests\Shot_B0001.cs" />
     <Compile Include="Games\Tiles\Tile.cs" />
     <Compile Include="Games\Tiles\TileCatalog.cs" />
     <Compile Include="Games\Tiles\Tile_Wall.cs" />
@@ -295,7 +296,6 @@
     <Content Include="game_app.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Games\Shots\Tests\" />
     <Folder Include="★ここはゲームのテンプレートです！\" />
   </ItemGroup>
   <ItemGroup>

@@ -86,6 +86,15 @@ namespace Charlotte.Games.Tiles
 			// 新しいタイルをここへ追加..
 		};
 
+		public static void INIT()
+		{
+			SCommon.ForEachPair(Tiles, (a, b) =>
+			{
+				if (a.Name == b.Name)
+					throw new DDError("タイルの名前の重複：" + a.Name);
+			});
+		}
+
 		private static string[] _names = null;
 
 		public static string[] GetNames()

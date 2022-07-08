@@ -106,6 +106,15 @@ namespace Charlotte.Games.Enemies
 			// 新しい敵をここへ追加..
 		};
 
+		public static void INIT()
+		{
+			SCommon.ForEachPair(Enemies, (a, b) =>
+			{
+				if (a.Name == b.Name)
+					throw new DDError("敵の名前の重複：" + a.Name);
+			});
+		}
+
 		private static string[] _names = null;
 
 		public static string[] GetNames()

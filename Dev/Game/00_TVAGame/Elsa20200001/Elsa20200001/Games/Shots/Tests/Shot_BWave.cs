@@ -5,13 +5,13 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 
-namespace Charlotte.Games.Shots
+namespace Charlotte.Games.Shots.Tests
 {
-	public class Shot_Wave : Shot
+	public class Shot_BWave : Shot
 	{
 		private bool 左回転;
 
-		public Shot_Wave(double x, double y, int direction, bool 左回転)
+		public Shot_BWave(double x, double y, int direction, bool 左回転)
 			: base(x, y, direction, 2, false, false)
 		{
 			this.左回転 = 左回転;
