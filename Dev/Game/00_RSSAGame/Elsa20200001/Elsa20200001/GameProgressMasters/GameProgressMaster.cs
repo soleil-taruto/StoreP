@@ -69,15 +69,15 @@ namespace Charlotte.GameProgressMasters
 		private string[] StageNo2AfterNovelScenarioName = new string[]
 		{
 			null,
-			"Stage1_Cleared", // Stage1
-			"Stage2_Cleared", // Stage2
-			"Stage3_Cleared", // Stage3
-			"Stage4_Cleared", // Stage4
-			"Stage5_Cleared", // Stage5
-			"Stage6_Cleared", // Stage6
-			"Stage7_Cleared", // Stage7
-			"Stage8_Cleared", // Stage8
-			"Stage9_Cleared", // Stage9
+			"Tests/テスト0001", // Stage1
+			"Tests/テスト0001", // Stage2
+			"Tests/テスト0001", // Stage3
+			"Tests/テスト0001", // Stage4
+			"Tests/テスト0001", // Stage5
+			"Tests/テスト0001", // Stage6
+			"Tests/テスト0001", // Stage7
+			"Tests/テスト0001", // Stage8
+			"Tests/テスト0001", // Stage9
 		};
 
 		private void StageSelectLoop(GameStatus gameStatus)
