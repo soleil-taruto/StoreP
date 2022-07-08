@@ -6,7 +6,9 @@ function* <generatorForTask> ScenarioTask()
 {
 	for (var<int> c = 0; ; c++)
 	{
-		if (1 <= c && c % 30 == 0)
+//		if (1 <= c && c % 10 == 0)
+		if (1 <= c && c % 20 == 0)
+//		if (1 <= c && c % 30 == 0)
 		{
 			EnemyColorLmt = Math.min(EnemyColorLmt + 1, P_Balls.length);
 		}

@@ -86,7 +86,7 @@ namespace Charlotte.Games.Shots
 
 						if (20 <= bouncedCount) // ? 跳ね返り回数オーバー
 						{
-							DDGround.EL.Add(SCommon.Supplier(Effects.FireBall爆発(this.X, this.Y)));
+							DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
 							break;
 						}
 					}
@@ -104,7 +104,7 @@ namespace Charlotte.Games.Shots
 
 		protected override void Killed()
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.FireBall爆発(this.X, this.Y)));
+			DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
 		}
 	}
 }

@@ -86,7 +86,7 @@ namespace Charlotte.Games
 				// ★ここまでサンプルとしてキープ
 			}
 
-			this.Wall = WallCreator.Create(this.Map.WallName);
+			this.Wall = WallCatalog.Create(this.Map.WallName);
 
 			MusicCollection.Get(this.Map.MusicName).Play();
 

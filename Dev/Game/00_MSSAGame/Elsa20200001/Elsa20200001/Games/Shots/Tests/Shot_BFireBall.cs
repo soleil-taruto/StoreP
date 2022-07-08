@@ -27,7 +27,7 @@ namespace Charlotte.Games.Shots.Tests
 					{
 						if (Game.I.Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.X - xd * (this.FacingLeft ? -1 : 1), this.Y + yd))).Tile.IsWall())
 						{
-							DDGround.EL.Add(SCommon.Supplier(Effects.FireBall爆発(this.X, this.Y)));
+							DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
 							goto endFunc;
 							//yield break;
 						}
@@ -85,7 +85,7 @@ namespace Charlotte.Games.Shots.Tests
 
 						if (20 <= bouncedCount) // ? 跳ね返り回数オーバー
 						{
-							DDGround.EL.Add(SCommon.Supplier(Effects.FireBall爆発(this.X, this.Y)));
+							DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
 							break;
 						}
 					}
@@ -106,7 +106,7 @@ namespace Charlotte.Games.Shots.Tests
 
 		protected override void Killed()
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.FireBall爆発(this.X, this.Y)));
+			DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
 		}
 	}
 }

@@ -98,7 +98,7 @@ namespace Charlotte.Games.Shots
 		/// </summary>
 		protected virtual void Killed()
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.小爆発(this.X, this.Y)));
+			ShotCommon.Killed(this);
 		}
 	}
 }
