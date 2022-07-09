@@ -5,8 +5,8 @@
 /*
 	プレイヤーの位置
 */
-var<double> PlayerX = FIELD_W / 2;
-var<double> PlayerY = FIELD_H / 2;
+var<double> PlayerX = FIELD_L + FIELD_W / 2;
+var<double> PlayerY = FIELD_T + FIELD_H / 2;
 
 /*
 	プレイヤーの垂直方向の速度
@@ -258,11 +258,11 @@ function <void> DrawPlayer()
 		}
 		else if (touchSide_L)
 		{
-			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W + PLAYER_側面判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX) - TILE_W / 2.0 + PLAYER_側面判定Pt_X;
 		}
 		else if (touchSide_R)
 		{
-			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W - PLAYER_側面判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX) + TILE_W / 2.0 - PLAYER_側面判定Pt_X;
 		}
 
 		var<boolean> touchCeiling_L =
@@ -291,11 +291,11 @@ function <void> DrawPlayer()
 		}
 		else if (touchCeiling_L)
 		{
-			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W + PLAYER_脳天判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX) - TILE_W / 2.0 + PLAYER_脳天判定Pt_X;
 		}
 		else if (touchCeiling_R)
 		{
-			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W - PLAYER_脳天判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX) + TILE_W / 2.0 - PLAYER_脳天判定Pt_X;
 		}
 
 		var<boolean> touchGround =
@@ -306,9 +306,7 @@ function <void> DrawPlayer()
 		{
 			if (0.0 < PlayerYSpeed)
 			{
-				var<double> plY = ToFix((PlayerY + PLAYER_接地判定Pt_Y) / TILE_H) * TILE_H - PLAYER_接地判定Pt_Y;
-
-				PlayerY = plY;
+				PlayerY = ToTileCenterY(PlayerY + PLAYER_接地判定Pt_Y) - TILE_H / 2.0 - PLAYER_接地判定Pt_Y;
 				PlayerYSpeed = 0.0;
 			}
 		}
@@ -327,11 +325,11 @@ function <void> DrawPlayer()
 	var<double> ATARI_MGN = 2.0;
 
 	PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(
-		FIELD_L + PlayerX,
-		FIELD_T + PlayerY,
+		PlayerX,
+		PlayerY,
 		TILE_W - ATARI_MGN,
 		TILE_H - ATARI_MGN
 		));
 
-	Draw(P_Player, FIELD_L + PlayerX, FIELD_T + PlayerY, 1.0, 0.0, 1.0);
+	Draw(P_Player, PlayerX, PlayerY, 1.0, 0.0, 1.0);
 }

@@ -23,11 +23,11 @@ function <Enemy_t> CreateEnemy_Goal(<double> x, <double> y)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	for (; ; )
+	for (var<int> frame = 0; ; frame++)
 	{
 		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 40.0, 40.0));
 
-		Draw(P_Dummy, enemy.X, enemy.Y, 1.0, 0.0, 1.0); // TODO
+		Draw(P_Goal, enemy.X, enemy.Y, 1.0, 0.1 * frame, 1.0);
 
 		yield 1;
 	}
