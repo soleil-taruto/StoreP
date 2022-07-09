@@ -18,41 +18,44 @@ namespace Charlotte.GameCommons
 		public static DDSubScreen KeptMainScreen;
 		public static I4Rect MonitorRect;
 
-		// DDConsts.Screen_WH ... システム上の画面サイズ
-		// RealScreen_WH ... 実際の画面サイズ
-		// RealScreenDraw_LTWH ... ゲーム画面を描画する位置とサイズ, _W == -1 の場合は { 0, 0, RealScreen_W, RealScreen_H } に描画する。
-		// UnfullScreen_WH ... フルスクリーン解除時の画面サイズ
-
+		// 実際の画面サイズ
+		//
 		public static int RealScreen_W = DDConsts.Screen_W;
 		public static int RealScreen_H = DDConsts.Screen_H;
 
+		// ゲーム画面を描画する位置とサイズ
+		// RealScreenDraw_W == -1 の場合は { 0, 0, RealScreen_W, RealScreen_H } に描画する。
+		//
 		public static int RealScreenDraw_L;
 		public static int RealScreenDraw_T;
 		public static int RealScreenDraw_W = -1; // -1 == RealScreenDraw_LTWH 不使用
 		public static int RealScreenDraw_H;
 
+		// フルスクリーン解除時の画面サイズ
+		//
 		public static int UnfullScreen_W = DDConsts.Screen_W;
 		public static int UnfullScreen_H = DDConsts.Screen_H;
 
-		// MusicVolume:
+		// 音楽の音量
+		// 0.0 ～ 1.0
 		// 変更を反映するには -> DDMusicUtils.UpdateVolume();
 		// 実際の音量は DDSoundUtils.MixVolume(DDGround.MusicVolume, <DDMusic>.Volume) になる。
+		//
+		public static double MusicVolume = DDConsts.DefaultVolume;
 
-		// SEVolume:
+		// 効果音の音量
+		// 0.0 ～ 1.0
 		// 変更を反映するには -> DDSEUtils.UpdateVolume();
 		// 実際の音量は DDSoundUtils.MixVolume(DDGround.SEVolume, <DDSE>.Volume) になる。
-
-		public static double MusicVolume = DDConsts.DefaultVolume;
+		//
 		public static double SEVolume = DDConsts.DefaultVolume;
 
-		// RO_MouseDispMode:
 		// マウスカーソルを表示するか
 		// 変更を反映するには -> DDUtils.SetMouseDispMode(DDGround.RO_MouseDispMode);
-
+		//
 		public static bool RO_MouseDispMode = false;
 
-		// Camera:
-		// ICamera:
+		// カメラ位置
 		//
 		// カメラ位置を変更する場合、フレームループ内で描画を行う前に Camera を更新し、その直後に以下のとおり ICamera を更新すること。
 		// DDGround.ICamera.X = DoubleTools.ToInt(DDGround.Camera.X);
@@ -60,7 +63,7 @@ namespace Charlotte.GameCommons
 		//
 		// カメラ位置に影響を受ける画像の描画には ICamera の座標を使うこと。
 		// 例：DDDraw.DrawCenter(picture, drawX - ICamera.X, drawY - ICamera.Y);
-
+		//
 		public static D2Point Camera = new D2Point();
 		public static I2Point ICamera = new I2Point();
 

@@ -31,7 +31,7 @@ var<int> MapCellType_e_Enemy_BDummy = @(AUTO);
 
 	// マップセルのテーブル
 	// 添字：[x][y]
-	// サイズ：[MAP_X_SIZE][MAP_Y_SIZE]
+	// サイズ：[MAP_W][MAP_H]
 	// (テーブル座標)
 	//
 	<MapCell_t[][]> Table;
@@ -61,14 +61,14 @@ function <void> LoadMap(<int> mapIndex)
 {
 	var<string[]> lines = MAPS[mapIndex];
 
-	if (lines.length != MAP_Y_SIZE)
+	if (lines.length != MAP_H)
 	{
 		error();
 	}
 
-	for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+	for (var<int> y = 0; y < MAP_H; y++)
 	{
-		if (lines[y].length != MAP_X_SIZE)
+		if (lines[y].length != MAP_W)
 		{
 			error();
 		}
@@ -77,11 +77,11 @@ function <void> LoadMap(<int> mapIndex)
 	Map = {};
 	Map.Table = [];
 
-	for (var<int> x = 0; x < MAP_X_SIZE; x++)
+	for (var<int> x = 0; x < MAP_W; x++)
 	{
 		Map.Table.push([]);
 
-		for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+		for (var<int> y = 0; y < MAP_H; y++)
 		{
 			Map.Table[x].push(
 			{
@@ -93,8 +93,8 @@ function <void> LoadMap(<int> mapIndex)
 	// set StartPt
 setStartPt:
 	{
-		for (var<int> x = 0; x < MAP_X_SIZE; x++)
-		for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+		for (var<int> x = 0; x < MAP_W; x++)
+		for (var<int> y = 0; y < MAP_H; y++)
 		{
 			if (Map.Table[x][y].Type == MapCellType_e_Start)
 			{
@@ -111,8 +111,8 @@ setStartPt:
 
 	// MapCell_t の Type 以外のフィールドを設定する。
 	//
-	for (var<int> x = 0; x < MAP_X_SIZE; x++)
-	for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+	for (var<int> x = 0; x < MAP_W; x++)
+	for (var<int> y = 0; y < MAP_H; y++)
 	{
 		var<MapCell_t> cell = Map.Table[x][y];
 
@@ -129,8 +129,8 @@ setStartPt:
 
 	// 敵のロード
 	//
-	for (var<int> x = 0; x < MAP_X_SIZE; x++)
-	for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+	for (var<int> x = 0; x < MAP_W; x++)
+	for (var<int> y = 0; y < MAP_H; y++)
 	{
 		var<MapCell_t> cell = Map.Table[x][y];
 

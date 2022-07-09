@@ -15,20 +15,14 @@ var<int> FIELD_B = FIELD_T + FIELD_H;
 /*
 	マップ・サイズ (テーブルサイズ)
 */
-var<int> MAP_X_SIZE = 20;
-var<int> MAP_Y_SIZE = 15;
+var<int> MAP_W = 20;
+var<int> MAP_H = 15;
 
 /*
 	マップセル・サイズ (ドット単位・画面上のサイズ)
 */
 var<int> TILE_W = 40;
 var<int> TILE_H = 40;
-
-/*
-	マップ・サイズ (ドット単位・画面上のサイズ)
-*/
-//var<int> MAP_W = MAP_X_SIZE * TILE_W; // == FIELD_W
-//var<int> MAP_H = MAP_Y_SIZE * TILE_H; // == FIELD_H
 
 // ----
 // プレイヤー情報ここから

@@ -210,8 +210,8 @@ function <void> @@_DrawWall()
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
 	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
 
-	for (var<int> x = 0; x < MAP_X_SIZE; x++)
-	for (var<int> y = 0; y < MAP_Y_SIZE; y++)
+	for (var<int> x = 0; x < MAP_W; x++)
+	for (var<int> y = 0; y < MAP_H; y++)
 	{
 		var<int> dx = FIELD_L + x * TILE_W + TILE_W / 2;
 		var<int> dy = FIELD_T + y * TILE_H + TILE_H / 2;
