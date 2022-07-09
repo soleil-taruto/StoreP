@@ -56,22 +56,22 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		{
 			var<boolean> boundFlag = false;
 
-			if (enemy.X < 0.0)
+			if (enemy.X < FIELD_L)
 			{
 				speedXY.X = Math.abs(speedXY.X);
 				boundFlag = true;
 			}
-			if (FIELD_W < enemy.X)
+			if (FIELD_R < enemy.X)
 			{
 				speedXY.X = Math.abs(speedXY.X) * -1;
 				boundFlag = true;
 			}
-			if (enemy.Y < 0.0)
+			if (enemy.Y < FIELD_T)
 			{
 				speedXY.Y = Math.abs(speedXY.Y);
 				boundFlag = true;
 			}
-			if (FIELD_H < enemy.Y)
+			if (FIELD_B < enemy.Y)
 			{
 				speedXY.Y = Math.abs(speedXY.Y) * -1;
 				boundFlag = true;
@@ -79,8 +79,8 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 			if (boundFlag)
 			{
-				enemy.X = ToRange(enemy.X, 0.0, FIELD_W);
-				enemy.Y = ToRange(enemy.Y, 0.0, FIELD_H);
+				enemy.X = ToRange(enemy.X, FIELD_L, FIELD_R);
+				enemy.Y = ToRange(enemy.Y, FIELD_T, FIELD_B);
 
 				angle = GetAngle(speedXY.X, speedXY.Y);
 				boundCount++;
@@ -91,7 +91,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		// ? âÊñ äOÇ…èoÇΩ -> èIóπ(éÄñSÇ≥ÇπÇÈ)
 		if (IsOut(
 			CreateD2Point(enemy.X, enemy.Y),
-			CreateD4Rect(0.0, 0.0, FIELD_W, FIELD_H),
+			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
 			50.0
 			))
 		{

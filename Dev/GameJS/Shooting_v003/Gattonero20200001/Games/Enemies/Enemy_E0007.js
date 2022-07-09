@@ -55,7 +55,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		// ? âÊñ äOÇ…èoÇΩ -> èIóπ(éÄñSÇ≥ÇπÇÈ)
 		if (IsOut(
 			CreateD2Point(enemy.X, enemy.Y),
-			CreateD4Rect(0.0, 0.0, FIELD_W, FIELD_H),
+			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
 			50.0
 			))
 		{

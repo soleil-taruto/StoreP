@@ -23,7 +23,7 @@ function <Enemy_t> CreateEnemy_E0003(<double> x, <double> y, <int> hp)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	while (enemy.Y < FIELD_H)
+	while (enemy.Y < FIELD_B)
 	{
 		for (var<int> c = 0; c < 20; c++)
 		{

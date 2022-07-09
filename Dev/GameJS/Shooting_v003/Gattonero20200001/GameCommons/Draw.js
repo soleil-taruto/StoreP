@@ -8,12 +8,6 @@ function <void> ClearScreen()
 	Context.clearRect(0, 0, Screen_W, Screen_H);
 }
 
-// 描画位置原点
-// -- Print.js にも作用する。
-//
-var<double> Draw_L = 0.0;
-var<double> Draw_T = 0.0;
-
 /*
 	描画
 
@@ -31,9 +25,6 @@ var<double> Draw_T = 0.0;
 */
 function <void> Draw(<Image> image, <double> x, <double> y, <double> a, <double> r, <double> z)
 {
-	x += Draw_L;
-	y += Draw_T;
-
 	var<int> w = image.naturalWidth;
 	var<int> h = image.naturalHeight;
 

@@ -23,9 +23,6 @@ function <void> PrintRect(<double> l, <double> t, <double> w, <double> h)
 		return;
 	}
 
-	l += Draw_L;
-	t += Draw_T;
-
 	Context.fillRect(l, t, w, h);
 }
 
@@ -57,9 +54,6 @@ function <void> PrintCircle(<double> x, <double> y, <double> r)
 	{
 		return;
 	}
-
-	x += Draw_L;
-	y += Draw_T;
 
 	Context.beginPath();
 	Context.arc(x, y, r, 0, Math.PI * 2.0, false);
@@ -96,9 +90,6 @@ var<int> @@_YStep = 0;
 */
 function <void> SetPrint(<int> x, <int> y, <int> yStep)
 {
-	x += Draw_L;
-	y += Draw_T;
-
 	@@_X = x;
 	@@_Y = y;
 	@@_YStep = yStep;

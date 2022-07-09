@@ -172,8 +172,8 @@ gameLoop:
 				{
 					AddEffect_Explode(PlayerX, PlayerY);
 
-					PlayerX = FIELD_W / 2;
-					PlayerY = FIELD_H / 2;
+					PlayerX = FIELD_L + FIELD_W / 2;
+					PlayerY = FIELD_T + FIELD_H / 2;
 				}
 			}
 		}
@@ -225,14 +225,14 @@ function <void> @@_DrawFront()
 	PrintRect(0, 0, Screen_W, FIELD_T);
 	PrintRect(
 		0,
-		FIELD_T + FIELD_H,
+		FIELD_B,
 		Screen_W,
-		Screen_H - FIELD_T - FIELD_H
+		Screen_H - FIELD_B
 		);
 	PrintRect(
-		FIELD_L + FIELD_W,
+		FIELD_R,
 		0,
-		Screen_W - FIELD_L - FIELD_W,
+		Screen_W - FIELD_R,
 		Screen_H
 		);
 }

@@ -40,18 +40,18 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.XAdd += enemy.XAddAdd * (underOfPlayer ? -1 : 1);
 		enemy.X += enemy.XAdd;
 
-		if (enemy.X < 0.0)
+		if (enemy.X < FIELD_L)
 		{
 			enemy.XAdd = Math.abs(enemy.XAdd);
 		}
-		if (FIELD_W < enemy.X)
+		if (FIELD_R < enemy.X)
 		{
 			enemy.XAdd = Math.abs(enemy.XAdd) * -1;
 		}
 
 		enemy.Y += 5.5;
 
-		if (FIELD_H + 50.0 < enemy.Y)
+		if (FIELD_B + 50.0 < enemy.Y)
 		{
 			break;
 		}

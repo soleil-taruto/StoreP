@@ -30,7 +30,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		{
 			var<double> X_ADD_ADD = 0.1;
 
-			if (FIELD_W / 2 < enemy.X)
+			if (FIELD_L + FIELD_W / 2 < enemy.X)
 			{
 				enemy.XAdd -= X_ADD_ADD;
 			}
@@ -43,7 +43,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XAdd;
 		enemy.Y += 3.0;
 
-		if (FIELD_H + 50.0 < enemy.Y)
+		if (FIELD_B + 50.0 < enemy.Y)
 		{
 			break;
 		}

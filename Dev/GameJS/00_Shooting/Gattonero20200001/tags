@@ -153,8 +153,7 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Mouse.js(134) : GetMouse
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Mouse.js(142) : GetMouseY // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(11) : Play // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(44) : @ // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(92) : Fadeout // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(99) : Fadeout_F // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Music.js(93) : Fadeout // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Print.js(33) : PrintRect_LTRB // ä÷êî
@@ -183,6 +182,8 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(8) : FIELD_L // ï
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(9) : FIELD_T // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(10) : FIELD_W // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(11) : FIELD_H // ïœêî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(12) : FIELD_R // ïœêî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\00_Consts.js(13) : FIELD_B // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Background.js(5) : BackgroundTask // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî

@@ -5,8 +5,8 @@
 /*
 	プレイヤーの位置
 */
-var<double> PlayerX = FIELD_W / 2;
-var<double> PlayerY = FIELD_H / 2;
+var<double> PlayerX = FIELD_L + FIELD_W / 2;
+var<double> PlayerY = FIELD_T + FIELD_H / 2;
 
 /*
 	今フレームの当たり判定, null == 当たり判定無し
@@ -54,8 +54,8 @@ function <void> DrawPlayer()
 				PlayerY -= SPEED;
 			}
 
-			PlayerX = ToRange(PlayerX, FIELD_W);
-			PlayerY = ToRange(PlayerY, FIELD_H);
+			PlayerX = ToRange(PlayerX, FIELD_L, FIELD_R);
+			PlayerY = ToRange(PlayerY, FIELD_T, FIELD_B);
 		}
 
 		if (1 <= GetInput_B() && ProcFrame % 10 == 0) // 攻撃
@@ -65,6 +65,6 @@ function <void> DrawPlayer()
 
 		PlayerCrash = CreateCrash_Point(PlayerX, PlayerY);
 
-		Draw(P_Dummy, FIELD_L + PlayerX, FIELD_T + PlayerY, 1.0, Math.PI / 4, 1.0);
+		Draw(P_Dummy, PlayerX, PlayerY, 1.0, Math.PI / 4, 1.0);
 	}
 }

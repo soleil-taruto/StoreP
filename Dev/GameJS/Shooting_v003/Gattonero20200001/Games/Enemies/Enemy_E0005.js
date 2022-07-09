@@ -41,7 +41,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		enemy.Y += enemy.YAdd;
 
-		if (FIELD_H + 50.0 < enemy.Y)
+		if (FIELD_B + 50.0 < enemy.Y)
 		{
 			break;
 		}

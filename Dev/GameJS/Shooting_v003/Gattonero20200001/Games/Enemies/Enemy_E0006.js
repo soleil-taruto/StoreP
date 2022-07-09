@@ -23,7 +23,7 @@ function <Enemy_t> CreateEnemy_E0006(<double> x, <double> y, <int> hp)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	while (enemy.Y < FIELD_H && enemy.Y < PlayerY)
+	while (enemy.Y < FIELD_B && enemy.Y < PlayerY)
 	{
 		enemy.Y += 5.0;
 
@@ -37,7 +37,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		xAdd *= -1;
 	}
 
-	while (0.0 < enemy.X && enemy.X < FIELD_W)
+	while (FIELD_L < enemy.X && enemy.X < FIELD_R)
 	{
 		enemy.X += xAdd;
 
