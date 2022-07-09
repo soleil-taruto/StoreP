@@ -15,11 +15,23 @@ function <int> ToInt(<double> value)
 		つまりゼロ方向で最寄りの整数を返す。
 		例：
 			2.4 -> 2
-			-3.7 -> 3
+			-3.7 -> -3
 */
 function <int> ToFix(<double> value)
 {
 	return Math.trunc(value);
+}
+
+/*
+	ret: value 以下で最大の整数を返す。
+		つまりマイナス無限大方向で最寄りの整数を返す。
+		例：
+			2.4 -> 2
+			-3.7 -> -4
+*/
+function <int> ToFloor(<double> value)
+{
+	return Math.floor(value);
 }
 
 /*
