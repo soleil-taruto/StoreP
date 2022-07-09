@@ -23,10 +23,9 @@ namespace Charlotte.Games
 		public const string ENEMY_NONE = "None";
 
 		/// <summary>
-		/// デフォルトの壁紙の名前
-		/// デフォルトの音楽の名前
+		/// マップデータの終端にあるパラメータのデフォルト値
 		/// </summary>
-		public const string NAME_DEFAULT = "Default";
+		public const string MAPPRM_DEFAULT_VALUE = "Default";
 
 		public const int TILE_W = 32;
 		public const int TILE_H = 32;

@@ -51,7 +51,7 @@ var<double> PLAYER_SLOW_SPEED = 2.0;
 /*
 	プレイヤーキャラクタのジャンプによる上昇速度
 */
-var<double> PLAYER_ジャンプによる上昇速度 = -8.0;
+var<double> PLAYER_JUMP_SPEED = -8.0;
 
 // 上昇が速すぎると、脳天判定より先に側面判定に引っ掛かってしまう可能性がある。
 // -- ( -(PLAYER_ジャンプによる上昇速度) < 脳天判定Pt_Y - 側面判定Pt_Y ) を維持すること。

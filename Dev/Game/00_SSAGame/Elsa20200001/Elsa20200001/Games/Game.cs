@@ -83,8 +83,7 @@ namespace Charlotte.Games
 				//this.Player.Chara = this.Status.StartChara;
 				//this.Player.HP = this.Status.StartHP;
 				//this.Player.FacingLeft = this.Status.StartFacingLeft;
-
-				// ----
+				// --
 
 				this.Player.Chara = this.Status.StartChara;
 				this.Player.HP = this.Status.StartHP;
@@ -263,7 +262,7 @@ namespace Charlotte.Games
 								this.Player.JumpFrame = 1;
 								this.Player.JumpCount = 1;
 
-								this.Player.YSpeed = GameConsts.PLAYER_ジャンプ初速度;
+								this.Player.YSpeed = GameConsts.PLAYER_JUMP_SPEED;
 
 								jumpLock = true;
 							}
@@ -285,7 +284,7 @@ namespace Charlotte.Games
 								this.Player.JumpFrame = 1;
 								this.Player.JumpCount++;
 
-								this.Player.YSpeed = GameConsts.PLAYER_ジャンプ初速度;
+								this.Player.YSpeed = GameConsts.PLAYER_JUMP_SPEED;
 
 								DDGround.EL.Add(SCommon.Supplier(Effects.空中ジャンプの足場(this.Player.X, this.Player.Y + 48)));
 
@@ -922,8 +921,7 @@ namespace Charlotte.Games
 				//this.Status.StartChara = this.Player.Chara;
 				//this.Status.StartHP = this.Player.HP;
 				//this.Status.StartFacingLeft = this.Player.FacingLeft;
-
-				// ----
+				// --
 
 				this.Status.StartChara = this.Player.Chara;
 				this.Status.StartHP = this.Player.HP;

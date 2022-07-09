@@ -23,10 +23,9 @@ namespace Charlotte.Games
 		public const string ENEMY_NONE = "None";
 
 		/// <summary>
-		/// デフォルトの壁紙の名前
-		/// デフォルトの音楽の名前
+		/// マップデータの終端にあるパラメータのデフォルト値
 		/// </summary>
-		public const string NAME_DEFAULT = "Default";
+		public const string MAPPRM_DEFAULT_VALUE = "Default";
 
 		public const int TILE_W = 32;
 		public const int TILE_H = 32;
@@ -67,7 +66,7 @@ namespace Charlotte.Games
 		/// <summary>
 		/// プレイヤーキャラクタのジャンプ初速度
 		/// </summary>
-		public const double PLAYER_ジャンプ初速度 = -16.0;
+		public const double PLAYER_JUMP_SPEED = -16.0;
 
 		// 上昇が速すぎると、脳天判定より先に側面判定に引っ掛かってしまう可能性がある。
 		// -- ( -(PLAYER_ジャンプ初速度) < 脳天判定Pt_Y - 側面判定Pt_Y ) を維持すること。

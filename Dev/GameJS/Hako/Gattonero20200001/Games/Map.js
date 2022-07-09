@@ -167,3 +167,22 @@ function <MapCellType_e> @@_CharToType(<string> chr)
 
 	error();
 }
+
+var<MapCell_t> DEFAULT_MAP_CELL =
+{
+	Type: MapCellType_e_Wall,
+	WallFlag: true,
+};
+
+function <MapCell_t> GetMapCell(<I2Point_t> pt)
+{
+	if (
+		pt.X < 0 || MAP_W <= pt.X ||
+		pt.Y < 0 || MAP_H <= pt.Y
+		)
+	{
+		return DEFAULT_MAP_CELL;
+	}
+
+	return Map.Table[pt.X][pt.Y];
+}

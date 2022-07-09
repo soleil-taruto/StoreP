@@ -96,8 +96,7 @@ namespace Charlotte.Games
 				//this.Player.HP = this.Status.StartHP;
 				//this.Player.FaceDirection = this.Status.StartFaceDirection;
 				//this.Player.選択武器 = this.Status.Start選択武器;
-
-				// ----
+				// --
 
 				this.Player.HP = this.Status.StartHP;
 				this.Player.FaceDirection = this.Status.StartFaceDirection;
@@ -680,8 +679,7 @@ namespace Charlotte.Games
 				//this.Status.StartHP = this.Player.HP;
 				//this.Status.StartFaceDirection = this.Player.FaceDirection;
 				//this.Status.Start選択武器 = this.Player.選択武器;
-
-				// ----
+				// --
 
 				this.Status.StartHP = this.Player.HP;
 				this.Status.StartFaceDirection = this.Player.FaceDirection;

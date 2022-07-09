@@ -95,8 +95,7 @@ namespace Charlotte.Games
 				//this.Player.HP = this.Status.StartHP;
 				//this.Player.FacingLeft = this.Status.StartFacingLeft;
 				//this.Player.武器 = this.Status.Start_武器;
-
-				// ----
+				// --
 
 				this.Player.HP = this.Status.StartHP;
 				this.Player.FacingLeft = this.Status.StartFacingLeft;
@@ -390,7 +389,7 @@ namespace Charlotte.Games
 						this.Player.X = (double)SCommon.ToInt(this.Player.X);
 
 					if (1 <= this.Player.JumpFrame)
-						this.Player.YSpeed = GameConsts.PLAYER_ジャンプによる上昇速度;
+						this.Player.YSpeed = GameConsts.PLAYER_JUMP_SPEED;
 					else
 						this.Player.YSpeed += GameConsts.PLAYER_GRAVITY;
 
@@ -760,8 +759,7 @@ namespace Charlotte.Games
 				//this.Status.StartHP = this.Player.HP;
 				//this.Status.StartFacingLeft = this.Player.FacingLeft;
 				//this.Status.Start_武器 = this.Player.武器;
-
-				// ----
+				// --
 
 				this.Status.StartHP = this.Player.HP;
 				this.Status.StartFacingLeft = this.Player.FacingLeft;

@@ -10,7 +10,7 @@ namespace Charlotte.Games.Walls
 	{
 		public static Wall Create(string name)
 		{
-			if (name == GameConsts.NAME_DEFAULT)
+			if (name == GameConsts.MAPPRM_DEFAULT_VALUE)
 				return new Wall_Dark();
 
 			Wall wall;

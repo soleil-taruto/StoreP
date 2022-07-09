@@ -107,7 +107,7 @@ function <void> DrawPlayer()
 
 		if (1 <= PlayerJumpFrame) // ? ジャンプ中
 		{
-			var<int> JUMP_FRAME_MAX = 11;
+			var<int> JUMP_FRAME_MAX = 13;
 
 			if (1 <= jump && PlayerJumpFrame < JUMP_FRAME_MAX)
 			{
@@ -128,8 +128,8 @@ function <void> DrawPlayer()
 
 			if (1 <= jump && jump < 事前入力時間 && PlayerAirborneFrame < 入力猶予時間 && PlayerJumpCount == 0 && !@@_JumpLock)
 			{
-				PlyaerJumpCount = 1;
-				PlyaerJumpFrame = 1;
+				PlayerJumpCount = 1;
+				PlayerJumpFrame = 1;
 				@@_JumpLock = true;
 			}
 		}
@@ -146,64 +146,119 @@ function <void> DrawPlayer()
 			if (@@_MoveSlow)
 			{
 				speed = PlayerMoveFrame * 0.2;
-				speed = Math.min(speed, 3.0);
+				speed = Math.min(speed, PLAYER_SLOW_SPEED);
 			}
 			else
 			{
-				speed = 7.0;
+				speed = PLAYER_SPEED;
 			}
-			speed *= plMove;
+			speed *= PlayerFacingLeft ? -1.0 : 1.0;
 
-			PlayerXSpeed = Approach(PlayerXSpeed, speed, 0.333);
+			PlayerX += speed;
 		}
 		else
 		{
-			PlayerXSpeed /= 2.0;
+			PlayerX = ToInt(PlayerX);
 		}
-
-		PlayerX += PlayerXSpeed;
-
-		var<double> 重力加速度 = 0.5;
-		var<double> 落下最高速度 = 7.0;
-		var<double> ジャンプによる上昇速度 = -7.0;
 
 		if (1 <= PlayerJumpFrame)
 		{
-			PlayerYSpeed = ジャンプによる上昇速度;
+			PlayerYSpeed = PLAYER_JUMP_SPEED;
 		}
 		else
 		{
-			PlayerYSpeed += 重力加速度;
+			PlayerYSpeed += PLAYER_GRAVITY;
 		}
-		PlayerYSpeed = Math.min(PlayerYSpeed, 落下最高速度);
+
+		PlayerYSpeed = Math.min(PlayerYSpeed, PLAYER_FALL_SPEED_MAX);
 
 		PlayerY += PlayerYSpeed;
 	}
 
 	// 位置矯正
 	{
-		Do_自機位置調整();
+		var<boolean> touchSide_L =
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_Y )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                       )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_Y )).WallFlag;
 
-		if (Is_自機位置調整_Touch_Ground())
+		var<boolean> touchSide_R =
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_Y )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                       )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_Y )).WallFlag;
+
+		if (touchSide_L && touchSide_R) // -> 壁抜け防止のため再チェック
+		{
+			touchSide_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY)).WallFlag;
+			touchSide_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY)).WallFlag;
+		}
+
+		if (touchSide_L && touchSide_R)
+		{
+			// noop
+		}
+		else if (touchSide_L)
+		{
+			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W + PLAYER_側面判定Pt_X;
+		}
+		else if (touchSide_R)
+		{
+			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W - PLAYER_側面判定Pt_X;
+		}
+
+		var<boolean> touchCeiling_L =
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X, PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
+
+		var<boolean> touchCeiling_R =
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X, PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
+
+		if (touchCeiling_L && touchCeiling_R)
+		{
+			if (PlayerYSpeed < 0.0)
+			{
+				var<double> plY = (ToFix((PlayerY - PLAYER_脳天判定Pt_Y) / TILE_H) + 1) * TILE_H + PLAYER_脳天判定Pt_Y;
+
+				PlayerY = plY;
+				PlayerYSpeed = 0.0;
+				PlayerJumpFrame = 0;
+			}
+		}
+		else if (touchCeiling_L)
+		{
+			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W + PLAYER_脳天判定Pt_X;
+		}
+		else if (touchCeiling_R)
+		{
+			PlayerX = ToInt(PlayerX / TILE_W) * TILE_W - PLAYER_脳天判定Pt_X;
+		}
+
+		var<boolean> touchGround =
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).WallFlag;
+
+		if (touchGround)
+		{
+			if (0.0 < PlayerYSpeed)
+			{
+				var<double> plY = ToFix((PlayerY + PLAYER_接地判定Pt_Y) / TILE_H) * TILE_H - PLAYER_接地判定Pt_Y;
+
+				PlayerY = plY;
+				PlayerYSpeed = 0.0;
+			}
+		}
+
+		if (touchGround)
 		{
 			PlayerJumpCount = 0;
 			PlayerAirborneFrame = 0;
-			PlayerYSpeed = Math.min(0.0, PlayerYSpeed);
 		}
 		else
 		{
 			PlayerAirborneFrame++;
-
-			if (Is_自機位置調整_Touch_Roof())
-			{
-				PlayerJumpFrame = 0;
-//				PlayerYSpeed = = Math.max(PlayerYSpeed, 0.0); // 反発係数 0
-				PlayerYSpeed = = Math.abs(PlayerYSpeed);      // 反発係数 1
-			}
 		}
 	}
 
 	PlayerCrash = CreateCrash_Circle(PlayerX, PlayerY, MICRO);
 
-	Draw(P_Dummy, PlayerX, PlayerY, 1.0, Math.PI / 4, 1.0);
+	Draw(P_Player, FIELD_L + PlayerX, FIELD_T + PlayerY, 1.0, 0.0, 1.0);
 }

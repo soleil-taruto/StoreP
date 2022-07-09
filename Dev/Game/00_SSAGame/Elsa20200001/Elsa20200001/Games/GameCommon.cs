@@ -71,8 +71,8 @@ namespace Charlotte.Games
 		public static I2Point ToTablePoint(double x, double y)
 		{
 			return new I2Point(
-				(int)(x / GameConsts.TILE_W),
-				(int)(y / GameConsts.TILE_H)
+				(int)Math.Floor(x / GameConsts.TILE_W),
+				(int)Math.Floor(y / GameConsts.TILE_H)
 				);
 		}
 
@@ -122,8 +122,7 @@ namespace Charlotte.Games
 				//gameStatus.StartChara = Game.I.Player.Chara;
 				//gameStatus.StartHP = Game.I.Player.HP;
 				//gameStatus.StartFacingLeft = Game.I.Player.FacingLeft;
-
-				// ----
+				// --
 
 				gameStatus.StartChara = Game.I.Player.Chara;
 				gameStatus.StartHP = Game.I.Player.HP;

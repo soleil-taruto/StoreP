@@ -71,8 +71,8 @@ namespace Charlotte.Games
 			}
 			this.W = w;
 			this.H = h;
-			this.WallName = SCommon.GetElement(lines, c++, GameConsts.NAME_DEFAULT);
-			this.MusicName = SCommon.GetElement(lines, c++, GameConsts.NAME_DEFAULT);
+			this.WallName = SCommon.GetElement(lines, c++, GameConsts.MAPPRM_DEFAULT_VALUE);
+			this.MusicName = SCommon.GetElement(lines, c++, GameConsts.MAPPRM_DEFAULT_VALUE);
 		}
 
 		public void Save()
