@@ -92,11 +92,16 @@ namespace Charlotte.Games
 				// すべきこと：
 				// -- ゲーム状態を this.Status から各方面に展開・反映する。
 
+				// 例：
+				//this.Player.HP = this.Status.StartHP;
+				//this.Player.FaceDirection = this.Status.StartFaceDirection;
+				//this.Player.選択武器 = this.Status.Start選択武器;
+
+				// ----
+
 				this.Player.HP = this.Status.StartHP;
 				this.Player.FaceDirection = this.Status.StartFaceDirection;
 				this.Player.選択武器 = this.Status.Start選択武器;
-
-				// ★ここまでサンプルとしてキープ
 			}
 
 			this.Wall = WallCatalog.Create(this.Map.WallName);
@@ -671,11 +676,16 @@ namespace Charlotte.Games
 				// すべきこと：
 				// -- 各方面に展開されているゲーム状態を this.Status に反映・格納する。
 
+				// 例：
+				//this.Status.StartHP = this.Player.HP;
+				//this.Status.StartFaceDirection = this.Player.FaceDirection;
+				//this.Status.Start選択武器 = this.Player.選択武器;
+
+				// ----
+
 				this.Status.StartHP = this.Player.HP;
 				this.Status.StartFaceDirection = this.Player.FaceDirection;
 				this.Status.Start選択武器 = this.Player.選択武器;
-
-				// ★ここまでサンプルとしてキープ
 			}
 
 			// ★★★ end of Perform() ★★★

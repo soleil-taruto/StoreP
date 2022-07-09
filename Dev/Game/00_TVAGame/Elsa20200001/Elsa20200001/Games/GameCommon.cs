@@ -166,11 +166,16 @@ namespace Charlotte.Games
 				// すべきこと：
 				// -- 各方面に展開されているゲーム状態を gameStatus に反映・格納する。
 
+				// 例：
+				//gameStatus.StartHP = Game.I.Player.HP;
+				//gameStatus.StartFaceDirection = Game.I.Player.FaceDirection;
+				//gameStatus.Start選択武器 = Game.I.Player.選択武器;
+
+				// ----
+
 				gameStatus.StartHP = Game.I.Player.HP;
 				gameStatus.StartFaceDirection = Game.I.Player.FaceDirection;
 				gameStatus.Start選択武器 = Game.I.Player.選択武器;
-
-				// ★ここまでサンプルとしてキープ
 			}
 
 			SaveGame(gameStatus);
