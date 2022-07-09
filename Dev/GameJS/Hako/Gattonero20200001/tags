@@ -20,6 +20,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Array.js(117) : GetTrailArray // ŠÖ
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Array.js(129) : CloneArray // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Array.js(140) : RemoveAll // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Array.js(164) : RemoveFalse // ŠÖ”
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Array.js(177) : ToArray // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(5) : Supplier // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(15) : Repeat // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(23) : Wait // ŠÖ”
@@ -230,7 +231,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(11) : MapCellType_e_Enemy_BDum
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(53) : Map // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(171) : DEFAULT_MAP_CELL // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Maps.js(5) : MAPS // •Ï”
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(64) : DrawPlayer // ŠÖ”
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(71) : DrawPlayer // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(8) : PlayerX // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(9) : PlayerY // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(14) : PlayerYSpeed // •Ï”
@@ -240,6 +241,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(31) : PlayerMoveFrame // •Ï
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(38) : PlayerJumpCount // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(45) : PlayerJumpFrame // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(52) : PlayerAirborneFrame // •Ï”
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(59) : PlayerShagamiFrame // •Ï”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy // ŠÖ”
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // ŠÖ”

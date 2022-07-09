@@ -253,9 +253,28 @@ function <void> @@_DrawFront()
 
 function* <generatorForTask> @@_StartMotion()
 {
-	// TODO
-	// TODO
-	// TODO
+	@@_DrawWall();
+	@@_DrawFront();
+
+	yield* WaitToReleaseButton();
+
+	for (var<Scene_t> scene of CreateScene(40))
+	{
+		@@_DrawWall();
+
+		Draw(
+			P_Player,
+			FIELD_L + PlayerX,
+			FIELD_T + PlayerY,
+			0.5 + 0.5 * scene.Rate,
+			10.0 * scene.RemRate * scene.RemRate,
+			1.0 + 29.0 * scene.RemRate
+			);
+
+		@@_DrawFront();
+
+		yield 1;
+	}
 }
 
 function* <generatorForTask> @@_GoalMotion()

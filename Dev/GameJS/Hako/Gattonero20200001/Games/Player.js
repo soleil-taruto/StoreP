@@ -5,8 +5,8 @@
 /*
 	プレイヤーの位置
 */
-var<double> PlayerX = FIELD_L + FIELD_W / 2;
-var<double> PlayerY = FIELD_T + FIELD_H / 2;
+var<double> PlayerX = FIELD_W / 2;
+var<double> PlayerY = FIELD_H / 2;
 
 /*
 	プレイヤーの垂直方向の速度
@@ -51,6 +51,13 @@ var<int> PlayerJumpFrame = 0;
 */
 var<int> PlayerAirborneFrame = 0;
 
+/*
+	プレイヤーしゃがみフレーム
+	0 == 無効
+	1～ == しゃがみ中
+*/
+var<int> PlayerShagamiFrame = 0;
+
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
@@ -68,7 +75,12 @@ function <void> DrawPlayer()
 		var<boolean> move = false;
 		var<boolean> slow = false;
 		var<int> jump = 0;
+		var<boolean> shagami = false;
 
+		if (1 <= GetInput_2())
+		{
+			shagami = true;
+		}
 		if (1 <= GetInput_4())
 		{
 			PlayerFacingLeft = true;
@@ -92,6 +104,7 @@ function <void> DrawPlayer()
 		if (move)
 		{
 			PlayerMoveFrame++;
+			shagami = false;
 		}
 		else
 		{
@@ -137,6 +150,52 @@ function <void> DrawPlayer()
 		if (PlayerJumpFrame == 1) // ? ジャンプ開始
 		{
 			// TODO: SE
+		}
+
+		if (1 <= PlayerAirborneFrame)
+		{
+			shagami = false;
+		}
+
+		if (shagami)
+		{
+			PlayerShagamiFrame++;
+		}
+		else
+		{
+			PlayerShagamiFrame = 0;
+		}
+
+		// 下押下(しゃがみ)で穴に落下しやすくする。-- ★アプリ固有
+		//
+		if (1 <= PlayerShagamiFrame)
+		{
+			var<double> SHAGAMI_SPEED = 1.0; // 下押下(しゃがみ)で穴方向へ動く速度
+
+			var<boolean> grounds =
+			[
+				GetMapCell(ToTablePoint_XY(PlayerX - TILE_W / 2.0 , PlayerY + TILE_H)).WallFlag,
+				GetMapCell(ToTablePoint_XY(PlayerX                , PlayerY + TILE_H)).WallFlag,
+				GetMapCell(ToTablePoint_XY(PlayerX + TILE_W / 2.0 , PlayerY + TILE_H)).WallFlag,
+			];
+
+			if (
+				!grounds[0] &&
+				!grounds[1] &&
+				grounds[2]
+				)
+			{
+				PlayerX -= SHAGAMI_SPEED;
+			}
+
+			if (
+				grounds[0] &&
+				!grounds[1] &&
+				!grounds[2]
+				)
+			{
+				PlayerX += SHAGAMI_SPEED;
+			}
 		}
 
 		if (1 <= PlayerMoveFrame) // ? 移動中
@@ -212,6 +271,12 @@ function <void> DrawPlayer()
 		var<boolean> touchCeiling_R =
 			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X, PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
 
+		if (touchCeiling_L || touchCeiling_R) // 天井の角に頭をブツケても落下 -- ★アプリ固有
+		{
+			touchCeiling_L = true;
+			touchCeiling_R = true;
+		}
+
 		if (touchCeiling_L && touchCeiling_R)
 		{
 			if (PlayerYSpeed < 0.0)
@@ -219,7 +284,8 @@ function <void> DrawPlayer()
 				var<double> plY = (ToFix((PlayerY - PLAYER_脳天判定Pt_Y) / TILE_H) + 1) * TILE_H + PLAYER_脳天判定Pt_Y;
 
 				PlayerY = plY;
-				PlayerYSpeed = 0.0;
+				PlayerYSpeed = Math.abs(PlayerYSpeed); // 反発係数 1
+//				PlayerYSpeed = 0.0;                    // 反発係数 0
 				PlayerJumpFrame = 0;
 			}
 		}
@@ -258,7 +324,14 @@ function <void> DrawPlayer()
 		}
 	}
 
-	PlayerCrash = CreateCrash_Circle(PlayerX, PlayerY, MICRO);
+	var<double> ATARI_MGN = 2.0;
+
+	PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(
+		FIELD_L + PlayerX,
+		FIELD_T + PlayerY,
+		TILE_W - ATARI_MGN,
+		TILE_H - ATARI_MGN
+		));
 
 	Draw(P_Player, FIELD_L + PlayerX, FIELD_T + PlayerY, 1.0, 0.0, 1.0);
 }
