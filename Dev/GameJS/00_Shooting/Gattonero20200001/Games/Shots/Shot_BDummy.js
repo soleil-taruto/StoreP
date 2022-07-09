@@ -35,7 +35,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		if (IsOut(
 			CreateD2Point(shot.X, shot.Y),
-			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
+			CreateD4Rect(0.0, 0.0, FIELD_W, FIELD_H),
 			0.0
 			))
 		{
@@ -44,7 +44,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 25.0);
 
-		Draw(P_Dummy, shot.X, shot.Y, 1.0, ProcFrame / 20.0, 1.0);
+		Draw(P_Dummy, FIELD_L + shot.X, FIELD_T + shot.Y, 1.0, ProcFrame / 20.0, 1.0);
 
 		yield 1;
 	}
