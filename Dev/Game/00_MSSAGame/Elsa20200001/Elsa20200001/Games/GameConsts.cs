@@ -55,10 +55,14 @@ namespace Charlotte.Games
 		/// </summary>
 		public const double PLAYER_SLOW_SPEED = 2.0;
 
+		/// <summary>
+		/// プレイヤーキャラクタのジャンプによる上昇速度
+		/// </summary>
 		public const double PLAYER_ジャンプによる上昇速度 = -8.0;
 
 		// 上昇が速すぎると、脳天判定より先に側面判定に引っ掛かってしまう可能性がある。
-		// -- ( -(PLAYER_ジャンプによる上昇速度) < 脳天判定Pt_Y - 側面判定Pt_Y ) を維持すること。-- 左右同時接触時の再判定によりこの制約は緩和される。
+		// -- ( -(PLAYER_ジャンプによる上昇速度) < 脳天判定Pt_Y - 側面判定Pt_Y ) を維持すること。
+		// ---- 左右同時接触時の再判定によりこの制約は緩和される。
 		// 下降が速すぎると、接地判定より先に側面判定に引っ掛かってしまう可能性がある。
 		// -- ( PLAYER_FALL_SPEED_MAX < 接地判定Pt_Y - 側面判定Pt_Y ) を維持すること。
 

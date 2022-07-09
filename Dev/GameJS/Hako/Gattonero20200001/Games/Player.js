@@ -9,10 +9,14 @@ var<double> PlayerX = FIELD_L + FIELD_W / 2;
 var<double> PlayerY = FIELD_T + FIELD_H / 2;
 
 /*
-	プレイヤーの速度
+	プレイヤーの垂直方向の速度
 */
-var<double> PlayerXSpeed = 0.0;
 var<double> PlayerYSpeed = 0.0;
+
+/*
+	プレイヤーが左を向いているか
+*/
+var<boolean> PlayerFacingLeft = false;
 
 /*
 	今フレームの当たり判定, null == 当たり判定無し
@@ -48,6 +52,7 @@ var<int> PlayerJumpFrame = 0;
 var<int> PlayerAirborneFrame = 0;
 
 var<boolean> @@_JumpLock = false;
+var<boolean> @@_MoveSlow = false;
 
 /*
 	行動と描画
@@ -60,30 +65,31 @@ function <void> DrawPlayer()
 {
 	// 移動
 	{
-		var<int> plMove = 0;
+		var<boolean> move = false;
+		var<boolean> slow = false;
+		var<int> jump = 0;
 
 		if (1 <= GetInput_4())
 		{
-			plMove = -1;
+			PlayerFacingLeft = true;
+			move = true;
 		}
 		if (1 <= GetInput_6())
 		{
-			plMove = 1;
+			PlayerFacingLeft = false;
+			move = true;
 		}
-
-		var<int> slow = 0;
-		var<int> jump = 0;
 
 		if (1 <= GetInput_B())
 		{
-			slow = GetInput_B();
+			slow = true;
 		}
 		if (1 <= GetInput_A())
 		{
 			jump = GetInput_A();
 		}
 
-		if (plMove != 0)
+		if (move)
 		{
 			PlayerMoveFrame++;
 		}
@@ -92,7 +98,12 @@ function <void> DrawPlayer()
 			PlayerMoveFrame = 0;
 		}
 
-		var<boolean> moveSlow = 1 <= PlayerMoveFrame && 1 <= slow;
+		@@_MoveSlow = move && slow;
+
+		if (jump == 0)
+		{
+			@@_JumpLock = false;
+		}
 
 		if (1 <= PlayerJumpFrame) // ? ジャンプ中
 		{
@@ -132,7 +143,7 @@ function <void> DrawPlayer()
 		{
 			var<double> speed = 0.0;
 
-			if (moveSlow)
+			if (@@_MoveSlow)
 			{
 				speed = PlayerMoveFrame * 0.2;
 				speed = Math.min(speed, 3.0);
@@ -191,14 +202,6 @@ function <void> DrawPlayer()
 			}
 		}
 	}
-
-	// 攻撃は無い。
-	/*
-	if (1 <= GetInput_B() && ProcFrame % 10 == 0) // 攻撃
-	{
-		GetShots().push(CreateShot_BDummy(PlayerX, PlayerY, 0.0, -10.0));
-	}
-	*/
 
 	PlayerCrash = CreateCrash_Circle(PlayerX, PlayerY, MICRO);
 

@@ -213,8 +213,8 @@ function <void> @@_DrawWall()
 	for (var<int> x = 0; x < MAP_X_SIZE; x++)
 	for (var<int> y = 0; y < MAP_Y_SIZE; y++)
 	{
-		var<int> dx = FIELD_L + x * MAP_CELL_W + MAP_CELL_W / 2;
-		var<int> dy = FIELD_T + y * MAP_CELL_H + MAP_CELL_H / 2;
+		var<int> dx = FIELD_L + x * TILE_W + TILE_W / 2;
+		var<int> dy = FIELD_T + y * TILE_H + TILE_H / 2;
 
 		if (Map.Table[x][y].WallFlag)
 		{

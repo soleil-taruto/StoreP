@@ -99,8 +99,8 @@ setStartPt:
 			if (Map.Table[x][y].Type == MapCellType_e_Start)
 			{
 				Map.StartPt = CreateD2Point(
-					FIELD_L + x * MAP_CELL_W + MAP_CELL_W / 2,
-					FIELD_T + y * MAP_CELL_H + MAP_CELL_H / 2
+					FIELD_L + x * TILE_W + TILE_W / 2,
+					FIELD_T + y * TILE_H + TILE_H / 2
 					);
 
 				break setStartPt;
@@ -138,16 +138,16 @@ setStartPt:
 		{
 		case MapCellType_e_Enemy_BDummy:
 			GetEnemies().push(CreateEnemy_BDummy(
-				FIELD_L + x * MAP_CELL_W + MAP_CELL_W / 2,
-				FIELD_T + y * MAP_CELL_H + MAP_CELL_H / 2,
+				FIELD_L + x * TILE_W + TILE_W / 2,
+				FIELD_T + y * TILE_H + TILE_H / 2,
 				1
 				));
 			break;
 
 		case MapCellType_e_Goal:
 			GetEnemies().push(CreateEnemy_Goal(
-				FIELD_L + x * MAP_CELL_W + MAP_CELL_W / 2,
-				FIELD_T + y * MAP_CELL_H + MAP_CELL_H / 2
+				FIELD_L + x * TILE_W + TILE_W / 2,
+				FIELD_T + y * TILE_H + TILE_H / 2
 				));
 			break;
 
