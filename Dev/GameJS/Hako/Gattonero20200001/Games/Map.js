@@ -121,8 +121,8 @@ setStartPt:
 			if (Map.Table[x][y].Type == MapCellType_e_Start)
 			{
 				Map.StartPt = CreateD2Point(
-					FIELD_L + x * TILE_W + TILE_W / 2,
-					FIELD_T + y * TILE_H + TILE_H / 2
+					FIELD_L + x * TILE_W + TILE_W / 2.0,
+					FIELD_T + y * TILE_H + TILE_H / 2.0
 					);
 
 				break setStartPt;
@@ -145,7 +145,7 @@ setStartPt:
 
 		if (
 			cell.Type == MapCellType_e_Wall ||
-			cell.Type == MapCellType_e_Enemy_G
+			IsMapCellType_EnemyGreen(cell.Type)
 			)
 		{
 			cell.WallFlag = true;
@@ -155,10 +155,10 @@ setStartPt:
 	LoadEnemyOfMap();
 }
 
+// 敵のロード
+//
 function <void> LoadEnemyOfMap()
 {
-	// 敵のロード
-	//
 	for (var<int> x = 0; x < MAP_W; x++)
 	for (var<int> y = 0; y < MAP_H; y++)
 	{
@@ -279,4 +279,27 @@ function <MapCell_t> GetMapCell(<I2Point_t> pt)
 	}
 
 	return Map.Table[pt.X][pt.Y];
+}
+
+function <boolean> IsMapCellType_EnemyGreen(<MapCellType_e> type)
+{
+	var ret =
+		type == MapCellType_e_Enemy_G1 ||
+		type == MapCellType_e_Enemy_G2 ||
+		type == MapCellType_e_Enemy_G3 ||
+		type == MapCellType_e_Enemy_G4 ||
+		type == MapCellType_e_Enemy_G6 ||
+		type == MapCellType_e_Enemy_G7 ||
+		type == MapCellType_e_Enemy_G8 ||
+		type == MapCellType_e_Enemy_G9 ||
+		type == MapCellType_e_Enemy_G1_CCW ||
+		type == MapCellType_e_Enemy_G2_CCW ||
+		type == MapCellType_e_Enemy_G3_CCW ||
+		type == MapCellType_e_Enemy_G4_CCW ||
+		type == MapCellType_e_Enemy_G6_CCW ||
+		type == MapCellType_e_Enemy_G7_CCW ||
+		type == MapCellType_e_Enemy_G8_CCW ||
+		type == MapCellType_e_Enemy_G9_CCW;
+
+	return ret;
 }

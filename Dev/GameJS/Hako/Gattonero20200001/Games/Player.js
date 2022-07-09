@@ -61,6 +61,18 @@ var<int> PlayerShagamiFrame = 0;
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
+function <void> ResetPlayer()
+{
+	PlayerYSpeed = 0.0;
+	PlayerMoveFrame = 0;
+	PlayerJumpCount = 0;
+	PlayerJumpFrame = 0;
+	PlayerAirborneFrame = 0;
+	PlayerShagamiFrame = 0;
+	@@_JumpLock = false;
+	@@_MoveSlow = false;
+}
+
 /*
 	s“®‚Æ•`‰æ
 	ˆ—‚·‚×‚«‚±‚ÆF

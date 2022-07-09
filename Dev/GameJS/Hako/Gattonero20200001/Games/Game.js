@@ -21,6 +21,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	PlayerX = Map.StartPt.X;
 	PlayerY = Map.StartPt.Y;
 
+	ResetPlayer();
+
 	SetCurtain();
 	FreezeInput();
 
@@ -219,7 +221,7 @@ function <void> @@_DrawWall()
 		{
 			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
 
-			if (Map.Table[x][y].Type == MapCellType_e_Enemy_G) // 敵緑の中心
+			if (IsMapCellType_EnemyGreen(Map.Table[x][y].Type)) // 敵緑の中心
 			{
 				SetColor("#00ff00");
 				PrintRect_XYWH(dx, dy, 20.0, 20.0);
@@ -270,8 +272,8 @@ function* <generatorForTask> @@_StartMotion()
 
 		Draw(
 			P_Player,
-			FIELD_L + PlayerX,
-			FIELD_T + PlayerY,
+			PlayerX,
+			PlayerY,
 			0.5 + 0.5 * scene.Rate,
 			10.0 * scene.RemRate * scene.RemRate,
 			1.0 + 29.0 * scene.RemRate
@@ -288,13 +290,28 @@ function* <generatorForTask> @@_StartMotion()
 */
 function* <generatorForTask> @@_DeadAndRestartMotion()
 {
-	// reset
+	SetColor("#ff000040");
+	PrintRect(0, 0, Screen_W, Screen_H);
+
+	for (var<Scene_t> scene of CreateScene(20))
+	{
+		yield 1;
+	}
+
+	// リスタートのための処理
 	{
 		@@_Enemies = [];
 		@@_Shots = [];
+
+		LoadEnemyOfMap();
+
+		PlayerX = Map.StartPt.X;
+		PlayerY = Map.StartPt.Y;
+
+		ResetPlayer();
 	}
 
-	LoadEnemyOfMap();
+	yield* @@_StartMotion();
 }
 
 /*
@@ -303,7 +320,21 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 */
 function* <generatorForTask> @@_GoalMotion()
 {
-	// TODO
-	// TODO
-	// TODO
+	for (var<Scene_t> scene of CreateScene(40))
+	{
+		@@_DrawWall();
+
+		Draw(
+			P_Player,
+			PlayerX,
+			PlayerY,
+			0.5 + 0.5 * scene.RemRate,
+			10.0 * scene.Rate * scene.Rate,
+			1.0 + 29.0 * scene.Rate
+			);
+
+		@@_DrawFront();
+
+		yield 1;
+	}
 }
