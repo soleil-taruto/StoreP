@@ -9,6 +9,28 @@ var<int> MapCellType_e_None = @(AUTO);
 var<int> MapCellType_e_Start = @(AUTO);
 var<int> MapCellType_e_Goal = @(AUTO);
 var<int> MapCellType_e_Enemy_BDummy = @(AUTO);
+var<int> MapCellType_e_Enemy_B2 = @(AUTO); // 青敵, 進行方向：下
+var<int> MapCellType_e_Enemy_B4 = @(AUTO); // 青敵, 進行方向：左
+var<int> MapCellType_e_Enemy_B6 = @(AUTO); // 青敵, 進行方向：右
+var<int> MapCellType_e_Enemy_B8 = @(AUTO); // 青敵, 進行方向：上
+var<int> MapCellType_e_Enemy_R4 = @(AUTO); // 赤敵, 進行方向：左
+var<int> MapCellType_e_Enemy_R6 = @(AUTO); // 赤敵, 進行方向：右
+var<int> MapCellType_e_Enemy_G1 = @(AUTO); // 緑敵, 時計回り, 初期位置：左下
+var<int> MapCellType_e_Enemy_G2 = @(AUTO); // 緑敵, 時計回り, 初期位置：下
+var<int> MapCellType_e_Enemy_G3 = @(AUTO); // 緑敵, 時計回り, 初期位置：右下
+var<int> MapCellType_e_Enemy_G4 = @(AUTO); // 緑敵, 時計回り, 初期位置：左
+var<int> MapCellType_e_Enemy_G6 = @(AUTO); // 緑敵, 時計回り, 初期位置：右
+var<int> MapCellType_e_Enemy_G7 = @(AUTO); // 緑敵, 時計回り, 初期位置：左上
+var<int> MapCellType_e_Enemy_G8 = @(AUTO); // 緑敵, 時計回り, 初期位置：上
+var<int> MapCellType_e_Enemy_G9 = @(AUTO); // 緑敵, 時計回り, 初期位置：右上
+var<int> MapCellType_e_Enemy_G1_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：左下
+var<int> MapCellType_e_Enemy_G2_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：下
+var<int> MapCellType_e_Enemy_G3_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右下
+var<int> MapCellType_e_Enemy_G4_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：左
+var<int> MapCellType_e_Enemy_G6_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
+var<int> MapCellType_e_Enemy_G7_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：左上
+var<int> MapCellType_e_Enemy_G8_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：上
+var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右上
 
 /@(ASTR)
 
@@ -121,12 +143,20 @@ setStartPt:
 			cell.WallFlag = false;
 		}
 
-		if (cell.Type == MapCellType_e_Wall)
+		if (
+			cell.Type == MapCellType_e_Wall ||
+			cell.Type == MapCellType_e_Enemy_G
+			)
 		{
 			cell.WallFlag = true;
 		}
 	}
 
+	LoadEnemyOfMap();
+}
+
+function <void> LoadEnemyOfMap()
+{
 	// 敵のロード
 	//
 	for (var<int> x = 0; x < MAP_W; x++)
@@ -134,22 +164,52 @@ setStartPt:
 	{
 		var<MapCell_t> cell = Map.Table[x][y];
 
+		var<double> dx = FIELD_L + x * TILE_W + TILE_W / 2.0;
+		var<double> dy = FIELD_T + y * TILE_H + TILE_H / 2.0;
+
 		switch (cell.Type)
 		{
-		case MapCellType_e_Enemy_BDummy:
-			GetEnemies().push(CreateEnemy_BDummy(
-				FIELD_L + x * TILE_W + TILE_W / 2,
-				FIELD_T + y * TILE_H + TILE_H / 2,
-				1
-				));
+		case MapCellType_e_Enemy_BDummy: // テスト用
+			GetEnemies().push(CreateEnemy_BDummy(dx, dy, 1));
 			break;
 
 		case MapCellType_e_Goal:
-			GetEnemies().push(CreateEnemy_Goal(
-				FIELD_L + x * TILE_W + TILE_W / 2,
-				FIELD_T + y * TILE_H + TILE_H / 2
-				));
+			GetEnemies().push(CreateEnemy_Goal(dx, dy));
 			break;
+
+		// 青敵
+		//
+		case MapCellType_e_Enemy_B2: GetEnemies().push(CreateEnemy_Blue(dx, dy,  0,  1)); break;
+		case MapCellType_e_Enemy_B4: GetEnemies().push(CreateEnemy_Blue(dx, dy, -1,  0)); break;
+		case MapCellType_e_Enemy_B6: GetEnemies().push(CreateEnemy_Blue(dx, dy,  1,  0)); break;
+		case MapCellType_e_Enemy_B8: GetEnemies().push(CreateEnemy_Blue(dx, dy,  0, -1)); break;
+
+		// 赤敵
+		//
+		case MapCellType_e_Enemy_R4: GetEnemies().push(CreateEnemy_Red(dx, dy, -1)); break;
+		case MapCellType_e_Enemy_R6: GetEnemies().push(CreateEnemy_Red(dx, dy,  1)); break;
+
+		// 緑敵, 時計回り
+		//
+		case MapCellType_e_Enemy_G1: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 3.0)); break;
+		case MapCellType_e_Enemy_G2: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 2.0)); break;
+		case MapCellType_e_Enemy_G3: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 1.0)); break;
+		case MapCellType_e_Enemy_G4: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 4.0)); break;
+		case MapCellType_e_Enemy_G6: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 8.0)); break;
+		case MapCellType_e_Enemy_G7: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 5.0)); break;
+		case MapCellType_e_Enemy_G8: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 6.0)); break;
+		case MapCellType_e_Enemy_G9: GetEnemies().push(CreateEnemy_Green(dx, dy, 1, (Math.PI / 4.0) * 7.0)); break;
+
+		// 緑敵, 反時計回り
+		//
+		case MapCellType_e_Enemy_G1_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 3.0)); break;
+		case MapCellType_e_Enemy_G2_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 2.0)); break;
+		case MapCellType_e_Enemy_G3_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 1.0)); break;
+		case MapCellType_e_Enemy_G4_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 4.0)); break;
+		case MapCellType_e_Enemy_G6_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 8.0)); break;
+		case MapCellType_e_Enemy_G7_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 5.0)); break;
+		case MapCellType_e_Enemy_G8_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 6.0)); break;
+		case MapCellType_e_Enemy_G9_CCW: GetEnemies().push(CreateEnemy_Green(dx, dy, -1, (Math.PI / 4.0) * 7.0)); break;
 
 		default:
 			break;
@@ -164,6 +224,40 @@ function <MapCellType_e> @@_CharToType(<string> chr)
 	if (chr == "始") return MapCellType_e_Start;
 	if (chr == "終") return MapCellType_e_Goal;
 	if (chr == "敵") return MapCellType_e_Enemy_BDummy;
+
+	// 青敵
+	//
+	if (chr == "B2") return MapCellType_e_Enemy_B2;
+	if (chr == "B4") return MapCellType_e_Enemy_B4;
+	if (chr == "B6") return MapCellType_e_Enemy_B6;
+	if (chr == "B8") return MapCellType_e_Enemy_B8;
+
+	// 赤敵
+	//
+	if (chr == "R4") return MapCellType_e_Enemy_R4;
+	if (chr == "R6") return MapCellType_e_Enemy_R6;
+
+	// 緑敵, 時計回り
+	//
+	if (chr == "G1") return MapCellType_e_Enemy_G1;
+	if (chr == "G2") return MapCellType_e_Enemy_G2;
+	if (chr == "G3") return MapCellType_e_Enemy_G3;
+	if (chr == "G4") return MapCellType_e_Enemy_G4;
+	if (chr == "G6") return MapCellType_e_Enemy_G6;
+	if (chr == "G7") return MapCellType_e_Enemy_G7;
+	if (chr == "G8") return MapCellType_e_Enemy_G8;
+	if (chr == "G9") return MapCellType_e_Enemy_G9;
+
+	// 緑敵, 反時計回り
+	//
+	if (chr == "C1") return MapCellType_e_Enemy_G1_CCW;
+	if (chr == "C2") return MapCellType_e_Enemy_G2_CCW;
+	if (chr == "C3") return MapCellType_e_Enemy_G3_CCW;
+	if (chr == "C4") return MapCellType_e_Enemy_G4_CCW;
+	if (chr == "C6") return MapCellType_e_Enemy_G6_CCW;
+	if (chr == "C7") return MapCellType_e_Enemy_G7_CCW;
+	if (chr == "C8") return MapCellType_e_Enemy_G8_CCW;
+	if (chr == "C9") return MapCellType_e_Enemy_G9_CCW;
 
 	error();
 }

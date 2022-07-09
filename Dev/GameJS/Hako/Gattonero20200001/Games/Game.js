@@ -152,10 +152,9 @@ gameLoop:
 				}
 				else
 				{
-					AddEffect_Explode(PlayerX, PlayerY);
+					yield* @@_DeadAndRestartMotion();
 
-					PlayerX = FIELD_L + FIELD_W / 2;
-					PlayerY = FIELD_T + FIELD_H / 2;
+					continue gameLoop;
 				}
 			}
 		}
@@ -178,7 +177,7 @@ gameLoop:
 	}
 
 	SetCurtain_FD(30, -1.0);
-	Fadeout();
+//	Fadeout();
 
 	for (var<Scene_t> scene of CreateScene(40))
 	{
@@ -220,7 +219,11 @@ function <void> @@_DrawWall()
 		{
 			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
 
-			// TODO 敵緑
+			if (Map.Table[x][y].Type == MapCellType_e_Enemy_G) // 敵緑の中心
+			{
+				SetColor("#00ff00");
+				PrintRect_XYWH(dx, dy, 20.0, 20.0);
+			}
 		}
 		else
 		{
@@ -251,6 +254,9 @@ function <void> @@_DrawFront()
 		);
 }
 
+/*
+	ゲーム開始モーション
+*/
 function* <generatorForTask> @@_StartMotion()
 {
 	@@_DrawWall();
@@ -277,6 +283,24 @@ function* <generatorForTask> @@_StartMotion()
 	}
 }
 
+/*
+	死亡＆再スタート・モーション
+*/
+function* <generatorForTask> @@_DeadAndRestartMotion()
+{
+	// reset
+	{
+		@@_Enemies = [];
+		@@_Shots = [];
+	}
+
+	LoadEnemyOfMap();
+}
+
+/*
+	ゲーム終了モーション
+	-- ゴールした。
+*/
 function* <generatorForTask> @@_GoalMotion()
 {
 	// TODO

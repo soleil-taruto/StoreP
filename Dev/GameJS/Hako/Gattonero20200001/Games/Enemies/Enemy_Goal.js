@@ -25,7 +25,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
 	for (var<int> frame = 0; ; frame++)
 	{
-		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 40.0, 40.0));
+		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 20.0);
 
 		Draw(P_Goal, enemy.X, enemy.Y, 1.0, 0.1 * frame, 1.0);
 
