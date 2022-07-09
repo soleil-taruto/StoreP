@@ -33,7 +33,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.YAdd += Y_ADD_ADD;
 		enemy.Y += enemy.YAdd;
 
-		if (FIELD_B < enemy.Y)
+		if (FIELD_H < enemy.Y)
 		{
 			break;
 		}

@@ -52,6 +52,9 @@ gameLoop:
 
 		@@_DrawWall();
 
+		Draw_L = FIELD_L;
+		Draw_T = FIELD_T;
+
 		// 背景の描画
 		//
 		if (!f_backgroundTask())
@@ -95,6 +98,9 @@ gameLoop:
 			}
 		}
 
+		Draw_L = 0.0;
+		Draw_T = 0.0;
+
 		@@_DrawFront();
 
 		if (1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
@@ -102,6 +108,9 @@ gameLoop:
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
 			SetColor("#ffffffa0");
+
+			Draw_L = FIELD_L;
+			Draw_T = FIELD_T;
 
 			DrawCrash(PlayerCrash);
 
@@ -113,6 +122,9 @@ gameLoop:
 			{
 				DrawCrash(shot.Crash);
 			}
+
+			Draw_L = 0.0;
+			Draw_T = 0.0;
 		}
 
 		// ====
