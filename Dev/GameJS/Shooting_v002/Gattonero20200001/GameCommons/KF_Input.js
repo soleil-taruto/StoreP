@@ -173,7 +173,7 @@ function <void> FreezeInput()
 
 function* <generatorForTask> WaitToReleaseButton()
 {
-	while (@@_Counts().some(counter => counter != 0))
+	while (ToArray(@@_Counts()).some(counter => counter != 0))
 	{
 		yield 1;
 	}

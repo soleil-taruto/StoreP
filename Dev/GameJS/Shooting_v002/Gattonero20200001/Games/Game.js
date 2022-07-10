@@ -239,7 +239,7 @@ gameLoop:
 		yield 1;
 	}
 
-	Fadeout(90);
+	Fadeout_F(90);
 
 	for (var<Scene_t> scene of CreateScene(80)) // —]‰C‚Ì‚æ‚¤‚È...
 	{
