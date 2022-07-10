@@ -84,3 +84,19 @@ function <double> RateAToB(<double> a, <double> b, <double> value)
 {
 	return (value - a) / (b - a);
 }
+
+/*
+	ƒ‰ƒWƒAƒ“Šp‚Ì³‹K‰»
+*/
+function <double> ToInRangeAngle(<double> angle)
+{
+	while (angle < 0.0)
+	{
+		angle += Math.PI * 2.0;
+	}
+	while (Math.PI * 2.0 < angle)
+	{
+		angle -= Math.PI * 2.0;
+	}
+	return angle;
+}
