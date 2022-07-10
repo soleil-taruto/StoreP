@@ -261,10 +261,7 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_StartMotion()
 {
-	@@_DrawWall();
-	@@_DrawFront();
-
-	yield* WaitToReleaseButton();
+	FreezeInputUntilRelease();
 
 	for (var<Scene_t> scene of CreateScene(40))
 	{
@@ -320,6 +317,11 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 */
 function* <generatorForTask> @@_GoalMotion()
 {
+	for (var<Scene_t> scene of CreateScene(20))
+	{
+		yield 1;
+	}
+
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();

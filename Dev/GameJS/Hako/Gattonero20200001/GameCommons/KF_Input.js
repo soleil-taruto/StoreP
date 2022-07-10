@@ -84,8 +84,20 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 	return counter;
 }
 
+var @@_FreezeInputUntilReleaseFlag = false;
+
 function <int> @@_GetInput(<int> counter)
 {
+	if (@@_FreezeInputUntilReleaseFlag)
+	{
+		if (ToArray(@@_Counts()).some(counter => counter != 0))
+		{
+			return 0;
+		}
+
+		@@_FreezeInputUntilReleaseFlag = false;
+	}
+
 	return 1 <= FreezeInputFrame ? 0 : counter;
 }
 
@@ -171,10 +183,7 @@ function <void> FreezeInput()
 	FreezeInput_Frame(1);
 }
 
-function* <generatorForTask> WaitToReleaseButton()
+function <void> FreezeInputUntilRelease()
 {
-	while (ToArray(@@_Counts()).some(counter => counter != 0))
-	{
-		yield 1;
-	}
+	@@_FreezeInputUntilReleaseFlag = true;
 }

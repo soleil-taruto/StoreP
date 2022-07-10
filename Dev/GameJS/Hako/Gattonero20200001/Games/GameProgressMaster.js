@@ -71,8 +71,14 @@ function* <generatorForTask> MapSelectMenu()
 			var<int> index = selectX + selectY * @@_PANEL_Y_NUM;
 
 			FreezeInput();
+
 			yield* @@_Game(index);
+
+			SetCurtain();
 			FreezeInput();
+
+			selectX = @@_PANEL_X_NUM - 1;
+			selectY = @@_PANEL_Y_NUM - 1;
 		}
 		if (IsPound(GetInput_B()))
 		{

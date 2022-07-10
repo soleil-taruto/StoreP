@@ -1189,12 +1189,12 @@ namespace Charlotte.Games
 
 		private void EquipmentMenu()
 		{
-			DDInput.DIR_2.FreezeInputUntilRelease = true;
-			DDInput.DIR_4.FreezeInputUntilRelease = true;
-			DDInput.DIR_6.FreezeInputUntilRelease = true;
-			DDInput.DIR_8.FreezeInputUntilRelease = true;
-			DDInput.A.FreezeInputUntilRelease = true;
-			DDInput.B.FreezeInputUntilRelease = true;
+			DDInput.DIR_2.FreezeInputUntilRelease();
+			DDInput.DIR_4.FreezeInputUntilRelease();
+			DDInput.DIR_6.FreezeInputUntilRelease();
+			DDInput.DIR_8.FreezeInputUntilRelease();
+			DDInput.A.FreezeInputUntilRelease();
+			DDInput.B.FreezeInputUntilRelease();
 
 			DDMain.KeepMainScreen();
 			SCommon.Swap(ref DDGround.KeptMainScreen, ref EquipmentMenu_KeptMainScreen);
@@ -1254,12 +1254,12 @@ namespace Charlotte.Games
 				//DDEngine.EachFrame(); // 不要
 			}
 
-			DDInput.DIR_2.FreezeInputUntilRelease = false;
-			DDInput.DIR_4.FreezeInputUntilRelease = false;
-			DDInput.DIR_6.FreezeInputUntilRelease = false;
-			DDInput.DIR_8.FreezeInputUntilRelease = false;
-			DDInput.A.FreezeInputUntilRelease = true;
-			DDInput.B.FreezeInputUntilRelease = true;
+			DDInput.DIR_2.FreezeInputUntilRelease();
+			DDInput.DIR_4.FreezeInputUntilRelease();
+			DDInput.DIR_6.FreezeInputUntilRelease();
+			DDInput.DIR_8.FreezeInputUntilRelease();
+			DDInput.A.FreezeInputUntilRelease();
+			DDInput.B.FreezeInputUntilRelease();
 		}
 
 		#endregion
@@ -1454,8 +1454,8 @@ namespace Charlotte.Games
 		endLoop:
 			DDEngine.FreezeInput();
 
-			DDInput.A.FreezeInputUntilRelease = true;
-			DDInput.B.FreezeInputUntilRelease = true;
+			DDInput.A.FreezeInputUntilRelease();
+			DDInput.B.FreezeInputUntilRelease();
 		}
 	}
 }
