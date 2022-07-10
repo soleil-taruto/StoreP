@@ -41,22 +41,22 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		if (GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y)).WallFlag)
 		{
 			enemy.XSpeed = Math.abs(enemy.XSpeed);
-			enemy.X = @@_BoundedX(enemy.X);
+			enemy.X = @@_BounceX(enemy.X);
 		}
 		if (GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y)).WallFlag)
 		{
 			enemy.XSpeed = Math.abs(enemy.XSpeed) * -1.0;
-			enemy.X = @@_BoundedX(enemy.X);
+			enemy.X = @@_BounceX(enemy.X);
 		}
 		if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y - TILE_H / 2.0)).WallFlag)
 		{
 			enemy.YSpeed = Math.abs(enemy.YSpeed);
-			enemy.Y = @@_BoundedY(enemy.Y);
+			enemy.Y = @@_BounceY(enemy.Y);
 		}
 		if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + TILE_H / 2.0)).WallFlag)
 		{
 			enemy.YSpeed = Math.abs(enemy.YSpeed) * -1.0;
-			enemy.Y = @@_BoundedY(enemy.Y);
+			enemy.Y = @@_BounceY(enemy.Y);
 		}
 
 		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, TILE_W, TILE_H));
@@ -67,12 +67,12 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	}
 }
 
-function <double> @@_BoundedX(<double> x)
+function <double> @@_BounceX(<double> x)
 {
 	return ToTileCenterX(x) * 2.0 - x;
 }
 
-function <double> @@_BoundedY(<double> y)
+function <double> @@_BounceY(<double> y)
 {
 	return ToTileCenterY(y) * 2.0 - y;
 }
