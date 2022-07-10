@@ -4,7 +4,7 @@
 
 function <Enemy_t> CreateEnemy_Green(<double> x, <double> y, <int> rotDirect, <double> initAngle)
 {
-	var<double> ROT_SPEED = Math.PI / 40.0;
+	var<double> ROT_SPEED = Math.PI / 60.0;
 
 	var ret =
 	{
@@ -28,11 +28,21 @@ function <Enemy_t> CreateEnemy_Green(<double> x, <double> y, <int> rotDirect, <d
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
+	var<double> RADIUS = 100.0;
+
 	for (; ; )
 	{
-		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 50.0, 50.0));
+		enemy.Angle += enemy.RotSpeed;
+		enemy.Angle = ToInRangeAngle(enemy.Angle);
 
-		Draw(P_Enemy_G, enemy.X, enemy.Y, 1.0, 0.0, 1.0);
+		var<D2Point_t> relPos = AngleToPoint(enemy.Angle, RADIUS);
+
+		var<double> dx = enemy.X + relPos.X;
+		var<double> dy = enemy.Y + relPos.Y;
+
+		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(dx, dy, TILE_W, TILE_H));
+
+		Draw(P_Enemy_G, dx, dy, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}

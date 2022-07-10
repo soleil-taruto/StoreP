@@ -527,5 +527,23 @@ namespace Charlotte.GameCommons
 			if (value > 0) return 1;
 			return 0;
 		}
+
+		/// <summary>
+		/// ラジアン角の正規化
+		/// </summary>
+		/// <param name="angle">角度</param>
+		/// <returns>角度</returns>
+		public static double ToInRangeAngle(double angle)
+		{
+			while (angle < 0.0)
+			{
+				angle += Math.PI * 2.0;
+			}
+			while (Math.PI * 2.0 < angle)
+			{
+				angle -= Math.PI * 2.0;
+			}
+			return angle;
+		}
 	}
 }
