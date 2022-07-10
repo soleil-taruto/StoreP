@@ -75,7 +75,8 @@ function* <generatorForTask> MapSelectMenu()
 			yield* @@_Game(index);
 
 			SetCurtain();
-			FreezeInput();
+//			FreezeInput();
+			FreezeInputUntilRelease();
 
 			selectX = @@_PANEL_X_NUM - 1;
 			selectY = @@_PANEL_Y_NUM - 1;

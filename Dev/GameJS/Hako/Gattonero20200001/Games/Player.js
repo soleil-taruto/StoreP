@@ -5,8 +5,8 @@
 /*
 	プレイヤーの位置
 */
-var<double> PlayerX = FIELD_L + FIELD_W / 2.0;
-var<double> PlayerY = FIELD_T + FIELD_H / 2.0;
+var<double> PlayerX = 0.0;
+var<double> PlayerY = 0.0;
 
 /*
 	プレイヤーの垂直方向の速度
@@ -71,7 +71,7 @@ function <void> ResetPlayer()
 	PlayerMoveFrame = 0;
 	PlayerJumpCount = 0;
 	PlayerJumpFrame = 0;
-	PlayerAirborneFrame = 0;
+	PlayerAirborneFrame = IMAX / 2; // ゲーム開始直後に空中でジャンプできないように
 	PlayerShagamiFrame = 0;
 	@@_JumpLock = false;
 	@@_MoveSlow = false;
