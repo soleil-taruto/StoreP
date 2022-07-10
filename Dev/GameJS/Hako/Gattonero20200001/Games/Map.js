@@ -9,10 +9,14 @@ var<int> MapCellType_e_None = @(AUTO);
 var<int> MapCellType_e_Start = @(AUTO);
 var<int> MapCellType_e_Goal = @(AUTO);
 var<int> MapCellType_e_Enemy_BDummy = @(AUTO);
+var<int> MapCellType_e_Enemy_B1 = @(AUTO); // 青敵, 進行方向：左下
 var<int> MapCellType_e_Enemy_B2 = @(AUTO); // 青敵, 進行方向：下
+var<int> MapCellType_e_Enemy_B3 = @(AUTO); // 青敵, 進行方向：右下
 var<int> MapCellType_e_Enemy_B4 = @(AUTO); // 青敵, 進行方向：左
 var<int> MapCellType_e_Enemy_B6 = @(AUTO); // 青敵, 進行方向：右
+var<int> MapCellType_e_Enemy_B7 = @(AUTO); // 青敵, 進行方向：左上
 var<int> MapCellType_e_Enemy_B8 = @(AUTO); // 青敵, 進行方向：上
+var<int> MapCellType_e_Enemy_B9 = @(AUTO); // 青敵, 進行方向：右上
 var<int> MapCellType_e_Enemy_R4 = @(AUTO); // 赤敵, 進行方向：左
 var<int> MapCellType_e_Enemy_R6 = @(AUTO); // 赤敵, 進行方向：右
 var<int> MapCellType_e_Enemy_G1 = @(AUTO); // 緑敵, 時計回り, 初期位置：左下
@@ -90,7 +94,7 @@ function <void> LoadMap(<int> mapIndex)
 
 	for (var<int> y = 0; y < MAP_H; y++)
 	{
-		if (lines[y].length != MAP_W)
+		if (@@_LineToChars(lines[y]).length != MAP_W)
 		{
 			error();
 		}
@@ -107,7 +111,7 @@ function <void> LoadMap(<int> mapIndex)
 		{
 			Map.Table[x].push(
 			{
-				Type: @@_CharToType(lines[y].substring(x, x + 1)),
+				Type: @@_CharToType(@@_LineToChars(lines[y])[x]),
 			});
 		}
 	}
@@ -155,6 +159,25 @@ setStartPt:
 	LoadEnemyOfMap();
 }
 
+function <string[]> @@_LineToChars(<stirng> line)
+{
+	var<string[]> dest = [];
+
+	for (var<int> index = 0; index < line.length; index++)
+	{
+		if (index + 1 < line.length && "BRGC".indexOf(line[index]) != -1)
+		{
+			dest.push(line.substring(index, index + 2));
+			index++;
+		}
+		else
+		{
+			dest.push(line.substring(index, index + 1));
+		}
+	}
+	return dest;
+}
+
 // 敵のロード
 //
 function <void> LoadEnemyOfMap()
@@ -179,10 +202,14 @@ function <void> LoadEnemyOfMap()
 
 		// 青敵
 		//
+		case MapCellType_e_Enemy_B1: GetEnemies().push(CreateEnemy_Blue(dx, dy, -1,  1)); break;
 		case MapCellType_e_Enemy_B2: GetEnemies().push(CreateEnemy_Blue(dx, dy,  0,  1)); break;
+		case MapCellType_e_Enemy_B3: GetEnemies().push(CreateEnemy_Blue(dx, dy,  1,  1)); break;
 		case MapCellType_e_Enemy_B4: GetEnemies().push(CreateEnemy_Blue(dx, dy, -1,  0)); break;
 		case MapCellType_e_Enemy_B6: GetEnemies().push(CreateEnemy_Blue(dx, dy,  1,  0)); break;
+		case MapCellType_e_Enemy_B7: GetEnemies().push(CreateEnemy_Blue(dx, dy, -1, -1)); break;
 		case MapCellType_e_Enemy_B8: GetEnemies().push(CreateEnemy_Blue(dx, dy,  0, -1)); break;
+		case MapCellType_e_Enemy_B9: GetEnemies().push(CreateEnemy_Blue(dx, dy,  1, -1)); break;
 
 		// 赤敵
 		//
@@ -227,10 +254,14 @@ function <MapCellType_e> @@_CharToType(<string> chr)
 
 	// 青敵
 	//
+	if (chr == "B1") return MapCellType_e_Enemy_B1;
 	if (chr == "B2") return MapCellType_e_Enemy_B2;
+	if (chr == "B3") return MapCellType_e_Enemy_B3;
 	if (chr == "B4") return MapCellType_e_Enemy_B4;
 	if (chr == "B6") return MapCellType_e_Enemy_B6;
+	if (chr == "B7") return MapCellType_e_Enemy_B7;
 	if (chr == "B8") return MapCellType_e_Enemy_B8;
+	if (chr == "B9") return MapCellType_e_Enemy_B9;
 
 	// 赤敵
 	//
