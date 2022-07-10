@@ -5,8 +5,8 @@
 /*
 	プレイヤーの位置
 */
-var<double> PlayerX = FIELD_L + FIELD_W / 2;
-var<double> PlayerY = FIELD_T + FIELD_H / 2;
+var<double> PlayerX = FIELD_L + FIELD_W / 2.0;
+var<double> PlayerY = FIELD_T + FIELD_H / 2.0;
 
 /*
 	プレイヤーの垂直方向の速度
@@ -63,7 +63,11 @@ var<boolean> @@_MoveSlow = false;
 
 function <void> ResetPlayer()
 {
+	PlayerX = FIELD_L + FIELD_W / 2.0;
+	PlayerY = FIELD_T + FIELD_H / 2.0;
 	PlayerYSpeed = 0.0;
+	PlayerFacingLeft = false;
+	PlayerCrash = null;
 	PlayerMoveFrame = 0;
 	PlayerJumpCount = 0;
 	PlayerJumpFrame = 0;

@@ -1390,8 +1390,8 @@ namespace Charlotte.Games
 			DDEngine.FreezeInput();
 
 			// old
-			//DDInput.A.FreezeInputUntilRelease = true;
-			//DDInput.B.FreezeInputUntilRelease = true;
+			//DDInput.A.FreezeInputUntilRelease();
+			//DDInput.B.FreezeInputUntilRelease();
 		}
 
 		/// <summary>

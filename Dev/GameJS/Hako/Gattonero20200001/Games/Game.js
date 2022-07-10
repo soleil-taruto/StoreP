@@ -14,14 +14,14 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	{
 		@@_Enemies = [];
 		@@_Shots = [];
+
+		ResetPlayer();
 	}
 
 	LoadMap(mapIndex);
 
 	PlayerX = Map.StartPt.X;
 	PlayerY = Map.StartPt.Y;
-
-	ResetPlayer();
 
 	SetCurtain();
 	FreezeInput();
@@ -261,8 +261,6 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_StartMotion()
 {
-	FreezeInputUntilRelease();
-
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
@@ -300,12 +298,12 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 		@@_Enemies = [];
 		@@_Shots = [];
 
+		ResetPlayer();
+
 		LoadEnemyOfMap();
 
 		PlayerX = Map.StartPt.X;
 		PlayerY = Map.StartPt.Y;
-
-		ResetPlayer();
 	}
 
 	yield* @@_StartMotion();
