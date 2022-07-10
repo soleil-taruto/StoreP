@@ -293,6 +293,8 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 		yield 1;
 	}
 
+	AddEffect_Explode(PlayerX, PlayerY);
+
 	// リスタートのための処理
 	{
 		@@_Enemies = [];

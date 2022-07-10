@@ -226,6 +226,12 @@ function <void> DrawPlayer()
 			else
 			{
 				speed = PLAYER_SPEED;
+
+				// ‰Á‘¬—L‚è -- šƒAƒvƒŠŒÅ—L
+				{
+					speed = PlayerMoveFrame * 2.0;
+					speed = Math.min(speed, PLAYER_SPEED);
+				}
 			}
 			speed *= PlayerFacingLeft ? -1.0 : 1.0;
 
@@ -297,11 +303,9 @@ function <void> DrawPlayer()
 		{
 			if (PlayerYSpeed < 0.0)
 			{
-				var<double> plY = (ToFix((PlayerY - PLAYER_”]“V”»’èPt_Y) / TILE_H) + 1) * TILE_H + PLAYER_”]“V”»’èPt_Y;
-
-				PlayerY = plY;
-				PlayerYSpeed = Math.abs(PlayerYSpeed); // ”½”­ŒW” 1
-//				PlayerYSpeed = 0.0;                    // ”½”­ŒW” 0
+				PlayerY = ToTileCenterY(PlayerY - PLAYER_”]“V”»’èPt_Y) + TILE_H / 2 + PLAYER_”]“V”»’èPt_Y;
+//				PlayerYSpeed = Math.abs(PlayerYSpeed); // ”½”­ŒW” 1
+				PlayerYSpeed = 0.0;                    // ”½”­ŒW” 0
 				PlayerJumpFrame = 0;
 			}
 		}
