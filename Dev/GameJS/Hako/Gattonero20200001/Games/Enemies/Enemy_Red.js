@@ -39,10 +39,10 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		// 側面と地面の跳ね返り
 		{
-			var<boolean> lsw = GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y                )).WallFlag; // 左側面
-			var<boolean> rsw = GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y                )).WallFlag; // 右側面
-			var<boolean> lbw = GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y + TILE_H / 2.0 )).WallFlag; // 左下
-			var<boolean> rbw = GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y + TILE_H / 2.0 )).WallFlag; // 右下
+			var<boolean> lsw = @@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y                ))); // 左側面
+			var<boolean> rsw = @@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y                ))); // 右側面
+			var<boolean> lbw = @@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y + TILE_H / 2.0 ))); // 左下
+			var<boolean> rbw = @@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y + TILE_H / 2.0 ))); // 右下
 
 			if (lsw)
 			{
@@ -74,6 +74,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		yield 1;
 	}
+}
+
+function <boolean> @@_IsWall(<MapCell_t> cell)
+{
+	return cell.WallFlag || cell.NarrowFlag;
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)
