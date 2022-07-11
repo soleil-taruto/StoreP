@@ -228,10 +228,12 @@ function <void> DrawPlayer()
 				speed = PLAYER_SPEED;
 
 				// 加速有り -- ★アプリ固有
+				/*
 				{
 					speed = PlayerMoveFrame * 2.0;
 					speed = Math.min(speed, PLAYER_SPEED);
 				}
+				*/
 			}
 			speed *= PlayerFacingLeft ? -1.0 : 1.0;
 

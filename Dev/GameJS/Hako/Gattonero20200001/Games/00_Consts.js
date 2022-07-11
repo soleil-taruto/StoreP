@@ -41,7 +41,7 @@ var<double> PLAYER_FALL_SPEED_MAX = 8.0;
 /*
 	プレイヤーキャラクタの(横移動)速度
 */
-var<double> PLAYER_SPEED = 6.0;
+var<double> PLAYER_SPEED = 5.0;
 
 /*
 	プレイヤーキャラクタの低速移動時の(横移動)速度
