@@ -5,10 +5,12 @@
 function <Enemy_t> CreateEnemy_Blue(<double> x, <double> y, <int> initDirectX, <int> initDirectY)
 {
 	var<double> SPEED = 3.0;
+	var<boolean> nanameFlag = false;
 
 	if (initDirectX * initDirectY != 0) // ? ŽÎ‚ßˆÚ“®
 	{
 		SPEED = 2.0;
+		nanameFlag = true;
 	}
 
 	var ret =
@@ -23,6 +25,8 @@ function <Enemy_t> CreateEnemy_Blue(<double> x, <double> y, <int> initDirectX, <
 
 		<double> XSpeed: SPEED * initDirectX,
 		<double> YSpeed: SPEED * initDirectY,
+
+		<boolean> NanameFlag: nanameFlag,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -44,6 +48,8 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		var<boolean> b8 = false;
 
 		var<double> ARM = TILE_W / 2.0 - 0.001;
+
+		@@_Enemy = enemy;
 
 		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - ARM, enemy.Y))))
 		{
@@ -115,9 +121,18 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	}
 }
 
+var<Enemy_t> @@_Enemy = null;
+
 function <boolean> @@_IsWall(<MapCell_t> cell)
 {
-	return cell.WallFlag || cell.NarrowFlag;
+	if (@@_Enemy.NanameFlag)
+	{
+		return cell.WallFlag || cell.NarrowFlag;
+	}
+	else
+	{
+		return cell.WallFlag;
+	}
 }
 
 function <double> @@_BounceX(<double> x)
