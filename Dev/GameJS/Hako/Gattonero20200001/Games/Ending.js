@@ -4,12 +4,14 @@
 
 function* <generatorForTask> Ending()
 {
+	var<int> INP_ST_FRM = 60
+
 	SetCurtain();
 	FreezeInput();
 
 	for (var<int> frame = 0; ; frame++)
 	{
-		if (60 < frame && GetInput_A() == 1)
+		if (INP_ST_FRM < frame && GetInput_A() == 1)
 		{
 			break;
 		}
@@ -19,8 +21,15 @@ function* <generatorForTask> Ending()
 
 		SetColor("#ffffff");
 		SetPrint(20, 300, 200);
-		SetFSize(120);
+		SetFSize(130);
 		PrintLine("エンディング");
+
+		if (INP_ST_FRM < frame)
+		{
+			SetPrint(20, 500, 200);
+			SetFSize(24);
+			PrintLine("Ａボタンを押して下さい。");
+		}
 
 		yield 1;
 	}
