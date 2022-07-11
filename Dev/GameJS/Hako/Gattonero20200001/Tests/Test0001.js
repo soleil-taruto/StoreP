@@ -9,8 +9,8 @@ function* <generatorForTask> Test01()
 //	yield* GameMain(0); // Stage-01
 //	yield* GameMain(1); // Stage-02
 //	yield* GameMain(2); // Stage-03
-	yield* GameMain(3); // Stage-04
-//	yield* GameMain(4); // Stage-05
+//	yield* GameMain(3); // Stage-04
+	yield* GameMain(4); // Stage-05
 //	yield* GameMain(5); // Stage-06
 //	yield* GameMain(6); // Stage-07
 //	yield* GameMain(7); // Stage-08
