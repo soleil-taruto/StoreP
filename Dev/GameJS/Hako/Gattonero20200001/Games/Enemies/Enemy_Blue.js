@@ -38,22 +38,68 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XSpeed;
 		enemy.Y += enemy.YSpeed;
 
-		if (GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y)).WallFlag)
+		var<boolean> b2 = false;
+		var<boolean> b4 = false;
+		var<boolean> b6 = false;
+		var<boolean> b8 = false;
+
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y))))
+		{
+			b4 = true;
+		}
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y))))
+		{
+			b6 = true;
+		}
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y - TILE_H / 2.0))))
+		{
+			b8 = true;
+		}
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + TILE_H / 2.0))))
+		{
+			b2 = true;
+		}
+
+		if (!(b2 || b4 || b6 || b8))
+		{
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y - TILE_W / 2.0))))
+			{
+				b4 = true;
+				b8 = true;
+			}
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y - TILE_W / 2.0))))
+			{
+				b6 = true;
+				b8 = true;
+			}
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y + TILE_W / 2.0))))
+			{
+				b2 = true;
+				b4 = true;
+			}
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y + TILE_W / 2.0))))
+			{
+				b2 = true;
+				b6 = true;
+			}
+		}
+
+		if (b4)
 		{
 			enemy.XSpeed = Math.abs(enemy.XSpeed);
 			enemy.X = @@_BounceX(enemy.X);
 		}
-		if (GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y)).WallFlag)
+		if (b6)
 		{
 			enemy.XSpeed = Math.abs(enemy.XSpeed) * -1.0;
 			enemy.X = @@_BounceX(enemy.X);
 		}
-		if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y - TILE_H / 2.0)).WallFlag)
+		if (b8)
 		{
 			enemy.YSpeed = Math.abs(enemy.YSpeed);
 			enemy.Y = @@_BounceY(enemy.Y);
 		}
-		if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + TILE_H / 2.0)).WallFlag)
+		if (b2)
 		{
 			enemy.YSpeed = Math.abs(enemy.YSpeed) * -1.0;
 			enemy.Y = @@_BounceY(enemy.Y);
@@ -65,6 +111,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		yield 1;
 	}
+}
+
+function <boolean> @@_IsWall(<MapCell_t> cell)
+{
+	return cell.WallFlag || cell.NarrowFlag;
 }
 
 function <double> @@_BounceX(<double> x)

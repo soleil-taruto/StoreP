@@ -26,7 +26,7 @@ function* <generatorForTask> MapSelectMenu()
 			var<double> mx = GetMouseX();
 			var<double> my = GetMouseY();
 
-			var<int> index = 0;
+			var<int> index = 1;
 
 			for (var<int> y = 0; y < @@_PANEL_Y_NUM; y++)
 			for (var<int> x = 0; x < @@_PANEL_X_NUM; x++)
@@ -68,7 +68,7 @@ function* <generatorForTask> MapSelectMenu()
 		}
 		if (IsPound(GetInput_A()))
 		{
-			var<int> index = selectX + selectY * @@_PANEL_Y_NUM;
+			var<int> index = selectX + selectY * @@_PANEL_Y_NUM + 1;
 
 			FreezeInput();
 

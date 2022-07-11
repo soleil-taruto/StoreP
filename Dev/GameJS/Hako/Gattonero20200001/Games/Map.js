@@ -45,6 +45,10 @@ var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
 	// 壁フラグ
 	//
 	<boolean> WallFlag
+
+	// 狭い通路フラグ
+	//
+	<boolean> NarrowFlag
 }
 
 /// Map_t
@@ -136,23 +140,51 @@ setStartPt:
 	}
 
 	// MapCell_t の Type 以外のフィールドを設定する。
-	//
-	for (var<int> x = 0; x < MAP_W; x++)
-	for (var<int> y = 0; y < MAP_H; y++)
 	{
-		var<MapCell_t> cell = Map.Table[x][y];
-
-		// reset
+		for (var<int> x = 0; x < MAP_W; x++)
+		for (var<int> y = 0; y < MAP_H; y++)
 		{
-			cell.WallFlag = false;
+			var<MapCell_t> cell = Map.Table[x][y];
+
+			// reset
+			{
+				cell.WallFlag = false;
+				cell.NarrowFlag = false;
+			}
 		}
 
-		if (
-			cell.Type == MapCellType_e_Wall ||
-			IsMapCellType_EnemyGreen(cell.Type)
-			)
+		for (var<int> x = 0; x < MAP_W; x++)
+		for (var<int> y = 0; y < MAP_H; y++)
 		{
-			cell.WallFlag = true;
+			var<MapCell_t> cell = Map.Table[x][y];
+
+			if (
+				cell.Type == MapCellType_e_Wall ||
+				IsMapCellType_EnemyGreen(cell.Type)
+				)
+			{
+				cell.WallFlag = true;
+			}
+
+			if (
+				x + 2 < MAP_W &&
+				Map.Table[x + 0][y].Type == MapCellType_e_Wall &&
+				Map.Table[x + 1][y].Type != MapCellType_e_Wall &&
+				Map.Table[x + 2][y].Type == MapCellType_e_Wall
+				)
+			{
+				Map.Table[x + 1][y].NarrowFlag = true;
+			}
+
+			if (
+				y + 2 < MAP_H &&
+				Map.Table[x][y + 0].Type == MapCellType_e_Wall &&
+				Map.Table[x][y + 1].Type != MapCellType_e_Wall &&
+				Map.Table[x][y + 2].Type == MapCellType_e_Wall
+				)
+			{
+				Map.Table[x][y + 1].NarrowFlag = true;
+			}
 		}
 	}
 
