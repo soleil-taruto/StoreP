@@ -223,7 +223,7 @@ function <void> @@_DrawWall()
 
 			if (IsMapCellType_EnemyGreen(Map.Table[x][y].Type)) // “G—Î‚Ì’†S
 			{
-				SetColor("#00ff00");
+				SetColor("#00ff0080");
 				PrintRect_XYWH(dx, dy, 20.0, 20.0);
 			}
 		}
