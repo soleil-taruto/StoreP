@@ -53,27 +53,83 @@ namespace Charlotte.Games
 		}
 
 		/// <summary>
-		/// マップの(ドット単位の)座標からマップセルの座標を得る。
+		/// マップ上の座標(ドット単位)からマップセルの座標(テーブル・インデックス)を取得する。
 		/// </summary>
-		/// <param name="pt">マップの(ドット単位の)座標</param>
-		/// <returns>マップセルの座標</returns>
+		/// <param name="pt">マップ上の座標(ドット単位)</param>
+		/// <returns>マップセルの座標(テーブル・インデックス)</returns>
 		public static I2Point ToTablePoint(D2Point pt)
 		{
 			return ToTablePoint(pt.X, pt.Y);
 		}
 
 		/// <summary>
-		/// マップの(ドット単位の)座標からマップセルの座標を得る。
+		/// マップ上の座標(ドット単位)からマップセルの座標(テーブル・インデックス)を取得する。
 		/// </summary>
-		/// <param name="x">マップの(ドット単位の)X_座標</param>
-		/// <param name="y">マップの(ドット単位の)Y_座標</param>
-		/// <returns>マップセルの座標</returns>
+		/// <param name="x">マップ上の X-座標(ドット単位)</param>
+		/// <param name="y">マップ上の Y-座標(ドット単位)</param>
+		/// <returns>マップセルの座標(テーブル・インデックス)</returns>
 		public static I2Point ToTablePoint(double x, double y)
 		{
 			return new I2Point(
 				(int)Math.Floor(x / GameConsts.TILE_W),
 				(int)Math.Floor(y / GameConsts.TILE_H)
 				);
+		}
+
+		/// <summary>
+		/// マップセルの座標(テーブル・インデックス)からマップ上の座標(ドット単位)を取得する。
+		/// 戻り値は、マップセルの中心座標である。
+		/// </summary>
+		/// <param name="pt">マップセルの座標(テーブル・インデックス)</param>
+		/// <returns>マップ上の座標(ドット単位)</returns>
+		public static D2Point ToFieldPoint(I2Point pt)
+		{
+			return ToFieldPoint(pt.X, pt.Y);
+		}
+
+		/// <summary>
+		/// マップセルの座標(テーブル・インデックス)からマップ上の座標(ドット単位)を取得する。
+		/// 戻り値は、マップセルの中心座標である。
+		/// </summary>
+		/// <param name="x">マップセルの X-座標(テーブル・インデックス)</param>
+		/// <param name="y">マップセルの Y-座標(テーブル・インデックス)</param>
+		/// <returns>マップ上の座標(ドット単位)</returns>
+		public static D2Point ToFieldPoint(int x, int y)
+		{
+			return new D2Point(
+				(double)(x * GameConsts.TILE_W + GameConsts.TILE_W / 2.0),
+				(double)(y * GameConsts.TILE_H + GameConsts.TILE_H / 2.0)
+				);
+		}
+
+		/// <summary>
+		/// マップ上の X-座標(ドット単位)からマップセルの中心 X-座標(ドット単位)を取得する。
+		/// </summary>
+		/// <param name="x">マップ上の X-座標(ドット単位)</param>
+		/// <returns>マップセルの中心 X-座標(ドット単位)</returns>
+		public static double ToTileCenterX(double x)
+		{
+			return ToTileCenter(new D2Point(x, 0.0)).X;
+		}
+
+		/// <summary>
+		/// マップ上の Y-座標(ドット単位)からマップセルの中心 Y-座標(ドット単位)を取得する。
+		/// </summary>
+		/// <param name="y">マップ上の Y-座標(ドット単位)</param>
+		/// <returns>マップセルの中心 Y-座標(ドット単位)</returns>
+		public static double ToTileCenterY(double y)
+		{
+			return ToTileCenter(new D2Point(0.0, y)).Y;
+		}
+
+		/// <summary>
+		/// マップ上の座標(ドット単位)からマップセルの中心座標(ドット単位)を取得する。
+		/// </summary>
+		/// <param name="pt">マップ上の座標(ドット単位)</param>
+		/// <returns>マップセルの中心座標(ドット単位)</returns>
+		public static D2Point ToTileCenter(D2Point pt)
+		{
+			return ToFieldPoint(ToTablePoint(pt));
 		}
 
 		private static MapCell _defaultMapCell = null;

@@ -280,11 +280,11 @@ function <void> DrawPlayer()
 		}
 		else if (touchSide_L)
 		{
-			PlayerX = ToTileCenterX(PlayerX) - TILE_W / 2.0 + PLAYER_側面判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX - PLAYER_側面判定Pt_X) + TILE_W / 2.0 + PLAYER_側面判定Pt_X;
 		}
 		else if (touchSide_R)
 		{
-			PlayerX = ToTileCenterX(PlayerX) + TILE_W / 2.0 - PLAYER_側面判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX + PLAYER_側面判定Pt_X) - TILE_W / 2.0 - PLAYER_側面判定Pt_X;
 		}
 
 		var<boolean> touchCeiling_L =
@@ -311,11 +311,11 @@ function <void> DrawPlayer()
 		}
 		else if (touchCeiling_L)
 		{
-			PlayerX = ToTileCenterX(PlayerX) - TILE_W / 2.0 + PLAYER_脳天判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX - PLAYER_脳天判定Pt_X) + TILE_W / 2.0 + PLAYER_脳天判定Pt_X;
 		}
 		else if (touchCeiling_R)
 		{
-			PlayerX = ToTileCenterX(PlayerX) + TILE_W / 2.0 - PLAYER_脳天判定Pt_X;
+			PlayerX = ToTileCenterX(PlayerX + PLAYER_脳天判定Pt_X) - TILE_W / 2.0 - PLAYER_脳天判定Pt_X;
 		}
 
 		var<boolean> touchGround =
@@ -324,6 +324,11 @@ function <void> DrawPlayer()
 
 		if (touchGround)
 		{
+			// memo: @ 2022.7.11
+			// 上昇中(ジャンプ中)に接地判定が発生することがある。
+			// 接地中は重力により PlayerYSpeed がプラスに振れる。
+			// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
+
 			if (0.0 < PlayerYSpeed)
 			{
 				PlayerY = ToTileCenterY(PlayerY + PLAYER_接地判定Pt_Y) - TILE_H / 2.0 - PLAYER_接地判定Pt_Y;
