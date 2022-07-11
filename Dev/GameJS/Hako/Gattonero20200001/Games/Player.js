@@ -287,19 +287,11 @@ function <void> DrawPlayer()
 			PlayerX = ToTileCenterX(PlayerX + PLAYER_側面判定Pt_X) - TILE_W / 2.0 - PLAYER_側面判定Pt_X;
 		}
 
-		var<boolean> touchCeiling_L =
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X, PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
+		var<boolean> touchCeiling_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
+		var<boolean> touchCeiling_M = GetMapCell(ToTablePoint_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
+		var<boolean> touchCeiling_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
 
-		var<boolean> touchCeiling_R =
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X, PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
-
-		if (touchCeiling_L || touchCeiling_R) // 天井の角に頭をブツケても落下 -- ★アプリ固有
-		{
-			touchCeiling_L = true;
-			touchCeiling_R = true;
-		}
-
-		if (touchCeiling_L && touchCeiling_R)
+		if ((touchCeiling_L && touchCeiling_R) || touchCeiling_M)
 		{
 			if (PlayerYSpeed < 0.0)
 			{

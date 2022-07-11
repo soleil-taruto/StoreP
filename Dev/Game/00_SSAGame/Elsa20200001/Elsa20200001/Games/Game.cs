@@ -574,10 +574,13 @@ namespace Charlotte.Games
 					bool touchCeiling_L =
 						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X - GameConsts.PLAYER_脳天判定Pt_X, this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
 
+					bool touchCeiling_M =
+						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X, this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
+
 					bool touchCeiling_R =
 						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X + GameConsts.PLAYER_脳天判定Pt_X, this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
 
-					if (touchCeiling_L && touchCeiling_R)
+					if ((touchCeiling_L && touchCeiling_R) || touchCeiling_M)
 					{
 						if (this.Player.YSpeed < 0.0)
 						{
