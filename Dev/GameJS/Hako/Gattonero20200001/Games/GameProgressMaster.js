@@ -137,4 +137,5 @@ function* <void> @@_Game(<int> startMapIndex)
 	{
 		yield* GameMain(mapIndex);
 	}
+	yield* Ending();
 }

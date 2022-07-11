@@ -214,8 +214,8 @@ function <void> @@_DrawWall()
 	for (var<int> x = 0; x < MAP_W; x++)
 	for (var<int> y = 0; y < MAP_H; y++)
 	{
-		var<int> dx = FIELD_L + x * TILE_W + TILE_W / 2;
-		var<int> dy = FIELD_T + y * TILE_H + TILE_H / 2;
+		var<double> dx = FIELD_L + x * TILE_W + TILE_W / 2;
+		var<double> dy = FIELD_T + y * TILE_H + TILE_H / 2;
 
 		if (Map.Table[x][y].WallFlag)
 		{
@@ -288,7 +288,7 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
-	for (var<Scene_t> scene of CreateScene(20))
+	for (var<Scene_t> scene of CreateScene(30))
 	{
 		yield 1;
 	}
@@ -317,7 +317,7 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 */
 function* <generatorForTask> @@_GoalMotion()
 {
-	for (var<Scene_t> scene of CreateScene(20))
+	for (var<Scene_t> scene of CreateScene(30))
 	{
 		yield 1;
 	}

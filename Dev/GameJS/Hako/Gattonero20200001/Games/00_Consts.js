@@ -31,7 +31,7 @@ var<int> TILE_H = 40;
 /*
 	プレイヤーキャラクタの重力加速度
 */
-var<double> PLAYER_GRAVITY = 1.0;
+var<double> PLAYER_GRAVITY = 0.9;
 
 /*
 	プレイヤーキャラクタの落下最高速度
