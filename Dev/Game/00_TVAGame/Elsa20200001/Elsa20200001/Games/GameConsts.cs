@@ -27,6 +27,8 @@ namespace Charlotte.Games
 		/// </summary>
 		public const string MAPPRM_DEFAULT_VALUE = "Default";
 
+		// マップセルのサイズ(ドット単位)
+		//
 		public const int TILE_W = 32;
 		public const int TILE_H = 32;
 

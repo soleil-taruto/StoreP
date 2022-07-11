@@ -564,26 +564,38 @@ namespace Charlotte.Games
 					}
 					else if (touchSide_L)
 					{
-						this.Player.X = (double)SCommon.ToInt(this.Player.X / GameConsts.TILE_W) * GameConsts.TILE_W + GameConsts.PLAYER_側面判定Pt_X;
+						this.Player.X = GameCommon.ToTileCenterX(this.Player.X - GameConsts.PLAYER_側面判定Pt_X) + GameConsts.TILE_W / 2 + GameConsts.PLAYER_側面判定Pt_X;
 					}
 					else if (touchSide_R)
 					{
-						this.Player.X = (double)SCommon.ToInt(this.Player.X / GameConsts.TILE_W) * GameConsts.TILE_W - GameConsts.PLAYER_側面判定Pt_X;
+						this.Player.X = GameCommon.ToTileCenterX(this.Player.X + GameConsts.PLAYER_側面判定Pt_X) - GameConsts.TILE_W / 2 - GameConsts.PLAYER_側面判定Pt_X;
 					}
 
-					bool touchCeiling =
-						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X - GameConsts.PLAYER_脳天判定Pt_X, this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall() ||
+					bool touchCeiling_L =
+						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X - GameConsts.PLAYER_脳天判定Pt_X, this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
+
+					bool touchCeiling_R =
 						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X + GameConsts.PLAYER_脳天判定Pt_X, this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
 
-					if (touchCeiling)
+					if (touchCeiling_L && touchCeiling_R)
 					{
 						if (this.Player.YSpeed < 0.0)
 						{
-							double plY = ((int)((this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y) / GameConsts.TILE_H) + 1) * GameConsts.TILE_H + GameConsts.PLAYER_脳天判定Pt_Y;
+							this.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y) + GameConsts.TILE_H / 2 + GameConsts.PLAYER_脳天判定Pt_Y;
 
-							this.Player.Y = plY;
-							this.Player.YSpeed = 0.0;
+							//this.Player.YSpeed = Math.Abs(Player.YSpeed); // 反発係数 1
+							this.Player.YSpeed = 0.0; // 反発係数 0
+
+							this.Player.JumpFrame = 0;
 						}
+					}
+					else if (touchCeiling_L)
+					{
+						this.Player.X = GameCommon.ToTileCenterX(this.Player.X - GameConsts.PLAYER_脳天判定Pt_X) + GameConsts.TILE_W / 2 + GameConsts.PLAYER_脳天判定Pt_X;
+					}
+					else if (touchCeiling_R)
+					{
+						this.Player.X = GameCommon.ToTileCenterX(this.Player.X + GameConsts.PLAYER_脳天判定Pt_X) - GameConsts.TILE_W / 2 - GameConsts.PLAYER_脳天判定Pt_X;
 					}
 
 					bool touchGround =
@@ -592,11 +604,14 @@ namespace Charlotte.Games
 
 					if (touchGround)
 					{
+						// memo: @ 2022.7.11
+						// 上昇中(ジャンプ中)に接地判定が発生することがある。
+						// 接地中は重力により PlayerYSpeed がプラスに振れる。
+						// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
+
 						if (0.0 < this.Player.YSpeed)
 						{
-							double plY = (int)((this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) / GameConsts.TILE_H) * GameConsts.TILE_H - GameConsts.PLAYER_接地判定Pt_Y;
-
-							this.Player.Y = plY;
+							this.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) - GameConsts.TILE_H / 2 - GameConsts.PLAYER_接地判定Pt_Y;
 							this.Player.YSpeed = 0.0;
 						}
 					}

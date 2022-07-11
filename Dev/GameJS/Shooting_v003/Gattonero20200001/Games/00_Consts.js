@@ -13,7 +13,7 @@ var<int> FIELD_R = FIELD_L + FIELD_W;
 var<int> FIELD_B = FIELD_T + FIELD_H;
 
 // ----
-// プレイヤー情報用_ここから
+// プレイヤー情報ここから
 // ----
 
 /*
@@ -32,5 +32,5 @@ var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
 var<int> PLAYER_ATTACK_LV_MAX = 3;
 
 // ----
-// プレイヤー情報用_ここまで
+// プレイヤー情報ここまで
 // ----
