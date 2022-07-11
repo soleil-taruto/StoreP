@@ -43,41 +43,43 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		var<boolean> b6 = false;
 		var<boolean> b8 = false;
 
-		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y))))
+		var<double> ARM = TILE_W / 2.0 - 0.001;
+
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - ARM, enemy.Y))))
 		{
 			b4 = true;
 		}
-		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y))))
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + ARM, enemy.Y))))
 		{
 			b6 = true;
 		}
-		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y - TILE_H / 2.0))))
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y - ARM))))
 		{
 			b8 = true;
 		}
-		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + TILE_H / 2.0))))
+		if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + ARM))))
 		{
 			b2 = true;
 		}
 
 		if (!(b2 || b4 || b6 || b8))
 		{
-			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y - TILE_W / 2.0))))
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - ARM, enemy.Y - ARM))))
 			{
 				b4 = true;
 				b8 = true;
 			}
-			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y - TILE_W / 2.0))))
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + ARM, enemy.Y - ARM))))
 			{
 				b6 = true;
 				b8 = true;
 			}
-			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - TILE_W / 2.0, enemy.Y + TILE_W / 2.0))))
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X - ARM, enemy.Y + ARM))))
 			{
 				b2 = true;
 				b4 = true;
 			}
-			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + TILE_W / 2.0, enemy.Y + TILE_W / 2.0))))
+			if (@@_IsWall(GetMapCell(ToTablePoint_XY(enemy.X + ARM, enemy.Y + ARM))))
 			{
 				b2 = true;
 				b6 = true;
