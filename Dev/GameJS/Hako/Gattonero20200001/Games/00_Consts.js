@@ -41,7 +41,7 @@ var<double> PLAYER_FALL_SPEED_MAX = 8.0;
 /*
 	プレイヤーキャラクタの(横移動)速度
 */
-var<double> PLAYER_SPEED = 5.0;
+var<double> PLAYER_SPEED = 6.0;
 
 /*
 	プレイヤーキャラクタの低速移動時の(横移動)速度
@@ -62,7 +62,7 @@ var<double> PLAYER_側面判定Pt_X = TILE_W / 2.0;
 var<double> PLAYER_側面判定Pt_Y = TILE_H / 4.0;
 var<double> PLAYER_脳天判定Pt_X = TILE_W / 2.0 - 1.0;
 var<double> PLAYER_脳天判定Pt_Y = TILE_H / 2.0;
-var<double> PLAYER_接地判定Pt_X = TILE_W / 2.0 - 1.0;
+var<double> PLAYER_接地判定Pt_X = TILE_W / 2.0 - 2.0;
 var<double> PLAYER_接地判定Pt_Y = TILE_H / 2.0;
 
 // ----
