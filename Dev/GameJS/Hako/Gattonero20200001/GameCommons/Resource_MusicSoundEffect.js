@@ -75,9 +75,9 @@ function <SE_t> @@_LoadSE(<string> url)
 // M_ ... 音楽,BGM
 // S_ ... 効果音(SE)
 
-//var<Audio> M_無音 = @@_Load(Resources.General__muon_wav); // デカいのでロードしない。
+//var<Audio> M_無音 = @@_Load(Resources.General__muon_mp3); // デカいのでロードしない。
 
-//var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_wav); // デカいのでロードしない。
+//var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_mp3); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 

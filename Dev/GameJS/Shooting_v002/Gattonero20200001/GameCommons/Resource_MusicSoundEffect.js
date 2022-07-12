@@ -75,15 +75,15 @@ function <SE_t> @@_LoadSE(<string> url)
 // M_ ... 音楽,BGM
 // S_ ... 効果音(SE)
 
-//var<Audio> M_無音 = @@_Load(Resources.General__muon_wav); // デカいのでロードしない。
+//var<Audio> M_無音 = @@_Load(Resources.General__muon_mp3); // デカいのでロードしない。
 
-//var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_wav); // デカいのでロードしない。
+//var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_mp3); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
 var<Audio> M_Field = @@_Load(Resources.HMIX__n62_mp3);
 
-var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.出処不明__EnemyDamaged_wav);
-var<SE_t> S_PlayerShoot = @@_LoadSE(Resources.出処不明__PlayerShoot_wav);
-var<SE_t> S_EnemyDead = @@_LoadSE(Resources.小森平__explosion01_wav);
+var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.出処不明__EnemyDamaged_mp3);
+var<SE_t> S_PlayerShoot = @@_LoadSE(Resources.出処不明__PlayerShoot_mp3);
+var<SE_t> S_EnemyDead = @@_LoadSE(Resources.小森平__explosion01_mp3);
 var<SE_t> S_PowerUp = @@_LoadSE(Resources.小森平__powerup03_mp3);
