@@ -49,6 +49,7 @@ function* <generatorForTask> TitleMain()
 
 	SetCurtain();
 	FreezeInput();
+	FreezeInputUntilRelease();
 
 //	Play(M_Title); // 要クリックで拒否されるので、抑止
 

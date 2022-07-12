@@ -49,6 +49,7 @@ function* <generatorForTask> TitleMain()
 
 	SetCurtain();
 	FreezeInput();
+	FreezeInputUntilRelease();
 
 	for (; ; )
 	{
