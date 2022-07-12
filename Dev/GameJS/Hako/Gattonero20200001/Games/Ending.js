@@ -22,13 +22,13 @@ function* <generatorForTask> Ending()
 		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
 		SetColor("#ffffff");
-		SetPrint(10, 300, 200);
+		SetPrint(10, 350, 200);
 		SetFSize(130);
 		PrintLine("エンディング");
 
 		if (INP_ST_FRM < frame)
 		{
-			SetPrint(20, 550, 200);
+			SetPrint(20, 600, 200);
 			SetFSize(24);
 			PrintLine("Ａボタンを押して下さい。");
 		}

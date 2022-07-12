@@ -296,7 +296,7 @@ function <void> @@_DrawFront()
 	SetFSize(80);
 	PrintLine("STAGE " + Map.Index);
 
-	SetPrint(20, Screen_W - 70, 30);
+	SetPrint(20, Screen_W - 65, 40);
 	SetFSize(16);
 	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
 	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");

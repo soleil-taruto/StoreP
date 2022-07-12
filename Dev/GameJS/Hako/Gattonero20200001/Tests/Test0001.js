@@ -26,3 +26,8 @@ function* <generatorForTask> Test01()
 
 	// --
 }
+
+function* <generatorForTask> Test02()
+{
+	yield* Ending();
+}
