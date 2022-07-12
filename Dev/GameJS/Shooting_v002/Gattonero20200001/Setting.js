@@ -27,6 +27,7 @@ gameLoop:
 			[
 				"ゲームパッドのＡボタンの割り当て",
 				"ゲームパッドのＢボタンの割り当て",
+				"データの消去",
 				"戻る",
 			]);
 
@@ -42,6 +43,10 @@ gameLoop:
 			break;
 
 		case 2:
+			yield* @@_RemoveSaveData();
+			break;
+
+		case 3:
 			break gameLoop;
 		}
 		yield 1;
@@ -51,7 +56,7 @@ gameLoop:
 
 function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 {
-	WaitToReleaseButton();
+	yield* WaitToReleaseButton();
 	FreezeInput();
 
 	for (; ; )
@@ -81,7 +86,7 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 
 		yield 1;
 	}
-	WaitToReleaseButton();
+	yield* WaitToReleaseButton();
 	FreezeInput();
 }
 
@@ -95,4 +100,47 @@ function <int> @@_GetPressButtonIndex()
 		}
 	}
 	return -1;
+}
+
+function* <generatorForTask> @@_RemoveSaveData()
+{
+	var<int> selectIndex = 0;
+
+	FreezeInput();
+
+gameLoop:
+	for (; ; )
+	{
+		SetColor("#a0b0c0");
+		PrintRect(0, 0, Screen_W, Screen_H);
+
+		SetColor("#000000");
+		SetPrint(30, 50, 50);
+		SetFSize(20);
+		PrintLine("セーブデータを完全に消去します。宜しいですか？");
+
+		selectIndex = DrawSimpleMenu(
+			selectIndex,
+			30,
+			100,
+			70,
+			[
+				"はい",
+				"いいえ",
+			]);
+
+		if (DSM_Desided)
+		switch (selectIndex)
+		{
+		case 0:
+			ClearLocalStorageValue();
+			SE(S_Dead);
+			break gameLoop;
+
+		case 1:
+			break gameLoop;
+		}
+		yield 1;
+	}
+	FreezeInput();
 }

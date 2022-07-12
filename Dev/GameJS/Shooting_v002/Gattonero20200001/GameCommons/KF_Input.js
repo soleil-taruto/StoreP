@@ -187,3 +187,11 @@ function <void> FreezeInputUntilRelease()
 {
 	@@_FreezeInputUntilReleaseFlag = true;
 }
+
+function* <generatorForTask> WaitToReleaseButton()
+{
+	while (ToArray(@@_Counts()).some(counter => counter != 0))
+	{
+		yield 1;
+	}
+}

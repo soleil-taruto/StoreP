@@ -17,3 +17,8 @@ function <void> SetLocalStorageValue(<string> name, <string> value)
 {
 	window.localStorage.setItem(name, value);
 }
+
+function <void> ClearLocalStorageValue()
+{
+	window.localStorage.clear();
+}
