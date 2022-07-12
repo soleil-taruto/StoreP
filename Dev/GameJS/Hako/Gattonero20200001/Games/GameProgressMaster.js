@@ -94,6 +94,12 @@ gameLoop:
 			break; // タイトルへ戻る
 		}
 
+		if (1 <= GetKeyInput(16) && GetKeyInput(81) == 1) // ? シフト + Q -- 全ステージクリア -- (デバッグ用)
+		{
+			SetLastClearedStageIndex(GetMapCount() - 1);
+			SE(S_Dead);
+		}
+
 		selectX += @@_PANEL_X_NUM;
 		selectX %= @@_PANEL_X_NUM;
 
@@ -167,7 +173,7 @@ function* <void> @@_Game(<int> startMapIndex)
 	{
 		yield* GameMain(mapIndex);
 
-		SetLastClearedStageIndex(mapIndex);
+		SetLastClearedStageIndex(Math.max(mapIndex, GetLastClearedStageIndex()));
 	}
 	yield* Ending();
 

@@ -266,7 +266,7 @@ function <void> @@_DrawFront()
 		);
 
 	SetColor("#ffffff");
-	SetPrint(10, 90, 0);
+	SetPrint(10, 80, 0);
 	SetFSize(80);
 	PrintLine("STAGE " + Map.Index);
 }
