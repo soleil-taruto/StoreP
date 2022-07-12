@@ -23,7 +23,7 @@ function* <generatorForTask> MapSelectMenu()
 
 	for (; ; )
 	{
-		var<int> canPlayIndex = GetAlreadyClearedStageIndex();
+		var<int> canPlayIndex = AlreadyClearedStageIndex;
 
 		if (canPlayIndex == -1)
 		{
@@ -107,9 +107,10 @@ function* <generatorForTask> MapSelectMenu()
 			}
 		}
 
-		if (1 <= GetKeyInput(16) && GetKeyInput(81) == 1) // ? シフト + Q -- 全ステージクリア -- (デバッグ用)
+		if (DEBUG && 1 <= GetKeyInput(16) && GetKeyInput(81) == 1) // ? シフト + Q -- 全ステージクリア -- (デバッグ用)
 		{
-			SetAlreadyClearedStageIndex(GetMapCount() - 1);
+			AlreadyClearedStageIndex = GetMapCount() - 1;
+			SaveLocalStorage();
 			SE(S_Dead);
 		}
 
@@ -124,7 +125,6 @@ function* <generatorForTask> MapSelectMenu()
 		SetColor("#004060");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
-		var<int> clearedIndex = GetAlreadyClearedStageIndex();
 		var<int> index = 1;
 
 		for (var<int> y = 0; y < @@_PANEL_Y_NUM; y++)
@@ -196,7 +196,8 @@ gameBlock:
 				break gameBlock;
 			}
 
-			SetAlreadyClearedStageIndex(Math.max(mapIndex, GetAlreadyClearedStageIndex()));
+			AlreadyClearedStageIndex = Math.max(AlreadyClearedStageIndex, mapIndex);
+			SaveLocalStorage();
 		}
 		yield* Ending();
 	}

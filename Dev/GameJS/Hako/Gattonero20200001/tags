@@ -128,8 +128,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\EG_Curtain.js(33) : @ // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(24) : ProcMain // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(16) : Canvas // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(19) : CanvasBox // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(82) : ProcFrame // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(85) : Context // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(83) : ProcFrame // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Engine.js(86) : Context // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Gamepad.js(65) : GetPadInput_2 // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Gamepad.js(70) : GetPadInput_4 // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\Gamepad.js(75) : GetPadInput_6 // 関数
@@ -241,6 +241,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(229) : GetShots // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(19) : GameEndReason // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Game.js(20) : GameLastPlayedStageIndex // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\GameProgressMaster.js(14) : MapSelectMenu // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\GameStatus.js(10) : AlreadyClearedStageIndex // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(5) : MapCellType_e // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(41) : MapCell_t // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(54) : Map_t // 定義
@@ -295,8 +296,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(38) : PlayerJumpCount // 変
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(45) : PlayerJumpFrame // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(52) : PlayerAirborneFrame // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(59) : PlayerShagamiFrame // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\SaveData.js(58) : SetAlreadyClearedStageIndex // 関数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\SaveData.js(65) : GetAlreadyClearedStageIndex // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\SaveData.js(5) : LoadLocalStorage // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\SaveData.js(40) : SaveLocalStorage // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // 関数

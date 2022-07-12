@@ -1,5 +1,5 @@
 /*
-	クッキー
+	ローカル・ストレージ
 */
 
 function <string> GetLocalStorageValue(<string> name, <string> defval)

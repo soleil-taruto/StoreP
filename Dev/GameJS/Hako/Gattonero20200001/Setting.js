@@ -71,6 +71,7 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 		if (index != -1)
 		{
 			a_setBtn(index);
+			SaveLocalStorage();
 			break;
 		}
 
@@ -134,6 +135,7 @@ gameLoop:
 		{
 		case 0:
 			ClearLocalStorageValue();
+			LoadLocalStorage();
 			SE(S_Dead);
 			break gameLoop;
 

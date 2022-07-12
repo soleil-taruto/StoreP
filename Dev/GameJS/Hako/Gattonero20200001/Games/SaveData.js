@@ -2,18 +2,7 @@
 	セーブデータ
 */
 
-// SaveData >
-
-/*
-	既にクリアしたステージ・インデックス
-	-1 == 未クリア
-	0～ == ステージ・インデックス
-*/
-var<int> @@_AlreadyClearedStageIndex;
-
-// < SaveData
-
-function <void> @@_Load()
+function <void> LoadLocalStorage()
 {
 	try
 	{
@@ -28,7 +17,10 @@ function <void> @@_Load()
 
 		// SaveData >
 
-		@@_AlreadyClearedStageIndex = StrToInt(data[c++]);
+		PadInputIndex_A = StrToInt(data[c++]);
+		PadInputIndex_B = StrToInt(data[c++]);
+
+		AlreadyClearedStageIndex = StrToInt(data[c++]);
 
 		// < SaveData
 	}
@@ -36,34 +28,27 @@ function <void> @@_Load()
 	{
 		// SaveData >
 
-		@@_AlreadyClearedStageIndex = -1;
+		PadInputIndex_A = 0;
+		PadInputIndex_B = 3;
+
+		AlreadyClearedStageIndex = -1;
 
 		// < SaveData
 	}
 }
 
-function <void> @@_Save()
+function <void> SaveLocalStorage()
 {
 	var<string[]> data = [];
 
 	// SaveData >
 
-	data.push("" + @@_AlreadyClearedStageIndex);
+	data.push("" + PadInputIndex_A);
+	data.push("" + PadInputIndex_B);
+
+	data.push("" + AlreadyClearedStageIndex);
 
 	// < SaveData
 
 	SetLocalStorageValue("@(APID)_SaveData", data.join(";"));
-}
-
-function <void> SetAlreadyClearedStageIndex(<int> index)
-{
-	@@_Load();
-	@@_AlreadyClearedStageIndex = index;
-	@@_Save();
-}
-
-function <int> GetAlreadyClearedStageIndex()
-{
-	@@_Load();
-	return @@_AlreadyClearedStageIndex;
 }
