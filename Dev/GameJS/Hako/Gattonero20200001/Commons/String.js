@@ -82,3 +82,31 @@ function <string[]> Tokenize(<string> str, <string> separator, <boolean> trimmin
 	}
 	return dest;
 }
+
+function <int> StrToInt(<string> str)
+{
+	var<int> value = 0;
+	var<int> sign = 1;
+
+	for (var<int> index = 0; index < str.length; index++)
+	{
+		var<string> chr = str.substring(index, index + 1);
+
+		if (chr == "-")
+		{
+			sign = -1;
+		}
+		else
+		{
+			var<int> p = "0123456789".indexOf(chr);
+
+			if (p == -1)
+			{
+				error();
+			}
+			value *= 10;
+			value += p;
+		}
+	}
+	return value * sign;
+}

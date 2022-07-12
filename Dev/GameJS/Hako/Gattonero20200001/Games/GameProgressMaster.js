@@ -21,10 +21,10 @@ function* <generatorForTask> MapSelectMenu()
 
 	Play(M_Title);
 
-gameLoop:
 	for (; ; )
 	{
 		var<int> canPlayIndex = GetAlreadyClearedStageIndex();
+console.log(canPlayIndex);
 
 		if (canPlayIndex == -1)
 		{
@@ -34,6 +34,8 @@ gameLoop:
 		{
 			canPlayIndex++;
 		}
+
+		var<int> playIndex = -1; // -1 == 無効
 
 		if (GetMouseDown() == -1)
 		{
@@ -56,16 +58,7 @@ gameLoop:
 					0.0
 					))
 				{
-					if (canPlayIndex < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
-					{
-						// noop
-					}
-					else // ? プレイ可能
-					{
-						yield* @@_Game(index);
-
-						continue gameLoop;
-					}
+					playIndex = index;
 				}
 
 				index++;
@@ -89,20 +82,30 @@ gameLoop:
 		}
 		if (IsPound(GetInput_A()))
 		{
-			var<int> index = selectX + selectY * @@_PANEL_Y_NUM + 1;
-
-			yield* @@_Game(index);
-
-			index = GameLastPlayedStageIndex - 1;
-
-			selectX = index % @@_PANEL_X_NUM;
-			selectY = ToFix(index / @@_PANEL_Y_NUM);
-
-			continue gameLoop;
+			playIndex = selectX + selectY * @@_PANEL_Y_NUM + 1;
 		}
 		if (IsPound(GetInput_B()))
 		{
 			break; // タイトルへ戻る
+		}
+
+		if (playIndex != -1)
+		{
+			var<int> index = playIndex;
+
+			if (canPlayIndex < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
+			{
+				// noop
+			}
+			else // ? プレイ可能
+			{
+				yield* @@_Game(index);
+
+				index = GameLastPlayedStageIndex - 1;
+
+				selectX = index % @@_PANEL_X_NUM;
+				selectY = ToFix(index / @@_PANEL_Y_NUM);
+			}
 		}
 
 		if (1 <= GetKeyInput(16) && GetKeyInput(81) == 1) // ? シフト + Q -- 全ステージクリア -- (デバッグ用)
@@ -178,7 +181,7 @@ function* <void> @@_Game(<int> startMapIndex)
 		yield* Wait(40);
 	}
 
-gamePlay:
+gameBlock:
 	{
 		for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
 		{
@@ -186,7 +189,7 @@ gamePlay:
 
 			if (GameEndReason == GameEndReason_e_RETURN_MENU)
 			{
-				break gamePlay;
+				break gameBlock;
 			}
 
 			SetAlreadyClearedStageIndex(Math.max(mapIndex, GetAlreadyClearedStageIndex()));

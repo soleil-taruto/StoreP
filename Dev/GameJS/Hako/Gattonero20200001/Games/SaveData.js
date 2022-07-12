@@ -28,7 +28,7 @@ function <void> @@_Load()
 
 		// SaveData >
 
-		@@_AlreadyClearedStageIndex = parseInt(data[c++]);
+		@@_AlreadyClearedStageIndex = StrToInt(data[c++]);
 
 		// < SaveData
 	}
