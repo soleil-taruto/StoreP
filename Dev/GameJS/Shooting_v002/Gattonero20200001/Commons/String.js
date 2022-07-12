@@ -49,3 +49,64 @@ function <string> RevStr(<string> str)
 	}
 	return ret;
 }
+
+function <string[]> Tokenize(<string> str, <string> separator, <boolean> trimming, <boolean> ignoreEmpty)
+{
+	if (separator == "")
+	{
+		error();
+	}
+
+	var<string[]> dest = [];
+
+	for (; ; )
+	{
+		var<int> index = str.indexOf(separator);
+
+		if (index == -1)
+		{
+			break;
+		}
+		dest.push(str.substring(0, index));
+		str = str.substring(index + separator.length);
+	}
+	dest.push(str);
+
+	if (trimming)
+	{
+		dest = dest.map(v => v.trim());
+	}
+	if (ignoreEmpty)
+	{
+		dest = dest.filter(v => v != "");
+	}
+	return dest;
+}
+
+function <int> StrToInt(<string> str)
+{
+	var<int> value = 0;
+	var<int> sign = 1;
+
+	for (var<int> index = 0; index < str.length; index++)
+	{
+		var<string> chr = str.substring(index, index + 1);
+
+		if (chr == "-")
+		{
+			sign = -1;
+		}
+		else
+		{
+			var<int> p = "0123456789".indexOf(chr);
+
+			if (p == -1)
+			{
+				error();
+			}
+			value *= 10;
+			value += p;
+		}
+	}
+	return value * sign;
+}
