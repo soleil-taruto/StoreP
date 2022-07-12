@@ -50,15 +50,17 @@ function* <generatorForTask> TitleMain()
 	SetCurtain();
 	FreezeInput();
 
+//	Play(M_Title); // 要クリックで拒否されるので、抑止
+
 	for (; ; )
 	{
 		SetColor("#a0b0c0");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(40, 320, 0);
-		SetFSize(160);
-		PrintLine("Template");
+		SetPrint(30, 320, 0);
+		SetFSize(260);
+		PrintLine("HAKO");
 
 		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
 
@@ -70,6 +72,8 @@ function* <generatorForTask> TitleMain()
 
 			SetCurtain();
 			FreezeInput();
+
+//			Play(M_Title); // 要クリックで拒否されるので、抑止
 		}
 		yield 1;
 	}

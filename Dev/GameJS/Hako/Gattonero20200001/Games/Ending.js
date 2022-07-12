@@ -9,6 +9,8 @@ function* <generatorForTask> Ending()
 	SetCurtain();
 	FreezeInput();
 
+	Play(M_Ending);
+
 	for (var<int> frame = 0; ; frame++)
 	{
 		if (INP_ST_FRM < frame && GetInput_A() == 1)
@@ -20,13 +22,13 @@ function* <generatorForTask> Ending()
 		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
 		SetColor("#ffffff");
-		SetPrint(20, 300, 200);
+		SetPrint(10, 300, 200);
 		SetFSize(130);
 		PrintLine("エンディング");
 
 		if (INP_ST_FRM < frame)
 		{
-			SetPrint(20, 500, 200);
+			SetPrint(20, 550, 200);
 			SetFSize(24);
 			PrintLine("Ａボタンを押して下さい。");
 		}

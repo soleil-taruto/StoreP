@@ -19,6 +19,8 @@ function* <generatorForTask> MapSelectMenu()
 	SetCurtain();
 	FreezeInput();
 
+	Play(M_Title);
+
 	for (; ; )
 	{
 		if (GetMouseDown() == -1)
@@ -42,9 +44,7 @@ function* <generatorForTask> MapSelectMenu()
 					0.0
 					))
 				{
-					FreezeInput();
 					yield* @@_Game(index);
-					FreezeInput();
 				}
 
 				index++;
@@ -70,13 +70,7 @@ function* <generatorForTask> MapSelectMenu()
 		{
 			var<int> index = selectX + selectY * @@_PANEL_Y_NUM + 1;
 
-			FreezeInput();
-
 			yield* @@_Game(index);
-
-			SetCurtain();
-//			FreezeInput();
-			FreezeInputUntilRelease();
 
 			selectX = @@_PANEL_X_NUM - 1;
 			selectY = @@_PANEL_Y_NUM - 1;
@@ -133,9 +127,26 @@ function* <generatorForTask> MapSelectMenu()
 
 function* <void> @@_Game(<int> startMapIndex)
 {
+	// Leave MapSelectMenu()
+	{
+		FreezeInput();
+		Fadeout();
+		SetCurtain_FD(30, -1.0);
+		yield* Wait(40);
+	}
+
 	for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
 	{
 		yield* GameMain(mapIndex);
 	}
 	yield* Ending();
+
+	// Enter MapSelectMenu()
+	{
+		SetCurtain();
+		FreezeInput();
+		FreezeInputUntilRelease();
+
+		Play(M_Title);
+	}
 }

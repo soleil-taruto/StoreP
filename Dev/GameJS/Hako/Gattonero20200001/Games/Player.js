@@ -165,7 +165,7 @@ function <void> DrawPlayer()
 
 		if (PlayerJumpFrame == 1) // ? ジャンプ開始
 		{
-			// TODO: SE
+			SE(S_Jump);
 		}
 
 		if (1 <= PlayerAirborneFrame)

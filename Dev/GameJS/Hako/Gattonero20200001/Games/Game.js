@@ -28,6 +28,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	yield* @@_StartMotion();
 
+	Play(M_Field);
+
 gameLoop:
 	for (; ; )
 	{
@@ -231,6 +233,14 @@ function <void> @@_DrawWall()
 		{
 			Draw(P_背景, dx, dy, 1.0, 0.0, 1.0);
 		}
+
+		/*
+		if (Map.Table[x][y].NarrowFlag) // test
+		{
+			SetColor("#ff00ff80");
+			PrintCircle(dx, dy, 20.0);
+		}
+		*/
 	}
 }
 
@@ -288,12 +298,15 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
+	SE(S_Crashed);
+
 	for (var<Scene_t> scene of CreateScene(30))
 	{
 		yield 1;
 	}
 
 	AddEffect_Explode(PlayerX, PlayerY);
+	SE(S_Dead);
 
 	// リスタートのための処理
 	{

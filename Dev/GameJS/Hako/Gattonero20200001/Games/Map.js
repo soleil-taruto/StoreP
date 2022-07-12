@@ -165,12 +165,16 @@ setStartPt:
 			{
 				cell.WallFlag = true;
 			}
+		}
 
+		for (var<int> x = 0; x < MAP_W; x++)
+		for (var<int> y = 0; y < MAP_H; y++)
+		{
 			if (
 				x + 2 < MAP_W &&
-				Map.Table[x + 0][y].Type == MapCellType_e_Wall &&
-				Map.Table[x + 1][y].Type != MapCellType_e_Wall &&
-				Map.Table[x + 2][y].Type == MapCellType_e_Wall
+				Map.Table[x + 0][y].WallFlag &&
+				Map.Table[x + 1][y].WallFlag == false &&
+				Map.Table[x + 2][y].WallFlag
 				)
 			{
 				Map.Table[x + 1][y].NarrowFlag = true;
@@ -178,9 +182,9 @@ setStartPt:
 
 			if (
 				y + 2 < MAP_H &&
-				Map.Table[x][y + 0].Type == MapCellType_e_Wall &&
-				Map.Table[x][y + 1].Type != MapCellType_e_Wall &&
-				Map.Table[x][y + 2].Type == MapCellType_e_Wall
+				Map.Table[x][y + 0].WallFlag &&
+				Map.Table[x][y + 1].WallFlag == false &&
+				Map.Table[x][y + 2].WallFlag
 				)
 			{
 				Map.Table[x][y + 1].NarrowFlag = true;
