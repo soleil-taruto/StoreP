@@ -71,6 +71,7 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 		if (index != -1)
 		{
 			a_setBtn(index);
+			SaveLocalStorage();
 			break;
 		}
 
@@ -87,7 +88,7 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 		yield 1;
 	}
 	yield* WaitToReleaseButton();
-	FreezeInput();
+	FreezeInput_Frame(2); // 決定ボタンが変更されるとメニューに戻った時、押下を検出してしまう。-- frame 1 -> 2
 }
 
 function <int> @@_GetPressButtonIndex()
@@ -134,7 +135,8 @@ gameLoop:
 		{
 		case 0:
 			ClearLocalStorageValue();
-			SE(S_Dead);
+			LoadLocalStorage();
+			SE(S_PowerUp);
 			break gameLoop;
 
 		case 1:

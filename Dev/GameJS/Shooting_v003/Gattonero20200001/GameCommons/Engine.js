@@ -45,6 +45,7 @@ function <void> ProcMain(<generatorForTask> appMain)
 		LOGPOS();
 	}
 
+	LoadLocalStorage();
 	@@_Anime();
 }
 

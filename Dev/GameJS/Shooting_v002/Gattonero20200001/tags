@@ -79,6 +79,7 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\I4Rect.js(44) : CreateI4Re
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\I4Rect.js(49) : I4RectToD4Rect // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\LocalStorage.js(5) : GetLocalStorageValue // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\LocalStorage.js(16) : SetLocalStorageValue // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\LocalStorage.js(21) : ClearLocalStorageValue // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Math.js(8) : ToInt // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Math.js(20) : ToFix // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Commons\Math.js(32) : ToFloor // ä÷êî
@@ -127,8 +128,8 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\EG_Curtain.js(33) : @ 
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(24) : ProcMain // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(16) : Canvas // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(19) : CanvasBox // ïœêî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(82) : ProcFrame // ïœêî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(85) : Context // ïœêî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(83) : ProcFrame // ïœêî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(86) : Context // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(65) : GetPadInput_2 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(70) : GetPadInput_4 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(75) : GetPadInput_6 // ä÷êî
@@ -147,6 +148,7 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(170) : @ /
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(175) : FreezeInput_Frame // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(181) : FreezeInput // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(186) : FreezeInputUntilRelease // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(191) : WaitToReleaseButton // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(12) : PadInputIndex_2 // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(13) : PadInputIndex_4 // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(14) : PadInputIndex_6 // ïœêî
@@ -225,6 +227,8 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(16) : GameMain // ä÷
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(282) : GetEnemies // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(287) : GetShots // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(14) : Score // ïœêî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\LocalStorage.js(36) : SaveLocalStorage // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Player.js(57) : DrawPlayer // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Player.js(8) : PlayerX // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Player.js(9) : PlayerY // ïœêî
