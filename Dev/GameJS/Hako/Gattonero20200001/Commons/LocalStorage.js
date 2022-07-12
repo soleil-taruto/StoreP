@@ -1,5 +1,5 @@
 /*
-	ローカル・ストレージ
+	ローカル・ストレージ (取得と設定)
 */
 
 function <string> GetLocalStorageValue(<string> name, <string> defval)

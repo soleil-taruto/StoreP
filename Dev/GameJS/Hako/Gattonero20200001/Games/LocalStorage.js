@@ -1,5 +1,5 @@
 /*
-	セーブデータ
+	ローカルストレージ (ゲームのセーブデータ取り扱い)
 */
 
 function <void> LoadLocalStorage()
