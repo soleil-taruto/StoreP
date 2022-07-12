@@ -4,10 +4,10 @@
 
 function <void> SetLastClearedStageIndex(<int> index)
 {
-	SetLocalStorageValue("LastClearedStageIndex", "" + index);
+	SetLocalStorageValue("@(APID)_LastClearedStageIndex", "" + index);
 }
 
 function <int> GetLastClearedStageIndex()
 {
-	return parseInt(GetLocalStorageValue("LastClearedStageIndex", "0"));
+	return parseInt(GetLocalStorageValue("@(APID)_LastClearedStageIndex", "0"));
 }
