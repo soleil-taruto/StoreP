@@ -19,51 +19,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4();
-			}
-			SCommon.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			Main4();
-			SCommon.Pause();
-		}
-
-		private void Main4()
-		{
-			try
-			{
-				Main5();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-		}
-
-		private void Main5()
-		{
-			// -- choose one --
-
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -81,7 +36,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\Dev\GameJS" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -108,10 +63,40 @@ namespace Charlotte
 			}
 		}
 
+		private string SrcRootDir;
+		private string DestRootDir;
+
 		private void Main5(ArgsReader ar)
 		{
-			// TODO
+			this.SrcRootDir = SCommon.MakeFullPath(ar.NextArg());
+			this.DestRootDir = SCommon.GetOutputDir();
+
+			if (!Directory.Exists(this.SrcRootDir))
+				throw new Exception("no SrcRootDir");
+
+			if (!Directory.Exists(this.DestRootDir))
+				throw new Exception("no DestRootDir");
+
+			string[] rDirs = Directory.GetDirectories(this.SrcRootDir);
+
+			foreach (string rDir in rDirs)
+			{
+				string rOutDir = Path.Combine(rDir, "out");
+				string htmlFile = Path.Combine(rOutDir, "Game.html");
+
+				if (File.Exists(htmlFile))
+				{
+					string wDir = Path.Combine(this.DestRootDir, Path.GetFileName(rDir));
+
+					Console.WriteLine("< " + rOutDir);
+					Console.WriteLine("> " + wDir);
+
+					SCommon.CopyDir(rOutDir, wDir);
+
+					Console.WriteLine("done");
+				}
+			}
+			Console.WriteLine("OK!");
 		}
-#endif
 	}
 }

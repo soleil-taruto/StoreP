@@ -77,6 +77,8 @@ C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\I4Rect.js(20) : CreateI4Re
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\I4Rect.js(36) : CreateI4Rect_LTRB // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\I4Rect.js(44) : CreateI4Rect_XYWH // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\I4Rect.js(49) : I4RectToD4Rect // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\LocalStorage.js(5) : GetLocalStorageValue // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\LocalStorage.js(16) : SetLocalStorageValue // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Math.js(8) : ToInt // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Math.js(20) : ToFix // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Math.js(32) : ToFloor // ä÷êî
@@ -90,6 +92,8 @@ C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Math.js(88) : ChooseOne //
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\String.js(5) : ZPad // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\String.js(16) : ToHex // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\String.js(42) : RevStr // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\String.js(53) : Tokenize // ä÷êî
+C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\String.js(86) : StrToInt // ä÷êî
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Types.js(7) : P4Poly_t // íËã`
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Types.js(20) : int // íËã`
 C:\Dev\GameJS\Shooting_v003\Gattonero20200001\Commons\Types.js(21) : double // íËã`
