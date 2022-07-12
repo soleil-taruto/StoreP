@@ -34,9 +34,9 @@ function* <generatorForTask> CreditMain()
 			PrintLine(credits[index] + "　" + credits[index + 1]);
 		}
 
-		SetPrint(Screen_W - 400, Screen_H - 20, 0);
+		SetPrint(Screen_W - 540, Screen_H - 20, 0);
 		SetFSize(20);
-		PrintLine("画面をクリックするとタイトルに戻ります");
+		PrintLine("Ａボタンまたは画面をクリックするとタイトルに戻ります");
 
 		yield 1;
 	}

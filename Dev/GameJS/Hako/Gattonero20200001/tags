@@ -79,6 +79,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Commons\I4Rect.js(44) : CreateI4Rect_XYWH /
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\I4Rect.js(49) : I4RectToD4Rect // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\LocalStorage.js(5) : GetLocalStorageValue // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\LocalStorage.js(16) : SetLocalStorageValue // ä÷êî
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\LocalStorage.js(21) : ClearLocalStorageValue // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(8) : ToInt // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(20) : ToFix // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(32) : ToFloor // ä÷êî
@@ -147,6 +148,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(170) : @ // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(175) : FreezeInput_Frame // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(181) : FreezeInput // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(186) : FreezeInputUntilRelease // ä÷êî
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(191) : WaitToReleaseButton // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(12) : PadInputIndex_2 // ïœêî
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(13) : PadInputIndex_4 // ïœêî
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons\KF_Input.js(14) : PadInputIndex_6 // ïœêî

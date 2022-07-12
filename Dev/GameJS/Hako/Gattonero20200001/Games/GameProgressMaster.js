@@ -164,6 +164,11 @@ function* <generatorForTask> MapSelectMenu()
 			index++;
 		}
 
+		SetColor("#ffffff");
+		SetPrint(Screen_W - 360, Screen_H - 15, 0);
+		SetFSize(20);
+		PrintLine("Ｂボタンを押すとタイトルに戻ります");
+
 		yield 1;
 	}
 
