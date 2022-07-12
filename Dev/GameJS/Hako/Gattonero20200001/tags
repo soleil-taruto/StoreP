@@ -30,9 +30,6 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(55) : IsOutOfScreen // ä÷
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(69) : AToBRate // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(83) : RateAToB // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(91) : ToInRangeAngle // ä÷êî
-C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Cookie.js(5) : GetCookie // ä÷êî
-C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Cookie.js(30) : GetCookieValue // ä÷êî
-C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Cookie.js(42) : SetCookieValue // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\D2Point.js(7) : D2Point_t // íËã`
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\D2Point.js(15) : CreateD2Point // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\D2Point.js(26) : D2PointToI2Point // ä÷êî
@@ -80,6 +77,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Commons\I4Rect.js(20) : CreateI4Rect // ä÷ê
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\I4Rect.js(36) : CreateI4Rect_LTRB // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\I4Rect.js(44) : CreateI4Rect_XYWH // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\I4Rect.js(49) : I4RectToD4Rect // ä÷êî
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\LocalStorage.js(5) : GetLocalStorageValue // ä÷êî
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\LocalStorage.js(16) : SetLocalStorageValue // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(8) : ToInt // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(20) : ToFix // ä÷êî
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(32) : ToFloor // ä÷êî

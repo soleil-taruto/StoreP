@@ -4,10 +4,10 @@
 
 function <void> SetLastClearedStageIndex(<int> index)
 {
-	SetCookieValue("LastClearedStageIndex", "" + index);
+	SetLocalStorageValue("LastClearedStageIndex", "" + index);
 }
 
 function <int> GetLastClearedStageIndex()
 {
-	return parseInt(GetCookieValue("LastClearedStageIndex", "0"));
+	return parseInt(GetLocalStorageValue("LastClearedStageIndex", "0"));
 }
