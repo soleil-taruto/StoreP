@@ -68,3 +68,8 @@ var<double> PLAYER_接地判定Pt_Y = TILE_H / 2.0;
 // ----
 // プレイヤー情報ここまで
 // ----
+
+/// GameEndReason_e
+//
+var<int> GameEndReason_e_NORMAL = @(AUTO);
+var<int> GameEndReason_e_RETURN_MENU = @(AUTO);

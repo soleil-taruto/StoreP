@@ -8,10 +8,24 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
+/*
+	メニューへ戻るボタンの位置
+*/
+var<int> @@_RETURN_MENU_L = 580;
+var<int> @@_RETURN_MENU_T = 20;
+var<int> @@_RETURN_MENU_W = 200;
+var<int> @@_RETURN_MENU_H = 60;
+
+var<GameEndReason_e> GameEndReason = GameEndReason_e_NORMAL;
+var<int> GameLastPlayedStageIndex = 0;
+
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
 	// reset
 	{
+		GameEndReason = GameEndReason_e_NORMAL;
+		GameLastPlayedStageIndex = 0;
+
 		@@_Enemies = [];
 		@@_Shots = [];
 
@@ -23,6 +37,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	PlayerX = Map.StartPt.X;
 	PlayerY = Map.StartPt.Y;
 
+	GameLastPlayedStageIndex = Map.Index;
+
 	SetCurtain();
 	FreezeInput();
 
@@ -33,6 +49,16 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 gameLoop:
 	for (; ; )
 	{
+		if (
+			GetMouseDown() == -1 &&
+			@@_RETURN_MENU_L < GetMouseX() && GetMouseX() < @@_RETURN_MENU_L + @@_RETURN_MENU_W &&
+			@@_RETURN_MENU_T < GetMouseY() && GetMouseY() < @@_RETURN_MENU_T + @@_RETURN_MENU_H
+			)
+		{
+			GameEndReason = GameEndReason_e_RETURN_MENU;
+			break;
+		}
+
 		// ====
 		// 描画ここから
 		// ====
@@ -266,9 +292,21 @@ function <void> @@_DrawFront()
 		);
 
 	SetColor("#ffffff");
-	SetPrint(10, 80, 0);
+	SetPrint(20, 80, 0);
 	SetFSize(80);
 	PrintLine("STAGE " + Map.Index);
+
+	SetPrint(20, Screen_W - 70, 30);
+	SetFSize(16);
+	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
+	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");
+
+	SetColor("#ffffff");
+	PrintRect(@@_RETURN_MENU_L, @@_RETURN_MENU_T, @@_RETURN_MENU_W, @@_RETURN_MENU_H);
+	SetColor("#000000");
+	SetPrint(@@_RETURN_MENU_L + 15, @@_RETURN_MENU_T + 40, 0);
+	SetFSize(24);
+	PrintLine("メニューへ戻る");
 }
 
 /*

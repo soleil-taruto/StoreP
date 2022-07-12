@@ -70,6 +70,8 @@ function <string[]> Tokenize(<string> str, <string> separator, <boolean> trimmin
 		dest.push(str.substring(0, index));
 		str = str.substring(index + separator.length);
 	}
+	dest.push(str);
+
 	if (trimming)
 	{
 		dest = dest.map(v => v.trim());

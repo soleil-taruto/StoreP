@@ -2,12 +2,68 @@
 	セーブデータ
 */
 
-function <void> SetLastClearedStageIndex(<int> index)
+// SaveData >
+
+/*
+	既にクリアしたステージ・インデックス
+	-1 == 未クリア
+	0～ == ステージ・インデックス
+*/
+var<int> @@_AlreadyClearedStageIndex;
+
+// < SaveData
+
+function <void> @@_Load()
 {
-	SetLocalStorageValue("@(APID)_LastClearedStageIndex", "" + index);
+	try
+	{
+		var data = GetLocalStorageValue("@(APID)_SaveData", null);
+
+		if (data == null)
+		{
+			throw null;
+		}
+		data = Tokenize(data, ";", false, false);
+		var<int> c = 0;
+
+		// SaveData >
+
+		@@_AlreadyClearedStageIndex = parseInt(data[c++]);
+
+		// < SaveData
+	}
+	catch // ロードに失敗したらデフォルト値をセットする。
+	{
+		// SaveData >
+
+		@@_AlreadyClearedStageIndex = -1;
+
+		// < SaveData
+	}
 }
 
-function <int> GetLastClearedStageIndex()
+function <void> @@_Save()
 {
-	return parseInt(GetLocalStorageValue("@(APID)_LastClearedStageIndex", "0"));
+	var<string[]> data = [];
+
+	// SaveData >
+
+	data.push("" + @@_AlreadyClearedStageIndex);
+
+	// < SaveData
+
+	SetLocalStorageValue("@(APID)_SaveData", data.join(";"));
+}
+
+function <void> SetAlreadyClearedStageIndex(<int> index)
+{
+	@@_Load();
+	@@_AlreadyClearedStageIndex = index;
+	@@_Save();
+}
+
+function <int> GetAlreadyClearedStageIndex()
+{
+	@@_Load();
+	return @@_AlreadyClearedStageIndex;
 }

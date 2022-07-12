@@ -24,6 +24,17 @@ function* <generatorForTask> MapSelectMenu()
 gameLoop:
 	for (; ; )
 	{
+		var<int> canPlayIndex = GetAlreadyClearedStageIndex();
+
+		if (canPlayIndex == -1)
+		{
+			canPlayIndex = 1;
+		}
+		else
+		{
+			canPlayIndex++;
+		}
+
 		if (GetMouseDown() == -1)
 		{
 			var<double> mx = GetMouseX();
@@ -45,9 +56,7 @@ gameLoop:
 					0.0
 					))
 				{
-					var<int> clearedIndex = GetLastClearedStageIndex();
-
-					if (clearedIndex + 1 < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
+					if (canPlayIndex < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
 					{
 						// noop
 					}
@@ -84,8 +93,10 @@ gameLoop:
 
 			yield* @@_Game(index);
 
-			selectX = @@_PANEL_X_NUM - 1;
-			selectY = @@_PANEL_Y_NUM - 1;
+			index = GameLastPlayedStageIndex - 1;
+
+			selectX = index % @@_PANEL_X_NUM;
+			selectY = ToFix(index / @@_PANEL_Y_NUM);
 
 			continue gameLoop;
 		}
@@ -96,7 +107,7 @@ gameLoop:
 
 		if (1 <= GetKeyInput(16) && GetKeyInput(81) == 1) // ? シフト + Q -- 全ステージクリア -- (デバッグ用)
 		{
-			SetLastClearedStageIndex(GetMapCount() - 1);
+			SetAlreadyClearedStageIndex(GetMapCount() - 1);
 			SE(S_Dead);
 		}
 
@@ -111,7 +122,7 @@ gameLoop:
 		SetColor("#004060");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
-		var<int> clearedIndex = GetLastClearedStageIndex();
+		var<int> clearedIndex = GetAlreadyClearedStageIndex();
 		var<int> index = 1;
 
 		for (var<int> y = 0; y < @@_PANEL_Y_NUM; y++)
@@ -120,11 +131,9 @@ gameLoop:
 			var<int> l = @@_PANEL_L + x * (@@_PANEL_W + @@_PANEL_X_GAP);
 			var<int> t = @@_PANEL_T + y * (@@_PANEL_H + @@_PANEL_Y_GAP);
 
-			var<boolean> cannotPlay = clearedIndex + 1 < index;
-
 			if (x == selectX && y == selectY)
 			{
-				if (cannotPlay)
+				if (canPlayIndex < index)
 				{
 					SetColor("#808000");
 				}
@@ -135,7 +144,7 @@ gameLoop:
 			}
 			else
 			{
-				if (cannotPlay)
+				if (canPlayIndex < index)
 				{
 					SetColor("#808080");
 				}
@@ -169,13 +178,21 @@ function* <void> @@_Game(<int> startMapIndex)
 		yield* Wait(40);
 	}
 
-	for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
+gamePlay:
 	{
-		yield* GameMain(mapIndex);
+		for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
+		{
+			yield* GameMain(mapIndex);
 
-		SetLastClearedStageIndex(Math.max(mapIndex, GetLastClearedStageIndex()));
+			if (GameEndReason == GameEndReason_e_RETURN_MENU)
+			{
+				break gamePlay;
+			}
+
+			SetAlreadyClearedStageIndex(Math.max(mapIndex, GetAlreadyClearedStageIndex()));
+		}
+		yield* Ending();
 	}
-	yield* Ending();
 
 	// Enter MapSelectMenu()
 	{
