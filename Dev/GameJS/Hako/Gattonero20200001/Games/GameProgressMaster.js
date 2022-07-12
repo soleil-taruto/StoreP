@@ -24,7 +24,6 @@ function* <generatorForTask> MapSelectMenu()
 	for (; ; )
 	{
 		var<int> canPlayIndex = GetAlreadyClearedStageIndex();
-console.log(canPlayIndex);
 
 		if (canPlayIndex == -1)
 		{
