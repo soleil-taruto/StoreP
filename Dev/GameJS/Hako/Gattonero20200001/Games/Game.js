@@ -264,6 +264,11 @@ function <void> @@_DrawFront()
 		Screen_W - FIELD_R,
 		Screen_H
 		);
+
+	SetColor("#ffffff");
+	SetPrint(10, 90, 0);
+	SetFSize(80);
+	PrintLine("STAGE " + Map.Index);
 }
 
 /*

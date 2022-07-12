@@ -21,6 +21,7 @@ function* <generatorForTask> MapSelectMenu()
 
 	Play(M_Title);
 
+gameLoop:
 	for (; ; )
 	{
 		if (GetMouseDown() == -1)
@@ -44,7 +45,18 @@ function* <generatorForTask> MapSelectMenu()
 					0.0
 					))
 				{
-					yield* @@_Game(index);
+					var<int> clearedIndex = GetLastClearedStageIndex();
+
+					if (clearedIndex + 1 < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
+					{
+						// noop
+					}
+					else // ? プレイ可能
+					{
+						yield* @@_Game(index);
+
+						continue gameLoop;
+					}
 				}
 
 				index++;
@@ -74,6 +86,8 @@ function* <generatorForTask> MapSelectMenu()
 
 			selectX = @@_PANEL_X_NUM - 1;
 			selectY = @@_PANEL_Y_NUM - 1;
+
+			continue gameLoop;
 		}
 		if (IsPound(GetInput_B()))
 		{
@@ -91,7 +105,8 @@ function* <generatorForTask> MapSelectMenu()
 		SetColor("#004060");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
-		var<int> index = 0;
+		var<int> clearedIndex = GetLastClearedStageIndex();
+		var<int> index = 1;
 
 		for (var<int> y = 0; y < @@_PANEL_Y_NUM; y++)
 		for (var<int> x = 0; x < @@_PANEL_X_NUM; x++)
@@ -99,22 +114,35 @@ function* <generatorForTask> MapSelectMenu()
 			var<int> l = @@_PANEL_L + x * (@@_PANEL_W + @@_PANEL_X_GAP);
 			var<int> t = @@_PANEL_T + y * (@@_PANEL_H + @@_PANEL_Y_GAP);
 
-			if (
-				x == selectX &&
-				y == selectY
-				)
+			var<boolean> cannotPlay = clearedIndex + 1 < index;
+
+			if (x == selectX && y == selectY)
 			{
-				SetColor("#ffff00");
+				if (cannotPlay)
+				{
+					SetColor("#808000");
+				}
+				else
+				{
+					SetColor("#ffff00");
+				}
 			}
 			else
 			{
-				SetColor("#ffffff");
+				if (cannotPlay)
+				{
+					SetColor("#808080");
+				}
+				else
+				{
+					SetColor("#ffffff");
+				}
 			}
 			PrintRect(l, t, @@_PANEL_W, @@_PANEL_H);
 			SetColor("#000000");
 			SetPrint(l + 30, t + 110, 0);
 			SetFSize(80);
-			PrintLine(ZPad(index + 1, 2, "0"));
+			PrintLine(ZPad(index, 2, "0"));
 
 			index++;
 		}
@@ -138,6 +166,8 @@ function* <void> @@_Game(<int> startMapIndex)
 	for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
 	{
 		yield* GameMain(mapIndex);
+
+		SetLastClearedStageIndex(mapIndex);
 	}
 	yield* Ending();
 

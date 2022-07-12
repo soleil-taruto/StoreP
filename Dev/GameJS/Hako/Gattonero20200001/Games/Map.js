@@ -65,6 +65,12 @@ var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
 	// (テーブル座標)
 	//
 	<MapCell_t[][]> Table;
+
+	// このマップのステージ・インデックス
+	// 0 == テスト用
+	// 1～16 == 本番ステージ
+	//
+	<int> Index;
 }
 
 @(ASTR)/
@@ -106,6 +112,7 @@ function <void> LoadMap(<int> mapIndex)
 
 	Map = {};
 	Map.Table = [];
+	Map.Index = mapIndex;
 
 	for (var<int> x = 0; x < MAP_W; x++)
 	{

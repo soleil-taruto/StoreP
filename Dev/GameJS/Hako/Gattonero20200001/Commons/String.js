@@ -49,3 +49,34 @@ function <string> RevStr(<string> str)
 	}
 	return ret;
 }
+
+function <string[]> Tokenize(<string> str, <string> separator, <boolean> trimming, <boolean> ignoreEmpty)
+{
+	if (separator == "")
+	{
+		error();
+	}
+
+	var<string[]> dest = [];
+
+	for (; ; )
+	{
+		var<int> index = str.indexOf(separator);
+
+		if (index == -1)
+		{
+			break;
+		}
+		dest.push(str.substring(0, index));
+		str = str.substring(index + separator.length);
+	}
+	if (trimming)
+	{
+		dest = dest.map(v => v.trim());
+	}
+	if (ignoreEmpty)
+	{
+		dest = dest.filter(v => v != "");
+	}
+	return dest;
+}

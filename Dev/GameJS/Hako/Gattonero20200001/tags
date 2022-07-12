@@ -30,6 +30,9 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(55) : IsOutOfScreen // 関
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(69) : AToBRate // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(83) : RateAToB // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Common.js(91) : ToInRangeAngle // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Cookie.js(5) : GetCookie // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Cookie.js(30) : GetCookieValue // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Cookie.js(42) : SetCookieValue // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\D2Point.js(7) : D2Point_t // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\D2Point.js(15) : CreateD2Point // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\D2Point.js(26) : D2PointToI2Point // 関数
@@ -90,6 +93,7 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Math.js(88) : ChooseOne // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\String.js(5) : ZPad // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\String.js(16) : ToHex // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\String.js(42) : RevStr // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Commons\String.js(53) : Tokenize // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Types.js(7) : P4Poly_t // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Types.js(20) : int // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Commons\Types.js(21) : double // 定義
@@ -233,11 +237,11 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\GameProgressMaster.js(14) : MapSelect
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(5) : MapCellType_e // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(41) : MapCell_t // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(54) : Map_t // 定義
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(75) : GetMapCount // 関数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(90) : LoadMap // 関数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(219) : LoadEnemyOfMap // 関数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(338) : GetMapCell // 関数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(351) : IsMapCellType_EnemyGreen // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(81) : GetMapCount // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(96) : LoadMap // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(226) : LoadEnemyOfMap // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(345) : GetMapCell // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(358) : IsMapCellType_EnemyGreen // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(7) : MapCellType_e_Wall // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(8) : MapCellType_e_None // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(9) : MapCellType_e_Start // 変数
@@ -269,8 +273,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(34) : MapCellType_e_Enemy_G6_C
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(35) : MapCellType_e_Enemy_G7_CCW // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(36) : MapCellType_e_Enemy_G8_CCW // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(37) : MapCellType_e_Enemy_G9_CCW // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(83) : Map // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(332) : DEFAULT_MAP_CELL // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(89) : Map // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\Map.js(339) : DEFAULT_MAP_CELL // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Maps.js(26) : MAPS // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(64) : ResetPlayer // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(87) : DrawPlayer // 関数
@@ -284,6 +288,8 @@ C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(38) : PlayerJumpCount // 変
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(45) : PlayerJumpFrame // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(52) : PlayerAirborneFrame // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Player.js(59) : PlayerShagamiFrame // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\SaveData.js(5) : SetLastClearedStageIndex // 関数
+C:\Dev\GameJS\Hako\Gattonero20200001\Games\SaveData.js(10) : GetLastClearedStageIndex // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(40) : DrawEnemy // 関数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\Enemies\Enemy.js(48) : KillEnemy // 関数
