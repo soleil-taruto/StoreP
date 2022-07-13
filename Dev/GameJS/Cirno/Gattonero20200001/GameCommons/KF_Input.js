@@ -15,6 +15,7 @@ var<int> PadInputIndex_6 = 106;
 var<int> PadInputIndex_8 = 108;
 var<int> PadInputIndex_A = 0;
 var<int> PadInputIndex_B = 3;
+var<int> PadInputIndex_Pause = 9;
 
 /*
 	各ボタンの押下状態カウンタ
@@ -25,6 +26,7 @@ var<int> @@_Count_6 = 0;
 var<int> @@_Count_8 = 0;
 var<int> @@_Count_A = 0;
 var<int> @@_Count_B = 0;
+var<int> @@_Count_Pause = 0;
 
 /*
 	各ボタンの押下状態カウンタの列挙
@@ -37,16 +39,18 @@ function* <int[]> @@_Counts()
 	yield @@_Count_8;
 	yield @@_Count_A;
 	yield @@_Count_B;
+	yield @@_Count_Pause;
 }
 
 function <void> @@_EACH()
 {
-	@@_Count_2 = @@_Check(@@_Count_2, PadInputIndex_2, [ 40, 74,  98 ]); // カーソル下 , J , テンキー2
-	@@_Count_4 = @@_Check(@@_Count_4, PadInputIndex_4, [ 37, 72, 100 ]); // カーソル左 , H , テンキー4
-	@@_Count_6 = @@_Check(@@_Count_6, PadInputIndex_6, [ 39, 76, 102 ]); // カーソル右 , L , テンキー6
-	@@_Count_8 = @@_Check(@@_Count_8, PadInputIndex_8, [ 38, 75, 104 ]); // カーソル上 , K , テンキー8
-	@@_Count_A = @@_Check(@@_Count_A, PadInputIndex_A, [ 90 ]); // Z
-	@@_Count_B = @@_Check(@@_Count_B, PadInputIndex_B, [ 88 ]); // X
+	@@_Count_2     = @@_Check(@@_Count_2,     PadInputIndex_2, [ 40, 74,  98 ]); // カーソル下 , J , テンキー2
+	@@_Count_4     = @@_Check(@@_Count_4,     PadInputIndex_4, [ 37, 72, 100 ]); // カーソル左 , H , テンキー4
+	@@_Count_6     = @@_Check(@@_Count_6,     PadInputIndex_6, [ 39, 76, 102 ]); // カーソル右 , L , テンキー6
+	@@_Count_8     = @@_Check(@@_Count_8,     PadInputIndex_8, [ 38, 75, 104 ]); // カーソル上 , K , テンキー8
+	@@_Count_A     = @@_Check(@@_Count_A,     PadInputIndex_A, [ 90 ]); // Z
+	@@_Count_B     = @@_Check(@@_Count_B,     PadInputIndex_B, [ 88 ]); // X
+	@@_Count_Pause = @@_Check(@@_Count_Pause, PadInputIndex_B, [ 32 ]); // スペース
 }
 
 function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
@@ -143,6 +147,14 @@ function <int> GetInput_A()
 function <int> GetInput_B()
 {
 	return @@_GetInput(@@_Count_B);
+}
+
+/*
+	ポーズ
+*/
+function <int> GetInput_Pause()
+{
+	return @@_GetInput(@@_Count_Pause);
 }
 
 // ----

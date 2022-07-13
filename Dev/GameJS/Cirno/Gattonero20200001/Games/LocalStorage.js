@@ -19,6 +19,7 @@ function <void> LoadLocalStorage()
 
 		PadInputIndex_A = StrToInt(data[c++]);
 		PadInputIndex_B = StrToInt(data[c++]);
+		PadInputIndex_Pause = StrToInt(data[c++]);
 
 		AlreadyClearedStageIndex = StrToInt(data[c++]);
 
@@ -30,6 +31,7 @@ function <void> LoadLocalStorage()
 
 		PadInputIndex_A = 0;
 		PadInputIndex_B = 3;
+		PadInputIndex_Pause = 9;
 
 		AlreadyClearedStageIndex = -1;
 
@@ -45,6 +47,7 @@ function <void> SaveLocalStorage()
 
 	data.push("" + PadInputIndex_A);
 	data.push("" + PadInputIndex_B);
+	data.push("" + PadInputIndex_Pause);
 
 	data.push("" + AlreadyClearedStageIndex);
 
