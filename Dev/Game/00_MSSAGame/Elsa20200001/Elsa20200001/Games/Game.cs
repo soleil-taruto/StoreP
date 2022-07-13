@@ -442,11 +442,12 @@ namespace Charlotte.Games
 					{
 						if (this.Player.YSpeed < 0.0)
 						{
+							// プレイヤーと天井の反発係数
+							//const double K = 1.0;
+							const double K = 0.0;
+
 							this.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y) + GameConsts.TILE_H / 2 + GameConsts.PLAYER_脳天判定Pt_Y;
-
-							//this.Player.YSpeed = Math.Abs(Player.YSpeed); // 反発係数 1
-							this.Player.YSpeed = 0.0; // 反発係数 0
-
+							this.Player.YSpeed = Math.Abs(Player.YSpeed) * K;
 							this.Player.JumpFrame = 0;
 						}
 					}
@@ -463,27 +464,22 @@ namespace Charlotte.Games
 						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X - GameConsts.PLAYER_接地判定Pt_X, this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y)).Tile.IsWall() ||
 						this.Map.GetCell(GameCommon.ToTablePoint(this.Player.X + GameConsts.PLAYER_接地判定Pt_X, this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y)).Tile.IsWall();
 
-					if (touchGround)
-					{
-						// memo: @ 2022.7.11
-						// 上昇中(ジャンプ中)に接地判定が発生することがある。
-						// 接地中は重力により PlayerYSpeed がプラスに振れる。
-						// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
+					// memo: @ 2022.7.11
+					// 上昇中(ジャンプ中)に接地判定が発生することがある。
+					// 接地中は重力により PlayerYSpeed がプラスに振れる。
+					// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
 
-						if (0.0 < this.Player.YSpeed)
-						{
-							this.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) - GameConsts.TILE_H / 2 - GameConsts.PLAYER_接地判定Pt_Y;
-							this.Player.YSpeed = 0.0;
-						}
-					}
-
-					if (touchGround)
+					if (touchGround && 0.0 < this.Player.YSpeed)
 					{
+						this.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) - GameConsts.TILE_H / 2 - GameConsts.PLAYER_接地判定Pt_Y;
+						this.Player.YSpeed = 0.0;
 						this.Player.JumpCount = 0;
 						this.Player.AirborneFrame = 0;
 					}
 					else
+					{
 						this.Player.AirborneFrame++;
+					}
 				}
 				//endPlayer:
 

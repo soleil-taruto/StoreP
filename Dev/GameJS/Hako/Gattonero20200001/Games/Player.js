@@ -316,22 +316,15 @@ function <void> DrawPlayer()
 			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).WallFlag ||
 			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).WallFlag;
 
-		if (touchGround)
-		{
-			// memo: @ 2022.7.11
-			// 上昇中(ジャンプ中)に接地判定が発生することがある。
-			// 接地中は重力により PlayerYSpeed がプラスに振れる。
-			// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
+		// memo: @ 2022.7.11
+		// 上昇中(ジャンプ中)に接地判定が発生することがある。
+		// 接地中は重力により PlayerYSpeed がプラスに振れる。
+		// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
 
-			if (0.0 < PlayerYSpeed)
-			{
-				PlayerY = ToTileCenterY(PlayerY + PLAYER_接地判定Pt_Y) - TILE_H / 2.0 - PLAYER_接地判定Pt_Y;
-				PlayerYSpeed = 0.0;
-			}
-		}
-
-		if (touchGround)
+		if (touchGround && 0.0 < PlayerYSpeed)
 		{
+			PlayerY = ToTileCenterY(PlayerY + PLAYER_接地判定Pt_Y) - TILE_H / 2.0 - PLAYER_接地判定Pt_Y;
+			PlayerYSpeed = 0.0;
 			PlayerJumpCount = 0;
 			PlayerAirborneFrame = 0;
 		}
