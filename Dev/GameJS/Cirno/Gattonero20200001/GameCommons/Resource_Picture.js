@@ -35,14 +35,17 @@ var<Image> P_WhiteCircle = @@_Load(Resources.General__WhiteCircle_png);
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Image> P_ExplodeStar = @@_Load(Resources.Picture__光る星20_png);
+var<Image> P_ExplodePiece = @@_Load(Resources.Picture__光る星20_png);
 var<Image> P_Wall = @@_Load(Resources.Picture__Wall_png);
 
-var<Image[]> P_Players =
-[
-	@@_Load(Resources.えむくろ__nc25161_0101_png),
-	@@_Load(Resources.えむくろ__nc25161_0102_png),
-	@@_Load(Resources.えむくろ__nc25161_0103_png),
+var<Image> P_PlayerAttack = @@_Load(Resources.えむくろ__CirnoAttack_png);
+var<Image> P_PlayerStand  = @@_Load(Resources.えむくろ__CirnoStand_png);
+var<Image> P_PlayerJump   = @@_Load(Resources.えむくろ__CirnoJump_png);
 
-	// TODO
+var<Image[]> P_PlayerRun =
+[
+	@@_Load(Resources.えむくろ__CirnoRun_001_png),
+	@@_Load(Resources.えむくろ__CirnoRun_002_png),
+	@@_Load(Resources.えむくろ__CirnoRun_003_png),
+	@@_Load(Resources.えむくろ__CirnoRun_004_png),
 ];
