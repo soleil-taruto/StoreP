@@ -10,7 +10,7 @@ namespace Charlotte.GameCommons
 	/// ここで取得した DDPicture は Unload する必要なし
 	/// 必要あり -> DDPictureLoader
 	/// </summary>
-	public static class DDPictureLoaders2
+	public static class DDPictureLoadersNNUL
 	{
 		private class PictureWrapper : DDPicture
 		{

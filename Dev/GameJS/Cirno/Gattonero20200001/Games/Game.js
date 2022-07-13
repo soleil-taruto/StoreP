@@ -50,8 +50,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	Play(M_Field);
 
-
-
 gameLoop:
 	for (; ; )
 	{
@@ -359,14 +357,7 @@ function* <generatorForTask> @@_GoalMotion()
 	{
 		@@_DrawWall();
 
-		Draw(
-			P_Player,
-			PlayerX,
-			PlayerY,
-			0.5 + 0.5 * scene.RemRate,
-			10.0 * scene.Rate * scene.Rate,
-			1.0 + 29.0 * scene.Rate
-			);
+		// TODO ???
 
 		@@_DrawFront();
 

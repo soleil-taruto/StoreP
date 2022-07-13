@@ -161,11 +161,11 @@ function <void> DrawCrash(<Crash_t> crash)
 	}
 	else if (crash.Kind == 1) // ? ‰~Œ`
 	{
-		PrintCircle(crash.X, crash.Y, Math.max(3.0, crash.R));
+		PrintCircle(crash.X - Camera.X, crash.Y - Camera.Y, Math.max(3.0, crash.R));
 	}
 	else if (crash.Kind == 2) // ? ‹éŒ`
 	{
-		PrintRect(crash.Rect.L, crash.Rect.T, crash.Rect.W, crash.Rect.H);
+		PrintRect(crash.Rect.L - Camera.X, crash.Rect.T - Camera.Y, crash.Rect.W, crash.Rect.H);
 	}
 	else
 	{

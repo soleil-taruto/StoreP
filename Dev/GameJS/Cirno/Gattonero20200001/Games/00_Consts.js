@@ -12,10 +12,6 @@ var<int> TILE_H = 32;
 // プレイヤー情報ここから
 // ----
 
-var<int> PLAYER_DEAD_FRAME_MAX = 180;
-var<int> PLAYER_DAMAGE_FRAME_MAX = 20;
-var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
-
 /*
 	ジャンプ回数の上限
 	1 == 通常

@@ -134,7 +134,7 @@
     <Compile Include="GameCommons\DDPad.cs" />
     <Compile Include="GameCommons\DDPicture.cs" />
     <Compile Include="GameCommons\DDPictureLoaders.cs" />
-    <Compile Include="GameCommons\DDPictureLoaders2.cs" />
+    <Compile Include="GameCommons\DDPictureLoadersNNUL.cs" />
     <Compile Include="GameCommons\DDPictureLoaderUtils.cs" />
     <Compile Include="GameCommons\DDPictureUtils.cs" />
     <Compile Include="GameCommons\DDPrint.cs" />

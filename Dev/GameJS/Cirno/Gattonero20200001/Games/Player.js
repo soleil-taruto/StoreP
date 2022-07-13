@@ -8,6 +8,9 @@
 var<double> PlayerX = 0.0;
 var<double> PlayerY = 0.0;
 
+var<int> PlayerDamageFrame = 0;
+var<int> PlayerInvincFrame = 0;
+
 /*
 	プレイヤーの垂直方向の速度
 */
@@ -57,27 +60,6 @@ var<int> PlayerAirborneFrame = 0;
 	1～ == しゃがみ中
 */
 var<int> PlayerShagamiFrame = 0;
-
-/*
-	プレイヤー死亡フレーム
-	0 == 無効
-	1～ == 死亡中
-*/
-var<int> PlayerDeadFrame = 0;
-
-/*
-	プレイヤー・ダメージ・フレーム
-	0 == 無効
-	1～ == ダメージ中
-*/
-var<int> PlayerDamageFrame = 0;
-
-/*
-	プレイヤー無敵時間フレーム
-	0 == 無効
-	1～ == 無敵時間中
-*/
-var<int> PlayerInvincibleFrame = 0;
 
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
@@ -202,18 +184,6 @@ function <void> DrawPlayer()
 		{
 			PlayerShagamiFrame = 0;
 		}
-
-	deadBlock:
-		if (1 <= PlayerDeadFrame)
-		{
-			if (PLAYER_DEAD_FRAME_MAX < ++PlayerDeadFrame)
-			{
-				PlayerDeadFrame = 0;
-				GameEndReason = GameEndReason_e_RETURN_MENU;
-			}
-		}
-
-	damageBlock:
 
 		if (1 <= PlayerMoveFrame) // ? 移動中
 		{
