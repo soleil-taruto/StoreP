@@ -22,7 +22,7 @@ function* <generatorForTask> Test01()
 //	yield* GameMain(13); // Stage-13
 //	yield* GameMain(14); // Stage-14
 //	yield* GameMain(15); // Stage-15
-//	yield* GameMain(15); // Stage-16
+//	yield* GameMain(16); // Stage-16
 
 	// --
 }

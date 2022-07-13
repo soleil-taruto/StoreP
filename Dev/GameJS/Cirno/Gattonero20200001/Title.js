@@ -51,7 +51,7 @@ function* <generatorForTask> TitleMain()
 	FreezeInput();
 	FreezeInputUntilRelease();
 
-//	Play(M_Title); // 要クリックで拒否されるので、抑止
+	Play(M_Title);
 
 	for (; ; )
 	{
@@ -74,7 +74,7 @@ function* <generatorForTask> TitleMain()
 			SetCurtain();
 			FreezeInput();
 
-//			Play(M_Title); // 要クリックで拒否されるので、抑止
+			Play(M_Title);
 		}
 		yield 1;
 	}

@@ -34,7 +34,7 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 			for (var<Scene_t> scene of CreateScene(20))
 			{
 				Draw(
-					P_Star_S,
+					P_ExplodeStar,
 					pt.X,
 					pt.Y,
 					scene.RemRate,
