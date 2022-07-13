@@ -8,26 +8,30 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-/*
-	メニューへ戻るボタンの位置
-*/
-var<int> @@_RETURN_MENU_L = 580;
-var<int> @@_RETURN_MENU_T = 20;
-var<int> @@_RETURN_MENU_W = 200;
-var<int> @@_RETURN_MENU_H = 60;
+// カメラ位置
+var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 
+/*
+	ゲーム終了理由
+*/
 var<GameEndReason_e> GameEndReason = GameEndReason_e_NORMAL;
+
+/*
+	ゲーム終了時のステージ・インデックス
+	0～
+*/
 var<int> GameLastPlayedStageIndex = 0;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
 	// reset
 	{
-		GameEndReason = GameEndReason_e_NORMAL;
-		GameLastPlayedStageIndex = 0;
-
 		@@_Enemies = [];
 		@@_Shots = [];
+
+		GameEndReason = GameEndReason_e_NORMAL;
+		GameLastPlayedStageIndex = 0;
+		Camera = CreateD2Point(0.0, 0.0);
 
 		ResetPlayer();
 	}
@@ -49,16 +53,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 gameLoop:
 	for (; ; )
 	{
-		if (
-			GetMouseDown() == -1 &&
-			@@_RETURN_MENU_L < GetMouseX() && GetMouseX() < @@_RETURN_MENU_L + @@_RETURN_MENU_W &&
-			@@_RETURN_MENU_T < GetMouseY() && GetMouseY() < @@_RETURN_MENU_T + @@_RETURN_MENU_H
-			)
-		{
-			GameEndReason = GameEndReason_e_RETURN_MENU;
-			break;
-		}
-
 		// ====
 		// 描画ここから
 		// ====
@@ -239,34 +233,35 @@ function <void> @@_DrawWall()
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
 	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
 
-	for (var<int> x = 0; x < MAP_W; x++)
+	var<I2Point_t> lt = ToTablePoint(Camera);
+	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
+	var<int> l = lt.X;
+	var<int> t = lt.Y;
+	var<int> r = rb.X;
+	var<int> b = rb.Y;
+
+	// マージン付与
+	{
+		var<int> MARGIN = 2; // マージン・セル数
+
+		l -= MARGIN;
+		t -= MARGIN;
+		r += MARGIN;
+		b += MARGIN;
+	}
+
+	for (var<int> x = l; x < MAP_W; x++)
 	for (var<int> y = 0; y < MAP_H; y++)
 	{
+		ToFieldPoint
+
 		var<double> dx = FIELD_L + x * TILE_W + TILE_W / 2;
 		var<double> dy = FIELD_T + y * TILE_H + TILE_H / 2;
 
 		if (Map.Table[x][y].WallFlag)
 		{
 			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
-
-			if (IsMapCellType_EnemyGreen(Map.Table[x][y].Type)) // 敵緑の中心
-			{
-				SetColor("#00ff0080");
-				PrintRect_XYWH(dx, dy, 20.0, 20.0);
-			}
 		}
-		else
-		{
-			Draw(P_背景, dx, dy, 1.0, 0.0, 1.0);
-		}
-
-		/*
-		if (Map.Table[x][y].NarrowFlag) // test
-		{
-			SetColor("#ff00ff80");
-			PrintCircle(dx, dy, 20.0);
-		}
-		*/
 	}
 }
 
@@ -295,18 +290,6 @@ function <void> @@_DrawFront()
 	SetPrint(20, 80, 0);
 	SetFSize(80);
 	PrintLine("STAGE " + Map.Index);
-
-	SetPrint(20, Screen_W - 65, 40);
-	SetFSize(16);
-	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
-	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");
-
-	SetColor("#ffffff");
-	PrintRect(@@_RETURN_MENU_L, @@_RETURN_MENU_T, @@_RETURN_MENU_W, @@_RETURN_MENU_H);
-	SetColor("#000000");
-	SetPrint(@@_RETURN_MENU_L + 15, @@_RETURN_MENU_T + 40, 0);
-	SetFSize(24);
-	PrintLine("メニューへ戻る");
 }
 
 /*

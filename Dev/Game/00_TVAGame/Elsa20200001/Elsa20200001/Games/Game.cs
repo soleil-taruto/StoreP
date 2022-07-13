@@ -1117,10 +1117,12 @@ namespace Charlotte.Games
 			// マージン付与
 			// -- マップセルの範囲をはみ出て描画されるタイルのためにマージンを増やす。
 			{
-				lt.X -= 2;
-				lt.Y -= 2;
-				rb.X += 2;
-				rb.Y += 2;
+				const int MARGIN = 2; // マージン・マップセル数
+
+				lt.X -= MARGIN;
+				lt.Y -= MARGIN;
+				rb.X += MARGIN;
+				rb.Y += MARGIN;
 			}
 
 			lt.X = SCommon.ToRange(lt.X, 0, w - 1);
