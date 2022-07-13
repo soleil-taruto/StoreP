@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Charlotte.Commons;
 using Charlotte.Tests;
+using Charlotte.Utilities;
 
 namespace Charlotte
 {
@@ -19,51 +20,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4();
-			}
-			SCommon.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			Main4();
-			SCommon.Pause();
-		}
-
-		private void Main4()
-		{
-			try
-			{
-				Main5();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-		}
-
-		private void Main5()
-		{
-			// -- choose one --
-
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -81,7 +37,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\temp\nc229908.png", "32", "32" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -110,8 +66,42 @@ namespace Charlotte
 
 		private void Main5(ArgsReader ar)
 		{
-			// TODO
+			string imageFile = SCommon.MakeFullPath(ar.NextArg());
+			int tile_w = int.Parse(ar.NextArg());
+			int tile_h = int.Parse(ar.NextArg());
+
+			if (!File.Exists(imageFile))
+				throw new Exception("no imageFile");
+
+			if (tile_w < 1 || SCommon.IMAX < tile_w)
+				throw new Exception("Bad tile_w");
+
+			if (tile_h < 1 || SCommon.IMAX < tile_h)
+				throw new Exception("Bad tile_h");
+
+			Canvas canvas = Canvas.LoadFromFile(imageFile);
+
+			for (int x = 0; ; x++)
+			{
+				int tile_l = x * tile_w;
+
+				if (canvas.W < tile_l + tile_w)
+					break;
+
+				for (int y = 0; ; y++)
+				{
+					int tile_t = y * tile_h;
+
+					if (canvas.H < tile_t + tile_h)
+						break;
+
+					canvas
+						.GetSubImage(tile_l, tile_t, tile_w, tile_h)
+						.Save(Path.Combine(
+							SCommon.GetOutputDir(),
+							string.Format("Tile_{0:D2}{1:D2}.png", x, y)));
+				}
+			}
 		}
-#endif
 	}
 }
