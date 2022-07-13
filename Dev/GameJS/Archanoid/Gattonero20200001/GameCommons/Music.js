@@ -45,11 +45,11 @@ function <void> @(UNQN)_EACH()
 {
 	if (@@_State == 0) // ? 停止中
 	{
-		// nop
+		// noop
 	}
 	else if (@@_State == 1) // ? 再生中
 	{
-		// nop
+		// noop
 	}
 	else if (@@_State == 2) // ? フェードアウト中
 	{
