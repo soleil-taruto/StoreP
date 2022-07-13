@@ -57,7 +57,7 @@ function <string[]> Tokenize(<string> str, <string> separator, <boolean> trimmin
 		error();
 	}
 
-	// <--- 引数チェック
+	// <-- 引数チェック
 
 	var<string[]> dest = [];
 

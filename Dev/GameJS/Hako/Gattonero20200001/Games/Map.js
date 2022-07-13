@@ -57,20 +57,20 @@ var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
 	// 当該セルの中心座標
 	// (画面位置・ドット単位)
 	//
-	<D2Point_t> StartPt;
+	<D2Point_t> StartPt
 
 	// マップセルのテーブル
 	// 添字：[x][y]
 	// サイズ：[MAP_W][MAP_H]
 	// (テーブル座標)
 	//
-	<MapCell_t[][]> Table;
+	<MapCell_t[][]> Table
 
 	// このマップのステージ・インデックス
 	// 0 == テスト用
-	// 1～16 == 本番ステージ
+	// 1 ～ (GetMapCount() - 1) == 本番ステージ
 	//
-	<int> Index;
+	<int> Index
 }
 
 @(ASTR)/

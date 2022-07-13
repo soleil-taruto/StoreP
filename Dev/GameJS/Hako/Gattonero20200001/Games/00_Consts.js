@@ -73,5 +73,5 @@ var<double> PLAYER_ê⁄ínîªíËPt_Y = TILE_H / 2.0;
 
 /// GameEndReason_e
 //
-var<int> GameEndReason_e_NORMAL = @(AUTO);
+var<int> GameEndReason_e_STAGE_CLEAR = @(AUTO);
 var<int> GameEndReason_e_RETURN_MENU = @(AUTO);

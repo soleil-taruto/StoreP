@@ -1294,10 +1294,10 @@ namespace Charlotte.Games
 				//DDEngine.EachFrame(); // 不要
 			}
 
-			DDInput.DIR_2.FreezeInputUntilRelease();
-			DDInput.DIR_4.FreezeInputUntilRelease();
-			DDInput.DIR_6.FreezeInputUntilRelease();
-			DDInput.DIR_8.FreezeInputUntilRelease();
+			//DDInput.DIR_2.FreezeInputUntilRelease();
+			//DDInput.DIR_4.FreezeInputUntilRelease();
+			//DDInput.DIR_6.FreezeInputUntilRelease();
+			//DDInput.DIR_8.FreezeInputUntilRelease();
 			DDInput.A.FreezeInputUntilRelease();
 			DDInput.B.FreezeInputUntilRelease();
 		}

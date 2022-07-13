@@ -58,6 +58,27 @@ var<int> PlayerAirborneFrame = 0;
 */
 var<int> PlayerShagamiFrame = 0;
 
+/*
+	プレイヤー死亡フレーム
+	0 == 無効
+	1～ == 死亡中
+*/
+var<int> PlayerDeadFrame = 0;
+
+/*
+	プレイヤー・ダメージ・フレーム
+	0 == 無効
+	1～ == ダメージ中
+*/
+var<int> PlayerDamageFrame = 0;
+
+/*
+	プレイヤー無敵時間フレーム
+	0 == 無効
+	1～ == 無敵時間中
+*/
+var<int> PlayerInvincibleFrame = 0;
+
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
@@ -182,37 +203,17 @@ function <void> DrawPlayer()
 			PlayerShagamiFrame = 0;
 		}
 
-		// 下押下(しゃがみ)で穴に落下しやすくする。-- ★アプリ固有
-		//
-		if (1 <= PlayerShagamiFrame)
+	deadBlock:
+		if (1 <= PlayerDeadFrame)
 		{
-			var<double> SHAGAMI_SPEED = 1.0; // 下押下(しゃがみ)で穴方向へ動く速度
-
-			var<boolean> grounds =
-			[
-				GetMapCell(ToTablePoint_XY(PlayerX - TILE_W / 2.0 , PlayerY + TILE_H)).WallFlag,
-				GetMapCell(ToTablePoint_XY(PlayerX                , PlayerY + TILE_H)).WallFlag,
-				GetMapCell(ToTablePoint_XY(PlayerX + TILE_W / 2.0 , PlayerY + TILE_H)).WallFlag,
-			];
-
-			if (
-				!grounds[0] &&
-				!grounds[1] &&
-				grounds[2]
-				)
+			if (PLAYER_DEAD_FRAME_MAX < ++PlayerDeadFrame)
 			{
-				PlayerX -= SHAGAMI_SPEED;
-			}
-
-			if (
-				grounds[0] &&
-				!grounds[1] &&
-				!grounds[2]
-				)
-			{
-				PlayerX += SHAGAMI_SPEED;
+				PlayerDeadFrame = 0;
+				GameEndReason = GameEndReason_e_RETURN_MENU;
 			}
 		}
+
+	damageBlock:
 
 		if (1 <= PlayerMoveFrame) // ? 移動中
 		{

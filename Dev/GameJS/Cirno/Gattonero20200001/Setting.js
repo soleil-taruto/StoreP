@@ -27,6 +27,7 @@ gameLoop:
 			[
 				"ゲームパッドのＡボタンの割り当て",
 				"ゲームパッドのＢボタンの割り当て",
+				"ゲームパッドのポーズボタンの割り当て",
 				"データの消去",
 				"戻る",
 			]);
@@ -43,10 +44,14 @@ gameLoop:
 			break;
 
 		case 2:
-			yield* @@_RemoveSaveData();
+			yield* @@_PadSetting("ポーズ", index => PadInputIndex_Pause = index);
 			break;
 
 		case 3:
+			yield* @@_RemoveSaveData();
+			break;
+
+		case 4:
 			break gameLoop;
 		}
 		yield 1;

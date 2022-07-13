@@ -14,7 +14,7 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 /*
 	ゲーム終了理由
 */
-var<GameEndReason_e> GameEndReason = GameEndReason_e_NORMAL;
+var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 
 /*
 	ゲーム終了時のステージ・インデックス
@@ -29,7 +29,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		@@_Enemies = [];
 		@@_Shots = [];
 
-		GameEndReason = GameEndReason_e_NORMAL;
+		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameLastPlayedStageIndex = 0;
 		Camera = CreateD2Point(0.0, 0.0);
 
@@ -49,6 +49,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	yield* @@_StartMotion();
 
 	Play(M_Field);
+
+
 
 gameLoop:
 	for (; ; )
@@ -231,7 +233,7 @@ function <Shot_t[]> GetShots()
 function <void> @@_DrawWall()
 {
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
+	PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
@@ -253,14 +255,13 @@ function <void> @@_DrawWall()
 	for (var<int> x = l; x < MAP_W; x++)
 	for (var<int> y = 0; y < MAP_H; y++)
 	{
-		ToFieldPoint
-
-		var<double> dx = FIELD_L + x * TILE_W + TILE_W / 2;
-		var<double> dy = FIELD_T + y * TILE_H + TILE_H / 2;
+		var<D2Point> dPt = ToFieldPoint_XY(x, y);
+		var<double> dx = dPt.X;
+		var<double> dy = dPt.Y;
 
 		if (Map.Table[x][y].WallFlag)
 		{
-			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
+			Draw(P_Wall, dx - Camera.X, dy - Camera.Y, 1.0, 0.0, 1.0);
 		}
 	}
 }
@@ -301,14 +302,7 @@ function* <generatorForTask> @@_StartMotion()
 	{
 		@@_DrawWall();
 
-		Draw(
-			P_Player,
-			PlayerX,
-			PlayerY,
-			0.5 + 0.5 * scene.Rate,
-			10.0 * scene.RemRate * scene.RemRate,
-			1.0 + 29.0 * scene.RemRate
-			);
+		// TODO ???
 
 		@@_DrawFront();
 

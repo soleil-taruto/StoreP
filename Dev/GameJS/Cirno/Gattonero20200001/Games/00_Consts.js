@@ -12,6 +12,19 @@ var<int> TILE_H = 32;
 // プレイヤー情報ここから
 // ----
 
+var<int> PLAYER_DEAD_FRAME_MAX = 180;
+var<int> PLAYER_DAMAGE_FRAME_MAX = 20;
+var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
+
+/*
+	ジャンプ回数の上限
+	1 == 通常
+	2 == 2-段ジャンプまで可能
+	3 == 3-段ジャンプまで可能
+	...
+*/
+var<int> JUMP_MAX = 2;
+
 /*
 	プレイヤーキャラクタの重力加速度
 */
@@ -57,5 +70,5 @@ var<double> PLAYER_接地判定Pt_Y = TILE_H / 2.0;
 
 /// GameEndReason_e
 //
-var<int> GameEndReason_e_NORMAL = @(AUTO);
+var<int> GameEndReason_e_STAGE_CLEAR = @(AUTO);
 var<int> GameEndReason_e_RETURN_MENU = @(AUTO);
