@@ -23,6 +23,13 @@ function* <generatorForTask> MapSelectMenu()
 
 	for (; ; )
 	{
+		if (DEBUG && GetKeyInput(85) == 1) // ? U -> 全ステージ開放 -- (デバッグ用)
+		{
+			AlreadyClearedStageIndex = GetMapCount() - 1;
+			SaveLocalStorage();
+			SE(S_Dead);
+		}
+
 		var<int> canPlayIndex = AlreadyClearedStageIndex;
 
 		if (canPlayIndex == -1)
@@ -105,13 +112,6 @@ function* <generatorForTask> MapSelectMenu()
 				selectX = index % @@_PANEL_X_NUM;
 				selectY = ToFix(index / @@_PANEL_Y_NUM);
 			}
-		}
-
-		if (DEBUG && 1 <= GetKeyInput(16) && GetKeyInput(81) == 1) // ? シフト + Q -- 全ステージクリア -- (デバッグ用)
-		{
-			AlreadyClearedStageIndex = GetMapCount() - 1;
-			SaveLocalStorage();
-			SE(S_Dead);
 		}
 
 		selectX += @@_PANEL_X_NUM;
