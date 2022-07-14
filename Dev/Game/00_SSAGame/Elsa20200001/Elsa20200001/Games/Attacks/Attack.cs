@@ -22,11 +22,7 @@ namespace Charlotte.Games.Attacks
 
 		public bool EachFrame()
 		{
-			// ダメージを受ける・死亡したら即終了
-			if (
-				1 <= Game.I.Player.DeadFrame ||
-				1 <= Game.I.Player.DamageFrame
-				)
+			if (1 <= Game.I.Player.DamageFrame) // ダメージを受けたら即終了
 				return false;
 
 			if (_eachFrame == null)

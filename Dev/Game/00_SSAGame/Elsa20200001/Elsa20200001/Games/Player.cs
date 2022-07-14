@@ -44,7 +44,6 @@ namespace Charlotte.Games
 		public int AirborneFrame; // 0 == 接地状態, 1～ == 滞空状態
 		public int ShagamiFrame; // 0 == 無効, 1～ == しゃがみ中
 		public int StandFrame = SCommon.IMAX / 2; // 0 == 無効, 1～ == 立っている
-		public int DeadFrame = 0; // 0 == 無効, 1～ == 死亡中
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
@@ -211,25 +210,6 @@ namespace Charlotte.Games
 
 				default:
 					throw null; // never
-			}
-			if (1 <= this.DeadFrame) // 死亡モーション
-			{
-				switch (Game.I.Player.Chara)
-				{
-					case Chara_e.TEWI:
-						picture = Ground.I.Picture2.Tewi_大ダメージ[Math.Min(this.DeadFrame / 6, Ground.I.Picture2.Tewi_大ダメージ.Length - 1)];
-						ya = 6;
-						break;
-
-					case Chara_e.CIRNO:
-						////picture = Ground.I.Picture2.さやか死亡[Math.Min(this.DeadFrame / 6, Ground.I.Picture2.さやか死亡.Length - 1)];
-						xa = -10;
-						ya = -6;
-						break;
-
-					default:
-						throw null; // never
-				}
 			}
 			if (1 <= this.DamageFrame) // 被弾モーション
 			{
