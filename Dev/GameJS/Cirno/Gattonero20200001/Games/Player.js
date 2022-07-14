@@ -77,8 +77,8 @@ var<boolean> @@_MoveSlow = false;
 
 function <void> ResetPlayer()
 {
-	PlayerX = FIELD_L + FIELD_W / 2.0;
-	PlayerY = FIELD_T + FIELD_H / 2.0;
+	PlayerX = Screen_W / 2.0;
+	PlayerY = Screen_H / 2.0;
 	PlayerDamageFrame = 0;
 	PlayerInvincibleFrame = 0;
 	PlayerYSpeed = 0.0;

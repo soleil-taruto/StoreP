@@ -14,7 +14,7 @@ function* <generatorForTask> Effect_Dummy(<double> x, <double> y)
 {
 	for (var<Scene_t> scene of CreateScene(30))
 	{
-		Draw(P_Dummy, x, y, 0.5 - 0.5 * scene.Rate, scene.Rate * Math.PI, 1.0);
+		Draw(P_Dummy, x - Camera.X, y - Camera.Y, 0.5 - 0.5 * scene.Rate, scene.Rate * Math.PI, 1.0);
 
 		yield 1;
 	}
@@ -35,8 +35,8 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 			{
 				Draw(
 					P_ExplodePiece,
-					pt.X,
-					pt.Y,
+					pt.X - Camera.X,
+					pt.Y - Camera.Y,
 					scene.RemRate,
 					rot,
 					1.0

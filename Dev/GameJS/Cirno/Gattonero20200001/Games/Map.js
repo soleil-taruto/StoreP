@@ -139,8 +139,8 @@ setStartPt:
 			if (Map.Table[x][y].Type == MapCellType_e_Start)
 			{
 				Map.StartPt = CreateD2Point(
-					FIELD_L + x * TILE_W + TILE_W / 2.0,
-					FIELD_T + y * TILE_H + TILE_H / 2.0
+					x * TILE_W + TILE_W / 2.0,
+					y * TILE_H + TILE_H / 2.0
 					);
 
 				break setStartPt;
@@ -233,8 +233,8 @@ function <void> LoadEnemyOfMap()
 	{
 		var<MapCell_t> cell = Map.Table[x][y];
 
-		var<double> dx = FIELD_L + x * TILE_W + TILE_W / 2.0;
-		var<double> dy = FIELD_T + y * TILE_H + TILE_H / 2.0;
+		var<double> dx = x * TILE_W + TILE_W / 2.0;
+		var<double> dy = y * TILE_H + TILE_H / 2.0;
 
 		switch (cell.Type)
 		{

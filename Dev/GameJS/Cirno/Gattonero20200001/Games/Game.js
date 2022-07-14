@@ -233,6 +233,8 @@ function <void> @@_DrawWall()
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
 	PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
+	// TODO îwåi
+
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
 	var<int> l = lt.X;
@@ -269,25 +271,12 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
-	PrintRect(0, 0, FIELD_L, Screen_H);
-	PrintRect(0, 0, Screen_W, FIELD_T);
-	PrintRect(
-		0,
-		FIELD_B,
-		Screen_W,
-		Screen_H - FIELD_B
-		);
-	PrintRect(
-		FIELD_R,
-		0,
-		Screen_W - FIELD_R,
-		Screen_H
-		);
+	SetColor(I4ColorToString(CreateI4Color(0, 0, 0, 128)));
+	PrintRect(0.0, 0.0, Screen_W, 20.0);
 
 	SetColor("#ffffff");
-	SetPrint(20, 80, 0);
-	SetFSize(80);
+	SetPrint(10, 20, 0);
+	SetFSize(16);
 	PrintLine("STAGE " + Map.Index);
 }
 
