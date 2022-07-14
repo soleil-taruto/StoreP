@@ -21,7 +21,6 @@ namespace Charlotte.Games
 		public int FaceDirection; // プレイヤーが向いている方向 { 2, 4, 6, 8 } == { 下, 左, 右, 上 }
 		public int MoveFrame;
 		public int AttackFrame;
-		public int DeadFrame = 0; // 0 == 無効, 1～ == 死亡中
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
@@ -43,13 +42,7 @@ namespace Charlotte.Games
 
 			// ---- ダメージ中等差し替え ----
 
-			if (1 <= this.DeadFrame)
-			{
-				DDDraw.SetTaskList(DDGround.EL);
-				DDDraw.SetBright(1.0, 0.3, 0.3);
-				DDDraw.SetAlpha(0.7);
-			}
-			else if (1 <= this.DamageFrame || 1 <= this.InvincibleFrame)
+			if (1 <= this.DamageFrame || 1 <= this.InvincibleFrame)
 			{
 				DDDraw.SetTaskList(DDGround.EL);
 				DDDraw.SetAlpha(0.5);

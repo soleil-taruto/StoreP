@@ -36,6 +36,7 @@ namespace Charlotte.Games
 
 					switch (this.Status.ExitDirection)
 					{
+						case 901:
 						case 5:
 							return;
 

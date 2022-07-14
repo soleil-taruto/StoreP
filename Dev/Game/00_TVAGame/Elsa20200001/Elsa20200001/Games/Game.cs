@@ -159,7 +159,7 @@ namespace Charlotte.Games
 
 				// プレイヤー入力・移動
 				{
-					bool deadOrUID = 1 <= this.Player.DeadFrame || this.UserInputDisabled;
+					bool deadOrUID = this.UserInputDisabled;
 					bool dir2 = !deadOrUID && 1 <= DDInput.DIR_2.GetInput() || this.PlayerHacker.DIR_2;
 					bool dir4 = !deadOrUID && 1 <= DDInput.DIR_4.GetInput() || this.PlayerHacker.DIR_4;
 					bool dir6 = !deadOrUID && 1 <= DDInput.DIR_6.GetInput() || this.PlayerHacker.DIR_6;
@@ -314,36 +314,6 @@ namespace Charlotte.Games
 					if (武器切り替え)
 						this.Player.選択武器 = (ShotCatalog.武器_e)(((int)this.Player.選択武器 + 1) % ShotCatalog.武器_e_Names.Length);
 				}
-
-				//startDead:
-				if (1 <= this.Player.DeadFrame) // ? プレイヤー死亡中
-				{
-					if (GameConsts.PLAYER_DEAD_FRAME_MAX < ++this.Player.DeadFrame)
-					{
-						this.Player.DeadFrame = 0;
-						this.Status.ExitDirection = 5;
-						break;
-					}
-					int frame = this.Player.DeadFrame; // 値域 == 2 ～ GameConsts.PLAYER_DEAD_FRAME_MAX
-					double rate = DDUtils.RateAToB(2, GameConsts.PLAYER_DEAD_FRAME_MAX, frame);
-
-					// プレイヤー死亡中の処理
-					{
-						const int HIT_BACK_FRAME_MAX = 30;
-						double hitBackRate = DDUtils.RateAToB(2, HIT_BACK_FRAME_MAX, frame);
-
-						if (hitBackRate < 1.0)
-						{
-							double invHitBackRate = 1.0 - hitBackRate;
-
-							D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 10.0 * invHitBackRate);
-
-							this.Player.X -= speed.X;
-							this.Player.Y -= speed.Y;
-						}
-					}
-				}
-				//endDead:
 
 				//startDamage:
 				if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
@@ -543,7 +513,6 @@ namespace Charlotte.Games
 
 					// 衝突判定：敵 x 自機
 					if (
-						this.Player.DeadFrame == 0 && // ? プレイヤー死亡中ではない。
 						this.Player.DamageFrame == 0 && // ? プレイヤー・ダメージ中ではない。
 						this.Player.InvincibleFrame == 0 && // ? プレイヤー無敵時間中ではない。
 						!enemy.DeadFlag && // ? 敵：生存
@@ -564,7 +533,8 @@ namespace Charlotte.Games
 						else // ? 死亡した。
 						{
 							this.Player.HP = -1;
-							this.Player.DeadFrame = 1;
+							this.Status.ExitDirection = 901;
+							goto endGameLoop;
 						}
 
 						// ★ 自機_被弾ここまで
@@ -604,9 +574,61 @@ namespace Charlotte.Games
 
 				// ★★★ ゲームループの終わり ★★★
 			}
+		endGameLoop:
 			DDEngine.FreezeInput();
 
-			if (this.Status.ExitDirection == 5)
+			if (this.Status.ExitDirection == 901) // ? 死亡によりゲーム終了
+			{
+				Action drawPlayer_01 = () =>
+				{
+					DDDraw.SetMosaic();
+					DDDraw.DrawBegin(
+						Ground.I.Picture2.GetPlayer(this.Status.Chara).GetPicture(this.Player.FaceDirection, 1),
+						(int)this.Player.X - DDGround.ICamera.X,
+						(int)this.Player.Y - DDGround.ICamera.Y - 12.0
+						);
+					DDDraw.DrawZoom(2.0);
+					DDDraw.DrawEnd();
+					DDDraw.Reset();
+				};
+
+				DDEngine.EachFrame(); // 今回の描画を確定させてから...
+				DDMain.KeepMainScreen(); // ...画面を保存する。
+
+				DDMusicUtils.Fadeout();
+
+				foreach (DDScene scene in DDSceneUtils.Create(40))
+				{
+					DDDraw.DrawSimple(DDGround.KeptMainScreen.ToPicture(), 0, 0);
+					DDEngine.EachFrame();
+				}
+				foreach (DDScene scene in DDSceneUtils.Create(60))
+				{
+					this.DrawWall();
+					this.DrawMap();
+
+					DDCurtain.DrawCurtain(scene.Rate * -1.0);
+
+					drawPlayer_01();
+
+					DDEngine.EachFrame();
+				}
+
+				DDGround.EL.Add(SCommon.Supplier(Effects.B大爆発(this.Player.X, this.Player.Y)));
+
+				//DDMusicUtils.Fadeout();
+				DDCurtain.SetCurtain(30, -1.0);
+
+				foreach (DDScene scene in DDSceneUtils.Create(40))
+				{
+					DDDraw.SetBright(0, 0, 0);
+					DDDraw.DrawRect(Ground.I.Picture.WhiteBox, 0, 0, DDConsts.Screen_W, DDConsts.Screen_H);
+					DDDraw.Reset();
+
+					DDEngine.EachFrame();
+				}
+			}
+			else if (this.Status.ExitDirection == 5) // ? メニュー操作によりゲーム終了
 			{
 				DDMusicUtils.Fadeout();
 				DDCurtain.SetCurtain(30, -1.0);
@@ -619,7 +641,7 @@ namespace Charlotte.Games
 					DDEngine.EachFrame();
 				}
 			}
-			else
+			else // ? 部屋移動
 			{
 				double destSlide_X = 0.0;
 				double destSlide_Y = 0.0;
