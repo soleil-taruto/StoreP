@@ -26,7 +26,6 @@ namespace Charlotte.Games
 		public int AirborneFrame; // 0 == 接地状態, 1～ == 滞空状態
 		public int ShagamiFrame;
 		public int AttackFrame;
-		public int DeadFrame = 0; // 0 == 無効, 1～ == 死亡中
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
@@ -99,26 +98,11 @@ namespace Charlotte.Games
 
 			// < 攻撃中
 
-			if (1 <= this.DeadFrame)
-			{
-				int koma = SCommon.ToRange(this.DeadFrame / 20, 0, 1);
-
-				if (this.AirborneFrame == 0)
-					koma *= 2;
-
-				koma *= 2;
-				koma++;
-
-				picture = Ground.I.Picture.PlayerDamage[koma];
-
-				DDDraw.SetTaskList(DDGround.EL);
-			}
 			if (1 <= this.DamageFrame)
 			{
 				picture = Ground.I.Picture.PlayerDamage[0];
 				xZoom *= -1;
 			}
-
 			if (1 <= this.DamageFrame || 1 <= this.InvincibleFrame)
 			{
 				DDDraw.SetTaskList(DDGround.EL);
