@@ -140,15 +140,7 @@ namespace Charlotte.Games
 					this.DebugPause();
 				}
 
-				{
-					bool disabled = false;
-					//bool disabled = 1 <= this.Player.DeadFrame; // プレイヤー死亡中はカメラ移動抑止
-
-					if (!disabled)
-					{
-						this.カメラ位置調整(false);
-					}
-				}
+				this.カメラ位置調整(false);
 
 				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_E) == 1) // エディットモード(デバッグ用)
 				{
