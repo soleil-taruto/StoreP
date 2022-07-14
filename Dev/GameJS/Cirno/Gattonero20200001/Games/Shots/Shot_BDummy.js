@@ -33,18 +33,14 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 		shot.X += shot.XAdd;
 		shot.Y += shot.YAdd;
 
-		if (IsOut(
-			CreateD2Point(shot.X, shot.Y),
-			CreateD4Rect(0.0, 0.0, Screen_W, Screen_H),
-			0.0
-			))
+		if (IsOutOfCamera(CreateD2Point(shot.X, shot.Y), 0.0))
 		{
 			break;
 		}
 
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 25.0);
 
-		Draw(P_Dummy, shot.X, shot.Y, 1.0, ProcFrame / 20.0, 1.0);
+		Draw(P_Dummy, shot.X - Camera.X, shot.Y - Camera.Y, 1.0, ProcFrame / 20.0, 1.0);
 
 		yield 1;
 	}
