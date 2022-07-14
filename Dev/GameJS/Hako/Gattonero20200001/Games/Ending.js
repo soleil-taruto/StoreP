@@ -22,7 +22,7 @@ function* <generatorForTask> Ending()
 		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
 		SetColor("#ffffff");
-		SetPrint(10, 350, 200);
+		SetPrint(60, 350, 200);
 		SetFSize(130);
 		PrintLine("エンディング");
 

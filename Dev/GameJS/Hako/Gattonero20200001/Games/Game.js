@@ -11,7 +11,7 @@ var<Shot_t[]> @@_Shots = [];
 /*
 	メニューへ戻るボタンの位置
 */
-var<int> @@_RETURN_MENU_L = 580;
+var<int> @@_RETURN_MENU_L = Screen_W - 220;
 var<int> @@_RETURN_MENU_T = 20;
 var<int> @@_RETURN_MENU_W = 200;
 var<int> @@_RETURN_MENU_H = 60;
@@ -275,14 +275,12 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
-	PrintRect(0, 0, FIELD_L, Screen_H);
-	PrintRect(0, 0, Screen_W, FIELD_T);
+	SetColor(I3ColorToString(CreateI3Color(40, 30, 20)));
 	PrintRect(
 		0,
-		FIELD_B,
-		Screen_W,
-		Screen_H - FIELD_B
+		0,
+		FIELD_L,
+		Screen_H
 		);
 	PrintRect(
 		FIELD_R,
@@ -290,13 +288,27 @@ function <void> @@_DrawFront()
 		Screen_W - FIELD_R,
 		Screen_H
 		);
+	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
+	PrintRect(
+		0,
+		0,
+		Screen_W,
+		FIELD_T
+		);
+	PrintRect(
+		0,
+		FIELD_B,
+		Screen_W,
+		Screen_H - FIELD_B
+		);
 
 	SetColor("#ffffff");
 	SetPrint(20, 80, 0);
 	SetFSize(80);
 	PrintLine("STAGE " + Map.Index);
 
-	SetPrint(20, Screen_W - 65, 40);
+	SetColor("#ffffff");
+	SetPrint(20, Screen_H - 65, 40);
 	SetFSize(16);
 	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
 	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");

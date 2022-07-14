@@ -59,7 +59,7 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 320, 0);
+		SetPrint(80, 320, 0);
 		SetFSize(260);
 		PrintLine("HAKO");
 

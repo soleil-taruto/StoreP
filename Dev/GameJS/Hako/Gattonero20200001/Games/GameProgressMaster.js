@@ -4,7 +4,7 @@
 
 var<int> @@_PANEL_L = 50; // 左上パネルの左座標
 var<int> @@_PANEL_T = 50; // 左上パネルの上座標
-var<int> @@_PANEL_W = 160;
+var<int> @@_PANEL_W = 185;
 var<int> @@_PANEL_H = 160;
 var<int> @@_PANEL_X_GAP = 20;
 var<int> @@_PANEL_Y_GAP = 20;
@@ -157,7 +157,7 @@ function* <generatorForTask> MapSelectMenu()
 			}
 			PrintRect(l, t, @@_PANEL_W, @@_PANEL_H);
 			SetColor("#000000");
-			SetPrint(l + 30, t + 110, 0);
+			SetPrint(l + 45, t + 110, 0);
 			SetFSize(80);
 			PrintLine(ZPad(index, 2, "0"));
 
