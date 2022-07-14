@@ -8,7 +8,18 @@
 var<double> PlayerX = 0.0;
 var<double> PlayerY = 0.0;
 
+/*
+	プレイヤー・ダメージ・フレーム
+	0 == 無効
+	1～ == ダメージ中
+*/
 var<int> PlayerDamageFrame = 0;
+
+/*
+	プレイヤー無敵時間フレーム
+	0 == 無効
+	1～ == 無敵時間中
+*/
 var<int> PlayerInvincibleFrame = 0;
 
 /*
@@ -68,6 +79,8 @@ function <void> ResetPlayer()
 {
 	PlayerX = FIELD_L + FIELD_W / 2.0;
 	PlayerY = FIELD_T + FIELD_H / 2.0;
+	PlayerDamageFrame = 0;
+	PlayerInvincibleFrame = 0;
 	PlayerYSpeed = 0.0;
 	PlayerFacingLeft = false;
 	PlayerCrash = null;
