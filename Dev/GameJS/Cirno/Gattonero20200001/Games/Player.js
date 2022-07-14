@@ -9,7 +9,7 @@ var<double> PlayerX = 0.0;
 var<double> PlayerY = 0.0;
 
 var<int> PlayerDamageFrame = 0;
-var<int> PlayerInvincFrame = 0;
+var<int> PlayerInvincibleFrame = 0;
 
 /*
 	プレイヤーの垂直方向の速度
@@ -185,6 +185,41 @@ function <void> DrawPlayer()
 			PlayerShagamiFrame = 0;
 		}
 
+	damageBlock:
+		if (1 <= PlayerDamageFrame) // ? ダメージ中
+		{
+			if (PLAYER_DAMAGE_FRAME_MAX < ++PlayerDamageFrame)
+			{
+				PlayerDamageFrame = 0;
+				PlayerInvincibleFrame = 1;
+				break damageBlock;
+			}
+			var<int> frame = PlayerDamageFrame; // 値域 == 2 ～ PLAYER_DAMAGE_FRAME_MAX
+			double rate = RateAToB(2, PLAYER_DAMAGE_FRAME_MAX, frame);
+
+			// ダメージ中の処理
+			{
+				// TODO ???
+			}
+		}
+
+	invincibleBlock:
+		if (1 <= PlayerInvincibleFrame) // ? 無敵時間中
+		{
+			if (PLAYER_INVINCIBLE_FRAME_MAX < ++PlayerInvincibleFrame)
+			{
+				PlayerInvincibleFrame = 0;
+				break invincibleBlock;
+			}
+			var<int> frame = PlayerInvincibleFrame; // 値域 == 2 ～ PLAYER_INVINCIBLE_FRAME_MAX
+			double rate = RateAToB(2, PLAYER_INVINCIBLE_FRAME_MAX, frame);
+
+			// ダメージ中の処理
+			{
+				// none
+			}
+		}
+
 		if (1 <= PlayerMoveFrame) // ? 移動中
 		{
 			var<double> speed = 0.0;
@@ -197,14 +232,6 @@ function <void> DrawPlayer()
 			else
 			{
 				speed = PLAYER_SPEED;
-
-				// 加速有り -- ★アプリ固有
-				/*
-				{
-					speed = PlayerMoveFrame;
-					speed = Math.min(speed, PLAYER_SPEED);
-				}
-				*/
 			}
 			speed *= PlayerFacingLeft ? -1.0 : 1.0;
 
@@ -268,9 +295,13 @@ function <void> DrawPlayer()
 		{
 			if (PlayerYSpeed < 0.0)
 			{
+				// プレイヤーと天井の反発係数
+				//
+//				var<double> K = 1.0;
+				var<double> K = 0.0;
+
 				PlayerY = ToTileCenterY(PlayerY - PLAYER_脳天判定Pt_Y) + TILE_H / 2 + PLAYER_脳天判定Pt_Y;
-//				PlayerYSpeed = Math.abs(PlayerYSpeed); // 反発係数 1
-				PlayerYSpeed = 0.0;                    // 反発係数 0
+				PlayerYSpeed = Math.abs(PlayerYSpeed) * K;
 				PlayerJumpFrame = 0;
 			}
 		}

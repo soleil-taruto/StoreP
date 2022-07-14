@@ -35,7 +35,6 @@ namespace Charlotte.Games
 		public const int MINI_TILE_W = 16;
 		public const int MINI_TILE_H = 16;
 
-		public const int PLAYER_DEAD_FRAME_MAX = 180;
 		public const int PLAYER_DAMAGE_FRAME_MAX = 5;
 		public const int PLAYER_INVINCIBLE_FRAME_MAX = 30;
 	}
