@@ -32,11 +32,11 @@ namespace Charlotte.Tests.Games
 
 			// ---- choose one ----
 
-			//startMapName = "Tests/t0001";
+			startMapName = "Tests/t0001"; // 旧スタート地点
 			//startMapName = "Tests/t0002";
 			//startMapName = "Tests/t0003";
 			//startMapName = "Tests/t0004";
-			startMapName = "Start";
+			//startMapName = "Start"; // スタート地点
 
 			// ----
 
