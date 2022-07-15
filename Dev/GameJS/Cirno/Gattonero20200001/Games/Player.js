@@ -72,6 +72,13 @@ var<int> PlayerAirborneFrame = 0;
 */
 var<int> PlayerShagamiFrame = 0;
 
+/*
+	プレイヤー攻撃フレーム
+	0 == 無効
+	1～ == 攻撃中
+*/
+var<int> PlayerAttackFrame = 0;
+
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
@@ -89,6 +96,7 @@ function <void> ResetPlayer()
 	PlayerJumpFrame = 0;
 	PlayerAirborneFrame = IMAX / 2; // ゲーム開始直後に空中でジャンプできないように
 	PlayerShagamiFrame = 0;
+	PlayerAttackFrame = 0;
 	@@_JumpLock = false;
 	@@_MoveSlow = false;
 }
@@ -102,12 +110,18 @@ function <void> ResetPlayer()
 */
 function <void> DrawPlayer()
 {
+	// reset
+	{
+		PlayerCrash = null;
+	}
+
 	// 移動
 	{
 		var<boolean> move = false;
 		var<boolean> slow = false;
-		var<int> jump = 0;
+		var<boolean> attack = false;
 		var<boolean> shagami = false;
+		var<int> jump = 0;
 
 		if (1 <= GetInput_2())
 		{
@@ -126,7 +140,8 @@ function <void> DrawPlayer()
 
 		if (1 <= GetInput_B())
 		{
-			slow = true;
+//			slow = true;
+			attack = true;
 		}
 		if (1 <= GetInput_A())
 		{
@@ -198,6 +213,15 @@ function <void> DrawPlayer()
 			PlayerShagamiFrame = 0;
 		}
 
+		if (attack)
+		{
+			PlayerAttackFrame++;
+		}
+		else
+		{
+			PlayerAttackFrame = 0;
+		}
+
 	damageBlock:
 		if (1 <= PlayerDamageFrame) // ? ダメージ中
 		{
@@ -212,7 +236,7 @@ function <void> DrawPlayer()
 
 			// ダメージ中の処理
 			{
-				// TODO ???
+				// TODO
 			}
 		}
 
@@ -227,7 +251,7 @@ function <void> DrawPlayer()
 			var<int> frame = PlayerInvincibleFrame; // 値域 == 2 ～ PLAYER_INVINCIBLE_FRAME_MAX
 			double rate = RateAToB(2, PLAYER_INVINCIBLE_FRAME_MAX, frame);
 
-			// ダメージ中の処理
+			// 無適時間中の処理
 			{
 				// none
 			}
@@ -349,13 +373,14 @@ function <void> DrawPlayer()
 		}
 	}
 
-	var<double> ATARI_MGN = 2.0;
+	// プレイヤーの当たり判定をセットする。
+	// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
 
 	PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(
 		PlayerX,
 		PlayerY,
-		TILE_W - ATARI_MGN,
-		TILE_H - ATARI_MGN
+		TILE_W,
+		TILE_H
 		));
 
 	Draw(P_Player, PlayerX, PlayerY, 1.0, 0.0, 1.0);

@@ -41,7 +41,7 @@ namespace Charlotte.Games
 			public bool DIR_6 = false;
 			public bool DIR_8 = false;
 			public bool Slow = false;
-			public int Jump = 0;
+			public bool Jump = false;
 			public bool Attack = false;
 		}
 
@@ -148,17 +148,18 @@ namespace Charlotte.Games
 					this.Frame = 0;
 				}
 
+				bool camSlide = false;
+
 				// プレイヤー入力
 				{
-					bool deadOrDamageOrUID = 1 <= this.Player.DamageFrame || this.UserInputDisabled;
+					bool damageOrUID = 1 <= this.Player.DamageFrame || this.UserInputDisabled;
 					bool move = false;
 					bool slow = false;
-					bool camSlide = false;
-					int jump = 0;
-					bool shagami = false;
 					bool attack = false;
+					bool shagami = false;
+					int jump = 0;
 
-					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_2.GetInput() || this.PlayerHacker.DIR_2)
+					if (!damageOrUID && 1 <= DDInput.DIR_2.GetInput() || this.PlayerHacker.DIR_2)
 					{
 						shagami = true;
 					}
@@ -167,12 +168,12 @@ namespace Charlotte.Games
 					int freezeInputFrameBackup = DDEngine.FreezeInputFrame;
 					DDEngine.FreezeInputFrame = 0;
 
-					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_4.GetInput() || this.PlayerHacker.DIR_4)
+					if (!damageOrUID && 1 <= DDInput.DIR_4.GetInput() || this.PlayerHacker.DIR_4)
 					{
 						this.Player.FacingLeft = true;
 						move = true;
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_6.GetInput() || this.PlayerHacker.DIR_6)
+					if (!damageOrUID && 1 <= DDInput.DIR_6.GetInput() || this.PlayerHacker.DIR_6)
 					{
 						this.Player.FacingLeft = false;
 						move = true;
@@ -186,19 +187,15 @@ namespace Charlotte.Games
 						shagami = false;
 						camSlide = true;
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.R.GetInput() || this.PlayerHacker.Slow)
+					if (!damageOrUID && 1 <= DDInput.R.GetInput() || this.PlayerHacker.Slow)
 					{
 						slow = true;
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.A.GetInput())
+					if (!damageOrUID && 1 <= DDInput.A.GetInput() || this.PlayerHacker.Jump)
 					{
 						jump = DDInput.A.GetInput();
 					}
-					if (this.PlayerHacker.Jump != 0)
-					{
-						jump = this.PlayerHacker.Jump;
-					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.B.GetInput() || this.PlayerHacker.Attack)
+					if (!damageOrUID && 1 <= DDInput.B.GetInput() || this.PlayerHacker.Attack)
 					{
 						attack = true;
 					}
@@ -246,6 +243,22 @@ namespace Charlotte.Games
 						Ground.I.SE.PlayerJump.Play();
 					}
 
+					if (1 <= this.Player.AirborneFrame)
+						shagami = false;
+
+					if (shagami)
+						this.Player.ShagamiFrame++;
+					else
+						this.Player.ShagamiFrame = 0;
+
+					if (attack)
+						this.Player.AttackFrame++;
+					else
+						this.Player.AttackFrame = 0;
+				}
+
+				// カメラ位置スライド
+				{
 					if (camSlide)
 					{
 						if (DDInput.DIR_4.IsPound())
@@ -281,22 +294,8 @@ namespace Charlotte.Games
 						this.CamSlideCount = 0;
 					}
 					this.CamSlideMode = camSlide;
-
-					if (1 <= this.Player.AirborneFrame)
-						shagami = false;
-
-					if (shagami)
-						this.Player.ShagamiFrame++;
-					else
-						this.Player.ShagamiFrame = 0;
-
-					if (attack)
-						this.Player.AttackFrame++;
-					else
-						this.Player.AttackFrame = 0;
 				}
 
-				//startDamage:
 				if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
 				{
 					if (GameConsts.PLAYER_DAMAGE_FRAME_MAX < ++this.Player.DamageFrame)
@@ -315,7 +314,6 @@ namespace Charlotte.Games
 				}
 			endDamage:
 
-				//startInvincible:
 				if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
 				{
 					if (GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++this.Player.InvincibleFrame)
@@ -484,6 +482,7 @@ namespace Charlotte.Games
 				}
 
 				// プレイヤーの当たり判定を plCrash にセットする。
+				// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
 
 				DDCrash plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y + (1 <= this.Player.ShagamiFrame ? 16 : 0)));
 

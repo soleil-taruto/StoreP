@@ -54,13 +54,19 @@ namespace Charlotte.Games.Enemies.Tests
 			for (int c = 0; c < 65; c++)
 				yield return true;
 
-			for (Game.I.PlayerHacker.Jump = 0; Game.I.PlayerHacker.Jump < 60; Game.I.PlayerHacker.Jump++)
+			Game.I.PlayerHacker.Jump = true;
+
+			for (int c = 0; c < 60; c++)
 				yield return true;
 
-			for (Game.I.PlayerHacker.Jump = 0; Game.I.PlayerHacker.Jump < 60; Game.I.PlayerHacker.Jump++)
+			Game.I.PlayerHacker.Jump = false;
+			yield return true;
+			Game.I.PlayerHacker.Jump = true;
+
+			for (int c = 0; c < 60; c++)
 				yield return true;
 
-			Game.I.PlayerHacker.Jump = 0;
+			Game.I.PlayerHacker.Jump = false;
 
 			for (int c = 0; c < 60; c++)
 				yield return true;
