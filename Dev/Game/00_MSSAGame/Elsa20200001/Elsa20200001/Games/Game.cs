@@ -1315,7 +1315,7 @@ namespace Charlotte.Games
 					{
 						this.Pause();
 
-						if (this.Pause_ReturnToTitleMenu)
+						if (this.RequestReturnToTitleMenu)
 							keepMenu = false;
 					});
 					tableMenu.AddItem(false, "戻る", color, borderColor, () => keepMenu = false);
