@@ -101,19 +101,27 @@ namespace Charlotte.Games.Attacks
 
 		public static int GetPlayer_側面Sub()
 		{
-			bool touchSide_L = Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall();
-			bool touchSide_R = Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall();
+			bool touchSide_L =
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall();
+
+			bool touchSide_R =
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall();
 
 			return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
 		}
 
 		public static bool IsPlayer_脳天()
 		{
-			bool touchCeiling =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_脳天判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall() ||
+			bool touchCeiling_L =
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_脳天判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
+
+			bool touchCeiling_M =
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
+
+			bool touchCeiling_R =
 				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_脳天判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
 
-			return touchCeiling;
+			return (touchCeiling_L && touchCeiling_R) || touchCeiling_M;
 		}
 
 		public static bool IsPlayer_接地()
@@ -144,11 +152,11 @@ namespace Charlotte.Games.Attacks
 			}
 			else if (flag == 1) // 左側面
 			{
-				Game.I.Player.X = (double)SCommon.ToInt(Game.I.Player.X / GameConsts.TILE_W) * GameConsts.TILE_W + GameConsts.PLAYER_側面判定Pt_X;
+				Game.I.Player.X = GameCommon.ToTileCenterX(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X) + GameConsts.TILE_W / 2 + GameConsts.PLAYER_側面判定Pt_X;
 			}
 			else if (flag == 2) // 右側面
 			{
-				Game.I.Player.X = (double)SCommon.ToInt(Game.I.Player.X / GameConsts.TILE_W) * GameConsts.TILE_W - GameConsts.PLAYER_側面判定Pt_X;
+				Game.I.Player.X = GameCommon.ToTileCenterX(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X) - GameConsts.TILE_W / 2 - GameConsts.PLAYER_側面判定Pt_X;
 			}
 			else if (flag == 0) // なし
 			{
@@ -167,14 +175,8 @@ namespace Charlotte.Games.Attacks
 
 			if (ret)
 			{
-				//if (Game.I.Player.YSpeed < 0.0) // 攻撃中につき判定を抑止
-				{
-					double plY = ((int)((Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y) / GameConsts.TILE_H) + 1) * GameConsts.TILE_H + GameConsts.PLAYER_脳天判定Pt_Y;
-
-					Game.I.Player.Y = plY;
-					//Game.I.Player.YSpeed = 0.0;
-					Game.I.Player.YSpeed = Math.Max(0.0, Game.I.Player.YSpeed); // YSpeed をチェックしないため
-				}
+				Game.I.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y) + GameConsts.TILE_H / 2 + GameConsts.PLAYER_脳天判定Pt_Y;
+				Game.I.Player.YSpeed = Math.Max(0.0, Game.I.Player.YSpeed);
 			}
 			return ret;
 		}
@@ -185,14 +187,8 @@ namespace Charlotte.Games.Attacks
 
 			if (ret)
 			{
-				//if (0.0 < Game.I.Player.YSpeed) // 攻撃中につき判定を抑止
-				{
-					double plY = (int)((Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) / GameConsts.TILE_H) * GameConsts.TILE_H - GameConsts.PLAYER_接地判定Pt_Y;
-
-					Game.I.Player.Y = plY;
-					//Game.I.Player.YSpeed = 0.0;
-					Game.I.Player.YSpeed = Math.Min(0.0, Game.I.Player.YSpeed); // YSpeed をチェックしないため
-				}
+				Game.I.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) - GameConsts.TILE_H / 2 - GameConsts.PLAYER_接地判定Pt_Y;
+				Game.I.Player.YSpeed = Math.Min(0.0, Game.I.Player.YSpeed);
 			}
 			return ret;
 		}
@@ -202,30 +198,34 @@ namespace Charlotte.Games.Attacks
 		// =================================
 
 		private static bool CamSlideMode = false; // ? カメラ・スライド_モード中
-		private static bool CamSlided = false;
+		private static int CamSlideCount;
 
-		public static bool CamSlide() // ? カメラ・スライド_モード中
+		/// <summary>
+		/// Attack-からのカメラ・スライド
+		/// </summary>
+		/// <returns>カメラ・スライド_モード中か</returns>
+		public static bool CamSlide()
 		{
 			if (1 <= DDInput.L.GetInput())
 			{
 				if (DDInput.DIR_4.IsPound())
 				{
-					CamSlided = true;
+					CamSlideCount++;
 					Game.I.CamSlideX--;
 				}
 				if (DDInput.DIR_6.IsPound())
 				{
-					CamSlided = true;
+					CamSlideCount++;
 					Game.I.CamSlideX++;
 				}
 				if (DDInput.DIR_8.IsPound())
 				{
-					CamSlided = true;
+					CamSlideCount++;
 					Game.I.CamSlideY--;
 				}
 				if (DDInput.DIR_2.IsPound())
 				{
-					CamSlided = true;
+					CamSlideCount++;
 					Game.I.CamSlideY++;
 				}
 				DDUtils.ToRange(ref Game.I.CamSlideX, -1, 1);
@@ -235,13 +235,13 @@ namespace Charlotte.Games.Attacks
 			}
 			else
 			{
-				if (CamSlideMode && !CamSlided)
+				if (CamSlideMode && CamSlideCount == 0)
 				{
 					Game.I.CamSlideX = 0;
 					Game.I.CamSlideY = 0;
 				}
 				CamSlideMode = false;
-				CamSlided = false;
+				CamSlideCount = 0;
 			}
 			return CamSlideMode;
 		}
