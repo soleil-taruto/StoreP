@@ -72,12 +72,13 @@ namespace Charlotte.Games
 		// 滞空中に壁に突進しても、脳天判定・接地判定に引っ掛からないように側面判定を先に行う。
 		// -- ( 脳天判定Pt_X < 側面判定Pt_X && 接地判定Pt_X < 側面判定Pt_X ) を維持すること。
 		// 上昇が速すぎると、脳天判定より先に側面判定に引っ掛かってしまう可能性がある。
-		// -- ( -(PLAYER_ジャンプ初速度) < 脳天判定Pt_Y - 側面判定Pt_Y ) を維持すること。
+		// -- ( -(PLAYER_JUMP_SPEED) < 脳天判定Pt_Y - 側面判定Pt_Y ) を維持すること。
 		// 下降が速すぎると、接地判定より先に側面判定に引っ掛かってしまう可能性がある。
 		// -- ( PLAYER_FALL_SPEED_MAX < 接地判定Pt_Y - 側面判定Pt_Y ) を維持すること。
 
 		public const double PLAYER_側面判定Pt_X = 10.0;
-		public const double PLAYER_側面判定Pt_Y = TILE_H - 1.0;
+		public const double PLAYER_側面判定Pt_Y = TILE_H / 2.0 + 1.0;
+		//public const double PLAYER_側面判定Pt_Y = TILE_H - 1.0;
 		public const double PLAYER_脳天判定Pt_X = 9.0;
 		public const double PLAYER_脳天判定Pt_Y = 36.0;
 		public const double PLAYER_接地判定Pt_X = 9.0;
