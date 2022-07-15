@@ -51,7 +51,7 @@ namespace Charlotte.Games
 		public Map Map;
 		private Wall Wall;
 
-		private bool CamSlideMode; // ? モード中
+		private bool CamSlideMode; // ? カメラ・スライド_モード中
 		private int CamSlideCount;
 		private int CamSlideX; // -1 ～ 1
 		private int CamSlideY; // -1 ～ 1
@@ -149,13 +149,15 @@ namespace Charlotte.Games
 					this.Frame = 0;
 				}
 
+				bool camSlide = false;
+
 				// プレイヤー入力・移動
 				{
-					bool deadOrUID = this.UserInputDisabled;
-					bool dir2 = !deadOrUID && 1 <= DDInput.DIR_2.GetInput() || this.PlayerHacker.DIR_2;
-					bool dir4 = !deadOrUID && 1 <= DDInput.DIR_4.GetInput() || this.PlayerHacker.DIR_4;
-					bool dir6 = !deadOrUID && 1 <= DDInput.DIR_6.GetInput() || this.PlayerHacker.DIR_6;
-					bool dir8 = !deadOrUID && 1 <= DDInput.DIR_8.GetInput() || this.PlayerHacker.DIR_8;
+					bool damageOrUID = 1 <= this.Player.DamageFrame || this.UserInputDisabled;
+					bool dir2 = !damageOrUID && 1 <= DDInput.DIR_2.GetInput() || this.PlayerHacker.DIR_2;
+					bool dir4 = !damageOrUID && 1 <= DDInput.DIR_4.GetInput() || this.PlayerHacker.DIR_4;
+					bool dir6 = !damageOrUID && 1 <= DDInput.DIR_6.GetInput() || this.PlayerHacker.DIR_6;
+					bool dir8 = !damageOrUID && 1 <= DDInput.DIR_8.GetInput() || this.PlayerHacker.DIR_8;
 					int dir; // 1～9 == { 左下, 下, 右下, 左, 動かない, 右, 左上, 上, 右上 }
 
 					if (dir2 && dir4)
@@ -177,16 +179,14 @@ namespace Charlotte.Games
 					else
 						dir = 5;
 
-					if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
+					if (!damageOrUID && 1 <= DDInput.L.GetInput())
+					{
 						dir = 5;
+						camSlide = true;
+					}
 
-					bool camSlide = !deadOrUID && 1 <= DDInput.L.GetInput();
-
-					if (camSlide)
-						dir = 5;
-
-					bool slow = !deadOrUID && 1 <= DDInput.A.GetInput() || this.PlayerHacker.Slow;
-					bool fast = !deadOrUID && 1 <= DDInput.R.GetInput() || this.PlayerHacker.Fast;
+					bool slow = !damageOrUID && 1 <= DDInput.A.GetInput() || this.PlayerHacker.Slow;
+					bool fast = !damageOrUID && 1 <= DDInput.R.GetInput() || this.PlayerHacker.Fast;
 
 					if (Ground.I.FastReverseMode)
 						fast = !fast;
@@ -258,24 +258,40 @@ namespace Charlotte.Games
 						this.Player.X = SCommon.ToInt(this.Player.X);
 						this.Player.Y = SCommon.ToInt(this.Player.Y);
 					}
+
+					bool attack = !damageOrUID && 1 <= DDInput.B.GetInput() || this.PlayerHacker.Attack;
+
+					if (attack)
+						this.Player.AttackFrame++;
+					else
+						this.Player.AttackFrame = 0;
+
+					bool 武器切り替え = !damageOrUID && DDInput.C.GetInput() == 1;
+
+					if (武器切り替え)
+						this.Player.選択武器 = (ShotCatalog.武器_e)(((int)this.Player.選択武器 + 1) % ShotCatalog.武器_e_Names.Length);
+				}
+
+				// カメラ位置スライド
+				{
 					if (camSlide)
 					{
-						if (dir4)
+						if (DDInput.DIR_4.IsPound())
 						{
 							this.CamSlideCount++;
 							this.CamSlideX--;
 						}
-						if (dir6)
+						if (DDInput.DIR_6.IsPound())
 						{
 							this.CamSlideCount++;
 							this.CamSlideX++;
 						}
-						if (dir8)
+						if (DDInput.DIR_8.IsPound())
 						{
 							this.CamSlideCount++;
 							this.CamSlideY--;
 						}
-						if (dir2)
+						if (DDInput.DIR_2.IsPound())
 						{
 							this.CamSlideCount++;
 							this.CamSlideY++;
@@ -293,21 +309,8 @@ namespace Charlotte.Games
 						this.CamSlideCount = 0;
 					}
 					this.CamSlideMode = camSlide;
-
-					bool attack = !deadOrUID && 1 <= DDInput.B.GetInput() || this.PlayerHacker.Attack;
-
-					if (attack)
-						this.Player.AttackFrame++;
-					else
-						this.Player.AttackFrame = 0;
-
-					bool 武器切り替え = !deadOrUID && DDInput.C.GetInput() == 1;
-
-					if (武器切り替え)
-						this.Player.選択武器 = (ShotCatalog.武器_e)(((int)this.Player.選択武器 + 1) % ShotCatalog.武器_e_Names.Length);
 				}
 
-				//startDamage:
 				if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
 				{
 					if (GameConsts.PLAYER_DAMAGE_FRAME_MAX < ++this.Player.DamageFrame)
@@ -340,7 +343,6 @@ namespace Charlotte.Games
 				}
 			endDamage:
 
-				//startInvincible:
 				if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
 				{
 					if (GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++this.Player.InvincibleFrame)
@@ -358,10 +360,13 @@ namespace Charlotte.Games
 				}
 			endInvincible:
 
+				// プレイヤー移動 -> プレイヤー入力と同時に行っている。
+
 				// プレイヤー位置矯正
 				{
 					壁キャラ処理.Perform(ref this.Player.X, ref this.Player.Y, v => v.GetKind() != Tile.Kind_e.SPACE);
 				}
+				//endPlayer:
 
 				if (this.Player.X < 0.0) // ? マップの左側に出た。
 				{
@@ -397,6 +402,7 @@ namespace Charlotte.Games
 				}
 
 				// プレイヤーの当たり判定を plCrash にセットする。
+				// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
 
 				DDCrash plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
 

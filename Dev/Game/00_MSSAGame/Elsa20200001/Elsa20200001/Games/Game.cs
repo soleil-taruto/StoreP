@@ -193,7 +193,7 @@ namespace Charlotte.Games
 					}
 					if (!damageOrUID && 1 <= DDInput.A.GetInput() || this.PlayerHacker.Jump)
 					{
-						jump = DDInput.A.GetInput();
+						jump = this.PlayerHacker.Jump ? 1 : DDInput.A.GetInput();
 					}
 					if (!damageOrUID && 1 <= DDInput.B.GetInput() || this.PlayerHacker.Attack)
 					{

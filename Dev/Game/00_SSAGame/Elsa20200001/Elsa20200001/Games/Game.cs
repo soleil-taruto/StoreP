@@ -39,9 +39,9 @@ namespace Charlotte.Games
 		private Wall Wall;
 
 		private bool CamSlideMode; // ? カメラ・スライド_モード中
-		private bool CamSlided;
-		public int CamSlideX; // -1 ～ 1
-		public int CamSlideY; // -1 ～ 1
+		private int CamSlideCount;
+		private int CamSlideX; // -1 ～ 1
+		private int CamSlideY; // -1 ～ 1
 
 		public int Frame;
 		public bool UserInputDisabled = false;
@@ -148,19 +148,20 @@ namespace Charlotte.Games
 					this.Player.Attack = null; // プレイヤー攻撃_終了
 				}
 
+				bool camSlide = false;
+
 				// プレイヤー入力
 				{
-					bool deadOrDamageOrUID = 1 <= this.Player.DamageFrame || this.UserInputDisabled;
+					bool damageOrUID = 1 <= this.Player.DamageFrame || this.UserInputDisabled;
 					bool move = false;
 					bool slow = false;
-					bool camSlide = false;
-					int jump = 0;
 					bool shagami = false;
+					int jump = 0;
 					int attack_弱 = 0;
 					int attack_中 = 0;
 					int attack_強 = 0;
 
-					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_2.GetInput())
+					if (!damageOrUID && 1 <= DDInput.DIR_2.GetInput())
 					{
 						shagami = true;
 					}
@@ -169,12 +170,12 @@ namespace Charlotte.Games
 					int freezeInputFrameBackup = DDEngine.FreezeInputFrame;
 					DDEngine.FreezeInputFrame = 0;
 
-					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_4.GetInput())
+					if (!damageOrUID && 1 <= DDInput.DIR_4.GetInput())
 					{
 						this.Player.FacingLeft = true;
 						move = true;
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.DIR_6.GetInput())
+					if (!damageOrUID && 1 <= DDInput.DIR_6.GetInput())
 					{
 						this.Player.FacingLeft = false;
 						move = true;
@@ -187,23 +188,23 @@ namespace Charlotte.Games
 						move = false;
 						camSlide = true;
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.R.GetInput())
+					if (!damageOrUID && 1 <= DDInput.R.GetInput())
 					{
 						slow = true;
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.A.GetInput())
+					if (!damageOrUID && 1 <= DDInput.A.GetInput())
 					{
 						jump = DDInput.A.GetInput();
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.B.GetInput())
+					if (!damageOrUID && 1 <= DDInput.B.GetInput())
 					{
 						attack_弱 = DDInput.B.GetInput();
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.C.GetInput())
+					if (!damageOrUID && 1 <= DDInput.C.GetInput())
 					{
 						attack_中 = DDInput.C.GetInput();
 					}
-					if (!deadOrDamageOrUID && 1 <= DDInput.D.GetInput())
+					if (!damageOrUID && 1 <= DDInput.D.GetInput())
 					{
 						attack_強 = DDInput.D.GetInput();
 					}
@@ -293,42 +294,6 @@ namespace Charlotte.Games
 					{
 						Ground.I.SE.Coin01.Play(); // test test test test test
 					}
-
-					if (camSlide)
-					{
-						if (DDInput.DIR_4.IsPound())
-						{
-							this.CamSlided = true;
-							this.CamSlideX--;
-						}
-						if (DDInput.DIR_6.IsPound())
-						{
-							this.CamSlided = true;
-							this.CamSlideX++;
-						}
-						if (DDInput.DIR_8.IsPound())
-						{
-							this.CamSlided = true;
-							this.CamSlideY--;
-						}
-						if (DDInput.DIR_2.IsPound())
-						{
-							this.CamSlided = true;
-							this.CamSlideY++;
-						}
-						DDUtils.ToRange(ref this.CamSlideX, -1, 1);
-						DDUtils.ToRange(ref this.CamSlideY, -1, 1);
-					}
-					else
-					{
-						if (this.CamSlideMode && !this.CamSlided)
-						{
-							this.CamSlideX = 0;
-							this.CamSlideY = 0;
-						}
-						this.CamSlided = false;
-					}
-					this.CamSlideMode = camSlide;
 
 					if (1 <= this.Player.AirborneFrame)
 						shagami = false;
@@ -436,7 +401,45 @@ namespace Charlotte.Games
 					}
 				}
 
-				//startDamage:
+				// カメラ位置スライド
+				{
+					if (camSlide)
+					{
+						if (DDInput.DIR_4.IsPound())
+						{
+							this.CamSlideCount++;
+							this.CamSlideX--;
+						}
+						if (DDInput.DIR_6.IsPound())
+						{
+							this.CamSlideCount++;
+							this.CamSlideX++;
+						}
+						if (DDInput.DIR_8.IsPound())
+						{
+							this.CamSlideCount++;
+							this.CamSlideY--;
+						}
+						if (DDInput.DIR_2.IsPound())
+						{
+							this.CamSlideCount++;
+							this.CamSlideY++;
+						}
+						DDUtils.ToRange(ref this.CamSlideX, -1, 1);
+						DDUtils.ToRange(ref this.CamSlideY, -1, 1);
+					}
+					else
+					{
+						if (this.CamSlideMode && this.CamSlideCount == 0)
+						{
+							this.CamSlideX = 0;
+							this.CamSlideY = 0;
+						}
+						this.CamSlideCount = 0;
+					}
+					this.CamSlideMode = camSlide;
+				}
+
 				if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
 				{
 					if (GameConsts.PLAYER_DAMAGE_FRAME_MAX < ++this.Player.DamageFrame)
@@ -455,7 +458,6 @@ namespace Charlotte.Games
 				}
 			endDamage:
 
-				//startInvincible:
 				if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
 				{
 					if (GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++this.Player.InvincibleFrame)
@@ -634,6 +636,7 @@ namespace Charlotte.Games
 				}
 
 				// プレイヤーの当たり判定を plCrash にセットする。
+				// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
 
 				DDCrash plCrash;
 
