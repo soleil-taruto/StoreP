@@ -80,13 +80,14 @@ namespace Charlotte.Games.Enemies.Tests
 			DDCurtain.SetCurtain(0, -1.0);
 			DDCurtain.SetCurtain(10);
 
-#if false // いらん
+#if false // 黒カーテンが適用されるまで待つ
 			foreach (DDScene scene in DDSceneUtils.Create(20))
 			{
 				DDDraw.DrawSimple(_lastGameScreen.ToPicture(), 0, 0);
 				DDEngine.EachFrame();
 			}
 #endif
+			_lastGameScreen.Unload();
 		}
 	}
 }
