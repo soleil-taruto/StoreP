@@ -16,7 +16,7 @@ namespace Charlotte.Novels
 
 		// <---- prm
 
-		public bool ReturnToTitleMenu = false;
+		public bool RequestReturnToTitleMenu = false;
 
 		// <---- ret
 
@@ -188,7 +188,7 @@ namespace Charlotte.Novels
 					}
 					if (this.SystemMenu_ReturnToTitleMenu)
 					{
-						this.ReturnToTitleMenu = true;
+						this.RequestReturnToTitleMenu = true;
 						break;
 					}
 				}

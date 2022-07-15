@@ -65,7 +65,7 @@ namespace Charlotte.Games.Enemies.Tests
 				//Novel.I.Status.Scenario = new Scenario("Tests/イベント0001"); // old
 				Novel.I.Perform();
 
-				if (Novel.I.ReturnToTitleMenu)
+				if (Novel.I.RequestReturnToTitleMenu)
 					Game.I.RequestReturnToTitleMenu = true;
 			}
 

@@ -58,7 +58,6 @@ namespace Charlotte.Games
 
 		public int Frame;
 		public bool UserInputDisabled = false;
-
 		public bool RequestReturnToTitleMenu = false;
 
 		public void Perform()
@@ -123,12 +122,6 @@ namespace Charlotte.Games
 				{
 					this.EquipmentMenu();
 					//this.Pause(); // old
-
-					if (this.Pause_ReturnToTitleMenu)
-					{
-						this.Status.ExitDirection = 5;
-						break;
-					}
 				}
 				if (this.RequestReturnToTitleMenu)
 				{
@@ -1269,7 +1262,7 @@ namespace Charlotte.Games
 					{
 						this.Pause();
 
-						if (this.Pause_ReturnToTitleMenu)
+						if (this.RequestReturnToTitleMenu)
 							keepMenu = false;
 					});
 					tableMenu.AddItem(false, "戻る", color, borderColor, () => keepMenu = false);
@@ -1292,7 +1285,6 @@ namespace Charlotte.Games
 
 		#endregion
 
-		private bool Pause_ReturnToTitleMenu = false;
 		private bool 当たり判定表示 = false;
 
 		//private static DDSubScreen Pause_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
@@ -1367,7 +1359,7 @@ namespace Charlotte.Games
 					case 1:
 						if (new Confirm() { BorderColor = new I3Color(0, 0, 200), }.Perform("タイトル画面に戻ります。", "はい", "いいえ") == 0)
 						{
-							this.Pause_ReturnToTitleMenu = true;
+							this.RequestReturnToTitleMenu = true;
 							goto endLoop;
 						}
 						break;
