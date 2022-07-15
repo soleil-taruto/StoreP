@@ -1263,7 +1263,7 @@ namespace Charlotte.Games
 
 		#region EquipmentMenu
 
-		private static DDSubScreen EquipmentMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H);
+		private static DDSubScreen EquipmentMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		private void EquipmentMenu()
 		{
@@ -1275,7 +1275,7 @@ namespace Charlotte.Games
 			DDInput.B.FreezeInputUntilRelease();
 
 			DDMain.KeepMainScreen();
-			SCommon.Swap(ref DDGround.KeptMainScreen, ref EquipmentMenu_KeptMainScreen);
+			SCommon.Swap(ref DDGround.KeptMainScreen, ref EquipmentMenu_KeptMainScreen); // 使用後は Unload すること。
 
 			DDTableMenu tableMenu = new DDTableMenu(130, 50, 24, () =>
 			{
@@ -1348,7 +1348,7 @@ namespace Charlotte.Games
 		private bool Pause_ReturnToTitleMenu = false;
 		private bool 当たり判定表示 = false;
 
-		//private static DDSubScreen Pause_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H);
+		//private static DDSubScreen Pause_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 		private static DDSubScreen Pause_KeptMainScreen { get { return EquipmentMenu_KeptMainScreen; } }
 
 		/// <summary>
@@ -1358,7 +1358,7 @@ namespace Charlotte.Games
 		{
 			// old
 			//DDMain.KeepMainScreen();
-			//SCommon.Swap(ref DDGround.KeptMainScreen, ref Pause_KeptMainScreen);
+			//SCommon.Swap(ref DDGround.KeptMainScreen, ref Pause_KeptMainScreen); // 使用後は Unload すること。
 
 			DDSimpleMenu simpleMenu = new DDSimpleMenu()
 			{

@@ -426,7 +426,7 @@ namespace Charlotte.Novels
 
 		private bool SystemMenu_ReturnToTitleMenu = false;
 
-		private static DDSubScreen SystemMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H);
+		private static DDSubScreen SystemMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		/// <summary>
 		/// システムメニュー画面
@@ -434,7 +434,7 @@ namespace Charlotte.Novels
 		private void SystemMenu()
 		{
 			DDMain.KeepMainScreen();
-			SCommon.Swap(ref DDGround.KeptMainScreen, ref SystemMenu_KeptMainScreen);
+			SCommon.Swap(ref DDGround.KeptMainScreen, ref SystemMenu_KeptMainScreen); // 使用後は Unload すること。
 
 			this.SystemMenu_ReturnToTitleMenu = false; // reset
 

@@ -41,18 +41,12 @@ namespace Charlotte.Games.Enemies.Tests
 			}
 		}
 
-		private static DDSubScreen _lastGameScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H);
+		private static DDSubScreen _lastGameScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		private void イベント実行()
 		{
 			DDMain.KeepMainScreen();
-
-			// swap
-			{
-				DDSubScreen tmp = _lastGameScreen;
-				_lastGameScreen = DDGround.KeptMainScreen;
-				DDGround.KeptMainScreen = tmp;
-			}
+			SCommon.Swap(ref DDGround.KeptMainScreen, ref _lastGameScreen); // 使用後は Unload すること。
 
 			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(10, -1.0);
