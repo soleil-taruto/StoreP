@@ -87,14 +87,14 @@ namespace Charlotte.Games.Attacks
 		public static int GetPlayer_側面()
 		{
 			bool touchSide_L =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_側面判定Pt_Y)).Tile.IsWall() ||
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_側面判定Pt_YT)).Tile.IsWall() ||
 				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_側面判定Pt_Y)).Tile.IsWall();
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_側面判定Pt_YB)).Tile.IsWall();
 
 			bool touchSide_R =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_側面判定Pt_Y)).Tile.IsWall() ||
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_側面判定Pt_YT)).Tile.IsWall() ||
 				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_側面判定Pt_Y)).Tile.IsWall();
+				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_側面判定Pt_YB)).Tile.IsWall();
 
 			return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
 		}

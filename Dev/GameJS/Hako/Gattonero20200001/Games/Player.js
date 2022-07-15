@@ -261,14 +261,14 @@ function <void> DrawPlayer()
 	// 位置矯正
 	{
 		var<boolean> touchSide_L =
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_Y )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                       )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_Y )).WallFlag;
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).WallFlag;
 
 		var<boolean> touchSide_R =
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_Y )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                       )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_Y )).WallFlag;
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        )).WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).WallFlag;
 
 		if (touchSide_L && touchSide_R) // -> 壁抜け防止のため再チェック
 		{
