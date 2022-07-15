@@ -590,12 +590,15 @@ namespace Charlotte.Games
 					DDDraw.Reset();
 				};
 
+				// 1フレーム前の画面だと、プレイヤーと敵が当たっていないため不自然に見えるだろう。
+				// 今回のフレームの描画を確定し、今回のフレームの画面を死亡確定画面として表示する必要がある。
+				//
 				DDEngine.EachFrame(); // 今回の描画を確定させてから...
 				DDMain.KeepMainScreen(); // ...画面を保存する。
 
 				DDMusicUtils.Fadeout();
 
-				foreach (DDScene scene in DDSceneUtils.Create(40))
+				foreach (DDScene scene in DDSceneUtils.Create(40)) // 死亡確定画面
 				{
 					DDDraw.DrawSimple(DDGround.KeptMainScreen.ToPicture(), 0, 0);
 					DDEngine.EachFrame();
