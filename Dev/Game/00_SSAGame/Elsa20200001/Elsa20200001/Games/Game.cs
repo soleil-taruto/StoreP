@@ -1438,17 +1438,18 @@ namespace Charlotte.Games
 				DDDraw.Reset();
 			});
 
-			//switch (this.Status.Equipment)
-			//{
-			//	case GameStatus.Equipment_e.Normal: tableMenu.SetSelectedPosition(0, 1); break;
-			//	case GameStatus.Equipment_e.跳ねる陰陽玉: tableMenu.SetSelectedPosition(0, 2); break;
-			//	case GameStatus.Equipment_e.ハンマー陰陽玉: tableMenu.SetSelectedPosition(0, 3); break;
-			//	case GameStatus.Equipment_e.エアーシューター: tableMenu.SetSelectedPosition(0, 4); break;
-			//	case GameStatus.Equipment_e.マグネットエアー: tableMenu.SetSelectedPosition(0, 5); break;
+#if false // 条件によって初期選択をセットする。-- ★サンプルとしてキープ
+			int cond = 1;
+			switch (cond)
+			{
+				case 0: tableMenu.SetSelectedPosition(0, 0); break;
+				case 1: tableMenu.SetSelectedPosition(0, 1); break;
+				case 2: tableMenu.SetSelectedPosition(1, 1); break;
 
-			//	default:
-			//		break;
-			//}
+				default:
+					break;
+			}
+#endif
 
 			for (bool keepMenu = true; keepMenu; )
 			{
@@ -1482,6 +1483,8 @@ namespace Charlotte.Games
 
 				//DDEngine.EachFrame(); // 不要
 			}
+
+			EquipmentMenu_KeptMainScreen.Unload();
 
 			//DDInput.DIR_2.FreezeInputUntilRelease();
 			//DDInput.DIR_4.FreezeInputUntilRelease();
@@ -1582,6 +1585,7 @@ namespace Charlotte.Games
 			}
 		endLoop:
 			DDEngine.FreezeInput();
+			//Pause_KeptMainScreen.Unload(); // old
 
 			// old
 			//DDInput.A.FreezeInputUntilRelease();

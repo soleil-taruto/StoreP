@@ -21,6 +21,8 @@ var<int> GameLastPlayedStageIndex = 0;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
+	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収());
+
 	// reset
 	{
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
@@ -193,6 +195,8 @@ gameLoop:
 		// 当たり判定ここまで
 		// ====
 
+		f_ゴミ回収();
+
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
 			return enemy.HP == -1; // ? 死亡
@@ -204,6 +208,8 @@ gameLoop:
 		});
 
 		yield 1;
+
+		// ★★★ ゲームループの終わり ★★★
 	}
 
 	SetCurtain_FD(30, -1.0);
@@ -219,6 +225,60 @@ gameLoop:
 
 	ClearAllEffect(); // 時限消滅ではないエフェクトを考慮して、クリアは必須とする。
 	FreezeInput();
+
+	// ★★★ end of GameMain() ★★★
+}
+
+function* <generatorForTask> @@_T_ゴミ回収()
+{
+	var<int> MGN_SCREEN_NUM = 3;
+
+	for (; ; )
+	{
+		for (var<int> index = 0; index < @@_Enemies.length; index++)
+		{
+			var<Enemy_t> enemy = @@_Enemies[index];
+
+			if (IsOut(
+				CreateD2Point(enemy.X, enemy.Y),
+				CreateD4Rect_LTRB(
+					-Screen_W * MGN_SCREEN_NUM,
+					-Screen_H * MGN_SCREEN_NUM,
+					Screen_W * (MGN_SCREEN_NUM + 1),
+					Screen_H * (MGN_SCREEN_NUM + 1)
+					),
+				0.0
+				))
+			{
+				enemy.HP = -1;
+			}
+
+			yield 1;
+		}
+
+		for (var<int> index = 0; index < @@_Shots.length; index++)
+		{
+			var<Shot_t> shot = @@_Shots[index];
+
+			if (IsOut(
+				CreateD2Point(shot.X, shot.Y),
+				CreateD4Rect_LTRB(
+					-Screen_W * MGN_SCREEN_NUM,
+					-Screen_H * MGN_SCREEN_NUM,
+					Screen_W * (MGN_SCREEN_NUM + 1),
+					Screen_H * (MGN_SCREEN_NUM + 1)
+					),
+				0.0
+				))
+			{
+				shot.AttackPoint = -1;
+			}
+
+			yield 1;
+		}
+
+		yield 1; // @@_Enemies, @@_Shots が空の場合、ループ内の yield は実行されないので、ここにも yield を設置しておく。
+	}
 }
 
 function <Enemy_t[]> GetEnemies()

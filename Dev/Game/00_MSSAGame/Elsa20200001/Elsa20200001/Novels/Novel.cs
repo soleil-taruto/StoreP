@@ -509,6 +509,7 @@ namespace Charlotte.Novels
 			}
 		endLoop:
 			DDEngine.FreezeInput(NovelConsts.LONG_INPUT_SLEEP);
+			SystemMenu_KeptMainScreen.Unload();
 		}
 	}
 }

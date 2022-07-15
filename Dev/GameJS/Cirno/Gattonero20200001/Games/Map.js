@@ -53,7 +53,14 @@ var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
 
 /// Map_t
 {
+	// テーブルの幅 (横のセル数)
+	// MAP_W_MIN～
+	//
 	var<int> W
+
+	// テーブルの高さ (縦のセル数)
+	// MAP_H_MIN～
+	//
 	var<int> H
 
 	// スタート座標

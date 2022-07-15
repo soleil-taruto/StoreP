@@ -80,6 +80,8 @@ namespace Charlotte.Games.Enemies.Tests
 			DDCurtain.SetCurtain(0, -1.0);
 			DDCurtain.SetCurtain(10);
 
+			_lastGameScreen.Unload();
+
 #if false // いらん
 			foreach (DDScene scene in DDSceneUtils.Create(20))
 			{

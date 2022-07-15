@@ -436,7 +436,10 @@ namespace Charlotte.Novels
 			DDMain.KeepMainScreen();
 			SCommon.Swap(ref DDGround.KeptMainScreen, ref SystemMenu_KeptMainScreen);
 
-			this.SystemMenu_ReturnToTitleMenu = false; // reset
+			// reset
+			{
+				this.SystemMenu_ReturnToTitleMenu = false;
+			}
 
 			DDSimpleMenu simpleMenu = new DDSimpleMenu()
 			{
@@ -509,6 +512,7 @@ namespace Charlotte.Novels
 			}
 		endLoop:
 			DDEngine.FreezeInput(NovelConsts.LONG_INPUT_SLEEP);
+			SystemMenu_KeptMainScreen.Unload();
 		}
 	}
 }
