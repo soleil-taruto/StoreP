@@ -74,11 +74,7 @@ namespace Charlotte.Games
 				return;
 			}
 
-			double xZoom = this.FacingLeft ? -1 : 1;
-			double yZoom = 1.0;
 			DDPicture picture = null;
-			double xa = 0.0;
-			double ya = 0.0;
 
 			switch (Game.I.Player.Chara) // キャラクタ別_各種モーション
 			{
@@ -87,8 +83,6 @@ namespace Charlotte.Games
 						if (1 <= Game.I.Player.ShagamiFrame) // てゐ_しゃがみ
 						{
 							picture = Ground.I.Picture2.Tewi_しゃがみ[Math.Min(Game.I.Player.ShagamiFrame / 3, Ground.I.Picture2.Tewi_しゃがみ.Length - 1)];
-							//xa = 0;
-							//ya = 0;
 						}
 						else if (Game.I.Player.AirborneFrame != 0) // てゐ_滞空状態
 						{
@@ -144,9 +138,6 @@ namespace Charlotte.Games
 						if (1 <= Game.I.Player.ShagamiFrame) // チルノ_しゃがみ
 						{
 							picture = Ground.I.Picture2.Cirno_しゃがみ[Math.Min(Game.I.Player.ShagamiFrame / 3, Ground.I.Picture2.Cirno_しゃがみ.Length - 1)];
-							//xa = 0;
-							//ya = 0;
-							//yZoom = 1.0;
 						}
 						else if (Game.I.Player.AirborneFrame != 0) // チルノ_滞空状態
 						{
@@ -174,13 +165,11 @@ namespace Charlotte.Games
 							if (this.MoveSlow)
 							{
 								picture = Ground.I.Picture2.Cirno_歩く[Game.I.Frame / 10 % Ground.I.Picture2.Cirno_歩く.Length];
-								//ya = 0;
 							}
 							else
 							{
 								int koma = this.MoveFrame;
 								koma--;
-								//koma /= 1;
 
 								if (Ground.I.Picture2.Cirno_走る.Length <= koma)
 								{
@@ -190,7 +179,6 @@ namespace Charlotte.Games
 									koma = Ground.I.Picture2.Cirno_走る.Length - 2 + koma;
 								}
 								picture = Ground.I.Picture2.Cirno_走る[koma];
-								//ya = 0;
 							}
 						}
 						else // チルノ_立ち
@@ -201,9 +189,6 @@ namespace Charlotte.Games
 								picture = Ground.I.Picture2.Cirno_しゃがみ解除[koma];
 							else
 								picture = Ground.I.Picture2.Cirno_立ち[Game.I.Frame / 10 % Ground.I.Picture2.Cirno_立ち.Length];
-
-							//xa = 0;
-							//ya = 0;
 						}
 					}
 					break;
@@ -220,8 +205,7 @@ namespace Charlotte.Games
 						break;
 
 					case Chara_e.CIRNO:
-						////picture = Ground.I.Picture2.さやか被弾[(this.DamageFrame * Ground.I.Picture2.さやか被弾.Length) / (GameConsts.PLAYER_DAMAGE_FRAME_MAX + 1)];
-						xa = -20;
+						picture = Ground.I.Picture2.Tewi_大ダメージ[(this.DamageFrame * Ground.I.Picture2.Tewi_大ダメージ.Length) / (GameConsts.PLAYER_DAMAGE_FRAME_MAX + 1)];
 						break;
 
 					default:
@@ -242,11 +226,10 @@ namespace Charlotte.Games
 
 			DDDraw.DrawBegin(
 				picture,
-				x - DDGround.ICamera.X + (xa * xZoom),
-				y - DDGround.ICamera.Y + ya
+				x - DDGround.ICamera.X,
+				y - DDGround.ICamera.Y
 				);
-			DDDraw.DrawZoom_X(xZoom);
-			DDDraw.DrawZoom_Y(yZoom);
+			DDDraw.DrawZoom_X(this.FacingLeft ? -1.0 : 1.0);
 			DDDraw.DrawEnd();
 			DDDraw.Reset();
 		}

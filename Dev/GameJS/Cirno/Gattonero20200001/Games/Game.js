@@ -17,6 +17,11 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 
 /*
+	ゲーム終了リクエスト
+*/
+var<boolean> GameRequestReturnToTitleMenu = false;
+
+/*
 	ゲーム終了時のステージ・インデックス
 	0～
 */
@@ -31,9 +36,10 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		@@_Enemies = [];
 		@@_Shots = [];
 
-		GameEndReason = GameEndReason_e_STAGE_CLEAR;
-		GameLastPlayedStageIndex = 0;
 		Camera = CreateD2Point(0.0, 0.0);
+		GameEndReason = GameEndReason_e_STAGE_CLEAR;
+		GameRequestReturnToTitleMenu = false;
+		GameLastPlayedStageIndex = 0;
 
 		ResetPlayer();
 	}
@@ -60,12 +66,11 @@ gameLoop:
 		if (GetInput_Pause() == 1) // ポーズ
 		{
 			yield* @@_PauseMenu();
-
-			if (@@_Pause_ReturnToTitleMenu)
-			{
-				GameEndReason = GameEndReason_e_RETURN_MENU;
-				break gameLoop;
-			}
+		}
+		if (GameRequestReturnToTitleMenu)
+		{
+			GameEndReason = GameEndReason_e_RETURN_MENU;
+			break;
 		}
 
 		@@_カメラ位置調整(false);
@@ -252,24 +257,13 @@ function <void> @@_カメラ位置調整(<boolean> 一瞬で)
 
 function* <generatorForTask> @@_T_ゴミ回収()
 {
-	var<int> MGN_SCREEN_NUM = 3;
-
 	for (; ; )
 	{
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
 			var<Enemy_t> enemy = @@_Enemies[index];
 
-			if (IsOut(
-				CreateD2Point(enemy.X, enemy.Y),
-				CreateD4Rect_LTRB(
-					-Screen_W * MGN_SCREEN_NUM,
-					-Screen_H * MGN_SCREEN_NUM,
-					TILE_W * Map.W + Screen_W * MGN_SCREEN_NUM,
-					TILE_H * Map.H + Screen_H * MGN_SCREEN_NUM
-					),
-				0.0
-				))
+			if (@@_IsProbablyEvacuated(enemy.X, enemy.Y))
 			{
 				enemy.HP = -1;
 			}
@@ -281,16 +275,7 @@ function* <generatorForTask> @@_T_ゴミ回収()
 		{
 			var<Shot_t> shot = @@_Shots[index];
 
-			if (IsOut(
-				CreateD2Point(shot.X, shot.Y),
-				CreateD4Rect_LTRB(
-					-Screen_W * MGN_SCREEN_NUM,
-					-Screen_H * MGN_SCREEN_NUM,
-					TILE_W * Map.W + Screen_W * MGN_SCREEN_NUM,
-					TILE_H * Map.H + Screen_H * MGN_SCREEN_NUM
-					),
-				0.0
-				))
+			if (@@_IsProbablyEvacuated(shot.X, shot.Y))
 			{
 				shot.AttackPoint = -1;
 			}
@@ -300,6 +285,24 @@ function* <generatorForTask> @@_T_ゴミ回収()
 
 		yield 1; // @@_Enemies, @@_Shots が空の場合、ループ内の yield は実行されないので、ここにも yield を設置しておく。
 	}
+}
+
+function <boolean> @@_IsProbablyEvacuated(<double> x, <double> y)
+{
+	var<int> MGN_SCREEN_NUM = 3;
+
+	var<boolean> ret = IsOut(
+		CreateD2Point(x, y),
+		CreateD4Rect_LTRB(
+			-Screen_W * MGN_SCREEN_NUM,
+			-Screen_H * MGN_SCREEN_NUM,
+			TILE_W * Map.W + Screen_W * MGN_SCREEN_NUM,
+			TILE_H * Map.H + Screen_H * MGN_SCREEN_NUM
+			),
+		0.0
+		);
+
+	return ret;
 }
 
 function <Enemy_t[]> GetEnemies()
