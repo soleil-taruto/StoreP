@@ -224,8 +224,8 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Effect.js(23) : AddEffect_Ex
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Effect.js(61) : AddEffect_ShotExplode // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Effect.js(83) : AddEffect_TamaExplode // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(16) : GameMain // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(286) : GetEnemies // ä÷êî
-C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(291) : GetShots // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(340) : GetEnemies // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(345) : GetShots // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\Game.js(14) : Score // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\Games\LocalStorage.js(36) : SaveLocalStorage // ä÷êî

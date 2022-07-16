@@ -289,24 +289,13 @@ gameLoop:
 
 function* <generatorForTask> @@_T_ゴミ回収()
 {
-	var<int> MGN_SCREEN_NUM = 3;
-
 	for (; ; )
 	{
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
 			var<Enemy_t> enemy = @@_Enemies[index];
 
-			if (IsOut(
-				CreateD2Point(enemy.X, enemy.Y),
-				CreateD4Rect_LTRB(
-					-Screen_W * MGN_SCREEN_NUM,
-					-Screen_H * MGN_SCREEN_NUM,
-					Screen_W * (MGN_SCREEN_NUM + 1),
-					Screen_H * (MGN_SCREEN_NUM + 1)
-					),
-				0.0
-				))
+			if (@@_IsProbablyEvacuated(enemy.X, enemy.Y))
 			{
 				enemy.HP = -1;
 			}
@@ -318,16 +307,7 @@ function* <generatorForTask> @@_T_ゴミ回収()
 		{
 			var<Shot_t> shot = @@_Shots[index];
 
-			if (IsOut(
-				CreateD2Point(shot.X, shot.Y),
-				CreateD4Rect_LTRB(
-					-Screen_W * MGN_SCREEN_NUM,
-					-Screen_H * MGN_SCREEN_NUM,
-					Screen_W * (MGN_SCREEN_NUM + 1),
-					Screen_H * (MGN_SCREEN_NUM + 1)
-					),
-				0.0
-				))
+			if (@@_IsProbablyEvacuated(shot.X, shot.Y))
 			{
 				shot.AttackPoint = -1;
 			}
@@ -337,6 +317,24 @@ function* <generatorForTask> @@_T_ゴミ回収()
 
 		yield 1; // @@_Enemies, @@_Shots が空の場合、ループ内の yield は実行されないので、ここにも yield を設置しておく。
 	}
+}
+
+function <boolean> @@_IsProbablyEvacuated(<double> x, <double> y)
+{
+	var<int> MGN_SCREEN_NUM = 3;
+
+	var<boolean> ret = IsOut(
+		CreateD2Point(x, y),
+		CreateD4Rect_LTRB(
+			-Screen_W * MGN_SCREEN_NUM,
+			-Screen_H * MGN_SCREEN_NUM,
+			Screen_W * (MGN_SCREEN_NUM + 1),
+			Screen_H * (MGN_SCREEN_NUM + 1)
+			),
+		0.0
+		);
+
+	return ret;
 }
 
 function <Enemy_t[]> GetEnemies()

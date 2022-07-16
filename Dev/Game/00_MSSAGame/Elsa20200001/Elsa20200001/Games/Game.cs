@@ -804,9 +804,9 @@ namespace Charlotte.Games
 		}
 
 		/// <summary>
-		/// あまりにもマップから離れすぎている敵・自弾の死亡フラグを立てる。
+		/// マップから離れすぎている敵・自弾の死亡フラグを立てる。
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>タスク</returns>
 		private IEnumerable<bool> E_ゴミ回収()
 		{
 			for (; ; )
@@ -825,8 +825,23 @@ namespace Charlotte.Games
 
 					yield return true;
 				}
-				yield return true; // ループ内で1度も実行されない場合を想定
+				yield return true; //  this.Enemies, this.Shots が空の場合、ループ内の yield return は実行されないので、ここにも yield return を設置しておく。
 			}
+		}
+
+		/// <summary>
+		/// マップから離れすぎているか判定する。
+		/// </summary>
+		/// <param name="x">X-座標</param>
+		/// <param name="y">Y-座標</param>
+		/// <returns>マップから離れすぎているか</returns>
+		private bool IsProbablyEvacuated(double x, double y)
+		{
+			const int MGN_SCREEN_NUM = 3;
+
+			return
+				x < -DDConsts.Screen_W * MGN_SCREEN_NUM || this.Map.W * GameConsts.TILE_W + DDConsts.Screen_W * MGN_SCREEN_NUM < x ||
+				y < -DDConsts.Screen_H * MGN_SCREEN_NUM || this.Map.H * GameConsts.TILE_H + DDConsts.Screen_H * MGN_SCREEN_NUM < y;
 		}
 
 		public bool 次のカメラ位置調整を一瞬で = false;
@@ -1238,24 +1253,6 @@ namespace Charlotte.Games
 			}
 		}
 
-		/// <summary>
-		/// マップから離れすぎているか
-		/// 退場と見なして良いか
-		/// </summary>
-		/// <param name="x">X_座標</param>
-		/// <param name="y">Y_座標</param>
-		/// <returns></returns>
-		private bool IsProbablyEvacuated(double x, double y)
-		{
-			const int MGN_SCREEN_NUM = 3;
-
-			return
-				x < -DDConsts.Screen_W * MGN_SCREEN_NUM || this.Map.W * GameConsts.TILE_W + DDConsts.Screen_W * MGN_SCREEN_NUM < x ||
-				y < -DDConsts.Screen_H * MGN_SCREEN_NUM || this.Map.H * GameConsts.TILE_H + DDConsts.Screen_H * MGN_SCREEN_NUM < y;
-		}
-
-		#region EquipmentMenu
-
 		private static DDSubScreen EquipmentMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		private void EquipmentMenu()
@@ -1335,8 +1332,6 @@ namespace Charlotte.Games
 			DDInput.A.FreezeInputUntilRelease();
 			DDInput.B.FreezeInputUntilRelease();
 		}
-
-		#endregion
 
 		private bool 当たり判定表示 = false;
 
