@@ -39,6 +39,7 @@ namespace Charlotte.Games
 		public bool FacingLeft;
 		public int MoveFrame;
 		public bool MoveSlow; // ? 低速移動
+		public bool JumpLock; // ? ジャンプ・ロック -- ジャンプしたらボタンを離すまでロックする。
 		public int JumpFrame;
 		public int JumpCount;
 		public int AirborneFrame; // 0 == 接地状態, 1～ == 滞空状態
