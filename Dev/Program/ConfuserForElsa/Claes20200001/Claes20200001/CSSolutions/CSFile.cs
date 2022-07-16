@@ -875,22 +875,10 @@ namespace Charlotte.CSSolutions
 								);
 
 							AddWarpableMemberMark(varLines, beforeWarpableMemberLine, varName + "_E_GetString_" + rangeIndex + "_Z");
-							varLines.Add("\t\tpublic static IEnumerable<int> " +
-								varName + "_E_GetString_" +
-								rangeIndex + "_Z() { foreach (int " +
-								varName + "_Var3_" +
-								rangeIndex + "_Z in " +
-								varName + "_ArrString_" +
-								rangeIndex + "_Z) { yield return " +
-								varName + "_Var3_" +
-								rangeIndex + "_Z; } }"
-								);
-
-							AddWarpableMemberMark(varLines, beforeWarpableMemberLine, varName + "_ArrString_" + rangeIndex + "_Z");
 							varLines.Add("\t\tpublic static int[] " +
-								varName + "_ArrString_" +
-								rangeIndex + "_Z = new int[] { " +
-								string.Join(", ", SLS2_ToYR(line.Substring(ranges[rangeIndex][0], ranges[rangeIndex][1]))) + " };"
+								varName + "_E_GetString_" +
+								rangeIndex + "_Z() { return new int[] { " +
+								string.Join(", ", SLS2_ToYR(line.Substring(ranges[rangeIndex][0], ranges[rangeIndex][1]))) + " }; }"
 								);
 						}
 
