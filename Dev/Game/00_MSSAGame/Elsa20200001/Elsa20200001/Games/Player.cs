@@ -105,13 +105,16 @@ namespace Charlotte.Games
 			}
 			if (1 <= this.DamageFrame || 1 <= this.InvincibleFrame)
 			{
-				DDDraw.SetTaskList(DDGround.EL);
+				DDDraw.SetTaskList(DDGround.EL); // 敵より前面に描画する。
+			}
+			if (1 <= this.InvincibleFrame)
+			{
 				DDDraw.SetAlpha(0.5);
 			}
 			DDDraw.DrawBegin(
 				picture,
-				SCommon.ToInt(this.X - DDGround.ICamera.X),
-				SCommon.ToInt(this.Y - DDGround.ICamera.Y) - 16
+				this.X - DDGround.ICamera.X,
+				this.Y - DDGround.ICamera.Y - 16
 				);
 			DDDraw.DrawZoom_X(xZoom);
 			DDDraw.DrawEnd();

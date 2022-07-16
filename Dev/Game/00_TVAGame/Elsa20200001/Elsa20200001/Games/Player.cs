@@ -40,15 +40,11 @@ namespace Charlotte.Games
 
 			DDPicture picture = Ground.I.Picture2.GetPlayer(Game.I.Status.Chara).GetPicture(this.FaceDirection, koma);
 
-			// ---- ダメージ中等差し替え ----
-
 			if (1 <= this.DamageFrame || 1 <= this.InvincibleFrame)
 			{
-				DDDraw.SetTaskList(DDGround.EL);
+				DDDraw.SetTaskList(DDGround.EL); // 敵より前面に描画する。
 				DDDraw.SetAlpha(0.5);
 			}
-
-			// ----
 
 			DDDraw.SetMosaic();
 			DDDraw.DrawBegin(

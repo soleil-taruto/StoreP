@@ -343,7 +343,9 @@ namespace Charlotte.Games
 						this.Player.X += speed;
 					}
 					else
+					{
 						this.Player.X = (double)SCommon.ToInt(this.Player.X);
+					}
 
 					if (1 <= this.Player.JumpFrame)
 						this.Player.YSpeed = GameConsts.PLAYER_JUMP_SPEED;
@@ -463,9 +465,8 @@ namespace Charlotte.Games
 
 				// 画面遷移時の微妙なカメラ位置ズレ解消
 				// -- スタート地点(入場地点)が地面と接していると、最初のフレームでプレイヤーは上に押し出されてカメラの初期位置とズレてしまう。
-				if (this.Frame == 0 || this.次のカメラ位置調整を一瞬で)
+				if (this.Frame == 0)
 				{
-					this.次のカメラ位置調整を一瞬で = false;
 					this.カメラ位置調整(true);
 				}
 
@@ -843,8 +844,6 @@ namespace Charlotte.Games
 				x < -DDConsts.Screen_W * MGN_SCREEN_NUM || this.Map.W * GameConsts.TILE_W + DDConsts.Screen_W * MGN_SCREEN_NUM < x ||
 				y < -DDConsts.Screen_H * MGN_SCREEN_NUM || this.Map.H * GameConsts.TILE_H + DDConsts.Screen_H * MGN_SCREEN_NUM < y;
 		}
-
-		public bool 次のカメラ位置調整を一瞬で = false;
 
 		private void カメラ位置調整(bool 一瞬で)
 		{

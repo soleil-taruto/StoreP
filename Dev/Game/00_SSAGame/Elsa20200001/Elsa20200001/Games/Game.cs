@@ -487,7 +487,9 @@ namespace Charlotte.Games
 						this.Player.X += speed;
 					}
 					else
+					{
 						this.Player.X = (double)SCommon.ToInt(this.Player.X);
+					}
 
 					// 重力による加速
 					this.Player.YSpeed += GameConsts.PLAYER_GRAVITY;
