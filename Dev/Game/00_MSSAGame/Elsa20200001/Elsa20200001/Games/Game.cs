@@ -113,8 +113,6 @@ namespace Charlotte.Games
 
 			DDEngine.FreezeInput();
 
-			bool jumpLock = false; // ? ジャンプ・ロック // ジャンプしたらボタンを離すまでロックする。
-
 			for (this.Frame = 0; ; this.Frame++)
 			{
 				if (!this.UserInputDisabled && DDInput.PAUSE.GetInput() == 1)
@@ -199,12 +197,13 @@ namespace Charlotte.Games
 						shagami = false;
 					}
 					else
+					{
 						this.Player.MoveFrame = 0;
-
+					}
 					this.Player.MoveSlow = move && slow;
 
 					if (jump == 0)
-						jumpLock = false;
+						this.Player.JumpLock = false;
 
 					if (1 <= this.Player.JumpFrame)
 					{
@@ -223,11 +222,11 @@ namespace Charlotte.Games
 						const int 事前入力時間 = 5;
 						const int 入力猶予時間 = 5;
 
-						if (1 <= jump && jump < 事前入力時間 && this.Player.AirborneFrame < 入力猶予時間 && this.Player.JumpCount == 0 && !jumpLock)
+						if (1 <= jump && jump < 事前入力時間 && this.Player.AirborneFrame < 入力猶予時間 && this.Player.JumpCount == 0 && !this.Player.JumpLock)
 						{
 							this.Player.JumpCount = 1;
 							this.Player.JumpFrame = 1;
-							jumpLock = true;
+							this.Player.JumpLock = true;
 						}
 					}
 
@@ -336,10 +335,10 @@ namespace Charlotte.Games
 							DDUtils.Minim(ref speed, GameConsts.PLAYER_SLOW_SPEED);
 						}
 						else
+						{
 							speed = GameConsts.PLAYER_SPEED;
-
+						}
 						speed *= this.Player.FacingLeft ? -1 : 1;
-
 						this.Player.X += speed;
 					}
 					else
