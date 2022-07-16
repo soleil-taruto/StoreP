@@ -37,7 +37,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { @"C:\temp\nc229908.png", "0", "0", "32", "32", "2" }));
+			Main4(new ArgsReader(new string[] { @"C:\temp\nc25161.png", "0", "0", "40", "40", "2" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -112,7 +112,7 @@ namespace Charlotte
 						Canvas tile = canvas.GetSubImage(tile_l, tile_t, tile_w, tile_h);
 
 						if (2 <= extend)
-							tile = tile.Expand(tile_w * extend, tile_h * extend);
+							tile = tile.Expand(tile_w * extend, tile_h * extend, 1); // 整数倍なのでサンプリングは1回で良い。
 
 						tile.Save(Path.Combine(
 							SCommon.GetOutputDir(),
