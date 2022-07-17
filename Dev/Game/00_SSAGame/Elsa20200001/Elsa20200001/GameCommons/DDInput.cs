@@ -17,6 +17,8 @@ namespace Charlotte.GameCommons
 			private bool FreezeInputUntilReleaseFlag = false;
 			public int Status = 0;
 
+			// ★★★ キー押下は 1 マウス押下は -1 で判定する。
+			//
 			public int GetInput()
 			{
 				if (this.FreezeInputUntilReleaseFlag)

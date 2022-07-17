@@ -44,8 +44,6 @@ namespace Charlotte.GameCommons
 
 			for (; ; )
 			{
-				// ★★★ キー押下は 1 マウス押下は -1 で判定する。
-
 				if (this.MouseUsable)
 				{
 					int musSelIdxY = DDMouse.Y - (y + yStep);
