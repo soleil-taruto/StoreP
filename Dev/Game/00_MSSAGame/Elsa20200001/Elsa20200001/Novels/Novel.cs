@@ -77,8 +77,6 @@ namespace Charlotte.Novels
 			{
 				bool nextPageFlag = false;
 
-				// ★★★ キー押下は 1 マウス押下は -1 で判定する。
-
 				// 入力：シナリオを進める。(マウスホイール)
 				if (DDMouse.Rot < 0)
 				{
