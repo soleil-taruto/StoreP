@@ -101,6 +101,8 @@ function <int> @@_GetInput(<int> counter)
 	return 1 <= FreezeInputFrame ? 0 : counter;
 }
 
+// ★★★ キー押下は 1 マウス押下は -1 で判定する。
+
 // ----
 // GetInput_X ここから
 // ----

@@ -15,6 +15,8 @@ function <string> ZPad(<T> value, <int> minlen, <string> padding)
 
 function <string> ToHex(<int> value)
 {
+	var<char[]> HEX_DIGS = [ ... "0123456789abcdef" ];
+
 	if (value < 0)
 	{
 		return "-" + ToHex(value * -1);
@@ -24,7 +26,7 @@ function <string> ToHex(<int> value)
 	while (0 < value)
 	{
 		var<int> i = value % 16;
-		ret += "0123456789abcdef".substring(i, i + 1);
+		ret += HEX_DIGS[i];
 		value /= 16;
 		value = ToFix(value);
 	}
@@ -41,11 +43,12 @@ function <string> ToHex(<int> value)
 
 function <string> RevStr(<string> str)
 {
+	var<char[]> chrs = [ ... str ];
 	var ret = "";
 
-	for (var<int> index = str.length - 1; 0 <= index; index--)
+	for (var<int> index = chrs.length - 1; 0 <= index; index--)
 	{
-		ret += str.substring(index, index + 1);
+		ret += chrs[index];
 	}
 	return ret;
 }
@@ -90,10 +93,8 @@ function <int> StrToInt(<string> str)
 	var<int> value = 0;
 	var<int> sign = 1;
 
-	for (var<int> index = 0; index < str.length; index++)
+	for (var<char> chr of [ ... str ])
 	{
-		var<string> chr = str.substring(index, index + 1);
-
 		if (chr == "-")
 		{
 			sign = -1;
