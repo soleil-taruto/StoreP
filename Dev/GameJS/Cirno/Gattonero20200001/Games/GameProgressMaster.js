@@ -8,8 +8,14 @@ var<int> @@_PANEL_W = 160;
 var<int> @@_PANEL_H = 160;
 var<int> @@_PANEL_X_GAP = 20;
 var<int> @@_PANEL_Y_GAP = 20;
-var<int> @@_PANEL_X_NUM = 4;
-var<int> @@_PANEL_Y_NUM = 4;
+var<int> @@_PANEL_X_NUM = 3;
+var<int> @@_PANEL_Y_NUM = 3;
+
+// TODO
+// TODO
+// TODO
+// TODO
+// TODO
 
 function* <generatorForTask> MapSelectMenu()
 {

@@ -86,7 +86,7 @@ function <void> ResetPlayer()
 */
 function <void> DrawPlayer()
 {
-	// ˆÚ“®
+	// “ü—Í
 	{
 		var<boolean> move = false;
 		var<boolean> slow = false;
@@ -213,10 +213,13 @@ function <void> DrawPlayer()
 				PlayerX += SHAGAMI_SPEED;
 			}
 		}
+	}
 
+	// ˆÚ“®
+	{
 		if (1 <= PlayerMoveFrame) // ? ˆÚ“®’†
 		{
-			var<double> speed = 0.0;
+			var<double> speed;
 
 			if (@@_MoveSlow)
 			{

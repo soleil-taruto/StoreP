@@ -73,6 +73,13 @@ var<int> PlayerAirborneFrame = 0;
 var<int> PlayerShagamiFrame = 0;
 
 /*
+	プレイヤー上向きフレーム
+	0 == 無効
+	1～ == 上向き中
+*/
+var<int> PlayerUwamukiFrame = 0;
+
+/*
 	プレイヤー攻撃フレーム
 	0 == 無効
 	1～ == 攻撃中
@@ -83,9 +90,9 @@ var<int> PlayerAttackFrame = 0;
 	プレイヤー攻撃モーション
 	-- 攻撃(Attack)と言っても攻撃以外の利用(スライディング・梯子など)も想定する。
 	null == 無効
-	null != PlayerAttack.next().value を DrawPlayer の代わりに実行される。
+	null != DrawPlayerの代わりに実行される。
 */
-var<generatorForTask> PlayerAttack = null;
+var<Func boolean> PlayerAttack = null;
 
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
@@ -104,6 +111,7 @@ function <void> ResetPlayer()
 	PlayerJumpFrame = 0;
 	PlayerAirborneFrame = IMAX / 2; // ゲーム開始直後に空中でジャンプできないように
 	PlayerShagamiFrame = 0;
+	PlayerUwamukiFrame = 0;
 	PlayerAttackFrame = 0;
 	PlayerAttack = null;
 	@@_JumpLock = false;
@@ -124,17 +132,22 @@ function <void> DrawPlayer()
 		PlayerCrash = null;
 	}
 
-	// 移動
+	// 入力
 	{
 		var<boolean> move = false;
 		var<boolean> slow = false;
 		var<boolean> attack = false;
 		var<boolean> shagami = false;
+		var<boolean> uwamuki = false;
 		var<int> jump = 0;
 
 		if (1 <= GetInput_2())
 		{
 			shagami = true;
+		}
+		if (1 <= GetInput_8())
+		{
+			uwamuki = true;
 		}
 		if (1 <= GetInput_4())
 		{
@@ -146,7 +159,6 @@ function <void> DrawPlayer()
 			PlayerFacingLeft = false;
 			move = true;
 		}
-
 		if (1 <= GetInput_B())
 		{
 //			slow = true;
@@ -161,6 +173,7 @@ function <void> DrawPlayer()
 		{
 			PlayerMoveFrame++;
 			shagami = false;
+//			uwamuki = false;
 		}
 		else
 		{
@@ -176,15 +189,20 @@ function <void> DrawPlayer()
 
 		if (1 <= PlayerJumpFrame) // ? ジャンプ中
 		{
-			var<int> JUMP_FRAME_MAX = 13;
-
-			if (1 <= jump && PlayerJumpFrame < JUMP_FRAME_MAX)
+			if (1 <= jump)
 			{
 				PlayerJumpFrame++;
 			}
 			else
 			{
+				// ★ ジャンプを中断・終了した。
+
 				PlayerJumpFrame = 0;
+
+				if (PlayerYSpeed < 0.0)
+				{
+					PlayerYSpeed /= 2.0;
+				}
 			}
 		}
 		else // ? 接地中 || 滞空中
@@ -195,11 +213,50 @@ function <void> DrawPlayer()
 			var<int> 事前入力時間 = 10;
 			var<int> 入力猶予時間 = 5;
 
-			if (1 <= jump && jump < 事前入力時間 && PlayerAirborneFrame < 入力猶予時間 && PlayerJumpCount == 0 && !@@_JumpLock)
+			if (PlayerAirborneFrame < 入力猶予時間 && PlayerJumpCount == 0)
 			{
-				PlayerJumpCount = 1;
-				PlayerJumpFrame = 1;
-				@@_JumpLock = true;
+				if (1 <= jump && jump < 事前入力時間 && !@@_JumpLock) // ? 接地状態からのジャンプが可能な状態
+				{
+					// ★ ジャンプを開始した。
+
+					PlayerJumpFrame = 1;
+					PlayerJumpCount = 1;
+
+					PlayerYSpeed = PLAYER_JUMP_SPEED;
+
+					@@_JumpLock = true;
+				}
+				else
+				{
+					PlayerJumpCount = 0;
+				}
+			}
+			else // ? 接地状態からのジャンプが「可能ではない」状態
+			{
+				// 滞空状態に入ったら「通常ジャンプの状態」にする。
+				if (this.Player.JumpCount < 1)
+				{
+					this.Player.JumpCount = 1;
+				}
+
+				if (1 <= jump && jump < 事前入力時間 && PlayerJumpCount < PLAYER_JUMP_MAX && !this.Player.JumpLock)
+				{
+					// ★ 空中(n-段)ジャンプを開始した。
+
+					PlayerJumpFrame = 1;
+					PlayerJumpCount++;
+
+					PlayerYSpeed = PLAYER_JUMP_SPEED;
+
+					AddEffect_Explode(PlayerX, PlayerY + PLAYER_接地判定Pt_Y); // 仮
+//					AddEffect(Supplier(Effect_空中ジャンプの足場(PlayerX, PlayerY + PLAYER_接地判定Pt_Y)));
+
+					@@_JumpLock = true;
+				}
+				else
+				{
+					// noop
+				}
 			}
 		}
 
@@ -222,6 +279,15 @@ function <void> DrawPlayer()
 			PlayerShagamiFrame = 0;
 		}
 
+		if (uwamuki)
+		{
+			PlayerUwamukiFrame++;
+		}
+		else
+		{
+			PlayerUwamukiFrame = 0;
+		}
+
 		if (attack)
 		{
 			PlayerAttackFrame++;
@@ -230,49 +296,52 @@ function <void> DrawPlayer()
 		{
 			PlayerAttackFrame = 0;
 		}
+	}
 
-	damageBlock:
-		if (1 <= PlayerDamageFrame) // ? ダメージ中
+damageBlock:
+	if (1 <= PlayerDamageFrame) // ? ダメージ中
+	{
+		if (PLAYER_DAMAGE_FRAME_MAX < ++PlayerDamageFrame)
 		{
-			if (PLAYER_DAMAGE_FRAME_MAX < ++PlayerDamageFrame)
-			{
-				PlayerDamageFrame = 0;
-				PlayerInvincibleFrame = 1;
-				break damageBlock;
-			}
-			var<int> frame = PlayerDamageFrame; // 値域 == 2 ～ PLAYER_DAMAGE_FRAME_MAX
-			double rate = RateAToB(2, PLAYER_DAMAGE_FRAME_MAX, frame);
-
-			// ダメージ中の処理
-			{
-				// TODO
-			}
+			PlayerDamageFrame = 0;
+			PlayerInvincibleFrame = 1;
+			break damageBlock;
 		}
+		var<int> frame = PlayerDamageFrame; // 値域 == 2 ～ PLAYER_DAMAGE_FRAME_MAX
+		double rate = RateAToB(2, PLAYER_DAMAGE_FRAME_MAX, frame);
 
-	invincibleBlock:
-		if (1 <= PlayerInvincibleFrame) // ? 無敵時間中
+		// ダメージ中の処理
 		{
-			if (PLAYER_INVINCIBLE_FRAME_MAX < ++PlayerInvincibleFrame)
-			{
-				PlayerInvincibleFrame = 0;
-				break invincibleBlock;
-			}
-			var<int> frame = PlayerInvincibleFrame; // 値域 == 2 ～ PLAYER_INVINCIBLE_FRAME_MAX
-			double rate = RateAToB(2, PLAYER_INVINCIBLE_FRAME_MAX, frame);
-
-			// 無適時間中の処理
-			{
-				// none
-			}
+			// TODO
 		}
+	}
 
-		if (1 <= PlayerMoveFrame) // ? 移動中
+invincibleBlock:
+	if (1 <= PlayerInvincibleFrame) // ? 無敵時間中
+	{
+		if (PLAYER_INVINCIBLE_FRAME_MAX < ++PlayerInvincibleFrame)
 		{
-			var<double> speed = 0.0;
+			PlayerInvincibleFrame = 0;
+			break invincibleBlock;
+		}
+		var<int> frame = PlayerInvincibleFrame; // 値域 == 2 ～ PLAYER_INVINCIBLE_FRAME_MAX
+		double rate = RateAToB(2, PLAYER_INVINCIBLE_FRAME_MAX, frame);
 
-			if (@@_MoveSlow)
+		// 無適時間中の処理
+		{
+			// none
+		}
+	}
+
+	// 移動
+	{
+		if (1 <= PlayerMoveFrame)
+		{
+			var<double> speed;
+
+			if (PlayerMoveSlow)
 			{
-				speed = PlayerMoveFrame * 0.2;
+				speed = this.Player.MoveFrame / 10.0;
 				speed = Math.min(speed, PLAYER_SLOW_SPEED);
 			}
 			else
@@ -288,16 +357,13 @@ function <void> DrawPlayer()
 			PlayerX = ToInt(PlayerX);
 		}
 
-		if (1 <= PlayerJumpFrame)
-		{
-			PlayerYSpeed = PLAYER_JUMP_SPEED;
-		}
-		else
-		{
-			PlayerYSpeed += PLAYER_GRAVITY;
-			PlayerYSpeed = Math.min(PlayerYSpeed, PLAYER_FALL_SPEED_MAX);
-		}
+		// 重力による加速
+		PlayerYSpeed += PLAYER_GRAVITY;
 
+		// 自由落下の最高速度を超えないように矯正
+		PlayerYSpeed = Math.min(PlayerYSpeed, PLAYER_FALL_SPEED_MAX);
+
+		// 自由落下
 		PlayerY += PlayerYSpeed;
 	}
 
@@ -390,6 +456,8 @@ function <void> DrawPlayer()
 		TILE_W,
 		TILE_H
 		));
+
+	// ここから描画
 
 	Draw(P_Player, PlayerX, PlayerY, 1.0, 0.0, 1.0);
 }

@@ -201,6 +201,7 @@ namespace Charlotte.Games
 					{
 						this.Player.MoveFrame++;
 						shagami = false;
+						//uwamuki = false;
 					}
 					else
 					{
@@ -211,7 +212,7 @@ namespace Charlotte.Games
 					if (jump == 0)
 						this.Player.JumpLock = false;
 
-					if (1 <= this.Player.JumpFrame)
+					if (1 <= this.Player.JumpFrame) // ? ジャンプ中
 					{
 						const int JUMP_FRAME_MAX = 22;
 
@@ -220,7 +221,7 @@ namespace Charlotte.Games
 						else
 							this.Player.JumpFrame = 0;
 					}
-					else
+					else // ? 接地中 || 滞空中
 					{
 						// 事前入力 == 着地前の数フレーム間にジャンプボタンを押し始めてもジャンプできるようにする。
 						// 入力猶予 == 落下(地面から離れた)直後の数フレーム間にジャンプボタンを押し始めてもジャンプできるようにする。
@@ -338,7 +339,7 @@ namespace Charlotte.Games
 				{
 					if (1 <= this.Player.MoveFrame)
 					{
-						double speed = 0.0;
+						double speed;
 
 						if (this.Player.MoveSlow)
 						{
@@ -522,6 +523,24 @@ namespace Charlotte.Games
 					DDGround.EL.Add(() =>
 					{
 						DDCurtain.DrawCurtain(-0.7);
+
+						DDDraw.SetBright(0.0, 1.0, 0.0);
+						DDDraw.SetAlpha(0.3);
+						DDDraw.DrawRect_LTRB(
+							Ground.I.Picture.WhiteBox,
+							this.Player.X - GameConsts.PLAYER_脳天判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y - DDGround.ICamera.Y,
+							this.Player.X + GameConsts.PLAYER_接地判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y - DDGround.ICamera.Y
+							);
+						DDDraw.DrawRect_LTRB(
+							Ground.I.Picture.WhiteBox,
+							this.Player.X - GameConsts.PLAYER_側面判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y - GameConsts.PLAYER_側面判定Pt_YT - DDGround.ICamera.Y,
+							this.Player.X + GameConsts.PLAYER_側面判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y + GameConsts.PLAYER_側面判定Pt_YB - DDGround.ICamera.Y
+							);
+						DDDraw.Reset();
 
 						const double A = 0.7;
 

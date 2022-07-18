@@ -28,7 +28,7 @@ var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
 	3 == 3-段ジャンプまで可能
 	...
 */
-var<int> JUMP_MAX = 2;
+var<int> PLAYER_JUMP_MAX = 2;
 
 /*
 	プレイヤーキャラクタの重力加速度

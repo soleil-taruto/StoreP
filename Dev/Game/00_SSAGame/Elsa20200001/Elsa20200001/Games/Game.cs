@@ -213,6 +213,7 @@ namespace Charlotte.Games
 					{
 						this.Player.MoveFrame++;
 						shagami = false;
+						//uwamuki = false;
 					}
 					else
 					{
@@ -223,7 +224,7 @@ namespace Charlotte.Games
 					if (jump == 0)
 						this.Player.JumpLock = false;
 
-					if (1 <= this.Player.JumpFrame)
+					if (1 <= this.Player.JumpFrame) // ? ジャンプ中
 					{
 						if (1 <= jump)
 						{
@@ -239,7 +240,7 @@ namespace Charlotte.Games
 								this.Player.YSpeed /= 2.0;
 						}
 					}
-					else
+					else // ? 接地中 || 滞空中
 					{
 						// 事前入力 == 着地前の数フレーム間にジャンプボタンを押し始めてもジャンプできるようにする。
 						// 入力猶予 == 落下(地面から離れた)直後の数フレーム間にジャンプボタンを押し始めてもジャンプできるようにする。
@@ -271,7 +272,7 @@ namespace Charlotte.Games
 							if (this.Player.JumpCount < 1)
 								this.Player.JumpCount = 1;
 
-							if (1 <= jump && jump < 事前入力時間 && this.Player.JumpCount < GameConsts.JUMP_MAX && !this.Player.JumpLock)
+							if (1 <= jump && jump < 事前入力時間 && this.Player.JumpCount < GameConsts.PLAYER_JUMP_MAX && !this.Player.JumpLock)
 							{
 								// ★ 空中(n-段)ジャンプを開始した。
 
@@ -280,7 +281,7 @@ namespace Charlotte.Games
 
 								this.Player.YSpeed = GameConsts.PLAYER_JUMP_SPEED;
 
-								DDGround.EL.Add(SCommon.Supplier(Effects.空中ジャンプの足場(this.Player.X, this.Player.Y + 48)));
+								DDGround.EL.Add(SCommon.Supplier(Effects.空中ジャンプの足場(this.Player.X, this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y)));
 
 								this.Player.JumpLock = true;
 							}
@@ -484,7 +485,7 @@ namespace Charlotte.Games
 				{
 					if (1 <= this.Player.MoveFrame)
 					{
-						double speed = 0.0;
+						double speed;
 
 						if (this.Player.MoveSlow)
 						{
@@ -698,8 +699,27 @@ namespace Charlotte.Games
 					{
 						DDCurtain.DrawCurtain(-0.7);
 
+						DDDraw.SetBright(0.0, 1.0, 0.0);
+						DDDraw.SetAlpha(0.3);
+						DDDraw.DrawRect_LTRB(
+							Ground.I.Picture.WhiteBox,
+							this.Player.X - GameConsts.PLAYER_脳天判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y - DDGround.ICamera.Y,
+							this.Player.X + GameConsts.PLAYER_接地判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y - DDGround.ICamera.Y
+							);
+						DDDraw.DrawRect_LTRB(
+							Ground.I.Picture.WhiteBox,
+							this.Player.X - GameConsts.PLAYER_側面判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y - GameConsts.PLAYER_側面判定Pt_YT - DDGround.ICamera.Y,
+							this.Player.X + GameConsts.PLAYER_側面判定Pt_X - DDGround.ICamera.X,
+							this.Player.Y + GameConsts.PLAYER_側面判定Pt_YB - DDGround.ICamera.Y
+							);
+						DDDraw.Reset();
+
 						const double A = 0.7;
 
+						DDCrashView.Draw(new DDCrash[] { plCrash }, new I3Color(255, 0, 0), 1.0);
 						DDCrashView.Draw(new DDCrash[] { plCrash }, new I3Color(255, 0, 0), 1.0);
 						DDCrashView.Draw(this.Enemies.Iterate().Select(v => v.Crash), new I3Color(255, 255, 255), A);
 						DDCrashView.Draw(this.Shots.Iterate().Select(v => v.Crash), new I3Color(0, 255, 255), A);

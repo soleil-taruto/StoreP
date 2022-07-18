@@ -81,7 +81,7 @@ gameLoop:
 
 		@@_DrawWall();
 
-		if (PlayerAttack != null && PlayerAttack.next().value) // プレイヤー攻撃中
+		if (PlayerAttack != null && PlayerAttack()) // ? プレイヤー攻撃中
 		{
 			// noop
 		}

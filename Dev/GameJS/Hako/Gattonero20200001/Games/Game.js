@@ -8,14 +8,6 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-/*
-	メニューへ戻るボタンの位置
-*/
-var<int> @@_RETURN_MENU_L = Screen_W - 220;
-var<int> @@_RETURN_MENU_T = 20;
-var<int> @@_RETURN_MENU_W = 200;
-var<int> @@_RETURN_MENU_H = 60;
-
 var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 var<int> GameLastPlayedStageIndex = 0;
 
