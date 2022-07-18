@@ -23,6 +23,7 @@ function <Enemy_t> CreateEnemy_Red(<double> x, <double> y, <int> initDirect)
 	};
 
 	ret.Draw = @@_Draw(ret);
+	ret.Damaged = @@_Damaged;
 	ret.Dead = @@_Dead;
 
 	return ret;
@@ -79,6 +80,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 function <boolean> @@_IsWall(<MapCell_t> cell)
 {
 	return cell.WallFlag || cell.NarrowFlag;
+}
+
+function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
+{
+	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

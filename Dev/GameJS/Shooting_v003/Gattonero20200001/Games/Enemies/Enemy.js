@@ -29,6 +29,7 @@
 
 	<Crash_t> Crash // 今フレームの当たり判定置き場, null で初期化すること。null == 当たり判定無し
 
+	<Action Enemy_t int> Damaged // 被弾イベント
 	<Action Enemy_t> Dead // 死亡イベント
 }
 
@@ -52,6 +53,11 @@ function <void> KillEnemy(<Enemy_t> enemy)
 		enemy.HP = -1; // 死亡させる。
 		@@_DeadEnemy(enemy);
 	}
+}
+
+function <void> EnemyDamaged(<Enemy_t> enemy, <int> damagePoint)
+{
+	enemy.Damaged(enemy, damagePoint);
 }
 
 function <void> @@_DeadEnemy(<Enemy_t> enemy)

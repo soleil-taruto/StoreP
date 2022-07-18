@@ -2,6 +2,11 @@
 	“G‹¤’Ê
 */
 
+function <void> EnemyCommon_Damage(<Enemy_t> enemy, <int> damagePoint)
+{
+	SE(S_EnemyDamaged);
+}
+
 function <void> EnemyCommon_Dead(<Enemy_t> enemy)
 {
 	if (IsEnemyTama(enemy)) // ? “G’e

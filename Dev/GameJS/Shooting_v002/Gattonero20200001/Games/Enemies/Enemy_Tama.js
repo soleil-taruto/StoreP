@@ -19,6 +19,7 @@ function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <doub
 	};
 
 	ret.Draw = @@_Draw(ret);
+	ret.Damaged = @@_Damaged;
 	ret.Dead = @@_Dead;
 
 	return ret;
@@ -46,6 +47,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		yield 1;
 	}
+}
+
+function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
+{
+	// noop
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

@@ -30,6 +30,7 @@ function <Enemy_t> CreateEnemy_Blue(<double> x, <double> y, <int> initDirectX, <
 	};
 
 	ret.Draw = @@_Draw(ret);
+	ret.Damaged = @@_Damaged;
 	ret.Dead = @@_Dead;
 
 	return ret;
@@ -143,6 +144,11 @@ function <double> @@_BounceX(<double> x)
 function <double> @@_BounceY(<double> y)
 {
 	return ToTileCenterY(y) * 2.0 - y;
+}
+
+function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
+{
+	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

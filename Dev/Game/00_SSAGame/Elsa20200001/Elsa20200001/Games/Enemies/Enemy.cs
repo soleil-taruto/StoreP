@@ -119,7 +119,7 @@ namespace Charlotte.Games.Enemies
 		/// -- 自弾の攻撃力は既に減じられていることに注意！
 		/// </summary>
 		/// <param name="shot">この敵が被弾したプレイヤーの弾</param>
-		/// <param name="damagePoint">食らったダメージ</param>
+		/// <param name="damagePoint">削られた体力</param>
 		public void Damaged(Shot shot, int damagePoint)
 		{
 			this.P_Damaged(shot, damagePoint);
@@ -129,7 +129,7 @@ namespace Charlotte.Games.Enemies
 		/// この敵の固有の被弾イベント
 		/// </summary>
 		/// <param name="shot">この敵が被弾したプレイヤーの弾</param>
-		/// <param name="damagePoint">食らったダメージ</param>
+		/// <param name="damagePoint">削られた体力</param>
 		protected virtual void P_Damaged(Shot shot, int damagePoint)
 		{
 			EnemyCommon.Damaged(this, shot, damagePoint);

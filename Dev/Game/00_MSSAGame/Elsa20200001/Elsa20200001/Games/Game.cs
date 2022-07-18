@@ -582,7 +582,7 @@ namespace Charlotte.Games
 									shot.CurrCrashedEnemy = enemy;
 									continue;
 								}
-								int damagePoint = shot.AttackPoint;
+								int damagePoint = Math.Min(enemy.HP, shot.AttackPoint);
 								enemy.HP -= shot.AttackPoint;
 
 								if (shot.敵を貫通する)

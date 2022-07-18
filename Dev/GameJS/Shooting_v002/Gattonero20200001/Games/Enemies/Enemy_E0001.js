@@ -18,6 +18,7 @@ function <Enemy_t> CreateEnemy_E0001(<double> x, <double> y, <int> hp)
 	};
 
 	ret.Draw = @@_Draw(ret);
+	ret.Damaged = @@_Damaged;
 	ret.Dead = @@_Dead;
 
 	return ret;
@@ -52,6 +53,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		yield 1;
 	}
+}
+
+function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
+{
+	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
 function <void> @@_Dead(<Enemy_t> enemy)

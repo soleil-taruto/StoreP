@@ -154,16 +154,14 @@ gameLoop:
 					enemy.HP -= damagePoint;
 					shot.AttackPoint -= damagePoint;
 
-					if (1 <= enemy.HP) // ? 敵_生存 -> 敵ダメージ処理 -- HACK: 個別に処理するべきか？
-					{
-						SE(S_EnemyDamaged);
-					}
-
 					if (enemy.HP <= 0) // ? 死亡した。
 					{
 						KillEnemy(enemy);
 						break; // この敵は死亡したので、次の敵へ進む。
 					}
+
+					EnemyDamaged(enemy, damagePoint);
+
 					if (shot.AttackPoint <= 0) // ? 攻撃力を使い果たした。
 					{
 						KillShot(shot);
