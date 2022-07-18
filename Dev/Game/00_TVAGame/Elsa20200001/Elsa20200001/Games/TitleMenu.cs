@@ -150,7 +150,7 @@ namespace Charlotte.Games
 				double ya = DDUtils.Random.GetReal1() * 0.01;
 				double aa = -0.007 - DDUtils.Random.GetReal1() * 0.003;
 				double za = DDUtils.Random.GetReal1() * 0.00006 - 0.00002;
-				double ra = DDUtils.Random.GetReal1() < 0.3 ? DDUtils.Random.GetReal1() * 0.003 - 0.0015 : 0.0;
+				double ra = DDUtils.Random.GetReal1() < 0.3 ? DDUtils.Random.GetReal2() * 0.0015 : 0.0;
 
 				while (0.003 < a)
 				{

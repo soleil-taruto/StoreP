@@ -24,6 +24,7 @@ namespace Charlotte.Games
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
+
 		public ShotCatalog.武器_e 選択武器 = ShotCatalog.武器_e.B_NORMAL;
 
 		public void Draw()
@@ -68,7 +69,7 @@ namespace Charlotte.Games
 				case ShotCatalog.武器_e.B_NORMAL:
 					if (this.AttackFrame % 10 == 1)
 					{
-						Game.I.Shots.Add(new Shot_Normal(this.X, this.Y, this.FaceDirection));
+						Game.I.Shots.Add(new Shot_BNormal(this.X, this.Y, this.FaceDirection));
 					}
 					break;
 
@@ -97,6 +98,15 @@ namespace Charlotte.Games
 						{
 							Game.I.Shots.Add(new Shot_BBounce(this.X, this.Y, GameCommon.Rotate(this.FaceDirection, c)));
 						}
+					}
+					break;
+
+				// ここまでテスト用
+
+				case ShotCatalog.武器_e.NORMAL:
+					if (this.AttackFrame % 5 == 1)
+					{
+						Game.I.Shots.Add(new Shot_Normal(this.X, this.Y, this.FaceDirection));
 					}
 					break;
 

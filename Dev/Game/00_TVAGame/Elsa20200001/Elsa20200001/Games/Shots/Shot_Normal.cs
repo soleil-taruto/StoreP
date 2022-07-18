@@ -15,16 +15,18 @@ namespace Charlotte.Games.Shots
 
 		protected override IEnumerable<bool> E_Draw()
 		{
-			D2Point speed = GameCommon.GetXYSpeed(this.Direction, 10.0);
+			D2Point speed = GameCommon.GetXYSpeed(this.Direction, 20.0);
 
 			for (int frame = 0; ; frame++)
 			{
 				this.X += speed.X;
 				this.Y += speed.Y;
 
-				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
-				DDDraw.DrawRotate(frame / 2.0);
+				DDDraw.SetBright(0.0, 1.0, 0.5);
+				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawSetSize(20.0, 20.0);
 				DDDraw.DrawEnd();
+				DDDraw.Reset();
 
 				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 10.0);
 
