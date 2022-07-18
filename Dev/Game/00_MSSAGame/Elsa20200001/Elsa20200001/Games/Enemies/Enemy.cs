@@ -28,8 +28,9 @@ namespace Charlotte.Games.Enemies
 
 		/// <summary>
 		/// 体力
-		/// 0 == 無敵
 		/// -1 == 死亡
+		/// 0 == 無敵
+		/// 1～ == 残り体力
 		/// </summary>
 		public int HP;
 
@@ -106,8 +107,8 @@ namespace Charlotte.Games.Enemies
 		/// -- 描画
 		/// -- Crash を設定する。-- プレイヤーに当たらないなら設定しない。
 		/// -- 必要に応じて Game.I.Enemies.Add(enemy); する。-- 敵の追加
-		/// -- 必要に応じて DeadFlag に true を設定する。(または false を返す) -- 敵(自分自身)の削除
-		/// ---- 敵(自分以外)を削除するには otherEnemy.DeadFlag = true; する。
+		/// -- 必要に応じて DeadFlag に true を設定する。または false を返す。または Kill を呼び出す。-- 敵(自分自身)の削除
+		/// ---- 敵(自分以外)を削除するには otherEnemy.DeadFlag = true; または otherEnemy.Kill を呼び出す。
 		/// </summary>
 		/// <returns>列挙：この敵は生存しているか</returns>
 		protected abstract IEnumerable<bool> E_Draw();

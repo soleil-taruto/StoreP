@@ -38,7 +38,7 @@ namespace Charlotte.Games.Shots.Tests
 			}
 		}
 
-		protected override void Killed()
+		protected override void P_Killed()
 		{
 			DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
 		}

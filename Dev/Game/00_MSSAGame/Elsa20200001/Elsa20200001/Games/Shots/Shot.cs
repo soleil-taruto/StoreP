@@ -98,7 +98,15 @@ namespace Charlotte.Games.Shots
 		/// 何かと衝突して消滅した。
 		/// マップから離れすぎて消された場合・シナリオ的に消された場合などでは呼び出されない。
 		/// </summary>
-		protected virtual void Killed()
+		private void Killed()
+		{
+			this.P_Killed();
+		}
+
+		/// <summary>
+		/// この自弾の固有の消滅イベント
+		/// </summary>
+		protected virtual void P_Killed()
 		{
 			ShotCommon.Killed(this);
 		}

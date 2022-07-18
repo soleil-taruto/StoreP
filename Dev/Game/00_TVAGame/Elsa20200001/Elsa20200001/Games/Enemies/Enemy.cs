@@ -28,8 +28,9 @@ namespace Charlotte.Games.Enemies
 
 		/// <summary>
 		/// 体力
-		/// 0 == 無敵
 		/// -1 == 死亡
+		/// 0 == 無敵
+		/// 1～ == 残り体力
 		/// </summary>
 		public int HP;
 
@@ -141,7 +142,7 @@ namespace Charlotte.Games.Enemies
 			if (!this.DeadFlag)
 			{
 				this.DeadFlag = true;
-				this.P_Killed();
+				this.Killed();
 			}
 		}
 

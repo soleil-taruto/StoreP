@@ -8,6 +8,7 @@ namespace Charlotte.Games.Walls
 {
 	/// <summary>
 	/// 壁紙
+	/// 視覚的な背景
 	/// </summary>
 	public abstract class Wall
 	{

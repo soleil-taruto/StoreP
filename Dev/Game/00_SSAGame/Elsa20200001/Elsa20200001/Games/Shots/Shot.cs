@@ -15,9 +15,9 @@ namespace Charlotte.Games.Shots
 	{
 		public double X;
 		public double Y;
-		public int AttackPoint;
 		public bool FacingLeft;
 		public bool FacingTop;
+		public int AttackPoint;
 		public bool 壁をすり抜ける;
 		public bool 敵を貫通する;
 
@@ -75,8 +75,8 @@ namespace Charlotte.Games.Shots
 		/// -- 行動・移動
 		/// -- 描画
 		/// -- Crash を設定する。-- 敵に当たらないなら設定しない。
-		/// -- 必要に応じて Game.I.Shots.Add(shot); する。-- 自弾の追加
-		/// -- 必要に応じて DeadFlag に true を設定する。または false を返す。または Kill を呼び出す。-- 自弾(自分自身)の削除
+		/// -- 必要に応じて Game.I.Shots.Add(shot); する。== 自弾の追加
+		/// -- 必要に応じて DeadFlag に true を設定する。または false を返す。または Kill を呼び出す。== 自弾(自分自身)の削除
 		/// ---- 自弾(自分以外)を削除するには otherShot.DeadFlag = true; または otherShot.Kill を呼び出す。
 		/// </summary>
 		/// <returns>列挙：この自弾は生存しているか</returns>
@@ -98,7 +98,15 @@ namespace Charlotte.Games.Shots
 		/// 何かと衝突して消滅した。
 		/// マップから離れすぎて消された場合・シナリオ的に消された場合などでは呼び出されない。
 		/// </summary>
-		protected virtual void Killed()
+		private void Killed()
+		{
+			this.P_Killed();
+		}
+
+		/// <summary>
+		/// この自弾の固有の消滅イベント
+		/// </summary>
+		protected virtual void P_Killed()
 		{
 			ShotCommon.Killed(this);
 		}
