@@ -24,33 +24,20 @@ namespace Charlotte.Games.Shots.Tests
 			double y1;
 			double y2;
 
-			if (this.FacingTop)
+			if (this.FacingLeft)
 			{
-				x1 = this.X - 2.0;
-				x2 = this.X + 2.0;
-				y1 = DDGround.ICamera.Y;
-				y2 = this.Y;
+				x1 = DDGround.ICamera.X;
+				x2 = this.X;
 			}
 			else
 			{
-				if (this.FacingLeft)
-				{
-					x1 = DDGround.ICamera.X;
-					x2 = this.X;
-				}
-				else
-				{
-					x1 = this.X;
-					x2 = DDGround.ICamera.X + DDConsts.Screen_W;
-				}
-				y1 = this.Y - 2.0;
-				y2 = this.Y + 2.0;
+				x1 = this.X;
+				x2 = DDGround.ICamera.X + DDConsts.Screen_W;
 			}
+			y1 = this.Y - 2.0;
+			y2 = this.Y + 2.0;
 
-			if (
-				x2 < x1 + 2.0 ||
-				y2 < y1 + 2.0
-				)
+			if (x2 < x1 + 2.0)
 				goto endFunc;
 
 			DDDraw.SetAlpha(0.2 + 0.1 * Math.Sin(DDEngine.ProcFrame / 2.0));

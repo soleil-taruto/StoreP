@@ -21,26 +21,31 @@ namespace Charlotte.Games.Shots.Tests
 		{
 			// 薄い壁にくっついて撃つと、壁の向こうに射出されてしまうのを防ぐ
 			{
-				foreach (int xd in new int[] { 0, 20, 40 })
+				foreach (int xd in new int[] { 0, 20 })
 				{
-					foreach (int yd in new int[] { -10, 0, 10 })
+					foreach (int yd in new int[] { 0 })
 					{
 						if (Game.I.Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.X - xd * (this.FacingLeft ? -1 : 1), this.Y + yd))).Tile.IsWall())
 						{
-							DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(this.X, this.Y)));
-							goto endFunc;
-							//yield break;
+							this.X -= xd * (this.FacingLeft ? -1 : 1);
+
+							while (Game.I.Map.GetCell(GameCommon.ToTablePoint(new D2Point(this.X, this.Y))).Tile.IsWall())
+								this.X -= 1.0 * (this.FacingLeft ? -1 : 1);
+
+							goto endBlock;
 						}
 					}
 				}
+			endBlock:
+				;
 			}
 
-			double yAdd = this.FacingTop ? -16.0 : 0.0;
+			double yAdd = 0.0;
 			int bouncedCount = 0;
 
 			for (int frame = 0; ; frame++)
 			{
-				this.X += (this.FacingTop ? 4.0 : 8.0) * (this.FacingLeft ? -1 : 1);
+				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
 				this.Y += yAdd;
 
 				yAdd += 0.8; // += 重力加速度

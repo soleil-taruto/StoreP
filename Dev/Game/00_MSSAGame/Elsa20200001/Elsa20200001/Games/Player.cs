@@ -79,7 +79,7 @@ namespace Charlotte.Games
 
 			// 攻撃中 >
 
-			if (1 <= this.AttackFrame && this.UwamukiFrame == 0)
+			if (1 <= this.AttackFrame)
 			{
 				picture = Ground.I.Picture.PlayerAttack;
 
@@ -144,20 +144,13 @@ namespace Charlotte.Games
 						double x = this.X;
 						double y = this.Y;
 
-						if (this.FacingTop)
-						{
-							x -= 10.0 * (this.FacingLeft ? -1 : 1);
-							y -= 10.0;
-						}
-						else
-						{
-							x += 30.0 * (this.FacingLeft ? -1 : 1);
+						x += 30.0 * (this.FacingLeft ? -1 : 1);
 
-							if (1 <= this.ShagamiFrame)
-								y += Y_ADD_SHAGAMI;
-							else
-								y += Y_ADD_STAND;
-						}
+						if (1 <= this.ShagamiFrame)
+							y += Y_ADD_SHAGAMI;
+						else
+							y += Y_ADD_STAND;
+
 						Game.I.Shots.Add(new Shot_BNormal(x, y, this.FacingLeft, this.FacingTop));
 					}
 					break;
@@ -221,20 +214,13 @@ namespace Charlotte.Games
 						double x = this.X;
 						double y = this.Y;
 
-						if (this.FacingTop)
-						{
-							x -= 4.0 * (this.FacingLeft ? -1 : 1);
-							y -= 38.0;
-						}
-						else
-						{
-							x += 30.0 * (this.FacingLeft ? -1 : 1);
+						x += 30.0 * (this.FacingLeft ? -1 : 1);
 
-							if (1 <= this.ShagamiFrame)
-								y += Y_ADD_SHAGAMI;
-							else
-								y += Y_ADD_STAND;
-						}
+						if (1 <= this.ShagamiFrame)
+							y += Y_ADD_SHAGAMI;
+						else
+							y += Y_ADD_STAND;
+
 						Game.I.Shots.Add(new Shot_Normal(x, y, this.FacingLeft, this.FacingTop));
 					}
 					break;

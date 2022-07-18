@@ -25,19 +25,13 @@ namespace Charlotte.Games.Shots.Tests
 			{
 				const double SPEED = 10.0;
 
-				if (this.FacingTop)
-					this.Y -= SPEED;
-				else
-					this.X += SPEED * (this.FacingLeft ? -1 : 1);
+				this.X += SPEED * (this.FacingLeft ? -1 : 1);
 
 				double span = Math.Sin(baseRad + frame / 2.0) * 50.0;
 				double x = this.X;
 				double y = this.Y;
 
-				if (this.FacingTop)
-					x += span;
-				else
-					y += span;
+				y += span;
 
 				DDDraw.DrawBegin(Ground.I.Picture2.FireBall[14 + frame % 7], x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);

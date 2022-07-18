@@ -19,10 +19,7 @@ namespace Charlotte.Games.Shots
 			{
 				const double SPEED = 8.0;
 
-				if (this.FacingTop)
-					this.Y -= SPEED;
-				else
-					this.X += SPEED * (this.FacingLeft ? -1 : 1);
+				this.X += SPEED * (this.FacingLeft ? -1 : 1);
 
 				DDDraw.SetBright(0.0, 1.0, 0.5);
 				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);

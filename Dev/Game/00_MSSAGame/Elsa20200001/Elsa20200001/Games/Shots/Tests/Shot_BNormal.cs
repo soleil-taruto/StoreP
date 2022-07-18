@@ -23,10 +23,7 @@ namespace Charlotte.Games.Shots.Tests
 			{
 				const double SPEED = 8.0;
 
-				if (this.FacingTop)
-					this.Y -= SPEED;
-				else
-					this.X += SPEED * (this.FacingLeft ? -1 : 1);
+				this.X += SPEED * (this.FacingLeft ? -1 : 1);
 
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);
