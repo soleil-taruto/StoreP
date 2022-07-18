@@ -104,9 +104,6 @@ namespace Charlotte.Games.Shots.Tests
 
 				yield return !DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y)); // カメラから出たら消滅する。
 			}
-
-		endFunc:
-			;
 		}
 
 		protected override void Killed()

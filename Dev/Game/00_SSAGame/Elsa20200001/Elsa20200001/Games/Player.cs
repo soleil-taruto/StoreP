@@ -50,14 +50,14 @@ namespace Charlotte.Games
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
 
-		public int 上昇_Frame;
-		public int 下降_Frame;
-		public int StandFrame = SCommon.IMAX / 2; // 0 == 無効, 1～ == しゃがんでいない(立っている・跳んでいる)
-
 		public bool FacingTop
 		{
 			get { return 1 <= this.UwamukiFrame; }
 		}
+
+		public int 上昇_Frame;
+		public int 下降_Frame;
+		public int StandFrame = SCommon.IMAX / 2; // 0 == 無効, 1～ == しゃがんでいない(立っている・跳んでいる)
 
 		/// <summary>
 		/// プレイヤーの攻撃モーション

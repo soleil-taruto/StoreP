@@ -21,8 +21,6 @@ namespace Charlotte.Games.Shots.Tests
 		{
 			double x1;
 			double x2;
-			double y1;
-			double y2;
 
 			if (this.FacingLeft)
 			{
@@ -34,8 +32,8 @@ namespace Charlotte.Games.Shots.Tests
 				x1 = this.X;
 				x2 = DDGround.ICamera.X + DDConsts.Screen_W;
 			}
-			y1 = this.Y - 2.0;
-			y2 = this.Y + 2.0;
+			double y1 = this.Y - 2.0;
+			double y2 = this.Y + 2.0;
 
 			if (x2 < x1 + 2.0)
 				goto endFunc;
