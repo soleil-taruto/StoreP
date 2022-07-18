@@ -182,6 +182,9 @@ gameLoop:
 						KillEnemy(enemy);
 						break; // ‚±‚Ì“G‚Í€–S‚µ‚½‚Ì‚ÅAŸ‚Ì“G‚Öi‚ŞB
 					}
+
+					EnemyDamaged(enemy, damagePoint);
+
 					if (shot.AttackPoint <= 0) // ? UŒ‚—Í‚ğg‚¢‰Ê‚½‚µ‚½B
 					{
 						KillShot(shot);

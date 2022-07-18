@@ -93,7 +93,7 @@ namespace Charlotte.Games.Enemies.Tests
 			}
 		}
 
-		protected override void P_Damaged(Shot shot)
+		protected override void P_Damaged(Shot shot, int damagePoint)
 		{
 			// 難読化のため #if の入れ子が出来ない。
 #if true
@@ -146,7 +146,7 @@ namespace Charlotte.Games.Enemies.Tests
 #endif
 
 			this.HitBackFrame = 1;
-			EnemyCommon.Damaged(this, shot);
+			EnemyCommon.Damaged(this, shot, damagePoint);
 		}
 	}
 }

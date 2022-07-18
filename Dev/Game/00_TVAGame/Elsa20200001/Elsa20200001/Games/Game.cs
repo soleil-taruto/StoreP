@@ -472,6 +472,7 @@ namespace Charlotte.Games
 									shot.CurrCrashedEnemy = enemy;
 									continue;
 								}
+								int damagePoint = shot.AttackPoint;
 								enemy.HP -= shot.AttackPoint;
 
 								if (shot.敵を貫通する)
@@ -488,7 +489,7 @@ namespace Charlotte.Games
 
 								if (1 <= enemy.HP) // ? まだ生存している。
 								{
-									enemy.Damaged(shot);
+									enemy.Damaged(shot, damagePoint);
 								}
 								else // ? 撃破した。
 								{

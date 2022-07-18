@@ -15,9 +15,10 @@ namespace Charlotte.Games.Enemies
 		/// </summary>
 		/// <param name="enemy">敵</param>
 		/// <param name="shot">被弾した自弾</param>
-		public static void Damaged(Enemy enemy, Shot shot)
+		/// <param name="damagePoint">食らったダメージ</param>
+		public static void Damaged(Enemy enemy, Shot shot, int damagePoint)
 		{
-			int count = shot.AttackPoint;
+			int count = damagePoint;
 
 			DDGround.EL.Add(() =>
 			{

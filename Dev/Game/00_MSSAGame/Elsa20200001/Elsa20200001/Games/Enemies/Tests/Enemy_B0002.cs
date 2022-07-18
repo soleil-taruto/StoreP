@@ -83,11 +83,11 @@ namespace Charlotte.Games.Enemies.Tests
 			}
 		}
 
-		protected override void P_Damaged(Shot shot)
+		protected override void P_Damaged(Shot shot, int damagePoint)
 		{
 			//this.X += 10.0 * (shot.FacingLeft ? -1 : 1); // ヒットバック
 			this.HitBackFrame = 1;
-			EnemyCommon.Damaged(this, shot);
+			EnemyCommon.Damaged(this, shot, damagePoint);
 		}
 	}
 }

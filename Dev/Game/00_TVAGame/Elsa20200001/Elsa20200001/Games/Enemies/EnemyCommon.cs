@@ -15,7 +15,8 @@ namespace Charlotte.Games.Enemies
 		/// </summary>
 		/// <param name="enemy">被弾した敵</param>
 		/// <param name="shot">「被弾した敵」に当たった自弾</param>
-		public static void Damaged(Enemy enemy, Shot shot)
+		/// <param name="damagePoint">食らったダメージ</param>
+		public static void Damaged(Enemy enemy, Shot shot, int damagePoint)
 		{
 			// none
 		}
