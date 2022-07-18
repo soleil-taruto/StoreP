@@ -130,6 +130,25 @@ gameLoop:
 		{
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
+			SetColor("#ffffff30");
+			PrintRect_LTRB(
+				PlayerX - PLAYER_側面判定Pt_X,
+				PlayerY - PLAYER_側面判定Pt_YT,
+				PlayerX + PLAYER_側面判定Pt_X,
+				PlayerY + PLAYER_側面判定Pt_YB,
+				);
+			PrintRect_LTRB(
+				PlayerX - PLAYER_脳天判定Pt_X,
+				PlayerY - PLAYER_脳天判定Pt_Y,
+				PlayerX + PLAYER_脳天判定Pt_X,
+				PlayerY
+				);
+			PrintRect_LTRB(
+				PlayerX - PLAYER_接地判定Pt_X,
+				PlayerY,
+				PlayerX + PLAYER_接地判定Pt_X,
+				PlayerY + PLAYER_接地判定Pt_Y
+				);
 			SetColor("#ffffffa0");
 
 			DrawCrash(PlayerCrash);
