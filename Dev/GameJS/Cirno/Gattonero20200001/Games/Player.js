@@ -79,6 +79,14 @@ var<int> PlayerShagamiFrame = 0;
 */
 var<int> PlayerAttackFrame = 0;
 
+/*
+	プレイヤー攻撃モーション
+	-- 攻撃(Attack)と言っても攻撃以外の利用(スライディング・梯子など)も想定する。
+	null == 無効
+	null != PlayerAttack.next().value を DrawPlayer の代わりに実行される。
+*/
+var<generatorForTask> PlayerAttack = null;
+
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
@@ -97,6 +105,7 @@ function <void> ResetPlayer()
 	PlayerAirborneFrame = IMAX / 2; // ゲーム開始直後に空中でジャンプできないように
 	PlayerShagamiFrame = 0;
 	PlayerAttackFrame = 0;
+	PlayerAttack = null;
 	@@_JumpLock = false;
 	@@_MoveSlow = false;
 }
@@ -286,9 +295,8 @@ function <void> DrawPlayer()
 		else
 		{
 			PlayerYSpeed += PLAYER_GRAVITY;
+			PlayerYSpeed = Math.min(PlayerYSpeed, PLAYER_FALL_SPEED_MAX);
 		}
-
-		PlayerYSpeed = Math.min(PlayerYSpeed, PLAYER_FALL_SPEED_MAX);
 
 		PlayerY += PlayerYSpeed;
 	}

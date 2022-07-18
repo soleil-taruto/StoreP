@@ -146,7 +146,9 @@ namespace Charlotte.Games
 					bool damageOrUID = 1 <= this.Player.DamageFrame || this.UserInputDisabled;
 					bool move = false;
 					bool slow = false;
+					bool attack = false;
 					bool shagami = false;
+					bool uwamuki = false;
 					int jump = 0;
 					int attack_弱 = 0;
 					int attack_中 = 0;
@@ -155,6 +157,10 @@ namespace Charlotte.Games
 					if (!damageOrUID && 1 <= DDInput.DIR_2.GetInput())
 					{
 						shagami = true;
+					}
+					if (!damageOrUID && 1 <= DDInput.DIR_8.GetInput())
+					{
+						uwamuki = true;
 					}
 
 					// 入力抑止中であるか否かに関わらず左右の入力は受け付ける様にする。
@@ -189,14 +195,17 @@ namespace Charlotte.Games
 					}
 					if (!damageOrUID && 1 <= DDInput.B.GetInput())
 					{
+						attack = true;
 						attack_弱 = DDInput.B.GetInput();
 					}
 					if (!damageOrUID && 1 <= DDInput.C.GetInput())
 					{
+						attack = true;
 						attack_中 = DDInput.C.GetInput();
 					}
 					if (!damageOrUID && 1 <= DDInput.D.GetInput())
 					{
+						attack = true;
 						attack_強 = DDInput.D.GetInput();
 					}
 
@@ -206,8 +215,9 @@ namespace Charlotte.Games
 						shagami = false;
 					}
 					else
+					{
 						this.Player.MoveFrame = 0;
-
+					}
 					this.Player.MoveSlow = move && slow;
 
 					if (jump == 0)
@@ -299,6 +309,16 @@ namespace Charlotte.Games
 						this.Player.ShagamiFrame = 0;
 						this.Player.StandFrame++;
 					}
+
+					if (uwamuki)
+						this.Player.UwamukiFrame++;
+					else
+						this.Player.UwamukiFrame = 0;
+
+					if (attack)
+						this.Player.AttackFrame++;
+					else
+						this.Player.AttackFrame = 0;
 
 					if (attack_弱 == 1)
 					{
@@ -733,9 +753,14 @@ namespace Charlotte.Games
 								else // ? 敵を貫通しない -> 自弾の攻撃力と敵のHPを相殺
 								{
 									if (0 <= enemy.HP) // ? 丁度削りきった || 削りきれなかった -> 攻撃力を使い果たしたので、ショットは消滅
+									{
+										shot.AttackPoint = 0; // 攻撃力を使い果たした。
 										shot.Kill();
+									}
 									else
+									{
 										shot.AttackPoint = -enemy.HP; // 過剰に削った分を残りの攻撃力として反映
+									}
 								}
 
 								if (1 <= enemy.HP) // ? まだ生存している。

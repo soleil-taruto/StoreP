@@ -25,8 +25,8 @@ namespace Charlotte.Games
 		public int JumpCount;
 		public int JumpFrame;
 		public int AirborneFrame; // 0 == 接地状態, 1～ == 滞空状態
-		public int ShagamiFrame;
-		public int AttackFrame;
+		public int ShagamiFrame; // 0 == 無効, 1～ == しゃがみ中
+		public int AttackFrame; // 0 == 無効, 1～ == 攻撃中
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存

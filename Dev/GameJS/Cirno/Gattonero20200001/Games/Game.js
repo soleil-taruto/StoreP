@@ -81,7 +81,14 @@ gameLoop:
 
 		@@_DrawWall();
 
-		DrawPlayer(); // プレイヤーの描画
+		if (PlayerAttack != null && PlayerAttack.next().value) // プレイヤー攻撃中
+		{
+			// noop
+		}
+		else
+		{
+			DrawPlayer(); // プレイヤーの描画
+		}
 
 		// 敵の描画
 		//

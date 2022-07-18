@@ -16,7 +16,7 @@ namespace Charlotte.Games.Shots
 		public double X;
 		public double Y;
 		public bool FacingLeft;
-		public int AttackPoint;
+		public int AttackPoint; // 1～ == 残り攻撃力
 		public bool 壁をすり抜ける;
 		public bool 敵を貫通する;
 

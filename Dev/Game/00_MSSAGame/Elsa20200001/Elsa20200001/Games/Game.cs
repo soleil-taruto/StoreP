@@ -561,9 +561,14 @@ namespace Charlotte.Games
 								else // ? 敵を貫通しない -> 自弾の攻撃力と敵のHPを相殺
 								{
 									if (0 <= enemy.HP) // ? 丁度削りきった || 削りきれなかった -> 攻撃力を使い果たしたので、ショットは消滅
+									{
+										shot.AttackPoint = 0; // 攻撃力を使い果たした。
 										shot.Kill();
+									}
 									else
+									{
 										shot.AttackPoint = -enemy.HP; // 過剰に削った分を残りの攻撃力として反映
+									}
 								}
 
 								if (1 <= enemy.HP) // ? まだ生存している。

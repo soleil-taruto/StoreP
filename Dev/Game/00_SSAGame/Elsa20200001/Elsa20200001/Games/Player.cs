@@ -44,6 +44,8 @@ namespace Charlotte.Games
 		public int JumpCount;
 		public int AirborneFrame; // 0 == 接地状態, 1～ == 滞空状態
 		public int ShagamiFrame; // 0 == 無効, 1～ == しゃがみ中
+		public int UwamukiFrame; // 0 == 無効, 1～ == 上向き中
+		public int AttackFrame; // 0 == 無効, 1～ == 攻撃中
 		public int StandFrame = SCommon.IMAX / 2; // 0 == 無効, 1～ == 立っている
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
@@ -54,6 +56,7 @@ namespace Charlotte.Games
 
 		/// <summary>
 		/// プレイヤーの攻撃モーション
+		/// -- 攻撃(Attack)と言っても攻撃以外の利用(スライディング・梯子など)も想定する。
 		/// null の場合は無効
 		/// null ではない場合 Attack.EachFrame() が実行される代わりに、プレイヤーの入力・被弾処理などは実行されない。
 		/// </summary>
