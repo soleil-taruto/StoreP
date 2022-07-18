@@ -2,7 +2,7 @@
 	“G‹¤’Ê
 */
 
-function <void> EnemyCommon_Damage(<Enemy_t> enemy, <int> damagePoint)
+function <void> EnemyCommon_Damaged(<Enemy_t> enemy, <int> damagePoint)
 {
 	SE(S_EnemyDamaged);
 }

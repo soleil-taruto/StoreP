@@ -63,8 +63,8 @@ namespace Charlotte.Games
 		/// </summary>
 		public int ExitDirection = 5;
 
-		public ShotCatalog.武器_e Start選択武器 = ShotCatalog.武器_e.B_NORMAL;
-		public ResourcePicture2.Player_e Chara = ResourcePicture2.Player_e.Alice;
+		public ShotCatalog.武器_e Start選択武器 = ShotCatalog.武器_e.NORMAL;
+		public ResourcePicture2.Player_e Chara = ResourcePicture2.Player_e.Cirno;
 
 		/// <summary>
 		/// game_進行・インベントリ(enum)

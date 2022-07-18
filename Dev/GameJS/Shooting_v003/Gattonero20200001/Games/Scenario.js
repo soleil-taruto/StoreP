@@ -11,8 +11,8 @@ function* <generatorForTask> ScenarioTask()
 //		yield* @@_Test01();
 //		yield* @@_Test02();
 //		yield* @@_Test03();
-		yield* @@_Test04();
-//		yield* @@_Main();
+//		yield* @@_Test04();
+		yield* @@_Main();
 
 		// --
 	}
