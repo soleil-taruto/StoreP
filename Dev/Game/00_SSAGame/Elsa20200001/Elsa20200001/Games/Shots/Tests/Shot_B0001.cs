@@ -12,8 +12,8 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_B0001 : Shot
 	{
-		public Shot_B0001(double x, double y, bool facingLeft)
-			: base(x, y, facingLeft, 1, false, false)
+		public Shot_B0001(double x, double y, bool facingLeft, bool facingTop)
+			: base(x, y, facingLeft, facingTop, 1, false, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()

@@ -300,15 +300,9 @@ namespace Charlotte.Games
 						shagami = false;
 
 					if (shagami)
-					{
 						this.Player.ShagamiFrame++;
-						this.Player.StandFrame = 0;
-					}
 					else
-					{
 						this.Player.ShagamiFrame = 0;
-						this.Player.StandFrame++;
-					}
 
 					if (uwamuki)
 						this.Player.UwamukiFrame++;
@@ -619,6 +613,11 @@ namespace Charlotte.Games
 					this.Player.上昇_Frame = 0;
 					this.Player.下降_Frame = 0;
 				}
+
+				if (this.Player.ShagamiFrame == 0)
+					this.Player.StandFrame++;
+				else
+					this.Player.StandFrame = 0;
 
 				if (this.Player.X < 0.0) // ? マップの左側に出た。
 				{

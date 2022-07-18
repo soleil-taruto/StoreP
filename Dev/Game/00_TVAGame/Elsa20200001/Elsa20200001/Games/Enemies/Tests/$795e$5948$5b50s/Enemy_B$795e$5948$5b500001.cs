@@ -79,8 +79,8 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 		{
 			foreach (DDScene scene in DDSceneUtils.Create(20))
 			{
-				double xBuru = (DDUtils.Random.Single() - 0.5) * 2 * 10.0;
-				double yBuru = (DDUtils.Random.Single() - 0.5) * 2 * 10.0;
+				double xBuru = (DDUtils.Random.GetReal1() - 0.5) * 2 * 10.0;
+				double yBuru = (DDUtils.Random.GetReal1() - 0.5) * 2 * 10.0;
 
 				bool facingLeft = Game.I.Player.X < this.X;
 

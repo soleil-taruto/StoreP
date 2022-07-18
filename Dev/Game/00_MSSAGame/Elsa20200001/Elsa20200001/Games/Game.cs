@@ -148,11 +148,16 @@ namespace Charlotte.Games
 					bool slow = false;
 					bool attack = false;
 					bool shagami = false;
+					bool uwamuki = false;
 					int jump = 0;
 
 					if (!damageOrUID && 1 <= DDInput.DIR_2.GetInput() || this.PlayerHacker.DIR_2)
 					{
 						shagami = true;
+					}
+					if (!damageOrUID && 1 <= DDInput.DIR_8.GetInput() || this.PlayerHacker.DIR_8)
+					{
+						uwamuki = true;
 					}
 
 					// 入力抑止中であるか否かに関わらず左右の入力は受け付ける様にする。
@@ -176,6 +181,7 @@ namespace Charlotte.Games
 					{
 						move = false;
 						shagami = false;
+						uwamuki = false;
 						camSlide = true;
 					}
 					if (!damageOrUID && 1 <= DDInput.R.GetInput() || this.PlayerHacker.Slow)
@@ -242,6 +248,11 @@ namespace Charlotte.Games
 						this.Player.ShagamiFrame++;
 					else
 						this.Player.ShagamiFrame = 0;
+
+					if (uwamuki)
+						this.Player.UwamukiFrame++;
+					else
+						this.Player.UwamukiFrame = 0;
 
 					if (attack)
 						this.Player.AttackFrame++;

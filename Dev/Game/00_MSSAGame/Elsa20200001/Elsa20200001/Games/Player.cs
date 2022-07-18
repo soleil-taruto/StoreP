@@ -26,10 +26,16 @@ namespace Charlotte.Games
 		public int JumpFrame;
 		public int AirborneFrame; // 0 == 接地状態, 1～ == 滞空状態
 		public int ShagamiFrame; // 0 == 無効, 1～ == しゃがみ中
+		public int UwamukiFrame; // 0 == 無効, 1～ == 上向き中
 		public int AttackFrame; // 0 == 無効, 1～ == 攻撃中
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
+
+		public bool FacingTop
+		{
+			get { return 1 <= this.UwamukiFrame; }
+		}
 
 		public ShotCatalog.武器_e 武器 = ShotCatalog.武器_e.NORMAL;
 
@@ -37,8 +43,8 @@ namespace Charlotte.Games
 
 		public void Draw()
 		{
-			if (PlayerLookLeftFrame == 0 && DDUtils.Random.Single() < 0.002) // キョロキョロするレート
-				PlayerLookLeftFrame = 150 + (int)(DDUtils.Random.Single() * 90.0);
+			if (PlayerLookLeftFrame == 0 && DDUtils.Random.GetReal1() < 0.002) // キョロキョロするレート
+				PlayerLookLeftFrame = 150 + (int)(DDUtils.Random.GetReal1() * 90.0);
 
 			DDUtils.CountDown(ref PlayerLookLeftFrame);
 

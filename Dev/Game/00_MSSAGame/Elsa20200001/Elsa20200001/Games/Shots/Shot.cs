@@ -16,15 +16,17 @@ namespace Charlotte.Games.Shots
 		public double X;
 		public double Y;
 		public bool FacingLeft;
-		public int AttackPoint; // 1～ == 残り攻撃力
+		public bool FacingTop;
+		public int AttackPoint;
 		public bool 壁をすり抜ける;
 		public bool 敵を貫通する;
 
-		public Shot(double x, double y, bool facingLeft, int attackPoint, bool 壁をすり抜ける, bool 敵を貫通する)
+		public Shot(double x, double y, bool facingLeft, bool facingTop, int attackPoint, bool 壁をすり抜ける, bool 敵を貫通する)
 		{
 			this.X = x;
 			this.Y = y;
 			this.FacingLeft = facingLeft;
+			this.FacingTop = facingTop;
 			this.AttackPoint = attackPoint;
 			this.壁をすり抜ける = 壁をすり抜ける;
 			this.敵を貫通する = 敵を貫通する;
