@@ -16,9 +16,6 @@ namespace Charlotte.Games.Shots
 			B_LASER,
 			B_WAVE_BEAM,
 			NORMAL,
-			FIRE_BALL,
-			LASER,
-			WAVE_BEAM,
 		}
 
 		public static string[] 武器_e_Names = new string[]
@@ -28,9 +25,6 @@ namespace Charlotte.Games.Shots
 			"テスト用 LASER",
 			"テスト用 WAVE-BEAM",
 			"NORMAL",
-			"FIRE-BALL",
-			"LASER",
-			"WAVE-BEAM",
 		};
 	}
 }

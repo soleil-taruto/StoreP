@@ -13,8 +13,8 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_BWaveBeam : Shot
 	{
-		public Shot_BWaveBeam(double x, double y, bool facingLeft)
-			: base(x, y, facingLeft, 5, true, false) // 壁を貫通する。
+		public Shot_BWaveBeam(double x, double y, bool facingLeft, bool facingTop)
+			: base(x, y, facingLeft, facingTop, 5, true, false) // 壁を貫通する。
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
@@ -23,10 +23,21 @@ namespace Charlotte.Games.Shots.Tests
 
 			for (int frame = 0; ; frame++)
 			{
-				this.X += 10.0 * (this.FacingLeft ? -1 : 1);
+				const double SPEED = 10.0;
 
+				if (this.FacingTop)
+					this.Y -= SPEED;
+				else
+					this.X += SPEED * (this.FacingLeft ? -1 : 1);
+
+				double span = Math.Sin(baseRad + frame / 2.0) * 50.0;
 				double x = this.X;
-				double y = this.Y + Math.Sin(baseRad + frame / 2.0) * 50.0;
+				double y = this.Y;
+
+				if (this.FacingTop)
+					x += span;
+				else
+					y += span;
 
 				DDDraw.DrawBegin(Ground.I.Picture2.FireBall[14 + frame % 7], x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);

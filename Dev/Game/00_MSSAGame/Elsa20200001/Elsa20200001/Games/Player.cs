@@ -6,6 +6,7 @@ using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Enemies;
 using Charlotte.Games.Shots;
+using Charlotte.Games.Shots.Tests;
 
 namespace Charlotte.Games
 {
@@ -78,7 +79,7 @@ namespace Charlotte.Games
 
 			// 攻撃中 >
 
-			if (1 <= this.AttackFrame)
+			if (1 <= this.AttackFrame && this.UwamukiFrame == 0)
 			{
 				picture = Ground.I.Picture.PlayerAttack;
 
@@ -137,24 +138,31 @@ namespace Charlotte.Games
 
 			switch (this.武器)
 			{
-				case ShotCatalog.武器_e.NORMAL:
+				case ShotCatalog.武器_e.B_NORMAL:
 					if (this.AttackFrame % 6 == 1)
 					{
 						double x = this.X;
 						double y = this.Y;
 
-						x += 30.0 * (this.FacingLeft ? -1 : 1);
-
-						if (1 <= this.ShagamiFrame)
-							y += Y_ADD_SHAGAMI;
+						if (this.FacingTop)
+						{
+							x -= 10.0 * (this.FacingLeft ? -1 : 1);
+							y -= 10.0;
+						}
 						else
-							y += Y_ADD_STAND;
+						{
+							x += 30.0 * (this.FacingLeft ? -1 : 1);
 
-						Game.I.Shots.Add(new Shot_Normal(x, y, this.FacingLeft));
+							if (1 <= this.ShagamiFrame)
+								y += Y_ADD_SHAGAMI;
+							else
+								y += Y_ADD_STAND;
+						}
+						Game.I.Shots.Add(new Shot_BNormal(x, y, this.FacingLeft, this.FacingTop));
 					}
 					break;
 
-				case ShotCatalog.武器_e.FIRE_BALL:
+				case ShotCatalog.武器_e.B_FIRE_BALL:
 					if (this.AttackFrame % 12 == 1)
 					{
 						double x = this.X;
@@ -167,11 +175,11 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_FireBall(x, y, this.FacingLeft));
+						Game.I.Shots.Add(new Shot_BFireBall(x, y, this.FacingLeft, this.FacingTop));
 					}
 					break;
 
-				case ShotCatalog.武器_e.LASER:
+				case ShotCatalog.武器_e.B_LASER:
 					// 毎フレーム
 					{
 						double x = this.X;
@@ -184,11 +192,11 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_Laser(x, y, this.FacingLeft));
+						Game.I.Shots.Add(new Shot_BLaser(x, y, this.FacingLeft, this.FacingTop));
 					}
 					break;
 
-				case ShotCatalog.武器_e.WAVE_BEAM:
+				case ShotCatalog.武器_e.B_WAVE_BEAM:
 					if (this.AttackFrame % 12 == 1)
 					{
 						double x = this.X;
@@ -201,7 +209,33 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_WaveBeam(x, y, this.FacingLeft));
+						Game.I.Shots.Add(new Shot_BWaveBeam(x, y, this.FacingLeft, this.FacingTop));
+					}
+					break;
+
+				// ここまでテスト用
+
+				case ShotCatalog.武器_e.NORMAL:
+					if (this.AttackFrame % 6 == 1)
+					{
+						double x = this.X;
+						double y = this.Y;
+
+						if (this.FacingTop)
+						{
+							x -= 4.0 * (this.FacingLeft ? -1 : 1);
+							y -= 38.0;
+						}
+						else
+						{
+							x += 30.0 * (this.FacingLeft ? -1 : 1);
+
+							if (1 <= this.ShagamiFrame)
+								y += Y_ADD_SHAGAMI;
+							else
+								y += Y_ADD_STAND;
+						}
+						Game.I.Shots.Add(new Shot_Normal(x, y, this.FacingLeft, this.FacingTop));
 					}
 					break;
 

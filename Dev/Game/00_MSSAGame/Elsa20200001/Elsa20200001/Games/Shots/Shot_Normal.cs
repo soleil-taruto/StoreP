@@ -9,19 +9,26 @@ namespace Charlotte.Games.Shots
 {
 	public class Shot_Normal : Shot
 	{
-		public Shot_Normal(double x, double y, bool facingLeft)
-			: base(x, y, facingLeft, 1, false, false)
+		public Shot_Normal(double x, double y, bool facingLeft, bool facingTop)
+			: base(x, y, facingLeft, facingTop, 1, false, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
 		{
 			for (; ; )
 			{
-				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
+				const double SPEED = 8.0;
 
-				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
-				DDDraw.DrawZoom(0.1);
+				if (this.FacingTop)
+					this.Y -= SPEED;
+				else
+					this.X += SPEED * (this.FacingLeft ? -1 : 1);
+
+				DDDraw.SetBright(0.0, 1.0, 0.5);
+				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawSetSize(10.0, 10.0);
 				DDDraw.DrawEnd();
+				DDDraw.Reset();
 
 				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
 

@@ -13,8 +13,8 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_BFireBall : Shot
 	{
-		public Shot_BFireBall(double x, double y, bool facingLeft)
-			: base(x, y, facingLeft, 2, true, false) // 自力で壁から跳ねるので、壁貫通にしておく。
+		public Shot_BFireBall(double x, double y, bool facingLeft, bool facingTop)
+			: base(x, y, facingLeft, facingTop, 2, true, false) // 自力で壁から跳ねるので、壁貫通にしておく。
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
@@ -35,12 +35,12 @@ namespace Charlotte.Games.Shots.Tests
 				}
 			}
 
-			double yAdd = 0.0;
+			double yAdd = this.FacingTop ? -16.0 : 0.0;
 			int bouncedCount = 0;
 
 			for (int frame = 0; ; frame++)
 			{
-				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
+				this.X += (this.FacingTop ? 4.0 : 8.0) * (this.FacingLeft ? -1 : 1);
 				this.Y += yAdd;
 
 				yAdd += 0.8; // += 重力加速度

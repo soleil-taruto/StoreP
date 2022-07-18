@@ -12,13 +12,15 @@ namespace Charlotte.Games.Enemies.Tests
 	{
 		public enum 効用_e
 		{
-			WEAPON_FIRE_BALL,
-			WEAPON_LASER,
-			WEAPON_WAVE_BEAM,
+			WEAPON_B_NORMAL,
+			WEAPON_B_FIRE_BALL,
+			WEAPON_B_LASER,
+			WEAPON_B_WAVE_BEAM,
 		}
 
 		public static string[] 効用_e_Names = new string[]
 		{
+			"ノーマル",
 			"ファイアボール",
 			"レーザー",
 			"波動ビーム",
@@ -64,16 +66,20 @@ namespace Charlotte.Games.Enemies.Tests
 		{
 			switch (this.効用)
 			{
-				case 効用_e.WEAPON_FIRE_BALL:
-					Game.I.Player.武器 = ShotCatalog.武器_e.FIRE_BALL;
+				case 効用_e.WEAPON_B_NORMAL:
+					Game.I.Player.武器 = ShotCatalog.武器_e.B_NORMAL;
 					break;
 
-				case 効用_e.WEAPON_LASER:
-					Game.I.Player.武器 = ShotCatalog.武器_e.LASER;
+				case 効用_e.WEAPON_B_FIRE_BALL:
+					Game.I.Player.武器 = ShotCatalog.武器_e.B_FIRE_BALL;
 					break;
 
-				case 効用_e.WEAPON_WAVE_BEAM:
-					Game.I.Player.武器 = ShotCatalog.武器_e.WAVE_BEAM;
+				case 効用_e.WEAPON_B_LASER:
+					Game.I.Player.武器 = ShotCatalog.武器_e.B_LASER;
+					break;
+
+				case 効用_e.WEAPON_B_WAVE_BEAM:
+					Game.I.Player.武器 = ShotCatalog.武器_e.B_WAVE_BEAM;
 					break;
 
 				default:

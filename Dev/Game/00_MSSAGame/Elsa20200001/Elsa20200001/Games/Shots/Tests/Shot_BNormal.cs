@@ -13,15 +13,20 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_BNormal : Shot
 	{
-		public Shot_BNormal(double x, double y, bool facingLeft)
-			: base(x, y, facingLeft, 1, false, false)
+		public Shot_BNormal(double x, double y, bool facingLeft, bool facingTop)
+			: base(x, y, facingLeft, facingTop, 1, false, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
 		{
 			for (; ; )
 			{
-				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
+				const double SPEED = 8.0;
+
+				if (this.FacingTop)
+					this.Y -= SPEED;
+				else
+					this.X += SPEED * (this.FacingLeft ? -1 : 1);
 
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);

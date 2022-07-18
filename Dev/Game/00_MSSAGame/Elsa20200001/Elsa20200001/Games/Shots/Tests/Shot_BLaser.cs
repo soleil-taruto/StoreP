@@ -13,29 +13,44 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_BLaser : Shot
 	{
-		public Shot_BLaser(double x, double y, bool facingLeft)
-			: base(x, y, facingLeft, 1, true, true) // 壁・敵_両方貫通
+		public Shot_BLaser(double x, double y, bool facingLeft, bool facingTop)
+			: base(x, y, facingLeft, facingTop, 1, true, true) // 壁・敵_両方貫通
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
 		{
 			double x1;
 			double x2;
+			double y1;
+			double y2;
 
-			if (this.FacingLeft)
+			if (this.FacingTop)
 			{
-				x1 = DDGround.ICamera.X;
-				x2 = this.X;
+				x1 = this.X - 2.0;
+				x2 = this.X + 2.0;
+				y1 = DDGround.ICamera.Y;
+				y2 = this.Y;
 			}
 			else
 			{
-				x1 = this.X;
-				x2 = DDGround.ICamera.X + DDConsts.Screen_W;
+				if (this.FacingLeft)
+				{
+					x1 = DDGround.ICamera.X;
+					x2 = this.X;
+				}
+				else
+				{
+					x1 = this.X;
+					x2 = DDGround.ICamera.X + DDConsts.Screen_W;
+				}
+				y1 = this.Y - 2.0;
+				y2 = this.Y + 2.0;
 			}
-			double y1 = this.Y - 2.0;
-			double y2 = this.Y + 2.0;
 
-			if (x2 < x1 + 2.0)
+			if (
+				x2 < x1 + 2.0 ||
+				y2 < y1 + 2.0
+				)
 				goto endFunc;
 
 			DDDraw.SetAlpha(0.2 + 0.1 * Math.Sin(DDEngine.ProcFrame / 2.0));

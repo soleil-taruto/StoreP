@@ -177,9 +177,6 @@
     <Compile Include="Games\SettingMenu.cs" />
     <Compile Include="Games\Shots\ShotCatalog.cs" />
     <Compile Include="Games\Shots\ShotCommon.cs" />
-    <Compile Include="Games\Shots\Shot_FireBall.cs" />
-    <Compile Include="Games\Shots\Shot_Laser.cs" />
-    <Compile Include="Games\Shots\Shot_WaveBeam.cs" />
     <Compile Include="Games\Shots\Tests\Shot_BFireBall.cs" />
     <Compile Include="Games\Shots\Tests\Shot_BLaser.cs" />
     <Compile Include="Games\Shots\Tests\Shot_BNormal.cs" />
