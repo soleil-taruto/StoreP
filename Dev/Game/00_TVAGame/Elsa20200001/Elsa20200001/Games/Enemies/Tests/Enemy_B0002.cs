@@ -45,8 +45,8 @@ namespace Charlotte.Games.Enemies.Tests
 					double rate = (double)frm / HIT_BACK_FRAME_MAX;
 
 					SPEED = 0.0;
-					xBuru = (1.0 - rate) * 30.0 * DDUtils.Random.GetReal1();
-					yBuru = (1.0 - rate) * 30.0 * DDUtils.Random.GetReal1();
+					xBuru = (1.0 - rate) * 30.0 * DDUtils.Random.GetReal2();
+					yBuru = (1.0 - rate) * 30.0 * DDUtils.Random.GetReal2();
 				}
 			endHitBack:
 
