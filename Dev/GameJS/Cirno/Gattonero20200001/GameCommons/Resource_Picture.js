@@ -49,3 +49,13 @@ var<Image[]> P_PlayerRun =
 	@@_Load(Resources.‚¦‚Þ‚­‚ë__CirnoRun_003_png),
 	@@_Load(Resources.‚¦‚Þ‚­‚ë__CirnoRun_004_png),
 ];
+
+var<Image> P_TileNone = @@_Load(Resources.Tile__Tile_None_png);
+
+var<Image[]> P_Tiles =
+[
+	@@_Load(Resources.Tile__Tile_B0001_png),
+	@@_Load(Resources.Tile__Tile_B0002_png),
+	@@_Load(Resources.Tile__Tile_B0003_png),
+	@@_Load(Resources.Tile__Tile_B0004_png),
+];
