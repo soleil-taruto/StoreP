@@ -8,15 +8,23 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-/*
-	メニューへ戻るボタンの位置
-*/
-var<int> @@_RETURN_MENU_L = Screen_W - 220;
-var<int> @@_RETURN_MENU_T = 20;
-var<int> @@_RETURN_MENU_W = 200;
-var<int> @@_RETURN_MENU_H = 60;
+// カメラ位置
+var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 
+/*
+	ゲーム終了理由
+*/
 var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
+
+/*
+	ゲーム終了リクエスト
+*/
+var<boolean> GameRequestReturnToTitleMenu = false;
+
+/*
+	ゲーム終了時のステージ・インデックス
+	0～
+*/
 var<int> GameLastPlayedStageIndex = 0;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
@@ -25,11 +33,13 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	// reset
 	{
-		GameEndReason = GameEndReason_e_STAGE_CLEAR;
-		GameLastPlayedStageIndex = 0;
-
 		@@_Enemies = [];
 		@@_Shots = [];
+
+		Camera = CreateD2Point(0.0, 0.0);
+		GameEndReason = GameEndReason_e_STAGE_CLEAR;
+		GameRequestReturnToTitleMenu = false;
+		GameLastPlayedStageIndex = 0;
 
 		ResetPlayer();
 	}
@@ -48,18 +58,22 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	Play(M_Field);
 
+	@@_カメラ位置調整(true);
+
 gameLoop:
 	for (; ; )
 	{
-		if (
-			GetMouseDown() == -1 &&
-			@@_RETURN_MENU_L < GetMouseX() && GetMouseX() < @@_RETURN_MENU_L + @@_RETURN_MENU_W &&
-			@@_RETURN_MENU_T < GetMouseY() && GetMouseY() < @@_RETURN_MENU_T + @@_RETURN_MENU_H
-			)
+		if (GetInput_Pause() == 1) // ポーズ
+		{
+			yield* @@_PauseMenu();
+		}
+		if (GameRequestReturnToTitleMenu)
 		{
 			GameEndReason = GameEndReason_e_RETURN_MENU;
 			break;
 		}
+
+		@@_カメラ位置調整(false);
 
 		// ====
 		// 描画ここから
@@ -67,22 +81,31 @@ gameLoop:
 
 		@@_DrawWall();
 
-		DrawPlayer(); // プレイヤーの描画
+		if (PlayerAttack != null && PlayerAttack()) // ? プレイヤー攻撃中
+		{
+			// noop
+		}
+		else
+		{
+			DrawPlayer(); // プレイヤーの描画
+		}
 
 		// 敵の描画
 		//
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
-			if (@@_Enemies[index].HP == -1) // ? 既に死亡
+			var<Enemy_t> enemy = @@_Enemies[index];
+
+			if (enemy.HP == -1) // ? 既に死亡
 			{
 				continue;
 			}
 
-			@@_Enemies[index].Crash = null; // reset
+			enemy.Crash = null; // reset
 
-			if (!DrawEnemy(@@_Enemies[index]))
+			if (!DrawEnemy(enemy))
 			{
-				@@_Enemies[index].HP = -1;
+				enemy.HP = -1;
 			}
 		}
 
@@ -90,26 +113,28 @@ gameLoop:
 		//
 		for (var<int> index = 0; index < @@_Shots.length; index++)
 		{
-			if (@@_Shots[index].AttackPoint == -1) // ? 既に死亡
+			var<Shot_t> shot = @@_Shots[index];
+
+			if (shot.AttackPoint == -1) // ? 既に死亡
 			{
 				continue;
 			}
 
-			@@_Shots[index].Crash = null; // reset
+			shot.Crash = null; // reset
 
-			if (!DrawShot(@@_Shots[index]))
+			if (!DrawShot(shot))
 			{
-				@@_Shots[index].AttackPoint = -1;
+				shot.AttackPoint = -1;
 			}
 		}
 
 		@@_DrawFront();
 
-		if (1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
 		{
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
-			SetColor("#ffffff30");
+			SetColor("#00ff0030");
 			PrintRect_LTRB(
 				PlayerX - PLAYER_側面判定Pt_X,
 				PlayerY - PLAYER_側面判定Pt_YT,
@@ -128,9 +153,9 @@ gameLoop:
 				PlayerX + PLAYER_接地判定Pt_X,
 				PlayerY + PLAYER_接地判定Pt_Y
 				);
-			SetColor("#ffffffa0");
-
+			SetColor("#ff0000a0");
 			DrawCrash(PlayerCrash);
+			SetColor("#ffffffa0");
 
 			for (var<Enemy_t> enemy of @@_Enemies)
 			{
@@ -251,6 +276,18 @@ gameLoop:
 	// ★★★ end of GameMain() ★★★
 }
 
+function <void> @@_カメラ位置調整(<boolean> 一瞬で)
+{
+	var<double> targCamX = PlayerX - Screen_W / 2;
+	var<double> targCamY = PlayerY - Screen_H / 2;
+
+	targCamX = ToRange(targCamX, 0.0, TILE_W * Map.W - Screen_W);
+	targCamY = ToRange(targCamY, 0.0, TILE_H * Map.H - Screen_H);
+
+	Camera.X = Approach(Camera.X, targCamX, 一瞬で ? 0.0 : 0.8);
+	Camera.Y = Approach(Camera.Y, targCamY, 一瞬で ? 0.0 : 0.8);
+}
+
 function* <generatorForTask> @@_T_ゴミ回収()
 {
 	for (; ; )
@@ -292,8 +329,8 @@ function <boolean> @@_IsProbablyEvacuated(<double> x, <double> y)
 		CreateD4Rect_LTRB(
 			-Screen_W * MGN_SCREEN_NUM,
 			-Screen_H * MGN_SCREEN_NUM,
-			Screen_W * (MGN_SCREEN_NUM + 1),
-			Screen_H * (MGN_SCREEN_NUM + 1)
+			TILE_W * Map.W + Screen_W * MGN_SCREEN_NUM,
+			TILE_H * Map.H + Screen_H * MGN_SCREEN_NUM
 			),
 		0.0
 		);
@@ -317,36 +354,38 @@ function <Shot_t[]> GetShots()
 function <void> @@_DrawWall()
 {
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
+	PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
-	for (var<int> x = 0; x < MAP_W; x++)
+	// TODO 背景
+
+	var<I2Point_t> lt = ToTablePoint(Camera);
+	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
+	var<int> l = lt.X;
+	var<int> t = lt.Y;
+	var<int> r = rb.X;
+	var<int> b = rb.Y;
+
+	// マージン付与
+	{
+		var<int> MARGIN = 2; // マージン・セル数
+
+		l -= MARGIN;
+		t -= MARGIN;
+		r += MARGIN;
+		b += MARGIN;
+	}
+
+	for (var<int> x = l; x < MAP_W; x++)
 	for (var<int> y = 0; y < MAP_H; y++)
 	{
-		var<double> dx = FIELD_L + x * TILE_W + TILE_W / 2;
-		var<double> dy = FIELD_T + y * TILE_H + TILE_H / 2;
+		var<D2Point> dPt = ToFieldPoint_XY(x, y);
+		var<double> dx = dPt.X;
+		var<double> dy = dPt.Y;
 
 		if (Map.Table[x][y].WallFlag)
 		{
-			Draw(P_Wall, dx, dy, 1.0, 0.0, 1.0);
-
-			if (IsMapCellType_EnemyGreen(Map.Table[x][y].Type)) // 敵緑の中心
-			{
-				SetColor("#00ff0080");
-				PrintRect_XYWH(dx, dy, 20.0, 20.0);
-			}
+			Draw(P_Wall, dx - Camera.X, dy - Camera.Y, 1.0, 0.0, 1.0);
 		}
-		else
-		{
-			Draw(P_背景, dx, dy, 1.0, 0.0, 1.0);
-		}
-
-		/*
-		if (Map.Table[x][y].NarrowFlag) // test
-		{
-			SetColor("#ff00ff80");
-			PrintCircle(dx, dy, 20.0);
-		}
-		*/
 	}
 }
 
@@ -355,50 +394,13 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(40, 30, 20)));
-	PrintRect(
-		0,
-		0,
-		FIELD_L,
-		Screen_H
-		);
-	PrintRect(
-		FIELD_R,
-		0,
-		Screen_W - FIELD_R,
-		Screen_H
-		);
-	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
-	PrintRect(
-		0,
-		0,
-		Screen_W,
-		FIELD_T
-		);
-	PrintRect(
-		0,
-		FIELD_B,
-		Screen_W,
-		Screen_H - FIELD_B
-		);
+	SetColor(I4ColorToString(CreateI4Color(0, 0, 0, 128)));
+	PrintRect(0.0, 0.0, Screen_W, 20.0);
 
 	SetColor("#ffffff");
-	SetPrint(20, 80, 0);
-	SetFSize(80);
-	PrintLine("STAGE " + Map.Index);
-
-	SetColor("#ffffff");
-	SetPrint(20, Screen_H - 65, 40);
+	SetPrint(10, 20, 0);
 	SetFSize(16);
-	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
-	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");
-
-	SetColor("#ffffff");
-	PrintRect(@@_RETURN_MENU_L, @@_RETURN_MENU_T, @@_RETURN_MENU_W, @@_RETURN_MENU_H);
-	SetColor("#000000");
-	SetPrint(@@_RETURN_MENU_L + 15, @@_RETURN_MENU_T + 40, 0);
-	SetFSize(24);
-	PrintLine("メニューへ戻る");
+	PrintLine("STAGE " + Map.Index);
 }
 
 /*
@@ -410,14 +412,7 @@ function* <generatorForTask> @@_StartMotion()
 	{
 		@@_DrawWall();
 
-		Draw(
-			P_Player,
-			PlayerX,
-			PlayerY,
-			0.5 + 0.5 * scene.Rate,
-			10.0 * scene.RemRate * scene.RemRate,
-			1.0 + 29.0 * scene.RemRate
-			);
+		// TODO ???
 
 		@@_DrawFront();
 
@@ -474,14 +469,7 @@ function* <generatorForTask> @@_GoalMotion()
 	{
 		@@_DrawWall();
 
-		Draw(
-			P_Player,
-			PlayerX,
-			PlayerY,
-			0.5 + 0.5 * scene.RemRate,
-			10.0 * scene.Rate * scene.Rate,
-			1.0 + 29.0 * scene.Rate
-			);
+		// TODO ???
 
 		@@_DrawFront();
 

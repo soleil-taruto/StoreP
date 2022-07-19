@@ -94,16 +94,18 @@ gameLoop:
 		//
 		for (var<int> index = 0; index < @@_Enemies.length; index++)
 		{
-			if (@@_Enemies[index].HP == -1) // ? 既に死亡
+			var<Enemy_t> enemy = @@_Enemies[index];
+
+			if (enemy.HP == -1) // ? 既に死亡
 			{
 				continue;
 			}
 
-			@@_Enemies[index].Crash = null; // reset
+			enemy.Crash = null; // reset
 
-			if (!DrawEnemy(@@_Enemies[index]))
+			if (!DrawEnemy(enemy))
 			{
-				@@_Enemies[index].HP = -1;
+				enemy.HP = -1;
 			}
 		}
 
@@ -111,26 +113,28 @@ gameLoop:
 		//
 		for (var<int> index = 0; index < @@_Shots.length; index++)
 		{
-			if (@@_Shots[index].AttackPoint == -1) // ? 既に死亡
+			var<Shot_t> shot = @@_Shots[index];
+
+			if (shot.AttackPoint == -1) // ? 既に死亡
 			{
 				continue;
 			}
 
-			@@_Shots[index].Crash = null; // reset
+			shot.Crash = null; // reset
 
-			if (!DrawShot(@@_Shots[index]))
+			if (!DrawShot(shot))
 			{
-				@@_Shots[index].AttackPoint = -1;
+				shot.AttackPoint = -1;
 			}
 		}
 
 		@@_DrawFront();
 
-		if (1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
 		{
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
-			SetColor("#ffffff30");
+			SetColor("#00ff0030");
 			PrintRect_LTRB(
 				PlayerX - PLAYER_側面判定Pt_X,
 				PlayerY - PLAYER_側面判定Pt_YT,
@@ -149,9 +153,9 @@ gameLoop:
 				PlayerX + PLAYER_接地判定Pt_X,
 				PlayerY + PLAYER_接地判定Pt_Y
 				);
-			SetColor("#ffffffa0");
-
+			SetColor("#ff0000a0");
 			DrawCrash(PlayerCrash);
+			SetColor("#ffffffa0");
 
 			for (var<Enemy_t> enemy of @@_Enemies)
 			{
