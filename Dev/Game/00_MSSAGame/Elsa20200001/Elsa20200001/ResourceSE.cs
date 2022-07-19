@@ -8,7 +8,7 @@ namespace Charlotte
 {
 	public class ResourceSE
 	{
-		public DDSE Dummy = new DDSE(@"dat\General\muon.wav"); // ★サンプルとしてキープ
+		//public DDSE Muon = new DDSE(@"dat\General\muon.wav"); // ★サンプルとしてキープ
 
 		public DDSE[] テスト用s = new DDSE[]
 		{
