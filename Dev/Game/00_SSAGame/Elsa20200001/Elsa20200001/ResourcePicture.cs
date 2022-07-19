@@ -137,5 +137,10 @@ namespace Charlotte
 
 		public DDPicture 弦巻マキ01 = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\からい\ゆかマキ制服\maki01.png"); // 仮
 		public DDPicture 弦巻マキ02 = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\からい\ゆかマキ制服\maki02.png"); // 仮
+
+		public ResourcePicture()
+		{
+			// none
+		}
 	}
 }

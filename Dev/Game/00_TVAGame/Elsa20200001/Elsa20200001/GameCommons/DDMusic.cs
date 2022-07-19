@@ -8,10 +8,10 @@ namespace Charlotte.GameCommons
 {
 	public class DDMusic
 	{
-		public bool Globally = false;
-		public bool Locally { get { return !this.Globally; } }
+		public bool Globally = false; // 廃止予定
+		public bool Locally { get { return !this.Globally; } } // 廃止予定
 		public DDSound Sound;
-		public double Volume = 0.5; // 0.0 ～ 1.0 // 変更は非推奨 -- 音声ファイル自体の音量を調節するべき
+		public double Volume = 0.5; // 廃止予定
 
 		public DDMusic(string file)
 			: this(new DDSound(file))

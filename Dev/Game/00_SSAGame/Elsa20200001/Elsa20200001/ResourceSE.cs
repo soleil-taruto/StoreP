@@ -21,7 +21,7 @@ namespace Charlotte
 
 		public ResourceSE()
 		{
-			//this.Dummy.Volume = 0.1; // 非推奨 // ★サンプルとしてキープ
+			// none
 		}
 	}
 }

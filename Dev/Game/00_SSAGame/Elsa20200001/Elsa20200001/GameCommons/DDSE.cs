@@ -7,10 +7,10 @@ namespace Charlotte.GameCommons
 {
 	public class DDSE
 	{
-		public bool Globally = true;
-		public bool Locally { get { return !this.Globally; } }
+		public bool Globally = true; // 廃止予定
+		public bool Locally { get { return !this.Globally; } } // 廃止予定
 		public DDSound Sound;
-		public double Volume = 0.5; // 0.0 ～ 1.0 // 変更は非推奨 -- 音声ファイル自体の音量を調節するべき
+		public double Volume = 0.5; // 廃止予定
 		public int HandleIndex = 0;
 
 		public DDSE(string file)

@@ -8,8 +8,8 @@ namespace Charlotte.GameCommons
 {
 	public class DDPicture
 	{
-		public bool Globally = false;
-		public bool Locally { get { return !this.Globally; } }
+		public bool Globally = false; // 廃止予定
+		public bool Locally { get { return !this.Globally; } } // 廃止予定
 
 		public class PictureInfo
 		{

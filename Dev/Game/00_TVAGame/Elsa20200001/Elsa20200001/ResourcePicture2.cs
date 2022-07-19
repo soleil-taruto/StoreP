@@ -241,5 +241,10 @@ namespace Charlotte
 		public DDPicture[,] MiniTile_E = DDDerivations.GetAnimation(Ground.I.Picture.Tile_E, 0, 0, GameConsts.MINI_TILE_W, GameConsts.MINI_TILE_H);
 
 		public DDPicture[] Enemy_神奈子 = DDDerivations.GetAnimation_YX(Ground.I.Picture.Enemy_神奈子, 0, 0, 250, 250).ToArray();
+
+		public ResourcePicture2()
+		{
+			// none
+		}
 	}
 }
