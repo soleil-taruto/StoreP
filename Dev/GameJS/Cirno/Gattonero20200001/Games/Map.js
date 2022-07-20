@@ -112,7 +112,7 @@ var<int> @@_Y = -1;
 //
 function <void> LoadEnemyOfMap()
 {
-	GetEnemies().length = 0; // clear
+	ClearArray(GetEnemies());
 
 	for (var<int> x = 0; x < MAP_W; x++)
 	for (var<int> y = 0; y < MAP_H; y++)

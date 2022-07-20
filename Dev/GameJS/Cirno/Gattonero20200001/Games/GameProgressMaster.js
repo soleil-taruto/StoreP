@@ -11,12 +11,6 @@ var<int> @@_PANEL_Y_GAP = 20;
 var<int> @@_PANEL_X_NUM = 3;
 var<int> @@_PANEL_Y_NUM = 3;
 
-// TODO
-// TODO
-// TODO
-// TODO
-// TODO
-
 function* <generatorForTask> MapSelectMenu()
 {
 	var<int> selectX = 0;
@@ -47,7 +41,7 @@ function* <generatorForTask> MapSelectMenu()
 			canPlayIndex++;
 		}
 
-		var<int> playIndex = -1; // -1 == 無効
+		var<int> mapIndex = -1; // -1 == 無効
 
 		if (GetMouseDown() == -1)
 		{
@@ -70,7 +64,7 @@ function* <generatorForTask> MapSelectMenu()
 					0.0
 					))
 				{
-					playIndex = index;
+					mapIndex = index;
 				}
 
 				index++;
@@ -94,16 +88,16 @@ function* <generatorForTask> MapSelectMenu()
 		}
 		if (IsPound(GetInput_A()))
 		{
-			playIndex = selectX + selectY * @@_PANEL_Y_NUM + 1;
+			mapIndex = selectX + selectY * @@_PANEL_Y_NUM + 1;
 		}
 		if (IsPound(GetInput_B()))
 		{
 			break; // タイトルへ戻る
 		}
 
-		if (playIndex != -1)
+		if (mapIndex != -1)
 		{
-			var<int> index = playIndex;
+			var<int> index = mapIndex;
 
 			if (canPlayIndex < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
 			{

@@ -24,7 +24,8 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(117) : GetTrailArray // Š
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(129) : CloneArray // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(140) : RemoveAll // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(164) : RemoveFalse // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(177) : ToArray // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(179) : ClearArray // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Array.js(187) : ToArray // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Common.js(5) : Supplier // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Common.js(15) : Repeat // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Common.js(23) : Wait // ŠÖ”
@@ -195,7 +196,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(32) : P_Du
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(33) : P_WhiteBox // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(34) : P_WhiteCircle // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(38) : P_ExplodePiece // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(39) : P_Wall // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(39) : P_Goal // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(41) : P_PlayerAttack // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(42) : P_PlayerStand // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(43) : P_PlayerJump // •Ï”
@@ -249,7 +250,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(12) : Camera // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(17) : GameEndReason // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(22) : GameRequestReturnToTitleMenu // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(28) : GameLastPlayedStageIndex // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\GameProgressMaster.js(20) : MapSelectMenu // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\GameProgressMaster.js(14) : MapSelectMenu // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\GameStatus.js(10) : AlreadyClearedStageIndex // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\LocalStorage.js(42) : SaveLocalStorage // ŠÖ”
@@ -258,9 +259,10 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(19) : Map_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(43) : GetMapCount // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(58) : LoadMap // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(113) : LoadEnemyOfMap // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(196) : GetMapCell // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(141) : GetStartPtOfMap // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(230) : GetMapCell // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(51) : Map // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(190) : DEFAULT_MAP_CELL // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(224) : DEFAULT_MAP_CELL // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Maps.js(30) : MAPS // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(100) : ResetPlayer // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(128) : DrawPlayer // ŠÖ”
@@ -294,9 +296,12 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(41) : DrawEnemy // 
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(49) : KillEnemy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(58) : EnemyDamaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(5) : CreateEnemy_BDummy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Goal.js(5) : CreateEnemy_Goal // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Start.js(5) : CreateEnemy_Start // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCatalog.js(5) : Enemy_Kind_e // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCatalog.js(7) : Enemy_Kind_e_BDummy // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCatalog.js(8) : Enemy_Kind_e_Start // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCatalog.js(9) : Enemy_Kind_e_Goal // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCommon.js(5) : EnemyCommon_Damaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCommon.js(10) : EnemyCommon_Dead // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // ’è‹`

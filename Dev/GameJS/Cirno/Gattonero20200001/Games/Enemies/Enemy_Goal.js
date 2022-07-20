@@ -2,11 +2,11 @@
 	敵 - スタート地点
 */
 
-function <Enemy_t> CreateEnemy_Start(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Goal(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Start,
+		Kind: Enemy_Kind_e_Goal,
 		X: x,
 		Y: y,
 		HP: hp,
@@ -26,9 +26,12 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
 	for (; ; )
 	{
-		enemy.Crash = null; // 当たり判定無し
+		var<double> ZURE_X = 0.0;
+		var<double> ZURE_Y = -10.0;
 
-		// 描画無し
+		enemy.Crash = CreateCrash_Circle(enemy.X + ZURE_X, enemy.Y + ZURE_Y, 40.0);
+
+		Draw(P_Goal, enemy.X + ZURE_X, enemy.Y + ZURE_Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}

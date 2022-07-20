@@ -356,7 +356,7 @@ function <void> @@_DrawWall()
 	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
 	PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
-	// TODO îwåi
+	// TODO: îwåi
 
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
@@ -375,8 +375,8 @@ function <void> @@_DrawWall()
 		b += MARGIN;
 	}
 
-	for (var<int> x = l; x < MAP_W; x++)
-	for (var<int> y = 0; y < MAP_H; y++)
+	for (var<int> x = l; x <= r; x++)
+	for (var<int> y = t; y <= b; y++)
 	{
 		var<D2Point> dPt = ToFieldPoint_XY(x, y);
 		var<double> dx = dPt.X;
