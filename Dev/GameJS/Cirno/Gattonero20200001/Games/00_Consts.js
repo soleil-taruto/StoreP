@@ -68,7 +68,7 @@ var<double> PLAYER_側面判定Pt_YB = TILE_H / 4.0;
 var<double> PLAYER_脳天判定Pt_X = TILE_W / 2.0 - 1.0;
 var<double> PLAYER_脳天判定Pt_Y = TILE_H / 2.0;
 var<double> PLAYER_接地判定Pt_X = TILE_W / 2.0 - 1.0;
-var<double> PLAYER_接地判定Pt_Y = TILE_H / 2.0;
+var<double> PLAYER_接地判定Pt_Y = 20.0;
 
 // ----
 // プレイヤー情報ここまで
