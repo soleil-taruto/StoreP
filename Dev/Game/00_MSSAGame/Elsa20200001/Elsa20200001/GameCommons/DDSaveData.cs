@@ -67,7 +67,7 @@ namespace Charlotte.GameCommons
 
 				lines.Add("" + (DDGround.RO_MouseDispMode ? 1 : 0));
 
-				// 新しい項目をここへ追加...
+				// D3SaveData_新しい項目をここへ追加...
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -87,7 +87,7 @@ namespace Charlotte.GameCommons
 					lines.Add(saveDataSlot.Serialize());
 				}
 
-				// 新しい項目をここへ追加...
+				// SaveData_新しい項目をここへ追加...
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -164,7 +164,7 @@ namespace Charlotte.GameCommons
 
 				DDGround.RO_MouseDispMode = int.Parse(lines[c++]) != 0;
 
-				// 新しい項目をここへ追加...
+				// D3SaveData_新しい項目をここへ追加...
 			}
 			catch (Exception e)
 			{
@@ -189,7 +189,7 @@ namespace Charlotte.GameCommons
 						saveDataSlot.Deserialize(lines[c++]);
 					}
 
-					// 新しい項目をここへ追加...
+					// SaveData_新しい項目をここへ追加...
 				}
 				catch (Exception e)
 				{

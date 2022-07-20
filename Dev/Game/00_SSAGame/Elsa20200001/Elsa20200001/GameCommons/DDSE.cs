@@ -30,6 +30,7 @@ namespace Charlotte.GameCommons
 		}
 
 		/// <summary>
+		/// 廃止予定
 		/// ローカル化する。
 		/// 初期化時に呼び出すこと。
 		/// -- 例：DDSE xxx = new DDSE("xxx.mp3").SetLocally();
@@ -54,6 +55,11 @@ namespace Charlotte.GameCommons
 			DDSEUtils.Stop(this);
 		}
 
+		/// <summary>
+		/// 廃止予定
+		/// 固有の音量を設定する。
+		/// </summary>
+		/// <param name="volume">音量</param>
 		public void SetVolume(double volume)
 		{
 			this.Volume = volume;
@@ -65,12 +71,12 @@ namespace Charlotte.GameCommons
 			this.UpdateVolume_Handles(this.Sound.GetHandles());
 		}
 
-		public void UpdateVolume_Handle(int handle)
+		private void UpdateVolume_Handle(int handle)
 		{
 			this.UpdateVolume_Handles(new int[] { handle });
 		}
 
-		public void UpdateVolume_Handles(int[] handles)
+		private void UpdateVolume_Handles(int[] handles)
 		{
 			double mixedVolume = DDSoundUtils.MixVolume(DDGround.SEVolume, this.Volume);
 
