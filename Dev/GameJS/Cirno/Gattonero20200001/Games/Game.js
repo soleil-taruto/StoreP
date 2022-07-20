@@ -48,7 +48,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	{
 		var<D2Point_t> pt = GetStartPtOfMap();
-
+console.log(pt);
 		PlayerX = pt.X;
 		PlayerY = pt.Y;
 	}
@@ -229,9 +229,9 @@ gameLoop:
 			{
 				if (enemy.Kind == Enemy_Kind_e_Goal) // ? ゴール到達 -> 次のステージへ
 				{
-					yield* @@_GoalMotion();
+//					yield* @@_GoalMotion();
 
-					break gameLoop;
+//					break gameLoop;
 				}
 				else
 				{

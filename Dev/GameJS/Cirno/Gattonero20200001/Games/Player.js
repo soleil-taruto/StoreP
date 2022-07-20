@@ -339,7 +339,7 @@ invincibleBlock:
 		{
 			var<double> speed;
 
-			if (PlayerMoveSlow)
+			if (@@_MoveSlow)
 			{
 				speed = PlayerMoveFrame / 10.0;
 				speed = Math.min(speed, PLAYER_SLOW_SPEED);
@@ -370,19 +370,19 @@ invincibleBlock:
 	// 位置矯正
 	{
 		var<boolean> touchSide_L =
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).WallFlag;
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).Tile.WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        )).Tile.WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).Tile.WallFlag;
 
 		var<boolean> touchSide_R =
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        )).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).WallFlag;
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).Tile.WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        )).Tile.WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).Tile.WallFlag;
 
 		if (touchSide_L && touchSide_R) // -> 壁抜け防止のため再チェック
 		{
-			touchSide_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY)).WallFlag;
-			touchSide_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY)).WallFlag;
+			touchSide_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY)).Tile.WallFlag;
+			touchSide_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY)).Tile.WallFlag;
 		}
 
 		if (touchSide_L && touchSide_R)
@@ -398,9 +398,9 @@ invincibleBlock:
 			PlayerX = ToTileCenterX(PlayerX + PLAYER_側面判定Pt_X) - TILE_W / 2.0 - PLAYER_側面判定Pt_X;
 		}
 
-		var<boolean> touchCeiling_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
-		var<boolean> touchCeiling_M = GetMapCell(ToTablePoint_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
-		var<boolean> touchCeiling_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).WallFlag;
+		var<boolean> touchCeiling_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
+		var<boolean> touchCeiling_M = GetMapCell(ToTablePoint_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
+		var<boolean> touchCeiling_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
 
 		if ((touchCeiling_L && touchCeiling_R) || touchCeiling_M)
 		{
@@ -426,8 +426,8 @@ invincibleBlock:
 		}
 
 		var<boolean> touchGround =
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).WallFlag;
+			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag ||
+			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag;
 
 		// memo: @ 2022.7.11
 		// 上昇中(ジャンプ中)に接地判定が発生することがある。
@@ -459,5 +459,5 @@ invincibleBlock:
 
 	// ここから描画
 
-	Draw(P_PlayerStand, PlayerX, PlayerY, 1.0, 0.0, 1.0);
+	Draw(P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 }

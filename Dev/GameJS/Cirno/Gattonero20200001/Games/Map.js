@@ -96,17 +96,18 @@ function <void> LoadMap(<int> mapIndex)
 
 		for (var<int> y = 0; y < Map.H; y++)
 		{
+			@@_X = x;
+			@@_Y = y;
+
 			Map.Table[x].push(@@_CharToMapCell(@@_LineToChars(lines[y])[x]));
 		}
 	}
 
+	@@_X = -1;
+	@@_Y = -1;
+
 	LoadEnemyOfMap();
 }
-
-// 敵ロード用_マップ座標(テーブル・インデックス)
-//
-var<int> @@_X = -1;
-var<int> @@_Y = -1;
 
 // 敵のロード
 //
@@ -122,13 +123,7 @@ function <void> LoadEnemyOfMap()
 
 		if (f_createEnemy != null)
 		{
-			@@_X = x;
-			@@_Y = y;
-
 			var<Enemy_t> enemy = f_createEnemy();
-
-			@@_X = -1;
-			@@_Y = -1;
 
 			if (enemy != null)
 			{
@@ -138,13 +133,13 @@ function <void> LoadEnemyOfMap()
 	}
 }
 
-function <I2Point_t> GetStartPtOfMap()
+function <D2Point_t> GetStartPtOfMap()
 {
 	for (var<Enemy_t> enemy of GetEnemies())
 	{
 		if (enemy.Kind == Enemy_Kind_e_Start)
 		{
-			return ToTablePoint_XY(enemy.X, enemy.Y);
+			return CreateD2Point(enemy.X, enemy.Y);
 		}
 	}
 	error(); // スタート地点見つからじ。
@@ -168,6 +163,9 @@ function <string[]> @@_LineToChars(<stirng> line)
 	}
 	return dest;
 }
+
+var<int> @@_X = -1;
+var<int> @@_Y = -1;
 
 function <MapCell_t> @@_CharToMapCell(<string> chr)
 {
@@ -227,20 +225,25 @@ function <void> @(UNQN)_INIT()
 {
 	DEFAULT_MAP_CELL =
 	{
-		Tile: CreateTile_Wall(P_Dummy),
+		Tile: CreateTile_Wall(P_TileNone),
 		F_CreateEnemy: () => null,
 	};
 }
 
 function <MapCell_t> GetMapCell(<I2Point_t> pt)
 {
+	return GetMapCell_XY(pt.X, pt.Y);
+}
+
+function <MapCell_t> GetMapCell_XY(<int> x, <int> y)
+{
 	if (
-		pt.X < 0 || Map.W <= pt.X ||
-		pt.Y < 0 || Map.H <= pt.Y
+		x < 0 || Map.W <= x ||
+		y < 0 || Map.H <= y
 		)
 	{
 		return DEFAULT_MAP_CELL;
 	}
 
-	return Map.Table[pt.X][pt.Y];
+	return Map.Table[x][y];
 }
