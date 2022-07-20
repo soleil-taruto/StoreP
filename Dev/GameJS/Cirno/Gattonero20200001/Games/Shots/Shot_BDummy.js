@@ -1,7 +1,5 @@
 /*
 	自弾 - BDummy
-
-	★サンプルとしてキープ
 */
 
 function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)

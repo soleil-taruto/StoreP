@@ -1,7 +1,5 @@
 /*
 	敵 - BDummy
-
-	★サンプルとしてキープ
 */
 
 function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
@@ -34,7 +32,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	{
 		enemy.Y += 2.0;
 
-		if (Screen_H < enemy.Y)
+		if (Map.H * TILE_H < enemy.Y)
 		{
 			break;
 		}

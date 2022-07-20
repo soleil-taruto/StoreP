@@ -2,53 +2,18 @@
 	マップ
 */
 
-/// MapCellType_e
-//
-var<int> MapCellType_e_Wall = @(AUTO);
-var<int> MapCellType_e_None = @(AUTO);
-var<int> MapCellType_e_Start = @(AUTO);
-var<int> MapCellType_e_Goal = @(AUTO);
-var<int> MapCellType_e_Enemy_BDummy = @(AUTO);
-var<int> MapCellType_e_Enemy_B1 = @(AUTO); // 青敵, 進行方向：左下
-var<int> MapCellType_e_Enemy_B2 = @(AUTO); // 青敵, 進行方向：下
-var<int> MapCellType_e_Enemy_B3 = @(AUTO); // 青敵, 進行方向：右下
-var<int> MapCellType_e_Enemy_B4 = @(AUTO); // 青敵, 進行方向：左
-var<int> MapCellType_e_Enemy_B6 = @(AUTO); // 青敵, 進行方向：右
-var<int> MapCellType_e_Enemy_B7 = @(AUTO); // 青敵, 進行方向：左上
-var<int> MapCellType_e_Enemy_B8 = @(AUTO); // 青敵, 進行方向：上
-var<int> MapCellType_e_Enemy_B9 = @(AUTO); // 青敵, 進行方向：右上
-var<int> MapCellType_e_Enemy_R4 = @(AUTO); // 赤敵, 進行方向：左
-var<int> MapCellType_e_Enemy_R6 = @(AUTO); // 赤敵, 進行方向：右
-var<int> MapCellType_e_Enemy_G1 = @(AUTO); // 緑敵, 時計回り, 初期位置：左下
-var<int> MapCellType_e_Enemy_G2 = @(AUTO); // 緑敵, 時計回り, 初期位置：下
-var<int> MapCellType_e_Enemy_G3 = @(AUTO); // 緑敵, 時計回り, 初期位置：右下
-var<int> MapCellType_e_Enemy_G4 = @(AUTO); // 緑敵, 時計回り, 初期位置：左
-var<int> MapCellType_e_Enemy_G6 = @(AUTO); // 緑敵, 時計回り, 初期位置：右
-var<int> MapCellType_e_Enemy_G7 = @(AUTO); // 緑敵, 時計回り, 初期位置：左上
-var<int> MapCellType_e_Enemy_G8 = @(AUTO); // 緑敵, 時計回り, 初期位置：上
-var<int> MapCellType_e_Enemy_G9 = @(AUTO); // 緑敵, 時計回り, 初期位置：右上
-var<int> MapCellType_e_Enemy_G1_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：左下
-var<int> MapCellType_e_Enemy_G2_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：下
-var<int> MapCellType_e_Enemy_G3_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右下
-var<int> MapCellType_e_Enemy_G4_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：左
-var<int> MapCellType_e_Enemy_G6_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
-var<int> MapCellType_e_Enemy_G7_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：左上
-var<int> MapCellType_e_Enemy_G8_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：上
-var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右上
-
 /@(ASTR)
 
 /// MapCell_t
 {
-	<MapCellType_e> Type
-
-	// 壁フラグ
+	// タイル
 	//
-	<boolean> WallFlag
+	<Tile_t> Tile
 
-	// 狭い通路フラグ
+	// 敵生成
+	// 敵が居ない場合は null または null を返すこと。
 	//
-	<boolean> NarrowFlag
+	<Func Enemy_t> F_CreateEnemy
 }
 
 /// Map_t
@@ -63,24 +28,11 @@ var<int> MapCellType_e_Enemy_G9_CCW = @(AUTO); // 緑敵, 反時計回り, 初期位置：右
 	//
 	var<int> H
 
-	// スタート座標
-	// 当該セルの中心座標
-	// (画面位置・ドット単位)
-	//
-	<D2Point_t> StartPt
-
 	// マップセルのテーブル
 	// 添字：[x][y]
 	// サイズ：[this.W][this.H]
-	// (テーブル座標)
 	//
 	<MapCell_t[][]> Table
-
-	// このマップのステージ・インデックス
-	// 0 == テスト用
-	// 1 ～ (GetMapCount() - 1) == 本番ステージ
-	//
-	<int> Index
 }
 
 @(ASTR)/
@@ -105,111 +57,85 @@ var<Map_t> Map = null;
 */
 function <void> LoadMap(<int> mapIndex)
 {
+	Map = {};
+
 	var<string[]> lines = MAPS[mapIndex];
 
-	if (lines.length != MAP_H)
 	{
-		error();
-	}
+		var<int> h = lines.length;
 
-	for (var<int> y = 0; y < MAP_H; y++)
-	{
-		if (@@_LineToChars(lines[y]).length != MAP_W)
+		if (h < MAP_H_MIN || IMAX < h)
 		{
 			error();
 		}
+
+		var<int> w = lines[0].length;
+
+		if (w < MAP_W_MIN || IMAX < w)
+		{
+			error()
+		}
+
+		for (var<int> y = 0; y < h; y++)
+		{
+			if (@@_LineToChars(lines[y]).length != w)
+			{
+				error();
+			}
+		}
+
+		Map.W = w;
+		Map.H = h;
 	}
 
-	Map = {};
 	Map.Table = [];
-	Map.Index = mapIndex;
 
-	for (var<int> x = 0; x < MAP_W; x++)
+	for (var<int> x = 0; x < Map.W; x++)
 	{
 		Map.Table.push([]);
 
-		for (var<int> y = 0; y < MAP_H; y++)
+		for (var<int> y = 0; y < Map.H; y++)
 		{
-			Map.Table[x].push(
-			{
-				Type: @@_CharToType(@@_LineToChars(lines[y])[x]),
-			});
-		}
-	}
-
-	// set StartPt
-setStartPt:
-	{
-		for (var<int> x = 0; x < MAP_W; x++)
-		for (var<int> y = 0; y < MAP_H; y++)
-		{
-			if (Map.Table[x][y].Type == MapCellType_e_Start)
-			{
-				Map.StartPt = CreateD2Point(
-					x * TILE_W + TILE_W / 2.0,
-					y * TILE_H + TILE_H / 2.0
-					);
-
-				break setStartPt;
-			}
-		}
-		error();
-	}
-
-	// MapCell_t の Type 以外のフィールドを設定する。
-	{
-		for (var<int> x = 0; x < MAP_W; x++)
-		for (var<int> y = 0; y < MAP_H; y++)
-		{
-			var<MapCell_t> cell = Map.Table[x][y];
-
-			// reset
-			{
-				cell.WallFlag = false;
-				cell.NarrowFlag = false;
-			}
-		}
-
-		for (var<int> x = 0; x < MAP_W; x++)
-		for (var<int> y = 0; y < MAP_H; y++)
-		{
-			var<MapCell_t> cell = Map.Table[x][y];
-
-			if (
-				cell.Type == MapCellType_e_Wall ||
-				IsMapCellType_EnemyGreen(cell.Type)
-				)
-			{
-				cell.WallFlag = true;
-			}
-		}
-
-		for (var<int> x = 0; x < MAP_W; x++)
-		for (var<int> y = 0; y < MAP_H; y++)
-		{
-			if (
-				x + 2 < MAP_W &&
-				Map.Table[x + 0][y].WallFlag &&
-				Map.Table[x + 1][y].WallFlag == false &&
-				Map.Table[x + 2][y].WallFlag
-				)
-			{
-				Map.Table[x + 1][y].NarrowFlag = true;
-			}
-
-			if (
-				y + 2 < MAP_H &&
-				Map.Table[x][y + 0].WallFlag &&
-				Map.Table[x][y + 1].WallFlag == false &&
-				Map.Table[x][y + 2].WallFlag
-				)
-			{
-				Map.Table[x][y + 1].NarrowFlag = true;
-			}
+			Map.Table[x].push(@@_CharToMapCell(@@_LineToChars(lines[y])[x]));
 		}
 	}
 
 	LoadEnemyOfMap();
+}
+
+// 敵ロード用_マップ座標(テーブル・インデックス)
+//
+var<int> @@_X = -1;
+var<int> @@_Y = -1;
+
+// 敵のロード
+//
+function <void> LoadEnemyOfMap()
+{
+	GetEnemies().length = 0; // clear
+
+	for (var<int> x = 0; x < MAP_W; x++)
+	for (var<int> y = 0; y < MAP_H; y++)
+	{
+		var<MapCell_t> cell = Map.Table[x][y];
+		var<Func Enemy_t> f_createEnemy = cell.F_CreateEnemy;
+
+		if (f_createEnemy != null)
+		{
+			@@_X = x;
+			@@_Y = y;
+
+			var<Enemy_t> enemy = f_createEnemy();
+
+			@@_X = -1;
+			@@_Y = -1;
+
+			if (enemy != null)
+			{
+				GetEnemies().push(enemy);
+			}
+		}
+	}
 }
 
 function <string[]> @@_LineToChars(<stirng> line)
@@ -218,7 +144,7 @@ function <string[]> @@_LineToChars(<stirng> line)
 
 	for (var<int> index = 0; index < line.length; index++)
 	{
-		if (index + 1 < line.length && "BRGC".indexOf(line[index]) != -1)
+		if (index + 1 < line.length && (DECIMAL + ALPHA_UPPER + ALPHA_LOWER).indexOf(line[index]) != -1)
 		{
 			dest.push(line.substring(index, index + 2));
 			index++;
@@ -231,91 +157,51 @@ function <string[]> @@_LineToChars(<stirng> line)
 	return dest;
 }
 
-// 敵のロード
-//
-function <void> LoadEnemyOfMap()
+function <MapCell_t> @@_CharToMapCell(<string> chr)
 {
-	for (var<int> x = 0; x < MAP_W; x++)
-	for (var<int> y = 0; y < MAP_H; y++)
-	{
-		var<MapCell_t> cell = Map.Table[x][y];
+	// 敵の座標
+	//
+	var<int> x = @@_X;
+	var<int> y = @@_Y;
 
-		var<double> dx = x * TILE_W + TILE_W / 2.0;
-		var<double> dy = y * TILE_H + TILE_H / 2.0;
-
-		switch (cell.Type)
-		{
-		case MapCellType_e_Enemy_BDummy: // テスト用
-			GetEnemies().push(CreateEnemy_BDummy(dx, dy, 1));
-			break;
-
-		case MapCellType_e_Goal:
-			GetEnemies().push(CreateEnemy_Goal(dx, dy));
-			break;
-
-//		case MapCellType_e_Enemy_B1: GetEnemies().push(CreateEnemy_Blue(dx, dy, -1,  1)); break;
-//		case MapCellType_e_Enemy_B2: GetEnemies().push(CreateEnemy_Blue(dx, dy,  0,  1)); break;
-//		case MapCellType_e_Enemy_B3: GetEnemies().push(CreateEnemy_Blue(dx, dy,  1,  1)); break;
-
-		default:
-			break;
-		}
-	}
-}
-
-function <MapCellType_e> @@_CharToType(<string> chr)
-{
-	if (chr == "■") return MapCellType_e_Wall;
-	if (chr == "　") return MapCellType_e_None;
-	if (chr == "始") return MapCellType_e_Start;
-	if (chr == "終") return MapCellType_e_Goal;
-	if (chr == "敵") return MapCellType_e_Enemy_BDummy;
-
-//	if (chr == "B1") return MapCellType_e_Enemy_B1;
-//	if (chr == "B2") return MapCellType_e_Enemy_B2;
-//	if (chr == "B3") return MapCellType_e_Enemy_B3;
+	if (chr == "■") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[0]), () => null);
+	if (chr == "W1") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[1]), () => null);
+	if (chr == "W2") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[2]), () => null);
+	if (chr == "W3") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[3]), () => null);
+	if (chr == "　") return @@_CreateMapCell(CreateTile_None(), () => null);
+	if (chr == "始") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_Start(x, y));
+	if (chr == "終") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_Goal(x, y));
+	if (chr == "敵") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_BDummy(x, y, 10));
 
 	error();
 }
 
+function <MapCell_t> @@_CreateMapCell(<Tile_t> tile, <Func Enemy_t> f_createEnemy)
+{
+	var ret =
+	{
+		Tile: tile,
+		F_CreateEnemy: f_createEnemy,
+	};
+
+	return ret;
+}
+
 var<MapCell_t> DEFAULT_MAP_CELL =
 {
-	Type: MapCellType_e_Wall,
-	WallFlag: true,
+	Tile: CreateTile_Wall(P_Tiles[0]),
+	F_CreateEnemy: () => null,
 };
 
 function <MapCell_t> GetMapCell(<I2Point_t> pt)
 {
 	if (
-		pt.X < 0 || MAP_W <= pt.X ||
-		pt.Y < 0 || MAP_H <= pt.Y
+		pt.X < 0 || Map.W <= pt.X ||
+		pt.Y < 0 || Map.H <= pt.Y
 		)
 	{
 		return DEFAULT_MAP_CELL;
 	}
 
 	return Map.Table[pt.X][pt.Y];
-}
-
-function <boolean> IsMapCellType_EnemyGreen(<MapCellType_e> type)
-{
-	var ret =
-		type == MapCellType_e_Enemy_G1 ||
-		type == MapCellType_e_Enemy_G2 ||
-		type == MapCellType_e_Enemy_G3 ||
-		type == MapCellType_e_Enemy_G4 ||
-		type == MapCellType_e_Enemy_G6 ||
-		type == MapCellType_e_Enemy_G7 ||
-		type == MapCellType_e_Enemy_G8 ||
-		type == MapCellType_e_Enemy_G9 ||
-		type == MapCellType_e_Enemy_G1_CCW ||
-		type == MapCellType_e_Enemy_G2_CCW ||
-		type == MapCellType_e_Enemy_G3_CCW ||
-		type == MapCellType_e_Enemy_G4_CCW ||
-		type == MapCellType_e_Enemy_G6_CCW ||
-		type == MapCellType_e_Enemy_G7_CCW ||
-		type == MapCellType_e_Enemy_G8_CCW ||
-		type == MapCellType_e_Enemy_G9_CCW;
-
-	return ret;
 }
