@@ -30,6 +30,7 @@ namespace Charlotte.GameCommons
 		}
 
 		/// <summary>
+		/// 廃止予定
 		/// グローバル化する。
 		/// 初期化時に呼び出すこと。
 		/// -- 例：DDMusic xxx = new DDMusic("xxx.mp3").SetGlobally();
