@@ -384,14 +384,11 @@ function <void> @@_DrawWall()
 	{
 		var<MapCell_t> cell = GetMapCell(CreateI2Point(x, y));
 
-		if (cell.WallFlag)
-		{
-			var<D2Point> dPt = ToFieldPoint_XY(x, y);
-			var<double> dx = dPt.X;
-			var<double> dy = dPt.Y;
+		var<D2Point> dPt = ToFieldPoint_XY(x, y);
+		var<double> dx = dPt.X;
+		var<double> dy = dPt.Y;
 
-			DrawTile(cell.Tile, CreateD2Point(dx - Camera.X, dy - Camera.Y));
-		}
+		DrawTile(cell.Tile, CreateD2Point(dx - Camera.X, dy - Camera.Y));
 	}
 }
 
