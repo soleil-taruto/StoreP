@@ -133,6 +133,8 @@ function <void> LoadEnemyOfMap()
 	}
 }
 
+// スタート地点(ドット単位)取得
+//
 function <D2Point_t> GetStartPtOfMap()
 {
 	for (var<Enemy_t> enemy of GetEnemies())

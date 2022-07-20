@@ -10,7 +10,7 @@
 
 	<boolean> WallFlag // •Ç‚©
 
-	<Action D2Point_t> Draw // •`‰æ
+	<Action double double> Draw // •`‰æ
 }
 
 @(ASTR)/
@@ -18,7 +18,7 @@
 /*
 	•`‰æ
 */
-function <void> DrawTile(<Tile_t> tile, <D2Point_t> drawPt)
+function <void> DrawTile(<Tile_t> tile, <double> dx, <double> dy)
 {
-	return tile.Draw(tile, drawPt);
+	return tile.Draw(tile, dx, dy);
 }

@@ -524,28 +524,31 @@ namespace Charlotte.Games
 					{
 						DDCurtain.DrawCurtain(-0.7);
 
+						double dPlX = this.Player.X - DDGround.ICamera.X;
+						double dPlY = this.Player.Y - DDGround.ICamera.Y;
+
 						DDDraw.SetBright(0.0, 1.0, 0.0);
 						DDDraw.SetAlpha(0.3);
 						DDDraw.DrawRect_LTRB(
 							Ground.I.Picture.WhiteBox,
-							this.Player.X - GameConsts.PLAYER_側面判定Pt_X - DDGround.ICamera.X,
-							this.Player.Y - GameConsts.PLAYER_側面判定Pt_YT - DDGround.ICamera.Y,
-							this.Player.X + GameConsts.PLAYER_側面判定Pt_X - DDGround.ICamera.X,
-							this.Player.Y + GameConsts.PLAYER_側面判定Pt_YB - DDGround.ICamera.Y
+							dPlX - GameConsts.PLAYER_側面判定Pt_X,
+							dPlY - GameConsts.PLAYER_側面判定Pt_YT,
+							dPlX + GameConsts.PLAYER_側面判定Pt_X,
+							dPlY + GameConsts.PLAYER_側面判定Pt_YB
 							);
 						DDDraw.DrawRect_LTRB(
 							Ground.I.Picture.WhiteBox,
-							this.Player.X - GameConsts.PLAYER_脳天判定Pt_X - DDGround.ICamera.X,
-							this.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y - DDGround.ICamera.Y,
-							this.Player.X + GameConsts.PLAYER_脳天判定Pt_X - DDGround.ICamera.X,
-							this.Player.Y - DDGround.ICamera.Y
+							dPlX - GameConsts.PLAYER_脳天判定Pt_X,
+							dPlY - GameConsts.PLAYER_脳天判定Pt_Y,
+							dPlX + GameConsts.PLAYER_脳天判定Pt_X,
+							dPlY
 							);
 						DDDraw.DrawRect_LTRB(
 							Ground.I.Picture.WhiteBox,
-							this.Player.X - GameConsts.PLAYER_接地判定Pt_X - DDGround.ICamera.X,
-							this.Player.Y - DDGround.ICamera.Y,
-							this.Player.X + GameConsts.PLAYER_接地判定Pt_X - DDGround.ICamera.X,
-							this.Player.Y + GameConsts.PLAYER_接地判定Pt_Y - DDGround.ICamera.Y
+							dPlX - GameConsts.PLAYER_接地判定Pt_X,
+							dPlY,
+							dPlX + GameConsts.PLAYER_接地判定Pt_X,
+							dPlY + GameConsts.PLAYER_接地判定Pt_Y
 							);
 						DDDraw.Reset();
 

@@ -1,5 +1,5 @@
 /*
-	タイル - BDummy
+	タイル - BDummy ★サンプル
 */
 
 function <Tile_t> CreateTile_BDummy()
@@ -22,7 +22,7 @@ function <Tile_t> CreateTile_BDummy()
 	return ret;
 }
 
-function <void> @@_Draw(<Tile_t> tile, <D2Point_t> drawPt)
+function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 {
-	Draw(P_Dummy, drawPt.X, drawPt.Y, 1.0, 0.0, 1.0);
+	Draw(P_Dummy, dx, dy, 1.0, 0.0, 1.0);
 }

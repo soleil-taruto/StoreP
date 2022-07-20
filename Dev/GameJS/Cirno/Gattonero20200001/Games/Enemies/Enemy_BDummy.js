@@ -1,5 +1,5 @@
 /*
-	“G - BDummy
+	“G - BDummy šƒTƒ“ƒvƒ‹
 */
 
 function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)

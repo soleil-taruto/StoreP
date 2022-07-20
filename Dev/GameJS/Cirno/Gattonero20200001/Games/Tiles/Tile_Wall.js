@@ -20,7 +20,7 @@ function <Tile_t> CreateTile_Wall(<Image> picture)
 	return ret;
 }
 
-function <void> @@_Draw(<Tile_t> tile, <D2Point_t> drawPt)
+function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 {
-	Draw(tile.Picture, drawPt.X, drawPt.Y, 1.0, 0.0, 1.0);
+	Draw(tile.Picture, dx, dy, 1.0, 0.0, 1.0);
 }

@@ -18,7 +18,7 @@ function <Tile_t> CreateTile_None()
 	return ret;
 }
 
-function <void> @@_Draw(<Tile_t> tile, <D2Point_t> drawPt)
+function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 {
 	// noop
 }

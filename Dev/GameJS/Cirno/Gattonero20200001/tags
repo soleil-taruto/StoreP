@@ -261,12 +261,12 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(19) : Map_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(43) : GetMapCount // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(58) : LoadMap // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(114) : LoadEnemyOfMap // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(136) : GetStartPtOfMap // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(224) : @ // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(233) : GetMapCell // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(238) : GetMapCell_XY // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(138) : GetStartPtOfMap // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(226) : @ // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(235) : GetMapCell // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(240) : GetMapCell_XY // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(51) : Map // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(222) : DEFAULT_MAP_CELL // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(224) : DEFAULT_MAP_CELL // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Maps.js(30) : MAPS // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(100) : ResetPlayer // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(128) : DrawPlayer // ŠÖ”

@@ -33,7 +33,7 @@ var<int> PLAYER_JUMP_MAX = 2;
 /*
 	プレイヤーキャラクタの重力加速度
 */
-var<double> PLAYER_GRAVITY = 0.9;
+var<double> PLAYER_GRAVITY = 0.5;
 
 /*
 	プレイヤーキャラクタの落下最高速度
@@ -53,7 +53,7 @@ var<double> PLAYER_SLOW_SPEED = 2.0;
 /*
 	プレイヤーキャラクタのジャンプによる上昇速度
 */
-var<double> PLAYER_JUMP_SPEED = -8.0;
+var<double> PLAYER_JUMP_SPEED = -16.0;
 
 // 滞空中に壁に突進しても、脳天判定・接地判定に引っ掛からないように側面判定を先に行う。
 // -- ( 脳天判定Pt_X < 側面判定Pt_X && 接地判定Pt_X < 側面判定Pt_X ) を維持すること。

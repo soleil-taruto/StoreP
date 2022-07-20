@@ -136,26 +136,29 @@ gameLoop:
 
 		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
 		{
+			var<double> dPlX = PlayerX - Camera.X;
+			var<double> dPlY = PlayerY - Camera.Y;
+
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
 			SetColor("#00ff0030");
 			PrintRect_LTRB(
-				PlayerX - PLAYER_側面判定Pt_X,
-				PlayerY - PLAYER_側面判定Pt_YT,
-				PlayerX + PLAYER_側面判定Pt_X,
-				PlayerY + PLAYER_側面判定Pt_YB,
+				dPlX - PLAYER_側面判定Pt_X,
+				dPlY - PLAYER_側面判定Pt_YT,
+				dPlX + PLAYER_側面判定Pt_X,
+				dPlY + PLAYER_側面判定Pt_YB
 				);
 			PrintRect_LTRB(
-				PlayerX - PLAYER_脳天判定Pt_X,
-				PlayerY - PLAYER_脳天判定Pt_Y,
-				PlayerX + PLAYER_脳天判定Pt_X,
-				PlayerY
+				dPlX - PLAYER_脳天判定Pt_X,
+				dPlY - PLAYER_脳天判定Pt_Y,
+				dPlX + PLAYER_脳天判定Pt_X,
+				dPlY
 				);
 			PrintRect_LTRB(
-				PlayerX - PLAYER_接地判定Pt_X,
-				PlayerY,
-				PlayerX + PLAYER_接地判定Pt_X,
-				PlayerY + PLAYER_接地判定Pt_Y
+				dPlX - PLAYER_接地判定Pt_X,
+				dPlY,
+				dPlX + PLAYER_接地判定Pt_X,
+				dPlY + PLAYER_接地判定Pt_Y
 				);
 			SetColor("#ff0000a0");
 			DrawCrash(PlayerCrash);
@@ -382,13 +385,14 @@ function <void> @@_DrawWall()
 	for (var<int> x = l; x <= r; x++)
 	for (var<int> y = t; y <= b; y++)
 	{
-		var<MapCell_t> cell = GetMapCell(CreateI2Point(x, y));
+		var<MapCell_t> cell = GetMapCell_XY(x, y);
+		var<Tile_t> tile = cell.Tile;
 
 		var<D2Point> dPt = ToFieldPoint_XY(x, y);
 		var<double> dx = dPt.X;
 		var<double> dy = dPt.Y;
 
-		DrawTile(cell.Tile, CreateD2Point(dx - Camera.X, dy - Camera.Y));
+		DrawTile(tile, dx - Camera.X, dy - Camera.Y);
 	}
 }
 
