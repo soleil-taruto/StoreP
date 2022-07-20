@@ -138,6 +138,18 @@ function <void> LoadEnemyOfMap()
 	}
 }
 
+function <I2Point_t> GetStartPtOfMap()
+{
+	for (var<Enemy_t> enemy of GetEnemies())
+	{
+		if (enemy.Kind == Enemy_Kind_e_Start)
+		{
+			return ToTablePoint_XY(enemy.X, enemy.Y);
+		}
+	}
+	error(); // スタート地点見つからじ。
+}
+
 function <string[]> @@_LineToChars(<stirng> line)
 {
 	var<string[]> dest = [];
@@ -159,19 +171,32 @@ function <string[]> @@_LineToChars(<stirng> line)
 
 function <MapCell_t> @@_CharToMapCell(<string> chr)
 {
-	// 敵の座標
+	// 敵の座標(テーブル・インデックス)
 	//
-	var<int> x = @@_X;
-	var<int> y = @@_Y;
+	var<int> ix = @@_X;
+	var<int> iy = @@_Y;
 
+	// 敵の位置(ドット単位)
+	//
+	var<D2Point> pt = ToFieldPoint_XY(ix, iy);
+	var<double> x = pt.X;
+	var<double> y = pt.Y;
+
+	if (chr == "壁") return @@_CreateMapCell(CreateTile_BDummy(), () => null); // ★サンプル
+	if (chr == "敵") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_BDummy(x, y, 10)); // ★サンプル
+	if (chr == "始") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_Start(x, y));
+	if (chr == "終") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_Goal(x, y));
+	if (chr == "　") return @@_CreateMapCell(CreateTile_None(), () => null);
+//	if (chr == "W1") return @@_CreateMapCell(CreateTile_B0001(), () => null); // ★サンプル
+//	if (chr == "W2") return @@_CreateMapCell(CreateTile_B0002(), () => null); // ★サンプル
+//	if (chr == "W3") return @@_CreateMapCell(CreateTile_B0003(), () => null); // ★サンプル
 	if (chr == "■") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[0]), () => null);
 	if (chr == "W1") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[1]), () => null);
 	if (chr == "W2") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[2]), () => null);
 	if (chr == "W3") return @@_CreateMapCell(CreateTile_Wall(P_Tiles[3]), () => null);
-	if (chr == "　") return @@_CreateMapCell(CreateTile_None(), () => null);
-	if (chr == "始") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_Start(x, y));
-	if (chr == "終") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_Goal(x, y));
-	if (chr == "敵") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_BDummy(x, y, 10));
+//	if (chr == "E1") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_B0001(x, y)); // ★サンプル
+//	if (chr == "E2") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_B0002(x, y)); // ★サンプル
+//	if (chr == "E3") return @@_CreateMapCell(CreateTile_None(), () => CreateEnemy_B0003(x, y)); // ★サンプル
 
 	error();
 }
