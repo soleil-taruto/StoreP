@@ -30,19 +30,6 @@ namespace Charlotte.GameCommons
 			adder(this);
 		}
 
-		/// <summary>
-		/// 廃止予定
-		/// グローバル化する。
-		/// 初期化時に呼び出すこと。
-		/// -- 例：DDPicture xxx = new DDPicture("xxx.png").SetGlobally();
-		/// </summary>
-		/// <returns>このインスタンス</returns>
-		public DDPicture SetGlobally()
-		{
-			this.Globally = true;
-			return this;
-		}
-
 		public void Unload()
 		{
 			// この画像を参照している derivation を先に Unload しなければならない。

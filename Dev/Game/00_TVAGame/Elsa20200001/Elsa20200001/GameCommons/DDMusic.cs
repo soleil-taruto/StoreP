@@ -30,24 +30,10 @@ namespace Charlotte.GameCommons
 		}
 
 		/// <summary>
-		/// 廃止予定
-		/// グローバル化する。
-		/// 初期化時に呼び出すこと。
-		/// -- 例：DDMusic xxx = new DDMusic("xxx.mp3").SetGlobally();
-		/// </summary>
-		/// <returns>このインスタンス</returns>
-		public DDMusic SetGlobally()
-		{
-			this.Globally = true;
-			return this;
-		}
-
-		/// <summary>
 		/// ループを設定する。
 		/// 初期化時に呼び出すこと。
 		/// ハンドルのロード前に呼び出すこと。
 		/// -- 例：DDMusic xxx = new DDMusic("xxx.mp3").SetLoopByStEnd(st, ed);
-		/// -- 例：DDMusic xxx = new DDMusic("xxx.mp3").SetGlobally().SetLoopByStEnd(st, ed);
 		/// </summary>
 		/// <param name="loopStart">ループ開始位置(サンプル位置)</param>
 		/// <param name="loopLength">ループの長さ(サンプル位置)</param>
