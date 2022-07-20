@@ -234,12 +234,12 @@ function <void> DrawPlayer()
 			else // ? 接地状態からのジャンプが「可能ではない」状態
 			{
 				// 滞空状態に入ったら「通常ジャンプの状態」にする。
-				if (this.Player.JumpCount < 1)
+				if (PlayerJumpCount < 1)
 				{
-					this.Player.JumpCount = 1;
+					PlayerJumpCount = 1;
 				}
 
-				if (1 <= jump && jump < 事前入力時間 && PlayerJumpCount < PLAYER_JUMP_MAX && !this.Player.JumpLock)
+				if (1 <= jump && jump < 事前入力時間 && PlayerJumpCount < PLAYER_JUMP_MAX && !@@_JumpLock)
 				{
 					// ★ 空中(n-段)ジャンプを開始した。
 
@@ -308,7 +308,7 @@ damageBlock:
 			break damageBlock;
 		}
 		var<int> frame = PlayerDamageFrame; // 値域 == 2 ～ PLAYER_DAMAGE_FRAME_MAX
-		double rate = RateAToB(2, PLAYER_DAMAGE_FRAME_MAX, frame);
+		var<double> rate = RateAToB(2, PLAYER_DAMAGE_FRAME_MAX, frame);
 
 		// ダメージ中の処理
 		{
@@ -325,7 +325,7 @@ invincibleBlock:
 			break invincibleBlock;
 		}
 		var<int> frame = PlayerInvincibleFrame; // 値域 == 2 ～ PLAYER_INVINCIBLE_FRAME_MAX
-		double rate = RateAToB(2, PLAYER_INVINCIBLE_FRAME_MAX, frame);
+		var<double> rate = RateAToB(2, PLAYER_INVINCIBLE_FRAME_MAX, frame);
 
 		// 無適時間中の処理
 		{
@@ -341,7 +341,7 @@ invincibleBlock:
 
 			if (PlayerMoveSlow)
 			{
-				speed = this.Player.MoveFrame / 10.0;
+				speed = PlayerMoveFrame / 10.0;
 				speed = Math.min(speed, PLAYER_SLOW_SPEED);
 			}
 			else
@@ -459,5 +459,5 @@ invincibleBlock:
 
 	// ここから描画
 
-	Draw(P_Player, PlayerX, PlayerY, 1.0, 0.0, 1.0);
+	Draw(P_PlayerStand, PlayerX, PlayerY, 1.0, 0.0, 1.0);
 }

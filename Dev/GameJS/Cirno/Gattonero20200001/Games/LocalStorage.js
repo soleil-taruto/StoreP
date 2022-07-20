@@ -21,7 +21,7 @@ function <void> LoadLocalStorage()
 		PadInputIndex_B = StrToInt(data[c++]);
 		PadInputIndex_Pause = StrToInt(data[c++]);
 
-		AlreadyClearedStageIndex = StrToInt(data[c++]);
+		CanPlayStageIndex = StrToInt(data[c++]);
 
 		// < SaveData
 	}
@@ -33,7 +33,7 @@ function <void> LoadLocalStorage()
 		PadInputIndex_B = 3;
 		PadInputIndex_Pause = 9;
 
-		AlreadyClearedStageIndex = -1;
+		CanPlayStageIndex = -1;
 
 		// < SaveData
 	}
@@ -49,7 +49,7 @@ function <void> SaveLocalStorage()
 	data.push("" + PadInputIndex_B);
 	data.push("" + PadInputIndex_Pause);
 
-	data.push("" + AlreadyClearedStageIndex);
+	data.push("" + CanPlayStageIndex);
 
 	// < SaveData
 

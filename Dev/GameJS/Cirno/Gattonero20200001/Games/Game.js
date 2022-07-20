@@ -46,8 +46,12 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	LoadMap(mapIndex);
 
-	PlayerX = Map.StartPt.X;
-	PlayerY = Map.StartPt.Y;
+	{
+		var<D2Point_t> pt = GetStartPtOfMap();
+
+		PlayerX = pt.X;
+		PlayerY = pt.Y;
+	}
 
 	GameLastPlayedStageIndex = Map.Index;
 
@@ -378,13 +382,15 @@ function <void> @@_DrawWall()
 	for (var<int> x = l; x <= r; x++)
 	for (var<int> y = t; y <= b; y++)
 	{
-		var<D2Point> dPt = ToFieldPoint_XY(x, y);
-		var<double> dx = dPt.X;
-		var<double> dy = dPt.Y;
+		var<MapCell_t> cell = GetMapCell(CreateI2Point(x, y));
 
-		if (Map.Table[x][y].WallFlag)
+		if (cell.WallFlag)
 		{
-			Draw(P_Wall, dx - Camera.X, dy - Camera.Y, 1.0, 0.0, 1.0);
+			var<D2Point> dPt = ToFieldPoint_XY(x, y);
+			var<double> dx = dPt.X;
+			var<double> dy = dPt.Y;
+
+			DrawTile(cell.Tile, CreateD2Point(dx - Camera.X, dy - Camera.Y));
 		}
 	}
 }
@@ -447,8 +453,12 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 
 		LoadEnemyOfMap();
 
-		PlayerX = Map.StartPt.X;
-		PlayerY = Map.StartPt.Y;
+		{
+			var<D2Point_t> pt = GetStartPtOfMap();
+
+			PlayerX = pt.X;
+			PlayerY = pt.Y;
+		}
 	}
 
 	yield* @@_StartMotion();

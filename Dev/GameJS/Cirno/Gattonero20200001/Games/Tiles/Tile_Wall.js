@@ -22,5 +22,5 @@ function <Tile_t> CreateTile_Wall(<Image> picture)
 
 function <void> @@_Draw(<Tile_t> tile, <D2Point_t> drawPt)
 {
-	Draw(tile.Picture, drawPt.X, drawPt.Y, 1.0. 0.0, 1.0);
+	Draw(tile.Picture, drawPt.X, drawPt.Y, 1.0, 0.0, 1.0);
 }

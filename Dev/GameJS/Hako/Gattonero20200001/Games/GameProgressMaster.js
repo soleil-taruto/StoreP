@@ -175,7 +175,7 @@ function* <generatorForTask> MapSelectMenu()
 	FreezeInput();
 }
 
-function* <void> @@_Game(<int> startMapIndex)
+function* <generatorForTask> @@_Game(<int> startMapIndex)
 {
 	// Leave MapSelectMenu()
 	{

@@ -18,8 +18,8 @@ function <I2Point_t> ToTablePoint_XY(<double> x, <double> y)
 */
 function <D2Point_t> ToFieldPoint(<I2Point_t> pt)
 {
-	var<double> dx = pt.X * TILE_W + TIEL_W / 2.0;
-	var<double> dy = pt.Y * TILE_H + TIEL_H / 2.0;
+	var<double> dx = pt.X * TILE_W + TILE_W / 2.0;
+	var<double> dy = pt.Y * TILE_H + TILE_H / 2.0;
 
 	var ret = CreateD2Point(dx, dy);
 

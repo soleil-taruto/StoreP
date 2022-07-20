@@ -3,8 +3,7 @@
 */
 
 /*
-	既にクリアしたステージ・インデックス
-	-1 == 未クリア
-	0～ == ステージ・インデックス
+	プレイ可能なステージ
+	1～ == ステージ・インデックス
 */
-var<int> AlreadyClearedStageIndex = -1;
+var<int> CanPlayStageIndex = 1;

@@ -13,32 +13,18 @@ var<int> @@_PANEL_Y_NUM = 3;
 
 function* <generatorForTask> MapSelectMenu()
 {
+	yield* @@_EnterMotion();
+
 	var<int> selectX = 0;
 	var<int> selectY = 0;
-
-	SetCurtain();
-	FreezeInput();
-
-	Play(M_Title);
 
 	for (; ; )
 	{
 		if (DEBUG && GetKeyInput(85) == 1) // ? U -> 全ステージ開放 -- (デバッグ用)
 		{
-			AlreadyClearedStageIndex = GetMapCount() - 1;
+			CanPlayStageIndex = GetMapCount() - 1;
 			SaveLocalStorage();
 			SE(S_Dead);
-		}
-
-		var<int> canPlayIndex = AlreadyClearedStageIndex;
-
-		if (canPlayIndex == -1)
-		{
-			canPlayIndex = 1;
-		}
-		else
-		{
-			canPlayIndex++;
 		}
 
 		var<int> mapIndex = -1; // -1 == 無効
@@ -97,20 +83,20 @@ function* <generatorForTask> MapSelectMenu()
 
 		if (mapIndex != -1)
 		{
-			var<int> index = mapIndex;
-
-			if (canPlayIndex < index) // ? プレイ不可 -- 直前のステージをクリアしていない。
+			if (CanPlayStageIndex < mapIndex) // ? プレイ不可 -- 直前のステージをクリアしていない。
 			{
 				// noop
 			}
 			else // ? プレイ可能
 			{
-				yield* @@_Game(index);
+				yield* @@_Game(mapIndex);
 
-				index = GameLastPlayedStageIndex - 1;
+				{
+					var index = GameLastPlayedStageIndex - 1;
 
-				selectX = index % @@_PANEL_X_NUM;
-				selectY = ToFix(index / @@_PANEL_Y_NUM);
+					selectX = index % @@_PANEL_X_NUM;
+					selectY = ToFix(index / @@_PANEL_Y_NUM);
+				}
 			}
 		}
 
@@ -122,10 +108,9 @@ function* <generatorForTask> MapSelectMenu()
 
 		// 描画ここから
 
-		SetColor("#004060");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		DrawWall();
 
-		var<int> index = 1;
+		mapIndex = 1;
 
 		for (var<int> y = 0; y < @@_PANEL_Y_NUM; y++)
 		for (var<int> x = 0; x < @@_PANEL_X_NUM; x++)
@@ -135,7 +120,7 @@ function* <generatorForTask> MapSelectMenu()
 
 			if (x == selectX && y == selectY)
 			{
-				if (canPlayIndex < index)
+				if (CanPlayStageIndex < mapIndex)
 				{
 					SetColor("#808000");
 				}
@@ -146,7 +131,7 @@ function* <generatorForTask> MapSelectMenu()
 			}
 			else
 			{
-				if (canPlayIndex < index)
+				if (CanPlayStageIndex < mapIndex)
 				{
 					SetColor("#808080");
 				}
@@ -155,35 +140,77 @@ function* <generatorForTask> MapSelectMenu()
 					SetColor("#ffffff");
 				}
 			}
+
 			PrintRect(l, t, @@_PANEL_W, @@_PANEL_H);
 			SetColor("#000000");
 			SetPrint(l + 30, t + 110, 0);
 			SetFSize(80);
-			PrintLine(ZPad(index, 2, "0"));
+			PrintLine(ZPad(mapIndex, 2, "0"));
 
-			index++;
+			mapIndex++;
 		}
 
-		SetColor("#ffffff");
-		SetPrint(Screen_W - 360, Screen_H - 15, 0);
-		SetFSize(20);
-		PrintLine("Ｂボタンを押すとタイトルに戻ります");
+		DrawFront();
 
 		yield 1;
 	}
 
-	FreezeInput();
+	yield* @@_LeaveMotion();
 }
 
-function* <void> @@_Game(<int> startMapIndex)
+/*
+	この画面へやってきた時のモーション
+*/
+function* <generatorForTask> @@_EnterMotion()
 {
-	// Leave MapSelectMenu()
+	SetCurtain();
+	FreezeInput();
+	FreezeInputUntilRelease();
+
+	Play(M_Title);
+}
+
+/*
+	この画面から離れる時のモーション
+*/
+function* <generatorForTask> @@_LeaveMotion()
+{
+	FreezeInput();
+	Fadeout();
+	SetCurtain_FD(30, -1.0);
+
+	for (var<Scene_t> scene of CreateScene(40))
 	{
-		FreezeInput();
-		Fadeout();
-		SetCurtain_FD(30, -1.0);
-		yield* Wait(40);
+		DrawWall();
+		DrawFront();
+
+		yield 1;
 	}
+}
+
+/*
+	背景描画
+*/
+function <void> DrawWall()
+{
+	SetColor("#004060");
+	PrintRect(0, 0, Screen_W, Screen_H);
+}
+
+/*
+	前面描画
+*/
+function <void> DrawFront()
+{
+	SetColor("#ffffff");
+	SetPrint(Screen_W - 360, Screen_H - 15, 0);
+	SetFSize(20);
+	PrintLine("Ｂボタンを押すとタイトルに戻ります");
+}
+
+function* <generatorForTask> @@_Game(<int> startMapIndex)
+{
+	yield* @@_LeaveMotion();
 
 gameBlock:
 	{
@@ -196,18 +223,11 @@ gameBlock:
 				break gameBlock;
 			}
 
-			AlreadyClearedStageIndex = Math.max(AlreadyClearedStageIndex, mapIndex);
+			CanPlayStageIndex = Math.max(CanPlayStageIndex, mapIndex);
 			SaveLocalStorage();
 		}
 		yield* Ending();
 	}
 
-	// Enter MapSelectMenu()
-	{
-		SetCurtain();
-		FreezeInput();
-		FreezeInputUntilRelease();
-
-		Play(M_Title);
-	}
+	yield* @@_EnterMotion();
 }

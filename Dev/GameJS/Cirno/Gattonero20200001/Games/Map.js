@@ -114,8 +114,8 @@ function <void> LoadEnemyOfMap()
 {
 	ClearArray(GetEnemies());
 
-	for (var<int> x = 0; x < MAP_W; x++)
-	for (var<int> y = 0; y < MAP_H; y++)
+	for (var<int> x = 0; x < Map.W; x++)
+	for (var<int> y = 0; y < Map.H; y++)
 	{
 		var<MapCell_t> cell = Map.Table[x][y];
 		var<Func Enemy_t> f_createEnemy = cell.F_CreateEnemy;
@@ -221,11 +221,16 @@ function <MapCell_t> @@_CreateMapCell(<Tile_t> tile, <Func Enemy_t> f_createEnem
 	return ret;
 }
 
-var<MapCell_t> DEFAULT_MAP_CELL =
+var<MapCell_t> DEFAULT_MAP_CELL;
+
+function <void> @(UNQN)_INIT()
 {
-	Tile: CreateTile_Wall(P_Tiles[0]),
-	F_CreateEnemy: () => null,
-};
+	DEFAULT_MAP_CELL =
+	{
+		Tile: CreateTile_Wall(P_Dummy),
+		F_CreateEnemy: () => null,
+	};
+}
 
 function <MapCell_t> GetMapCell(<I2Point_t> pt)
 {
