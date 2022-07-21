@@ -165,7 +165,7 @@ function <void> AttackProcPlayer_Ceiling()
 	if (ret)
 	{
 		PlayerY = ToTileCenterY(PlayerY - PLAYER_脳天判定Pt_Y) + TILE_H / 2 + PLAYER_脳天判定Pt_Y;
-		PlayerYSpeed = Math.Max(0.0, PlayerYSpeed);
+		PlayerYSpeed = Math.max(0.0, PlayerYSpeed);
 	}
 	return ret;
 }
@@ -177,7 +177,7 @@ function <void> AttackProcPlayer_Ground()
 	if (ret)
 	{
 		PlayerY = ToTileCenterY(PlayerY + PLAYER_接地判定Pt_Y) - TILE_H / 2.0 - PLAYER_接地判定Pt_Y;
-		PlayerYSpeed = Math.Min(0.0, PlayerYSpeed);
+		PlayerYSpeed = Math.min(0.0, PlayerYSpeed);
 	}
 	return ret;
 }

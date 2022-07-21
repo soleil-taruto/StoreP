@@ -21,6 +21,11 @@ function* <generatorForTask> CreateAttack_BDummy()
 		AttackProcPlayer_Ceiling();
 		AttackProcPlayer_Ground();
 
+		SetPrint(PlayerX - Camera.X - 90, PlayerY - Camera.Y - 40, 0);
+		SetColor("#ffffff");
+		SetFSize(16);
+		PrintLine("Attack - BDummy ƒeƒXƒg");
+
 		Draw(P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;

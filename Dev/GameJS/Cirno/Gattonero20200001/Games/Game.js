@@ -65,6 +65,11 @@ gameLoop:
 
 		@@_カメラ位置調整(false);
 
+		if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
+		{
+			PlayerAttack = Supplier(CreateAttack_BDummy());
+		}
+
 		// ====
 		// 描画ここから
 		// ====
@@ -159,11 +164,6 @@ gameLoop:
 			{
 				DrawCrash(shot.Crash);
 			}
-		}
-
-		if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
-		{
-			PlayerAttack = Supplier(CreateAttack_BDummy());
 		}
 
 		// ====
