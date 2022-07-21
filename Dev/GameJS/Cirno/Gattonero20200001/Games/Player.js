@@ -458,6 +458,8 @@ invincibleBlock:
 
 	// ‚±‚±‚©‚ç•`‰æ
 
+	SetMirrorX(PlayerFacingLeft);
+
 	if (1 <= PlayerMoveFrame)
 	{
 		var<int> koma = ToFix(ProcFrame / 5) % 4;
@@ -468,4 +470,6 @@ invincibleBlock:
 	{
 		Draw(P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 	}
+
+	ResetDraw();
 }

@@ -39,11 +39,37 @@ function <void> Draw(<Image> image, <double> x, <double> y, <double> a, <double>
 	Context.translate(-x, -y);
 	Context.globalAlpha = a;
 
+	if (@@_MirrorX || @@_MirrorY)
+	{
+		Context.drawImage(image, l, t, -w, h);
+	}
+	else
+	{
 	Context.drawImage(image, l, t, w, h);
+	}
 
 	// restore
 	Context.translate(x, y);
 	Context.rotate(-r);
 	Context.translate(-x, -y);
 	Context.globalAlpha = 1.0;
+}
+
+var<boolean> @@_MirrorX = false;
+var<boolean> @@_MirrorY = false;
+
+function <void> ResetDraw()
+{
+	@@_MirrorX = false;
+	@@_MirrorY = false;
+}
+
+function <void> SetMirrorX()
+{
+	@@_MirrorX = true;
+}
+
+function <void> SetMirrorY()
+{
+	@@_MirrorY = true;
 }
