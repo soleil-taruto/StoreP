@@ -21,12 +21,6 @@ var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 */
 var<boolean> GameRequestReturnToTitleMenu = false;
 
-/*
-	ゲーム終了時のステージ・インデックス
-	0～
-*/
-var<int> GameLastPlayedStageIndex = 0;
-
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
 	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収());
@@ -39,7 +33,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		Camera = CreateD2Point(0.0, 0.0);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
-		GameLastPlayedStageIndex = 0;
 
 		ResetPlayer();
 	}
@@ -48,12 +41,10 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	{
 		var<D2Point_t> pt = GetStartPtOfMap();
-console.log(pt);
+
 		PlayerX = pt.X;
 		PlayerY = pt.Y;
 	}
-
-	GameLastPlayedStageIndex = Map.Index;
 
 	SetCurtain();
 	FreezeInput();
@@ -403,11 +394,6 @@ function <void> @@_DrawFront()
 {
 	SetColor(I4ColorToString(CreateI4Color(0, 0, 0, 128)));
 	PrintRect(0.0, 0.0, Screen_W, 20.0);
-
-	SetColor("#ffffff");
-	SetPrint(10, 20, 0);
-	SetFSize(16);
-	PrintLine("STAGE " + Map.Index);
 }
 
 /*

@@ -92,7 +92,7 @@ function* <generatorForTask> MapSelectMenu()
 				yield* @@_Game(mapIndex);
 
 				{
-					var index = GameLastPlayedStageIndex - 1;
+					var index = @@_LastMapIndex - 1;
 
 					selectX = index % @@_PANEL_X_NUM;
 					selectY = ToFix(index / @@_PANEL_Y_NUM);
@@ -208,6 +208,8 @@ function <void> DrawFront()
 	PrintLine("Ｂボタンを押すとタイトルに戻ります");
 }
 
+var<int> @@_LastMapIndex;
+
 function* <generatorForTask> @@_Game(<int> startMapIndex)
 {
 	yield* @@_LeaveMotion();
@@ -216,6 +218,7 @@ gameBlock:
 	{
 		for (var<int> mapIndex = startMapIndex; mapIndex < GetMapCount(); mapIndex++)
 		{
+			@@_LastMapIndex = mapIndex;
 			yield* GameMain(mapIndex);
 
 			if (GameEndReason == GameEndReason_e_RETURN_MENU)
@@ -223,7 +226,7 @@ gameBlock:
 				break gameBlock;
 			}
 
-			CanPlayStageIndex = Math.max(CanPlayStageIndex, mapIndex);
+			CanPlayStageIndex = Math.max(CanPlayStageIndex, mapIndex + 1);
 			SaveLocalStorage();
 		}
 		yield* Ending();

@@ -450,12 +450,11 @@ invincibleBlock:
 	// プレイヤーの当たり判定をセットする。
 	// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
 
-	PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(
+	PlayerCrash = CreateCrash_Circle(
 		PlayerX,
 		PlayerY,
-		TILE_W,
-		TILE_H
-		));
+		10.0
+		);
 
 	// ここから描画
 
