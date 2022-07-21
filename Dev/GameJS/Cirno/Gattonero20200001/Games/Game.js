@@ -363,7 +363,11 @@ function <void> @@_DrawWall()
 
 	var<D4Rect_t> wallRect = AdjustRectExterior_RRZ(CreateD2Size(wall_w, wall_h), CreateD4Rect(0.0, 0.0, Screen_W, Screen_H), wall_xRate, wall_yRate, wallZoom);
 
-	Draw(wallImg, wallRect.L + wallRect.W / 2.0, wallRect.T + wallRect.H / 2.0, 1.0, 0.0, wallRect.W / wall_w);
+	// Ç«Ç¡ÇøÇ≈Ç‡ó«Ç¢ÅB
+	var<double> wall_z = wallRect.W / wall_w;
+//	var<double> wall_z = wallRect.H / wall_h;
+
+	Draw(wallImg, wallRect.L + wallRect.W / 2.0, wallRect.T + wallRect.H / 2.0, 1.0, 0.0, wall_z);
 
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
