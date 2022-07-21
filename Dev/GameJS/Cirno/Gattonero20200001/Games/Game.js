@@ -82,6 +82,7 @@ gameLoop:
 		}
 		else
 		{
+			PlayerAttack = null;
 			DrawPlayer(); // プレイヤーの描画
 		}
 
@@ -223,9 +224,9 @@ gameLoop:
 			{
 				if (enemy.Kind == Enemy_Kind_e_Goal) // ? ゴール到達 -> 次のステージへ
 				{
-//					yield* @@_GoalMotion();
+					yield* @@_GoalMotion();
 
-//					break gameLoop;
+					break gameLoop;
 				}
 				else
 				{
@@ -392,8 +393,7 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I4ColorToString(CreateI4Color(0, 0, 0, 128)));
-	PrintRect(0.0, 0.0, Screen_W, 20.0);
+	// none
 }
 
 /*

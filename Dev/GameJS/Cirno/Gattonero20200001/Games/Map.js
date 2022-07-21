@@ -133,9 +133,17 @@ function <void> LoadEnemyOfMap()
 	}
 }
 
-// スタート地点(ドット単位)取得
+// プレイヤーをスタート地点へ移動する。
 //
-function <D2Point_t> GetStartPtOfMap()
+function MoveToStartPtOfMap()
+{
+	D2Point_t pt = GetStartPtOfMap();
+
+	PlayerX = pt.X;
+	PlayerY = pt.Y;
+}
+
+function <D2Point_t> @@_GetStartPos()
 {
 	for (var<Enemy_t> enemy of GetEnemies())
 	{
