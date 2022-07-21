@@ -6,6 +6,7 @@ using DxLibDLL;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Attacks;
+using Charlotte.Games.Attacks.Tests;
 using Charlotte.Games.Enemies;
 using Charlotte.Games.Shots;
 using Charlotte.Games.Tiles;
@@ -129,6 +130,11 @@ namespace Charlotte.Games
 					this.Edit();
 					this.ReloadEnemies();
 					this.Frame = 0;
+				}
+
+				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_T) == 1) // Attack-テスト
+				{
+					this.Player.Attack = new Attack_B0001();
 				}
 
 				if (this.Player.Attack != null) // プレイヤー攻撃中

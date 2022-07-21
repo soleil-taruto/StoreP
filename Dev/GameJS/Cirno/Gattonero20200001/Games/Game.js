@@ -71,7 +71,6 @@ gameLoop:
 
 		@@_DrawWall();
 
-		/*
 		if (PlayerAttack != null && PlayerAttack()) // ? プレイヤー攻撃中
 		{
 			// noop
@@ -81,8 +80,6 @@ gameLoop:
 			PlayerAttack = null;
 			DrawPlayer(); // プレイヤーの描画
 		}
-		*/
-		DrawPlayer(); // プレイヤーの描画
 
 		// 敵の描画
 		//
@@ -162,6 +159,11 @@ gameLoop:
 			{
 				DrawCrash(shot.Crash);
 			}
+		}
+
+		if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
+		{
+			PlayerAttack = Supplier(CreateAttack_BDummy());
 		}
 
 		// ====

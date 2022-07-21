@@ -112,6 +112,7 @@
     <Compile Include="Games\Attacks\Attack_Tewi_しゃがみ強攻撃.cs" />
     <Compile Include="Games\Attacks\Attack_Tewi_ジャンプ強攻撃.cs" />
     <Compile Include="Games\Attacks\Attack_Tewi_強攻撃.cs" />
+    <Compile Include="Games\Attacks\Tests\Attack_B0001.cs" />
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bアイテム.cs" />

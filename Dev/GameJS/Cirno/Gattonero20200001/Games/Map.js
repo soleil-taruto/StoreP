@@ -132,13 +132,13 @@ function <void> LoadEnemyOfMap()
 //
 function MoveToStartPtOfMap()
 {
-	D2Point_t pt = GetStartPtOfMap();
+	var<D2Point_t> pt = @@_GetStartPt();
 
 	PlayerX = pt.X;
 	PlayerY = pt.Y;
 }
 
-function <D2Point_t> @@_GetStartPos()
+function <D2Point_t> @@_GetStartPt()
 {
 	for (var<Enemy_t> enemy of GetEnemies())
 	{
