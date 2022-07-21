@@ -38,13 +38,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	}
 
 	LoadMap(mapIndex);
-
-	{
-		var<D2Point_t> pt = GetStartPtOfMap();
-
-		PlayerX = pt.X;
-		PlayerY = pt.Y;
-	}
+	LoadEnemyOfMap();
+	MoveToStartPtOfMap();
 
 	SetCurtain();
 	FreezeInput();
@@ -439,13 +434,7 @@ function* <generatorForTask> @@_DeadAndRestartMotion()
 		ResetPlayer();
 
 		LoadEnemyOfMap();
-
-		{
-			var<D2Point_t> pt = GetStartPtOfMap();
-
-			PlayerX = pt.X;
-			PlayerY = pt.Y;
-		}
+		MoveToStartPtOfMap();
 	}
 
 	yield* @@_StartMotion();

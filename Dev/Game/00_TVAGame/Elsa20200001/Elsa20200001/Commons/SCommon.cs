@@ -514,7 +514,7 @@ namespace Charlotte.Commons
 			};
 		}
 
-		// memo: list を変更するので IList<T> list にはできないよ！
+		// memo: list の長さを変更するので IList<T> list にはできないよ！
 		//
 		public static T DesertElement<T>(List<T> list, int index)
 		{
@@ -530,13 +530,16 @@ namespace Charlotte.Commons
 
 		public static T FastDesertElement<T>(List<T> list, int index)
 		{
-			T ret = UnaddElement(list);
+			T ret;
 
-			if (index < list.Count)
+			if (index == list.Count - 1) // ? 終端の要素
 			{
-				T ret2 = list[index];
-				list[index] = ret;
-				ret = ret2;
+				ret = UnaddElement(list);
+			}
+			else
+			{
+				ret = list[index];
+				list[index] = UnaddElement(list);
 			}
 			return ret;
 		}

@@ -102,11 +102,6 @@ function <void> LoadMap(<int> mapIndex)
 			Map.Table[x].push(@@_CharToMapCell(@@_LineToChars(lines[y])[x]));
 		}
 	}
-
-	@@_X = -1;
-	@@_Y = -1;
-
-	LoadEnemyOfMap();
 }
 
 // “G‚Ìƒ[ƒh
