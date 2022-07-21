@@ -7,6 +7,16 @@ namespace Charlotte
 {
 	public static class Consts
 	{
-		// none
+		/// <summary>
+		/// 画像ファイルの拡張子
+		/// </summary>
+		public static string[] IMAGE_EXTS = new string[] 
+		{
+			".bmp",
+			".gif", 
+			".jpg",
+			".jpeg",
+			".png",
+		};
 	}
 }
