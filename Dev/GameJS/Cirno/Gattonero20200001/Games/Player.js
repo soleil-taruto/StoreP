@@ -473,7 +473,7 @@ invincibleBlock:
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
-		var<int> koma = ToFix(ProcFrame / 5);
+		var<int> koma = ToFix(ProcFrame / 6);
 
 		if (koma < 4)
 		{
