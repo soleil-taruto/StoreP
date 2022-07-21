@@ -38,6 +38,8 @@ var<Image> P_WhiteCircle = @@_Load(Resources.General__WhiteCircle_png);
 var<Image> P_ExplodePiece = @@_Load(Resources.Picture__光る星20_png);
 var<Image> P_Goal = @@_Load(Resources.Picture__Goal_png);
 
+// プレイヤー
+
 var<Image> P_PlayerAttack = @@_Load(Resources.えむくろ__CirnoAttack_png);
 var<Image> P_PlayerStand  = @@_Load(Resources.えむくろ__CirnoStand_png);
 var<Image> P_PlayerJump   = @@_Load(Resources.えむくろ__CirnoJump_png);
@@ -49,6 +51,22 @@ var<Image[]> P_PlayerRun =
 	@@_Load(Resources.えむくろ__CirnoRun_003_png),
 	@@_Load(Resources.えむくろ__CirnoRun_004_png),
 ];
+
+// プレイヤー_Mirror
+
+var<Image> P_PlayerMirrorAttack = @@_Load(Resources.えむくろ__Mirror__CirnoAttack_png);
+var<Image> P_PlayerMirrorStand  = @@_Load(Resources.えむくろ__Mirror__CirnoStand_png);
+var<Image> P_PlayerMirrorJump   = @@_Load(Resources.えむくろ__Mirror__CirnoJump_png);
+
+var<Image[]> P_PlayerMirrorRun =
+[
+	@@_Load(Resources.えむくろ__Mirror__CirnoRun_001_png),
+	@@_Load(Resources.えむくろ__Mirror__CirnoRun_002_png),
+	@@_Load(Resources.えむくろ__Mirror__CirnoRun_003_png),
+	@@_Load(Resources.えむくろ__Mirror__CirnoRun_004_png),
+];
+
+// プレイヤー_End
 
 var<Image> P_TileNone = @@_Load(Resources.Tile__Tile_None_png);
 

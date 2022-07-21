@@ -458,18 +458,18 @@ invincibleBlock:
 
 	// ‚±‚±‚©‚ç•`‰æ
 
-	SetMirrorX(PlayerFacingLeft);
-
-	if (1 <= PlayerMoveFrame)
+	if (1 <= PlayerAirborneFrame)
+	{
+		Draw(PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+	}
+	else if (1 <= PlayerMoveFrame)
 	{
 		var<int> koma = ToFix(ProcFrame / 5) % 4;
 
-		Draw(P_PlayerRun[koma], PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+		Draw((PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma], PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 	}
 	else
 	{
-		Draw(P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+		Draw(PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 	}
-
-	ResetDraw();
 }
