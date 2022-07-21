@@ -77,3 +77,5 @@ var<Image[]> P_Tiles =
 	@@_Load(Resources.Tile__Tile_B0003_png),
 	@@_Load(Resources.Tile__Tile_B0004_png),
 ];
+
+var<Image> P_Wall = @@_Load(Resources.ëfçﬁGood__Wall_B0002_png);

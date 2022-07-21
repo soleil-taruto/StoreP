@@ -62,6 +62,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(96) : AngleToPoint // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(115) : GetDistance // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(129) : Approach // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(159) : CreateScene // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(216) : AdjustRectInterior // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(227) : AdjustRectExterior // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Game.js(246) : AdjustRectExterior_RRZ // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\I2Point.js(7) : I2Point_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\I2Point.js(15) : CreateI2Point // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\I2Point.js(26) : I2PointToD2Point // ŠÖ”
@@ -207,6 +210,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(59) : P_Pl
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(61) : P_PlayerMirrorRun // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(71) : P_TileNone // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(73) : P_Tiles // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(81) : P_Wall // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(7) : SE // ŠÖ”

@@ -352,10 +352,18 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
-	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(0.0, 0.0, Screen_W, Screen_H);
+	var<Image> wallImg = P_Wall;
+	var<double> wallZoom = 1.1;
 
-	// TODO: îwåi
+	var<int> wall_w = wallImg.naturalWidth;
+	var<int> wall_h = wallImg.naturalHeight;
+
+	var<double> wall_xRate = 1.0 - Camera.X / (Map.W * TILE_W - Screen_W);
+	var<double> wall_yRate = 1.0 - Camera.Y / (Map.H * TILE_H - Screen_H);
+
+	var<D4Rect_t> wallRect = AdjustRectExterior_RRZ(CreateD2Size(wall_w, wall_h), CreateD4Rect(0.0, 0.0, Screen_W, Screen_H), wall_xRate, wall_yRate, wallZoom);
+
+	Draw(wallImg, wallRect.L + wallRect.W / 2.0, wallRect.T + wallRect.H / 2.0, 1.0, 0.0, wallRect.W / wall_w);
 
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
@@ -466,4 +474,12 @@ function* <generatorForTask> @@_GoalMotion()
 
 		yield 1;
 	}
+}
+
+/*
+	É|Å[ÉYâÊñ 
+*/
+function* <generatorForTask> @@_PauseMenu()
+{
+	// TODO
 }

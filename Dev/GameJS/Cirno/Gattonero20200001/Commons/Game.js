@@ -175,3 +175,86 @@ function* <Scene_t[]> CreateScene(<int> frameMax)
 		yield scene;
 	}
 }
+
+var<D4Rect_t> @@_Interior = null;
+var<D4Rect_t> @@_Exterior = null;
+
+function <void> @@_AdjustRect(<D2Size_t> size, <D4Rect_t> rect)
+{
+	var<double> w_h = (rect.H * size.W) / size.H; // 高さを基準にした幅
+	var<double> h_w = (rect.W * size.H) / size.W; // 幅を基準にした高さ
+
+	var<D4Rect_t> rect1 = {};
+	var<D4Rect_t> rect2 = {};
+
+	rect1.L = rect.L + (rect.W - w_h) / 2.0;
+	rect1.T = rect.T;
+	rect1.W = w_h;
+	rect1.H = rect.H;
+
+	rect2.L = rect.L;
+	rect2.T = rect.T + (rect.H - h_w) / 2.0;
+	rect2.W = rect.W;
+	rect2.H = h_w;
+
+	if (w_h < rect.W)
+	{
+		@@_Interior = rect1;
+		@@_Exterior = rect2;
+	}
+	else
+	{
+		@@_Interior = rect2;
+		@@_Exterior = rect1;
+	}
+}
+
+/*
+	サイズを(アスペクト比を維持して)矩形領域いっぱいに広げる。
+	矩形領域の内側に張り付く領域を返す。
+*/
+function <D4Rect_t> AdjustRectInterior(<D2Size_t> size, <D4Rect_t> rect)
+{
+	@@_AdjustRect(size, rect);
+
+	return @@_Interior;
+}
+
+/*
+	サイズを(アスペクト比を維持して)矩形領域いっぱいに広げる。
+	矩形領域の外側に張り付く領域を返す。
+*/
+function <D4Rect_t> AdjustRectExterior(<D2Size_t> size, <D4Rect_t> rect)
+{
+	@@_AdjustRect(size, rect);
+
+	return @@_Exterior;
+}
+
+/*
+	サイズを(アスペクト比を維持して)矩形領域いっぱいに広げる。
+	矩形領域の外側に張り付く領域を返す。
+
+	size: サイズ
+	rect: 矩形領域(入力)
+	xRate: スライドレート 0.0 ～ 1.0
+	yRate: スライドレート 0.0 ～ 1.0
+	extraZoom: 倍率 1.0 ～
+
+	ret: 矩形領域(出力)
+*/
+function <D4Rect_t> AdjustRectExterior_RRZ(<D2Size_t> size, <D4Rect_t> rect, <double> xRate, <double> yRate, <double> extraZoom)
+{
+	var<D4Rect_t> exterior = AdjustRectExterior(size, rect);
+
+	exterior.W *= extraZoom;
+	exterior.H *= extraZoom;
+
+	var<double> rangeX = exterior.W - rect.W;
+	var<double> rangeY = exterior.H - rect.H;
+
+	exterior.L = rect.L + rangeX * (xRate - 1.0);
+	exterior.T = rect.T + rangeY * (yRate - 1.0);
+
+	return exterior;
+}
