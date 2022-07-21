@@ -298,6 +298,15 @@ function <void> DrawPlayer()
 		}
 	}
 
+	// çUåÇ
+	//
+	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
+	{
+		var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft);
+
+		GetShots().push(shot);
+	}
+
 damageBlock:
 	if (1 <= PlayerDamageFrame) // ? É_ÉÅÅ[ÉWíÜ
 	{
@@ -464,9 +473,27 @@ invincibleBlock:
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
-		var<int> koma = ToFix(ProcFrame / 5) % 4;
+		var<int> koma = ToFix(ProcFrame / 5);
+
+		if (koma < 4)
+		{
+			// none
+		}
+		else
+		{
+			koma %= 4;
+
+			if (koma == 0)
+			{
+				koma = 2;
+			}
+		}
 
 		Draw((PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma], PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+	}
+	else if (1 <= PlayerAttackFrame)
+	{
+		Draw(PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 	}
 	else
 	{
