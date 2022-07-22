@@ -275,8 +275,8 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(243) : GetMapCell_XY // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(51) : Map // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(227) : DEFAULT_MAP_CELL // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Maps.js(30) : MAPS // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(100) : ResetPlayer // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(128) : DrawPlayer // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(107) : ResetPlayer // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(136) : DrawPlayer // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(8) : PlayerX // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(9) : PlayerY // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(16) : PlayerDamageFrame // •Ï”
@@ -290,8 +290,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(59) : PlayerJumpFrame // •
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(66) : PlayerAirborneFrame // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(73) : PlayerShagamiFrame // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(80) : PlayerUwamukiFrame // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(87) : PlayerAttackFrame // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(95) : PlayerAttack // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(87) : PlayerShitamukiFrame // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(94) : PlayerAttackFrame // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(102) : PlayerAttack // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\Attack_BDummy.js(5) : CreateAttack_BDummy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(23) : AttackProcPlayer_Move // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(52) : AttackProcPlayer_Fall // ŠÖ”

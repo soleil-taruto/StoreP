@@ -2,14 +2,36 @@
 	é©íe - Normal(í èÌíe)
 */
 
-function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <boolean> facingLeft)
+function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <boolean> facingLeft, <boolean> uwamuki, <boolean> shitamuki)
 {
-	var<double> speed = 10.0;
+	var<int> xDir;
+	var<int> yDir;
 
 	if (facingLeft)
 	{
-		speed *= -1.0;
+		xDir = -1;
+		yDir = 0;
 	}
+	else
+	{
+		xDir = 1;
+		yDir = 0;
+	}
+	if (uwamuki)
+	{
+		xDir = 0;
+		yDir = -1;
+	}
+	if (shitamuki)
+	{
+		xDir = 0;
+		yDir = 1;
+	}
+
+	var<double> SPEED = 10.0;
+
+	var<double> xAdd = SPEED * xDir;
+	var<double> yAdd = SPEED * yDir;
 
 	var ret =
 	{
@@ -21,7 +43,8 @@ function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <boolean> facingLeft)
 
 		// Ç±Ç±Ç©ÇÁå≈óL
 
-		<double> Speed: speed,
+		<double> XAdd: xAdd,
+		<double> YAdd: yAdd,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -36,7 +59,8 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 	for (; ; )
 	{
-		shot.X += shot.Speed;
+		shot.X += shot.XAdd;
+		shot.Y += shot.YAdd;
 
 		if (IsOutOfCamera(CreateD2Point(shot.X, shot.Y), 0.0))
 		{

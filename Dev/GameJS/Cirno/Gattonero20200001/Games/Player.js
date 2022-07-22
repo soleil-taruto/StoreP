@@ -80,6 +80,13 @@ var<int> PlayerShagamiFrame = 0;
 var<int> PlayerUwamukiFrame = 0;
 
 /*
+	プレイヤー下向きフレーム
+	0 == 無効
+	1～ == 下向き中
+*/
+var<int> PlayerShitamukiFrame = 0;
+
+/*
 	プレイヤー攻撃フレーム
 	0 == 無効
 	1～ == 攻撃中
@@ -112,6 +119,7 @@ function <void> ResetPlayer()
 	PlayerAirborneFrame = IMAX / 2; // ゲーム開始直後に空中でジャンプできないように
 	PlayerShagamiFrame = 0;
 	PlayerUwamukiFrame = 0;
+	PlayerShitamukiFrame = 0;
 	PlayerAttackFrame = 0;
 	PlayerAttack = null;
 	@@_JumpLock = false;
@@ -139,15 +147,17 @@ function <void> DrawPlayer()
 		var<boolean> attack = false;
 		var<boolean> shagami = false;
 		var<boolean> uwamuki = false;
+		var<boolean> shitamuki = false;
 		var<int> jump = 0;
 
-		if (1 <= GetInput_2())
-		{
-			shagami = true;
-		}
 		if (1 <= GetInput_8())
 		{
 			uwamuki = true;
+		}
+		if (1 <= GetInput_2())
+		{
+			shagami = true;
+			shitamuki = true;
 		}
 		if (1 <= GetInput_4())
 		{
@@ -174,6 +184,7 @@ function <void> DrawPlayer()
 			PlayerMoveFrame++;
 			shagami = false;
 //			uwamuki = false;
+//			shitamuki = false;
 		}
 		else
 		{
@@ -268,6 +279,8 @@ function <void> DrawPlayer()
 		if (1 <= PlayerAirborneFrame)
 		{
 			shagami = false;
+//			uwamuki = false;
+//			shitamuki = false;
 		}
 
 		if (shagami)
@@ -288,6 +301,15 @@ function <void> DrawPlayer()
 			PlayerUwamukiFrame = 0;
 		}
 
+		if (shitamuki)
+		{
+			PlayerShitamukiFrame++;
+		}
+		else
+		{
+			PlayerShitamukiFrame = 0;
+		}
+
 		if (attack)
 		{
 			PlayerAttackFrame++;
@@ -296,15 +318,6 @@ function <void> DrawPlayer()
 		{
 			PlayerAttackFrame = 0;
 		}
-	}
-
-	// 攻撃
-	//
-	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
-	{
-		var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft);
-
-		GetShots().push(shot);
 	}
 
 damageBlock:
@@ -456,6 +469,24 @@ invincibleBlock:
 		}
 	}
 
+	// 攻撃
+	//
+	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
+	{
+		if (1 <= PlayerUwamukiFrame)
+		{
+			var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
+
+			GetShots().push(shot);
+		}
+		else
+		{
+			var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
+
+			GetShots().push(shot);
+		}
+	}
+
 	// プレイヤーの当たり判定をセットする。
 	// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
 
@@ -491,7 +522,7 @@ invincibleBlock:
 
 		Draw((PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma], PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 	}
-	else if (1 <= PlayerAttackFrame)
+	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
 	{
 		Draw(PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 	}

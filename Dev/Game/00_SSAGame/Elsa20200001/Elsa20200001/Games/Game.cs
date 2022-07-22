@@ -155,18 +155,20 @@ namespace Charlotte.Games
 					bool attack = false;
 					bool shagami = false;
 					bool uwamuki = false;
+					bool shitamuki = false;
 					int jump = 0;
 					int attack_弱 = 0;
 					int attack_中 = 0;
 					int attack_強 = 0;
 
-					if (!damageOrUID && 1 <= DDInput.DIR_2.GetInput())
-					{
-						shagami = true;
-					}
 					if (!damageOrUID && 1 <= DDInput.DIR_8.GetInput())
 					{
 						uwamuki = true;
+					}
+					if (!damageOrUID && 1 <= DDInput.DIR_2.GetInput())
+					{
+						shagami = true;
+						shitamuki = true;
 					}
 
 					// 入力抑止中であるか否かに関わらず左右の入力は受け付ける様にする。
@@ -220,6 +222,7 @@ namespace Charlotte.Games
 						this.Player.MoveFrame++;
 						shagami = false;
 						//uwamuki = false;
+						//shitamuki = false;
 					}
 					else
 					{
@@ -304,7 +307,11 @@ namespace Charlotte.Games
 					}
 
 					if (1 <= this.Player.AirborneFrame)
+					{
 						shagami = false;
+						//uwamuki = false;
+						//shitamuki = false;
+					}
 
 					if (shagami)
 						this.Player.ShagamiFrame++;
@@ -315,6 +322,11 @@ namespace Charlotte.Games
 						this.Player.UwamukiFrame++;
 					else
 						this.Player.UwamukiFrame = 0;
+
+					if (shitamuki)
+						this.Player.ShitamukiFrame++;
+					else
+						this.Player.ShitamukiFrame = 0;
 
 					if (attack)
 						this.Player.AttackFrame++;
@@ -602,6 +614,11 @@ namespace Charlotte.Games
 					{
 						this.Player.AirborneFrame++;
 					}
+				}
+
+				// プレイヤー攻撃
+				{
+					// none -- 00_SSAGame -> プレイヤー入力に攻撃処理有り。
 				}
 			endPlayer: // Attack 合流点
 
