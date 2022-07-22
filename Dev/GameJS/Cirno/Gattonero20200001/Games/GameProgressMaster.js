@@ -11,6 +11,11 @@ var<int> @@_PANEL_Y_GAP = 20;
 var<int> @@_PANEL_X_NUM = 3;
 var<int> @@_PANEL_Y_NUM = 3;
 
+var<int> @@_RETURN_BUTTON_L 100
+var<int> @@_RETURN_BUTTON_T 500
+var<int> @@_RETURN_BUTTON_W 700
+var<int> @@_RETURN_BUTTON_H 100
+
 function* <generatorForTask> MapSelectMenu()
 {
 	yield* @@_EnterMotion();

@@ -1,12 +1,12 @@
 /*
-	“G - BDummy šƒTƒ“ƒvƒ‹
+	“G - Frog
 */
 
-function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: "@@",
+		Kind: Enemy_Kind_e_Frog,
 		X: x,
 		Y: y,
 		HP: hp,
@@ -53,9 +53,4 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 function <void> @@_Dead(<Enemy_t> enemy)
 {
 	EnemyCommon_Dead(enemy);
-}
-
-function <void> IsEnemy_BDummy(<Enemy_t> enemy)
-{
-	return enemy.Kind == "@@";
 }
