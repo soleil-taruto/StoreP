@@ -470,20 +470,21 @@ invincibleBlock:
 	}
 
 	// çUåÇ
-	//
-	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
 	{
-		if (1 <= PlayerUwamukiFrame)
+		if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
 		{
-			var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
+			if (1 <= PlayerUwamukiFrame)
+			{
+				var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
 
-			GetShots().push(shot);
-		}
-		else
-		{
-			var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
+				GetShots().push(shot);
+			}
+			else
+			{
+				var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
 
-			GetShots().push(shot);
+				GetShots().push(shot);
+			}
 		}
 	}
 
