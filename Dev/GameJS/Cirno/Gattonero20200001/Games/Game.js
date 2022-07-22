@@ -63,12 +63,12 @@ gameLoop:
 			break;
 		}
 
-		@@_カメラ位置調整(false);
-
 		if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
 		{
 			PlayerAttack = Supplier(CreateAttack_BDummy());
 		}
+
+		@@_カメラ位置調整(false);
 
 		// ====
 		// 描画ここから
@@ -361,7 +361,9 @@ function <void> @@_DrawWall()
 	var<double> wall_xRate = 1.0 - Camera.X / (Map.W * TILE_W - Screen_W);
 	var<double> wall_yRate = 1.0 - Camera.Y / (Map.H * TILE_H - Screen_H);
 
-	var<D4Rect_t> wallRect = AdjustRectExterior_RRZ(CreateD2Size(wall_w, wall_h), CreateD4Rect(0.0, 0.0, Screen_W, Screen_H), wall_xRate, wall_yRate, wallZoom);
+	var<D4Rect_t> wallRect = AdjustRectExterior_RRZ(
+		CreateD2Size(wall_w, wall_h),
+		CreateD4Rect(0.0, 0.0, Screen_W, Screen_H), wall_xRate, wall_yRate, wallZoom);
 
 	// どっちでも良い。
 	var<double> wall_z = wallRect.W / wall_w;
