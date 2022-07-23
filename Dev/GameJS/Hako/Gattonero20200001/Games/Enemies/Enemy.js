@@ -6,7 +6,7 @@
 
 /// Enemy_t
 {
-	<Enemy_Kind_e> Kind // “G‚ÌŽí—Þ
+	<int> Kind // “G‚ÌŽí—Þ
 
 	<double> X // X-ˆÊ’u
 	<double> Y // Y-ˆÊ’u

@@ -2,11 +2,13 @@
 	é©íe - Normal(í èÌíe)
 */
 
+var<int> ShotKind_Normal = @(AUTO);
+
 function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <double> angle, <double> speed)
 {
 	var ret =
 	{
-		Kind: @(SRCN),
+		Kind: ShotKind_Normal,
 		X: x,
 		Y: y,
 		AttackPoint: 1,
@@ -22,11 +24,6 @@ function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <double> angle, <doub
 	ret.Dead = @@_Dead;
 
 	return ret;
-}
-
-function <boolean> IsShot_Normal(<Enemy_t> enemy)
-{
-	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Shot_t> shot)

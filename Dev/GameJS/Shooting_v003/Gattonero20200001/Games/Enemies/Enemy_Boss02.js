@@ -2,11 +2,13 @@
 	“G - Boss02
 */
 
+var<int> EnemyKind_Boss02 = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Boss02(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Boss02,
+		Kind: EnemyKind_Boss02,
 		X: x,
 		Y: y,
 		HP: hp,

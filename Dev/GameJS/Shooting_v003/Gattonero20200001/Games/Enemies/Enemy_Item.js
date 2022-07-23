@@ -2,16 +2,18 @@
 	敵 - アイテム
 */
 
-/// Enemy_Item_Kind_e
-//
-var<int> Enemy_Item_Kind_e_PowerUp = @(AUTO);
-var<int> Enemy_Item_Kind_e_ZankiUp = @(AUTO);
+var<int> EnemyKind_Item = @(AUTO);
 
-function <Enemy_t> CreateEnemy_Item(<double> x, <double> y, <Enemy_Item_Kind_e> itemKind)
+/// EnemyItemType_e
+//
+var<int> EnemyItemType_e_POWER_UP = @(AUTO);
+var<int> EnemyItemType_e_ZANKI_UP = @(AUTO);
+
+function <Enemy_t> CreateEnemy_Item(<double> x, <double> y, <EnemyItemType_e> itemType)
 {
 	var ret =
 	{
-		Kind: @(SRCN),
+		Kind: EnemyKind_Item,
 		X: x,
 		Y: y,
 		HP: 0,
@@ -19,7 +21,7 @@ function <Enemy_t> CreateEnemy_Item(<double> x, <double> y, <Enemy_Item_Kind_e> 
 
 		// ここから固有
 
-		<Enemy_Item_Kind_e> ItemKind: itemKind,
+		<EnemyItemType_e> ItemType: itemType,
 		<double> YAdd: -3.0,
 	};
 
@@ -28,11 +30,6 @@ function <Enemy_t> CreateEnemy_Item(<double> x, <double> y, <Enemy_Item_Kind_e> 
 	ret.Dead = @@_Dead;
 
 	return ret;
-}
-
-function <boolean> IsEnemy_Item(<Enemy_t> enemy)
-{
-	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
@@ -54,10 +51,10 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		{
 			var<Image> picture;
 
-			switch (enemy.ItemKind)
+			switch (enemy.ItemType)
 			{
-			case Enemy_Item_Kind_e_PowerUp: picture = P_PowerUpItem; break;
-			case Enemy_Item_Kind_e_ZankiUp: picture = P_ZankiUpItem; break;
+			case EnemyItemType_e_POWER_UP: picture = P_PowerUpItem; break;
+			case EnemyItemType_e_ZANKI_UP: picture = P_ZankiUpItem; break;
 
 			default:
 				error();
@@ -84,7 +81,7 @@ function <void> @@_Dead(<Enemy_t> enemy)
 	SE(S_PowerUp);
 }
 
-function <Enemy_Item_Kind_e> GetEnemyItemKind(<Enemy_t> enemy)
+function <EnemyItemType_e> GetEnemyItemType(<Enemy_t> enemy)
 {
-	return enemy.ItemKind;
+	return enemy.ItemType;
 }

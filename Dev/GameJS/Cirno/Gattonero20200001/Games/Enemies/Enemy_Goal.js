@@ -2,11 +2,13 @@
 	敵 - スタート地点
 */
 
+var<int> EnemyKind_Goal = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Goal(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Goal,
+		Kind: EnemyKind_Goal,
 		X: x,
 		Y: y,
 		HP: hp,

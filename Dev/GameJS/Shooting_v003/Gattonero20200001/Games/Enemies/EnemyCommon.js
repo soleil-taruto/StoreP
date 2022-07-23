@@ -26,14 +26,14 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 
 	switch (enemy.Kind)
 	{
-	case Enemy_Kind_e_E0001: picture = P_Enemy0001; break;
-	case Enemy_Kind_e_E0002: picture = P_Enemy0002; break;
-	case Enemy_Kind_e_E0003: picture = P_Enemy0003; break;
-	case Enemy_Kind_e_E0004: picture = P_Enemy0004; break;
-	case Enemy_Kind_e_E0005: picture = P_Enemy0005; break;
-	case Enemy_Kind_e_E0006: picture = P_Enemy0006; break;
-	case Enemy_Kind_e_E0007: picture = P_Enemy0007; break;
-	case Enemy_Kind_e_E0008: picture = P_Enemy0008; break;
+	case EnemyKind_E0001: picture = P_Enemy0001; break;
+	case EnemyKind_E0002: picture = P_Enemy0002; break;
+	case EnemyKind_E0003: picture = P_Enemy0003; break;
+	case EnemyKind_E0004: picture = P_Enemy0004; break;
+	case EnemyKind_E0005: picture = P_Enemy0005; break;
+	case EnemyKind_E0006: picture = P_Enemy0006; break;
+	case EnemyKind_E0007: picture = P_Enemy0007; break;
+	case EnemyKind_E0008: picture = P_Enemy0008; break;
 
 	default:
 		error();
@@ -49,7 +49,7 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 
 		SetPrint(ToInt(enemy.X - str.length * 5), ToInt(enemy.Y - 30), 0);
 		SetFSize(16);
-		SetColor(enemy.Kind == Enemy_Kind_e_E0006 ? "#000000" : "#ffffff");
+		SetColor(enemy.Kind == EnemyKind_E0006 ? "#000000" : "#ffffff");
 		PrintLine(str);
 	}
 }
@@ -65,7 +65,7 @@ function <void> EnemyCommon_AddScore(<int> scoreAdd)
 function <boolean> IsEnemyItem(<Enemy_t> enemy)
 {
 	var ret =
-		enemy.Kind == Enemy_Kind_e_Item;
+		enemy.Kind == EnemyKind_Item;
 
 	return ret;
 }
@@ -76,7 +76,7 @@ function <boolean> IsEnemyItem(<Enemy_t> enemy)
 function <boolean> IsEnemyTama(<Enemy_t> enemy)
 {
 	var ret =
-		enemy.Kind == Enemy_Kind_e_Tama;
+		enemy.Kind == EnemyKind_Tama;
 
 	return ret;
 }
@@ -87,9 +87,9 @@ function <boolean> IsEnemyTama(<Enemy_t> enemy)
 function <boolean> IsEnemyBoss(<Enemy_t> enemy)
 {
 	var ret =
-		enemy.Kind == Enemy_Kind_e_Boss01 ||
-		enemy.Kind == Enemy_Kind_e_Boss02 ||
-		enemy.Kind == Enemy_Kind_e_Boss03;
+		enemy.Kind == EnemyKind_Boss01 ||
+		enemy.Kind == EnemyKind_Boss02 ||
+		enemy.Kind == EnemyKind_Boss03;
 
 	return ret;
 }

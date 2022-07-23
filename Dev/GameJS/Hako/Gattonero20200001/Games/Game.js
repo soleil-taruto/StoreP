@@ -202,7 +202,7 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (enemy.Kind == Enemy_Kind_e_Goal) // ? ゴール到達 -> 次のステージへ
+				if (enemy.Kind == EnemyKind_Goal) // ? ゴール到達 -> 次のステージへ
 				{
 					yield* @@_GoalMotion();
 

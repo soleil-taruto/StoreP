@@ -102,14 +102,14 @@ function* <generatorForTask> @@_Main()
 
 	GetEnemies().push(EnemyCommon_ToItemer(
 		CreateEnemy_E0003(FIELD_L + FIELD_W / 2, FIELD_T - 25, 25),
-		Enemy_Item_Kind_e_PowerUp
+		EnemyItemType_e_POWER_UP
 		));
 
 	yield* Wait(180);
 
 	GetEnemies().push(EnemyCommon_ToItemer(
 		CreateEnemy_E0005(FIELD_L + FIELD_W / 3, FIELD_T - 25, 5),
-		Enemy_Item_Kind_e_ZankiUp
+		EnemyItemType_e_ZANKI_UP
 		));
 
 	yield* Wait(120);
@@ -134,14 +134,14 @@ function* <generatorForTask> @@_Main()
 
 	GetEnemies().push(EnemyCommon_ToItemer(
 		CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 1, FIELD_T - 25, 10),
-		Enemy_Item_Kind_e_PowerUp
+		EnemyItemType_e_POWER_UP
 		));
 
 	yield* Wait(90);
 
 	GetEnemies().push(EnemyCommon_ToItemer(
 		CreateEnemy_E0004(FIELD_L + (FIELD_W / 3) * 2, FIELD_T - 25, 10),
-		Enemy_Item_Kind_e_ZankiUp
+		EnemyItemType_e_ZANKI_UP
 		));
 
 	yield* Wait(120);
@@ -263,8 +263,11 @@ function* <generatorForTask> @@_Main()
 
 					switch (GetRand(2))
 					{
-					case 0: itemKind = Enemy_Item_Kind_e_PowerUp; break;
-					case 1: itemKind = Enemy_Item_Kind_e_ZankiUp; break;
+					case 0: itemKind = EnemyItemType_e_POWER_UP; break;
+					case 1: itemKind = EnemyItemType_e_ZANKI_UP; break;
+
+					default:
+						error(); // never
 					}
 
 					EnemyCommon_ToItemer(enemy, itemKind);

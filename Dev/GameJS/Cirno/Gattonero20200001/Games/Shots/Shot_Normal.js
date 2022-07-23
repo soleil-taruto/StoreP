@@ -2,6 +2,8 @@
 	é©íe - Normal(í èÌíe)
 */
 
+var<int> ShotKind_Normal = @(AUTO);
+
 function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <boolean> facingLeft, <boolean> uwamuki, <boolean> shitamuki)
 {
 	var<int> xDir;
@@ -35,7 +37,7 @@ function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <boolean> facingLeft,
 
 	var ret =
 	{
-		Kind: Shot_Kind_e_Normal,
+		Kind: ShotKind_Normal,
 		X: x,
 		Y: y,
 		AttackPoint: 1,

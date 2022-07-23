@@ -2,11 +2,13 @@
 	©’e - BDummy šƒTƒ“ƒvƒ‹
 */
 
+var<int> ShotKind_BDummy = @(AUTO);
+
 function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)
 {
 	var ret =
 	{
-		Kind: Shot_Kind_e_BDummy,
+		Kind: ShotKind_BDummy,
 		X: x,
 		Y: y,
 		AttackPoint: 1,

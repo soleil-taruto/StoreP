@@ -4,11 +4,13 @@
 	★サンプルとしてキープ
 */
 
+var<int> ShotKind_BDummy = @(AUTO);
+
 function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <double> yAdd)
 {
 	var ret =
 	{
-		Kind: @(SRCN),
+		Kind: ShotKind_BDummy,
 		X: x,
 		Y: y,
 		AttackPoint: 1,
@@ -24,11 +26,6 @@ function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <doubl
 	ret.Dead = @@_Dead;
 
 	return ret;
-}
-
-function <boolean> IsShot_BDummy(<Enemy_t> enemy)
-{
-	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Shot_t> shot)

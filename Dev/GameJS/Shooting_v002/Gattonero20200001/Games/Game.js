@@ -182,17 +182,17 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (IsEnemy_Item(enemy)) // ? アイテム -> 取得
+				if (enemy.Kind == EnemyKind_Item) // ? アイテム -> 取得
 				{
-					var<Enemy_Item_Kind_e> itemKind = GetEnemyItemKind(enemy);
+					var<EnemyItemType_e> itemType = enemy.ItemType;
 
-					switch (itemKind)
+					switch (itemType)
 					{
-					case Enemy_Item_Kind_e_PowerUp:
+					case EnemyItemType_e_POWER_UP:
 						PlayerAttackLv = Math.min(PlayerAttackLv + 1, PLAYER_ATTACK_LV_MAX);
 						break;
 
-					case Enemy_Item_Kind_e_ZankiUp:
+					case EnemyItemType_e_ZANKI_UP:
 						PlayerZankiNum++;
 						break;
 
@@ -419,16 +419,16 @@ function* <generatorForTask> @@_PlayerDead()
 	for (var<Enemy_t> enemy of @@_Enemies)
 	{
 		// アイテムは除外
-		if (IsEnemy_Item(enemy))
+		if (IsEnemyItem(enemy))
 		{
 			// noop
 		}
 		// ボスクラスの敵も除外
 		/*
 		else if (
-			IsEnemy_Boss_01(enemy) ||
-			IsEnemy_Boss_02(enemy) ||
-			IsEnemy_Boss_03(enemy)
+			enemy.Kind == EnemyKind_BOSS_01 ||
+			enemy.Kind == EnemyKind_BOSS_02 ||
+			enemy.Kind == EnemyKind_BOSS_03
 			)
 		{
 			// noop

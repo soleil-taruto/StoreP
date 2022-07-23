@@ -181,17 +181,17 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (enemy.Kind == Enemy_Kind_e_Item) // ? アイテム -> 取得
+				if (enemy.Kind == EnemyKind_Item) // ? アイテム -> 取得
 				{
-					var<Enemy_Item_Kind_e> itemKind = GetEnemyItemKind(enemy);
+					var<EnemyItemType_e> itemType = GetEnemyItemType(enemy);
 
-					switch (itemKind)
+					switch (itemType)
 					{
-					case Enemy_Item_Kind_e_PowerUp:
+					case EnemyItemType_e_POWER_UP:
 						PlayerAttackLv = Math.min(PlayerAttackLv + 1, PLAYER_ATTACK_LV_MAX);
 						break;
 
-					case Enemy_Item_Kind_e_ZankiUp:
+					case EnemyItemType_e_ZANKI_UP:
 						PlayerZankiNum++;
 						break;
 

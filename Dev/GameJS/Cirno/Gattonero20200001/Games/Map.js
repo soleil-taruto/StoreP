@@ -142,7 +142,7 @@ function <D2Point_t> @@_GetStartPt()
 {
 	for (var<Enemy_t> enemy of GetEnemies())
 	{
-		if (enemy.Kind == Enemy_Kind_e_Start)
+		if (enemy.Kind == EnemyKind_Start)
 		{
 			return CreateD2Point(enemy.X, enemy.Y);
 		}

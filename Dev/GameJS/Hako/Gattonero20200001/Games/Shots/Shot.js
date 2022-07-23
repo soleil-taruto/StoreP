@@ -6,7 +6,7 @@
 
 /// Shot_t
 {
-	<Shot_Kind_e> Kind // Ž©’e‚ÌŽí—Þ
+	<int> Kind // Ž©’e‚ÌŽí—Þ
 
 	<double> X // X-ˆÊ’u
 	<double> Y // Y-ˆÊ’u

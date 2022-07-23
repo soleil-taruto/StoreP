@@ -4,11 +4,13 @@
 	★サンプルとしてキープ
 */
 
+var<int> EnemyKind_BDummy = @(AUTO);
+
 function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_BDummy,
+		Kind: EnemyKind_BDummy,
 		X: x,
 		Y: y,
 		HP: hp,

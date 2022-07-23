@@ -2,13 +2,15 @@
 	—Î“G
 */
 
+var<int> EnemyKind_Green = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Green(<double> x, <double> y, <int> rotDirect, <double> initAngle)
 {
 	var<double> ROT_SPEED = Math.PI / 60.0;
 
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Green,
+		Kind: EnemyKind_Green,
 		X: x,
 		Y: y,
 		HP: 1,

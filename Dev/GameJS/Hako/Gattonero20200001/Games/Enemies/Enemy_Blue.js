@@ -2,6 +2,8 @@
 	Â“G
 */
 
+var<int> EnemyKind_Blue = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Blue(<double> x, <double> y, <int> initDirectX, <int> initDirectY)
 {
 	var<double> SPEED = 3.0;
@@ -15,7 +17,7 @@ function <Enemy_t> CreateEnemy_Blue(<double> x, <double> y, <int> initDirectX, <
 
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Blue,
+		Kind: EnemyKind_Blue,
 		X: x,
 		Y: y,
 		HP: 1,

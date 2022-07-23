@@ -1,12 +1,14 @@
 /*
-	“G - Frog
+	“G - Houdai
 */
 
-function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y, <int> hp)
+var<int> EnemyKind_Houdai = @(AUTO);
+
+function <Enemy_t> CreateEnemy_Houdai(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Frog,
+		Kind: EnemyKind_Houdai,
 		X: x,
 		Y: y,
 		HP: hp,

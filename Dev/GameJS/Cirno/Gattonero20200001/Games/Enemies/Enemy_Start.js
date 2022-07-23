@@ -2,11 +2,13 @@
 	敵 - スタート地点
 */
 
+var<int> EnemyKind_Start = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Start(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Start,
+		Kind: EnemyKind_Start,
 		X: x,
 		Y: y,
 		HP: hp,

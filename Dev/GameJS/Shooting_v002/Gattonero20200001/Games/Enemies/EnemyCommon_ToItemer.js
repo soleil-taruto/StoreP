@@ -5,12 +5,12 @@
 /*
 	Enemy_t 追加フィールド
 	{
-		<Enemy_Item_Kind_e> @@_ItemKind // アイテムの種類
+		<EnemyItemType_e> @@_ItemType // アイテムの種類
 	}
 */
 
 /*
-	雑魚敵のシューター化
+	雑魚敵のアイテム所持化
 
 	使用例：
 		var<Enemy_t> enemy = EnemyCommon_ToItemer(CreateEnemy_XXX());
@@ -18,9 +18,9 @@
 		var<Enemy_t> enemy = CreateEnemy_XXX();
 		EnemyCommon_ToItemer(enemy);
 */
-function <Enemy_t> EnemyCommon_ToItemer(<Enemy_t> enemy, <Enemy_Item_Kind_e> itemKind)
+function <Enemy_t> EnemyCommon_ToItemer(<Enemy_t> enemy, <EnemyItemType_e> itemType)
 {
-	enemy.@@_ItemKind = itemKind;
+	enemy.@@_ItemType = itemType;
 
 	AddEffect(@@_Each(enemy));
 
@@ -60,5 +60,5 @@ function <void> @@_DropItem(<Enemy_t> enemy)
 		return;
 	}
 
-	GetEnemies().push(CreateEnemy_Item(enemy.X, enemy.Y, enemy.@@_ItemKind));
+	GetEnemies().push(CreateEnemy_Item(enemy.X, enemy.Y, enemy.@@_ItemType));
 }

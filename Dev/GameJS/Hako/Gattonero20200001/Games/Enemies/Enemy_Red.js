@@ -2,13 +2,15 @@
 	Ô“G
 */
 
+var<int> EnemyKind_Red = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Red(<double> x, <double> y, <int> initDirect)
 {
 	var<double> SPEED = 4.0;
 
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Red,
+		Kind: EnemyKind_Red,
 		X: x,
 		Y: y,
 		HP: 1,

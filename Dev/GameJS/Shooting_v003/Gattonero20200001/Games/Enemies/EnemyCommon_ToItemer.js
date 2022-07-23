@@ -5,12 +5,12 @@
 /*
 	Enemy_t 追加フィールド
 	{
-		<Enemy_Item_Kind_e> @@_ItemKind // アイテムの種類
+		<EnemyItemType_e> @@_ItemType // アイテムの種類
 	}
 */
 
 /*
-	雑魚敵のシューター化
+	雑魚敵のアイテム所持化
 
 	使用例：
 		var<Enemy_t> enemy = EnemyCommon_ToItemer(CreateEnemy_XXX());
@@ -18,9 +18,9 @@
 		var<Enemy_t> enemy = CreateEnemy_XXX();
 		EnemyCommon_ToItemer(enemy);
 */
-function <Enemy_t> EnemyCommon_ToItemer(<Enemy_t> enemy, <Enemy_Item_Kind_e> itemKind)
+function <Enemy_t> EnemyCommon_ToItemer(<Enemy_t> enemy, <EnemyItemType_e> itemType)
 {
-	enemy.@@_ItemKind = itemKind;
+	enemy.@@_ItemType = itemType;
 
 	AddEffect(@@_Each(enemy));
 
@@ -50,15 +50,17 @@ function* <generatorForTask> @@_Each(<Enemy_t> enemy)
 */
 function <void> @@_DropItem(<Enemy_t> enemy)
 {
+	var<double> T_MGN = 100.0; // 画面外・上部マージン -- 画面上部に敵出現直後に撃破された場合を考慮
+
 	// ? 画面外 -> アイテムを落とさない。
 	if (IsOut(
 		CreateD2Point(enemy.X, enemy.Y),
-		CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
+		CreateD4Rect(FIELD_L, FIELD_T - T_MGN, FIELD_W, FIELD_H + T_MGN),
 		0.0
 		))
 	{
 		return;
 	}
 
-	GetEnemies().push(CreateEnemy_Item(enemy.X, enemy.Y, enemy.@@_ItemKind));
+	GetEnemies().push(CreateEnemy_Item(enemy.X, enemy.Y, enemy.@@_ItemType));
 }

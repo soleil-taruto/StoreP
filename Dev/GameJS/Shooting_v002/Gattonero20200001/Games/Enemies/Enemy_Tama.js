@@ -2,11 +2,13 @@
 	“G - “G’e
 */
 
+var<int> EnemyKind_Tama = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <double> yAdd)
 {
 	var ret =
 	{
-		Kind: @(SRCN),
+		Kind: EnemyKind_Tama,
 		X: x,
 		Y: y,
 		HP: 0,
@@ -23,11 +25,6 @@ function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <doub
 	ret.Dead = @@_Dead;
 
 	return ret;
-}
-
-function <boolean> IsEnemy_Tama(<Enemy_t> enemy)
-{
-	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)

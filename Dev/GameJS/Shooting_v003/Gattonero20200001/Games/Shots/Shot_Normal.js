@@ -2,11 +2,13 @@
 	é©íe - Normal(í èÌíe)
 */
 
+var<int> ShotKind_Normal = @(AUTO);
+
 function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <double> angle, <double> speed)
 {
 	var ret =
 	{
-		Kind: Shot_Kind_e_Normal,
+		Kind: ShotKind_Normal,
 		X: x,
 		Y: y,
 		AttackPoint: 1,

@@ -2,11 +2,13 @@
 	“G - Frog
 */
 
+var<int> EnemyKind_Frog = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Frog,
+		Kind: EnemyKind_Frog,
 		X: x,
 		Y: y,
 		HP: hp,
