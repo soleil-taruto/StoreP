@@ -43,7 +43,7 @@ function <Number> ToRange(<Number> value, <Number> minval, <Number> maxval)
 }
 
 /*
-	0 ～ (modulo - 1) の整数をランダムに返す。
+	0 ～ (modulo - 1) の乱数を返す。(int)
 */
 function <int> GetRand(<int> modulo)
 {
@@ -59,7 +59,7 @@ function <int> GetRandRange(<int> minval, <int> maxval)
 }
 
 /*
-	0.0 ～ 1.0 の乱数を返す。
+	0.0 ～ 1.0 の乱数を返す。(double)
 */
 function <double> GetRand1()
 {
@@ -67,7 +67,7 @@ function <double> GetRand1()
 }
 
 /*
-	-1.0 ～ 1.0 の乱数を返す。
+	-1.0 ～ 1.0 の乱数を返す。(double)
 */
 function <double> GetRand2()
 {

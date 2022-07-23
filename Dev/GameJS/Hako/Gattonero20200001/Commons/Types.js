@@ -25,6 +25,11 @@
 /// Func
 
 /*
+	int | double
+*/
+/// Number
+
+/*
 	’·‚³ 1 ‚Ì string
 */
 /// char
