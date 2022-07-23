@@ -24,20 +24,14 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 {
 	var<Image> picture;
 
-	switch (enemy.Kind)
-	{
-	case Enemy_Kind_e_E0001: picture = P_Enemy0001; break;
-	case Enemy_Kind_e_E0002: picture = P_Enemy0002; break;
-	case Enemy_Kind_e_E0003: picture = P_Enemy0003; break;
-	case Enemy_Kind_e_E0004: picture = P_Enemy0004; break;
-	case Enemy_Kind_e_E0005: picture = P_Enemy0005; break;
-	case Enemy_Kind_e_E0006: picture = P_Enemy0006; break;
-	case Enemy_Kind_e_E0007: picture = P_Enemy0007; break;
-	case Enemy_Kind_e_E0008: picture = P_Enemy0008; break;
-
-	default:
-		error();
-	}
+	if (IsEnemy_E0001(enemy)) { picture = P_Enemy0001; } else
+	if (IsEnemy_E0002(enemy)) { picture = P_Enemy0002; } else
+	if (IsEnemy_E0003(enemy)) { picture = P_Enemy0003; } else
+	if (IsEnemy_E0004(enemy)) { picture = P_Enemy0004; } else
+	if (IsEnemy_E0005(enemy)) { picture = P_Enemy0005; } else
+	if (IsEnemy_E0006(enemy)) { picture = P_Enemy0006; } else
+	if (IsEnemy_E0007(enemy)) { picture = P_Enemy0007; } else
+	if (IsEnemy_E0008(enemy)) { picture = P_Enemy0008; } else { error(); }
 
 	enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 50.0);
 
@@ -65,7 +59,7 @@ function <void> EnemyCommon_AddScore(<int> scoreAdd)
 function <boolean> IsEnemyItem(<Enemy_t> enemy)
 {
 	var ret =
-		enemy.Kind == Enemy_Kind_e_Item;
+		IsEnemy_Item(enemy);
 
 	return ret;
 }
@@ -76,7 +70,7 @@ function <boolean> IsEnemyItem(<Enemy_t> enemy)
 function <boolean> IsEnemyTama(<Enemy_t> enemy)
 {
 	var ret =
-		enemy.Kind == Enemy_Kind_e_Tama;
+		IsEnemy_Tama(enemy);
 
 	return ret;
 }

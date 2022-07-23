@@ -6,7 +6,7 @@ function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <double> angle, <doub
 {
 	var ret =
 	{
-		Kind: Shot_Kind_e_Normal,
+		Kind: "@@",
 		X: x,
 		Y: y,
 		AttackPoint: 1,
@@ -22,6 +22,11 @@ function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <double> angle, <doub
 	ret.Dead = @@_Dead;
 
 	return ret;
+}
+
+function <boolean> IsShot_Normal(<Enemy_t> enemy)
+{
+	return enemy.Kind == "@@";
 }
 
 function* <generatorForTask> @@_Draw(<Shot_t> shot)

@@ -8,13 +8,14 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_BDummy,
 		X: x,
 		Y: y,
 		HP: hp,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
+
+		<int> Kind: @(FPID),
 
 		<double> Dummy_01: 1.0,
 		<double> Dummy_02: 2.0,
@@ -26,6 +27,11 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 	ret.Dead = @@_Dead;
 
 	return ret;
+}
+
+function <boolean> IsEnemy_BDummy(<Enemy_t> enemy)
+{
+	return enemy.Kind == @(FPID);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
