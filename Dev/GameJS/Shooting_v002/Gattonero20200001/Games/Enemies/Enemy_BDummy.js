@@ -8,14 +8,13 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
+		<int> Kind: @(FPID),
 		X: x,
 		Y: y,
 		HP: hp,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
-
-		<int> Kind: @(FPID),
 
 		<double> Dummy_01: 1.0,
 		<double> Dummy_02: 2.0,
