@@ -148,7 +148,26 @@ namespace Charlotte.GameCommons
 
 		public static double GetDistance(D2Point pt, D2Point origin)
 		{
-			return GetDistance(pt.X - origin.X, pt.Y - origin.Y);
+			return GetDistance(pt - origin);
+		}
+
+		public static bool GetDistanceLessThan(double x, double y, double r)
+		{
+#if true
+			return x * x + y * y < r * r;
+#else // old same
+			return GetDistance(x, y) < r;
+#endif
+		}
+
+		public static bool GetDistanceLessThan(D2Point pt, double r)
+		{
+			return GetDistanceLessThan(pt.X, pt.Y, r);
+		}
+
+		public static bool GetDistanceLessThan(D2Point pt, D2Point origin, double r)
+		{
+			return GetDistanceLessThan(pt - origin, r);
 		}
 
 		/// <summary>
@@ -234,7 +253,11 @@ namespace Charlotte.GameCommons
 		/// <returns>衝突しているか</returns>
 		public static bool IsCrashed_Circle_Circle(D2Point pt1, double r1, D2Point pt2, double r2)
 		{
+#if true
+			return GetDistanceLessThan(pt1 - pt2, r1 + r2);
+#else // old same
 			return GetDistance(pt1 - pt2) < r1 + r2;
+#endif
 		}
 
 		/// <summary>
@@ -246,7 +269,11 @@ namespace Charlotte.GameCommons
 		/// <returns>衝突しているか</returns>
 		public static bool IsCrashed_Circle_Point(D2Point pt1, double r1, D2Point pt2)
 		{
+#if true
+			return GetDistanceLessThan(pt1 - pt2, r1);
+#else // old same
 			return GetDistance(pt1 - pt2) < r1;
+#endif
 		}
 
 		/// <summary>

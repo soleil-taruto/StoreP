@@ -17,10 +17,10 @@ namespace Charlotte.Games.Enemies.Tests
 		{
 			for (; ; )
 			{
-				if (DDUtils.GetDistance(new D2Point(Game.I.Player.X, Game.I.Player.Y), new D2Point(this.X, this.Y)) < 30.0)
+				if (DDUtils.GetDistanceLessThan(new D2Point(Game.I.Player.X, Game.I.Player.Y), new D2Point(this.X, this.Y), 30.0))
 				{
-					foreach (bool v in this.E_ハック実行())
-						yield return v;
+					foreach (var relay in this.E_ハック実行())
+						yield return relay;
 
 					break;
 				}
