@@ -4,14 +4,14 @@
 
 var<int> EnemyKind_Goal = @(AUTO);
 
-function <Enemy_t> CreateEnemy_Goal(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Goal(<double> x, <double> y)
 {
 	var ret =
 	{
 		Kind: EnemyKind_Goal,
 		X: x,
 		Y: y,
-		HP: hp,
+		HP: 0,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L

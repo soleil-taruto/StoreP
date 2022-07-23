@@ -4,21 +4,17 @@
 
 var<int> EnemyKind_Frog = @(AUTO);
 
-function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y)
 {
 	var ret =
 	{
 		Kind: EnemyKind_Frog,
 		X: x,
 		Y: y,
-		HP: hp,
+		HP: 1,
 		Crash: null,
 
 		// ここから固有
-
-		<double> Dummy_01: 1.0,
-		<double> Dummy_02: 2.0,
-		<double> Dummy_03: 3.0,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -30,21 +26,94 @@ function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y, <int> hp)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
+	var<double> SPEED = 3.0;
+	var<double> JUMP_SPEED = -6.0;
+	var<double> HI_JUMP_SPEED = -12.0;
+	var<double> GRAVITY = 0.5;
+
+	var<double> ATARI_X = 25.0; // 当たり判定・横スパン
+	var<double> ATARI_Y = 25.0; // 当たり判定・縦スパン
+
 	for (; ; )
 	{
-		enemy.Y += 2.0;
-
-		if (Map.H * TILE_H < enemy.Y)
+		if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + ATARI_Y)).Tile.WallFlag) // 地面へのめり込みを解消
 		{
-			break;
+			enemy.Y = ToTileCenterY(enemy.Y + ATARI_Y) - TILE_H / 2.0 - ATARI_Y;
 		}
 
-		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 50.0, 50.0));
+		var<int> stayFrame;
 
-		Draw(P_Dummy, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, 0.0, 1.0);
+		if (GetRand1() < 0.3) // ? 短時間
+		{
+			stayFrame = 30;
+		}
+		else // ? 長時間
+		{
+			stayFrame = 100;
+		}
 
-		yield 1;
+		for (var<Scene_t> scene of CreateScene(stayFrame))
+		{
+			@@_DrawCommon(enemy);
+			yield 1;
+		}
+
+		var<double> xSpeed;
+		var<double> ySpeed;
+
+		if (PlayerX < enemy.X)
+		{
+			xSpeed = -SPEED;
+		}
+		else
+		{
+			xSpeed = SPEED;
+		}
+
+		if (GetRand1() < 0.6) // ? 小ジャンプ
+		{
+			ySpeed = JUMP_SPEED;
+		}
+		else // ? 大ジャンプ
+		{
+			ySpeed = HI_JUMP_SPEED;
+		}
+
+		for (; ; )
+		{
+			ySpeed += GRAVITY;
+
+			enemy.X += xSpeed;
+			enemy.Y += ySpeed;
+
+			if (GetMapCell(ToTablePoint_XY(enemy.X - ATARI_X, enemy.Y)).Tile.WallFlag)
+			{
+				xSpeed = SPEED;
+			}
+			if (GetMapCell(ToTablePoint_XY(enemy.X + ATARI_X, enemy.Y)).Tile.WallFlag)
+			{
+				xSpeed = -SPEED;
+			}
+			if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y - ATARI_Y)).Tile.WallFlag)
+			{
+				ySpeed = Math.max(0.0, ySpeed);
+			}
+			if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y + ATARI_Y)).Tile.WallFlag)
+			{
+				break;
+			}
+
+			@@_DrawCommon(enemy);
+			yield 1;
+		}
 	}
+}
+
+function <void> @@_DrawCommon(<Enemy_t> enemy)
+{
+	enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 50.0, 50.0));
+
+	Draw(P_Enemy_Frog, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, 0.0, 1.0);
 }
 
 function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)

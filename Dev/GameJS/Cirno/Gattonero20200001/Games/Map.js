@@ -199,6 +199,8 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	if (chr == "“G") return @@_CreateMapCell_E(() => CreateEnemy_BDummy(x, y, 10)); // šƒTƒ“ƒvƒ‹
 	if (chr == "Žn") return @@_CreateMapCell_E(() => CreateEnemy_Start(x, y));
 	if (chr == "I") return @@_CreateMapCell_E(() => CreateEnemy_Goal(x, y));
+	if (chr == "Š^") return @@_CreateMapCell_E(() => CreateEnemy_Frog(x, y));
+	if (chr == "–C") return @@_CreateMapCell_E(() => CreateEnemy_Houdai(x, y));
 
 	error();
 }

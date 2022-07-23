@@ -228,8 +228,17 @@ gameLoop:
 
 					break gameLoop;
 				}
-				else
+
+				PlayerHP -= enemy.AttackPoint;
+
+				if (1 <= PlayerHP) // ? プレイヤー生存
 				{
+					error(); // TODO
+				}
+				else // ? プレイヤー死亡
+				{
+					PlayerHP = -1;
+
 					yield* @@_DeadAndRestartMotion();
 
 					continue gameLoop;

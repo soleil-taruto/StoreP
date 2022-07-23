@@ -3,6 +3,14 @@
 */
 
 /*
+	プレイヤー体力
+	-1 == 死亡
+	0 == (不使用・予約)
+	1～ == 残り体力
+*/
+var<int> PlayerHP = 1;
+
+/*
 	プレイヤーの位置
 */
 var<double> PlayerX = 0.0;
@@ -106,6 +114,7 @@ var<boolean> @@_MoveSlow = false;
 
 function <void> ResetPlayer()
 {
+	PlayerHP = 10;
 	PlayerX = Screen_W / 2.0;
 	PlayerY = Screen_H / 2.0;
 	PlayerDamageFrame = 0;

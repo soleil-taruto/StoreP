@@ -4,21 +4,17 @@
 
 var<int> EnemyKind_Houdai = @(AUTO);
 
-function <Enemy_t> CreateEnemy_Houdai(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Houdai(<double> x, <double> y)
 {
 	var ret =
 	{
 		Kind: EnemyKind_Houdai,
 		X: x,
 		Y: y,
-		HP: hp,
+		HP: 1,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
-
-		<double> Dummy_01: 1.0,
-		<double> Dummy_02: 2.0,
-		<double> Dummy_03: 3.0,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -32,16 +28,9 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
 	for (; ; )
 	{
-		enemy.Y += 2.0;
-
-		if (Map.H * TILE_H < enemy.Y)
-		{
-			break;
-		}
-
 		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 50.0, 50.0));
 
-		Draw(P_Dummy, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, 0.0, 1.0);
+		Draw(P_Enemy_Houdai, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}

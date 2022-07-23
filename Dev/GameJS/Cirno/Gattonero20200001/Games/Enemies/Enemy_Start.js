@@ -4,14 +4,14 @@
 
 var<int> EnemyKind_Start = @(AUTO);
 
-function <Enemy_t> CreateEnemy_Start(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_Start(<double> x, <double> y)
 {
 	var ret =
 	{
 		Kind: EnemyKind_Start,
 		X: x,
 		Y: y,
-		HP: hp,
+		HP: 0,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
