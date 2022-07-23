@@ -2,11 +2,16 @@
 	“G - ƒAƒCƒeƒ€
 */
 
+/// Enemy_Item_Kind_e
+//
+var<int> Enemy_Item_Kind_e_PowerUp = @(AUTO);
+var<int> Enemy_Item_Kind_e_ZankiUp = @(AUTO);
+
 function <Enemy_t> CreateEnemy_Item(<double> x, <double> y, <Enemy_Item_Kind_e> itemKind)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_Item,
+		Kind: @(SRCN),
 		X: x,
 		Y: y,
 		HP: 0,
@@ -23,6 +28,11 @@ function <Enemy_t> CreateEnemy_Item(<double> x, <double> y, <Enemy_Item_Kind_e> 
 	ret.Dead = @@_Dead;
 
 	return ret;
+}
+
+function <boolean> IsEnemy_Item(<Enemy_t> enemy)
+{
+	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)

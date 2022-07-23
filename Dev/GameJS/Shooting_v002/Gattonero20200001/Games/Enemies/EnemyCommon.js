@@ -22,16 +22,7 @@ function <void> EnemyCommon_Dead(<Enemy_t> enemy)
 
 function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 {
-	var<Image> picture;
-
-	if (IsEnemy_E0001(enemy)) { picture = P_Enemy0001; } else
-	if (IsEnemy_E0002(enemy)) { picture = P_Enemy0002; } else
-	if (IsEnemy_E0003(enemy)) { picture = P_Enemy0003; } else
-	if (IsEnemy_E0004(enemy)) { picture = P_Enemy0004; } else
-	if (IsEnemy_E0005(enemy)) { picture = P_Enemy0005; } else
-	if (IsEnemy_E0006(enemy)) { picture = P_Enemy0006; } else
-	if (IsEnemy_E0007(enemy)) { picture = P_Enemy0007; } else
-	if (IsEnemy_E0008(enemy)) { picture = P_Enemy0008; } else { error(); }
+	var<Image> picture = @@_EnemyToPicture(enemy);
 
 	enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 50.0);
 
@@ -43,7 +34,7 @@ function <void> EnemyCommon_Draw(<Enemy_t> enemy)
 
 		SetPrint(ToInt(enemy.X - str.length * 5), ToInt(enemy.Y - 30), 0);
 		SetFSize(16);
-		SetColor(enemy.Kind == Enemy_Kind_e_E0006 ? "#000000" : "#ffffff");
+		SetColor(IsEnemy_E0006(enemy) ? "#000000" : "#ffffff");
 		PrintLine(str);
 	}
 }

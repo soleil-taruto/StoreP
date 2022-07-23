@@ -8,7 +8,7 @@ function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <doubl
 {
 	var ret =
 	{
-		Kind: "@@",
+		Kind: @(SRCN),
 		X: x,
 		Y: y,
 		AttackPoint: 1,
@@ -28,7 +28,7 @@ function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <doubl
 
 function <boolean> IsShot_BDummy(<Enemy_t> enemy)
 {
-	return enemy.Kind == "@@";
+	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Shot_t> shot)

@@ -6,7 +6,7 @@ function <Enemy_t> CreateEnemy_E0006(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		Kind: Enemy_Kind_e_E0006,
+		Kind: @(SRCN),
 		X: x,
 		Y: y,
 		HP: hp,
@@ -20,6 +20,11 @@ function <Enemy_t> CreateEnemy_E0006(<double> x, <double> y, <int> hp)
 	ret.Dead = @@_Dead;
 
 	return ret;
+}
+
+function <boolean> IsEnemy_E0006(<Enemy_t> enemy)
+{
+	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)

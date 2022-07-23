@@ -8,7 +8,7 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
-		<int> Kind: @(FPID),
+		Kind: @(SRCN),
 		X: x,
 		Y: y,
 		HP: hp,
@@ -30,7 +30,7 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
 
 function <boolean> IsEnemy_BDummy(<Enemy_t> enemy)
 {
-	return enemy.Kind == @(FPID);
+	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)

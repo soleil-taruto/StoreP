@@ -6,7 +6,7 @@ function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <doub
 {
 	var ret =
 	{
-		Kind: "@@",
+		Kind: @(SRCN),
 		X: x,
 		Y: y,
 		HP: 0,
@@ -27,7 +27,7 @@ function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <doub
 
 function <boolean> IsEnemy_Tama(<Enemy_t> enemy)
 {
-	return enemy.Kind == "@@";
+	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)

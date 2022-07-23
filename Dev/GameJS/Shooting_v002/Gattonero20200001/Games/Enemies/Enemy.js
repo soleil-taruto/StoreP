@@ -6,6 +6,8 @@
 
 /// Enemy_t
 {
+	<int> Kind // “G‚ÌŽí—Þ
+
 	<double> X // X-ˆÊ’u
 	<double> Y // Y-ˆÊ’u
 

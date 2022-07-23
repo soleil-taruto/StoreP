@@ -182,7 +182,7 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (enemy.Kind == Enemy_Kind_e_Item) // ? アイテム -> 取得
+				if (IsEnemy_Item(enemy)) // ? アイテム -> 取得
 				{
 					var<Enemy_Item_Kind_e> itemKind = GetEnemyItemKind(enemy);
 
@@ -419,16 +419,16 @@ function* <generatorForTask> @@_PlayerDead()
 	for (var<Enemy_t> enemy of @@_Enemies)
 	{
 		// アイテムは除外
-		if (enemy.Kind == Enemy_Kind_e_Item)
+		if (IsEnemy_Item(enemy))
 		{
 			// noop
 		}
 		// ボスクラスの敵も除外
 		/*
 		else if (
-			enemy.Kind == Enemy_Kind_e_BOSS_01 ||
-			enemy.Kind == Enemy_Kind_e_BOSS_02 ||
-			enemy.Kind == Enemy_Kind_e_BOSS_03
+			IsEnemy_Boss_01(enemy) ||
+			IsEnemy_Boss_02(enemy) ||
+			IsEnemy_Boss_03(enemy)
 			)
 		{
 			// noop

@@ -6,14 +6,13 @@ function <Enemy_t> CreateEnemy_E0001(<double> x, <double> y, <int> hp)
 {
 	var ret =
 	{
+		Kind: @(SRCN),
 		X: x,
 		Y: y,
 		HP: hp,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
-
-		<int> Kind: @(FPID),
 
 		<double> XAdd: 0.0,
 	};
@@ -27,7 +26,7 @@ function <Enemy_t> CreateEnemy_E0001(<double> x, <double> y, <int> hp)
 
 function <boolean> IsEnemy_E0001(<Enemy_t> enemy)
 {
-	return enemy.Kind == @(FPID);
+	return enemy.Kind == @(SRCN);
 }
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
