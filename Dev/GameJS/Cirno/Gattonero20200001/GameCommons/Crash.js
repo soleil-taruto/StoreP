@@ -75,9 +75,7 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 
 	if (a.Kind == 1 && b.Kind == 1) // ? ‰~Œ` vs ‰~Œ`
 	{
-		var<double> d = GetDistance(a.X - b.X, a.Y - b.Y);
-
-		return d < a.R + b.R;
+		return GetDistanceLessThan(a.X - b.X, a.Y - b.Y, a.R + b.R);
 	}
 	if (a.Kind == 1 && b.Kind == 2) // ? ‰~Œ` vs ‹éŒ`
 	{
@@ -144,9 +142,7 @@ function <boolean> IsCrashed(<Crash_t> a, <Crash_t> b)
 
 function <boolean> @@_IsCrashed_Circle_Point(<double> x, <double> y, <double> rad, <double> x2, <double> y2)
 {
-	var<double> d = GetDistance(x - x2, y - y2);
-
-	return d < rad;
+	return GetDistanceLessThan(x - x2, y - y2, rad);
 }
 
 /*

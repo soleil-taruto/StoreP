@@ -118,6 +118,20 @@ function <double> GetDistance(<double> x, <double> y)
 }
 
 /*
+	原点から指定位置までの距離が指定距離未満であるか判定する。
+
+	x: X-指定位置
+	y: Y-指定位置
+	r: 指定距離
+
+	ret: 原点から指定位置までの距離が指定距離未満であるか
+*/
+function <boolean> GetDistanceLessThan(<double> x, <double> y, <double> r)
+{
+	return x * x + y * y < r * r;
+}
+
+/*
 	現在値を目的値に近づけます。
 
 	value: 現在値
