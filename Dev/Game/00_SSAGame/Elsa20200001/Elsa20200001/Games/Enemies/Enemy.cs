@@ -36,7 +36,7 @@ namespace Charlotte.Games.Enemies
 
 		/// <summary>
 		/// 攻撃力
-		/// 1～
+		/// 0～ == 攻撃力 -- ゼロの場合、被弾モーションは実行されるけど体力が減らない。
 		/// </summary>
 		public int AttackPoint;
 

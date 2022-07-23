@@ -49,7 +49,14 @@ namespace Charlotte.Games
 		public int AttackFrame; // 0 == 無効, 1～ == 攻撃中
 		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
-		public int HP = 1; // -1 == 死亡, 1～ == 生存
+
+		/// <summary>
+		/// 体力
+		/// -1 == 死亡
+		/// 0 == (不使用・予約)
+		/// 1～ == 残り体力
+		/// </summary>
+		public int HP = 1;
 
 		public bool FacingTop
 		{

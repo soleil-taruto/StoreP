@@ -34,7 +34,7 @@ namespace Charlotte.Games.Enemies.Tests
 			rot += DDUtils.Random.GetReal1() * 0.05;
 			D2Point speedAdd = DDUtils.AngleToPoint(rot, 0.1);
 
-			if (DDUtils.GetDistance(Game.I.Player.X - this.X, Game.I.Player.Y - this.Y) < 50.0)
+			if (DDUtils.GetDistanceLessThan(Game.I.Player.X - this.X, Game.I.Player.Y - this.Y, 50.0))
 			{
 				speedAdd *= -300.0;
 			}

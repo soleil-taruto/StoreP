@@ -35,7 +35,7 @@ namespace Charlotte.Games.Enemies.Tests
 		{
 			for (; ; )
 			{
-				if (DDUtils.GetDistance(new D2Point(Game.I.Player.X, Game.I.Player.Y), new D2Point(this.X, this.Y)) < 30.0)
+				if (DDUtils.GetDistanceLessThan(new D2Point(Game.I.Player.X, Game.I.Player.Y), new D2Point(this.X, this.Y), 30.0))
 				{
 					this.プレイヤーがアイテムを取得した();
 					break;

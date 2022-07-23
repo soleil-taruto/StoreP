@@ -17,7 +17,7 @@ namespace Charlotte.Games.Shots
 		public double Y;
 		public bool FacingLeft;
 		public bool FacingTop;
-		public int AttackPoint;
+		public int AttackPoint; // 0～ == 攻撃力 -- ゼロの場合、被弾モーションは実行されるけど体力が減らない。
 		public bool 壁をすり抜ける;
 		public bool 敵を貫通する;
 
