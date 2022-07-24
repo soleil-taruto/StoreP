@@ -40,7 +40,12 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 function* <generatorForTask> @@_AttackTask(<Enemy_t> enemy)
 {
+	for (; ; )
+	{
+		// TODO
 
+		yield 1;
+	}
 }
 
 function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)

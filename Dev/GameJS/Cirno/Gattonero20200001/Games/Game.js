@@ -378,40 +378,55 @@ function <Shot_t[]> GetShots()
 function <void> @@_DrawWall()
 {
 	var<double> SLIDE_RATE = 0.1;
+
 	var<Image> wallImg = P_Wall;
+	var<int> wallImg_w = wallImg.naturalWidth;
+	var<int> wallImg_h = wallImg.naturalHeight;
 
-	var<int> wall_w = wallImg.naturalWidth;
-	var<int> wall_h = wallImg.naturalHeight;
+	var<int> cam_w = Map.W * TILE_W - Screen_W;
+	var<int> cam_h = Map.H * TILE_H - Screen_H;
 
-	var<double> wall_xRate = 1.0 - Camera.X / (Map.W * TILE_W - Screen_W);
-	var<double> wall_yRate = 1.0 - Camera.Y / (Map.H * TILE_H - Screen_H);
+	var<double> slide_w = cam_w * SLIDE_RATE;
+	var<double> slide_h = cam_h * SLIDE_RATE;
 
-	var<int> slide_w = Map.W * TILE_W - Screen_W;
-	var<int> slide_h = Map.H * TILE_H - Screen_H;
-	var<int> slide = Math.max(slide_w, slide_h);
+	var<double> wall_w = slide_w + Screen_W;
+	var<double> wall_h = slide_h + Screen_H;
 
-	slide *= SLIDE_RATE;
+	var<D4Rect_t> wallRect = AdjustRectExterior(
+		CreateD2Size(wallImg_w, wallImg_h),
+		CreateD4Rect(0.0, 0.0, wall_w, wall_h)
+		);
 
-	var<double> wallZoom_x = (wall_w + slide) / wall_w;
-	var<double> wallZoom_y = (wall_y + slide) / wall_y;
-	var<double> wallZoom = Math.max(wallZoom_x, wallZoom_y);
+	var<double> x = cam_w == 0 ? 0.0 : Camera.X / cam_w;
+	var<double> y = cam_h == 0 ? 0.0 : Camera.Y / cam_h;
 
-	var<D4Rect_t> wallRect = AdjustRectExterior_RRZ(
-		CreateD2Size(wall_w, wall_h),
-		CreateD4Rect(0.0, 0.0, Screen_W, Screen_H), wall_xRate, wall_yRate, wallZoom);
+	x *= slide_w;
+	y *= slide_h;
 
-	// どっちでも良い。
-	var<double> wall_z = wallRect.W / wall_w;
-//	var<double> wall_z = wallRect.H / wall_h;
+	var<D4Rect_t> drRect = CreateD4Rect(
+		wallRect.L - x,
+		wallRect.T - y,
+		wallRect.W,
+		wallRect.H
+		);
 
-	Draw(wallImg, wallRect.L + wallRect.W / 2.0, wallRect.T + wallRect.H / 2.0, 1.0, 0.0, wall_z);
+	var<double> dx = drRect.L + drRect.W / 2.0;
+	var<double> dy = drRect.T + drRect.H / 2.0;
+	var<double> dz = drRect.W / wallImg_w;
+//	var<double> dz = drRect.H / wallImg_h;
+
+	Draw(wallImg, dx, dy, 1.0, 0.0, dz);
+
+	// カーテン -0.5
+	SetColor("#00000080");
+	PrintRect(0, 0, Screen_W, Screen_H);
 }
 
 /*
 	マップ描画
 */
 function <void> @@_DrawMap()
-
+{
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
 	var<int> l = lt.X;
@@ -448,7 +463,7 @@ function <void> @@_DrawMap()
 */
 function <void> @@_DrawFront()
 {
-	// none
+	// none -- ステータスなどを表示する。
 }
 
 /*
@@ -534,6 +549,8 @@ function* <generatorForTask> @@_PauseMenu()
 
 	for (; ; )
 	{
+		break; // TODO
+
 		yield 1;
 	}
 

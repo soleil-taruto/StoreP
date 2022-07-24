@@ -17,7 +17,7 @@ function <void> AddEffect(<generatorForTask> effect)
 
 function <void> AddEffectWhile(<generatorForTask> effect, <Func boolean> f_while)
 {
-	AddEffect(function* <generatorForTask> () =>
+	AddEffect(function* <generatorForTask> ()
 	{
 		while (f_while())
 		{
@@ -28,7 +28,7 @@ function <void> AddEffectWhile(<generatorForTask> effect, <Func boolean> f_while
 
 function <void> AddEffectUntil(<generatorForTask> effect, <Func boolean> f_until)
 {
-	AddEffect(function* <generatorForTask> () =>
+	AddEffect(function* <generatorForTask> ()
 	{
 		while (!f_until())
 		{
