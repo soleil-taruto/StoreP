@@ -37,6 +37,7 @@ namespace Charlotte.Games
 		public double Y;
 		public double YSpeed;
 		public bool FacingLeft;
+		public DDCrash Crash;
 		public int MoveFrame;
 		public bool MoveSlow; // ? 低速移動
 		public bool JumpLock; // ? ジャンプ・ロック -- ジャンプしたらボタンを離すまでロックする。

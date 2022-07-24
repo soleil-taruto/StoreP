@@ -24,6 +24,8 @@ namespace Charlotte.Games.Attacks
 		// ProcPlayer_脳天();
 		// ProcPlayer_接地();
 		//
+		// ProcPlayer_当たり判定(ataru);
+		//
 
 		// ======================
 		// ==== プレイヤー動作 ====
@@ -191,6 +193,27 @@ namespace Charlotte.Games.Attacks
 				Game.I.Player.YSpeed = Math.Min(0.0, Game.I.Player.YSpeed);
 			}
 			return ret;
+		}
+
+		// ===============================
+		// ==== プレイヤー動作・当たり判定 ====
+		// ===============================
+
+		public static void ProcPlayer_当たり判定(bool ataru) // ataru: 当たるか(無敵状態ではないか)
+		{
+			Game.I.Player.Crash = DDCrashUtils.None(); // reset
+
+			if (!ataru) // ? 無敵
+			{
+				// noop
+			}
+			else
+			{
+				Game.I.Player.Crash = DDCrashUtils.Point(new D2Point(
+					Game.I.Player.X,
+					Game.I.Player.Y
+					));
+			}
 		}
 
 		// =================================

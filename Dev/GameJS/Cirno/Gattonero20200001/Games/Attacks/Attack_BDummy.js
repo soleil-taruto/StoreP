@@ -21,6 +21,8 @@ function* <generatorForTask> CreateAttack_BDummy()
 		AttackProcPlayer_Ceiling();
 		AttackProcPlayer_Ground();
 
+		AttackProcPlayer_Atari(true);
+
 		SetPrint(PlayerX - Camera.X - 90, PlayerY - Camera.Y - 40, 0);
 		SetColor("#ffffff");
 		SetFSize(16);

@@ -498,14 +498,27 @@ invincibleBlock:
 		}
 	}
 
-	// プレイヤーの当たり判定をセットする。
-	// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
+	// 当たり判定をセットする。
+	// -- ダメージ中・無敵時間中は null (当たり判定無し) をセットすること。
 
-	PlayerCrash = CreateCrash_Circle(
-		PlayerX,
-		PlayerY,
-		10.0
-		);
+	PlayerCrash = null; // reset
+
+	if (1 <= PlayerDamageFrame) // ? ダメージ中
+	{
+		// noop
+	}
+	else if (1 <= PlayerInvincibleFrame) // ? 無敵時間中
+	{
+		// noop
+	}
+	else
+	{
+		PlayerCrash = CreateCrash_Circle(
+			PlayerX,
+			PlayerY,
+			10.0
+			);
+	}
 
 	// ここから描画
 

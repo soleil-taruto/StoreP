@@ -10,11 +10,6 @@ namespace Charlotte.Games.Attacks
 {
 	public class Attack_Tewi_強攻撃 : Attack
 	{
-		public override bool IsInvincibleMode()
-		{
-			return false;
-		}
-
 		protected override IEnumerable<bool> E_Draw()
 		{
 			for (int frame = 0; ; frame++)
@@ -47,6 +42,8 @@ namespace Charlotte.Games.Attacks
 							)
 						));
 				}
+
+				AttackCommon.ProcPlayer_当たり判定(true);
 
 				DDDraw.SetTaskList(Game.I.Player.Draw_EL);
 				DDDraw.DrawBegin(

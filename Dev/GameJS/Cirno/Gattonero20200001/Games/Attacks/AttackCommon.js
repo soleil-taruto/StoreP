@@ -12,6 +12,8 @@
 // AttackProcPlayer_Ceiling();  -- 脳天
 // AttackProcPlayer_Ground();   -- 接地
 //
+// AttackProcPlayer_Atari(ataru);
+//
 
 // ========================
 // ==== プレイヤー動作 ====
@@ -164,7 +166,7 @@ function <void> AttackProcPlayer_Ceiling()
 
 	if (ret)
 	{
-		PlayerY = ToTileCenterY(PlayerY - PLAYER_脳天判定Pt_Y) + TILE_H / 2 + PLAYER_脳天判定Pt_Y;
+		PlayerY = ToTileCenterY(PlayerY - PLAYER_脳天判定Pt_Y) + TILE_H / 2.0 + PLAYER_脳天判定Pt_Y;
 		PlayerYSpeed = Math.max(0.0, PlayerYSpeed);
 	}
 	return ret;
@@ -180,6 +182,31 @@ function <void> AttackProcPlayer_Ground()
 		PlayerYSpeed = Math.min(0.0, PlayerYSpeed);
 	}
 	return ret;
+}
+
+// ====================================
+// ==== プレイヤー動作・当たり判定 ====
+// ====================================
+
+/*
+	ataru: 当たるか(無敵状態ではないか)
+*/
+function <void> AttackProcPlayer_Atari(<boolean> ataru)
+{
+	PlayerCrash = null; // reset
+
+	if (!ataru) // ? 無敵
+	{
+		// noop
+	}
+	else
+	{
+		PlayerCrash = CreateCrash_Circle(
+			PlayerX,
+			PlayerY,
+			10.0
+			);
+	}
 }
 
 // =====================================

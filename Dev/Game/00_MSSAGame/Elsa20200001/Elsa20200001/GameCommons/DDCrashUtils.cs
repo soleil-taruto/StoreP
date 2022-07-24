@@ -17,12 +17,21 @@ namespace Charlotte.GameCommons
 			MULTI,
 		}
 
+		private static DDCrash _none = new DDCrash()
+		{
+			Kind = Kind_e.NONE,
+		};
+
 		public static DDCrash None()
 		{
+#if true
+			return _none;
+#else // old same
 			return new DDCrash()
 			{
 				Kind = Kind_e.NONE,
 			};
+#endif
 		}
 
 		public static DDCrash Point(D2Point pt)

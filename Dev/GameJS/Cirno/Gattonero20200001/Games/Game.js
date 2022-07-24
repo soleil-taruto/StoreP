@@ -81,7 +81,11 @@ gameLoop:
 
 		@@_DrawWall();
 
-		if (PlayerAttack != null && PlayerAttack()) // ? プレイヤー攻撃中
+		if (
+			PlayerDamageFrame == 0 && // 被弾したら即終了
+			PlayerAttack != null &&
+			PlayerAttack()
+			)
 		{
 			// noop
 		}

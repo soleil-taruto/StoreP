@@ -9,11 +9,6 @@ namespace Charlotte.Games.Attacks.Tests
 {
 	public class Attack_B0001 : Attack
 	{
-		public override bool IsInvincibleMode()
-		{
-			return false;
-		}
-
 		protected override IEnumerable<bool> E_Draw()
 		{
 			for (; ; )
@@ -30,6 +25,8 @@ namespace Charlotte.Games.Attacks.Tests
 				AttackCommon.ProcPlayer_側面();
 				AttackCommon.ProcPlayer_脳天();
 				AttackCommon.ProcPlayer_接地();
+
+				AttackCommon.ProcPlayer_当たり判定(true);
 
 				DDGround.EL.Add(() =>
 				{

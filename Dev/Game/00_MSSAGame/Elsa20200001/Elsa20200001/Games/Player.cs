@@ -20,6 +20,7 @@ namespace Charlotte.Games
 		public double Y;
 		public double YSpeed;
 		public bool FacingLeft;
+		public DDCrash Crash;
 		public int MoveFrame;
 		public bool MoveSlow; // ? 低速移動
 		public bool JumpLock; // ? ジャンプ・ロック -- ジャンプしたらボタンを離すまでロックする。
@@ -30,8 +31,8 @@ namespace Charlotte.Games
 		public int UwamukiFrame; // 0 == 無効, 1～ == 上向き中
 		public int ShitamukiFrame; // 0 == 無効, 1～ == 下向き中
 		public int AttackFrame; // 0 == 無効, 1～ == 攻撃中
-		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
-		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
+		public int DamageFrame; // 0 == 無効, 1～ == ダメージ中
+		public int InvincibleFrame; // 0 == 無効, 1～ == 無敵時間中
 
 		/// <summary>
 		/// 体力

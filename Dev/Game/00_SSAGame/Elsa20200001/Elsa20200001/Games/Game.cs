@@ -620,6 +620,33 @@ namespace Charlotte.Games
 				{
 					// none -- 00_SSAGame -> プレイヤー入力に攻撃処理有り。
 				}
+
+				// プレイヤー当たり判定をセットする。
+				// -- プレイヤーのダメージ中・無敵時間中など、当たり判定無しの場合は DDCrashUtils.None をセットすること。
+				{
+					this.Player.Crash = DDCrashUtils.None(); // reset
+
+					if (1 <= this.Player.DamageFrame) // ? プレイヤー・ダメージ中
+					{
+						// noop
+					}
+					else if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
+					{
+						// noop
+					}
+					else if (1 <= this.Player.AirborneFrame)
+					{
+						this.Player.Crash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
+					}
+					else if (1 <= this.Player.ShagamiFrame)
+					{
+						this.Player.Crash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y + 25.0));
+					}
+					else
+					{
+						this.Player.Crash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y + 10.0));
+					}
+				}
 			endPlayer: // Attack 合流点
 
 				if (this.Player.YSpeed < -SCommon.MICRO)
@@ -669,24 +696,6 @@ namespace Charlotte.Games
 				if (this.Frame == 0)
 				{
 					this.カメラ位置調整(true);
-				}
-
-				// プレイヤーの当たり判定を plCrash にセットする。
-				// -- アイテムを取得したりすることを考慮して、ダメージ中・無敵時間中でも当たり判定は生成する。
-
-				DDCrash plCrash;
-
-				if (1 <= this.Player.AirborneFrame)
-				{
-					plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
-				}
-				else if (1 <= this.Player.ShagamiFrame)
-				{
-					plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y + 25.0));
-				}
-				else
-				{
-					plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y + 10.0));
 				}
 
 				// ====
@@ -752,8 +761,7 @@ namespace Charlotte.Games
 
 						const double A = 0.7;
 
-						DDCrashView.Draw(new DDCrash[] { plCrash }, new I3Color(255, 0, 0), 1.0);
-						DDCrashView.Draw(new DDCrash[] { plCrash }, new I3Color(255, 0, 0), 1.0);
+						DDCrashView.Draw(new DDCrash[] { this.Player.Crash }, new I3Color(255, 0, 0), 1.0);
 						DDCrashView.Draw(this.Enemies.Iterate().Select(v => v.Crash), new I3Color(255, 255, 255), A);
 						DDCrashView.Draw(this.Shots.Iterate().Select(v => v.Crash), new I3Color(0, 255, 255), A);
 
@@ -768,11 +776,6 @@ namespace Charlotte.Games
 				// ====
 				// 当たり判定ここから
 				// ====
-
-				// ? 無敵な攻撃中 -> 敵 x 自機 の衝突判定を行わない。
-				bool attackInvincibleMode =
-					Game.I.Player.Attack != null &&
-					Game.I.Player.Attack.IsInvincibleMode();
 
 				foreach (Enemy enemy in this.Enemies.Iterate())
 				{
@@ -834,11 +837,8 @@ namespace Charlotte.Games
 
 					// 衝突判定：敵 x 自機
 					if (
-						this.Player.DamageFrame == 0 && // ? プレイヤー・ダメージ中ではない。
-						this.Player.InvincibleFrame == 0 && // ? プレイヤー無敵時間中ではない。
-						!attackInvincibleMode && // 無敵になる攻撃中ではない。
 						!enemy.DeadFlag && // ? 敵：生存
-						DDCrashUtils.IsCrashed(enemy.Crash, plCrash) // ? 衝突
+						DDCrashUtils.IsCrashed(enemy.Crash, this.Player.Crash) // ? 衝突
 						)
 					{
 						// ★ 自機_被弾ここから
