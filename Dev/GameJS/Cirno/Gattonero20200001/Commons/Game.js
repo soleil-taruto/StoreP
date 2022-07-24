@@ -128,7 +128,8 @@ function <double> GetDistance(<double> x, <double> y)
 */
 function <boolean> GetDistanceLessThan(<double> x, <double> y, <double> r)
 {
-	return x * x + y * y < r * r;
+	return GetDistance(x, y) < r;
+//	return x * x + y * y < r * r;
 }
 
 /*
