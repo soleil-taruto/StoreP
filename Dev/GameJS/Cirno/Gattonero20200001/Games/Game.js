@@ -17,6 +17,11 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 
 /*
+	ユーザーによるプレイヤー操作の抑止
+*/
+var<boolean> UserInputDisabled = false;
+
+/*
 	ゲーム終了リクエスト
 */
 var<boolean> GameRequestReturnToTitleMenu = false;
@@ -233,7 +238,7 @@ gameLoop:
 
 				if (1 <= PlayerHP) // ? プレイヤー生存
 				{
-					error(); // TODO
+					PlayerDamageFrame = 1;
 				}
 				else // ? プレイヤー死亡
 				{
@@ -496,5 +501,12 @@ function* <generatorForTask> @@_GoalMotion()
 */
 function* <generatorForTask> @@_PauseMenu()
 {
-	// TODO
+	FreezeInput();
+
+	for (; ; )
+	{
+		yield 1;
+	}
+
+	FreezeInput();
 }

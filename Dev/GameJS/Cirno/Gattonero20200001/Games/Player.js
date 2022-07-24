@@ -151,6 +151,7 @@ function <void> DrawPlayer()
 
 	// “ü—Í
 	{
+		var<boolean> damageOrUID = 1 <= PlayerDamageFrame || UserInputDisabled;
 		var<boolean> move = false;
 		var<boolean> slow = false;
 		var<boolean> attack = false;
@@ -159,31 +160,31 @@ function <void> DrawPlayer()
 		var<boolean> shitamuki = false;
 		var<int> jump = 0;
 
-		if (1 <= GetInput_8())
+		if (!damageOrUID && 1 <= GetInput_8())
 		{
 			uwamuki = true;
 		}
-		if (1 <= GetInput_2())
+		if (!damageOrUID && 1 <= GetInput_2())
 		{
 			shagami = true;
 			shitamuki = true;
 		}
-		if (1 <= GetInput_4())
+		if (!damageOrUID && 1 <= GetInput_4())
 		{
 			PlayerFacingLeft = true;
 			move = true;
 		}
-		if (1 <= GetInput_6())
+		if (!damageOrUID && 1 <= GetInput_6())
 		{
 			PlayerFacingLeft = false;
 			move = true;
 		}
-		if (1 <= GetInput_B())
+		if (!damageOrUID && 1 <= GetInput_B())
 		{
 //			slow = true;
 			attack = true;
 		}
-		if (1 <= GetInput_A())
+		if (!damageOrUID && 1 <= GetInput_A())
 		{
 			jump = GetInput_A();
 		}
