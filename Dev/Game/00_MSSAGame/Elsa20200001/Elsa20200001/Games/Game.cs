@@ -552,6 +552,7 @@ namespace Charlotte.Games
 				}
 
 				this.Tasks.ExecuteAllTask();
+				this.DrawFront();
 
 				if (this.当たり判定表示)
 				{
@@ -1309,6 +1310,7 @@ namespace Charlotte.Games
 
 		private void DrawFront()
 		{
+			// none -- ステータスなどを表示する。
 		}
 
 		public DDList<Enemy> Enemies = new DDList<Enemy>();

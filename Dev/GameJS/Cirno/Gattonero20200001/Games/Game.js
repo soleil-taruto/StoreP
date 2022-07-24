@@ -139,7 +139,6 @@ gameLoop:
 		}
 
 		ExecuteAllTask(GameTasks);
-
 		@@_DrawFront();
 
 		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
@@ -290,7 +289,7 @@ gameLoop:
 	{
 		@@_DrawWall();
 		@@_DrawMap();
-		@@_DrawFront();
+//		@@_DrawFront();
 
 		yield 1;
 	}
@@ -464,7 +463,7 @@ function* <generatorForTask> @@_StartMotion()
 
 		// TODO ???
 
-		@@_DrawFront();
+//		@@_DrawFront();
 
 		yield 1;
 	}
@@ -520,7 +519,7 @@ function* <generatorForTask> @@_GoalMotion()
 
 		// TODO ???
 
-		@@_DrawFront();
+//		@@_DrawFront();
 
 		yield 1;
 	}
