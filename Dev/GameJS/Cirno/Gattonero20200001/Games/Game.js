@@ -11,6 +11,9 @@ var<Shot_t[]> @@_Shots = [];
 // カメラ位置
 var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 
+// ゲーム用タスク
+var<TaskManager_t> GameTasks = CreateTaskManager();
+
 /*
 	ゲーム終了理由
 */
@@ -36,6 +39,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		@@_Shots = [];
 
 		Camera = CreateD2Point(0.0, 0.0);
+		ClearAllTask(GameTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
 
@@ -80,6 +84,7 @@ gameLoop:
 		// ====
 
 		@@_DrawWall();
+		@@_DrawMap();
 
 		if (
 			PlayerDamageFrame == 0 && // 被弾したら即終了
@@ -132,6 +137,8 @@ gameLoop:
 				shot.AttackPoint = -1;
 			}
 		}
+
+		ExecuteAllTask(GameTasks);
 
 		@@_DrawFront();
 
@@ -282,6 +289,7 @@ gameLoop:
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
+		@@_DrawMap();
 		@@_DrawFront();
 
 		yield 1;
@@ -370,14 +378,24 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
+	var<double> SLIDE_RATE = 0.1;
 	var<Image> wallImg = P_Wall;
-	var<double> wallZoom = 1.1;
 
 	var<int> wall_w = wallImg.naturalWidth;
 	var<int> wall_h = wallImg.naturalHeight;
 
 	var<double> wall_xRate = 1.0 - Camera.X / (Map.W * TILE_W - Screen_W);
 	var<double> wall_yRate = 1.0 - Camera.Y / (Map.H * TILE_H - Screen_H);
+
+	var<int> slide_w = Map.W * TILE_W - Screen_W;
+	var<int> slide_h = Map.H * TILE_H - Screen_H;
+	var<int> slide = Math.max(slide_w, slide_h);
+
+	slide *= SLIDE_RATE;
+
+	var<double> wallZoom_x = (wall_w + slide) / wall_w;
+	var<double> wallZoom_y = (wall_y + slide) / wall_y;
+	var<double> wallZoom = Math.max(wallZoom_x, wallZoom_y);
 
 	var<D4Rect_t> wallRect = AdjustRectExterior_RRZ(
 		CreateD2Size(wall_w, wall_h),
@@ -388,6 +406,12 @@ function <void> @@_DrawWall()
 //	var<double> wall_z = wallRect.H / wall_h;
 
 	Draw(wallImg, wallRect.L + wallRect.W / 2.0, wallRect.T + wallRect.H / 2.0, 1.0, 0.0, wall_z);
+}
+
+/*
+	マップ描画
+*/
+function <void> @@_DrawMap()
 
 	var<I2Point_t> lt = ToTablePoint(Camera);
 	var<I2Point_t> rb = ToTablePoint_XY(Camera.X + Screen_W, Camera.Y + Screen_H);
@@ -436,6 +460,7 @@ function* <generatorForTask> @@_StartMotion()
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
+		@@_DrawMap();
 
 		// TODO ???
 
@@ -491,6 +516,7 @@ function* <generatorForTask> @@_GoalMotion()
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
+		@@_DrawMap();
 
 		// TODO ???
 

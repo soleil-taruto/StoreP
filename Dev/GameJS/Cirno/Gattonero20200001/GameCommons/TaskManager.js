@@ -26,6 +26,11 @@ function <void> AddTask(<TaskManager_t> info, <generatorForTask> task)
 	info.Tasks.push(task);
 }
 
+function <void> ClearAllTask(<TaskManager_t> info)
+{
+	info.Tasks = [];
+}
+
 function <void> ExecuteAllTask(<TaskManager_t> info)
 {
 	for (var<int> index = 0; index < info.Tasks.length; index++)

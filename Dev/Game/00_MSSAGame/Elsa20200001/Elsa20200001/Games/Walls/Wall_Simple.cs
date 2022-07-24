@@ -10,18 +10,16 @@ namespace Charlotte.Games.Walls
 	public class Wall_Simple : Wall
 	{
 		private DDPicture Picture;
-		private double Zoom;
 
 		public Wall_Simple(DDPicture picture)
 		{
 			this.Picture = picture;
-			this.Zoom = this.GetZoom();
 		}
 
-		private const double SLIDE_RATE = 0.1;
-
-		private double GetZoom()
+		protected override IEnumerable<bool> E_Draw()
 		{
+			const double SLIDE_RATE = 0.1;
+
 			double w = DDConsts.Screen_W + (Game.I.Map.W * GameConsts.TILE_W - DDConsts.Screen_W) * SLIDE_RATE;
 			double h = DDConsts.Screen_H + (Game.I.Map.H * GameConsts.TILE_H - DDConsts.Screen_H) * SLIDE_RATE;
 
@@ -32,19 +30,14 @@ namespace Charlotte.Games.Walls
 
 			z *= 1.01; // margin
 
-			return z;
-		}
-
-		protected override IEnumerable<bool> E_Draw()
-		{
 			for (; ; )
 			{
+				double x = ((Game.I.Map.W * GameConsts.TILE_W - DDConsts.Screen_W) / 2.0 - DDGround.Camera.X) * SLIDE_RATE;
+				double y = ((Game.I.Map.H * GameConsts.TILE_H - DDConsts.Screen_H) / 2.0 - DDGround.Camera.Y) * SLIDE_RATE;
+
 				DDDraw.DrawBegin(this.Picture, DDConsts.Screen_W / 2.0, DDConsts.Screen_H / 2.0);
-				DDDraw.DrawZoom(this.Zoom);
-				DDDraw.DrawSlide(
-					((Game.I.Map.W * GameConsts.TILE_W - DDConsts.Screen_W) / 2.0 - DDGround.Camera.X) * SLIDE_RATE,
-					((Game.I.Map.H * GameConsts.TILE_H - DDConsts.Screen_H) / 2.0 - DDGround.Camera.Y) * SLIDE_RATE
-					);
+				DDDraw.DrawZoom(z);
+				DDDraw.DrawSlide(x, y);
 				DDDraw.DrawEnd();
 
 				DDCurtain.DrawCurtain(-0.5);

@@ -26,6 +26,8 @@ function <Enemy_t> CreateEnemy_Houdai(<double> x, <double> y)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
+	AddEffectWhile(@@_AttackTask(enemy), () => enemy.HP != -1);
+
 	for (; ; )
 	{
 		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 50.0, 50.0));
@@ -34,6 +36,11 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		yield 1;
 	}
+}
+
+function* <generatorForTask> @@_AttackTask(<Enemy_t> enemy)
+{
+
 }
 
 function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)

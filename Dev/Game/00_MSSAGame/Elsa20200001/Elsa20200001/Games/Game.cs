@@ -59,6 +59,8 @@ namespace Charlotte.Games
 		public bool UserInputDisabled = false;
 		public bool RequestReturnToTitleMenu = false;
 
+		public DDTaskList Tasks = new DDTaskList();
+
 		public void Perform()
 		{
 			Func<bool> f_ゴミ回収 = SCommon.Supplier(this.E_ゴミ回収());
@@ -548,6 +550,8 @@ namespace Charlotte.Games
 					shot.Crash = DDCrashUtils.None(); // reset
 					shot.Draw();
 				}
+
+				this.Tasks.ExecuteAllTask();
 
 				if (this.当たり判定表示)
 				{
@@ -1301,6 +1305,10 @@ namespace Charlotte.Games
 					cell.Tile.Draw(tileX - cam_l, tileY - cam_t);
 				}
 			}
+		}
+
+		private void DrawFront()
+		{
 		}
 
 		public DDList<Enemy> Enemies = new DDList<Enemy>();
