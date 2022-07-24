@@ -1688,7 +1688,7 @@ namespace Charlotte.Games
 					"デバッグ用メニュー",
 					new string[]
 					{
-						"キャラクタ切り替え [ 現在のキャラクタ：" + Player.GetName(this.Player.Chara) + " ]",
+						"キャラクタ切り替え [ 現在のキャラクタ：" + Player.Chara_e_Names[(int)this.Player.Chara] + " ]",
 						"デバッグ強制遅延 [ 現在の設定：" + DDEngine.SlowdownLevel + " ]",
 						"当たり判定表示 [ 現在の設定：" + this.当たり判定表示 + " ]",
 						"ゲームに戻る",

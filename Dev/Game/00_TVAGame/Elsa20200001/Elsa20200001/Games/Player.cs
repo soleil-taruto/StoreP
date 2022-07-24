@@ -22,8 +22,8 @@ namespace Charlotte.Games
 		public DDCrash Crash;
 		public int MoveFrame;
 		public int AttackFrame;
-		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
-		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
+		public int DamageFrame; // 0 == 無効, 1～ == ダメージ中
+		public int InvincibleFrame; // 0 == 無効, 1～ == 無敵時間中
 		public int HP = 1; // -1 == 死亡, 1～ == 生存
 
 		public ShotCatalog.武器_e 選択武器 = ShotCatalog.武器_e.B_NORMAL;

@@ -22,15 +22,11 @@ namespace Charlotte.Games
 			CIRNO,
 		}
 
-		public static string GetName(Chara_e chara)
+		public static string[] Chara_e_Names = new string[]
 		{
-			return new string[]
-			{
-				"因幡てゐ",
-				"チルノ",
-			}
-			[(int)chara];
-		}
+			"因幡てゐ",
+			"チルノ",
+		};
 
 		public Chara_e Chara;
 		public double X;
@@ -48,8 +44,8 @@ namespace Charlotte.Games
 		public int UwamukiFrame; // 0 == 無効, 1～ == 上向き中
 		public int ShitamukiFrame; // 0 == 無効, 1～ == 下向き中
 		public int AttackFrame; // 0 == 無効, 1～ == 攻撃中
-		public int DamageFrame = 0; // 0 == 無効, 1～ == ダメージ中
-		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
+		public int DamageFrame; // 0 == 無効, 1～ == ダメージ中
+		public int InvincibleFrame; // 0 == 無効, 1～ == 無敵時間中
 
 		/// <summary>
 		/// 体力
