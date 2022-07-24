@@ -153,9 +153,13 @@ namespace Charlotte.GameCommons
 
 		public static bool GetDistanceLessThan(double x, double y, double r)
 		{
-#if true
+			// memo @ 2022.7.24
+			// ざっくり処理時間を計測したら、自乗より平方根の方が速かった。
+			// -- https://github.com/soleil-taruto/StoreP/blob/5230d35e0c9393ff45cd6cfadc75eda28a2f6d53/Dev/Program/Test0001/Claes20200001/Claes20200001/Tests/Test0001.cs#L125-L133
+
+#if false // 平方根不使用ver
 			return x * x + y * y < r * r;
-#else // old same
+#else // 平方根使用ver
 			return GetDistance(x, y) < r;
 #endif
 		}
