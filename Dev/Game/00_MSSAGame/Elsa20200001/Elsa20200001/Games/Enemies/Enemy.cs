@@ -116,7 +116,6 @@ namespace Charlotte.Games.Enemies
 		/// <summary>
 		/// 被弾した。
 		/// 体力の減少などは呼び出し側でやっている。
-		/// -- 自弾の攻撃力は既に減じられていることに注意！
 		/// </summary>
 		/// <param name="shot">この敵が被弾したプレイヤーの弾</param>
 		/// <param name="damagePoint">削られた体力</param>

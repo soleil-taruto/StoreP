@@ -623,6 +623,7 @@ namespace Charlotte.Games
 								// ★ 敵_被弾ここから
 
 								int damagePoint = Math.Min(enemy.HP, shot.AttackPoint);
+
 								enemy.HP -= shot.AttackPoint;
 
 								if (shot.敵を貫通する)
@@ -666,9 +667,6 @@ namespace Charlotte.Games
 					{
 						// ★ 自機_被弾ここから
 
-						if (enemy.自機に当たると消滅する)
-							enemy.Kill();
-
 						this.Player.HP -= enemy.AttackPoint;
 
 						if (1 <= this.Player.HP) // ? まだ生存している。
@@ -681,6 +679,9 @@ namespace Charlotte.Games
 							this.Status.ExitDirection = 901;
 							goto endGameLoop;
 						}
+
+						if (enemy.自機に当たると消滅する)
+							enemy.Kill();
 
 						// ★ 自機_被弾ここまで
 					}
