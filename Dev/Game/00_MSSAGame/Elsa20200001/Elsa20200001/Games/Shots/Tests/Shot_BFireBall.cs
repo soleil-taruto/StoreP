@@ -10,7 +10,7 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
-	/// --
+	/// ----
 	/// 壁に当たると跳ねる。(回数上限有り)
 	/// </summary>
 	public class Shot_BFireBall : Shot

@@ -10,7 +10,7 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
-	/// --
+	/// ----
 	/// 壁を貫通する。
 	/// </summary>
 	public class Shot_BWaveBeam : Shot

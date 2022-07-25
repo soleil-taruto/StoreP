@@ -10,7 +10,7 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
-	/// --
+	/// ----
 	/// 壁・敵_両方貫通
 	/// </summary>
 	public class Shot_BLaser : Shot
