@@ -10,11 +10,13 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
+	/// --
+	/// 壁に当たると跳ねる。(回数上限有り)
 	/// </summary>
 	public class Shot_BFireBall : Shot
 	{
 		public Shot_BFireBall(double x, double y, bool facingLeft, bool facingTop)
-			: base(x, y, facingLeft, facingTop, 2, true, false) // 自力で壁から跳ねるので、壁貫通にしておく。
+			: base(x, y, facingLeft, facingTop, 2, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()

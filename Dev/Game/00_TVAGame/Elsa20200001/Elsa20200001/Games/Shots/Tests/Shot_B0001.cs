@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Shots.Tests
 {
@@ -13,7 +14,7 @@ namespace Charlotte.Games.Shots.Tests
 	public class Shot_B0001 : Shot
 	{
 		public Shot_B0001(double x, double y, int direction)
-			: base(x, y, direction, 1, false, false)
+			: base(x, y, direction, 1, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
@@ -54,11 +55,20 @@ namespace Charlotte.Games.Shots.Tests
 						throw null; // never
 				}
 
+				if (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y))) // カメラの外に出たら(画面から見えなくなったら)消滅する。
+					break;
+
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y)).Tile.GetKind() == Tile.Kind_e.WALL) // 壁に当たったら自滅する。
+				{
+					this.Kill();
+					break;
+				}
+
+				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
+
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);
 				DDDraw.DrawEnd();
-
-				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
 
 				yield return !DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y)); // カメラの外に出たら(画面から見えなくなったら)消滅する。
 			}

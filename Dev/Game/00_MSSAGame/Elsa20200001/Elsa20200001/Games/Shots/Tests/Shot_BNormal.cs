@@ -10,11 +10,13 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
+	/// --
+	/// 壁に当たる。
 	/// </summary>
 	public class Shot_BNormal : Shot
 	{
 		public Shot_BNormal(double x, double y, bool facingLeft, bool facingTop)
-			: base(x, y, facingLeft, facingTop, 1, false, false)
+			: base(x, y, facingLeft, facingTop, 1, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
@@ -23,13 +25,22 @@ namespace Charlotte.Games.Shots.Tests
 			{
 				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
 
+				if (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y))) // カメラから出たら消滅する。
+					break;
+
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y)).Tile.IsWall()) // 壁に当たったら自滅する。
+				{
+					this.Kill();
+					break;
+				}
+
+				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
+
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);
 				DDDraw.DrawEnd();
 
-				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
-
-				yield return !DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y)); // カメラから出たら消滅する。
+				yield return true;
 			}
 		}
 	}

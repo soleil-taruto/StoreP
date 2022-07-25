@@ -705,17 +705,6 @@ namespace Charlotte.Games
 				{
 					shot.CurrCrashedEnemy = shot.LastCrashedEnemy;
 					shot.LastCrashedEnemy = null;
-
-					// 壁への衝突
-					// 壁への当たり判定は自弾の「中心座標のみ」であることに注意して下さい。
-					{
-						if (
-							!shot.DeadFlag && // ? 自弾：生存
-							!shot.壁をすり抜ける && // ? この自弾は壁に当たる。
-							this.Map.GetCell(GameCommon.ToTablePoint(shot.X, shot.Y)).Tile.IsWall() // ? 壁に当たった。
-							)
-							shot.Kill();
-					}
 				}
 
 				f_ゴミ回収();

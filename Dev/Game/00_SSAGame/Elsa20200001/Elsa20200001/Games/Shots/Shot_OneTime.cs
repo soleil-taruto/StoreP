@@ -16,7 +16,7 @@ namespace Charlotte.Games.Shots
 		private DDCrash OneTimeCrash;
 
 		public Shot_OneTime(int attackPoint, DDCrash crash)
-			: base(DDConsts.Screen_W / 2, DDConsts.Screen_H / 2, Game.I.Player.FacingLeft, Game.I.Player.FacingTop, attackPoint, true, true)
+			: base(DDConsts.Screen_W / 2, DDConsts.Screen_H / 2, Game.I.Player.FacingLeft, Game.I.Player.FacingTop, attackPoint, true)
 		{
 			this.OneTimeCrash = crash;
 		}

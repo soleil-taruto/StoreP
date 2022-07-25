@@ -10,11 +10,13 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
+	/// --
+	/// 壁・敵_両方貫通
 	/// </summary>
 	public class Shot_BLaser : Shot
 	{
 		public Shot_BLaser(double x, double y, bool facingLeft, bool facingTop)
-			: base(x, y, facingLeft, facingTop, 1, true, true) // 壁・敵_両方貫通
+			: base(x, y, facingLeft, facingTop, 1, true)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()

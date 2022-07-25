@@ -10,11 +10,13 @@ namespace Charlotte.Games.Shots.Tests
 	/// <summary>
 	/// 自弾_旧実装
 	/// ★サンプルとしてキープ
+	/// --
+	/// 壁を貫通する。
 	/// </summary>
 	public class Shot_BWaveBeam : Shot
 	{
 		public Shot_BWaveBeam(double x, double y, bool facingLeft, bool facingTop)
-			: base(x, y, facingLeft, facingTop, 5, true, false) // 壁を貫通する。
+			: base(x, y, facingLeft, facingTop, 5, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
