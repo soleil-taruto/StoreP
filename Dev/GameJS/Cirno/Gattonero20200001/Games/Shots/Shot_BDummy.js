@@ -38,6 +38,12 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 			break;
 		}
 
+		if (GetMapCell(ToTablePoint_XY(shot.X, shot.Y)).Tile.WallFlag)
+		{
+			KillShot(shot);
+			break;
+		}
+
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, 25.0);
 
 		Draw(P_Dummy, shot.X - Camera.X, shot.Y - Camera.Y, 1.0, ProcFrame / 20.0, 1.0);

@@ -4,14 +4,15 @@
 
 var<int> EnemyKind_BDummy = @(AUTO);
 
-function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y)
 {
 	var ret =
 	{
 		Kind: EnemyKind_BDummy,
 		X: x,
 		Y: y,
-		HP: hp,
+		HP: 1,
+		AttackPoint: 1,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L

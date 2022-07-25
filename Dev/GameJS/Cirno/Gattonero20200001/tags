@@ -316,9 +316,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(163) : Attac
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(175) : AttackProcPlayer_Ground // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(194) : AttackProcPlayer_Atari // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(41) : DrawEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(49) : KillEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(58) : EnemyDamaged // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(46) : DrawEnemy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(54) : KillEnemy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(63) : EnemyDamaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(7) : CreateEnemy_BDummy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(5) : EnemyKind_BDummy // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Frog.js(7) : CreateEnemy_Frog // ŠÖ”
@@ -332,8 +332,8 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Start.js(5) : EnemyKin
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCommon.js(5) : EnemyCommon_Damaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCommon.js(10) : EnemyCommon_Dead // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // ’è‹`
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(40) : DrawShot // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(48) : KillShot // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(39) : DrawShot // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(47) : KillShot // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot_BDummy.js(7) : CreateShot_BDummy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot_BDummy.js(5) : ShotKind_BDummy // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot_Normal.js(7) : CreateShot_Normal // ŠÖ”

@@ -12,6 +12,7 @@ function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y)
 		X: x,
 		Y: y,
 		HP: 1,
+		AttackPoint: 1,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L

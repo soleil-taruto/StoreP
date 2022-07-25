@@ -12,6 +12,7 @@ function <Enemy_t> CreateEnemy_Houdai(<double> x, <double> y)
 		X: x,
 		Y: y,
 		HP: 1,
+		AttackPoint: 1,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L

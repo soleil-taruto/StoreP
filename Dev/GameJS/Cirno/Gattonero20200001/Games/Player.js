@@ -344,7 +344,7 @@ damageBlock:
 
 		// ƒ_ƒ[ƒW’†‚Ìˆ—
 		{
-			// TODO
+			PlayerX -= (1.0 - rate) * 9.0 * (PlayerFacingLeft ? -1 : 1);
 		}
 	}
 
@@ -522,9 +522,19 @@ invincibleBlock:
 
 	// ‚±‚±‚©‚ç•`‰æ
 
+	var<double> plA = 1.0;
+
+	if (
+		1 <= PlayerDamageFrame ||
+		1 <= PlayerInvincibleFrame
+		)
+	{
+		plA = 0.5;
+	}
+
 	if (1 <= PlayerAirborneFrame)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+		Draw(PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
@@ -544,14 +554,14 @@ invincibleBlock:
 			}
 		}
 
-		Draw((PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma], PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+		Draw((PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma], PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+		Draw(PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 	else
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+		Draw(PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 }
