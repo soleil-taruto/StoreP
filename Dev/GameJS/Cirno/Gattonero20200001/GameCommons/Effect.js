@@ -15,28 +15,6 @@ function <void> AddEffect(<generatorForTask> effect)
 	@@_Effects.push(effect);
 }
 
-function <void> AddEffectWhile(<Func boolean> f_while, <generatorForTask> effect)
-{
-	AddEffect(function* <generatorForTask> ()
-	{
-		while (f_while())
-		{
-			yield effect.next().value;
-		}
-	}());
-}
-
-function <void> AddEffectUntil(<Func boolean> f_until, <generatorForTask> effect)
-{
-	AddEffect(function* <generatorForTask> ()
-	{
-		while (!f_until())
-		{
-			yield effect.next().value;
-		}
-	}());
-}
-
 function <void> @(UNQN)_EACH()
 {
 	for (var<int> index = 0; index < @@_Effects.length; index++)

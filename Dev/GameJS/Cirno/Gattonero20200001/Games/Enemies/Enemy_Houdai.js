@@ -58,7 +58,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.GroundDir = dir;
 	}
 
-	AddEffectWhile(() => enemy.HP != -1, @@_AttackTask(enemy));
+	AddEffect(@@_AttackTask(enemy));
 
 	for (; ; )
 	{
@@ -85,11 +85,18 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 function* <generatorForTask> @@_AttackTask(<Enemy_t> enemy)
 {
+	var<Func boolean> isDead = () => enemy.HP == -1;
+
 	for (; ; )
 	{
 		for (var<int> waitFrm of [ 90, 30, 30, 30 ])
 		{
 			yield* Wait(waitFrm);
+
+			if (isDead())
+			{
+				return;
+			}
 
 			@@_Shoot(enemy);
 		}
