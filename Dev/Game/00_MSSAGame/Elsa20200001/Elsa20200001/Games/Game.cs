@@ -63,7 +63,8 @@ namespace Charlotte.Games
 
 		public void Perform()
 		{
-			Func<bool> f_ゴミ回収 = SCommon.Supplier(this.E_ゴミ回収());
+			//Func<bool> f_ゴミ回収 = SCommon.Supplier(this.E_ゴミ回収()); // メソッド版_廃止
+			this.Tasks.Add(SCommon.Supplier(this.E_ゴミ回収()));
 
 			this.Map = new Map(GameCommon.GetMapFile(this.World.GetCurrMapName()));
 			this.ReloadEnemies();
@@ -694,7 +695,7 @@ namespace Charlotte.Games
 				// 当たり判定ここまで
 				// ====
 
-				f_ゴミ回収();
+				//f_ゴミ回収(); // メソッド版_廃止
 
 				this.Enemies.RemoveAll(v => v.DeadFlag);
 				this.Shots.RemoveAll(v => v.DeadFlag);

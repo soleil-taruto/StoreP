@@ -36,8 +36,6 @@ var<boolean> GameRequestStageClear = false;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
-	var<Func boolean> f_ƒSƒ~‰ñû = Supplier(@@_T_ƒSƒ~‰ñû());
-
 	// reset
 	{
 		@@_Enemies = [];
@@ -55,6 +53,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	LoadMap(mapIndex);
 	LoadEnemyOfMap();
 	MoveToStartPtOfMap();
+	AddTask(GameTasks, @@_T_ƒSƒ~‰ñû());
 
 	SetCurtain();
 	FreezeInput();
@@ -273,8 +272,6 @@ gameLoop:
 		// ====
 		// “–‚½‚è”»’è‚±‚±‚Ü‚Å
 		// ====
-
-		f_ƒSƒ~‰ñû();
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
