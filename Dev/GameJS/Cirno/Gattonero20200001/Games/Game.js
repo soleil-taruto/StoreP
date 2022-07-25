@@ -258,6 +258,11 @@ gameLoop:
 
 					continue gameLoop;
 				}
+
+				if (enemy.HitDie)
+				{
+					KillEnemy(enemy);
+				}
 			}
 		}
 

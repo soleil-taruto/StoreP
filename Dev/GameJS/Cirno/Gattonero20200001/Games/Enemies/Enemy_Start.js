@@ -13,6 +13,7 @@ function <Enemy_t> CreateEnemy_Start(<double> x, <double> y)
 		Y: y,
 		HP: 0,
 		AttackPoint: 0,
+		HitDie: false,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
