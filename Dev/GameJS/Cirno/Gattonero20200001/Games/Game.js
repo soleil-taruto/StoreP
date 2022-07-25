@@ -50,10 +50,12 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		ResetPlayer();
 	}
 
+//	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収()); // メソッド版_廃止
+	AddTask(GameTasks, @@_T_ゴミ回収());
+
 	LoadMap(mapIndex);
 	LoadEnemyOfMap();
 	MoveToStartPtOfMap();
-	AddTask(GameTasks, @@_T_ゴミ回収());
 
 	SetCurtain();
 	FreezeInput();
@@ -272,6 +274,8 @@ gameLoop:
 		// ====
 		// 当たり判定ここまで
 		// ====
+
+//		f_ゴミ回収(); // メソッド版_廃止
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
@@ -607,14 +611,44 @@ function* <generatorForTask> @@_GoalMotion()
 */
 function* <generatorForTask> @@_PauseMenu()
 {
+	var<int> selectIndex = 0;
+
 	FreezeInput();
 
+gameLoop:
 	for (; ; )
 	{
-		break; // TODO
+		var<string[]> items =
+		[
+			"タイトルに戻る",
+			"ゲームに戻る",
+		];
 
+		selectIndex = DrawSimpleMenu(
+			selectIndex,
+			100,
+			100,
+			50,
+			[
+				"タイトルに戻る",
+				"ゲームに戻る",
+			]);
+
+		if (DSM_Desided)
+		switch (selectIndex)
+		{
+		case 0:
+			GameRequestReturnToTitleMenu = true;
+			break gameLoop;
+
+		case 1:
+			break gameLoop;
+
+		default:
+			error(); // never
+		}
 		yield 1;
 	}
-
 	FreezeInput();
+	FreezeInputUntilRelease();
 }

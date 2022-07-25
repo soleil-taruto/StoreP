@@ -6,7 +6,7 @@ var<int> @@_ITEM_H = 30;
 var<int> @@_TEXT_T = 22;
 var<int> @@_TEXT_FONT_SIZE = 20;
 
-var<int> DSM_Desided = false;
+var<boolean> DSM_Desided = false;
 
 function <int> DrawSimpleMenu(<int> selectIndex, <int> x, <int> y, <int> yStep, <string[]> items)
 {
