@@ -25,9 +25,14 @@ var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 var<boolean> UserInputDisabled = false;
 
 /*
-	ゲーム終了リクエスト
+	ゲーム終了リクエスト(タイトルへ戻る)
 */
 var<boolean> GameRequestReturnToTitleMenu = false;
+
+/*
+	ゲーム終了リクエスト(ステージクリア)
+*/
+var<boolean> GameRequestStageClear = false;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
@@ -42,6 +47,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		ClearAllTask(GameTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
+		GameRequestStageClear = false;
 
 		ResetPlayer();
 	}
@@ -69,6 +75,11 @@ gameLoop:
 		if (GameRequestReturnToTitleMenu)
 		{
 			GameEndReason = GameEndReason_e_RETURN_MENU;
+			break;
+		}
+		if (GameRequestStageClear)
+		{
+			GameEndReason = GameEndReason_e_STAGE_CLEAR;
 			break;
 		}
 
@@ -237,13 +248,6 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (enemy.Kind == EnemyKind_Goal) // ? ゴール到達 -> 次のステージへ
-				{
-					yield* @@_GoalMotion();
-
-					break gameLoop;
-				}
-
 				PlayerHP -= enemy.AttackPoint;
 
 				if (1 <= PlayerHP) // ? プレイヤー生存
@@ -285,6 +289,23 @@ gameLoop:
 		yield 1;
 
 		// ★★★ ゲームループの終わり ★★★
+	}
+
+	if (GameEndReason == GameEndReason_e_STAGE_CLEAR)
+	{
+		ClearAllEffect();
+
+		yield* @@_GoalMotion();
+
+		ClearAllEffect();
+	}
+	else if (GameEndReason == GameEndReason_e_RETURN_MENU)
+	{
+		// noop
+	}
+	else
+	{
+		error(); // never -- 不明な GameEndReason
 	}
 
 	SetCurtain_FD(30, -1.0);
@@ -476,14 +497,28 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_StartMotion()
 {
-	for (var<Scene_t> scene of CreateScene(40))
+	for (var<Scene_t> scene of CreateScene(60))
 	{
 		@@_DrawWall();
 		@@_DrawMap();
 
-		// TODO ???
+		for (var<int> c = 0; c < 4; c++)
+		{
+			var<double> dx = PlayerX - Camera.X;
+			var<double> dy = PlayerY - Camera.Y;
 
-//		@@_DrawFront();
+			dy -= 14; // 接地したとき上に押し出される距離
+
+			var<D2Point_t> pt = AngleToPoint(
+				scene.RemRate * scene.RemRate * 10.0 + (Math.PI / 2.0) * c,
+				scene.RemRate * scene.RemRate * 500.0
+				);
+
+			dx += pt.X;
+			dy += pt.Y;
+
+			Draw(P_PlayerStand, dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
+		}
 
 		yield 1;
 	}
@@ -532,14 +567,39 @@ function* <generatorForTask> @@_GoalMotion()
 		yield 1;
 	}
 
-	for (var<Scene_t> scene of CreateScene(40))
+	for (var<int> c = 0; c < 50; c++)
+	{
+		AddEffect(function* <generatorForTask> ()
+		{
+			var<double> x = PlayerX;
+			var<double> y = PlayerY;
+			var<D2Point_t> speed = AngleToPoint(Math.PI * 2.0 * GetRand1(), GetRand3(5.0, 15.0));
+
+			var<double> r = Math.PI * 2.0 * GetRand1();
+			var<double> rAdd = 0.3 * GetRand2();
+
+			for (; ; )
+			{
+				x += speed.X;
+				y += speed.Y;
+				r += rAdd;
+
+				if (IsOutOfCamera(CreateD2Point(x, y), 50.0))
+				{
+					break;
+				}
+
+				Draw(P_PlayerStand, x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
+
+				yield 1;
+			}
+		}());
+	}
+
+	for (var<Scene_t> scene of CreateScene(60))
 	{
 		@@_DrawWall();
 		@@_DrawMap();
-
-		// TODO ???
-
-//		@@_DrawFront();
 
 		yield 1;
 	}

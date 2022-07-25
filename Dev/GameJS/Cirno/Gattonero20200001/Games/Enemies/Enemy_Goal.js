@@ -33,9 +33,15 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		var<double> ZURE_X = 0.0;
 		var<double> ZURE_Y = -10.0;
 
-		enemy.Crash = CreateCrash_Circle(enemy.X + ZURE_X, enemy.Y + ZURE_Y, 40.0);
+		var<double> x = enemy.X + ZURE_X;
+		var<double> y = enemy.Y + ZURE_Y;
 
-		Draw(P_Goal, enemy.X + ZURE_X, enemy.Y + ZURE_Y, 1.0, 0.0, 1.0);
+		if (GetDistanceLessThan(x - PlayerX, y - PlayerY, 35.0))
+		{
+			GameRequestStageClear = true;
+		}
+
+		Draw(P_Goal, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}
