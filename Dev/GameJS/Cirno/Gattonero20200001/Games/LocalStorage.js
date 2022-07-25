@@ -33,7 +33,7 @@ function <void> LoadLocalStorage()
 		PadInputIndex_B = 3;
 		PadInputIndex_Pause = 9;
 
-		CanPlayStageIndex = -1;
+		CanPlayStageIndex = 1;
 
 		// < SaveData
 	}

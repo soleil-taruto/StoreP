@@ -316,9 +316,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(163) : Attac
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(175) : AttackProcPlayer_Ground // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(194) : AttackProcPlayer_Atari // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(51) : DrawEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(59) : KillEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(68) : EnemyDamaged // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(57) : DrawEnemy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(65) : KillEnemy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(74) : EnemyDamaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(7) : CreateEnemy_BDummy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(5) : EnemyKind_BDummy // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Frog.js(7) : CreateEnemy_Frog // ŠÖ”
