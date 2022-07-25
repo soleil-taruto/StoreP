@@ -27,7 +27,7 @@ function <Enemy_t> CreateEnemy_Tama(<double> x, <double> y, <double> xAdd, <soub
 		Y: y,
 		HP: 0,
 		AttackPoint: 1,
-		HitDie: false,
+		HitDie: true,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
@@ -50,9 +50,15 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XAdd;
 		enemy.Y += enemy.YAdd;
 
+		if (GetMapCell(ToTablePoint_XY(enemy.X, enemy.Y)).Tile.WallFlag)
+		{
+			KillEnemy(enemy);
+			break;
+		}
+
 		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 16.0);
 
-		Draw(P_Enemy_Tama0001, enemy.X, enemy.Y, 1.0, ProcFrame / 20.0, 1.0);
+		Draw(P_Enemy_Tama0001, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, ProcFrame / 20.0, 1.0);
 
 		yield 1;
 	}

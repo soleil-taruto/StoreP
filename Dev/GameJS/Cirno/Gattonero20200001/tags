@@ -217,6 +217,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(73) : P_Ti
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(81) : P_Wall // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(83) : P_Enemy_Frog // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(84) : P_Enemy_Houdai // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(85) : P_Enemy_Tama0001 // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(7) : SE // ŠÖ”
@@ -259,8 +260,8 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Ending.js(5) : Ending // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(32) : GameMain // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(365) : GetEnemies // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(370) : GetShots // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(370) : GetEnemies // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(375) : GetShots // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(12) : Camera // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(15) : GameTasks // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(20) : GameEndReason // •Ï”
@@ -316,9 +317,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(163) : Attac
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(175) : AttackProcPlayer_Ground // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(194) : AttackProcPlayer_Atari // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(46) : DrawEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(54) : KillEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(63) : EnemyDamaged // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(51) : DrawEnemy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(59) : KillEnemy // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(68) : EnemyDamaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(7) : CreateEnemy_BDummy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(5) : EnemyKind_BDummy // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Frog.js(7) : CreateEnemy_Frog // ŠÖ”
@@ -329,6 +330,10 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Houdai.js(7) : CreateE
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Houdai.js(5) : EnemyKind_Houdai // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Start.js(7) : CreateEnemy_Start // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Start.js(5) : EnemyKind_Start // •Ï”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Tama.js(7) : CreateEnemy_Tama_SnipPlayer // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Tama.js(14) : CreateEnemy_Tama_AngleSpeed // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Tama.js(21) : CreateEnemy_Tama // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_Tama.js(5) : EnemyKind_Tama // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCommon.js(5) : EnemyCommon_Damaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\EnemyCommon.js(10) : EnemyCommon_Dead // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Shots\Shot.js(7) : Shot_t // ’è‹`
