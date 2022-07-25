@@ -25,6 +25,9 @@ namespace Charlotte.Games.Enemies.Tests
 		{
 			for (int frame = 0; ; frame++)
 			{
+				//while (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 50.0)) // カメラ外では行動しない。
+				//    yield return true;
+
 				double SPEED = 2.0;
 				double xBuru = 0.0;
 				double yBuru = 0.0;

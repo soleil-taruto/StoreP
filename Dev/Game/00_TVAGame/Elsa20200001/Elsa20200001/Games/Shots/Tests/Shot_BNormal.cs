@@ -11,7 +11,7 @@ namespace Charlotte.Games.Shots.Tests
 	public class Shot_BNormal : Shot
 	{
 		public Shot_BNormal(double x, double y, int direction)
-			: base(x, y, direction, 3, false, false)
+			: base(x, y, direction, 3, false)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
@@ -32,11 +32,11 @@ namespace Charlotte.Games.Shots.Tests
 					break;
 				}
 
-				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 10.0);
-
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawRotate(frame / 2.0);
 				DDDraw.DrawEnd();
+
+				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 10.0);
 
 				yield return true;
 			}

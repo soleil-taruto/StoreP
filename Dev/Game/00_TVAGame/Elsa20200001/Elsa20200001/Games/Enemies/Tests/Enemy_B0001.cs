@@ -22,6 +22,9 @@ namespace Charlotte.Games.Enemies.Tests
 		{
 			for (; ; )
 			{
+				//while (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 50.0)) // カメラ外では行動しない。
+				//    yield return true;
+
 				double rot = DDUtils.GetAngle(Game.I.Player.X - this.X, Game.I.Player.Y - this.Y);
 				rot += DDUtils.Random.GetReal1() * 0.05;
 				D2Point speedAdd = DDUtils.AngleToPoint(rot, 0.1);

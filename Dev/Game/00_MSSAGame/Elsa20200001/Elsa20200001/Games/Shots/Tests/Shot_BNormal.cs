@@ -34,11 +34,11 @@ namespace Charlotte.Games.Shots.Tests
 					break;
 				}
 
-				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
-
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawZoom(0.1);
 				DDDraw.DrawEnd();
+
+				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
 
 				yield return true;
 			}

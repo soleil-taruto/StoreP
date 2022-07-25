@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Shots.Tests
 {
@@ -12,7 +13,7 @@ namespace Charlotte.Games.Shots.Tests
 		private bool 左回転;
 
 		public Shot_BWave(double x, double y, int direction, bool 左回転)
-			: base(x, y, direction, 2, false, false)
+			: base(x, y, direction, 2, false)
 		{
 			this.左回転 = 左回転;
 		}
@@ -44,6 +45,12 @@ namespace Charlotte.Games.Shots.Tests
 
 				this.X = ctrx + xadd;
 				this.Y = ctry + yadd;
+
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y)).Tile.GetKind() == Tile.Kind_e.WALL) // 壁に当たったら自滅する。
+				{
+					this.Kill();
+					break;
+				}
 
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawRotate(frame / 2.0);

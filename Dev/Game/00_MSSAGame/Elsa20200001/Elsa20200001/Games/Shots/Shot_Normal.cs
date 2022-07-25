@@ -28,13 +28,13 @@ namespace Charlotte.Games.Shots
 					break;
 				}
 
-				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
-
 				DDDraw.SetBright(0.0, 1.0, 0.5);
 				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawSetSize(10.0, 10.0);
 				DDDraw.DrawEnd();
 				DDDraw.Reset();
+
+				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 5.0);
 
 				yield return true;
 			}

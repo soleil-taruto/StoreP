@@ -10,10 +10,8 @@ namespace Charlotte.Games.Shots.Tests
 {
 	public class Shot_BBounce : Shot
 	{
-		// 跳ね返り可能な間は「壁をすり抜ける」を真にしておく。
-
 		public Shot_BBounce(double x, double y, int direction)
-			: base(x, y, direction, 1, true, false)
+			: base(x, y, direction, 1, false)
 		{ }
 
 		private const int BOUNCE_MAX = 3;
@@ -28,29 +26,32 @@ namespace Charlotte.Games.Shots.Tests
 				this.X += speed.X;
 				this.Y += speed.Y;
 
-				if (this.壁をすり抜ける) // ? 跳ね返り可能
-				{
-					bool bounced = false;
+				bool bounced = false;
 
-					if (this.IsInsideWall(-10, 0) || this.IsInsideWall(10, 0))
-					{
-						speed.X *= -1.0;
-						bounced = true;
-					}
-					if (this.IsInsideWall(0, -10) || this.IsInsideWall(0, 10))
-					{
-						speed.Y *= -1.0;
-						bounced = true;
-					}
-					if (bounced)
+				if (this.IsInsideWall(-10, 0) || this.IsInsideWall(10, 0))
+				{
+					speed.X *= -1.0;
+					bounced = true;
+				}
+				if (this.IsInsideWall(0, -10) || this.IsInsideWall(0, 10))
+				{
+					speed.Y *= -1.0;
+					bounced = true;
+				}
+				if (bounced) // ? 壁に当たった。
+				{
+					if (bouncedCount < BOUNCE_MAX) // ? まだ跳ね返り可能
 					{
 						DDGround.EL.Add(SCommon.Supplier(Effects.B跳ねた(this.X, this.Y)));
 						bouncedCount++;
-
-						if (BOUNCE_MAX <= bouncedCount)
-							this.壁をすり抜ける = false;
+					}
+					else // ? 跳ね返り不能
+					{
+						this.Kill();
+						break;
 					}
 				}
+
 				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
 				DDDraw.DrawRotate(frame / 2.0);
 				DDDraw.DrawEnd();

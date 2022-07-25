@@ -25,6 +25,9 @@ namespace Charlotte.Games.Enemies.Tests
 		{
 			for (int frame = 0; ; frame++)
 			{
+				//while (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 100.0)) // カメラ外では行動しない。
+				//    yield return true;
+
 				DDPicture picture = Ground.I.Picture.Enemy_B0002_01;
 				double SPEED = 2.0;
 				double xBuru = 0.0;
@@ -32,18 +35,13 @@ namespace Charlotte.Games.Enemies.Tests
 
 				if (1 <= this.HitBackFrame)
 				{
-					int frm = this.HitBackFrame - 1;
-
-					if (HIT_BACK_FRAME_MAX < frm)
+					if (HIT_BACK_FRAME_MAX < ++this.HitBackFrame)
 					{
 						this.HitBackFrame = 0;
 						goto endHitBack;
 					}
-					this.HitBackFrame++;
 
-					// ----
-
-					double rate = (double)frm / HIT_BACK_FRAME_MAX;
+					double rate = (double)this.HitBackFrame / HIT_BACK_FRAME_MAX;
 
 					picture = Ground.I.Picture.Enemy_B0002_02;
 					SPEED = 0.0;
@@ -63,7 +61,7 @@ namespace Charlotte.Games.Enemies.Tests
 						throw null; // never
 				}
 
-				if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 100.0))
+				if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 100.0)) // カメラ外では描画しない。
 				{
 					double xZoom = this.X < Game.I.Player.X ? -1.0 : 1.0;
 
