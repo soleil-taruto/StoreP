@@ -483,20 +483,12 @@ namespace Charlotte.Games
 							{
 								// ★ 敵_被弾ここから
 
-								// 貫通武器について、貫通中に複数回クラッシュしないように制御する。
-								// -- 複数の敵に同時に当たると意図通りにならないが、厳格に制御する必要は無いので、看過する。
-
-								if (shot.LastCrashedEnemy == enemy) // ? 直前にクラッシュした -> 複数回クラッシュしない。
-								{
-									shot.CurrCrashedEnemy = enemy;
-									continue;
-								}
 								int damagePoint = Math.Min(enemy.HP, shot.AttackPoint);
 								enemy.HP -= shot.AttackPoint;
 
 								if (shot.敵を貫通する)
 								{
-									shot.CurrCrashedEnemy = enemy;
+									// noop
 								}
 								else // ? 敵を貫通しない -> 自弾の攻撃力と敵のHPを相殺
 								{
@@ -556,12 +548,6 @@ namespace Charlotte.Games
 				// ====
 				// 当たり判定ここまで
 				// ====
-
-				foreach (Shot shot in this.Shots.Iterate()) // 自弾・フレーム事後処理
-				{
-					shot.CurrCrashedEnemy = shot.LastCrashedEnemy;
-					shot.LastCrashedEnemy = null;
-				}
 
 				f_ゴミ回収();
 

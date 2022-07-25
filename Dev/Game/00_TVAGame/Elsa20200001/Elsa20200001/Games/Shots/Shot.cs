@@ -36,19 +36,6 @@ namespace Charlotte.Games.Shots
 		public bool DeadFlag = false;
 
 		/// <summary>
-		/// 直前にクラッシュした敵
-		/// 貫通武器について、貫通中に複数回ダメージを与えないように制御する。
-		/// -- 複数の敵に同時に当たると意図通りにならないが、厳格に制御する必要は無いので、看過する。
-		/// </summary>
-		public Enemy LastCrashedEnemy = null;
-
-		/// <summary>
-		/// 今回クラッシュした敵
-		/// 当たり判定の後で LastCrashedEnemy にセットする。
-		/// </summary>
-		public Enemy CurrCrashedEnemy = null;
-
-		/// <summary>
 		/// 現在のフレームにおける当たり判定を保持する。
 		/// -- Draw によって設定される。
 		/// </summary>
