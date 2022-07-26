@@ -128,7 +128,8 @@ namespace Charlotte.Games
 					this.Status.ExitDirection = 5;
 					break;
 				}
-				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_RETURN) == 1)
+				if (DDConfig.LOG_ENABLED && DDInput.START.GetInput() == 1)
+				//if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_RETURN) == 1)
 				{
 					this.DebugPause();
 				}
