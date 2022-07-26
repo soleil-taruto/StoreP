@@ -814,7 +814,7 @@ namespace Charlotte.Games
 									}
 									else
 									{
-										shot.AttackPoint = -enemy.HP; // 過剰に削った分を残りの攻撃力として反映
+										shot.AttackPoint = -enemy.HP; // 過剰に削った分を残りの攻撃力として還元
 									}
 								}
 
