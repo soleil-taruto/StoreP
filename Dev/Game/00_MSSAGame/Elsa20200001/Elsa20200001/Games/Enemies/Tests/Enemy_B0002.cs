@@ -23,6 +23,8 @@ namespace Charlotte.Games.Enemies.Tests
 
 		protected override IEnumerable<bool> E_Draw()
 		{
+			Game.I.Tasks.Add(SCommon.Supplier(this.E_DummyTask()));
+
 			for (int frame = 0; ; frame++)
 			{
 				//while (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 100.0)) // カメラ外では行動しない。
@@ -78,6 +80,21 @@ namespace Charlotte.Games.Enemies.Tests
 					//this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 50.0);
 					this.Crash = DDCrashUtils.Rect(D4Rect.XYWH(this.X, this.Y, 100.0, 100.0));
 				}
+				yield return true;
+			}
+		}
+
+		private IEnumerable<bool> E_DummyTask()
+		{
+			for (; ; )
+			{
+				if (this.DeadFlag)
+				{
+					break;
+				}
+
+				// noop
+
 				yield return true;
 			}
 		}
