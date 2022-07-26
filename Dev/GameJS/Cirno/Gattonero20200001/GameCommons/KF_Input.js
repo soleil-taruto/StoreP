@@ -90,9 +90,9 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 
 var @@_FreezeInputUntilReleaseFlag = false;
 
-function <int> @@_GetInput(<int> counter)
+function <int> @@_GetInput(<int> counter, <boolean> ignoreFreeze)
 {
-	if (@@_FreezeInputUntilReleaseFlag)
+	if (@@_FreezeInputUntilReleaseFlag && !ignoreFreeze)
 	{
 		if (ToArray(@@_Counts()).some(counter => counter != 0))
 		{
@@ -113,22 +113,22 @@ function <int> @@_GetInput(<int> counter)
 
 function <int> GetInput_2()
 {
-	return @@_GetInput(@@_Count_2);
+	return @@_GetInput(@@_Count_2, true);
 }
 
 function <int> GetInput_4()
 {
-	return @@_GetInput(@@_Count_4);
+	return @@_GetInput(@@_Count_4, true);
 }
 
 function <int> GetInput_6()
 {
-	return @@_GetInput(@@_Count_6);
+	return @@_GetInput(@@_Count_6, true);
 }
 
 function <int> GetInput_8()
 {
-	return @@_GetInput(@@_Count_8);
+	return @@_GetInput(@@_Count_8, true);
 }
 
 /*
@@ -137,7 +137,7 @@ function <int> GetInput_8()
 */
 function <int> GetInput_A()
 {
-	return @@_GetInput(@@_Count_A);
+	return @@_GetInput(@@_Count_A, false);
 }
 
 /*
@@ -146,7 +146,7 @@ function <int> GetInput_A()
 */
 function <int> GetInput_B()
 {
-	return @@_GetInput(@@_Count_B);
+	return @@_GetInput(@@_Count_B, false);
 }
 
 /*
@@ -154,7 +154,7 @@ function <int> GetInput_B()
 */
 function <int> GetInput_Pause()
 {
-	return @@_GetInput(@@_Count_Pause);
+	return @@_GetInput(@@_Count_Pause, false);
 }
 
 // ----
