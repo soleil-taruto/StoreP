@@ -269,8 +269,7 @@ function <void> DrawPlayer()
 
 					PlayerYSpeed = PLAYER_JUMP_SPEED;
 
-					AddEffect_Explode(PlayerX, PlayerY + PLAYER_接地判定Pt_Y); // 仮
-//					AddEffect(Supplier(Effect_空中ジャンプの足場(PlayerX, PlayerY + PLAYER_接地判定Pt_Y)));
+					AddEffect(Effect_Jump(PlayerX, PlayerY + PLAYER_接地判定Pt_Y));
 
 					@@_JumpLock = true;
 				}

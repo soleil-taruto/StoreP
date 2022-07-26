@@ -57,3 +57,39 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 		}());
 	}
 }
+
+function* <generatorForTask> Effect_Jump(<double> x, <double> y)
+{
+	for (var<Scene_t> scene of CreateScene(5))
+	{
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(0.5, 0.5, 1.0, 1.0 - scene.Rate * 0.5))));
+
+		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 25.0);
+
+		yield 1;
+	}
+}
+
+function* <generatorForTask> Effect_Explode_S(<double> x, <double> y)
+{
+	for (var<Scene_t> scene of CreateScene(5))
+	{
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(0.0, 1.0, 1.0, 1.0 - scene.Rate * 0.5))));
+
+		PrintCircle(x - Camera.X, y - Camera.Y, 3.0 + scene.Rate * 17.0);
+
+		yield 1;
+	}
+}
+
+function* <generatorForTask> Effect_Explode_M(<double> x, <double> y)
+{
+	for (var<Scene_t> scene of CreateScene(10))
+	{
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(1.0, 0.75, 0.0, 1.0 - scene.Rate * 0.5))));
+
+		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 25.0);
+
+		yield 1;
+	}
+}

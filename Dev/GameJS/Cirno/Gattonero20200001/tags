@@ -259,6 +259,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Common.js(47) : ToTileCenterY // ä÷ê
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Common.js(55) : ToTileCenter // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(61) : Effect_Jump // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(73) : Effect_Explode_S // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Effect.js(85) : Effect_Explode_M // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Ending.js(5) : Ending // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(42) : GameMain // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(409) : GetEnemies // ä÷êî

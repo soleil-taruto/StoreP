@@ -544,10 +544,12 @@ function* <generatorForTask> @@_StartMotion()
 
 /*
 	死亡＆再スタート・モーション
+
+	restartRequested: ? 再スタートの要求により実行された
 */
-function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> 一瞬で)
+function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 {
-	if (!一瞬で)
+	if (!restartRequested)
 	{
 		// 赤カーテン
 		SetColor("#ff000040");
@@ -561,7 +563,7 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> 一瞬で)
 		SE(S_Dead);
 	}
 
-	// リスタートのための処理
+	// 再スタートのための処理
 	{
 		@@_Enemies = [];
 		@@_Shots = [];

@@ -4,5 +4,5 @@
 
 function <void> ShotCommon_Dead(<Shot_t> shot)
 {
-	AddEffect_Explode(shot.X, shot.Y);
+	AddEffect(Effect_Explode_S(shot.X, shot.Y));
 }
