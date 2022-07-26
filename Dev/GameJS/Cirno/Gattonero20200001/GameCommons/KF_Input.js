@@ -70,15 +70,20 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 	if (status) // ? 押している。
 	{
 		// 前回 ⇒ 今回
+		// -2   ⇒ -2
 		// -1   ⇒  1
 		//  0   ⇒  1
 		//  1～ ⇒  2～
 
-		counter = Math.max(counter + 1, 1);
+		if (counter != -2)
+		{
+			counter = Math.max(counter + 1, 1);
+		}
 	}
 	else // ? 押していない。
 	{
 		// 前回 ⇒ 今回
+		// -2   ⇒  0
 		// -1   ⇒  0
 		//  0   ⇒  0
 		//  1～ ⇒ -1
@@ -88,20 +93,8 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 	return counter;
 }
 
-var @@_FreezeInputUntilReleaseFlag = false;
-
-function <int> @@_GetInput(<int> counter, <boolean> ignoreFreeze)
+function <int> @@_GetInput(<int> counter)
 {
-	if (@@_FreezeInputUntilReleaseFlag && !ignoreFreeze)
-	{
-		if (ToArray(@@_Counts()).some(counter => counter != 0))
-		{
-			return 0;
-		}
-
-		@@_FreezeInputUntilReleaseFlag = false;
-	}
-
 	return 1 <= FreezeInputFrame ? 0 : counter;
 }
 
@@ -199,7 +192,15 @@ function <void> FreezeInput()
 
 function <void> FreezeInputUntilRelease()
 {
-	@@_FreezeInputUntilReleaseFlag = true;
+	var<int> COUNT_FREEZE_INPUT = -2;
+
+//	@@_Count_2     = COUNT_FREEZE_INPUT;
+//	@@_Count_4     = COUNT_FREEZE_INPUT;
+//	@@_Count_6     = COUNT_FREEZE_INPUT;
+//	@@_Count_8     = COUNT_FREEZE_INPUT;
+	@@_Count_A     = COUNT_FREEZE_INPUT;
+	@@_Count_B     = COUNT_FREEZE_INPUT;
+	@@_Count_Pause = COUNT_FREEZE_INPUT;
 }
 
 function* <generatorForTask> WaitToReleaseButton()
