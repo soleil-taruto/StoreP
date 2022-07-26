@@ -18,7 +18,8 @@ var<int> @@_RETURN_BUTTON_H = 100;
 
 function* <generatorForTask> MapSelectMenu()
 {
-	yield* @@_EnterMotion();
+	SetCurtain();
+	FreezeInput();
 
 	// 選択している項目インデックス
 	// 0 == タイトルへ戻る
@@ -232,20 +233,7 @@ function* <generatorForTask> MapSelectMenu()
 		yield 1;
 	}
 
-//	yield* @@_LeaveMotion();
-
-}
-
-/*
-	この画面へやってきた時のモーション
-*/
-function* <generatorForTask> @@_EnterMotion()
-{
-	SetCurtain();
 	FreezeInput();
-	FreezeInputUntilRelease();
-
-	Play(M_Title);
 }
 
 /*
@@ -264,6 +252,20 @@ function* <generatorForTask> @@_LeaveMotion()
 
 		yield 1;
 	}
+
+	ClearAllEffect();
+}
+
+/*
+	この画面へ戻って来る時のモーション
+*/
+function* <generatorForTask> @@_ReturnMotion()
+{
+	SetCurtain();
+	FreezeInput();
+	FreezeInputUntilRelease();
+
+	Play(M_Title);
 }
 
 /*
@@ -307,5 +309,5 @@ gameBlock:
 		yield* Ending();
 	}
 
-	yield* @@_EnterMotion();
+	yield* @@_ReturnMotion();
 }
