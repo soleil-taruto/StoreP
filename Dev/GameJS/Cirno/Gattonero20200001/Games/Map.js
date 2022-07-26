@@ -201,6 +201,7 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	if (chr == "I") return @@_CreateMapCell_E(() => CreateEnemy_Goal(x, y));
 	if (chr == "Š^") return @@_CreateMapCell_E(() => CreateEnemy_Frog(x, y));
 	if (chr == "–C") return @@_CreateMapCell_E(() => CreateEnemy_Houdai(x, y));
+	if (chr == "B1") return @@_CreateMapCell_E(() => CreateEnemy_Boss_01(x, y));
 
 	error();
 }

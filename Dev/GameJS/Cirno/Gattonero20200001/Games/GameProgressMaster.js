@@ -4,8 +4,8 @@
 
 var<int> @@_PANEL_L = 50; // 左上パネルの左座標
 var<int> @@_PANEL_T = 50; // 左上パネルの上座標
-var<int> @@_PANEL_W = 160;
-var<int> @@_PANEL_H = 160;
+var<int> @@_PANEL_W = 100;
+var<int> @@_PANEL_H = 100;
 var<int> @@_PANEL_X_GAP = 20;
 var<int> @@_PANEL_Y_GAP = 20;
 var<int> @@_PANEL_X_NUM = 3;
@@ -25,6 +25,7 @@ function* <generatorForTask> MapSelectMenu()
 	// 1 ～ (GetMapCount() - 1) == ステージ・インデックス
 	//
 	var<int> selectIndex = 1;
+	var<int> selectIndexLmt = GetMapCount();
 
 	for (; ; )
 	{
@@ -64,25 +65,45 @@ function* <generatorForTask> MapSelectMenu()
 				index++;
 			}
 		}
+		if (IsPound(GetInput_8()))
+		{
+			if (selectIndex == 0)
+			{
+				selectIndex = -1;
+			}
+			else
+			{
+				selectIndex -= @@_PANEL_X_NUM;
+				selectIndex = Math.max(selectIndex, 0);
+			}
+		}
 		if (IsPound(GetInput_2()))
 		{
-			selectY++;
+			if (selectIndex == 0)
+			{
+				selectIndex = 1;
+			}
+			else
+			{
+				selectIndex += @@_PANEL_X_NUM;
+
+				if (GetMapCount() <= selectIndex)
+				{
+					selectIndex = 0;
+				}
+			}
 		}
 		if (IsPound(GetInput_4()))
 		{
-			selectX--;
+			selectIndex--;
 		}
 		if (IsPound(GetInput_6()))
 		{
-			selectX++;
-		}
-		if (IsPound(GetInput_8()))
-		{
-			selectY--;
+			selectIndex++;
 		}
 		if (IsPound(GetInput_A()))
 		{
-			mapIndex = selectX + selectY * @@_PANEL_Y_NUM + 1;
+			mapIndex = selectIndex;
 		}
 		if (IsPound(GetInput_B()))
 		{
@@ -99,20 +120,12 @@ function* <generatorForTask> MapSelectMenu()
 			{
 				yield* @@_Game(mapIndex);
 
-				{
-					var index = @@_LastMapIndex - 1;
-
-					selectX = index % @@_PANEL_X_NUM;
-					selectY = ToFix(index / @@_PANEL_Y_NUM);
-				}
+				selectIndex = @@_LastMapIndex;
 			}
 		}
 
-		selectX += @@_PANEL_X_NUM;
-		selectX %= @@_PANEL_X_NUM;
-
-		selectY += @@_PANEL_Y_NUM;
-		selectY %= @@_PANEL_Y_NUM;
+		selectIndex += selectIndexLmt;
+		selectIndex %= selectIndexLmt;
 
 		// 描画ここから
 
@@ -126,7 +139,7 @@ function* <generatorForTask> MapSelectMenu()
 			var<int> l = @@_PANEL_L + x * (@@_PANEL_W + @@_PANEL_X_GAP);
 			var<int> t = @@_PANEL_T + y * (@@_PANEL_H + @@_PANEL_Y_GAP);
 
-			if (x == selectX && y == selectY)
+			if (selectIndex == mapIndex)
 			{
 				if (CanPlayStageIndex < mapIndex)
 				{
@@ -156,6 +169,29 @@ function* <generatorForTask> MapSelectMenu()
 			PrintLine(ZPad(mapIndex, 2, "0"));
 
 			mapIndex++;
+		}
+
+		// タイトルメニューに戻るボタン
+		{
+			if (selectIndex == 0)
+			{
+				SetColor("#ffff00");
+			}
+			else
+			{
+				SetColor("#ffffff");
+			}
+
+			PrintRect(
+				@@_RETURN_BUTTON_L,
+				@@_RETURN_BUTTON_T,
+				@@_RETURN_BUTTON_W,
+				@@_RETURN_BUTTON_H
+				);
+			SetColor("#000000");
+			SetPrint(@@_RETURN_BUTTON_L + 30, @@_RETURN_BUTTON_T + 110, 0);
+			SetFSize(80);
+			PrintLine("RETURN TO TITLE MENU");
 		}
 
 		@@_DrawFront();

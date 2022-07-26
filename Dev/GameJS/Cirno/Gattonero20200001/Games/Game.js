@@ -212,6 +212,11 @@ gameLoop:
 
 			for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
 			{
+				if (enemy.HP == 0) // ? –³“G
+				{
+					continue;
+				}
+
 				var<Shot_t> shot = @@_Shots[shotIndex];
 
 				if (shot.AttackPoint == -1) // ? Šù‚ÉŽ€–S

@@ -83,3 +83,4 @@ var<Image> P_Wall = @@_Load(Resources.ëfçﬁGood__Wall_B0002_png);
 var<Image> P_Enemy_Frog = @@_Load(Resources.Picture__Frog_png);
 var<Image> P_Enemy_Houdai = @@_Load(Resources.Picture__Houdai_png);
 var<Image> P_Enemy_Tama0001 = @@_Load(Resources.Picture__Tama0001_png);
+var<Image> P_Enemy_Boss0001 = @@_Load(Resources.Picture__Boss0001_png);

@@ -90,7 +90,8 @@ namespace Charlotte.Games.Enemies.Tests
 					DDPrint.PrintLine("HP:" + this.HP);
 					DDPrint.Reset();
 
-					this.Crash = DDCrashUtils.Rect_CenterSize(new D2Point(this.X, this.Y), new D2Size(100.0, 100.0));
+					//this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), 50.0);
+					this.Crash = DDCrashUtils.Rect(D4Rect.XYWH(this.X, this.Y, 100.0, 100.0));
 				}
 				yield return true;
 			}

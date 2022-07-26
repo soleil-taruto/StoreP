@@ -23,6 +23,15 @@ function* <generatorForTask> EntranceMain()
 			break;
 		}
 
+		if (
+			GetInput_A() == 1 ||
+			GetInput_B() == 1 ||
+			GetInput_Pause() == 1
+			)
+		{
+			break;
+		}
+
 		SetColor("#000000");
 		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 		SetColor("#ffffff");

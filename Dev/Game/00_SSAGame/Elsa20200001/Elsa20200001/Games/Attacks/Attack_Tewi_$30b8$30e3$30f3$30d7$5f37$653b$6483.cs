@@ -42,7 +42,6 @@ namespace Charlotte.Games.Attacks
 				{
 					Game.I.Shots.Add(new Shot_OneTime(
 						2,
-						//30,
 						DDCrashUtils.Circle(
 							new D2Point(
 								Game.I.Player.X + 2.0 * (Game.I.Player.FacingLeft ? -1.0 : 1.0),

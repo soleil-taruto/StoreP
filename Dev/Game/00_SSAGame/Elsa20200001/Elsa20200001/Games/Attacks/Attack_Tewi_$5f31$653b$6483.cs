@@ -32,13 +32,12 @@ namespace Charlotte.Games.Attacks
 				{
 					Game.I.Shots.Add(new Shot_OneTime(
 						10,
-						DDCrashUtils.Rect_CenterSize(
-							new D2Point(
-								Game.I.Player.X + 20.0 * (Game.I.Player.FacingLeft ? -1.0 : 1.0),
-								Game.I.Player.Y
-								),
-							new D2Size(80.0, 60.0)
-							)
+						DDCrashUtils.Rect(D4Rect.XYWH(
+							Game.I.Player.X + 20.0 * (Game.I.Player.FacingLeft ? -1.0 : 1.0),
+							Game.I.Player.Y,
+							80.0,
+							60.0
+							))
 						));
 				}
 

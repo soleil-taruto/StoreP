@@ -41,6 +41,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 			break;
 		}
 
+//		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 25.0);
 		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 50.0, 50.0));
 
 		Draw(P_Dummy, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, 0.0, 1.0);
