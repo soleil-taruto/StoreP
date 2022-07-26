@@ -59,6 +59,14 @@ function <int> GetRandRange(<int> minval, <int> maxval)
 }
 
 /*
+	-1 ‚Ü‚½‚Í 1 ‚ğƒ‰ƒ“ƒ_ƒ€‚É•Ô‚·B
+*/
+function <int> GetRandSign()
+{
+	return GetRand(2) * 2 - 1;
+}
+
+/*
 	0.0 ` 1.0 ‚Ì—”‚ğ•Ô‚·B(double)
 */
 function <double> GetRand1()

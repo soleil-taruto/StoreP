@@ -28,7 +28,7 @@ function* <generatorForTask> Ending()
 
 		if (INP_ST_FRM < frame)
 		{
-			SetPrint(20, 600, 200);
+			SetPrint(20, 450, 200);
 			SetFSize(24);
 			PrintLine("‚`ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚Ä‰º‚³‚¢B");
 		}

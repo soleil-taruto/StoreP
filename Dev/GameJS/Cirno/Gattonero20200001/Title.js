@@ -59,9 +59,9 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 320, 0);
-		SetFSize(260);
-		PrintLine("HAKO");
+		SetPrint(30, 220, 0);
+		SetFSize(200);
+		PrintLine("Cirno");
 
 		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
 

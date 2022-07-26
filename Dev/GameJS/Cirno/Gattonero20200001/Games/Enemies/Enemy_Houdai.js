@@ -58,7 +58,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.GroundDir = dir;
 	}
 
-	AddEffect(@@_AttackTask(enemy));
+	AddTask(GameTasks, @@_AttackTask(enemy));
 
 	for (; ; )
 	{

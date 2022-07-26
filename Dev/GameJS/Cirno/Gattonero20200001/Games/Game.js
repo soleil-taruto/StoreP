@@ -25,6 +25,11 @@ var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 var<boolean> UserInputDisabled = false;
 
 /*
+	再スタート・リクエスト
+*/
+var<boolean> @@_RequestRestart = false;
+
+/*
 	ゲーム終了リクエスト(タイトルへ戻る)
 */
 var<boolean> GameRequestReturnToTitleMenu = false;
@@ -44,6 +49,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		Camera = CreateD2Point(0.0, 0.0);
 		ClearAllTask(GameTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
+		@@_RequestRestart = false;
 		GameRequestReturnToTitleMenu = false;
 		GameRequestStageClear = false;
 
@@ -60,11 +66,11 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	SetCurtain();
 	FreezeInput();
 
+	@@_カメラ位置調整(true);
+
 	yield* @@_StartMotion();
 
 	Play(M_Field);
-
-	@@_カメラ位置調整(true);
 
 gameLoop:
 	for (; ; )
@@ -72,6 +78,12 @@ gameLoop:
 		if (GetInput_Pause() == 1) // ポーズ
 		{
 			yield* @@_PauseMenu();
+		}
+		if (@@_RequestRestart)
+		{
+			yield* @@_DeadAndRestartMotion(true);
+
+			continue gameLoop;
 		}
 		if (GameRequestReturnToTitleMenu)
 		{
@@ -264,7 +276,7 @@ gameLoop:
 				{
 					PlayerHP = -1;
 
-					yield* @@_DeadAndRestartMotion();
+					yield* @@_DeadAndRestartMotion(false);
 
 					continue gameLoop;
 				}
@@ -505,6 +517,8 @@ function* <generatorForTask> @@_StartMotion()
 {
 	for (var<Scene_t> scene of CreateScene(60))
 	{
+		@@_カメラ位置調整(false);
+
 		@@_DrawWall();
 		@@_DrawMap();
 
@@ -533,28 +547,33 @@ function* <generatorForTask> @@_StartMotion()
 /*
 	死亡＆再スタート・モーション
 */
-function* <generatorForTask> @@_DeadAndRestartMotion()
+function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> 一瞬で)
 {
-	SetColor("#ff000040");
-	PrintRect(0, 0, Screen_W, Screen_H);
-
-	SE(S_Crashed);
-
-	for (var<Scene_t> scene of CreateScene(30))
+	if (!一瞬で)
 	{
-		yield 1;
-	}
+		SetColor("#ff000040");
+		PrintRect(0, 0, Screen_W, Screen_H);
 
-	AddEffect_Explode(PlayerX, PlayerY);
-	SE(S_Dead);
+		SE(S_Crashed);
+
+		for (var<Scene_t> scene of CreateScene(30))
+		{
+			yield 1;
+		}
+
+		AddEffect_Explode(PlayerX, PlayerY);
+		SE(S_Dead);
+	}
 
 	// リスタートのための処理
 	{
 		@@_Enemies = [];
 		@@_Shots = [];
+		@@_RequestRestart = false;
 
 		ResetPlayer();
 
+		ClearAllTask(GameTasks);
 		LoadEnemyOfMap();
 		MoveToStartPtOfMap();
 	}
@@ -632,6 +651,7 @@ gameLoop:
 			200,
 			100,
 			[
+				"再スタート",
 				"タイトルに戻る",
 				"ゲームに戻る",
 			]);
@@ -640,10 +660,14 @@ gameLoop:
 		switch (selectIndex)
 		{
 		case 0:
-			GameRequestReturnToTitleMenu = true;
+			@@_RequestRestart = true;
 			break gameLoop;
 
 		case 1:
+			GameRequestReturnToTitleMenu = true;
+			break gameLoop;
+
+		case 2:
 			break gameLoop;
 
 		default:

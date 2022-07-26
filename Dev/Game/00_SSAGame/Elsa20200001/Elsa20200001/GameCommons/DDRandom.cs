@@ -70,6 +70,15 @@ namespace Charlotte.GameCommons
 		}
 
 		/// <summary>
+		/// -1または1を返す。
+		/// </summary>
+		/// <returns>乱数</returns>
+		public int GetSign()
+		{
+			return this.GetInt(2) * 2 - 1;
+		}
+
+		/// <summary>
 		/// 0以上1以下の乱数を返す。
 		/// </summary>
 		/// <returns>乱数</returns>

@@ -28,7 +28,7 @@ function <Enemy_t> CreateEnemy_Boss01(<double> x, <double> y)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	AddEffect(@@_AttackTask(enemy));
+	AddTask(GameTasks, @@_AttackTask(enemy));
 
 	for (; ; )
 	{

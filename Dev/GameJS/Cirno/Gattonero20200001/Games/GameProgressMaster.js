@@ -4,16 +4,16 @@
 
 var<int> @@_PANEL_L = 50; // 左上パネルの左座標
 var<int> @@_PANEL_T = 50; // 左上パネルの上座標
-var<int> @@_PANEL_W = 100;
-var<int> @@_PANEL_H = 100;
-var<int> @@_PANEL_X_GAP = 20;
+var<int> @@_PANEL_W = 200;
+var<int> @@_PANEL_H = 120;
+var<int> @@_PANEL_X_GAP = 30;
 var<int> @@_PANEL_Y_GAP = 20;
 var<int> @@_PANEL_X_NUM = 3;
 var<int> @@_PANEL_Y_NUM = 3;
 
-var<int> @@_RETURN_BUTTON_L = 100;
-var<int> @@_RETURN_BUTTON_T = 500;
-var<int> @@_RETURN_BUTTON_W = 700;
+var<int> @@_RETURN_BUTTON_L = 50;
+var<int> @@_RETURN_BUTTON_T = 480;
+var<int> @@_RETURN_BUTTON_W = 500;
 var<int> @@_RETURN_BUTTON_H = 100;
 
 function* <generatorForTask> MapSelectMenu()
@@ -198,7 +198,7 @@ function* <generatorForTask> MapSelectMenu()
 
 			PrintRect(l, t, @@_PANEL_W, @@_PANEL_H);
 			SetColor("#000000");
-			SetPrint(l + 30, t + 110, 0);
+			SetPrint(l + 50, t + 90, 0);
 			SetFSize(80);
 			PrintLine(ZPad(mapIndex, 2, "0"));
 
@@ -223,9 +223,9 @@ function* <generatorForTask> MapSelectMenu()
 				@@_RETURN_BUTTON_H
 				);
 			SetColor("#000000");
-			SetPrint(@@_RETURN_BUTTON_L + 30, @@_RETURN_BUTTON_T + 110, 0);
-			SetFSize(80);
-			PrintLine("RETURN TO TITLE MENU");
+			SetPrint(@@_RETURN_BUTTON_L + 20, @@_RETURN_BUTTON_T + 75, 0);
+			SetFSize(60);
+			PrintLine("タイトルへ戻る");
 		}
 
 		@@_DrawFront();
