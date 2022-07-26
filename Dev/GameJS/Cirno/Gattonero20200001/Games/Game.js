@@ -618,17 +618,14 @@ function* <generatorForTask> @@_PauseMenu()
 gameLoop:
 	for (; ; )
 	{
-		var<string[]> items =
-		[
-			"タイトルに戻る",
-			"ゲームに戻る",
-		];
+		@@_DrawWall();
+		@@_DrawMap();
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			100,
+			200,
 			100,
-			50,
 			[
 				"タイトルに戻る",
 				"ゲームに戻る",

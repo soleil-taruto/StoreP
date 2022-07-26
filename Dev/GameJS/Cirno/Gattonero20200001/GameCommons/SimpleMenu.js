@@ -56,6 +56,11 @@ function <int> DrawSimpleMenu(<int> selectIndex, <int> x, <int> y, <int> yStep, 
 			selectIndex = items.length - 1;
 		}
 	}
+	if (GetInput_Pause() == 1)
+	{
+		DSM_Desided = true;
+		selectIndex = items.length - 1;
+	}
 
 	selectIndex += items.length;
 	selectIndex %= items.length;

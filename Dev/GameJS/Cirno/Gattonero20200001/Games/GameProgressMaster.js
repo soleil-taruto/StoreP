@@ -20,8 +20,11 @@ function* <generatorForTask> MapSelectMenu()
 {
 	yield* @@_EnterMotion();
 
-	var<int> selectX = 0;
-	var<int> selectY = 0;
+	// 選択している項目インデックス
+	// 0 == タイトルへ戻る
+	// 1 ～ (GetMapCount() - 1) == ステージ・インデックス
+	//
+	var<int> selectIndex = 1;
 
 	for (; ; )
 	{
@@ -113,7 +116,7 @@ function* <generatorForTask> MapSelectMenu()
 
 		// 描画ここから
 
-		DrawWall();
+		@@_DrawWall();
 
 		mapIndex = 1;
 
@@ -155,7 +158,7 @@ function* <generatorForTask> MapSelectMenu()
 			mapIndex++;
 		}
 
-		DrawFront();
+		@@_DrawFront();
 
 		yield 1;
 	}
@@ -186,8 +189,8 @@ function* <generatorForTask> @@_LeaveMotion()
 
 	for (var<Scene_t> scene of CreateScene(40))
 	{
-		DrawWall();
-		DrawFront();
+		@@_DrawWall();
+		@@_DrawFront();
 
 		yield 1;
 	}
@@ -196,7 +199,7 @@ function* <generatorForTask> @@_LeaveMotion()
 /*
 	背景描画
 */
-function <void> DrawWall()
+function <void> @@_DrawWall()
 {
 	SetColor("#004060");
 	PrintRect(0, 0, Screen_W, Screen_H);
@@ -205,7 +208,7 @@ function <void> DrawWall()
 /*
 	前面描画
 */
-function <void> DrawFront()
+function <void> @@_DrawFront()
 {
 	SetColor("#ffffff");
 	SetPrint(Screen_W - 360, Screen_H - 15, 0);
