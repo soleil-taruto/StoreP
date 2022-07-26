@@ -461,9 +461,7 @@ function <void> @@_DrawWall()
 
 	Draw(wallImg, dx, dy, 1.0, 0.0, dz);
 
-	// カーテン -0.5
-	SetColor("#00000080");
-	PrintRect(0, 0, Screen_W, Screen_H);
+	DrawCurtain(-0.5);
 }
 
 /*
@@ -551,15 +549,13 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> 一瞬で)
 {
 	if (!一瞬で)
 	{
+		// 赤カーテン
 		SetColor("#ff000040");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SE(S_Crashed);
 
-		for (var<Scene_t> scene of CreateScene(30))
-		{
-			yield 1;
-		}
+		yield* Wait(30);
 
 		AddEffect_Explode(PlayerX, PlayerY);
 		SE(S_Dead);
@@ -587,10 +583,7 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> 一瞬で)
 */
 function* <generatorForTask> @@_GoalMotion()
 {
-	for (var<Scene_t> scene of CreateScene(30))
-	{
-		yield 1;
-	}
+	yield* Wait(30);
 
 	for (var<int> c = 0; c < 50; c++)
 	{
