@@ -11,7 +11,7 @@ function <Enemy_t> CreateEnemy_Houdai(<double> x, <double> y)
 		Kind: EnemyKind_Houdai,
 		X: x,
 		Y: y,
-		HP: 20,
+		HP: 10,
 		AttackPoint: 1,
 		HitDie: false,
 		Crash: null,

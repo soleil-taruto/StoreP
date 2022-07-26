@@ -11,7 +11,7 @@ function <Enemy_t> CreateEnemy_Frog(<double> x, <double> y)
 		Kind: EnemyKind_Frog,
 		X: x,
 		Y: y,
-		HP: 10,
+		HP: 5,
 		AttackPoint: 1,
 		HitDie: false,
 		Crash: null,

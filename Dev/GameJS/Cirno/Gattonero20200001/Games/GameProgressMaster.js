@@ -25,7 +25,6 @@ function* <generatorForTask> MapSelectMenu()
 	// 1 ～ (GetMapCount() - 1) == ステージ・インデックス
 	//
 	var<int> selectIndex = 1;
-	var<int> selectIndexLmt = GetMapCount();
 
 	for (; ; )
 	{
@@ -64,6 +63,23 @@ function* <generatorForTask> MapSelectMenu()
 
 				index++;
 			}
+
+			// タイトルメニューに戻るボタン
+			{
+				var<int> l = @@_RETURN_BUTTON_L;
+				var<int> t = @@_RETURN_BUTTON_T;
+				var<int> w = @@_RETURN_BUTTON_W;
+				var<int> h = @@_RETURN_BUTTON_H;
+
+				if (!IsOut(
+					CreateD2Point(mx, my),
+					CreateD4Rect(l, t, w, h),
+					0.0
+					))
+				{
+					mapIndex = 0;
+				}
+			}
 		}
 		if (IsPound(GetInput_8()))
 		{
@@ -74,7 +90,11 @@ function* <generatorForTask> MapSelectMenu()
 			else
 			{
 				selectIndex -= @@_PANEL_X_NUM;
-				selectIndex = Math.max(selectIndex, 0);
+
+				if (selectIndex < 0)
+				{
+					selectIndex = 0;
+				}
 			}
 		}
 		if (IsPound(GetInput_2()))
@@ -107,11 +127,20 @@ function* <generatorForTask> MapSelectMenu()
 		}
 		if (IsPound(GetInput_B()))
 		{
-			break; // タイトルへ戻る
+			if (selectIndex == 0)
+			{
+				break;
+			}
+			selectIndex = 0;
 		}
 
 		if (mapIndex != -1)
 		{
+			if (mapIndex == 0) // タイトルメニューへ戻る。
+			{
+				break;
+			}
+
 			if (CanPlayStageIndex < mapIndex) // ? プレイ不可 -- 直前のステージをクリアしていない。
 			{
 				// noop
@@ -124,8 +153,12 @@ function* <generatorForTask> MapSelectMenu()
 			}
 		}
 
-		selectIndex += selectIndexLmt;
-		selectIndex %= selectIndexLmt;
+		{
+			var<int> LIMIT = GetMapCount();
+
+			selectIndex += LIMIT;
+			selectIndex %= LIMIT;
+		}
 
 		// 描画ここから
 
@@ -199,7 +232,8 @@ function* <generatorForTask> MapSelectMenu()
 		yield 1;
 	}
 
-	yield* @@_LeaveMotion();
+//	yield* @@_LeaveMotion();
+
 }
 
 /*
@@ -246,10 +280,7 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor("#ffffff");
-	SetPrint(Screen_W - 360, Screen_H - 15, 0);
-	SetFSize(20);
-	PrintLine("Ｂボタンを押すとタイトルに戻ります");
+	// none
 }
 
 var<int> @@_LastMapIndex;
