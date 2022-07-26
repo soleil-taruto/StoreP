@@ -28,13 +28,13 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 				this.X += this.XAdd;
 				this.Y += this.YAdd;
 
-				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), R);
-
 				DDDraw.SetBright(new I3Color(255, 64, 255));
 				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X, this.Y);
 				DDDraw.DrawSetSize(R * 2, R * 2);
 				DDDraw.DrawEnd();
 				DDDraw.Reset();
+
+				this.Crash = DDCrashUtils.Circle(new D2Point(this.X, this.Y), R);
 
 				yield return true;
 			}
