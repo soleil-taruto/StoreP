@@ -45,8 +45,8 @@
 
 	<Crash_t> Crash // 今フレームの当たり判定置き場, null で初期化すること。null == 当たり判定無し
 
-	<Action Enemy_t int> Damaged // 被弾イベント
-	<Action Enemy_t Shot_t> Dead // 死亡イベント, この敵を撃破した自弾が無い(不明な)場合、第２引数は null になる。
+	<Action Enemy_t int> Damaged  // 被弾イベント
+	<Action Enemy_t boolean> Dead // 死亡イベント, 第２引数：プレイヤー等(の攻撃行動)によって撃破されたか
 }
 
 @(ASTR)/
@@ -72,24 +72,24 @@ function <void> EnemyDamaged(<Enemy_t> enemy, <int> damagePoint)
 */
 function <void> KillEnemy(<Enemy_t> enemy)
 {
-	KillEnemy_Shot(enemy, null);
+	KillEnemy_Destroyed(enemy, false);
 }
 
 /*
 	死亡 (自弾による撃破)
 
-	shot: この敵を撃破した自弾が無い(不明な)場合 null になる。
+	destroyed: プレイヤー等(の攻撃行動)によって撃破されたか
 */
-function <void> KillEnemy_Shot(<Enemy_t> enemy, <Shot_t> shot)
+function <void> KillEnemy_Destroyed(<Enemy_t> enemy, <boolean> destroyed)
 {
 	if (enemy.HP != -1) // ? まだ死亡していない。
 	{
 		enemy.HP = -1; // 死亡させる。
-		@@_DeadEnemy(enemy, shot);
+		@@_DeadEnemy(enemy, destroyed);
 	}
 }
 
-function <void> @@_DeadEnemy(<Enemy_t> enemy, <Shot_t> shot)
+function <void> @@_DeadEnemy(<Enemy_t> enemy, <boolean> destroyed)
 {
-	enemy.Dead(enemy, shot);
+	enemy.Dead(enemy, destroyed);
 }

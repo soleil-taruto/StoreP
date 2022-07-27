@@ -7,16 +7,16 @@ function <void> EnemyCommon_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	SE(S_EnemyDamaged);
 }
 
-function <void> EnemyCommon_Dead(<Enemy_t> enemy, <Shot_t> shot) // shot: ‚±‚Ì“G‚ğŒ‚”j‚µ‚½©’e‚ª–³‚¢(•s–¾‚È)ê‡ null ‚É‚È‚éB
+function <void> EnemyCommon_Dead(<Enemy_t> enemy, <boolean> destroyed) // destroyed: ƒvƒŒƒCƒ„[“™(‚ÌUŒ‚s“®)‚É‚æ‚Á‚ÄŒ‚”j‚³‚ê‚½‚©
 {
-	if (shot == null) // ? ©–Å etc.
-	{
-		AddEffect(Effect_Explode_M(enemy.X, enemy.Y));
-	}
-	else // ? ©’e‚É‚æ‚èŒ‚”j‚³‚ê‚½B
+	if (destroyed) // ? ©’e‚É‚æ‚èŒ‚”j‚³‚ê‚½B
 	{
 		AddEffect_Explode(enemy.X, enemy.Y);
 		SE(S_EnemyDead);
+	}
+	else // ? ©–ÅEÁ–Å etc.
+	{
+		AddEffect(Effect_Explode_M(enemy.X, enemy.Y));
 	}
 }
 

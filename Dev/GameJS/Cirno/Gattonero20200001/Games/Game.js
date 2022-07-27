@@ -245,7 +245,7 @@ gameLoop:
 
 					if (enemy.HP <= 0) // ? Ž€–S‚µ‚½B
 					{
-						KillEnemy_Shot(enemy, shot);
+						KillEnemy_Destroyed(enemy, true);
 						break; // ‚±‚Ì“G‚ÍŽ€–S‚µ‚½‚Ì‚ÅAŽŸ‚Ì“G‚Öi‚ÞB
 					}
 

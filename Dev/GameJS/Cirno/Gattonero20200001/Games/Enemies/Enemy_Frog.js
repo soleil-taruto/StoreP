@@ -123,7 +123,7 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy, <Shot_t> shot)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
-	EnemyCommon_Dead(enemy, shot);
+	EnemyCommon_Dead(enemy, destroyed);
 }
