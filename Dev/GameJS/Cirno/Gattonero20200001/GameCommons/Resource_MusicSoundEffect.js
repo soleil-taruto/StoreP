@@ -9,26 +9,9 @@
 function <Audio> @@_Load(<string> url)
 {
 	LOGPOS();
-	Loading++;
 
 	var<Audio> audio = new Audio(url);
 
-	var<Action> loaded = function()
-	{
-		audio.removeEventListener("canplaythrough", loaded);
-		audio.removeEventListener("error", errorLoad);
-
-		LOGPOS();
-		Loading--;
-	};
-
-	var<Action> errorLoad = function()
-	{
-		error();
-	};
-
-	audio.addEventListener("canplaythrough", loaded);
-	audio.addEventListener("error", errorLoad);
 	audio.load();
 
 	return audio;
