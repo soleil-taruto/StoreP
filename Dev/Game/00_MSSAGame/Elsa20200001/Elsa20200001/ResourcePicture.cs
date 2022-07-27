@@ -111,8 +111,8 @@ namespace Charlotte
 		public DDPicture Enemy_神奈子 = DDPictureLoaders.Standard(@"dat\きつね仮\yukkuri-kanako.png"); // 1000x1000 resized png
 
 		public DDPicture Title = DDPictureLoaders.Standard(@"dat\素材Good\Title.png");
-		public DDPicture EnemyKilled = DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\sentou-effect-anime4\640x480\pipo-btleffect048.png");
-		public DDPicture FireBall = DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\戦闘エフェクトアニメ24\p240\pipo-btleffect120g.png");
+		public DDPicture EnemyKilled = DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\pipo-btleffect048.png");
+		public DDPicture FireBall = DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\pipo-btleffect120g.png");
 
 		// ノベルパート用システム画像
 		public DDPicture MessageFrame_Message = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\空想曲線\Messageframe_29\material\01 message\message.png");

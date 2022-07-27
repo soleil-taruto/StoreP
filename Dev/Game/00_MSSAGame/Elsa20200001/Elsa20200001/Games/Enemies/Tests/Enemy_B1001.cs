@@ -52,7 +52,7 @@ namespace Charlotte.Games.Enemies.Tests
 					foreach (var relay in Enumerable.Repeat(true, waitFrm)) // 待ち
 						yield return relay;
 
-					if (this.DeadFlag)
+					if (this.DeadFlag) // この敵が死亡したら、即終了
 						break;
 
 					if (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 50.0)) // カメラ外では攻撃しない。

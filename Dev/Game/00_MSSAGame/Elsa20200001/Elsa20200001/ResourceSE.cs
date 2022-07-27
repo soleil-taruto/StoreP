@@ -12,16 +12,16 @@ namespace Charlotte
 
 		public DDSE[] テスト用s = new DDSE[]
 		{
-			new DDSE(@"dat\小森平\sfxrse\01pickup\coin01.mp3"),
-			new DDSE(@"dat\小森平\sfxrse\01pickup\coin02.mp3"),
-			new DDSE(@"dat\小森平\sfxrse\01pickup\coin04.mp3"),
+			new DDSE(@"dat\小森平\coin01.mp3"),
+			new DDSE(@"dat\小森平\coin02.mp3"),
+			new DDSE(@"dat\小森平\coin04.mp3"),
 		};
 
 		public DDSE PlayerDamaged = new DDSE(@"dat\小森平\damage5.mp3");
-		public DDSE PlayerJump = new DDSE(@"dat\小森平\sfxrse\01pickup\coin01.mp3"); // 仮
+		public DDSE PlayerJump = new DDSE(@"dat\小森平\coin01.mp3"); // 仮
 
-		public DDSE EnemyDamaged = new DDSE(@"dat\小森平\sfxrse\05hit\hit04.mp3");
-		public DDSE EnemyKilled = new DDSE(@"dat\小森平\sfxrse\03explosion\explosion06.mp3");
+		public DDSE EnemyDamaged = new DDSE(@"dat\小森平\hit04.mp3");
+		public DDSE EnemyKilled = new DDSE(@"dat\小森平\explosion06.mp3");
 
 		public ResourceSE()
 		{
