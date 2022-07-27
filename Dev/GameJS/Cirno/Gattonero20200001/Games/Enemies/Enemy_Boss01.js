@@ -28,21 +28,20 @@ function <Enemy_t> CreateEnemy_Boss01(<double> x, <double> y)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
+	var<D2Point_t> center = CreateD2Point(enemy.X, enemy.Y);
+
 	AddTask(GameTasks, @@_AttackTask(enemy));
 
 	for (; ; )
 	{
-		var<double> x = enemy.X;
-		var<double> y = enemy.Y;
+		var<D2Point_t> pt = AngleToPoint(ProcFrame / 108.0, 100.0);
 
-		var<D2Point_t> pt = AngleToPoint(ProcFrame / 108.0, 50.0);
+		enemy.X = center.X + pt.X;
+		enemy.Y = center.Y + pt.Y;
 
-		x += pt.X;
-		y += pt.Y;
+		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 100.0);
 
-		enemy.Crash = CreateCrash_Circle(x, y, 100.0);
-
-		Draw(P_Enemy_Boss0001, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
+		Draw(P_Enemy_Boss0001, enemy.X - Camera.X, enemy.Y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}
