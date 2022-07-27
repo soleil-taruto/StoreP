@@ -23,16 +23,16 @@ function <void> PlayStageMusic(<int> mapIndex)
 
 var<Image[]> @@_WallPictureList =
 [
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
-	P_Wall,
+	P_Wall0001,
+	P_Wall0001,
+	P_Wall0002,
+	P_Wall0003,
+	P_Wall0001,
+	P_Wall0002,
+	P_Wall0003,
+	P_Wall0001,
+	P_Wall0002,
+	P_Wall0003,
 ];
 
 function <Image> GetStageWallPicture(<int> mapIndex)

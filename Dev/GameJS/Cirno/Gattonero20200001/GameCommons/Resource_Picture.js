@@ -78,7 +78,9 @@ var<Image[]> P_Tiles =
 	@@_Load(Resources.Tile__Tile_B0004_png),
 ];
 
-var<Image> P_Wall = @@_Load(Resources.ëfçﬁGood__Wall_B0002_png);
+var<Image> P_Wall0001 = @@_Load(Resources.ëfçﬁGood__Wall_0001_png);
+var<Image> P_Wall0002 = @@_Load(Resources.ëfçﬁGood__Wall_0002_png);
+var<Image> P_Wall0003 = @@_Load(Resources.ëfçﬁGood__Wall_0003_png);
 
 var<Image> P_Enemy_Frog = @@_Load(Resources.Picture__Frog_png);
 var<Image> P_Enemy_Houdai = @@_Load(Resources.Picture__Houdai_png);
