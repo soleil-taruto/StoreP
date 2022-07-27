@@ -93,7 +93,7 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 			}
 		}
 
-		protected override void P_Killed()
+		protected override void P_Killed(bool destroyed)
 		{
 			敵弾一掃();
 			Game.I.Enemies.Add(new Enemy_B神奈子9901(this.X, this.Y));

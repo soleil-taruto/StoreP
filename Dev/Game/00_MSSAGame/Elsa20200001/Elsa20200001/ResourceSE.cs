@@ -17,6 +17,7 @@ namespace Charlotte
 			new DDSE(@"dat\小森平\sfxrse\01pickup\coin04.mp3"),
 		};
 
+		public DDSE PlayerDamaged = new DDSE(@"dat\小森平\damage5.mp3");
 		public DDSE PlayerJump = new DDSE(@"dat\小森平\sfxrse\01pickup\coin01.mp3"); // 仮
 
 		public DDSE EnemyDamaged = new DDSE(@"dat\小森平\sfxrse\05hit\hit04.mp3");

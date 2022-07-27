@@ -31,10 +31,18 @@ namespace Charlotte.Games.Enemies
 		/// 汎用・消滅イベント
 		/// </summary>
 		/// <param name="enemy">敵</param>
-		public static void Killed(Enemy enemy)
+		/// <param name="destroyed">プレイヤー等(の攻撃行動)によって撃破されたか</param>
+		public static void Killed(Enemy enemy, bool destroyed)
 		{
-			DDGround.EL.Add(SCommon.Supplier(Effects.EnemyKilled(enemy.X, enemy.Y)));
-			Ground.I.SE.EnemyKilled.Play();
+			if (destroyed) // ? 撃破された。
+			{
+				DDGround.EL.Add(SCommon.Supplier(Effects.EnemyKilled(enemy.X, enemy.Y)));
+				Ground.I.SE.EnemyKilled.Play();
+			}
+			else // ? 自滅・消滅 etc.
+			{
+				DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(enemy.X, enemy.Y)));
+			}
 		}
 	}
 }

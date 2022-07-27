@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.Games.Shots;
 
 namespace Charlotte.Games.Enemies.Tests.神奈子s
 {
@@ -40,7 +41,7 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 			}
 		}
 
-		protected override void P_Killed()
+		protected override void P_Killed(bool destroyed)
 		{
 			DDGround.EL.Add(SCommon.Supplier(Effects.B大爆発(this.X, this.Y)));
 		}

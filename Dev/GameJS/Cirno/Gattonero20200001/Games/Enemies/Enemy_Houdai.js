@@ -89,7 +89,7 @@ function* <generatorForTask> @@_AttackTask(<Enemy_t> enemy)
 
 	for (; ; )
 	{
-		for (var<int> waitFrm of [ 90, 30, 30, 30 ])
+		for (var<int> waitFrm of [ 120, 30, 30 ])
 		{
 			yield* Wait(waitFrm);
 
