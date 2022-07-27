@@ -46,7 +46,7 @@
 	<Crash_t> Crash // ¡ƒtƒŒ[ƒ€‚Ì“–‚½‚è”»’è’u‚«ê, null ‚Å‰Šú‰»‚·‚é‚±‚ÆBnull == “–‚½‚è”»’è–³‚µ
 
 	<Action Enemy_t int> Damaged // ”í’eƒCƒxƒ“ƒg
-	<Action Enemy_t> Dead // €–SƒCƒxƒ“ƒg
+	<Action Enemy_t Shot_t> Dead // €–SƒCƒxƒ“ƒg, ‚±‚Ì“G‚ğŒ‚”j‚µ‚½©’e‚ª–³‚¢(•s–¾‚È)ê‡A‘æ‚Qˆø”‚Í null ‚É‚È‚éB
 }
 
 @(ASTR)/
@@ -60,23 +60,36 @@ function <boolean> DrawEnemy(<Enemy_t> enemy) // ret: ? ¶‘¶
 }
 
 /*
-	€–S
+	”í’e
 */
-function <void> KillEnemy(<Enemy_t> enemy)
-{
-	if (enemy.HP != -1) // ? ‚Ü‚¾€–S‚µ‚Ä‚¢‚È‚¢B
-	{
-		enemy.HP = -1; // €–S‚³‚¹‚éB
-		@@_DeadEnemy(enemy);
-	}
-}
-
 function <void> EnemyDamaged(<Enemy_t> enemy, <int> damagePoint)
 {
 	enemy.Damaged(enemy, damagePoint);
 }
 
-function <void> @@_DeadEnemy(<Enemy_t> enemy)
+/*
+	€–S
+*/
+function <void> KillEnemy(<Enemy_t> enemy)
 {
-	enemy.Dead(enemy);
+	KillEnemy_Shot(enemy, null);
+}
+
+/*
+	€–S (©’e‚É‚æ‚éŒ‚”j)
+
+	shot: ‚±‚Ì“G‚ğŒ‚”j‚µ‚½©’e‚ª–³‚¢(•s–¾‚È)ê‡ null ‚É‚È‚éB
+*/
+function <void> KillEnemy_Shot(<Enemy_t> enemy, <Shot_t> shot)
+{
+	if (enemy.HP != -1) // ? ‚Ü‚¾€–S‚µ‚Ä‚¢‚È‚¢B
+	{
+		enemy.HP = -1; // €–S‚³‚¹‚éB
+		@@_DeadEnemy(enemy, shot);
+	}
+}
+
+function <void> @@_DeadEnemy(<Enemy_t> enemy, <Shot_t> shot)
+{
+	enemy.Dead(enemy, shot);
 }

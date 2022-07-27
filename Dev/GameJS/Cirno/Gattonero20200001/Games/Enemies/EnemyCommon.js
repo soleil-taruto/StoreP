@@ -7,10 +7,17 @@ function <void> EnemyCommon_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	SE(S_EnemyDamaged);
 }
 
-function <void> EnemyCommon_Dead(<Enemy_t> enemy)
+function <void> EnemyCommon_Dead(<Enemy_t> enemy, <Shot_t> shot) // shot: ‚±‚Ì“G‚ğŒ‚”j‚µ‚½©’e‚ª–³‚¢(•s–¾‚È)ê‡ null ‚É‚È‚éB
 {
-	AddEffect_Explode(enemy.X, enemy.Y);
-	SE(S_EnemyDead);
+	if (shot == null) // ? ©–Å etc.
+	{
+		AddEffect(Effect_Explode_M(enemy.X, enemy.Y));
+	}
+	else // ? ©’e‚É‚æ‚èŒ‚”j‚³‚ê‚½B
+	{
+		AddEffect_Explode(enemy.X, enemy.Y);
+		SE(S_EnemyDead);
+	}
 }
 
 /*
@@ -20,6 +27,9 @@ function <boolean> IsEnemyItem(<Enemy_t> enemy)
 {
 	var ret =
 		false;
+//		enemy.Kind == EnemyKind_Item_0001 ||
+//		enemy.Kind == EnemyKind_Item_0002 ||
+//		enemy.Kind == EnemyKind_Item_0003;
 
 	return ret;
 }
@@ -31,6 +41,9 @@ function <boolean> IsEnemyTama(<Enemy_t> enemy)
 {
 	var ret =
 		enemy.Kind == EnemyKind_Tama;
+//		enemy.Kind == EnemyKind_Tama_0001 ||
+//		enemy.Kind == EnemyKind_Tama_0002 ||
+//		enemy.Kind == EnemyKind_Tama_0003;
 
 	return ret;
 }
@@ -42,9 +55,9 @@ function <boolean> IsEnemyBoss(<Enemy_t> enemy)
 {
 	var ret =
 		enemy.Kind == EnemyKind_Boss01;
-//		enemy.Kind == EnemyKind_Boss01 ||
-//		enemy.Kind == EnemyKind_Boss02 ||
-//		enemy.Kind == EnemyKind_Boss03;
+//		enemy.Kind == EnemyKind_Boss_0001 ||
+//		enemy.Kind == EnemyKind_Boss_0002 ||
+//		enemy.Kind == EnemyKind_Boss_0003;
 
 	return ret;
 }

@@ -43,7 +43,7 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	// none
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <Shot_t> shot)
 {
 	// none
 }

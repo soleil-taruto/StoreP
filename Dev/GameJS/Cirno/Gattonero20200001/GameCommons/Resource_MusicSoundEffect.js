@@ -94,3 +94,4 @@ var<SE_t> S_Shoot   = @@_LoadSE(Resources.oˆ•s–¾__PlayerShoot_mp3);
 var<SE_t> S_Damaged = @@_LoadSE(Resources.¬X•½__damage5_mp3);
 var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.oˆ•s–¾__EnemyDamaged_mp3);
 var<SE_t> S_EnemyDead    = @@_LoadSE(Resources.¬X•½__explosion01_mp3);
+var<SE_t> S_BossDead     = @@_LoadSE(Resources.¬X•½__game_explosion2_mp3);
