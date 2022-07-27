@@ -30,7 +30,7 @@ namespace Charlotte.Games
 			}
 		}
 
-		public static IEnumerable<bool> B小爆発(double x, double y) // ★サンプルとしてキープ
+		public static IEnumerable<bool> B小爆発(double x, double y)
 		{
 			foreach (DDScene scene in DDSceneUtils.Create(5))
 			{
@@ -45,7 +45,7 @@ namespace Charlotte.Games
 			}
 		}
 
-		public static IEnumerable<bool> B中爆発(double x, double y) // ★サンプルとしてキープ
+		public static IEnumerable<bool> B中爆発(double x, double y)
 		{
 			foreach (DDScene scene in DDSceneUtils.Create(10))
 			{
@@ -60,7 +60,7 @@ namespace Charlotte.Games
 			}
 		}
 
-		public static IEnumerable<bool> B大爆発(double x, double y) // ★サンプルとしてキープ
+		public static IEnumerable<bool> B大爆発(double x, double y)
 		{
 			foreach (DDScene scene in DDSceneUtils.Create(15))
 			{

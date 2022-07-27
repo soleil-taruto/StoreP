@@ -307,7 +307,7 @@ namespace Charlotte.Games
 
 					if (this.Player.JumpFrame == 1) // ? ジャンプ開始
 					{
-						Ground.I.SE.Coin01.Play(); // test test test test test
+						Ground.I.SE.PlayerJump.Play();
 					}
 
 					if (1 <= this.Player.AirborneFrame)
@@ -483,7 +483,7 @@ namespace Charlotte.Games
 					{
 						if (frame == 2) // 初回のみ
 						{
-							//Ground.I.SE.PlayerDamaged.Play();
+							Ground.I.SE.PlayerDamaged.Play();
 						}
 
 						this.Player.X -= (9.0 - 6.0 * rate) * (this.Player.FacingLeft ? -1 : 1);

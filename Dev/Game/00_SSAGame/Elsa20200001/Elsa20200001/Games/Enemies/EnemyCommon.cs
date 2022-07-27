@@ -18,7 +18,7 @@ namespace Charlotte.Games.Enemies
 		/// <param name="damagePoint">削られた体力</param>
 		public static void Damaged(Enemy enemy, Shot shot, int damagePoint)
 		{
-			// none
+			Ground.I.SE.EnemyDamaged.Play();
 		}
 
 		/// <summary>
@@ -31,11 +31,11 @@ namespace Charlotte.Games.Enemies
 			if (destroyed) // ? 撃破された。
 			{
 				DDGround.EL.Add(SCommon.Supplier(Effects.B中爆発(enemy.X, enemy.Y)));
-				//Ground.I.SE.EnemyKilled.Play();
+				Ground.I.SE.EnemyKilled.Play();
 			}
 			else // ? 自滅・消滅 etc.
 			{
-				DDGround.EL.Add(SCommon.Supplier(Effects.B小爆発(enemy.X, enemy.Y)));
+				DDGround.EL.Add(SCommon.Supplier(Effects.BFireBall爆発(enemy.X, enemy.Y)));
 			}
 		}
 	}
