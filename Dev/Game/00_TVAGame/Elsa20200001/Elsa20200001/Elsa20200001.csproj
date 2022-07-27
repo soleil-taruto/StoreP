@@ -97,6 +97,8 @@
     <Compile Include="GameProgressMasters\GameProgressMaster.cs" />
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_B1001.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_B1002.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bアイテム.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bイベント0001.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Bセーブ地点.cs" />

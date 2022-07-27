@@ -321,6 +321,11 @@ namespace Charlotte.Games
 
 					// プレイヤー・ダメージ中の処理
 					{
+						if (frame == 2) // 初回のみ
+						{
+							Ground.I.SE.PlayerDamaged.Play();
+						}
+
 						D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 5.0);
 
 						for (int c = 0; c < 5; c++)
@@ -512,8 +517,8 @@ namespace Charlotte.Games
 								}
 								else // ? 撃破した。
 								{
-									enemy.HP = 0; // 過剰に削った分を正す。
-									enemy.Kill();
+									enemy.HP = 0; // 過剰に削られた分を正す。
+									enemy.Kill(true);
 									goto nextEnemy; // この敵は死亡したので、この敵について以降の当たり判定は不要
 								}
 

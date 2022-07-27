@@ -140,12 +140,13 @@ namespace Charlotte.Games.Enemies
 		/// 注意：HP を減らして -1 になったとき Kill を呼んでも(DeadFlag == true になるため) Killed は実行されない！
 		/// -- HP == -1 の可能性がある場合は HP = 0; を忘れずに！
 		/// </summary>
-		public void Kill()
+		/// <param name="destroyed">プレイヤー等(の攻撃行動)によって撃破されたか</param>
+		public void Kill(bool destroyed = false)
 		{
 			if (!this.DeadFlag)
 			{
 				this.DeadFlag = true;
-				this.Killed();
+				this.Killed(destroyed);
 			}
 		}
 
@@ -153,17 +154,19 @@ namespace Charlotte.Games.Enemies
 		/// 撃破されて消滅した。
 		/// マップから離れすぎて消された場合・シナリオ的に消された場合などでは呼び出されない。
 		/// </summary>
-		private void Killed()
+		/// <param name="destroyed">プレイヤー等(の攻撃行動)によって撃破されたか</param>
+		private void Killed(bool destroyed)
 		{
-			this.P_Killed();
+			this.P_Killed(destroyed);
 		}
 
 		/// <summary>
 		/// この敵の固有の消滅イベント
 		/// </summary>
-		protected virtual void P_Killed()
+		/// <param name="destroyed">プレイヤー等(の攻撃行動)によって撃破されたか</param>
+		protected virtual void P_Killed(bool destroyed)
 		{
-			EnemyCommon.Killed(this);
+			EnemyCommon.Killed(this, destroyed);
 		}
 	}
 }

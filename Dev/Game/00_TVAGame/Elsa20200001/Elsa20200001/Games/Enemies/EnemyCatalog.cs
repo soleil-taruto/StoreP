@@ -96,6 +96,7 @@ namespace Charlotte.Games.Enemies
 			new EnemyInfo("テスト用/アイテム・武器-Wave", () => new Enemy_Bアイテム(X, Y, Enemy_Bアイテム.効用_e.WEAPON_WAVE)),
 			new EnemyInfo("テスト用/敵01", () => new Enemy_B0001(X, Y)),
 			new EnemyInfo("テスト用/敵02", () => new Enemy_B0002(X, Y)),
+			new EnemyInfo("テスト用/敵11", () => new Enemy_B1001(X, Y)),
 			new EnemyInfo("テスト用/神奈子", () => new Enemy_B神奈子(X, Y)),
 			new EnemyInfo("テスト用/イベント0001", () => new Enemy_Bイベント0001(X, Y)),
 			new EnemyInfo("テスト用/ハック0001", () => new Enemy_Bハック0001(X, Y)),
