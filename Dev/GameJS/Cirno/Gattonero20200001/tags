@@ -122,6 +122,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Types.js(52) : Audio // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Types.js(53) : Image // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Types.js(54) : Gamepad // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Commons\Types.js(55) : GamepadButton // ’è‹`
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\00_Consts.js(9) : DEFAULT_VOLUME // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(7) : Crash_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(19) : CreateCrash_Point // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(25) : CreateCrash_Circle // ŠÖ”
@@ -177,10 +178,12 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Mouse.js(120) : GetMouseDown /
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Mouse.js(128) : ClearMouseDown // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Mouse.js(136) : GetMouseX // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Mouse.js(144) : GetMouseY // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(11) : Play // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(44) : @ // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(92) : Fadeout // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(99) : Fadeout_F // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(17) : Play // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(50) : @ // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(98) : Fadeout // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(105) : Fadeout_F // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(127) : MusicVolumeChanged // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Music.js(9) : MusicVolume // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Print.js(10) : SetColor // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Print.js(19) : PrintRect // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Print.js(33) : PrintRect_LTRB // ŠÖ”
@@ -230,8 +233,9 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(87) : P_En
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Resource_Picture.js(88) : P_Enemy_Boss0001 // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // •Ï”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(7) : SE // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(30) : @ // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(36) : @ // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\SoundEffect.js(9) : SEVolume // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\TaskManager.js(7) : TaskManager_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\TaskManager.js(14) : CreateTaskManager // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\TaskManager.js(24) : AddTask // ŠÖ”
@@ -285,7 +289,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Game.js(35) : GameRequestStageClear 
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\GameProgressMaster.js(19) : MapSelectMenu // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\GameStatus.js(9) : CanPlayStageIndex // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\LocalStorage.js(42) : SaveLocalStorage // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\LocalStorage.js(48) : SaveLocalStorage // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(7) : MapCell_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(19) : Map_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(43) : GetMapCount // ŠÖ”
@@ -335,7 +339,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(57) : DrawEnemy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(65) : EnemyDamaged // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(73) : KillEnemy // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(83) : KillEnemy_Shot // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(83) : KillEnemy_Destroyed // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_AutoStageClear.js(7) : CreateEnemy_AutoStageClear // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_AutoStageClear.js(5) : EnemyKind_AutoStageClear // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(7) : CreateEnemy_BDummy // ŠÖ”
