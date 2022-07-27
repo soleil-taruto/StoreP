@@ -47,7 +47,7 @@ namespace Charlotte.Games.Enemies.Tests.神奈子s
 				yield return true;
 			}
 
-			this.P_Killed();
+			this.Kill(true);
 			Game.I.Enemies.Add(new Enemy_B神奈子9902());
 		}
 	}

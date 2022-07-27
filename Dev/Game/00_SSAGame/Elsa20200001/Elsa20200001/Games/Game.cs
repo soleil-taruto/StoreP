@@ -481,6 +481,11 @@ namespace Charlotte.Games
 
 					// プレイヤー・ダメージ中の処理
 					{
+						if (frame == 2) // 初回のみ
+						{
+							//Ground.I.SE.PlayerDamaged.Play();
+						}
+
 						this.Player.X -= (9.0 - 6.0 * rate) * (this.Player.FacingLeft ? -1 : 1);
 					}
 				}
@@ -826,7 +831,7 @@ namespace Charlotte.Games
 								else // ? 撃破した。
 								{
 									enemy.HP = 0; // 過剰に削った分を正す。
-									enemy.Kill();
+									enemy.Kill(true);
 									goto nextEnemy; // この敵は死亡したので、この敵について以降の当たり判定は不要
 								}
 
