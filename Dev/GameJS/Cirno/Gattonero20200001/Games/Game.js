@@ -505,7 +505,24 @@ function <void> @@_DrawMap()
 */
 function <void> @@_DrawFront()
 {
-	// none -- ステータスなどを表示する。
+	var<int> HP_METER_L = 20;
+	var<int> HP_METER_T = 20;
+	var<int> HP_METER_W = 20;
+	var<int> HP_METER_H = 100;
+
+	var<int> h = ToInt((HP_METER_H * PlayerHP) / PLAYER_HP_MAX);
+	var<int> d = HP_METER_H - h;
+
+	if (1 <= d)
+	{
+		SetColor("#808080a0");
+		PrintRect(HP_METER_L, HP_METER_T, HP_METER_W, d);
+	}
+	if (1 <= h)
+	{
+		SetColor("#ffff00a0");
+		PrintRect(HP_METER_L, HP_METER_T + d, HP_METER_W, h);
+	}
 }
 
 /*

@@ -8,7 +8,7 @@
 	0 == (不使用・予約)
 	1～ == 残り体力
 */
-var<int> PlayerHP = 1;
+var<int> PlayerHP = PLAYER_HP_MAX;
 
 /*
 	プレイヤーの位置
@@ -114,7 +114,7 @@ var<boolean> @@_MoveSlow = false;
 
 function <void> ResetPlayer()
 {
-	PlayerHP = 10;
+	PlayerHP = PLAYER_HP_MAX;
 	PlayerX = Screen_W / 2.0;
 	PlayerY = Screen_H / 2.0;
 	PlayerDamageFrame = 0;
