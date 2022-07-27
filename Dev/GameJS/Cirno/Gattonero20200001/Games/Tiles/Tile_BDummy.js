@@ -2,12 +2,13 @@
 	タイル - BDummy ★サンプル
 */
 
+var<int> TileKind_BDummy = @(AUTO);
+
 function <Tile_t> CreateTile_BDummy()
 {
 	var ret =
 	{
-		Kind: Tile_Kind_e_BDummy,
-
+		Kind: TileKind_BDummy,
 		WallFlag: true,
 
 		// ここから固有

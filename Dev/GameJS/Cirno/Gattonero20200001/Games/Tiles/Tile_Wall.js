@@ -2,12 +2,13 @@
 	ƒ^ƒCƒ‹ - •Ç
 */
 
+var<int> TileKind_Wall = @(AUTO);
+
 function <Tile_t> CreateTile_Wall(<Image> picture)
 {
 	var ret =
 	{
-		Kind: Tile_Kind_e_Wall,
-
+		Kind: TileKind_Wall,
 		WallFlag: true,
 
 		// ‚±‚±‚©‚çŒÅ—L

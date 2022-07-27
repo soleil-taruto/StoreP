@@ -49,7 +49,7 @@ function* <generatorForTask> @@_BackgroundTask()
 		yield 1;
 	}
 
-	yield* Wait(200); // —]‰C
+	yield* Wait(150); // —]‰C
 
 	GameRequestStageClear = true;
 }

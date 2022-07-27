@@ -6,10 +6,8 @@
 
 /// Tile_t
 {
-	<Tile_Kind_e> Kind // タイルの種類
-
+	<int> Kind // タイルの種類
 	<boolean> WallFlag // 壁か
-
 	<Action double double> Draw // 描画
 }
 

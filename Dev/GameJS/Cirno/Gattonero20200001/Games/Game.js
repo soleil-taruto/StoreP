@@ -25,11 +25,6 @@ var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 var<boolean> UserInputDisabled = false;
 
 /*
-	再スタート・リクエスト
-*/
-var<boolean> @@_RequestRestart = false;
-
-/*
 	ゲーム終了リクエスト(タイトルへ戻る)
 */
 var<boolean> GameRequestReturnToTitleMenu = false;
@@ -38,6 +33,9 @@ var<boolean> GameRequestReturnToTitleMenu = false;
 	ゲーム終了リクエスト(ステージクリア)
 */
 var<boolean> GameRequestStageClear = false;
+
+var<boolean> @@_RequestRestart = false;
+var<Image> @@_WallPicture;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
@@ -49,9 +47,11 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		Camera = CreateD2Point(0.0, 0.0);
 		ClearAllTask(GameTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
-		@@_RequestRestart = false;
 		GameRequestReturnToTitleMenu = false;
 		GameRequestStageClear = false;
+
+		@@_RequestRestart = false;
+		@@_WallPicture = GetStageWallPicture(mapIndex);
 
 		ResetPlayer();
 	}
@@ -70,7 +70,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	yield* @@_StartMotion();
 
-	Play(M_Field);
+	PlayStageMusic(mapIndex);
 
 gameLoop:
 	for (; ; )
@@ -78,12 +78,6 @@ gameLoop:
 		if (GetInput_Pause() == 1) // ポーズ
 		{
 			yield* @@_PauseMenu();
-		}
-		if (@@_RequestRestart)
-		{
-			yield* @@_DeadAndRestartMotion(true);
-
-			continue gameLoop;
 		}
 		if (GameRequestReturnToTitleMenu)
 		{
@@ -94,6 +88,12 @@ gameLoop:
 		{
 			GameEndReason = GameEndReason_e_STAGE_CLEAR;
 			break;
+		}
+		if (@@_RequestRestart)
+		{
+			yield* @@_DeadAndRestartMotion(true);
+
+			continue gameLoop;
 		}
 
 		if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
@@ -423,7 +423,7 @@ function <void> @@_DrawWall()
 {
 	var<double> SLIDE_RATE = 0.1;
 
-	var<Image> wallImg = P_Wall;
+	var<Image> wallImg = @@_WallPicture;
 	var<int> wallImg_w = wallImg.naturalWidth;
 	var<int> wallImg_h = wallImg.naturalHeight;
 
@@ -561,6 +561,14 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 
 		AddEffect_Explode(PlayerX, PlayerY);
 		SE(S_Dead);
+
+		for (var<Scene_t> scene of CreateScene(30))
+		{
+			@@_DrawWall();
+			@@_DrawMap();
+
+			yield 1;
+		}
 	}
 
 	// 再スタートのための処理

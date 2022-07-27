@@ -2,12 +2,13 @@
 	ƒ^ƒCƒ‹ - ‹óŠÔ
 */
 
+var<int> TileKind_None = @(AUTO);
+
 function <Tile_t> CreateTile_None()
 {
 	var ret =
 	{
-		Kind: Tile_Kind_e_None,
-
+		Kind: TileKind_None,
 		WallFlag: false,
 
 		// ‚±‚±‚©‚çŒÅ—L
