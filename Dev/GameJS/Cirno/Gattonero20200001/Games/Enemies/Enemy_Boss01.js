@@ -82,5 +82,6 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 
 function <void> @@_Dead(<Enemy_t> enemy)
 {
-	EnemyCommon_Dead(enemy);
+//	EnemyCommon_Dead(enemy);
+	AddEffect(Effect_Explode_L(enemy.X, enemy.Y));
 }

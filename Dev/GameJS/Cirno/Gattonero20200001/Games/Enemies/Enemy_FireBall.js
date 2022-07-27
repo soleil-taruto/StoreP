@@ -60,7 +60,9 @@ gameLoop:
 
 			if (5 <= bouncedCount) // ƒoƒEƒ“ƒh‰ñ”ãŒÀ
 			{
-				KillEnemy(enemy);
+//				KillEnemy(enemy);
+				AddEffect(Effect_Explode_M(enemy.X, enemy.Y));
+
 				break gameLoop;
 			}
 		}

@@ -34,8 +34,8 @@ var<boolean> GameRequestReturnToTitleMenu = false;
 */
 var<boolean> GameRequestStageClear = false;
 
+var<int> @@_MapIndex = -1;
 var<boolean> @@_RequestRestart = false;
-var<Image> @@_WallPicture;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
@@ -50,8 +50,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		GameRequestReturnToTitleMenu = false;
 		GameRequestStageClear = false;
 
+		@@_MapIndex = mapIndex;
 		@@_RequestRestart = false;
-		@@_WallPicture = GetStageWallPicture(mapIndex);
 
 		ResetPlayer();
 	}
@@ -423,7 +423,7 @@ function <void> @@_DrawWall()
 {
 	var<double> SLIDE_RATE = 0.1;
 
-	var<Image> wallImg = @@_WallPicture;
+	var<Image> wallImg = GetStageWallPicture(@@_MapIndex);
 	var<int> wallImg_w = wallImg.naturalWidth;
 	var<int> wallImg_h = wallImg.naturalHeight;
 
@@ -559,7 +559,7 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 
 		yield* Wait(30);
 
-		AddEffect_Explode(PlayerX, PlayerY);
+		AddEffect(Effect_Explode_L(PlayerX, PlayerY));
 		SE(S_Dead);
 
 		for (var<Scene_t> scene of CreateScene(30))
@@ -594,6 +594,8 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 function* <generatorForTask> @@_GoalMotion()
 {
 	yield* Wait(30);
+
+	SE(S_Clear);
 
 	for (var<int> c = 0; c < 50; c++)
 	{

@@ -4,12 +4,13 @@
 
 function <void> EnemyCommon_Damaged(<Enemy_t> enemy, <int> damagePoint)
 {
-	// none
+	SE(S_EnemyDamaged);
 }
 
 function <void> EnemyCommon_Dead(<Enemy_t> enemy)
 {
 	AddEffect_Explode(enemy.X, enemy.Y);
+	SE(S_EnemyDead);
 }
 
 /*

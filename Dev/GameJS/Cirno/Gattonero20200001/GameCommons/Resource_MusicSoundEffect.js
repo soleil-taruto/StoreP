@@ -84,8 +84,13 @@ function <SE_t> @@_LoadSE(<string> url)
 var<Audio> M_Title  = @@_Load(Resources.DovaSyndrome__Hanabi_mp3);
 var<Audio> M_Field  = @@_Load(Resources.DovaSyndrome__Midnight_Street_mp3);
 var<Audio> M_Boss   = @@_Load(Resources.DovaSyndrome__Battle_Fang_mp3);
-var<Audio> M_Ending = @@_Load(Resources.DovaSyndrome__Hanabi_mp3);
+var<Audio> M_Ending = @@_Load(Resources.DovaSyndrome__Kindly_mp3);
 
 var<SE_t> S_Jump    = @@_LoadSE(Resources.è¨êXïΩ__jump12_mp3);
 var<SE_t> S_Crashed = @@_LoadSE(Resources.è¨êXïΩ__question_mp3);
 var<SE_t> S_Dead    = @@_LoadSE(Resources.è¨êXïΩ__explosion05_mp3);
+var<SE_t> S_Clear   = @@_LoadSE(Resources.è¨êXïΩ__warp1_mp3);
+var<SE_t> S_Shoot   = @@_LoadSE(Resources.èoèàïsñæ__PlayerShoot_mp3);
+var<SE_t> S_Damaged = @@_LoadSE(Resources.è¨êXïΩ__damage5_mp3);
+var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.èoèàïsñæ__EnemyDamaged_mp3);
+var<SE_t> S_EnemyDead    = @@_LoadSE(Resources.è¨êXïΩ__explosion01_mp3);

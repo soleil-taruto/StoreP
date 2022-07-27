@@ -343,6 +343,11 @@ damageBlock:
 
 		// ƒ_ƒ[ƒW’†‚Ìˆ—
 		{
+			if (frame == 2) // ‰‰ñ‚Ì‚İ
+			{
+				SE(S_Damaged);
+			}
+
 			PlayerX -= (1.0 - rate) * 9.0 * (PlayerFacingLeft ? -1 : 1);
 		}
 	}
@@ -494,6 +499,8 @@ invincibleBlock:
 
 				GetShots().push(shot);
 			}
+
+			SE(S_Shoot);
 		}
 	}
 

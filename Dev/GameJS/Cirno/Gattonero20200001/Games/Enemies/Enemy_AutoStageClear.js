@@ -49,6 +49,10 @@ function* <generatorForTask> @@_BackgroundTask()
 		yield 1;
 	}
 
+	yield* Wait(30); // —]‰C
+
+	Fadeout_F(100);
+
 	yield* Wait(150); // —]‰C
 
 	GameRequestStageClear = true;
