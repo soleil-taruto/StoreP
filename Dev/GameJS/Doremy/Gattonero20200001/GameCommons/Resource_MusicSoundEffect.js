@@ -131,16 +131,16 @@ function <SE_t> @@_LoadSE(<string> url)
 // M_ ... 音楽,BGM
 // S_ ... 効果音(SE)
 
-//var<Audio> M_無音 = @@_Load(Resources.General__muon_mp3); // デカいのでロードしない。
+//var<Audio> M_無音 = @@_Load(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
 //var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_mp3); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Audio> M_Title  = @@_Load(Resources.DovaSyndrome__Hanabi_mp3);
-var<Audio> M_Field  = @@_Load(Resources.DovaSyndrome__Midnight_Street_mp3);
-var<Audio> M_Boss   = @@_Load(Resources.DovaSyndrome__Battle_Fang_mp3);
-var<Audio> M_Ending = @@_Load(Resources.DovaSyndrome__Kindly_mp3);
+var<Audio> M_Title  = @@_Load(RESOURCE_DovaSyndrome__Hanabi_mp3);
+var<Audio> M_Field  = @@_Load(RESOURCE_DovaSyndrome__Midnight_Street_mp3);
+var<Audio> M_Boss   = @@_Load(RESOURCE_DovaSyndrome__Battle_Fang_mp3);
+var<Audio> M_Ending = @@_Load(RESOURCE_DovaSyndrome__Kindly_mp3);
 
 var<SE_t> S_Jump    = @@_LoadSE(Resources.小森平__jump12_mp3);
 var<SE_t> S_Crashed = @@_LoadSE(Resources.小森平__question_mp3);
