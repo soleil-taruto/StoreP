@@ -11,25 +11,55 @@ window.onload = function()
 
 function <void> Main()
 {
+	@@_Loading();
+}
+
+function <void> @@_Loading()
+{
+	if (1 <= Loading)
+	{
+		@@_PrintLoading();
+
+		setTimeout(@@_Loading, 100);
+	}
+	else
+	{
+		@@_Loaded();
+	}
+}
+
+var @@_LOADING_MAX = -1;
+
+function <void> @@_PrintLoading()
+{
+	if (@@_LOADING_MAX == -1)
+	{
+		@@_LOADING_MAX = Loading;
+	}
+
+	var<int> METER_W = Screen_W - 20;
+	var<int> METER_H = 30;
+	var<int> METER_L = ToInt((Screen_W - METER_W) / 2);
+	var<int> METER_T = ToInt((Screen_H - METER_H) / 2);
+
+	var<int> w = ToInt((METER_W * Loading) / @@_LOADING_MAX);
+	var<int> d = METER_W - w;
+
+	SetColor("#a0a0a0");
+	PrintRect(0, 0, Screen_W, Screen_H);
+	SetColor("#ffff00");
+	PrintRect(METER_L, METER_T, w, METER_H);
+	SetColor("#808080");
+	PrintRect(METER_L + w, METER_T, d, METER_H);
+}
+
+function <void> @@_Loaded()
+{
 	ProcMain(@@_Main());
 }
 
 function* <generatorForTask> @@_Main()
 {
-	// リソース読み込み中は待機
-	while (1 <= Loading)
-	{
-		SetColor("#ffffff");
-		PrintRect(0, 0, Screen_W, Screen_H);
-
-		SetColor("#000000");
-		SetPrint(10, 25, 50);
-		SetFSize(16);
-		PrintLine("リソースを読み込んでいます ...　残り " + Loading + " 個");
-
-		yield 1;
-	}
-
 	if (DEBUG)
 	{
 		// -- choose one --
