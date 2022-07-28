@@ -19,11 +19,11 @@ function <void> @@_Loading()
 	if (1 <= Loading)
 	{
 		@@_PrintLoading();
-
 		setTimeout(@@_Loading, 100);
 	}
 	else
 	{
+		@@_PrintLoaded();
 		@@_Loaded();
 	}
 }
@@ -37,20 +37,14 @@ function <void> @@_PrintLoading()
 		@@_LOADING_MAX = Loading;
 	}
 
-	var<int> METER_W = Screen_W - 20;
-	var<int> METER_H = 30;
-	var<int> METER_L = ToInt((Screen_W - METER_W) / 2);
-	var<int> METER_T = ToInt((Screen_H - METER_H) / 2);
+	var<int> pbn = ToInt((@@_LOADING_MAX - Loading) * 108.0 / @@_LOADING_MAX);
 
-	var<int> w = ToInt((METER_W * Loading) / @@_LOADING_MAX);
-	var<int> d = METER_W - w;
+	document.body.innerHTML = "<div style='font-size: 108px;'>" + pbn + " PBN COMPLETE...</div>";
+}
 
-	SetColor("#a0a0a0");
-	PrintRect(0, 0, Screen_W, Screen_H);
-	SetColor("#ffff00");
-	PrintRect(METER_L, METER_T, w, METER_H);
-	SetColor("#808080");
-	PrintRect(METER_L + w, METER_T, d, METER_H);
+function <void> @@_PrintLoaded()
+{
+	document.body.innerHTML = "";
 }
 
 function <void> @@_Loaded()
