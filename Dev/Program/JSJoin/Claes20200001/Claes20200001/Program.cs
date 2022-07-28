@@ -214,7 +214,7 @@ namespace Charlotte
 					url = "file:" + file.Replace('\\', '/');
 				}
 
-				this.JSLines.Add(string.Format("var RESOURCE_{0} = \"{1}\",", name, url));
+				this.JSLines.Add(string.Format("var RESOURCE_{0} = \"{1}\";", name, url));
 			}
 			this.JSLines.Add("//");
 			this.JSLines.Add("// RESOURCE_* ここまで");
