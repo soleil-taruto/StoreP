@@ -16,7 +16,7 @@ function <Audio> @@_Load(<string> url)
 	m.Handle = new Audio(url);
 	m.TryLoadCount = 0;
 
-if (!DEBUG)
+	if (DEBUG)
 	{
 		m.Handle.load();
 		Loading--;
