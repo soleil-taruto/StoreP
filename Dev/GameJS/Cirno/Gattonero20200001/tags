@@ -129,8 +129,10 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(25) : CreateCrash_Cir
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(42) : CreateCrash_Rect // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(56) : IsCrashed // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Crash.js(152) : DrawCrash // ä÷êî
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Draw.js(6) : ClearScreen // ä÷êî
-C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Draw.js(26) : Draw // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Draw.js(6) : GetPicture_W // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Draw.js(12) : GetPicture_H // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Draw.js(18) : ClearScreen // ä÷êî
+C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Draw.js(38) : Draw // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Effect.js(13) : AddEffect // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Effect.js(18) : @ // ä÷êî
 C:\Dev\GameJS\Cirno\Gattonero20200001\GameCommons\Effect.js(38) : GetEffects // ä÷êî

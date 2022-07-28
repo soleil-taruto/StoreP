@@ -424,8 +424,8 @@ function <void> @@_DrawWall()
 	var<double> SLIDE_RATE = 0.1;
 
 	var<Image> wallImg = GetStageWallPicture(@@_MapIndex);
-	var<int> wallImg_w = wallImg.naturalWidth;
-	var<int> wallImg_h = wallImg.naturalHeight;
+	var<int> wallImg_w = GetPicture_W(wallImg);
+	var<int> wallImg_h = GetPicture_H(wallImg);
 
 	var<int> cam_w = Map.W * TILE_W - Screen_W;
 	var<int> cam_h = Map.H * TILE_H - Screen_H;

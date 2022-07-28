@@ -2,6 +2,18 @@
 	描画
 */
 
+// 画像の幅を取得する。
+function <int> GetPicture_W(<Image> image)
+{
+	return image.naturalWidth;
+}
+
+// 画像の高さを取得する。
+function <int> GetPicture_H(<Image> image)
+{
+	return image.naturalHeight;
+}
+
 // スクリーンのクリア
 function <void> ClearScreen()
 {
@@ -25,8 +37,8 @@ function <void> ClearScreen()
 */
 function <void> Draw(<Image> image, <double> x, <double> y, <double> a, <double> r, <double> z)
 {
-	var<int> w = image.naturalWidth;
-	var<int> h = image.naturalHeight;
+	var<int> w = GetPicture_W(image);
+	var<int> h = GetPicture_H(image);
 
 	w *= z;
 	h *= z;
