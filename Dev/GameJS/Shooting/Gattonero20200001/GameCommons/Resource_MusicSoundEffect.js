@@ -131,4 +131,4 @@ function <SE_t> @@_LoadSE(<string> url)
 
 var<Audio> M_Field = @@_Load(RESOURCE_HMIX__n62_mp3);
 
-var<SE_t> S_Explode = @@_LoadSE(Resources.è¨êXïΩ__explosion01_mp3);
+var<SE_t> S_Explode = @@_LoadSE(RESOURCE_è¨êXïΩ__explosion01_mp3);

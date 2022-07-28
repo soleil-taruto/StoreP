@@ -131,6 +131,6 @@ function <SE_t> @@_LoadSE(<string> url)
 
 //var<Audio> M_無音 = @@_Load(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
-//var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_mp3); // デカいのでロードしない。
+//var<SE_t> S_無音 = @@_LoadSE(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ

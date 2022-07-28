@@ -133,13 +133,13 @@ function <SE_t> @@_LoadSE(<string> url)
 
 //var<Audio> M_無音 = @@_Load(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
-//var<SE_t> S_無音 = @@_LoadSE(Resources.General__muon_mp3); // デカいのでロードしない。
+//var<SE_t> S_無音 = @@_LoadSE(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
 var<Audio> M_Field = @@_Load(RESOURCE_HMIX__n62_mp3);
 
-var<SE_t> S_EnemyDamaged = @@_LoadSE(Resources.出処不明__EnemyDamaged_mp3);
-var<SE_t> S_PlayerShoot = @@_LoadSE(Resources.出処不明__PlayerShoot_mp3);
-var<SE_t> S_EnemyDead = @@_LoadSE(Resources.小森平__explosion01_mp3);
-var<SE_t> S_PowerUp = @@_LoadSE(Resources.小森平__powerup03_mp3);
+var<SE_t> S_EnemyDamaged = @@_LoadSE(RESOURCE_出処不明__EnemyDamaged_mp3);
+var<SE_t> S_PlayerShoot = @@_LoadSE(RESOURCE_出処不明__PlayerShoot_mp3);
+var<SE_t> S_EnemyDead = @@_LoadSE(RESOURCE_小森平__explosion01_mp3);
+var<SE_t> S_PowerUp = @@_LoadSE(RESOURCE_小森平__powerup03_mp3);
