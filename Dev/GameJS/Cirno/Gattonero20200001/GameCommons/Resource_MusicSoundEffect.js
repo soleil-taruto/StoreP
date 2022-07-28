@@ -9,12 +9,53 @@
 function <Audio> @@_Load(<string> url)
 {
 	LOGPOS();
+	Loading++;
 
-	var<Audio> audio = new Audio(url);
+	var m = {};
 
-	audio.load();
+	m.Audio = new Audio(url);
 
-	return audio;
+	m.Loaded = function()
+	{
+		m.Audio.removeEventListener("canplaythrough", m.Loaded);
+		m.Audio.removeEventListener("error", m.Errored);
+
+		LOGPOS();
+		Loading--;
+	};
+
+	m.ErrorCount = 0;
+	m.Errored = function()
+	{
+		if (m.ErrorCount < 3)
+		{
+			m.ErrorCount++;
+			setTimeout(
+				function()
+				{
+					m.Audio.load();
+				},
+				2000 + GetRand(2000)
+				);
+		}
+		else
+		{
+			error();
+		}
+	};
+
+	m.Audio.addEventListener("canplaythrough", m.Loaded);
+	m.Audio.addEventListener("error", m.Errored);
+
+	setTimeout(
+		function()
+		{
+			m.Audio.load();
+		},
+		GetRand(2000)
+		);
+
+	return m.Audio;
 }
 
 /@(ASTR)
