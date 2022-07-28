@@ -53,5 +53,14 @@ namespace Charlotte.Commons
 			if (this.HasArgs())
 				throw new Exception("Bad command line option-num");
 		}
+
+		/// <summary>
+		/// このインスタンスの現在の状態を複製する。
+		/// </summary>
+		/// <returns>新しいインスタンス</returns>
+		public ArgsReader GetClone()
+		{
+			return new ArgsReader(this.Args, this.ArgIndex);
+		}
 	}
 }
