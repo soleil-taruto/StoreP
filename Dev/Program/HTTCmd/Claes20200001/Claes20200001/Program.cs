@@ -298,6 +298,7 @@ namespace Charlotte
 				//channel.ResStatus = 200;
 				channel.ResHeaderPairs.Add(new string[] { "Content-Type", ContentTypeCollection.I.GetContentType(Path.GetExtension(path)) });
 				channel.ResBody = E_ReadFile(path);
+				channel.ResContentLength = new FileInfo(path).Length;
 			}
 			else
 			{
@@ -309,6 +310,7 @@ namespace Charlotte
 				{
 					channel.ResHeaderPairs.Add(new string[] { "Content-Type", "text/html" });
 					channel.ResBody = E_ReadFile(this.Page404File);
+					channel.ResContentLength = new FileInfo(this.Page404File).Length;
 				}
 			}
 			if (head && channel.ResBody != null)
@@ -330,6 +332,7 @@ namespace Charlotte
 				SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "RES-HEADER " + pair[0] + " = " + pair[1]);
 
 			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "RES-BODY " + (channel.ResBody != null));
+			SockCommon.WriteLog(SockCommon.ErrorLevel_e.INFO, "RES-CONTENT-LENGTH " + channel.ResContentLength);
 		}
 
 		private static string GetHeaderValue(HTTPServerChannel channel, string name)

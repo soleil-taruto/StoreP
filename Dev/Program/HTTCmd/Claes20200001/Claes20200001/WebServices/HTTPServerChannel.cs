@@ -364,6 +364,7 @@ namespace Charlotte.WebServices
 		public int ResStatus = 200;
 		public List<string[]> ResHeaderPairs = new List<string[]>();
 		public IEnumerable<byte[]> ResBody = null; // ゼロバイトの要素を含んでも良い。null-のときゼロバイトの応答ボディを応答する。
+		public long ResContentLength = -1; // 応答ボディの長さ (-1 == 指定なし -> 自動判定)
 
 		// <-- HTTPConnected 内で(必要に応じて)設定しなければならないフィールド
 
@@ -383,6 +384,16 @@ namespace Charlotte.WebServices
 			{
 				foreach (int relay in this.EndHeader())
 					yield return relay;
+			}
+			else if (this.ResContentLength != -1)
+			{
+				foreach (int relay in this.SendLine("Content-Length: " + this.ResContentLength)
+					.Concat(this.EndHeader()))
+					yield return relay;
+
+				foreach (byte[] resBodyPart in this.ResBody)
+					foreach (var relay in this.Channel.Send(resBodyPart))
+						yield return relay;
 			}
 			else
 			{
