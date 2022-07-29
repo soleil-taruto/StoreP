@@ -1238,10 +1238,7 @@ namespace Charlotte.Games
 
 		private void DrawWall()
 		{
-			double xRate = (double)DDGround.ICamera.X / (this.Map.W * GameConsts.TILE_W - DDConsts.Screen_W);
-			double yRate = (double)DDGround.ICamera.Y / (this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H);
-
-			this.Wall.Draw(xRate, yRate);
+			this.Wall.Draw();
 		}
 
 		private void DrawMap()

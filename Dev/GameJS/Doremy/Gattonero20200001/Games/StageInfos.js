@@ -21,21 +21,21 @@ function <void> PlayStageMusic(<int> mapIndex)
 	Play(@@_MusicList[mapIndex]);
 }
 
-var<Image[]> @@_WallPictureList =
+var<Func Wall_t> @@_WallCreatorList =
 [
-	P_Wall0001,
-	P_Wall0001,
-	P_Wall0002,
-	P_Wall0003,
-	P_Wall0001,
-	P_Wall0002,
-	P_Wall0001,
-	P_Wall0002,
-	P_Wall0001,
-	P_Wall0002,
+	() => CreateWall_Simple(P_Wall0002),
+	() => CreateWall_SimpleDouble(P_Wall0001B, P_Wall0001F),
+	() => CreateWall_Simple(P_Wall0002),
+	() => CreateWall_Simple(P_Wall0003),
+	() => CreateWall_Simple(P_Wall0002),
+	() => CreateWall_Simple(P_Wall0003),
+	() => CreateWall_Simple(P_Wall0002),
+	() => CreateWall_Simple(P_Wall0003),
+	() => CreateWall_Simple(P_Wall0002),
+	() => CreateWall_Simple(P_Wall0003),
 ];
 
-function <Image> GetStageWallPicture(<int> mapIndex)
+function <Wall_t> GetStageWall(<int> mapIndex)
 {
-	return @@_WallPictureList[mapIndex];
+	return @@_WallCreatorList[mapIndex]();
 }

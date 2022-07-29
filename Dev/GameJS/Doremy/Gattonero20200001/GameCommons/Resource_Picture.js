@@ -173,20 +173,20 @@ var<Image> P_Tile_Ground2 = @@_Load(RESOURCE_ロックマン風__Tile__stage01_chip_a0
 	フェンス
 	番号はテンキー式の配置
 */
-var<Image> P_Tile_Fence1 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b01_png);
-var<Image> P_Tile_Fence2 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b08_png);
-var<Image> P_Tile_Fence3 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b07_png);
-var<Image> P_Tile_Fence4 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b02_png);
-var<Image> P_Tile_Fence5 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b09_png);
-var<Image> P_Tile_Fence6 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b06_png);
-var<Image> P_Tile_Fence7 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b03_png);
-var<Image> P_Tile_Fence8 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b04_png);
-var<Image> P_Tile_Fence9 = @@_Load(RESOURCE_stage02_chip_b05stage02_chip_b05_png);
+var<Image> P_Tile_Fence1 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b01_png);
+var<Image> P_Tile_Fence2 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b08_png);
+var<Image> P_Tile_Fence3 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b07_png);
+var<Image> P_Tile_Fence4 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b02_png);
+var<Image> P_Tile_Fence5 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b09_png);
+var<Image> P_Tile_Fence6 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b06_png);
+var<Image> P_Tile_Fence7 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b03_png);
+var<Image> P_Tile_Fence8 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b04_png);
+var<Image> P_Tile_Fence9 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b05_png);
 
 /*
 	煉瓦(小)
 */
-var<Image> P_Tile_Brick_S = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_e01_png);
+var<Image> P_Tile_Brick_S = @@_Load(RESOURCE_ロックマン風__Tile__stage01_chip_e01_png);
 
 /*
 	煉瓦(大)
@@ -204,9 +204,10 @@ var<Image> P_Tile_Ladder = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_d01
 // タイル End
 // ==========
 
-var<Image> P_Wall0001 = @@_Load(RESOURCE_素材Good__Wall_0001_png);
-var<Image> P_Wall0002 = @@_Load(RESOURCE_素材Good__Wall_0002_png);
-var<Image> P_Wall0003 = @@_Load(RESOURCE_素材Good__Wall_0003_png);
+var<Image> P_Wall0001B = @@_Load(RESOURCE_素材Good__Wall_0001B_png);
+var<Image> P_Wall0001F = @@_Load(RESOURCE_素材Good__Wall_0001F_png);
+var<Image> P_Wall0002  = @@_Load(RESOURCE_素材Good__Wall_0002_png);
+var<Image> P_Wall0003  = @@_Load(RESOURCE_素材Good__Wall_0003_png);
 
 var<Image> P_Enemy_Frog = @@_Load(RESOURCE_Picture__Frog_png);
 var<Image> P_Enemy_Houdai = @@_Load(RESOURCE_Picture__Houdai_png);

@@ -4,6 +4,10 @@
 
 /*
 	マップサイズ (縦・横マップセル数)
+
+	以下のとおりになるようにせよ！
+	-- Screen_W == MAP_W_MIN * TILE_W
+	-- Screen_H == MAP_H_MIN * TILE_H
 */
 var<int> MAP_W_MIN = 25;
 var<int> MAP_H_MIN = 19;
