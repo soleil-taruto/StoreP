@@ -10,7 +10,7 @@ function <Wall_t> CreateWall_Simple(<Image> picture)
 	{
 		// ‚±‚±‚©‚çŒÅ—L
 
-		var<Image> Picture: picture,
+		<Image> Picture: picture,
 	};
 
 	ret.Draw = @@_Draw(ret);

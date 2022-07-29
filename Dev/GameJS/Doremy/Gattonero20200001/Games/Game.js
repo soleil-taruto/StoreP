@@ -63,6 +63,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	LoadMap(mapIndex);
 	LoadEnemyOfMap();
 	MoveToStartPtOfMap();
+	@@_Wall = GetStageWall(mapIndex);
 
 	SetCurtain();
 	FreezeInput();
@@ -72,8 +73,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	yield* @@_StartMotion();
 
 	PlayStageMusic(mapIndex);
-
-	@@_Wall = GetStageWall(mapIndex);
 
 gameLoop:
 	for (; ; )
@@ -515,7 +514,7 @@ function* <generatorForTask> @@_StartMotion()
 			dx += pt.X;
 			dy += pt.Y;
 
-			Draw(P_PlayerStand, dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
+			Draw(P_PlayerWait, dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
 		}
 
 		yield 1;
@@ -599,7 +598,7 @@ function* <generatorForTask> @@_GoalMotion()
 					break;
 				}
 
-				Draw(P_PlayerStand, x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
+				Draw(P_PlayerWait, x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
 
 				yield 1;
 			}
