@@ -15,7 +15,14 @@ namespace Charlotte.Games.Shots
 	{
 		public double X;
 		public double Y;
-		public int AttackPoint; // 0～ == 攻撃力 -- ゼロの場合、被弾モーションは実行されるけど体力が減らない。
+
+		/// <summary>
+		/// 攻撃力
+		/// -1 == 死亡
+		/// 0～ == 攻撃力 -- ゼロの場合、被弾モーションは実行されるけど体力が減らない。
+		/// </summary>
+		public int AttackPoint;
+
 		public bool 敵を貫通する;
 
 		public Shot(double x, double y, int attackPoint, bool 敵を貫通する)
@@ -31,7 +38,21 @@ namespace Charlotte.Games.Shots
 		/// 敵に当たった場合、画面外に出た場合などこの自弾を消滅させたい場合 true をセットすること。
 		/// これにより「フレームの最後に」自弾リストから除去される。
 		/// </summary>
-		public bool DeadFlag = false;
+		public bool DeadFlag
+		{
+			set
+			{
+				if (value)
+					this.AttackPoint = -1;
+				else
+					throw null; // never
+			}
+
+			get
+			{
+				return this.AttackPoint == -1;
+			}
+		}
 
 		/// <summary>
 		/// 現在のフレームにおける当たり判定を保持する。
