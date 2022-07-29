@@ -45,10 +45,15 @@ namespace Charlotte.Games
 
 		/// <summary>
 		/// プレイヤーが向いている方向
+		/// テンキー方式(8方向)
 		/// 2 == 下
 		/// 4 == 左
 		/// 6 == 右
 		/// 8 == 上
+		/// 1 == 左下
+		/// 3 == 右下
+		/// 7 == 左上
+		/// 9 == 右上
 		/// </summary>
 		public int StartFaceDirection = 2;
 

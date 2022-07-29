@@ -8,13 +8,18 @@ using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Shots.Tests
 {
+	/// <summary>
+	/// テスト用_自弾
+	/// </summary>
 	public class Shot_BSpread : Shot
 	{
+		private int Direction; // この自弾の進行方向(8方向_テンキー方式)
 		private double R;
 
 		public Shot_BSpread(double x, double y, int direction, double r)
-			: base(x, y, direction, 1, false)
+			: base(x, y, 1, false)
 		{
+			this.Direction = direction;
 			this.R = r;
 		}
 

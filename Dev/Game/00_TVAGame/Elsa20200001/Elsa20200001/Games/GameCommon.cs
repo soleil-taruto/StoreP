@@ -163,10 +163,10 @@ namespace Charlotte.Games
 
 		/// <summary>
 		/// 方向転換する。
-		/// 方向：{ 1, 2, 3, 4, 6, 7, 8, 9 } == { 左下, 下, 右下, 左, 右, 左上, 上, 右上 }
+		/// 方向：8方向_テンキー方式 -- { 1, 2, 3, 4, 6, 7, 8, 9 } == { 左下, 下, 右下, 左, 右, 左上, 上, 右上 }
 		/// </summary>
 		/// <param name="direction">回転前の方向</param>
-		/// <param name="count">回転する回数(1回につき時計回りに45度転換する,負の値ok)</param>
+		/// <param name="count">回転する回数(1回につき時計回りに45度回転する,負の値=反時計回り)</param>
 		/// <returns>回転後の方向</returns>
 		public static int Rotate(int direction, int count)
 		{

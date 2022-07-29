@@ -15,9 +15,13 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_BFireBall : Shot
 	{
-		public Shot_BFireBall(double x, double y, bool facingLeft, bool facingTop)
-			: base(x, y, facingLeft, facingTop, 2, false)
-		{ }
+		private bool FacingLeft;
+
+		public Shot_BFireBall(double x, double y, bool facingLeft)
+			: base(x, y, 2, false)
+		{
+			this.FacingLeft = facingLeft;
+		}
 
 		protected override IEnumerable<bool> E_Draw()
 		{

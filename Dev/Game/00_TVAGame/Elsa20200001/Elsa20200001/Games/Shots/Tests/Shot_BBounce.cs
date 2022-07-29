@@ -8,11 +8,18 @@ using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Shots.Tests
 {
+	/// <summary>
+	/// テスト用_自弾
+	/// </summary>
 	public class Shot_BBounce : Shot
 	{
+		private int Direction; // この自弾の進行方向(8方向_テンキー方式)
+
 		public Shot_BBounce(double x, double y, int direction)
-			: base(x, y, direction, 1, false)
-		{ }
+			: base(x, y, 1, false)
+		{
+			this.Direction = direction;
+		}
 
 		private const int BOUNCE_MAX = 3;
 

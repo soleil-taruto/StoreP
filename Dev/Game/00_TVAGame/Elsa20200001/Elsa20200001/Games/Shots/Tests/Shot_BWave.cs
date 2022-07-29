@@ -8,13 +8,18 @@ using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Shots.Tests
 {
+	/// <summary>
+	/// テスト用_自弾
+	/// </summary>
 	public class Shot_BWave : Shot
 	{
+		private int Direction; // この自弾の進行方向(8方向_テンキー方式)
 		private bool 左回転;
 
 		public Shot_BWave(double x, double y, int direction, bool 左回転)
-			: base(x, y, direction, 2, false)
+			: base(x, y, 2, false)
 		{
+			this.Direction = direction;
 			this.左回転 = 左回転;
 		}
 

@@ -15,17 +15,13 @@ namespace Charlotte.Games.Shots
 	{
 		public double X;
 		public double Y;
-		public bool FacingLeft;
-		public bool FacingTop;
 		public int AttackPoint; // 0～ == 攻撃力 -- ゼロの場合、被弾モーションは実行されるけど体力が減らない。
 		public bool 敵を貫通する;
 
-		public Shot(double x, double y, bool facingLeft, bool facingTop, int attackPoint, bool 敵を貫通する)
+		public Shot(double x, double y, int attackPoint, bool 敵を貫通する)
 		{
 			this.X = x;
 			this.Y = y;
-			this.FacingLeft = facingLeft;
-			this.FacingTop = facingTop;
 			this.AttackPoint = attackPoint;
 			this.敵を貫通する = 敵を貫通する;
 		}

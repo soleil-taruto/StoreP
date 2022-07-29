@@ -160,7 +160,7 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_BNormal(x, y, this.FacingLeft, this.FacingTop));
+						Game.I.Shots.Add(new Shot_BNormal(x, y, this.FacingLeft));
 					}
 					break;
 
@@ -177,7 +177,7 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_BFireBall(x, y, this.FacingLeft, this.FacingTop));
+						Game.I.Shots.Add(new Shot_BFireBall(x, y, this.FacingLeft));
 					}
 					break;
 
@@ -194,7 +194,7 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_BLaser(x, y, this.FacingLeft, this.FacingTop));
+						Game.I.Shots.Add(new Shot_BLaser(x, y, this.FacingLeft));
 					}
 					break;
 
@@ -211,7 +211,7 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_BWaveBeam(x, y, this.FacingLeft, this.FacingTop));
+						Game.I.Shots.Add(new Shot_BWaveBeam(x, y, this.FacingLeft));
 					}
 					break;
 
@@ -230,7 +230,7 @@ namespace Charlotte.Games
 						else
 							y += Y_ADD_STAND;
 
-						Game.I.Shots.Add(new Shot_Normal(x, y, this.FacingLeft, this.FacingTop));
+						Game.I.Shots.Add(new Shot_Normal(x, y, this.FacingLeft));
 					}
 					break;
 

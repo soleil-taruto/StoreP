@@ -10,9 +10,13 @@ namespace Charlotte.Games.Shots
 {
 	public class Shot_Normal : Shot
 	{
+		private int Direction; // この自弾の進行方向(8方向_テンキー方式)
+
 		public Shot_Normal(double x, double y, int direction)
-			: base(x, y, direction, 3, false)
-		{ }
+			: base(x, y, 3, false)
+		{
+			this.Direction = direction;
+		}
 
 		protected override IEnumerable<bool> E_Draw()
 		{

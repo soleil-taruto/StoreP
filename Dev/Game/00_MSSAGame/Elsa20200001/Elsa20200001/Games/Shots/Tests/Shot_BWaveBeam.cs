@@ -15,9 +15,13 @@ namespace Charlotte.Games.Shots.Tests
 	/// </summary>
 	public class Shot_BWaveBeam : Shot
 	{
-		public Shot_BWaveBeam(double x, double y, bool facingLeft, bool facingTop)
-			: base(x, y, facingLeft, facingTop, 5, false)
-		{ }
+		private bool FacingLeft;
+
+		public Shot_BWaveBeam(double x, double y, bool facingLeft)
+			: base(x, y, 5, false)
+		{
+			this.FacingLeft = facingLeft;
+		}
 
 		protected override IEnumerable<bool> E_Draw()
 		{

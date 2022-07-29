@@ -18,7 +18,7 @@ namespace Charlotte.Games
 	{
 		public double X;
 		public double Y;
-		public int FaceDirection; // プレイヤーが向いている方向 { 2, 4, 6, 8 } == { 下, 左, 右, 上 }
+		public int FaceDirection; // プレイヤーが向いている方向(8方向_テンキー方式)
 		public DDCrash Crash;
 		public int MoveFrame;
 		public int AttackFrame;

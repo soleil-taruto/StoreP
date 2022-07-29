@@ -15,15 +15,13 @@ namespace Charlotte.Games.Shots
 	{
 		public double X;
 		public double Y;
-		public int Direction; // この自弾の進行方向 { 2, 4, 6, 8, 1, 3, 7, 9 } == { 下, 左, 右, 上, 左下, 右下, 左上, 右上 }
 		public int AttackPoint;
 		public bool 敵を貫通する;
 
-		public Shot(double x, double y, int direction, int attackPoint, bool 敵を貫通する)
+		public Shot(double x, double y, int attackPoint, bool 敵を貫通する)
 		{
 			this.X = x;
 			this.Y = y;
-			this.Direction = direction;
 			this.AttackPoint = attackPoint;
 			this.敵を貫通する = 敵を貫通する;
 		}
