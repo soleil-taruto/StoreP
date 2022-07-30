@@ -302,6 +302,10 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(133) : MoveToStartPtOfMap // 
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(235) : @ // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(244) : GetMapCell // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(249) : GetMapCell_XY // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(269) : IsWall // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(274) : IsWall_XY // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(282) : IsPtWall // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(287) : IsPtWall_XY // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(51) : Map // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(233) : DEFAULT_MAP_CELL // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Maps.js(30) : MAPS // •Ï”
