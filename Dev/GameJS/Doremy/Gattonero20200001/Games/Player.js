@@ -556,9 +556,9 @@ invincibleBlock:
 			koma--;
 			koma %= 4;
 
-			if (koma == 0)
+			if (koma == 3)
 			{
-				koma = 2;
+				koma = 1;
 			}
 			picture = (PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma];
 		}
@@ -567,10 +567,10 @@ invincibleBlock:
 	}
 	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		Draw(PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 	else
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerWait, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		Draw(PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 }
