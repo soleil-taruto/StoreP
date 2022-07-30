@@ -190,9 +190,11 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	if (chr == "壁") return @@_CreateMapCell_T(CreateTile_BDummy()); // ★サンプル
 	if (chr == "　") return @@_CreateMapCell_T(CreateTile_None());
 	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
+	if (chr == "B1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
 	if (chr == "B2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B2));
 	if (chr == "B3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B3));
 	if (chr == "B4") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B4));
+	if (chr == "梯") return @@_CreateMapCell_T(CreateTile_Ladder());
 
 	// 敵系
 	//
@@ -258,3 +260,72 @@ function <MapCell_t> GetMapCell_XY(<int> x, <int> y)
 
 	return Map.Table[x][y];
 }
+
+// ====================
+// マップ壁判定ここから
+// ====================
+
+/*
+	指定位置(テーブル・インデックス)が壁であるか判定する。
+*/
+function <boolean> IsWall(<I2Point_t> pt)
+{
+	return GetMapCell(pt).Tile.TileMode == TileMode_e_WALL;
+}
+
+function <boolean> IsWall_XY(<int> x, <int> y)
+{
+	return IsWall(CreateI2Point(x, y));
+}
+
+/*
+	指定位置(ドット単位・マップ上の座標)が壁であるか判定する。
+*/
+function <boolean> IsPtWall(<D2Point_t> pt)
+{
+	return GetMapCell(ToTablePoint(pt)).Tile.TileMode == TileMode_e_WALL;
+}
+
+function <boolean> IsPtWall_XY(<double> x, <double> y)
+{
+	return IsPtWall(CreateD2Point(x, y));
+}
+
+/*
+	指定位置(ドット単位・マップ上の座標)が地面であるか判定する。
+*/
+function <boolean> IsPtGround(<D2Point_t> pt)
+{
+	var<MapCell_t> cell = GetMapCell(ToTablePoint(pt));
+
+	if (
+		cell.Tile.TileMode == TileMode_e_LADDER ||
+		cell.Tile.TileMode == TileMode_e_CLOUD
+		)
+	{
+		var<double> t = ToTileCenterY(pt.Y) - TILE_H / 2.0;
+
+		if (y < t + LADDER_TOP_GROUND_Y_SIZE)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	if (cell.Tile.TileMode == TileMode_e_WALL)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+function <boolean> IsPtGround_XY(<double> x, <double> y)
+{
+	return IsPtGround(CreateD2Point(x, y));
+}
+
+// ====================
+// マップ壁判定ここまで
+// ====================

@@ -9,7 +9,7 @@ function <Tile_t> CreateTile_Wall(<Image> picture)
 	var ret =
 	{
 		Kind: TileKind_Wall,
-		WallFlag: true,
+		TileMode: TileMode_e_WALL,
 
 		// ‚±‚±‚©‚çŒÅ—L
 

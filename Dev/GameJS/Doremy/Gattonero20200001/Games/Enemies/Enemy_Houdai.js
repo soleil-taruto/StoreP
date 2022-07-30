@@ -34,19 +34,19 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		var<I2Point_t> pt = ToTablePoint_XY(enemy.X, enemy.Y);
 		var<int> dir;
 
-		if (GetMapCell_XY(pt.X - 1, pt.Y).Tile.WallFlag)
+		if (IsWall_XY(pt.X - 1, pt.Y))
 		{
 			dir = 4;
 		}
-		else if (GetMapCell_XY(pt.X + 1, pt.Y).Tile.WallFlag)
+		else if (IsWall_XY(pt.X + 1, pt.Y))
 		{
 			dir = 6;
 		}
-		else if (GetMapCell_XY(pt.X, pt.Y - 1).Tile.WallFlag)
+		else if (IsWall_XY(pt.X, pt.Y - 1))
 		{
 			dir = 8;
 		}
-		else if (GetMapCell_XY(pt.X, pt.Y + 1).Tile.WallFlag)
+		else if (IsWall_XY(pt.X, pt.Y + 1))
 		{
 			dir = 2;
 		}

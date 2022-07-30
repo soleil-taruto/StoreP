@@ -9,7 +9,7 @@ function <Tile_t> CreateTile_None()
 	var ret =
 	{
 		Kind: TileKind_None,
-		WallFlag: false,
+		TileMode: TileMode_e_SPACE,
 
 		// ‚±‚±‚©‚çŒÅ—L
 	};

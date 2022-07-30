@@ -422,19 +422,19 @@ invincibleBlock:
 	// 位置矯正
 	{
 		var<boolean> touchSide_L =
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).Tile.WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        )).Tile.WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).Tile.WallFlag;
+			IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
+			IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        ) ||
+			IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
 
 		var<boolean> touchSide_R =
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).Tile.WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        )).Tile.WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).Tile.WallFlag;
+			IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
+			IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        ) ||
+			IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
 
 		if (touchSide_L && touchSide_R) // -> 壁抜け防止のため再チェック
 		{
-			touchSide_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY)).Tile.WallFlag;
-			touchSide_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY)).Tile.WallFlag;
+			touchSide_L = IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY);
+			touchSide_R = IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY);
 		}
 
 		if (touchSide_L && touchSide_R)
@@ -450,9 +450,9 @@ invincibleBlock:
 			PlayerX = ToTileCenterX(PlayerX + PLAYER_側面判定Pt_X) - TILE_W / 2.0 - PLAYER_側面判定Pt_X;
 		}
 
-		var<boolean> touchCeiling_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
-		var<boolean> touchCeiling_M = GetMapCell(ToTablePoint_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
-		var<boolean> touchCeiling_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
+		var<boolean> touchCeiling_L = IsPtWall_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
+		var<boolean> touchCeiling_M = IsPtWall_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y);
+		var<boolean> touchCeiling_R = IsPtWall_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
 
 		if ((touchCeiling_L && touchCeiling_R) || touchCeiling_M)
 		{
@@ -478,19 +478,19 @@ invincibleBlock:
 		}
 
 		var<boolean> touchGround =
-			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag ||
-			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag;
+			IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
+			IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
 
 		if (!touchGround && PlayerAirborneFrame == 0) // ★ 接地時のみ接地判定を拡張する。
 		{
 			touchGround =
-				GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag ||
-				GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag;
+				IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y) ||
+				IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y);
 
 			// 壁面に立ってしまわないように
 			touchGround = touchGround &&
-				!GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY)).Tile.WallFlag &&
-				!GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY)).Tile.WallFlag;
+				!IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY) &&
+				!IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY);
 		}
 
 		// memo: @ 2022.7.11

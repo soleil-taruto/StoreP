@@ -88,38 +88,38 @@ function <boolean> AttackCheckPlayer_IsSide()
 function <int> AttackCheckPlayer_GetSide()
 {
 	var<boolean> touchSide_L =
-		GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).Tile.WallFlag ||
-		GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        )).Tile.WallFlag ||
-		GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).Tile.WallFlag;
+		IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
+		IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        ) ||
+		IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
 
 	var<boolean> touchSide_R =
-		GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT )).Tile.WallFlag ||
-		GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        )).Tile.WallFlag ||
-		GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB )).Tile.WallFlag;
+		IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
+		IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        ) ||
+		IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
 
 	return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
 }
 
 function <int> AttackCheckPlayer_GetSideSub()
 {
-	var<boolean> touchSide_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY)).Tile.WallFlag;
-	var<boolean> touchSide_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY)).Tile.WallFlag;
+	var<boolean> touchSide_L = IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY);
+	var<boolean> touchSide_R = IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY);
 
 	return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
 }
 
 function <int> AttackCheckPlayer_GetCeiling()
 {
-	var<boolean> touchCeiling_L = GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
-	var<boolean> touchCeiling_M = GetMapCell(ToTablePoint_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
-	var<boolean> touchCeiling_R = GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y)).Tile.WallFlag;
+	var<boolean> touchCeiling_L = IsPtWall_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
+	var<boolean> touchCeiling_M = IsPtWall_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y);
+	var<boolean> touchCeiling_R = IsPtWall_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
 }
 
 function <int> AttackCheckPlayer_GetGround()
 {
 	var<boolean> touchGround =
-		GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag ||
-		GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag;
+		IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
+		IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
 
 	return touchGround;
 }
