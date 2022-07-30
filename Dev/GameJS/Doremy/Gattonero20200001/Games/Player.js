@@ -346,9 +346,14 @@ damageBlock:
 			if (frame == 2) // 初回のみ
 			{
 				SE(S_Damaged);
+				PlayerYSpeed = 0.0;
+			}
+			if (frame % 30 == 2)
+			{
+				AddEffect(Effect_ヒットバック(PlayerX, PlayerY - 50.0, PlayerFacingLeft));
 			}
 
-			PlayerX -= (1.0 - rate) * 9.0 * (PlayerFacingLeft ? -1 : 1);
+			PlayerX -= 1.0 * (PlayerFacingLeft ? -1 : 1);
 		}
 	}
 
@@ -382,7 +387,18 @@ invincibleBlock:
 			}
 			else
 			{
-				speed = PLAYER_SPEED;
+				//*/
+				// 走り出し時に加速する。
+				{
+					speed = (PlayerMoveFrame + 1) / 2.0;
+					speed = Math.min(speed, PLAYER_SPEED);
+				}
+				/*/
+				// 走り出し時に加速しない。
+				{
+					speed = PLAYER_SPEED;
+				}
+				//*/
 			}
 			speed *= PlayerFacingLeft ? -1.0 : 1.0;
 
@@ -465,6 +481,18 @@ invincibleBlock:
 			GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag ||
 			GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag;
 
+		if (!touchGround && PlayerAirborneFrame == 0) // ★ 接地時のみ接地判定を拡張する。
+		{
+			touchGround =
+				GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag ||
+				GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y)).Tile.WallFlag;
+
+			// 壁面に立ってしまわないように
+			touchGround = touchGround &&
+				!GetMapCell(ToTablePoint_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY)).Tile.WallFlag &&
+				!GetMapCell(ToTablePoint_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY)).Tile.WallFlag;
+		}
+
 		// memo: @ 2022.7.11
 		// 上昇中(ジャンプ中)に接地判定が発生することがある。
 		// 接地中は重力により PlayerYSpeed がプラスに振れる。
@@ -529,6 +557,7 @@ invincibleBlock:
 	// ここから描画
 
 	var<double> plA = 1.0;
+	var<Image> picture = P_Dummy;
 
 	if (
 		1 <= PlayerDamageFrame ||
@@ -538,14 +567,24 @@ invincibleBlock:
 		plA = 0.5;
 	}
 
-	if (1 <= PlayerAirborneFrame)
+	if (1 <= PlayerDamageFrame)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		if (ToFix(PlayerDamageFrame / 6) % 2 == 0)
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorEffectShockA : P_PlayerEffectShockA;
+		}
+		else
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorJumpDamage : P_PlayerJumpDamage;
+		}
+	}
+	else if (1 <= PlayerAirborneFrame)
+	{
+		picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
 		var<int> koma = ToFix(ProcFrame / 6);
-		var<Image> picture;
 
 		if (koma == 0)
 		{
@@ -562,15 +601,15 @@ invincibleBlock:
 			}
 			picture = (PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma];
 		}
-
-		Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 	}
 	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		picture = PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack;
 	}
 	else
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		picture = PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait;
 	}
+
+	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 }
