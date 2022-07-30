@@ -37,7 +37,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { @"C:\temp\Game_Debug.html" }));
+			Main4(new ArgsReader(new string[] { @"C:\Dev\GameJS\Doremy\out\Game_Debug.html" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -74,7 +74,20 @@ namespace Charlotte
 			{
 				get
 				{
+					if (!this.Declare)
+						throw null; // never
+
 					return this.Tokens[1];
+				}
+			}
+
+			public IEnumerable<string> CodeTokens
+			{
+				get
+				{
+					return this.Declare ?
+						this.Tokens.Skip(2) :
+						this.Tokens;
 				}
 			}
 		}
@@ -84,6 +97,8 @@ namespace Charlotte
 			string htmlFile = ar.NextArg();
 			string[] htmlLines = File.ReadAllLines(htmlFile, SCommon.ENCODING_SJIS);
 			string[] scriptLines;
+
+			Console.WriteLine("< " + htmlFile); // cout
 
 			{
 				int start = SCommon.IndexOf(htmlLines, line => line == "<script>");
@@ -128,8 +143,8 @@ namespace Charlotte
 				string identifier = declareLine.Identifier;
 
 				{
-					foreach (LineInfo codeLine in lineInfos.Where(v => !v.Declare))
-						foreach (string token in codeLine.Tokens)
+					foreach (LineInfo line in lineInfos)
+						foreach (string token in line.CodeTokens)
 							if (token == identifier)
 								goto found;
 
@@ -140,9 +155,9 @@ namespace Charlotte
 				}
 			}
 
-			foreach (LineInfo codeLine in lineInfos.Where(v => !v.Declare))
+			foreach (LineInfo line in lineInfos)
 			{
-				foreach (string token in codeLine.Tokens)
+				foreach (string token in line.CodeTokens)
 				{
 					char firstChr = token[0];
 
@@ -166,19 +181,23 @@ namespace Charlotte
 
 			File.WriteAllLines(
 				Path.Combine(SCommon.GetOutputDir(), "unreferencedIdentifiers.txt"),
-				unreferencedIdentifiers,
+				unreferencedIdentifiers.DistinctOrderBy(SCommon.Comp),
 				SCommon.ENCODING_SJIS
 				);
 
 			File.WriteAllLines(
 				Path.Combine(SCommon.GetOutputDir(), "undeclaredIdentifiers.txt"),
-				undeclaredIdentifiers,
+				undeclaredIdentifiers.DistinctOrderBy(SCommon.Comp),
 				SCommon.ENCODING_SJIS
 				);
+
+			Console.WriteLine("DONE"); // cout
 		}
 
 		private static string[] JSLineToTokens(string line)
 		{
+			line = JSCommon.RemoveLiteralString(line);
+
 			return SCommon.Tokenize(
 				new string(line.Select(chr => JSCommon.IsJSWordChar(chr) ? chr : ' ').ToArray()),
 				" ",
