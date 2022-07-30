@@ -9,6 +9,7 @@ using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Charlotte.Commons;
 using Charlotte.Tests;
+using Charlotte.JSChecks;
 
 namespace Charlotte
 {
@@ -19,51 +20,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4();
-			}
-			SCommon.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			Main4();
-			SCommon.Pause();
-		}
-
-		private void Main4()
-		{
-			try
-			{
-				Main5();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-		}
-
-		private void Main5()
-		{
-			// -- choose one --
-
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -81,7 +37,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\temp\Game_Debug.html" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -108,10 +64,127 @@ namespace Charlotte
 			}
 		}
 
+		private class LineInfo
+		{
+			public string Line;
+			public string[] Tokens;
+			public bool Declare;
+
+			public string Identifier
+			{
+				get
+				{
+					return this.Tokens[1];
+				}
+			}
+		}
+
 		private void Main5(ArgsReader ar)
 		{
-			// TODO
+			string htmlFile = ar.NextArg();
+			string[] htmlLines = File.ReadAllLines(htmlFile, SCommon.ENCODING_SJIS);
+			string[] scriptLines;
+
+			{
+				int start = SCommon.IndexOf(htmlLines, line => line == "<script>");
+
+				if (start == -1)
+					throw new Exception("スクリプト開始タグが見つかりません。");
+
+				start++;
+				int end = SCommon.IndexOf(htmlLines, line => line == "</script>", start);
+
+				if (end == -1)
+					throw new Exception("スクリプト終了タグが見つかりません。");
+
+				scriptLines = htmlLines.ToList().GetRange(start, end - start).ToArray();
+			}
+
+			LineInfo[] lineInfos = scriptLines.Select(line =>
+			{
+				LineInfo ret = new LineInfo()
+				{
+					Line = line,
+					Tokens = JSLineToTokens(line),
+				};
+
+				ret.Declare =
+					2 <= ret.Tokens.Length &&
+					(
+						line.StartsWith("let ") ||
+						line.StartsWith("function ") ||
+						line.StartsWith("function* ")
+					);
+
+				return ret;
+			})
+			.ToArray();
+
+			List<string> unreferencedIdentifiers = new List<string>();
+			List<string> undeclaredIdentifiers = new List<string>();
+
+			foreach (LineInfo declareLine in lineInfos.Where(v => v.Declare))
+			{
+				string identifier = declareLine.Identifier;
+
+				{
+					foreach (LineInfo codeLine in lineInfos.Where(v => !v.Declare))
+						foreach (string token in codeLine.Tokens)
+							if (token == identifier)
+								goto found;
+
+					unreferencedIdentifiers.Add(identifier);
+
+				found:
+					;
+				}
+			}
+
+			foreach (LineInfo codeLine in lineInfos.Where(v => !v.Declare))
+			{
+				foreach (string token in codeLine.Tokens)
+				{
+					char firstChr = token[0];
+
+					// ? グローバル変数と見なす開始文字
+					if (
+						('A' <= firstChr && firstChr <= 'Z') ||
+						firstChr == '_'
+						)
+					{
+						foreach (LineInfo declareLine in lineInfos.Where(v => v.Declare))
+							if (declareLine.Identifier == token)
+								goto found;
+
+						undeclaredIdentifiers.Add(token);
+
+					found:
+						;
+					}
+				}
+			}
+
+			File.WriteAllLines(
+				Path.Combine(SCommon.GetOutputDir(), "unreferencedIdentifiers.txt"),
+				unreferencedIdentifiers,
+				SCommon.ENCODING_SJIS
+				);
+
+			File.WriteAllLines(
+				Path.Combine(SCommon.GetOutputDir(), "undeclaredIdentifiers.txt"),
+				undeclaredIdentifiers,
+				SCommon.ENCODING_SJIS
+				);
 		}
-#endif
+
+		private static string[] JSLineToTokens(string line)
+		{
+			return SCommon.Tokenize(
+				new string(line.Select(chr => JSCommon.IsJSWordChar(chr) ? chr : ' ').ToArray()),
+				" ",
+				false,
+				true
+				);
+		}
 	}
 }
