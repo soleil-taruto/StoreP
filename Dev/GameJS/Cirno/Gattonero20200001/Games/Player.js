@@ -382,7 +382,18 @@ invincibleBlock:
 			}
 			else
 			{
-				speed = PLAYER_SPEED;
+				/*/
+				// 走り出し時に加速する。
+				{
+					speed = (PlayerMoveFrame + 1) / 2.0;
+					speed = Math.min(speed, PLAYER_SPEED);
+				}
+				/*/
+				// 走り出し時に加速しない。
+				{
+					speed = PLAYER_SPEED;
+				}
+				//*/
 			}
 			speed *= PlayerFacingLeft ? -1.0 : 1.0;
 
@@ -529,6 +540,7 @@ invincibleBlock:
 	// ここから描画
 
 	var<double> plA = 1.0;
+	var<Image> picture = P_Dummy;
 
 	if (
 		1 <= PlayerDamageFrame ||
@@ -540,7 +552,7 @@ invincibleBlock:
 
 	if (1 <= PlayerAirborneFrame)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
@@ -560,14 +572,16 @@ invincibleBlock:
 			}
 		}
 
-		Draw((PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma], PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		picture = (PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma];
 	}
 	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		picture = PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack;
 	}
 	else
 	{
-		Draw(PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+		picture = PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerStand;
 	}
+
+	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 }
