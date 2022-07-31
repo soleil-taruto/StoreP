@@ -211,7 +211,7 @@ namespace Charlotte.Games.Attacks
 			{
 				Game.I.Player.Crash = DDCrashUtils.Point(new D2Point(
 					Game.I.Player.X,
-					Game.I.Player.Y
+					Game.I.Player.Y + 10.0
 					));
 			}
 		}

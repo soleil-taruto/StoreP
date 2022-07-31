@@ -125,7 +125,7 @@ function <void> ResetPlayer()
 	PlayerMoveFrame = 0;
 	PlayerJumpCount = 0;
 	PlayerJumpFrame = 0;
-	PlayerAirborneFrame = IMAX / 2; // ゲーム開始直後に空中でジャンプできないように
+	PlayerAirborneFrame = ToFix(IMAX / 2); // ゲーム開始直後に空中でジャンプできないように
 	PlayerShagamiFrame = 0;
 	PlayerUwamukiFrame = 0;
 	PlayerShitamukiFrame = 0;
@@ -150,10 +150,7 @@ function <void> ActPlayer()
 
 	if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
 	{
-		// HACK: このフレームでは当たり判定がセットされない。-- 1フレームなので看過する。
-
 		PlayerAttack = Supplier(CreateAttack_BDummy());
-		return;
 	}
 
 	// 入力
