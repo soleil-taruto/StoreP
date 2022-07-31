@@ -95,7 +95,7 @@ function <int> @@_Check(<int> counter, <int> padInputIndex, <int[]> keyCodes)
 
 function <int> @@_GetInput(<int> counter)
 {
-	return 1 <= FreezeInputFrame ? 0 : counter;
+	return 1 <= FreezeInputFrame || counter == -2 ? 0 : counter;
 }
 
 // ★★★ ボタン・キー押下は 1 マウス押下は -1 で判定する。

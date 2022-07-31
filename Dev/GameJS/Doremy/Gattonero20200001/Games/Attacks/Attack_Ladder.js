@@ -4,35 +4,36 @@
 
 function* <generatorForTask> CreateAttack_Ladder()
 {
-//	AddEffect(Effect_Ladder(PlayerX, PlayerY + 20.0));
+	var<int> SHOOTING_FRAME_MAX = 15;
+
+	var<int> shootingFrame = 0; // 0 == 無効, 1～ == 射撃モーション (カウントダウン方式)
+
+	PlayerX = ToTileCenterX(PlayerX); // 梯子の中央に寄せる。
 
 	for (var<int> frame = 0; ; frame++)
 	{
-		if (1 <= PlayerDamageFrame) // 被弾したら即終了
+		if (GetInput_8() <= 0 && 1 <= GetInput_A()) // ? 上ボタンを離して、ジャンプボタン押下
 		{
+			if (1 <= GetInput_2()) // ? 下ボタン押下 -> ジャンプしない。
+			{
+				PlayerJumpFrame = 0;
+				PlayerJumpCount = 0;
+
+				PlayerYSpeed = 0.0;
+			}
+			else // ? 下ボタンを離している -> ジャンプする。
+			{
+				PlayerJumpFrame = 1;
+				PlayerJumpCount = 1;
+
+				PlayerYSpeed = PLAYER_JUMP_SPEED;
+			}
+
+			// スライディングさせないために滞空状態にする。
+			// -- 入力猶予を考慮して、大きい値を設定する。
+			PlayerAirborneFrame = ToFix(IMAX / 2);
+
 			break;
-		}
-
-		if (10 < frame) // ? 最低持続時間経過
-		{
-			if (AttackCheckPlayer_GetSide_Mode(4) != 3) // ? ここは立ち上がれる場所である。
-			{
-				if (GetInput_A() <= 0 || GetInput_2() <= 0) // ? 下・ジャンプボタン少なくともどちらかを離している。
-				{
-					break;
-				}
-			}
-		}
-
-		if (AttackCheckPlayer_GetSide_Mode(2) != 0) // ? 壁に当たっている。
-		{
-			if (AttackCheckPlayer_GetSide_Mode(4) != 3) // ? ここは立ち上がれる場所である。
-			{
-				if (GetInput_A() == 1) // ? ジャンプボタンを押した。
-				{
-					break;
-				}
-			}
 		}
 
 		if (1 <= GetInput_4())
@@ -45,47 +46,100 @@ function* <generatorForTask> CreateAttack_Ladder()
 		}
 
 		// 移動
+		//
+		if (shootingFrame == 0) // 射撃モーション時は移動出来ない。
 		{
-			var<double> SPEED = 10.0;
+			var<double> SPEED = 2.5;
+			var<double> ACCEL_RATE = 0.5;
 
-			if (PlayerFacingLeft)
+			var<boolean> moved = false;
+
+			if (1 <= GetInput_8())
 			{
-				PlayerX -= SPEED;
+				PlayerY -= Math.min(SPEED, GetInput_8() * ACCEL_RATE);
+				moved = true;
 			}
-			else
+			if (1 <= GetInput_2())
 			{
-				PlayerX += SPEED;
+				PlayerY += Math.min(SPEED, GetInput_2() * ACCEL_RATE);
+				moved = true;
+			}
+
+			if (moved)
+			{
+				// none
 			}
 		}
 
-//		AttackProcPlayer_Move(); // 不要
-		AttackProcPlayer_Fall();
-		AttackProcPlayer_Side_Mode(2);
+		var<boolean> shot = false;
+
+		if (GetInput_B() == 1)
+		{
+			PlayerShoot();
+			shot = true;
+		}
+
+		if (shot)
+		{
+			shootingFrame = SHOOTING_FRAME_MAX;
+		}
+		else
+		{
+			shootingFrame = CountDown(shootingFrame);
+		}
+
+//		AttackProcPlayer_Move();
+//		AttackProcPlayer_Fall();
+//		AttackProcPlayer_Side();
 		AttackProcPlayer_Ceiling();
 
-		if (!AttackProcPlayer_Ground())
+		if (AttackProcPlayer_Ground())
 		{
-//			PlayerAirborneFrame = 1; // 崖の淵に立ってしまわないように滞空状態にする。
-			PlayerAirborneFrame = ToFix(IMAX / 2); // ジャンプしてしまわないように十分大きな値をセットする。
+			PlayerJumpFrame = 0;
+			PlayerJumpCount = 0;
+
+			PlayerYSpeed = 0.0;
+
 			break;
 		}
 
-		PlayerCrash = CreateCrash_Circle(
-			PlayerX,
-			PlayerY + 10.0,
-			10.0
-			);
+		// ? 梯子の下に出た。
+		if (
+			!IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 0) &&
+			!IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 1)
+			)
+		{
+			PlayerJumpFrame = 0;
+			PlayerJumpCount = 0;
+
+			PlayerYSpeed = 0.0;
+
+			break;
+		}
+
+		var<Image> picture;
+
+		if (1 <= shootingFrame)
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorClimbAttack : P_PlayerClimbAttack;
+		}
+		else
+		{
+			if (IsPtLadder_XY(PlayerX, PlayerY))
+			{
+				picture = P_PlayerClimb[ToFix(PlayerY / 20) % 2];
+			}
+			else
+			{
+				picture = P_PlayerClimbTop;
+			}
+		}
+
+		PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(PlayerX, PlayerY, 20.0, 30.0));
 
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{
-			Draw(
-				PlayerFacingLeft ? P_PlayerMirrorLadder : P_PlayerLadder,
-				PlayerX - Camera.X,
-				PlayerY - Camera.Y,
-				1.0,
-				0.0,
-				1.0
-				);
+			Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 		}());
 
 		yield 1;

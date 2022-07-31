@@ -335,6 +335,19 @@ function <boolean> IsPtGround_XY(<double> x, <double> y)
 	return IsPtGround(CreateD2Point(x, y));
 }
 
+/*
+	指定位置(ドット単位・マップ上の座標)が梯子であるか判定する。
+*/
+function <boolean> IsPtLadder(<D2Point_t> pt)
+{
+	return GetMapCell(ToTablePoint(pt)).Tile.TileMode == TileMode_e_LADDER;
+}
+
+function <boolean> IsPtLadder_XY(<double> x, <double> y)
+{
+	return IsPtLadder(CreateD2Point(x, y));
+}
+
 // ================================
 // マップの壁・足場等の判定ここまで
 // ================================

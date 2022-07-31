@@ -345,6 +345,36 @@ function <void> ActPlayer()
 		{
 			PlayerAttackFrame = 0;
 		}
+
+		// ★ 梯子
+		{
+			if (shitamuki)
+			{
+				if (
+					PlayerAirborneFrame == 0 &&
+					IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 0) == false &&
+					IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 1)
+					)
+				{
+					// ★ 梯子を降り始める。
+
+					PlayerY = ToTileCenterY(PlayerY) + TILE_H / 2.0 - 10.0;
+					PlayerAttack = Supplier(CreateAttack_Ladder());
+					return;
+				}
+			}
+
+			if (uwamuki)
+			{
+				if (IsPtLadder_XY(PlayerX, PlayerY))
+				{
+					// ★ 梯子を登り始める。
+
+					PlayerAttack = Supplier(CreateAttack_Ladder());
+					return;
+				}
+			}
+		}
 	}
 
 damageBlock:
@@ -532,22 +562,9 @@ invincibleBlock:
 
 	// 攻撃
 	{
-		if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
+		if (PlayerAttackFrame == 1)
 		{
-			if (1 <= PlayerUwamukiFrame)
-			{
-				var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
-
-				GetShots().push(shot);
-			}
-			else
-			{
-				var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
-
-				GetShots().push(shot);
-			}
-
-			SE(S_Shoot);
+			PlayerShoot();
 		}
 	}
 
@@ -641,4 +658,25 @@ function <void> DrawPlayer()
 	}
 
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+}
+
+/*
+	プレイヤーによる攻撃を実行
+*/
+function <void> PlayerShoot()
+{
+	if (1 <= PlayerUwamukiFrame)
+	{
+		var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
+
+		GetShots().push(shot);
+	}
+	else
+	{
+		var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
+
+		GetShots().push(shot);
+	}
+
+	SE(S_Shoot);
 }
