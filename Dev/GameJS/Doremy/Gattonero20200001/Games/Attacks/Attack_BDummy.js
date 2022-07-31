@@ -30,7 +30,7 @@ function* <generatorForTask> CreateAttack_BDummy()
 			SetFSize(16);
 			PrintLine("Attack - BDummy ƒeƒXƒg");
 
-			Draw(P_PlayerStand, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+			Draw(P_PlayerWait, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
 		}());
 
 		yield 1;
