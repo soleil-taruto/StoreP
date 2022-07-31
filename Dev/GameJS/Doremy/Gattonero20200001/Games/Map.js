@@ -189,11 +189,11 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	//
 	if (chr == "•Ç") return @@_CreateMapCell_T(CreateTile_BDummy()); // šƒTƒ“ƒvƒ‹
 	if (chr == "@") return @@_CreateMapCell_T(CreateTile_None());
-	if (chr == "¡") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
-	if (chr == "B1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
-	if (chr == "B2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B2));
-	if (chr == "B3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B3));
-	if (chr == "B4") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B4));
+	if (chr == "¡") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Brick_S));
+	if (chr == "W1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
+	if (chr == "W2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B2));
+	if (chr == "W3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B3));
+	if (chr == "W4") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B4));
 	if (chr == "’ò") return @@_CreateMapCell_T(CreateTile_Ladder());
 
 	// “GŒn

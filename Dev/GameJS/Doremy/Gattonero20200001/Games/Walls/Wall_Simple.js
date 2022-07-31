@@ -22,7 +22,7 @@ function* <generatorForTask> @@_Draw(<Wall_t> wall)
 {
 	var<double> SLIDE_RATE = 0.1;
 
-	var<Image> wallImg = GetStageWallPicture(@@_MapIndex);
+	var<Image> wallImg = wall.Picture;
 	var<int> wallImg_w = GetPicture_W(wallImg);
 	var<int> wallImg_h = GetPicture_H(wallImg);
 
