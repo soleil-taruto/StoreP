@@ -564,13 +564,17 @@ invincibleBlock:
 	{
 		// noop
 	}
-	else
+	else if (1 <= PlayerAirborneFrame)
 	{
 		PlayerCrash = CreateCrash_Circle(
 			PlayerX,
 			PlayerY,
 			10.0
 			);
+	}
+	else
+	{
+		PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(PlayerX, PlayerY, 20.0, 30.0));
 	}
 }
 

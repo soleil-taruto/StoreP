@@ -118,3 +118,16 @@ function* <generatorForTask> Effect_ヒットバック(<double> x, <double> y, <boolea
 		}
 	}
 }
+
+function* <generatorForTask> Effect_Sliding(<double> x, <double> y, <boolean> facingLeft)
+{
+	for (var<Image> picture of (facingLeft ? P_PlayerMirrorEffectSliding : P_PlayerEffectSliding))
+	{
+		for (var<int> c = 0; c < 4; c++)
+		{
+			Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
+
+			yield 1;
+		}
+	}
+}

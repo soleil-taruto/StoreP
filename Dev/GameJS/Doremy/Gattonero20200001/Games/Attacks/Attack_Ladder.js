@@ -1,10 +1,10 @@
 /*
-	Attack - Sliding
+	Attack - Ladder
 */
 
-function* <generatorForTask> CreateAttack_Sliding()
+function* <generatorForTask> CreateAttack_Ladder()
 {
-	AddEffect(Effect_Sliding(PlayerX, PlayerY + 20.0));
+//	AddEffect(Effect_Ladder(PlayerX, PlayerY + 20.0));
 
 	for (var<int> frame = 0; ; frame++)
 	{
@@ -79,7 +79,7 @@ function* <generatorForTask> CreateAttack_Sliding()
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{
 			Draw(
-				PlayerFacingLeft ? P_PlayerMirrorSliding : P_PlayerSliding,
+				PlayerFacingLeft ? P_PlayerMirrorLadder : P_PlayerLadder,
 				PlayerX - Camera.X,
 				PlayerY - Camera.Y,
 				1.0,

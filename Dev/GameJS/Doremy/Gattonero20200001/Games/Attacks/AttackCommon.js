@@ -139,8 +139,8 @@ function <boolean> AttackCheckPlayer_GetCeiling()
 function <boolean> AttackCheckPlayer_GetGround()
 {
 	var<boolean> touchGround =
-		IsPtWall_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
-		IsPtWall_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
+		IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
+		IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
 
 	return touchGround;
 }
