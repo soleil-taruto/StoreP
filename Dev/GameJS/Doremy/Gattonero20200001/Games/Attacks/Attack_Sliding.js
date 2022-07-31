@@ -70,9 +70,13 @@ function* <generatorForTask> CreateAttack_Sliding()
 			break;
 		}
 
+		AttackProcPlayer_Status();
+
+		var<double> plA = 1.0;
+
 		if (1 <= PlayerInvincibleFrame) // ? –³“GŽžŠÔ’†
 		{
-			// noop
+			plA = 0.5;
 		}
 		else
 		{
@@ -89,7 +93,7 @@ function* <generatorForTask> CreateAttack_Sliding()
 				PlayerFacingLeft ? P_PlayerMirrorSliding : P_PlayerSliding,
 				PlayerX - Camera.X,
 				PlayerY - Camera.Y,
-				1.0,
+				plA,
 				0.0,
 				1.0
 				);

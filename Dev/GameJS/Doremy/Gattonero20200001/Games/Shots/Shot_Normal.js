@@ -77,7 +77,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, SHOT_R);
 
-		SetColor(I3ColorToString(CreateI3Color(0, 255, 128)));
+		SetColor(I3ColorToString(CreateI3Color(255, 128, 192)));
 		PrintCircle(shot.X - Camera.X, shot.Y - Camera.Y, SHOT_R);
 
 		yield 1;

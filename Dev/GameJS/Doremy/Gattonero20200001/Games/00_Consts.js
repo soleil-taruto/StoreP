@@ -92,6 +92,8 @@ var<double> PLAYER_接地判定Pt_X_接地時のみ = 30.0 / 2;
 //
 var<int> LADDER_TOP_GROUND_Y_SIZE = PLAYER_FALL_SPEED_MAX + 2;
 
+var<int> PLAYER_SHOOTING_FRAME_MAX = 15;
+
 // ----
 // プレイヤー情報ここまで
 // ----

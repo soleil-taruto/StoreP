@@ -6,12 +6,17 @@ function* <generatorForTask> CreateAttack_Ladder()
 {
 	var<int> SHOOTING_FRAME_MAX = 15;
 
-	var<int> shootingFrame = 0; // 0 == 無効, 1～ == 射撃モーション (カウントダウン方式)
+	var<int> shootingFrame = 0; // 0 == 無効, 1～ == 射撃モーション
 
 	PlayerX = ToTileCenterX(PlayerX); // 梯子の中央に寄せる。
 
 	for (var<int> frame = 0; ; frame++)
 	{
+		if (1 <= PlayerDamageFrame) // 被弾したら即終了
+		{
+			break;
+		}
+
 		if (GetInput_8() <= 0 && 1 <= GetInput_A()) // ? 上ボタンを離して、ジャンプボタン押下
 		{
 			if (1 <= GetInput_2()) // ? 下ボタン押下 -> ジャンプしない。
@@ -75,17 +80,22 @@ function* <generatorForTask> CreateAttack_Ladder()
 
 		if (GetInput_B() == 1)
 		{
-			PlayerShoot();
+			PlayerShoot(PlayerX + 28.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 4.0, PlayerFacingLeft);
 			shot = true;
 		}
 
 		if (shot)
 		{
-			shootingFrame = SHOOTING_FRAME_MAX;
+			shootingFrame = 1;
 		}
-		else
+		if (1 <= shootingFrame)
 		{
-			shootingFrame = CountDown(shootingFrame);
+			shootingFrame++;
+
+			if (SHOOTING_FRAME_MAX < shootingFrame)
+			{
+				shootingFrame = 0;
+			}
 		}
 
 //		AttackProcPlayer_Move();
@@ -135,9 +145,13 @@ function* <generatorForTask> CreateAttack_Ladder()
 			}
 		}
 
+		AttackProcPlayer_Status();
+
+		var<double> plA = 1.0;
+
 		if (1 <= PlayerInvincibleFrame) // ? 無敵時間中
 		{
-			// noop
+			plA = 0.5;
 		}
 		else
 		{
@@ -146,7 +160,7 @@ function* <generatorForTask> CreateAttack_Ladder()
 
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{
-			Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+			Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 		}());
 
 		yield 1;

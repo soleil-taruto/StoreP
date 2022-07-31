@@ -26,7 +26,16 @@ function* <generatorForTask> CreateAttack_BDummy()
 		AttackProcPlayer_Ceiling();
 		AttackProcPlayer_Ground();
 
-		AttackProcPlayer_Atari(PlayerInvincibleFrame == 0);
+		AttackProcPlayer_Status();
+
+		if (1 <= PlayerInvincibleFrame) // ? –³“GŽžŠÔ’†
+		{
+			// noop
+		}
+		else
+		{
+			AttackProcPlayer_Atari();
+		}
 
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{

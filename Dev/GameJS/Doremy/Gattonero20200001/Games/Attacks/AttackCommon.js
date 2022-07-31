@@ -12,7 +12,8 @@
 // AttackProcPlayer_Ceiling();  -- 脳天
 // AttackProcPlayer_Ground();   -- 接地
 //
-// AttackProcPlayer_Atari(ataru);
+// AttackProcPlayer_Status();
+// AttackProcPlayer_Atari();
 //
 // AddTask(PlayerDrawTasks, プレイヤー描画タスク );
 //
@@ -229,29 +230,30 @@ function <boolean> AttackProcPlayer_Ground()
 	return ret;
 }
 
-// ====================================
-// ==== プレイヤー動作・当たり判定 ====
-// ====================================
+// ================================
+// ==== プレイヤー動作・その他 ====
+// ================================
 
-/*
-	ataru: 当たるか(無敵状態ではないか)
-*/
-function <void> AttackProcPlayer_Atari(<boolean> ataru)
+function <void> AttackProcPlayer_Status()
 {
-	PlayerCrash = null; // reset
+	if (1 <= PlayerDamageFrame && PLAYER_DAMAGE_FRAME_MAX < ++PlayerDamageFrame)
+	{
+		PlayerDamageFrame = 0;
+		PlayerInvincibleFrame = 1;
+	}
+	if (1 <= PlayerInvincibleFrame && PLAYER_INVINCIBLE_FRAME_MAX < ++PlayerInvincibleFrame)
+	{
+		PlayerInvincibleFrame = 0;
+	}
+}
 
-	if (!ataru) // ? 当たらない(無敵状態)
-	{
-		// noop
-	}
-	else
-	{
-		PlayerCrash = CreateCrash_Circle(
-			PlayerX,
-			PlayerY,
-			10.0
-			);
-	}
+function <void> AttackProcPlayer_Atari()
+{
+	PlayerCrash = CreateCrash_Circle(
+		PlayerX,
+		PlayerY,
+		10.0
+		);
 }
 
 // =====================================

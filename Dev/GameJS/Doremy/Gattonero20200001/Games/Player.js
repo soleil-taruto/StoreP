@@ -112,6 +112,8 @@ var<Func boolean> PlayerAttack = null;
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
+var<int> PlayerShootingFrame = 0;
+
 function <void> ResetPlayer()
 {
 	PlayerHP = PLAYER_HP_MAX;
@@ -133,6 +135,7 @@ function <void> ResetPlayer()
 	PlayerAttack = null;
 	@@_JumpLock = false;
 	@@_MoveSlow = false;
+	PlayerShootingFrame = 0;
 }
 
 /*
@@ -564,7 +567,26 @@ invincibleBlock:
 	{
 		if (PlayerAttackFrame == 1)
 		{
-			PlayerShoot();
+			if (1 <= PlayerAirborneFrame)
+			{
+				PlayerShoot(PlayerX + 28.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 8.0, PlayerFacingLeft);
+			}
+			else
+			{
+				PlayerShoot(PlayerX + 36.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 4.0, PlayerFacingLeft);
+			}
+
+			PlayerShootingFrame = 1;
+		}
+
+		if (1 <= PlayerShootingFrame)
+		{
+			PlayerShootingFrame++;
+
+			if (PLAYER_SHOOTING_FRAME_MAX < PlayerShootingFrame)
+			{
+				PlayerShootingFrame = 0;
+			}
 		}
 	}
 
@@ -626,7 +648,14 @@ function <void> DrawPlayer()
 	}
 	else if (1 <= PlayerAirborneFrame)
 	{
-		picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
+		if (1 <= PlayerShootingFrame)
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorJumpAttack : P_PlayerJumpAttack;
+		}
+		else
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
+		}
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
@@ -638,6 +667,17 @@ function <void> DrawPlayer()
 		}
 		else
 		{
+			var<Image[]> pictureList;
+
+			if (1 <= PlayerShootingFrame)
+			{
+				pictureList = PlayerFacingLeft ? P_PlayerMirrorRunAttack : P_PlayerRunAttack;
+			}
+			else
+			{
+				pictureList = PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun;
+			}
+
 			koma--;
 			koma %= 4;
 
@@ -645,16 +685,20 @@ function <void> DrawPlayer()
 			{
 				koma = 1;
 			}
-			picture = (PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma];
+
+			picture = pictureList[koma];
 		}
-	}
-	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
-	{
-		picture = PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack;
 	}
 	else
 	{
-		picture = PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait;
+		if (1 <= PlayerShootingFrame)
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack;
+		}
+		else
+		{
+			picture = PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait;
+		}
 	}
 
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
@@ -663,17 +707,10 @@ function <void> DrawPlayer()
 /*
 	プレイヤーによる攻撃を実行
 */
-function <void> PlayerShoot()
+function <void> PlayerShoot(<double> x, <double> y, <boolean> facingLeft)
 {
-	if (1 <= PlayerUwamukiFrame)
 	{
-		var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
-
-		GetShots().push(shot);
-	}
-	else
-	{
-		var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
+		var<Shot_t> shot = CreateShot_Normal(x, y, facingLeft, false, false);
 
 		GetShots().push(shot);
 	}
