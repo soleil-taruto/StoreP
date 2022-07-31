@@ -112,18 +112,18 @@ gameLoop:
 		@@_DrawWall();
 		@@_DrawMap();
 
-		if (
-			PlayerDamageFrame == 0 && // 被弾したら即終了
-			PlayerAttack != null &&
-			PlayerAttack()
-			)
+		// プレイヤーの描画
+		//
+		if (PlayerAttack == null)
 		{
-			// noop
+			DrawPlayer();
 		}
 		else
 		{
-			PlayerAttack = null;
-			DrawPlayer(); // プレイヤーの描画
+			if (!PlayerAttack())
+			{
+				PlayerAttack = null;
+			}
 		}
 
 		// 敵の描画
