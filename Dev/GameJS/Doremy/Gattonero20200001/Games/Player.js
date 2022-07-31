@@ -148,6 +148,14 @@ function <void> ActPlayer()
 		PlayerCrash = null;
 	}
 
+	if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
+	{
+		// HACK: このフレームでは当たり判定がセットされない。-- 1フレームなので看過する。
+
+		PlayerAttack = Supplier(CreateAttack_BDummy());
+		return;
+	}
+
 	// 入力
 	{
 		var<boolean> damageOrUID = 1 <= PlayerDamageFrame || UserInputDisabled;

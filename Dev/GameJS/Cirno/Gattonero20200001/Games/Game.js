@@ -17,6 +17,9 @@ var<TaskManager_t> GameTasks = CreateTaskManager();
 // プレイヤー描画タスク
 var<TaskManager_t> PlayerDrawTasks = CreateTaskManager();
 
+// 当たり判定を表示するフラグ (デバッグ・テスト用)
+var<boolean> @@_PrintAtariFlag = false;
+
 /*
 	ゲーム終了理由
 */
@@ -99,11 +102,6 @@ gameLoop:
 			continue gameLoop;
 		}
 
-		if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
-		{
-			PlayerAttack = Supplier(CreateAttack_BDummy());
-		}
-
 	movePlayerBlock:
 		{
 			if (PlayerAttack != null)
@@ -176,7 +174,11 @@ gameLoop:
 		ExecuteAllTask(GameTasks);
 		@@_DrawFront();
 
-		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		if (DEBUG && GetKeyInput(17) == 1) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		{
+			@@_PrintAtariFlag = !@@_PrintAtariFlag;
+		}
+		if (@@_PrintAtariFlag)
 		{
 			var<double> dPlX = PlayerX - Camera.X;
 			var<double> dPlY = PlayerY - Camera.Y;
