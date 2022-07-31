@@ -303,9 +303,18 @@ function <boolean> IsPtGround(<D2Point_t> pt)
 		cell.Tile.TileMode == TileMode_e_CLOUD
 		)
 	{
+		var<I2Point_t> tablePt = ToTablePoint(pt);
+		tablePt.Y--;
+		var<MapCell_t> upperCell = GetMapCell(tablePt);
+
+		if (cell.Tile.TileMode == upperCell.Tile.TileMode) // ? ê^è„Ç‡ìØéÌÇÃÉ^ÉCÉã
+		{
+			return false;
+		}
+
 		var<double> t = ToTileCenterY(pt.Y) - TILE_H / 2.0;
 
-		if (y < t + LADDER_TOP_GROUND_Y_SIZE)
+		if (pt.Y < t + LADDER_TOP_GROUND_Y_SIZE)
 		{
 			return true;
 		}
