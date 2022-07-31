@@ -135,7 +135,14 @@ function* <generatorForTask> CreateAttack_Ladder()
 			}
 		}
 
-		PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(PlayerX, PlayerY, 20.0, 30.0));
+		if (1 <= PlayerInvincibleFrame) // ? –³“GŽžŠÔ’†
+		{
+			// noop
+		}
+		else
+		{
+			PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(PlayerX, PlayerY, 20.0, 30.0));
+		}
 
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{

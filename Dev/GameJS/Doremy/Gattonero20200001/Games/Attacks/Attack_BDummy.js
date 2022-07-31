@@ -26,7 +26,7 @@ function* <generatorForTask> CreateAttack_BDummy()
 		AttackProcPlayer_Ceiling();
 		AttackProcPlayer_Ground();
 
-		AttackProcPlayer_Atari(true);
+		AttackProcPlayer_Atari(PlayerInvincibleFrame == 0);
 
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{

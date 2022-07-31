@@ -70,11 +70,18 @@ function* <generatorForTask> CreateAttack_Sliding()
 			break;
 		}
 
-		PlayerCrash = CreateCrash_Circle(
-			PlayerX,
-			PlayerY + 10.0,
-			10.0
-			);
+		if (1 <= PlayerInvincibleFrame) // ? –³“GŽžŠÔ’†
+		{
+			// noop
+		}
+		else
+		{
+			PlayerCrash = CreateCrash_Circle(
+				PlayerX,
+				PlayerY + 10.0,
+				10.0
+				);
+		}
 
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{

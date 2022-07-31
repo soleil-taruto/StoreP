@@ -199,7 +199,7 @@ function <void> AttackProcPlayer_Atari(<boolean> ataru)
 {
 	PlayerCrash = null; // reset
 
-	if (!ataru) // ? –³“G
+	if (!ataru) // ? “–‚½‚ç‚È‚¢(–³“Gó‘Ô)
 	{
 		// noop
 	}
