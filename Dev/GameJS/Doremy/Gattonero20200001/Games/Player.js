@@ -136,13 +136,12 @@ function <void> ResetPlayer()
 }
 
 /*
-	行動と描画
+	行動
 	処理すべきこと：
 	-- 行動
 	-- 当たり判定の設置
-	-- 描画
 */
-function <void> DrawPlayer()
+function <void> ActPlayer()
 {
 	// reset
 	{
@@ -553,9 +552,15 @@ invincibleBlock:
 			10.0
 			);
 	}
+}
 
-	// ここから描画
-
+/*
+	描画
+	処理すべきこと：
+	-- 描画
+*/
+function <void> DrawPlayer()
+{
 	var<double> plA = 1.0;
 	var<Image> picture = P_Dummy;
 

@@ -14,6 +14,9 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 // ゲーム用タスク
 var<TaskManager_t> GameTasks = CreateTaskManager();
 
+// プレイヤー描画タスク
+var<TaskManager_t> PlayerDrawTasks = CreateTaskManager();
+
 /*
 	ゲーム終了理由
 */
@@ -101,6 +104,19 @@ gameLoop:
 			PlayerAttack = Supplier(CreateAttack_BDummy());
 		}
 
+	movePlayerBlock:
+		{
+			if (PlayerAttack != null)
+			{
+				if (PlayerAttack())
+				{
+					break movePlayerBlock;
+				}
+				PlayerAttack = null;
+			}
+			ActPlayer();
+		}
+
 		@@_カメラ位置調整(false);
 
 		// ====
@@ -110,18 +126,13 @@ gameLoop:
 		@@_DrawWall();
 		@@_DrawMap();
 
-		if (
-			PlayerDamageFrame == 0 && // 被弾したら即終了
-			PlayerAttack != null &&
-			PlayerAttack()
-			)
+		if (1 <= GetTaskCount(PlayerDrawTasks))
 		{
-			// noop
+			ExecuteAllTask(PlayerDrawTasks);
 		}
 		else
 		{
-			PlayerAttack = null;
-			DrawPlayer(); // プレイヤーの描画
+			DrawPlayer();
 		}
 
 		// 敵の描画

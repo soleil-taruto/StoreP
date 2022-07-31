@@ -14,6 +14,8 @@
 //
 // AttackProcPlayer_Atari(ataru);
 //
+// AddTask(PlayerDrawTasks, プレイヤー描画タスク );
+//
 
 // ========================
 // ==== プレイヤー動作 ====
