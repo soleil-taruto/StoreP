@@ -6,6 +6,11 @@ function* <generatorForTask> CreateAttack_BDummy()
 {
 	for (; ; )
 	{
+		if (1 <= PlayerDamageFrame) // ”í’e‚µ‚½‚ç‘¦I—¹
+		{
+			break;
+		}
+
 		if (
 			GetInput_A() == 1 ||
 			GetInput_B() == 1
