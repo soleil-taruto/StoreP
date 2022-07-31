@@ -195,25 +195,29 @@ namespace Charlotte.Games.Attacks
 			return ret;
 		}
 
-		// ===============================
-		// ==== プレイヤー動作・当たり判定 ====
-		// ===============================
+		// ============================
+		// ==== プレイヤー動作・その他 ====
+		// ============================
 
-		public static void ProcPlayer_当たり判定(bool ataru) // ataru: 当たるか(無敵状態ではないか)
+		public static void ProcPlayer_Status()
 		{
-			Game.I.Player.Crash = DDCrashUtils.None(); // reset
+			if (1 <= Game.I.Player.DamageFrame && GameConsts.PLAYER_DAMAGE_FRAME_MAX < ++Game.I.Player.DamageFrame)
+			{
+				Game.I.Player.DamageFrame = 0;
+				Game.I.Player.InvincibleFrame = 1;
+			}
+			if (1 <= Game.I.Player.InvincibleFrame && GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++Game.I.Player.InvincibleFrame)
+			{
+				Game.I.Player.InvincibleFrame = 0;
+			}
+		}
 
-			if (!ataru) // ? 無敵
-			{
-				// noop
-			}
-			else
-			{
-				Game.I.Player.Crash = DDCrashUtils.Point(new D2Point(
-					Game.I.Player.X,
-					Game.I.Player.Y + 10.0
-					));
-			}
+		public static void ProcPlayer_当たり判定()
+		{
+			Game.I.Player.Crash = DDCrashUtils.Point(new D2Point(
+				Game.I.Player.X,
+				Game.I.Player.Y + 10.0
+				));
 		}
 
 		// =================================

@@ -26,7 +26,18 @@ namespace Charlotte.Games.Attacks.Tests
 				AttackCommon.ProcPlayer_脳天();
 				AttackCommon.ProcPlayer_接地();
 
-				AttackCommon.ProcPlayer_当たり判定(true);
+				AttackCommon.ProcPlayer_Status();
+
+				double plA = 1.0;
+
+				if (1 <= Game.I.Player.InvincibleFrame)
+				{
+					plA = 0.5;
+				}
+				else
+				{
+					AttackCommon.ProcPlayer_当たり判定();
+				}
 
 				DDGround.EL.Add(() =>
 				{
@@ -42,6 +53,7 @@ namespace Charlotte.Games.Attacks.Tests
 				});
 
 				DDDraw.SetTaskList(Game.I.Player.Draw_EL);
+				DDDraw.SetAlpha(plA);
 				DDDraw.DrawCenter(
 					Ground.I.Picture2.Tewi_立ち[0],
 					Game.I.Player.X - DDGround.ICamera.X,

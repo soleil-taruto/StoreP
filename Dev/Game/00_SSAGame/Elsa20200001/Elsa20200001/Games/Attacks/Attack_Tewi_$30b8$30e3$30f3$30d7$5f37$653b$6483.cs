@@ -61,9 +61,21 @@ namespace Charlotte.Games.Attacks
 				if (AttackCommon.ProcPlayer_接地())
 					break;
 
-				AttackCommon.ProcPlayer_当たり判定(true);
+				AttackCommon.ProcPlayer_Status();
+
+				double plA = 1.0;
+
+				if (1 <= Game.I.Player.InvincibleFrame)
+				{
+					plA = 0.5;
+				}
+				else
+				{
+					AttackCommon.ProcPlayer_当たり判定();
+				}
 
 				DDDraw.SetTaskList(Game.I.Player.Draw_EL);
+				DDDraw.SetAlpha(plA);
 				DDDraw.DrawBegin(
 					Ground.I.Picture2.Tewi_ジャンプ強攻撃[koma],
 					x - DDGround.ICamera.X,
