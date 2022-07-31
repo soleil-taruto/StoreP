@@ -151,6 +151,7 @@ function <void> ActPlayer()
 	if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
 	{
 		PlayerAttack = Supplier(CreateAttack_BDummy());
+		return; // HACK: このフレームのみ当たり判定無し問題 -- 1フレームなので看過する。様子見 @ 2022.7.31
 	}
 
 	// 入力

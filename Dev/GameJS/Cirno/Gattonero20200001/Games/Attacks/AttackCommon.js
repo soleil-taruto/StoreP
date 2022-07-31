@@ -110,14 +110,16 @@ function <int> AttackCheckPlayer_GetSideSub()
 	return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
 }
 
-function <int> AttackCheckPlayer_GetCeiling()
+function <boolean> AttackCheckPlayer_GetCeiling()
 {
 	var<boolean> touchCeiling_L = IsPtWall_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
 	var<boolean> touchCeiling_M = IsPtWall_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y);
 	var<boolean> touchCeiling_R = IsPtWall_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
+
+	return (touchCeiling_L && touchCeiling_R) || touchCeiling_M;
 }
 
-function <int> AttackCheckPlayer_GetGround()
+function <boolean> AttackCheckPlayer_GetGround()
 {
 	var<boolean> touchGround =
 		IsPtWall_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
@@ -130,7 +132,7 @@ function <int> AttackCheckPlayer_GetGround()
 // ==== プレイヤー動作・接地系処理 ====
 // ====================================
 
-function <void> AttackProcPlayer_Side()
+function <boolean> AttackProcPlayer_Side()
 {
 	var<int> flag = AttackCheckPlayer_GetSide();
 
@@ -162,7 +164,7 @@ function <void> AttackProcPlayer_Side()
 	return flag != 0;
 }
 
-function <void> AttackProcPlayer_Ceiling()
+function <boolean> AttackProcPlayer_Ceiling()
 {
 	var<boolean> ret = AttackCheckPlayer_GetCeiling();
 
@@ -174,7 +176,7 @@ function <void> AttackProcPlayer_Ceiling()
 	return ret;
 }
 
-function <void> AttackProcPlayer_Ground()
+function <boolean> AttackProcPlayer_Ground()
 {
 	var<boolean> ret = AttackCheckPlayer_GetGround();
 

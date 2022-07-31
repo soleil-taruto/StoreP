@@ -313,7 +313,7 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Map.js(233) : DEFAULT_MAP_CELL // •Ï
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Maps.js(30) : MAPS // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(115) : ResetPlayer // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(144) : ActPlayer // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(553) : DrawPlayer // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(550) : DrawPlayer // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(11) : PlayerHP // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(16) : PlayerX // •Ï”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Player.js(17) : PlayerY // •Ï”
@@ -340,11 +340,11 @@ C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(85) : Attack
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(90) : AttackCheckPlayer_GetSide // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(105) : AttackCheckPlayer_GetSideSub // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(113) : AttackCheckPlayer_GetCeiling // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(120) : AttackCheckPlayer_GetGround // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(133) : AttackProcPlayer_Side // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(165) : AttackProcPlayer_Ceiling // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(177) : AttackProcPlayer_Ground // ŠÖ”
-C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(196) : AttackProcPlayer_Atari // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(122) : AttackCheckPlayer_GetGround // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(135) : AttackProcPlayer_Side // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(167) : AttackProcPlayer_Ceiling // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(179) : AttackProcPlayer_Ground // ŠÖ”
+C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(198) : AttackProcPlayer_Atari // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(57) : DrawEnemy // ŠÖ”
 C:\Dev\GameJS\Cirno\Gattonero20200001\Games\Enemies\Enemy.js(65) : EnemyDamaged // ŠÖ”

@@ -151,6 +151,7 @@ function <void> ActPlayer()
 	if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
 	{
 		PlayerAttack = Supplier(CreateAttack_BDummy());
+		return; // HACK: このフレームのみ当たり判定無し問題 -- 1フレームなので看過する。様子見 @ 2022.7.31
 	}
 
 	// 入力
@@ -242,14 +243,27 @@ function <void> ActPlayer()
 			{
 				if (1 <= jump && jump < 事前入力時間 && !@@_JumpLock) // ? 接地状態からのジャンプが可能な状態
 				{
-					// ★ ジャンプを開始した。
+					if (
+						shitamuki &&
+						PlayerAirborneFrame == 0 // スライディングは入力猶予無し
+						)
+					{
+						// ★ スライディング開始
 
-					PlayerJumpFrame = 1;
-					PlayerJumpCount = 1;
+						PlayerAttack = Supplier(CreateAttack_Sliding());
+						return;
+					}
+					else
+					{
+						// ★ ジャンプを開始した。
 
-					PlayerYSpeed = PLAYER_JUMP_SPEED;
+						PlayerJumpFrame = 1;
+						PlayerJumpCount = 1;
 
-					@@_JumpLock = true;
+						PlayerYSpeed = PLAYER_JUMP_SPEED;
+
+						@@_JumpLock = true;
+					}
 				}
 				else
 				{
@@ -394,7 +408,8 @@ invincibleBlock:
 				//*/
 				// 走り出し時に加速する。
 				{
-					speed = (PlayerMoveFrame + 1) / 2.0;
+					speed = (PlayerMoveFrame + 0) / 1.0;
+//					speed = (PlayerMoveFrame + 1) / 2.0;
 					speed = Math.min(speed, PLAYER_SPEED);
 				}
 				/*/

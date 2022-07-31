@@ -89,39 +89,58 @@ function <boolean> AttackCheckPlayer_IsSide()
 
 function <int> AttackCheckPlayer_GetSide()
 {
-	var<boolean> touchSide_L =
-		IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
-		IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        ) ||
-		IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
-
-	var<boolean> touchSide_R =
-		IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
-		IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        ) ||
-		IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
-
-	return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
+	return AttackCheckPlayer_GetSide_Mode(7);
 }
 
 function <int> AttackCheckPlayer_GetSideSub()
 {
-	var<boolean> touchSide_L = IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY);
-	var<boolean> touchSide_R = IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY);
+	return AttackCheckPlayer_GetSide_Mode(2);
+}
+
+/*
+	mode:
+		1 == 下段のみ
+		2 == 中段のみ
+		3 == 中段と下段
+		4 == 上段のみ
+		5 == 上段と下段
+		6 == 上段と中段
+		7 == 全て
+	ret:
+		0 == 接地していない。
+		1 == 左側に接地している。
+		2 == 右側に接地している。
+		3 == 左右両方接地している。
+*/
+function <int> AttackCheckPlayer_GetSide_Mode(<int> mode)
+{
+	var<boolean> touchSide_L =
+		((mode & 4) != 0) && IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
+		((mode & 2) != 0) && IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        ) ||
+		((mode & 1) != 0) && IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
+
+	var<boolean> touchSide_R =
+		((mode & 4) != 0) && IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
+		((mode & 2) != 0) && IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        ) ||
+		((mode & 1) != 0) && IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
 
 	return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
 }
 
-function <int> AttackCheckPlayer_GetCeiling()
+function <boolean> AttackCheckPlayer_GetCeiling()
 {
 	var<boolean> touchCeiling_L = IsPtWall_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
 	var<boolean> touchCeiling_M = IsPtWall_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y);
 	var<boolean> touchCeiling_R = IsPtWall_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
+
+	return (touchCeiling_L && touchCeiling_R) || touchCeiling_M;
 }
 
-function <int> AttackCheckPlayer_GetGround()
+function <boolean> AttackCheckPlayer_GetGround()
 {
 	var<boolean> touchGround =
-		IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
-		IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
+		IsPtWall_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
+		IsPtWall_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
 
 	return touchGround;
 }
@@ -130,13 +149,37 @@ function <int> AttackCheckPlayer_GetGround()
 // ==== プレイヤー動作・接地系処理 ====
 // ====================================
 
-function <void> AttackProcPlayer_Side()
+function <boolean> AttackProcPlayer_Side()
 {
-	var<int> flag = AttackCheckPlayer_GetSide();
+	return AttackProcPlayer_Side_Mode(7);
+}
 
-	if (flag == 3) // 左右両方 -> 壁抜け防止のため再チェック
+/*
+	mode:
+		1 == 下段のみ
+		2 == 中段のみ
+		3 == 中段と下段
+		4 == 上段のみ
+		5 == 上段と下段
+		6 == 上段と中段
+		7 == 全て
+*/
+function <boolean> AttackProcPlayer_Side_Mode(<int> mode)
+{
+	var<int> flag;
+
+	if (mode == 7)
 	{
-		flag = AttackCheckPlayer_GetSideSub();
+		flag  = AttackCheckPlayer_GetSide();
+
+		if (flag == 3) // 左右両方 -> 壁抜け防止のため再チェック
+		{
+			flag = AttackCheckPlayer_GetSideSub();
+		}
+	}
+	else
+	{
+		flag  = AttackCheckPlayer_GetSide_Mode(mode);
 	}
 
 	if (flag == 3) // 左右両方
@@ -162,7 +205,7 @@ function <void> AttackProcPlayer_Side()
 	return flag != 0;
 }
 
-function <void> AttackProcPlayer_Ceiling()
+function <boolean> AttackProcPlayer_Ceiling()
 {
 	var<boolean> ret = AttackCheckPlayer_GetCeiling();
 
@@ -174,7 +217,7 @@ function <void> AttackProcPlayer_Ceiling()
 	return ret;
 }
 
-function <void> AttackProcPlayer_Ground()
+function <boolean> AttackProcPlayer_Ground()
 {
 	var<boolean> ret = AttackCheckPlayer_GetGround();
 
