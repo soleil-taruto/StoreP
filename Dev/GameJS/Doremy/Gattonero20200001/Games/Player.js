@@ -704,6 +704,8 @@ function <void> DrawPlayer()
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 }
 
+// ----
+
 /*
 	プレイヤーによる攻撃を実行
 */

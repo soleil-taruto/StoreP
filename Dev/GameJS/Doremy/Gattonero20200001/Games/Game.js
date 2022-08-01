@@ -14,6 +14,9 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 // ゲーム用タスク
 var<TaskManager_t> GameTasks = CreateTaskManager();
 
+// 前面タスク
+var<TaskManager_t> FrontTasks = CreateTaskManager();
+
 // プレイヤー描画タスク
 var<TaskManager_t> PlayerDrawTasks = CreateTaskManager();
 
@@ -53,6 +56,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 		Camera = CreateD2Point(0.0, 0.0);
 		ClearAllTask(GameTasks);
+		ClearAllTask(FrontTasks);
 		ClearAllTask(PlayerDrawTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
@@ -437,6 +441,10 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
+	ClearAllTask(FrontTasks);
+
+	// ----
+
 	DrawWall(@@_Wall);
 }
 
@@ -481,6 +489,10 @@ function <void> @@_DrawMap()
 */
 function <void> @@_DrawFront()
 {
+	ExecuteAllTask(FrontTasks);
+
+	// ----
+
 	var<int> HP_METER_L = 20;
 	var<int> HP_METER_T = 20;
 	var<int> HP_METER_W = 20;

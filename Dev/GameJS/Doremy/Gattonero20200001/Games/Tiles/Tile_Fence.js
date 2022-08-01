@@ -60,9 +60,9 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 
 	var<Image> picture = tile.Pictures[tile.Mode];
 
-	// プレイヤー・敵より手前に表示するため、GameTasks で描画する。
+	// プレイヤー・敵より手前に表示する。
 
-	AddTask(GameTasks, function* <generatorForTask> ()
+	AddTask(FrontTasks, function* <generatorForTask> ()
 	{
 		Draw(picture, dx, dy, 1.0, 0.0, 1.0);
 	}());
