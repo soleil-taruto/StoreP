@@ -185,16 +185,34 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	var<double> x = pt.X;
 	var<double> y = pt.Y;
 
+	var<Image[]> fencePictures =
+	[
+		P_Dummy,
+		P_Tile_Fence1,
+		P_Tile_Fence2,
+		P_Tile_Fence3,
+		P_Tile_Fence4,
+		P_Tile_Fence5,
+		P_Tile_Fence6,
+		P_Tile_Fence7,
+		P_Tile_Fence8,
+		P_Tile_Fence9,
+	];
+
 	// タイル系
 	//
 	if (chr == "壁") return @@_CreateMapCell_T(CreateTile_BDummy()); // ★サンプル
 	if (chr == "　") return @@_CreateMapCell_T(CreateTile_None());
-	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Brick_S));
 	if (chr == "W1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
 	if (chr == "W2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B2));
 	if (chr == "W3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B3));
 	if (chr == "W4") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B4));
 	if (chr == "梯") return @@_CreateMapCell_T(CreateTile_Ladder());
+	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Brick_S));
+	if (chr == "芝") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Ground1));
+	if (chr == "地") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Ground2));
+	if (chr == "煉") return @@_CreateMapCell_T(CreateTile_Brick(ix, iy, P_Tile_Brick_L1, P_Tile_Brick_L2, P_Tile_Brick_L3));
+	if (chr == "柵") return @@_CreateMapCell_T(CreateTile_Fence(ix, iy, fencePictures));
 
 	// 敵系
 	//

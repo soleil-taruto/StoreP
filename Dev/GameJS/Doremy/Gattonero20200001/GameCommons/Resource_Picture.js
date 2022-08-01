@@ -164,10 +164,27 @@ var<Image[]> P_Tile_B3 = @@_Load(RESOURCE_Tile__Tile_B0003_png);
 var<Image[]> P_Tile_B4 = @@_Load(RESOURCE_Tile__Tile_B0004_png);
 
 /*
+	梯子
+*/
+var<Image> P_Tile_Ladder = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_d01_png);
+
+/*
+	煉瓦(小)
+*/
+var<Image> P_Tile_Brick_S = @@_Load(RESOURCE_ロックマン風__Tile__stage01_chip_e01_png);
+
+/*
 	地面
 */
 var<Image> P_Tile_Ground1 = @@_Load(RESOURCE_ロックマン風__Tile__stage01_chip_a01_png);
 var<Image> P_Tile_Ground2 = @@_Load(RESOURCE_ロックマン風__Tile__stage01_chip_a02_png);
+
+/*
+	煉瓦(大)
+*/
+var<Image> P_Tile_Brick_L1 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_c01_png);
+var<Image> P_Tile_Brick_L2 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_c02_png);
+var<Image> P_Tile_Brick_L3 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_c03_png);
 
 /*
 	フェンス
@@ -182,23 +199,6 @@ var<Image> P_Tile_Fence6 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b06
 var<Image> P_Tile_Fence7 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b03_png);
 var<Image> P_Tile_Fence8 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b04_png);
 var<Image> P_Tile_Fence9 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_b05_png);
-
-/*
-	煉瓦(小)
-*/
-var<Image> P_Tile_Brick_S = @@_Load(RESOURCE_ロックマン風__Tile__stage01_chip_e01_png);
-
-/*
-	煉瓦(大)
-*/
-var<Image> P_Tile_Brick_L1 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_c01_png);
-var<Image> P_Tile_Brick_L2 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_c02_png);
-var<Image> P_Tile_Brick_L3 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_c03_png);
-
-/*
-	梯子
-*/
-var<Image> P_Tile_Ladder = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip_d01_png);
 
 // ==========
 // タイル End
