@@ -462,7 +462,7 @@ $chrListFuncs
 					}
 					else // ? 未知の置き換え
 					{
-						string destWord = JSCommon.CreateNewIdent(v => !wordFilter.ContainsKey(v));
+						string destWord = JSCommon.CreateNewIdent(v => !wordFilter.ContainsValue(v));
 
 						wordFilter.Add(word, destWord);
 
