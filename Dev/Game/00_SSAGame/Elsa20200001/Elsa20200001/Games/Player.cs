@@ -236,8 +236,8 @@ namespace Charlotte.Games
 			}
 			DDDraw.DrawBegin(
 				picture,
-				this.X - DDGround.ICamera.X,
-				this.Y - DDGround.ICamera.Y
+				this.X - DDGround.Camera.X,
+				this.Y - DDGround.Camera.Y
 				);
 			DDDraw.DrawZoom_X(this.FacingLeft ? -1.0 : 1.0);
 			DDDraw.DrawEnd();

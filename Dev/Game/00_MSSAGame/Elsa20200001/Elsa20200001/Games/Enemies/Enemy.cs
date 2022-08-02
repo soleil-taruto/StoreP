@@ -16,7 +16,7 @@ namespace Charlotte.Games.Enemies
 		// Game.I.ReloadEnemies() からロードされた場合、初期位置として「配置されたマップセルの中心座標」が与えられる。
 
 		// this.X, this.Y はマップの座標(マップの左上を0,0とする)
-		// -- 描画する際は DDGround.ICamera.X, DDGround.ICamera.Y をそれぞれ減じること。
+		// -- 描画する際は DDGround.Camera.X, DDGround.Camera.Y をそれぞれ減じること。
 
 		// プレイヤーに撃破されない(自弾に当たらない)敵を作る場合 HP == 0 にすること。
 		// -- アイテム・敵弾など

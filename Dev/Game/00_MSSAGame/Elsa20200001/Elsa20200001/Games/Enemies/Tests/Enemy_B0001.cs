@@ -51,8 +51,8 @@ namespace Charlotte.Games.Enemies.Tests
 							Ground.I.Picture.Enemy_B0001_04,
 						}
 						[frame / 5 % 4],
-						this.X - DDGround.ICamera.X,
-						this.Y - DDGround.ICamera.Y
+						this.X - DDGround.Camera.X,
+						this.Y - DDGround.Camera.Y
 						);
 					DDDraw.DrawZoom_X(xZoom);
 					DDDraw.DrawEnd();

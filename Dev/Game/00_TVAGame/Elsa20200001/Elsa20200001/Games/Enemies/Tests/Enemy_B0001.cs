@@ -42,14 +42,14 @@ namespace Charlotte.Games.Enemies.Tests
 
 				if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 50.0))
 				{
-					DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+					DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 					DDDraw.DrawRotate(DDEngine.ProcFrame / 10.0);
 					DDDraw.DrawEnd();
 
 					DDPrint.SetBorder(new I3Color(64, 64, 0));
 					DDPrint.SetDebug(
-						(int)this.X - DDGround.ICamera.X - 10,
-						(int)this.Y - DDGround.ICamera.Y - 10,
+						(int)this.X - DDGround.Camera.X - 10,
+						(int)this.Y - DDGround.Camera.Y - 10,
 						20
 						);
 					DDPrint.PrintLine("敵(仮)");

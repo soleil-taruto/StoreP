@@ -75,8 +75,8 @@ namespace Charlotte.Games.Enemies.Tests
 
 					DDDraw.DrawBegin(
 						Ground.I.Picture.WhiteBox,
-						this.X - DDGround.ICamera.X + xBuru,
-						this.Y - DDGround.ICamera.Y + yBuru
+						this.X - DDGround.Camera.X + xBuru,
+						this.Y - DDGround.Camera.Y + yBuru
 						);
 					DDDraw.DrawSetSize(100.0, 100.0);
 					DDDraw.DrawEnd();
@@ -84,8 +84,8 @@ namespace Charlotte.Games.Enemies.Tests
 
 					DDPrint.SetBorder(new I3Color(128, 64, 0));
 					DDPrint.SetDebug(
-						(int)this.X - DDGround.ICamera.X - 46,
-						(int)this.Y - DDGround.ICamera.Y - 46,
+						(int)this.X - DDGround.Camera.X - 46,
+						(int)this.Y - DDGround.Camera.Y - 46,
 						20
 						);
 					DDPrint.PrintLine("敵(仮)");

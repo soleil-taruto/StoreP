@@ -33,7 +33,7 @@ namespace Charlotte.Games.Enemies.Tests
 				if (!DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y), 50.0)) // カメラ外では描画しない。
 				{
 					DDDraw.SetBright(0.5, 1.0, 1.0);
-					DDDraw.DrawCenter(Ground.I.Picture.Enemy_B0002_02, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+					DDDraw.DrawCenter(Ground.I.Picture.Enemy_B0002_02, this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 					DDDraw.Reset();
 
 					this.Crash = DDCrashUtils.Rect(D4Rect.XYWH(this.X, this.Y, 100.0, 100.0));

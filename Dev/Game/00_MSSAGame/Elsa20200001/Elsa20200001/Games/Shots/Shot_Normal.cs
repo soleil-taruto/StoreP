@@ -33,7 +33,7 @@ namespace Charlotte.Games.Shots
 				}
 
 				DDDraw.SetBright(0.0, 1.0, 0.5);
-				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 				DDDraw.DrawSetSize(10.0, 10.0);
 				DDDraw.DrawEnd();
 				DDDraw.Reset();

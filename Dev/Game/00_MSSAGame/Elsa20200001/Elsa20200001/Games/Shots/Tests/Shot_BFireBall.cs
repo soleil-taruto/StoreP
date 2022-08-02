@@ -102,7 +102,7 @@ namespace Charlotte.Games.Shots.Tests
 					}
 				}
 
-				DDDraw.DrawBegin(Ground.I.Picture2.FireBall[14 + frame % 7], this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawBegin(Ground.I.Picture2.FireBall[14 + frame % 7], this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 				DDDraw.DrawZoom(0.25);
 				DDDraw.DrawEnd();
 

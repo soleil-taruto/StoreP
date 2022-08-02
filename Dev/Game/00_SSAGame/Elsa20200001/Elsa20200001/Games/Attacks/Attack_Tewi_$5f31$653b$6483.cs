@@ -58,8 +58,8 @@ namespace Charlotte.Games.Attacks
 				DDDraw.SetAlpha(plA);
 				DDDraw.DrawBegin(
 					Ground.I.Picture2.Tewi_弱攻撃[koma],
-					x - DDGround.ICamera.X,
-					y - DDGround.ICamera.Y
+					x - DDGround.Camera.X,
+					y - DDGround.Camera.Y
 				);
 				DDDraw.DrawZoom_X(xZoom);
 				DDDraw.DrawEnd();

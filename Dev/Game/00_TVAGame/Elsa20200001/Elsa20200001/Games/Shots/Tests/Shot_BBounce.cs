@@ -59,7 +59,7 @@ namespace Charlotte.Games.Shots.Tests
 					}
 				}
 
-				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 				DDDraw.DrawRotate(frame / 2.0);
 				DDDraw.DrawEnd();
 

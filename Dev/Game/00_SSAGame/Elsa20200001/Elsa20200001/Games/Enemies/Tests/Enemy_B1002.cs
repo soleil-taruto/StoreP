@@ -56,7 +56,7 @@ namespace Charlotte.Games.Enemies.Tests
 				}
 
 				DDDraw.SetBright(1.0, 0.25, 0.25);
-				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawBegin(Ground.I.Picture.WhiteCircle, this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 				DDDraw.DrawSetSize(R * 2.0, R * 2.0);
 				DDDraw.DrawEnd();
 				DDDraw.Reset();

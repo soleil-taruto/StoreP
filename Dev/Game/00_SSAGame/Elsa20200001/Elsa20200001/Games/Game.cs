@@ -97,8 +97,8 @@ namespace Charlotte.Games
 
 			MusicCollection.Get(this.Map.MusicName).Play();
 
-			DDGround.Camera.X = this.Player.X - DDConsts.Screen_W / 2.0;
-			DDGround.Camera.Y = this.Player.Y - DDConsts.Screen_H / 2.0;
+			DDGround.RealCamera.X = this.Player.X - DDConsts.Screen_W / 2.0;
+			DDGround.RealCamera.Y = this.Player.Y - DDConsts.Screen_H / 2.0;
 
 			DDCurtain.SetCurtain(0, -1.0);
 			DDCurtain.SetCurtain(10);
@@ -743,8 +743,8 @@ namespace Charlotte.Games
 					{
 						DDCurtain.DrawCurtain(-0.7);
 
-						double dPlX = this.Player.X - DDGround.ICamera.X;
-						double dPlY = this.Player.Y - DDGround.ICamera.Y;
+						double dPlX = this.Player.X - DDGround.Camera.X;
+						double dPlY = this.Player.Y - DDGround.Camera.Y;
 
 						DDDraw.SetBright(0.0, 1.0, 0.0);
 						DDDraw.SetAlpha(0.3);
@@ -893,8 +893,8 @@ namespace Charlotte.Games
 				{
 					DDDraw.DrawBegin(
 						Ground.I.Picture2.Tewi_大ダメージ[Ground.I.Picture2.Tewi_大ダメージ.Length - 1],
-						SCommon.ToInt(this.Player.X - DDGround.ICamera.X),
-						SCommon.ToInt(this.Player.Y - DDGround.ICamera.Y)
+						SCommon.ToInt(this.Player.X - DDGround.Camera.X),
+						SCommon.ToInt(this.Player.Y - DDGround.Camera.Y)
 						);
 					DDDraw.DrawZoom_X(this.Player.FacingLeft ? -1.0 : 1.0);
 					DDDraw.DrawEnd();
@@ -1077,11 +1077,11 @@ namespace Charlotte.Games
 			if (this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H < GameConsts.TILE_H) // ? カメラの縦の可動域が1タイルより狭い場合
 				targCamY = (this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H) / 2; // 中心に合わせる。
 
-			DDUtils.Approach(ref DDGround.Camera.X, targCamX, 一瞬で ? 0.0 : 0.8);
-			DDUtils.Approach(ref DDGround.Camera.Y, targCamY, 一瞬で ? 0.0 : 0.8);
+			DDUtils.Approach(ref DDGround.RealCamera.X, targCamX, 一瞬で ? 0.0 : 0.8);
+			DDUtils.Approach(ref DDGround.RealCamera.Y, targCamY, 一瞬で ? 0.0 : 0.8);
 
-			DDGround.ICamera.X = SCommon.ToInt(DDGround.Camera.X);
-			DDGround.ICamera.Y = SCommon.ToInt(DDGround.Camera.Y);
+			DDGround.Camera.X = SCommon.ToInt(DDGround.RealCamera.X);
+			DDGround.Camera.Y = SCommon.ToInt(DDGround.RealCamera.Y);
 		}
 
 		#region Edit
@@ -1107,8 +1107,8 @@ namespace Charlotte.Games
 				//	break;
 
 				I2Point cellPos = GameCommon.ToTablePoint(
-					DDGround.Camera.X + DDMouse.X,
-					DDGround.Camera.Y + DDMouse.Y
+					DDGround.RealCamera.X + DDMouse.X,
+					DDGround.RealCamera.Y + DDMouse.Y
 					);
 
 				MapCell cell = Game.I.Map.GetCell(cellPos);
@@ -1176,14 +1176,14 @@ namespace Charlotte.Games
 				{
 					if (1 <= DDMouse.L.GetInput())
 					{
-						DDGround.Camera.X -= DDMouse.X - lastMouseX;
-						DDGround.Camera.Y -= DDMouse.Y - lastMouseY;
+						DDGround.RealCamera.X -= DDMouse.X - lastMouseX;
+						DDGround.RealCamera.Y -= DDMouse.Y - lastMouseY;
 
-						DDUtils.ToRange(ref DDGround.Camera.X, 0.0, this.Map.W * GameConsts.TILE_W - DDConsts.Screen_W);
-						DDUtils.ToRange(ref DDGround.Camera.Y, 0.0, this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H);
+						DDUtils.ToRange(ref DDGround.RealCamera.X, 0.0, this.Map.W * GameConsts.TILE_W - DDConsts.Screen_W);
+						DDUtils.ToRange(ref DDGround.RealCamera.Y, 0.0, this.Map.H * GameConsts.TILE_H - DDConsts.Screen_H);
 
-						DDGround.ICamera.X = SCommon.ToInt(DDGround.Camera.X);
-						DDGround.ICamera.Y = SCommon.ToInt(DDGround.Camera.Y);
+						DDGround.Camera.X = SCommon.ToInt(DDGround.RealCamera.X);
+						DDGround.Camera.Y = SCommon.ToInt(DDGround.RealCamera.Y);
 					}
 					else if (1 <= DDMouse.R.GetInput())
 					{
@@ -1400,8 +1400,8 @@ namespace Charlotte.Games
 			int w = this.Map.W;
 			int h = this.Map.H;
 
-			int cam_l = DDGround.ICamera.X;
-			int cam_t = DDGround.ICamera.Y;
+			int cam_l = DDGround.Camera.X;
+			int cam_t = DDGround.Camera.Y;
 			int cam_r = cam_l + DDConsts.Screen_W;
 			int cam_b = cam_t + DDConsts.Screen_H;
 

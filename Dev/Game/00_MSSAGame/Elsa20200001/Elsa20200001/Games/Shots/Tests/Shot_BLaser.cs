@@ -30,13 +30,13 @@ namespace Charlotte.Games.Shots.Tests
 
 			if (this.FacingLeft)
 			{
-				x1 = DDGround.ICamera.X;
+				x1 = DDGround.Camera.X;
 				x2 = this.X;
 			}
 			else
 			{
 				x1 = this.X;
-				x2 = DDGround.ICamera.X + DDConsts.Screen_W;
+				x2 = DDGround.Camera.X + DDConsts.Screen_W;
 			}
 			double y1 = this.Y - 2.0;
 			double y2 = this.Y + 2.0;
@@ -48,10 +48,10 @@ namespace Charlotte.Games.Shots.Tests
 			DDDraw.SetBright(0.0, 1.0, 1.0);
 			DDDraw.DrawRect_LTRB(
 				Ground.I.Picture.WhiteBox,
-				x1 - DDGround.ICamera.X,
-				y1 - DDGround.ICamera.Y,
-				x2 - DDGround.ICamera.X,
-				y2 - DDGround.ICamera.Y
+				x1 - DDGround.Camera.X,
+				y1 - DDGround.Camera.Y,
+				x2 - DDGround.Camera.X,
+				y2 - DDGround.Camera.Y
 				);
 			DDDraw.Reset();
 

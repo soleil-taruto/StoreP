@@ -35,7 +35,7 @@ namespace Charlotte.Games.Shots.Tests
 					break;
 				}
 
-				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.ICamera.X, this.Y - DDGround.ICamera.Y);
+				DDDraw.DrawBegin(Ground.I.Picture.Dummy, this.X - DDGround.Camera.X, this.Y - DDGround.Camera.Y);
 				DDDraw.DrawZoom(0.1);
 				DDDraw.DrawEnd();
 

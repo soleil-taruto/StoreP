@@ -34,7 +34,7 @@ namespace Charlotte.Games.Shots.Tests
 				double x = this.X;
 				double y = this.Y + Math.Sin(baseRad + frame / 2.0) * 50.0;
 
-				DDDraw.DrawBegin(Ground.I.Picture2.FireBall[14 + frame % 7], x - DDGround.ICamera.X, y - DDGround.ICamera.Y);
+				DDDraw.DrawBegin(Ground.I.Picture2.FireBall[14 + frame % 7], x - DDGround.Camera.X, y - DDGround.Camera.Y);
 				DDDraw.DrawZoom(0.1);
 				DDDraw.DrawEnd();
 

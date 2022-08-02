@@ -69,8 +69,8 @@ namespace Charlotte.Games.Enemies.Tests
 
 					DDDraw.DrawBegin(
 						picture,
-						this.X - DDGround.ICamera.X + xBuru,
-						this.Y - DDGround.ICamera.Y + yBuru
+						this.X - DDGround.Camera.X + xBuru,
+						this.Y - DDGround.Camera.Y + yBuru
 						);
 					DDDraw.DrawSetSize(100.0, 100.0);
 					DDDraw.DrawZoom_X(xZoom);

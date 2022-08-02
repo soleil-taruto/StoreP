@@ -51,8 +51,8 @@ namespace Charlotte.Games
 			DDDraw.SetMosaic();
 			DDDraw.DrawBegin(
 				picture,
-				(int)this.X - DDGround.ICamera.X,
-				(int)this.Y - DDGround.ICamera.Y - 12.0
+				(int)this.X - DDGround.Camera.X,
+				(int)this.Y - DDGround.Camera.Y - 12.0
 				);
 			DDDraw.DrawZoom(2.0);
 			DDDraw.DrawEnd();

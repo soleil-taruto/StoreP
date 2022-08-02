@@ -362,7 +362,7 @@ namespace Charlotte.GameCommons
 
 		public static bool IsOutOfCamera(D2Point pt, double margin = 0.0)
 		{
-			return IsOut(pt, new D4Rect(DDGround.ICamera.X, DDGround.ICamera.Y, DDConsts.Screen_W, DDConsts.Screen_H), margin);
+			return IsOut(pt, new D4Rect(DDGround.Camera.X, DDGround.Camera.Y, DDConsts.Screen_W, DDConsts.Screen_H), margin);
 		}
 
 		public static void UpdateInput(ref int counter, bool status)
