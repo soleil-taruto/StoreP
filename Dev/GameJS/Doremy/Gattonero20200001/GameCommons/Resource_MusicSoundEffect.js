@@ -23,19 +23,19 @@ function <Audio> @@_Load(<string> url)
 	}
 	else
 	{
-		@@_Standby(m);
+		@@_Standby(m, 100);
 	}
 	return m.Handle;
 }
 
-function <void> @@_Standby(<map> m)
+function <void> @@_Standby(<map> m, <int> millis)
 {
 	setTimeout(
 		function()
 		{
 			@@_TryLoad(m);
 		},
-		100
+		millis
 		);
 }
 
@@ -45,7 +45,7 @@ function <void> @@_TryLoad(<map> m)
 {
 	if (@@_Loading)
 	{
-		@@_Standby(m);
+		@@_Standby(m, 100);
 		return;
 	}
 	@@_Loading = true;
@@ -74,7 +74,7 @@ function <void> @@_TryLoad(<map> m)
 		if (m.TryLoadCount < 10) // rough limit
 		{
 			LOGPOS();
-			@@_Standby(m);
+			@@_Standby(m, 2000);
 			@@_Loading = false;
 		}
 		else
