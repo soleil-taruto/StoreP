@@ -4,97 +4,18 @@
 
 /*
 	音楽
-	Play()関数に渡す。
+	Play-関数に渡す。
 */
-function <Audio> @@_Load(<string> url)
+function @@_Load(<string> url)
 {
-	LOGPOS();
-	Loading++;
-
-	var<map> m = {};
-
-	m.Handle = new Audio(url);
-	m.TryLoadCount = 0;
-
-	if (DEBUG)
-	{
-		m.Handle.load();
-		Loading--;
-	}
-	else
-	{
-		@@_Standby(m, 100);
-	}
-	return m.Handle;
-}
-
-function <void> @@_Standby(<map> m, <int> millis)
-{
-	setTimeout(
-		function()
-		{
-			@@_TryLoad(m);
-		},
-		millis
-		);
-}
-
-var<boolean> @@_Loading = false;
-
-function <void> @@_TryLoad(<map> m)
-{
-	if (@@_Loading)
-	{
-		@@_Standby(m, 100);
-		return;
-	}
-	@@_Loading = true;
-
-	m.Loaded = function()
-	{
-		m.Handle.removeEventListener("canplaythrough", m.Loaded);
-		m.Handle.removeEventListener("error", m.Errored);
-
-		m.Loaded = null;
-		m.Errored = null;
-
-		LOGPOS();
-		Loading--;
-		@@_Loading = false;
-	};
-
-	m.Errored = function()
-	{
-		m.Handle.removeEventListener("canplaythrough", m.Loaded);
-		m.Handle.removeEventListener("error", m.Errored);
-
-		m.Loaded = null;
-		m.Errored = null;
-
-		if (m.TryLoadCount < 10) // rough limit
-		{
-			LOGPOS();
-			@@_Standby(m, 2000 + m.TryLoadCount * 1000);
-			@@_Loading = false;
-		}
-		else
-		{
-			LOGPOS();
-			error();
-		}
-	};
-
-	m.Handle.addEventListener("canplaythrough", m.Loaded);
-	m.Handle.addEventListener("error", m.Errored);
-	m.Handle.load();
-	m.TryLoadCount++;
+	return LoadSound(url);
 }
 
 /@(ASTR)
 
 /// SE_t
 {
-	<Audio[]> Handles // ハンドルのリスト(5つ)
+	<Sound_t[]> Handles // ハンドルのリスト(5つ)
 	<int> Index // 次に再生するハンドルの位置
 }
 
@@ -102,7 +23,7 @@ function <void> @@_TryLoad(<map> m)
 
 /*
 	効果音
-	SE()関数に渡す。
+	SE-関数に渡す。
 */
 function <SE_t> @@_LoadSE(<string> url)
 {
@@ -131,7 +52,7 @@ function <SE_t> @@_LoadSE(<string> url)
 // M_ ... 音楽,BGM
 // S_ ... 効果音(SE)
 
-//var<Audio> M_無音 = @@_Load(RESOURCE_General__muon_mp3); // デカいのでロードしない。
+//var<Sound_t> M_無音 = @@_Load(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
 //var<SE_t> S_無音 = @@_LoadSE(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
