@@ -2,7 +2,7 @@
 	ステージ情報
 */
 
-var<Audio[]> @@_MusicList =
+var<Sound_t[]> @@_MusicList =
 [
 	M_Field,
 	M_Field,

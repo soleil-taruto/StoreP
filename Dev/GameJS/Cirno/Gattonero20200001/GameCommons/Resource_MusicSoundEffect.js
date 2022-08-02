@@ -58,10 +58,10 @@ function <SE_t> @@_LoadSE(<string> url)
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Audio> M_Title  = @@_Load(RESOURCE_DovaSyndrome__Hanabi_mp3);
-var<Audio> M_Field  = @@_Load(RESOURCE_DovaSyndrome__Midnight_Street_mp3);
-var<Audio> M_Boss   = @@_Load(RESOURCE_DovaSyndrome__Battle_Fang_mp3);
-var<Audio> M_Ending = @@_Load(RESOURCE_DovaSyndrome__Kindly_mp3);
+var<Sound_t> M_Title  = @@_Load(RESOURCE_DovaSyndrome__Hanabi_mp3);
+var<Sound_t> M_Field  = @@_Load(RESOURCE_DovaSyndrome__Midnight_Street_mp3);
+var<Sound_t> M_Boss   = @@_Load(RESOURCE_DovaSyndrome__Battle_Fang_mp3);
+var<Sound_t> M_Ending = @@_Load(RESOURCE_DovaSyndrome__Kindly_mp3);
 
 var<SE_t> S_Jump    = @@_LoadSE(RESOURCE_小森平__jump12_mp3);
 var<SE_t> S_Crashed = @@_LoadSE(RESOURCE_小森平__question_mp3);
