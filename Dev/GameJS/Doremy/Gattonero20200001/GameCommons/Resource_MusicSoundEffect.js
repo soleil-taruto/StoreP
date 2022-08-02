@@ -4,9 +4,9 @@
 
 /*
 	音楽
-	Play-関数に渡す。
+	Play()関数に渡す。
 */
-function @@_Load(<string> url)
+function <Sound_t> @@_Load(<string> url)
 {
 	return LoadSound(url);
 }
@@ -23,7 +23,7 @@ function @@_Load(<string> url)
 
 /*
 	効果音
-	SE-関数に渡す。
+	SE()関数に渡す。
 */
 function <SE_t> @@_LoadSE(<string> url)
 {

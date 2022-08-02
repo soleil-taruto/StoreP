@@ -197,6 +197,8 @@ C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Print.js(91) : SetPrint // ŠÖ
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Print.js(102) : PrintLine // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resized.js(9) : AddResized // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource.js(6) : Loading // •Ï”
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_LoadSound.js(7) : Sound_t // ’è‹`
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_LoadSound.js(14) : LoadSound // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_MusicSoundEffect.js(16) : SE_t // ’è‹`
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_MusicSoundEffect.js(61) : M_Title // •Ï”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_MusicSoundEffect.js(62) : M_Field // •Ï”
@@ -283,8 +285,6 @@ C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_Picture.js(212) : P_
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_Picture.js(213) : P_Enemy_Houdai // •Ï”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_Picture.js(214) : P_Enemy_Tama0001 // •Ï”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_Picture.js(215) : P_Enemy_Boss0001 // •Ï”
-C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_SoundLoader.js(7) : Sound_t // ’è‹`
-C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Resource_SoundLoader.js(14) : LoadSound // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // •Ï”
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ŠÖ”
