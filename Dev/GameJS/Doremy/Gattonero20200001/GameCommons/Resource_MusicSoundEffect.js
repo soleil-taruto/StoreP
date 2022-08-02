@@ -74,7 +74,7 @@ function <void> @@_TryLoad(<map> m)
 		if (m.TryLoadCount < 10) // rough limit
 		{
 			LOGPOS();
-			@@_Standby(m, 2000);
+			@@_Standby(m, 2000 + m.TryLoadCount * 1000);
 			@@_Loading = false;
 		}
 		else
