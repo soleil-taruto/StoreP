@@ -379,11 +379,12 @@ $chrListFuncs
 
 		private void RenameEx()
 		{
+			ProcMain.WriteLog("RenameEx-ST");
+
 			EditableString text = new EditableString(SCommon.LinesToText(this.JSLines));
+			CrossStringDictionary wordFilter = new CrossStringDictionary();
 
 			text.Add(" "); // 番兵設置
-
-			Dictionary<string, string> wordFilter = SCommon.CreateDictionary<string>();
 
 			foreach (string word in JSResource.予約語リスト)
 				wordFilter.Add(word, word);
@@ -475,6 +476,7 @@ $chrListFuncs
 				index++;
 			}
 			this.JSLines = SCommon.TextToLines(text.ToString()).ToList();
+			ProcMain.WriteLog("RenameEx-ED");
 		}
 
 		/// <summary>
