@@ -135,13 +135,17 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(16) : Canvas
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(19) : CanvasBox // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(83) : ProcFrame // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Engine.js(86) : Context // ïœêî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(11) : @ // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(65) : GetPadInput_2 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(70) : GetPadInput_4 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(75) : GetPadInput_6 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(80) : GetPadInput_8 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Gamepad.js(85) : GetPadInput // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Keyboard.js(9) : @ // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Keyboard.js(29) : @ // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Keyboard.js(77) : GetKeyInput // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Keyboard.js(105) : GetAllKeyInput // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(42) : @ // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(110) : GetInput_2 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(115) : GetInput_4 // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(120) : GetInput_6 // ä÷êî
@@ -161,6 +165,8 @@ C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(15) : PadI
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(16) : PadInputIndex_A // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(17) : PadInputIndex_B // ïœêî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\KF_Input.js(170) : FreezeInputFrame // ïœêî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Mouse.js(65) : @ // ä÷êî
+C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Mouse.js(84) : @ // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Mouse.js(120) : GetMouseDown // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Mouse.js(128) : ClearMouseDown // ä÷êî
 C:\Dev\GameJS\Shooting_v002\Gattonero20200001\GameCommons\Mouse.js(136) : GetMouseX // ä÷êî
