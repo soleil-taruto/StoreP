@@ -8,6 +8,9 @@ var<Enemy_t[]> @@_Enemies = [];
 // ©’eƒŠƒXƒg
 var<Shot_t[]> @@_Shots = [];
 
+// ƒJƒƒ‰ˆÊ’u(“à•”’l)
+var<D2Point_t> @@_Camera = CreateD2Point(0.0, 0.0);
+
 // ƒJƒƒ‰ˆÊ’u
 var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 
@@ -50,7 +53,8 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		@@_Enemies = [];
 		@@_Shots = [];
 
-		Camera = CreateD2Point(0.0, 0.0);
+		@@_Camera = CreateD2Point(0.0, 0.0);
+		Camera    = CreateD2Point(0.0, 0.0);
 		ClearAllTask(GameTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
@@ -365,8 +369,10 @@ function <void> @@_ƒJƒƒ‰ˆÊ’u’²®(<boolean> ˆêu‚Å)
 	targCamX = ToRange(targCamX, 0.0, TILE_W * Map.W - Screen_W);
 	targCamY = ToRange(targCamY, 0.0, TILE_H * Map.H - Screen_H);
 
-	Camera.X = Approach(Camera.X, targCamX, ˆêu‚Å ? 0.0 : 0.8);
-	Camera.Y = Approach(Camera.Y, targCamY, ˆêu‚Å ? 0.0 : 0.8);
+	@@_Camera.X = Approach(@@_Camera.X, targCamX, ˆêu‚Å ? 0.0 : 0.8);
+	@@_Camera.Y = Approach(@@_Camera.Y, targCamY, ˆêu‚Å ? 0.0 : 0.8);
+
+	Camera = I2PointToD2Point(D2PointToI2Point(@@_Camera));
 }
 
 function* <generatorForTask> @@_T_ƒSƒ~‰ñû()
