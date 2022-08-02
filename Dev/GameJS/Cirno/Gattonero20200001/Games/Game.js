@@ -442,7 +442,7 @@ function <void> @@_DrawWall()
 {
 	var<double> SLIDE_RATE = 0.1;
 
-	var<Image> wallImg = GetStageWallPicture(@@_MapIndex);
+	var<Picture_t> wallImg = GetStageWallPicture(@@_MapIndex);
 	var<int> wallImg_w = GetPicture_W(wallImg);
 	var<int> wallImg_h = GetPicture_H(wallImg);
 
