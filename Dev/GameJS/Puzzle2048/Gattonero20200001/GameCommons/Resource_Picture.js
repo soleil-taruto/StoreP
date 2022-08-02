@@ -2,26 +2,9 @@
 	画像
 */
 
-function <Image> @@_Load(<string> url)
+function <Picture_t> @@_Load(<string> url)
 {
-	LOGPOS();
-	Loading++;
-
-	var image = new Image();
-
-	image.src = url;
-	image.onload = function()
-	{
-		LOGPOS();
-		Loading--;
-	};
-
-	image.onerror = function()
-	{
-		error();
-	};
-
-	return image;
+	return LoadPicture(url);
 }
 
 // ここから各種画像
@@ -29,13 +12,13 @@ function <Image> @@_Load(<string> url)
 // プリフィクス
 // P_ ... 画像
 
-var<Image> P_Dummy = @@_Load(RESOURCE_General__Dummy_png);
-var<Image> P_WhiteBox = @@_Load(RESOURCE_General__WhiteBox_png);
-var<Image> P_WhiteCircle = @@_Load(RESOURCE_General__WhiteCircle_png);
+var<Picture_t> P_Dummy = @@_Load(RESOURCE_General__Dummy_png);
+var<Picture_t> P_WhiteBox = @@_Load(RESOURCE_General__WhiteBox_png);
+var<Picture_t> P_WhiteCircle = @@_Load(RESOURCE_General__WhiteCircle_png);
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Image> P_数字パネル =
+var<Picture_t[]> P_数字パネル =
 [
 	@@_Load(RESOURCE_数字パネル__n1_png),
 	@@_Load(RESOURCE_数字パネル__n2_png),
@@ -72,8 +55,8 @@ var<Image> P_数字パネル =
 	@@_Load(RESOURCE_数字パネル__n4294967296_png),
 ];
 
-var<Image> P_Gravity = @@_Load(RESOURCE_Picture__Gravity_png);
+var<Picture_t> P_Gravity = @@_Load(RESOURCE_Picture__Gravity_png);
 
-var<Image> P_Star_S = @@_Load(RESOURCE_Picture__光る星20_png);
-var<Image> P_Star_M = @@_Load(RESOURCE_Picture__光る星30_png);
-var<Image> P_Star_L = @@_Load(RESOURCE_Picture__光る星50_png);
+var<Picture_t> P_Star_S = @@_Load(RESOURCE_Picture__光る星20_png);
+var<Picture_t> P_Star_M = @@_Load(RESOURCE_Picture__光る星30_png);
+var<Picture_t> P_Star_L = @@_Load(RESOURCE_Picture__光る星50_png);
