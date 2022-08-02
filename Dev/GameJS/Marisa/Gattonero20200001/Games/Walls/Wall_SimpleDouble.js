@@ -4,14 +4,14 @@
 
 var<int> WallKind_SimpleDouble = @(AUTO);
 
-function <Wall_t> CreateWall_SimpleDouble(<Image> behind, <Image> front)
+function <Wall_t> CreateWall_SimpleDouble(<Picture_t> behind, <Picture_t> front)
 {
 	var ret =
 	{
 		// ‚±‚±‚©‚çŒÅ—L
 
-		<Image> Behind: behind,
-		<Image> Front: front,
+		<Picture_t> Behind: behind,
+		<Picture_t> Front: front,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -35,11 +35,11 @@ function* <generatorForTask> @@_Draw(<Wall_t> wall)
 	}
 }
 
-function* <generatorForTask> @@_DrawSingleTask(<Image> picture, <double> slideRate)
+function* <generatorForTask> @@_DrawSingleTask(<Picture_t> picture, <double> slideRate)
 {
 	var<double> SLIDE_RATE = slideRate;
 
-	var<Image> wallImg = picture;
+	var<Picture_t> wallImg = picture;
 	var<int> wallImg_w = GetPicture_W(wallImg);
 	var<int> wallImg_h = GetPicture_H(wallImg);
 

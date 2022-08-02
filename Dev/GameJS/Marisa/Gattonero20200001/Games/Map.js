@@ -185,7 +185,7 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	var<double> x = pt.X;
 	var<double> y = pt.Y;
 
-	var<Image[]> fencePictures =
+	var<Picture_t[]> fencePictures =
 	[
 		P_Dummy,
 		P_Tile_Fence1,

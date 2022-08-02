@@ -625,7 +625,7 @@ invincibleBlock:
 function <void> DrawPlayer()
 {
 	var<double> plA = 1.0;
-	var<Image> picture = P_Dummy;
+	var<Picture_t> picture = P_Dummy;
 
 	if (
 		1 <= PlayerDamageFrame ||
@@ -667,7 +667,7 @@ function <void> DrawPlayer()
 		}
 		else
 		{
-			var<Image[]> pictureList;
+			var<Picture_t[]> pictureList;
 
 			if (1 <= PlayerShootingFrame)
 			{

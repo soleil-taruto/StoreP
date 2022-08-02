@@ -4,7 +4,7 @@
 
 var<int> TileKind_Fence = @(AUTO);
 
-function <Tile_t> CreateTile_Fence(<int> x, <int> y, <Image[]> pictures)
+function <Tile_t> CreateTile_Fence(<int> x, <int> y, <Picture_t[]> pictures)
 {
 	var ret =
 	{
@@ -16,7 +16,7 @@ function <Tile_t> CreateTile_Fence(<int> x, <int> y, <Image[]> pictures)
 		<int> X: x,
 		<int> Y: y,
 
-		<Image[]> Pictures: pictures, // [1]～[9] の画像を使用する。
+		<Picture_t[]> Pictures: pictures, // [1]～[9] の画像を使用する。
 
 		<int> Mode: -1, // -1 == 未設定, 1～9 == タイルの位置(テンキー方式)
 	};
@@ -58,7 +58,7 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 		tile.Mode = mode;
 	}
 
-	var<Image> picture = tile.Pictures[tile.Mode];
+	var<Picture_t> picture = tile.Pictures[tile.Mode];
 
 	// プレイヤー・敵より手前に表示する。
 

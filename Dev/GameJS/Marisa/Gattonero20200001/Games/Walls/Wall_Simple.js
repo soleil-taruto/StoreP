@@ -4,13 +4,13 @@
 
 var<int> WallKind_Simple = @(AUTO);
 
-function <Wall_t> CreateWall_Simple(<Image> picture)
+function <Wall_t> CreateWall_Simple(<Picture_t> picture)
 {
 	var ret =
 	{
 		// ‚±‚±‚©‚çŒÅ—L
 
-		<Image> Picture: picture,
+		<Picture_t> Picture: picture,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -22,7 +22,7 @@ function* <generatorForTask> @@_Draw(<Wall_t> wall)
 {
 	var<double> SLIDE_RATE = 0.1;
 
-	var<Image> wallImg = wall.Picture;
+	var<Picture_t> wallImg = wall.Picture;
 	var<int> wallImg_w = GetPicture_W(wallImg);
 	var<int> wallImg_h = GetPicture_H(wallImg);
 

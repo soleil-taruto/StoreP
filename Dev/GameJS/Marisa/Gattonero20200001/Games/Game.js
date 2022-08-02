@@ -569,7 +569,7 @@ function* <generatorForTask> @@_StartMotion()
 	{
 		@@_ƒJƒƒ‰ˆÊ’u’²®(false);
 
-		var<Image> picture;
+		var<Picture_t> picture;
 
 		if (ToFix(c / 3) % 2 == 0)
 		{
@@ -649,7 +649,7 @@ function* <generatorForTask> @@_GoalMotion()
 
 	for (var<int> c = 0; c < 9; c++)
 	{
-		var<Image> picture;
+		var<Picture_t> picture;
 
 		if (ToFix(c / 3) % 2 == 0)
 		{

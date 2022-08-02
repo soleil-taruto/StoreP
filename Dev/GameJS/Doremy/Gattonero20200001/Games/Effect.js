@@ -108,7 +108,7 @@ function* <generatorForTask> Effect_Explode_L(<double> x, <double> y)
 
 function* <generatorForTask> Effect_ヒットバック(<double> x, <double> y, <boolean> facingLeft)
 {
-	for (var<Image> picture of (facingLeft ? P_PlayerMirrorEffectShockB : P_PlayerEffectShockB))
+	for (var<Picture_t> picture of (facingLeft ? P_PlayerMirrorEffectShockB : P_PlayerEffectShockB))
 	{
 		for (var<int> c = 0; c < 6; c++)
 		{
@@ -121,7 +121,7 @@ function* <generatorForTask> Effect_ヒットバック(<double> x, <double> y, <boolea
 
 function* <generatorForTask> Effect_Sliding(<double> x, <double> y, <boolean> facingLeft)
 {
-	for (var<Image> picture of (facingLeft ? P_PlayerMirrorEffectSliding : P_PlayerEffectSliding))
+	for (var<Picture_t> picture of (facingLeft ? P_PlayerMirrorEffectSliding : P_PlayerEffectSliding))
 	{
 		for (var<int> c = 0; c < 4; c++)
 		{

@@ -4,7 +4,7 @@
 
 var<int> TileKind_Brick = @(AUTO);
 
-function <Tile_t> CreateTile_Brick(<int> x, <int> y, <Image> wideLeft, <Image> wideRight, <Image> square)
+function <Tile_t> CreateTile_Brick(<int> x, <int> y, <Picture_t> wideLeft, <Picture_t> wideRight, <Picture_t> square)
 {
 	var ret =
 	{
@@ -16,9 +16,9 @@ function <Tile_t> CreateTile_Brick(<int> x, <int> y, <Image> wideLeft, <Image> w
 		<int> X: x,
 		<int> Y: y,
 
-		<Image> Wide_L: wideLeft,
-		<Image> Wide_R: wideRight,
-		<Image> Square: square,
+		<Picture_t> Wide_L: wideLeft,
+		<Picture_t> Wide_R: wideRight,
+		<Picture_t> Square: square,
 
 		<int> Mode: -1, // { -1, 1, 2, 3 } == { ñ¢ê›íË, L, R, S }
 	};
@@ -61,7 +61,7 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 		tile.Mode = mode;
 	}
 
-	var<Image> picture;
+	var<Picture_t> picture;
 
 	switch (tile.Mode)
 	{

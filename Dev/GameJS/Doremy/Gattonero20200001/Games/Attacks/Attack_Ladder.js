@@ -127,7 +127,7 @@ function* <generatorForTask> CreateAttack_Ladder()
 			break;
 		}
 
-		var<Image> picture;
+		var<Picture_t> picture;
 
 		if (1 <= shootingFrame)
 		{
