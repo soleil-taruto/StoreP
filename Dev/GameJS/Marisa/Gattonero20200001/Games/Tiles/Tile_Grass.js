@@ -1,14 +1,14 @@
 /*
-	タイル - 空間
+	タイル - Grass
 */
 
-var<int> TileKind_None = @(AUTO);
+var<int> TileKind_Grass = @(AUTO);
 
-function <Tile_t> CreateTile_None()
+function <Tile_t> CreateTile_Grass()
 {
 	var ret =
 	{
-		Kind: TileKind_None,
+		Kind: TileKind_Grass,
 		TileMode: TileMode_e_SPACE,
 
 		// ここから固有
@@ -21,5 +21,5 @@ function <Tile_t> CreateTile_None()
 
 function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 {
-	// noop
+	Draw(P_Tile_Grass, dx, dy, 1.0, 0.0, 1.0);
 }

@@ -25,13 +25,81 @@ var<Picture_t> P_Goal = @@_Load(RESOURCE_Picture__Goal_png);
 // プレイヤー
 // ==========
 
+/*
+	[方向(テンキー_8方向)][コマ(0～3)]
+*/
+var<Picture_t[][]> P_Player =
+[
+	// 0
+	null,
 
+	// 1 (左下)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0005_png,
+		RESOURCE_点睛集積__Marisa__Tile_0105_png,
+		RESOURCE_点睛集積__Marisa__Tile_0205_png,
+		RESOURCE_点睛集積__Marisa__Tile_0305_png,
+	],
 
-// =================
-// プレイヤー Mirror
-// =================
+	// 2 (下)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0004_png,
+		RESOURCE_点睛集積__Marisa__Tile_0104_png,
+		RESOURCE_点睛集積__Marisa__Tile_0204_png,
+		RESOURCE_点睛集積__Marisa__Tile_0304_png,
+	],
 
+	// 3 (右下)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0003_png,
+		RESOURCE_点睛集積__Marisa__Tile_0103_png,
+		RESOURCE_点睛集積__Marisa__Tile_0203_png,
+		RESOURCE_点睛集積__Marisa__Tile_0303_png,
+	],
 
+	// 4 (左)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0006_png,
+		RESOURCE_点睛集積__Marisa__Tile_0106_png,
+		RESOURCE_点睛集積__Marisa__Tile_0206_png,
+		RESOURCE_点睛集積__Marisa__Tile_0306_png,
+	],
+
+	// 5
+	null,
+
+	// 6 (右)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0002_png,
+		RESOURCE_点睛集積__Marisa__Tile_0102_png,
+		RESOURCE_点睛集積__Marisa__Tile_0202_png,
+		RESOURCE_点睛集積__Marisa__Tile_0302_png,
+	],
+
+	// 7 (左上)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0007_png,
+		RESOURCE_点睛集積__Marisa__Tile_0107_png,
+		RESOURCE_点睛集積__Marisa__Tile_0207_png,
+		RESOURCE_点睛集積__Marisa__Tile_0307_png,
+	],
+
+	// 8 (上)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0000_png,
+		RESOURCE_点睛集積__Marisa__Tile_0100_png,
+		RESOURCE_点睛集積__Marisa__Tile_0200_png,
+		RESOURCE_点睛集積__Marisa__Tile_0300_png,
+	],
+
+	// 9 (右上)
+	[
+		RESOURCE_点睛集積__Marisa__Tile_0001_png,
+		RESOURCE_点睛集積__Marisa__Tile_0101_png,
+		RESOURCE_点睛集積__Marisa__Tile_0201_png,
+		RESOURCE_点睛集積__Marisa__Tile_0301_png,
+	],
+];
 
 // ==============
 // プレイヤー End
@@ -41,21 +109,17 @@ var<Picture_t> P_Goal = @@_Load(RESOURCE_Picture__Goal_png);
 // タイル
 // ======
 
-var<Picture_t[]> P_TileNone = @@_Load(RESOURCE_Tile__Tile_B0001_png);
+var<Picture_t> P_Tile_Grass = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0000_png);
 
-var<Picture_t[]> P_Tile_B1 = @@_Load(RESOURCE_Tile__Tile_B0001_png);
-var<Picture_t[]> P_Tile_B2 = @@_Load(RESOURCE_Tile__Tile_B0002_png);
-var<Picture_t[]> P_Tile_B3 = @@_Load(RESOURCE_Tile__Tile_B0003_png);
-var<Picture_t[]> P_Tile_B4 = @@_Load(RESOURCE_Tile__Tile_B0004_png);
+var<Picture_t> P_Tile_Tree_LT = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0001_png);
+var<Picture_t> P_Tile_Tree_RT = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0101_png);
+var<Picture_t> P_Tile_Tree_LB = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0002_png);
+var<Picture_t> P_Tile_Tree_RB = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0102_png);
+var<Picture_t> P_Tile_Tree_Error = @@_Load(RESOURCE_TreeError_png);
 
 // ==========
 // タイル End
 // ==========
-
-var<Picture_t> P_Wall0001B = @@_Load(RESOURCE_素材Good__Wall_0001B_png);
-var<Picture_t> P_Wall0001F = @@_Load(RESOURCE_素材Good__Wall_0001F_png);
-var<Picture_t> P_Wall0002  = @@_Load(RESOURCE_素材Good__Wall_0002_png);
-var<Picture_t> P_Wall0003  = @@_Load(RESOURCE_素材Good__Wall_0003_png);
 
 var<Picture_t> P_Enemy_Frog = @@_Load(RESOURCE_Picture__Frog_png);
 var<Picture_t> P_Enemy_Houdai = @@_Load(RESOURCE_Picture__Houdai_png);
