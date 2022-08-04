@@ -4,8 +4,14 @@
 
 var<int> ShotKind_Normal = @(AUTO);
 
-function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <boolean> facingLeft, <boolean> uwamuki, <boolean> shitamuki)
+function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <int> direction)
 {
+	// TODO
+	// TODO
+	// TODO
+	// TODO
+	// TODO
+
 	var<int> xDir;
 	var<int> yDir;
 

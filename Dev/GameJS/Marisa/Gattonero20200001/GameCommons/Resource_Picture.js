@@ -115,7 +115,7 @@ var<Picture_t> P_Tile_Tree_LT = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0001
 var<Picture_t> P_Tile_Tree_RT = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0101_png);
 var<Picture_t> P_Tile_Tree_LB = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0002_png);
 var<Picture_t> P_Tile_Tree_RB = @@_Load(RESOURCE_ぴぽや倉庫__BaseChip__Tile_0102_png);
-var<Picture_t> P_Tile_Tree_Error = @@_Load(RESOURCE_TreeError_png);
+var<Picture_t> P_Tile_Tree_Error = @@_Load(RESOURCE_Picture__TreeError_png);
 
 // ==========
 // タイル End

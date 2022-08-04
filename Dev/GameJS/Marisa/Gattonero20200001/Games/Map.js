@@ -280,15 +280,25 @@ function <MapCell_t> GetMapCell_XY(<int> x, <int> y)
 }
 
 // ================================
-// マップの壁・足場等の判定ここから
+// マップの壁・水域等の判定ここから
 // ================================
 
 /*
-	指定位置(テーブル・インデックス)が壁であるか判定する。
+	指定位置(テーブル・インデックス)が壁(歩行不能)であるか判定する。
 */
 function <boolean> IsWall(<I2Point_t> pt)
 {
-	return GetMapCell(pt).Tile.TileMode == TileMode_e_WALL;
+	var<MapCell_t> cell = GetMapCell(pt);
+
+	if (
+		cell.Tile.TileMode == TileMode_e_WATER ||
+		cell.Tile.TileMode == TileMode_e_WALL
+		)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 function <boolean> IsWall_XY(<int> x, <int> y)
@@ -297,11 +307,11 @@ function <boolean> IsWall_XY(<int> x, <int> y)
 }
 
 /*
-	指定位置(ドット単位・マップ上の座標)が壁であるか判定する。
+	指定位置(ドット単位・マップ上の座標)が壁(歩行不能)であるか判定する。
 */
 function <boolean> IsPtWall(<D2Point_t> pt)
 {
-	return GetMapCell(ToTablePoint(pt)).Tile.TileMode == TileMode_e_WALL;
+	return IsWall(ToTablePoint(pt));
 }
 
 function <boolean> IsPtWall_XY(<double> x, <double> y)
@@ -310,37 +320,13 @@ function <boolean> IsPtWall_XY(<double> x, <double> y)
 }
 
 /*
-	指定位置(ドット単位・マップ上の座標)が地面であるか判定する。
+	指定位置(ドット単位・マップ上の座標)が水域であるか判定する。
 */
-function <boolean> IsPtGround(<D2Point_t> pt)
+function <boolean> IsPtWater(<D2Point_t> pt)
 {
 	var<MapCell_t> cell = GetMapCell(ToTablePoint(pt));
 
-	if (
-		cell.Tile.TileMode == TileMode_e_LADDER ||
-		cell.Tile.TileMode == TileMode_e_CLOUD
-		)
-	{
-		var<I2Point_t> tablePt = ToTablePoint(pt);
-		tablePt.Y--;
-		var<MapCell_t> upperCell = GetMapCell(tablePt);
-
-		if (cell.Tile.TileMode == upperCell.Tile.TileMode) // ? 真上も同種のタイル
-		{
-			return false;
-		}
-
-		var<double> t = ToTileCenterY(pt.Y) - TILE_H / 2.0;
-
-		if (pt.Y < t + LADDER_TOP_GROUND_Y_SIZE)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	if (cell.Tile.TileMode == TileMode_e_WALL)
+	if (cell.Tile.TileMode == TileMode_e_WATER)
 	{
 		return true;
 	}
@@ -348,24 +334,11 @@ function <boolean> IsPtGround(<D2Point_t> pt)
 	return false;
 }
 
-function <boolean> IsPtGround_XY(<double> x, <double> y)
+function <boolean> IsPtWater_XY(<double> x, <double> y)
 {
-	return IsPtGround(CreateD2Point(x, y));
-}
-
-/*
-	指定位置(ドット単位・マップ上の座標)が梯子であるか判定する。
-*/
-function <boolean> IsPtLadder(<D2Point_t> pt)
-{
-	return GetMapCell(ToTablePoint(pt)).Tile.TileMode == TileMode_e_LADDER;
-}
-
-function <boolean> IsPtLadder_XY(<double> x, <double> y)
-{
-	return IsPtLadder(CreateD2Point(x, y));
+	return IsPtWater(CreateD2Point(x, y));
 }
 
 // ================================
-// マップの壁・足場等の判定ここまで
+// マップの壁・水域等の判定ここまで
 // ================================

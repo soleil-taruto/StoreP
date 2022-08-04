@@ -462,7 +462,7 @@ C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Shots\Shot_Normal.js(5) : ShotKind_
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Shots\ShotCommon.js(5) : ShotCommon_Dead // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(5) : TileMode_e // ’è‹`
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(14) : Tile_t // ’è‹`
-C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(26) : DrawTile // ŠÖ”
+C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(28) : DrawTile // ŠÖ”
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(7) : TileMode_e_SPACE // •Ï”
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(8) : TileMode_e_LADDER // •Ï”
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Tiles\Tile.js(9) : TileMode_e_CLOUD // •Ï”

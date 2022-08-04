@@ -326,7 +326,7 @@ namespace Charlotte.Games
 							Ground.I.SE.PlayerDamaged.Play();
 						}
 
-						D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 5.0);
+						D2Point speed = GameCommon.GetXYSpeed(this.Player.FaceDirection, 5.0) * -1.0;
 
 						for (int c = 0; c < 5; c++)
 						{
@@ -338,8 +338,8 @@ namespace Charlotte.Games
 									break;
 							}
 
-							this.Player.X -= speed.X;
-							this.Player.Y -= speed.Y;
+							this.Player.X += speed.X;
+							this.Player.Y += speed.Y;
 						}
 					}
 				}

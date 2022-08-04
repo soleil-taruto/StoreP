@@ -31,14 +31,9 @@ var<int> PlayerDamageFrame = 0;
 var<int> PlayerInvincibleFrame = 0;
 
 /*
-	プレイヤーの垂直方向の速度
+	プレイヤーが向いている方向(8方向_テンキー方式)
 */
-var<double> PlayerYSpeed = 0.0;
-
-/*
-	プレイヤーが左を向いているか
-*/
-var<boolean> PlayerFacingLeft = false;
+var<int> PlayerFaceDirection = 2;
 
 /*
 	今フレームの当たり判定, null == 当たり判定無し
@@ -53,66 +48,11 @@ var<Crash_t> PlayerCrash = null;
 var<int> PlayerMoveFrame = 0;
 
 /*
-	プレイヤー・ジャンプ・カウンタ
-	0 == 無効
-	1～ == ジャンプｎ回目
-*/
-var<int> PlayerJumpCount = 0;
-
-/*
-	プレイヤー・ジャンプ・フレーム
-	0 == 無効
-	1～ == ジャンプ中
-*/
-var<int> PlayerJumpFrame = 0;
-
-/*
-	プレイヤー滞空フレーム
-	0 == 無効
-	1～ == 滞空中
-*/
-var<int> PlayerAirborneFrame = 0;
-
-/*
-	プレイヤーしゃがみフレーム
-	0 == 無効
-	1～ == しゃがみ中
-*/
-var<int> PlayerShagamiFrame = 0;
-
-/*
-	プレイヤー上向きフレーム
-	0 == 無効
-	1～ == 上向き中
-*/
-var<int> PlayerUwamukiFrame = 0;
-
-/*
-	プレイヤー下向きフレーム
-	0 == 無効
-	1～ == 下向き中
-*/
-var<int> PlayerShitamukiFrame = 0;
-
-/*
 	プレイヤー攻撃フレーム
 	0 == 無効
 	1～ == 攻撃中
 */
 var<int> PlayerAttackFrame = 0;
-
-/*
-	プレイヤー攻撃モーション
-	-- 攻撃(Attack)と言っても攻撃以外の利用(スライディング・梯子など)も想定する。
-	null == 無効
-	null != DrawPlayerの代わりに実行される。
-*/
-var<Func boolean> PlayerAttack = null;
-
-var<boolean> @@_JumpLock = false;
-var<boolean> @@_MoveSlow = false;
-
-var<int> PlayerShootingFrame = 0;
 
 function <void> ResetPlayer()
 {
@@ -121,21 +61,10 @@ function <void> ResetPlayer()
 	PlayerY = Screen_H / 2.0;
 	PlayerDamageFrame = 0;
 	PlayerInvincibleFrame = 0;
-	PlayerYSpeed = 0.0;
-	PlayerFacingLeft = false;
+	PlayerFaceDirection = 2;
 	PlayerCrash = null;
 	PlayerMoveFrame = 0;
-	PlayerJumpCount = 0;
-	PlayerJumpFrame = 0;
-	PlayerAirborneFrame = ToFix(IMAX / 2); // ゲーム開始直後に空中でジャンプできないように
-	PlayerShagamiFrame = 0;
-	PlayerUwamukiFrame = 0;
-	PlayerShitamukiFrame = 0;
 	PlayerAttackFrame = 0;
-	PlayerAttack = null;
-	@@_JumpLock = false;
-	@@_MoveSlow = false;
-	PlayerShootingFrame = 0;
 }
 
 /*
@@ -160,184 +89,138 @@ function <void> ActPlayer()
 	// 入力
 	{
 		var<boolean> damageOrUID = 1 <= PlayerDamageFrame || UserInputDisabled;
-		var<boolean> move = false;
+		var<boolean> dir2 = false;
+		var<boolean> dir4 = false;
+		var<boolean> dir6 = false;
+		var<boolean> dir8 = false;
 		var<boolean> slow = false;
 		var<boolean> attack = false;
-		var<boolean> shagami = false;
-		var<boolean> uwamuki = false;
-		var<boolean> shitamuki = false;
-		var<int> jump = 0;
 
-		if (!damageOrUID && 1 <= GetInput_8())
-		{
-			uwamuki = true;
-		}
 		if (!damageOrUID && 1 <= GetInput_2())
 		{
-			shagami = true;
-			shitamuki = true;
+			dir2 = true;
 		}
 		if (!damageOrUID && 1 <= GetInput_4())
 		{
-			PlayerFacingLeft = true;
-			move = true;
+			dir4 = true;
 		}
 		if (!damageOrUID && 1 <= GetInput_6())
 		{
-			PlayerFacingLeft = false;
-			move = true;
+			dir6 = true;
+		}
+		if (!damageOrUID && 1 <= GetInput_8())
+		{
+			dir8 = true;
 		}
 		if (!damageOrUID && 1 <= GetInput_B())
 		{
-//			slow = true;
-			attack = true;
+			slow = true;
 		}
 		if (!damageOrUID && 1 <= GetInput_A())
 		{
-			jump = GetInput_A();
+			attack = true;
 		}
 
-		if (move)
+		var<int> dir; // 移動方向 { 1 ～ 4, 6 ～ 9 } == 8方向_テンキー方式, 5 == 移動していない。
+
+		if (dir2 && dir4)
+		{
+			dir = 1;
+		}
+		else if (dir2 && dir6)
+		{
+			dir = 3;
+		}
+		else if (dir4 && dir8)
+		{
+			dir = 7;
+		}
+		else if (dir6 && dir8)
+		{
+			dir = 9;
+		}
+		else if (dir2)
+		{
+			dir = 2;
+		}
+		else if (dir4)
+		{
+			dir = 4;
+		}
+		else if (dir6)
+		{
+			dir = 6;
+		}
+		else if (dir8)
+		{
+			dir = 8;
+		}
+		else
+		{
+			dir = 5;
+		}
+
+		var<double> speed = PLAYER_SPEED;
+
+		if (slow)
+		{
+			speed = PLAYER_SLOW_SPEED;
+		}
+
+		var<double> nanameSpeed = speed / Math.SQRT2;
+
+		switch (dir)
+		{
+		case 4: PlayerX -= speed; break;
+		case 6: PlayerX += speed; break;
+		case 8: PlayerY -= speed; break;
+		case 2: PlayerY += speed; break;
+
+		case 1:
+			PlayerX -= nanameSpeed;
+			PlayerY += nanameSpeed;
+			break;
+
+		case 3:
+			PlayerX += nanameSpeed;
+			PlayerY += nanameSpeed;
+			break;
+
+		case 7:
+			PlayerX -= nanameSpeed;
+			PlayerY -= nanameSpeed;
+			break;
+
+		case 9:
+			PlayerX += nanameSpeed;
+			PlayerY -= nanameSpeed;
+			break;
+
+		case 5:
+			break;
+
+		default:
+			error(); // never
+		}
+
+		if (dir != 5 && !slow && !attack)
+		{
+			PlayerFaceDirection = dir;
+		}
+
+		if (dir != 5)
 		{
 			PlayerMoveFrame++;
-			shagami = false;
-//			uwamuki = false;
-//			shitamuki = false;
 		}
 		else
 		{
 			PlayerMoveFrame = 0;
 		}
 
-		@@_MoveSlow = move && slow;
-
-		if (jump == 0)
+		if (PlayerMoveFrame == 0) // 立ち止まったら座標を整数に矯正
 		{
-			@@_JumpLock = false;
-		}
-
-		if (1 <= PlayerJumpFrame) // ? ジャンプ中
-		{
-			if (1 <= jump)
-			{
-				PlayerJumpFrame++;
-			}
-			else
-			{
-				// ★ ジャンプを中断・終了した。
-
-				PlayerJumpFrame = 0;
-
-				if (PlayerYSpeed < 0.0)
-				{
-					PlayerYSpeed /= 2.0;
-				}
-			}
-		}
-		else // ? 接地中 || 滞空中
-		{
-			// 事前入力 == 着地前の数フレーム間にジャンプボタンを押し始めてもジャンプできるようにする。
-			// 入力猶予 == 落下(地面から離れた)直後の数フレーム間にジャンプボタンを押し始めてもジャンプできるようにする。
-
-			var<int> 事前入力時間 = 10;
-			var<int> 入力猶予時間 = 5;
-
-			if (PlayerAirborneFrame < 入力猶予時間 && PlayerJumpCount == 0)
-			{
-				if (1 <= jump && jump < 事前入力時間 && !@@_JumpLock) // ? 接地状態からのジャンプが可能な状態
-				{
-					if (
-						shitamuki &&
-						PlayerAirborneFrame == 0 // スライディングは入力猶予無し
-						)
-					{
-						// ★ スライディング開始
-
-						PlayerAttack = Supplier(CreateAttack_Sliding());
-						return;
-					}
-					else
-					{
-						// ★ ジャンプを開始した。
-
-						PlayerJumpFrame = 1;
-						PlayerJumpCount = 1;
-
-						PlayerYSpeed = PLAYER_JUMP_SPEED;
-
-						@@_JumpLock = true;
-					}
-				}
-				else
-				{
-					PlayerJumpCount = 0;
-				}
-			}
-			else // ? 接地状態からのジャンプが「可能ではない」状態
-			{
-				// 滞空状態に入ったら「通常ジャンプの状態」にする。
-				if (PlayerJumpCount < 1)
-				{
-					PlayerJumpCount = 1;
-				}
-
-				if (1 <= jump && jump < 事前入力時間 && PlayerJumpCount < PLAYER_JUMP_MAX && !@@_JumpLock)
-				{
-					// ★ 空中(n-段)ジャンプを開始した。
-
-					PlayerJumpFrame = 1;
-					PlayerJumpCount++;
-
-					PlayerYSpeed = PLAYER_JUMP_SPEED;
-
-					AddEffect(Effect_Jump(PlayerX, PlayerY + PLAYER_接地判定Pt_Y));
-
-					@@_JumpLock = true;
-				}
-				else
-				{
-					// noop
-				}
-			}
-		}
-
-		if (PlayerJumpFrame == 1) // ? ジャンプ開始
-		{
-			SE(S_Jump);
-		}
-
-		if (1 <= PlayerAirborneFrame)
-		{
-			shagami = false;
-//			uwamuki = false;
-//			shitamuki = false;
-		}
-
-		if (shagami)
-		{
-			PlayerShagamiFrame++;
-		}
-		else
-		{
-			PlayerShagamiFrame = 0;
-		}
-
-		if (uwamuki)
-		{
-			PlayerUwamukiFrame++;
-		}
-		else
-		{
-			PlayerUwamukiFrame = 0;
-		}
-
-		if (shitamuki)
-		{
-			PlayerShitamukiFrame++;
-		}
-		else
-		{
-			PlayerShitamukiFrame = 0;
+			PlayerX = ToInt(PlayerX);
+			PlayerY = ToInt(PlayerY);
 		}
 
 		if (attack)
@@ -347,36 +230,6 @@ function <void> ActPlayer()
 		else
 		{
 			PlayerAttackFrame = 0;
-		}
-
-		// ★ 梯子
-		{
-			if (shitamuki)
-			{
-				if (
-					PlayerAirborneFrame == 0 &&
-					IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 0) == false &&
-					IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 1)
-					)
-				{
-					// ★ 梯子を降り始める。
-
-					PlayerY = ToTileCenterY(PlayerY) + TILE_H / 2.0 - 10.0;
-					PlayerAttack = Supplier(CreateAttack_Ladder());
-					return;
-				}
-			}
-
-			if (uwamuki)
-			{
-				if (IsPtLadder_XY(PlayerX, PlayerY))
-				{
-					// ★ 梯子を登り始める。
-
-					PlayerAttack = Supplier(CreateAttack_Ladder());
-					return;
-				}
-			}
 		}
 	}
 
@@ -397,14 +250,20 @@ damageBlock:
 			if (frame == 2) // 初回のみ
 			{
 				SE(S_Damaged);
-				PlayerYSpeed = 0.0;
-			}
-			if (frame % 30 == 2)
-			{
-				AddEffect(Effect_ヒットバック(PlayerX, PlayerY - 50.0, PlayerFacingLeft));
 			}
 
-			PlayerX -= 1.0 * (PlayerFacingLeft ? -1 : 1);
+			D2Point_t speed = GetXYSpeed(PlayerFaceDirection, 5.0) * -1.0;
+
+			for (var<int> c = 0; c < 5; c++)
+			{
+				if (IsPtWall_XY(PlayerX, PlayerY)) // ? 歩行可能な場所ではない -> これ以上ヒットバックさせない。
+				{
+					break;
+				}
+
+				PlayerX += speed.X;
+				PlayerY += speed.Y;
+			}
 		}
 	}
 
@@ -425,170 +284,131 @@ invincibleBlock:
 		}
 	}
 
-	// 移動
-	{
-		if (1 <= PlayerMoveFrame)
-		{
-			var<double> speed;
-
-			if (@@_MoveSlow)
-			{
-				speed = PlayerMoveFrame / 10.0;
-				speed = Math.min(speed, PLAYER_SLOW_SPEED);
-			}
-			else
-			{
-				//*/
-				// 走り出し時に加速する。
-				{
-					speed = (PlayerMoveFrame + 0) / 1.0;
-//					speed = (PlayerMoveFrame + 1) / 2.0;
-					speed = Math.min(speed, PLAYER_SPEED);
-				}
-				/*/
-				// 走り出し時に加速しない。
-				{
-					speed = PLAYER_SPEED;
-				}
-				//*/
-			}
-			speed *= PlayerFacingLeft ? -1.0 : 1.0;
-
-			PlayerX += speed;
-		}
-		else
-		{
-			PlayerX = ToInt(PlayerX);
-		}
-
-		// 重力による加速
-		PlayerYSpeed += PLAYER_GRAVITY;
-
-		// 自由落下の最高速度を超えないように矯正
-		PlayerYSpeed = Math.min(PlayerYSpeed, PLAYER_FALL_SPEED_MAX);
-
-		// 自由落下
-		PlayerY += PlayerYSpeed;
-	}
+	// 移動 -> 入力と同時に行っている。
 
 	// 位置矯正
 	{
-		var<boolean> touchSide_L =
-			IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
-			IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY                        ) ||
-			IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
+		var<double> ATARI_R = 10.0; // 壁との当たり判定・半径
 
-		var<boolean> touchSide_R =
-			IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY - PLAYER_側面判定Pt_YT ) ||
-			IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY                        ) ||
-			IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY + PLAYER_側面判定Pt_YB );
+		var<double> NANAME_ATARI_SPAN = ATARI_R / Math.SQRT2;
+		var<double> SHIFT_SPAN = 0.333;
+		var<int> SHIFT_MAX = 100;
 
-		if (touchSide_L && touchSide_R) // -> 壁抜け防止のため再チェック
-		{
-			touchSide_L = IsPtWall_XY(PlayerX - PLAYER_側面判定Pt_X, PlayerY);
-			touchSide_R = IsPtWall_XY(PlayerX + PLAYER_側面判定Pt_X, PlayerY);
-		}
+		var<boolean> touch_4 = IsPtWall_XY(PlayerX - ATARI_R , PlayerY           );
+		var<boolean> touch_6 = IsPtWall_XY(PlayerX + ATARI_R , PlayerY           );
+		var<boolean> touch_8 = IsPtWall_XY(PlayerX           , PlayerY - ATARI_R );
+		var<boolean> touch_2 = IsPtWall_XY(PlayerX           , PlayerY + ATARI_R );
 
-		if (touchSide_L && touchSide_R)
-		{
-			// noop
-		}
-		else if (touchSide_L)
-		{
-			PlayerX = ToTileCenterX(PlayerX - PLAYER_側面判定Pt_X) + TILE_W / 2.0 + PLAYER_側面判定Pt_X;
-		}
-		else if (touchSide_R)
-		{
-			PlayerX = ToTileCenterX(PlayerX + PLAYER_側面判定Pt_X) - TILE_W / 2.0 - PLAYER_側面判定Pt_X;
-		}
+		var<boolean> touch_1 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
+		var<boolean> touch_3 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
+		var<boolean> touch_7 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
+		var<boolean> touch_9 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
 
-		var<boolean> touchCeiling_L = IsPtWall_XY(PlayerX - PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
-		var<boolean> touchCeiling_M = IsPtWall_XY(PlayerX                       , PlayerY - PLAYER_脳天判定Pt_Y);
-		var<boolean> touchCeiling_R = IsPtWall_XY(PlayerX + PLAYER_脳天判定Pt_X , PlayerY - PLAYER_脳天判定Pt_Y);
+		if (
+			touch_4 ||
+			touch_6 ||
+			touch_8 ||
+			touch_2 ||
 
-		if ((touchCeiling_L && touchCeiling_R) || touchCeiling_M)
+			touch_1 ||
+			touch_3 ||
+			touch_7 ||
+			touch_9
+			)
 		{
-			if (PlayerYSpeed < 0.0)
+			PlayerX = ToInt(PlayerX);
+			PlayerY = ToInt(PlayerY);
+
+			for (var<int> sftCnt = 0; sftCnt < SHIFT_MAX; sftCnt++)
 			{
-				// プレイヤーと天井の反発係数
-				//
-//				var<double> K = 1.0;
-				var<double> K = 0.0;
+				touch_4 = IsPtWall_XY(PlayerX - ATARI_R , PlayerY           );
+				touch_6 = IsPtWall_XY(PlayerX + ATARI_R , PlayerY           );
+				touch_8 = IsPtWall_XY(PlayerX           , PlayerY - ATARI_R );
+				touch_2 = IsPtWall_XY(PlayerX           , PlayerY + ATARI_R );
 
-				PlayerY = ToTileCenterY(PlayerY - PLAYER_脳天判定Pt_Y) + TILE_H / 2 + PLAYER_脳天判定Pt_Y;
-				PlayerYSpeed = Math.abs(PlayerYSpeed) * K;
-				PlayerJumpFrame = 0;
+				if (
+					touch_4 ||
+					touch_6 ||
+					touch_8 ||
+					touch_2
+					)
+				{
+					// noop
+				}
+				else
+				{
+					break;
+				}
+
+				if (touch_4)
+				{
+					PlayerX += SHFIT_SPAN;
+				}
+				if (touch_6)
+				{
+					PlayerX -= SHFIT_SPAN;
+				}
+				if (touch_8)
+				{
+					PlayerY += SHFIT_SPAN;
+				}
+				if (touch_2)
+				{
+					PlayerY -= SHFIT_SPAN;
+				}
 			}
-		}
-		else if (touchCeiling_L)
-		{
-			PlayerX = ToTileCenterX(PlayerX - PLAYER_脳天判定Pt_X) + TILE_W / 2.0 + PLAYER_脳天判定Pt_X;
-		}
-		else if (touchCeiling_R)
-		{
-			PlayerX = ToTileCenterX(PlayerX + PLAYER_脳天判定Pt_X) - TILE_W / 2.0 - PLAYER_脳天判定Pt_X;
-		}
 
-		var<boolean> touchGround =
-			IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
-			IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
+			for (var<int> sftCnt = 0; sftCnt < SHIFT_MAX; sftCnt++)
+			{
+				touch_1 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
+				touch_3 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
+				touch_7 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
+				touch_9 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
 
-		if (!touchGround && PlayerAirborneFrame == 0) // ★ 接地時のみ接地判定を拡張する。
-		{
-			touchGround =
-				IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y) ||
-				IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y);
+				if (
+					touch_1 ||
+					touch_3 ||
+					touch_7 ||
+					touch_9
+					)
+				{
+					// noop
+				}
+				else
+				{
+					break;
+				}
 
-			// 壁面に立ってしまわないように
-			touchGround = touchGround &&
-				!IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY) &&
-				!IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY);
-		}
+				// 壁から抜け出す処理なので NANAME_SHIFT_SPAN は使わないよ！
 
-		// memo: @ 2022.7.11
-		// 上昇中(ジャンプ中)に接地判定が発生することがある。
-		// 接地中は重力により PlayerYSpeed がプラスに振れる。
-		// -> 接地による位置等の調整は PlayerYSpeed がプラスに触れている場合のみ行う。
+				if (touch_1)
+				{
+					PlayerX += SHFIT_SPAN;
+					PlayerY -= SHFIT_SPAN;
+				}
+				if (touch_3)
+				{
+					PlayerX -= SHFIT_SPAN;
+					PlayerY -= SHFIT_SPAN;
+				}
+				if (touch_7)
+				{
+					PlayerX += SHFIT_SPAN;
+					PlayerY += SHFIT_SPAN;
+				}
+				if (touch_9)
+				{
+					PlayerX -= SHFIT_SPAN;
+					PlayerY += SHFIT_SPAN;
+				}
+			}
 
-		if (touchGround && 0.0 < PlayerYSpeed)
-		{
-			PlayerY = ToTileCenterY(PlayerY + PLAYER_接地判定Pt_Y) - TILE_H / 2.0 - PLAYER_接地判定Pt_Y;
-			PlayerYSpeed = 0.0;
-			PlayerJumpCount = 0;
-			PlayerAirborneFrame = 0;
-		}
-		else
-		{
-			PlayerAirborneFrame++;
+			PlayerX = ToInt(PlayerX);
+			PlayerY = ToInt(PlayerY);
 		}
 	}
 
-	// 攻撃
-	{
-		if (PlayerAttackFrame == 1)
-		{
-			if (1 <= PlayerAirborneFrame)
-			{
-				PlayerShoot(PlayerX + 28.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 8.0, PlayerFacingLeft);
-			}
-			else
-			{
-				PlayerShoot(PlayerX + 36.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 4.0, PlayerFacingLeft);
-			}
-
-			PlayerShootingFrame = 1;
-		}
-
-		if (1 <= PlayerShootingFrame)
-		{
-			PlayerShootingFrame++;
-
-			if (PLAYER_SHOOTING_FRAME_MAX < PlayerShootingFrame)
-			{
-				PlayerShootingFrame = 0;
-			}
-		}
-	}
+	PlayerShoot(); // 攻撃
 
 	// 当たり判定をセットする。
 	// -- ダメージ中・無敵時間中は null (当たり判定無し) をセットすること。
@@ -704,18 +524,15 @@ function <void> DrawPlayer()
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 }
 
-// ----
-
 /*
 	プレイヤーによる攻撃を実行
 */
 function <void> PlayerShoot(<double> x, <double> y, <boolean> facingLeft)
 {
+	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
 	{
-		var<Shot_t> shot = CreateShot_Normal(x, y, facingLeft, false, false);
+		GetShots().push(CreateShot_Normal(PlayerX, PlayerY, PlayerFaceDirection));
 
-		GetShots().push(shot);
+		SE(S_Shoot);
 	}
-
-	SE(S_Shoot);
 }
