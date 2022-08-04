@@ -119,7 +119,8 @@ function <boolean[]> @@_CheckTouch()
 	var<double> x = PlayerX;
 	var<double> y = PlayerY;
 
-	y += 15.0;
+//	x += 0.0;
+//	y += 0.0;
 
 	var<double> R = 15.0;
 

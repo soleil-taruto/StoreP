@@ -355,5 +355,8 @@ function <void> DrawPlayer()
 
 	picture = P_Player[PlayerFaceDirection][koma];
 
-	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+	var<double> dx = PlayerX - Camera.X;
+	var<double> dy = PlayerY - Camera.Y - 15.0;
+
+	Draw(picture, dx, dy, plA, 0.0, 1.0);
 }
