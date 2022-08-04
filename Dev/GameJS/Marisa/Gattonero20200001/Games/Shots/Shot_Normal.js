@@ -6,40 +6,7 @@ var<int> ShotKind_Normal = @(AUTO);
 
 function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <int> direction)
 {
-	// TODO
-	// TODO
-	// TODO
-	// TODO
-	// TODO
-
-	var<int> xDir;
-	var<int> yDir;
-
-	if (facingLeft)
-	{
-		xDir = -1;
-		yDir = 0;
-	}
-	else
-	{
-		xDir = 1;
-		yDir = 0;
-	}
-	if (uwamuki)
-	{
-		xDir = 0;
-		yDir = -1;
-	}
-	if (shitamuki)
-	{
-		xDir = 0;
-		yDir = 1;
-	}
-
-	var<double> SPEED = 10.0;
-
-	var<double> xAdd = SPEED * xDir;
-	var<double> yAdd = SPEED * yDir;
+	var<D2Point_t> speed = GetXYSpeed(direction, 10.0);
 
 	var ret =
 	{
@@ -51,8 +18,8 @@ function <Shot_t> CreateShot_Normal(<doule> x, <double> y, <int> direction)
 
 		// ‚±‚±‚©‚çŒÅ—L
 
-		<double> XAdd: xAdd,
-		<double> YAdd: yAdd,
+		<double> XAdd: speed.X,
+		<double> YAdd: speed.Y,
 	};
 
 	ret.Draw = @@_Draw(ret);
@@ -75,7 +42,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 			break;
 		}
 
-		if (IsPtWall_XY(shot.X, shot.Y))
+		if (IsPtWallForAir_XY(shot.X, shot.Y))
 		{
 			KillShot(shot);
 			break;
@@ -83,7 +50,7 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 
 		shot.Crash = CreateCrash_Circle(shot.X, shot.Y, SHOT_R);
 
-		SetColor(I3ColorToString(CreateI3Color(255, 128, 192)));
+		SetColor(I3ColorToString(CreateI3Color(128, 64, 255)));
 		PrintCircle(shot.X - Camera.X, shot.Y - Camera.Y, SHOT_R);
 
 		yield 1;

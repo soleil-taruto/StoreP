@@ -185,34 +185,12 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	var<double> x = pt.X;
 	var<double> y = pt.Y;
 
-	var<Picture_t[]> fencePictures =
-	[
-		P_Dummy,
-		P_Tile_Fence1,
-		P_Tile_Fence2,
-		P_Tile_Fence3,
-		P_Tile_Fence4,
-		P_Tile_Fence5,
-		P_Tile_Fence6,
-		P_Tile_Fence7,
-		P_Tile_Fence8,
-		P_Tile_Fence9,
-	];
-
 	// タイル系
 	//
 	if (chr == "壁") return @@_CreateMapCell_T(CreateTile_BDummy()); // ★サンプル
-	if (chr == "　") return @@_CreateMapCell_T(CreateTile_None());
-	if (chr == "W1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
-	if (chr == "W2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B2));
-	if (chr == "W3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B3));
-	if (chr == "W4") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B4));
-	if (chr == "梯") return @@_CreateMapCell_T(CreateTile_Ladder());
-	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Brick_S));
-	if (chr == "芝") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Ground1));
-	if (chr == "地") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Ground2));
-	if (chr == "煉") return @@_CreateMapCell_T(CreateTile_Brick(ix, iy, P_Tile_Brick_L1, P_Tile_Brick_L2, P_Tile_Brick_L3));
-	if (chr == "柵") return @@_CreateMapCell_T(CreateTile_Fence(ix, iy, fencePictures));
+	if (chr == "　") return @@_CreateMapCell_T(CreateTile_Grass());
+	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Tree(ix, iy));
+	if (chr == "水") return @@_CreateMapCell_T(CreateTile_Water(ix, iy));
 
 	// 敵系
 	//
@@ -236,7 +214,7 @@ function <MapCell_t> @@_CreateMapCell_T(<Tile_t> tile)
 
 function <MapCell_t> @@_CreateMapCell_E(<Func Enemy_t> f_createEnemy)
 {
-	return @@_CreateMapCell(CreateTile_None(), f_createEnemy);
+	return @@_CreateMapCell(CreateTile_Grass(), f_createEnemy);
 }
 
 function <MapCell_t> @@_CreateMapCell(<Tile_t> tile, <Func Enemy_t> f_createEnemy)
@@ -256,7 +234,7 @@ function <void> @(UNQN)_INIT()
 {
 	DEFAULT_MAP_CELL =
 	{
-		Tile: CreateTile_Wall(P_TileNone),
+		Tile: CreateTile_None(),
 		F_CreateEnemy: () => null,
 	};
 }
@@ -337,6 +315,26 @@ function <boolean> IsPtWater(<D2Point_t> pt)
 function <boolean> IsPtWater_XY(<double> x, <double> y)
 {
 	return IsPtWater(CreateD2Point(x, y));
+}
+
+/*
+	指定位置(ドット単位・マップ上の座標)が宙に浮いているものにとって壁であるか判定する。
+*/
+function <boolean> IsPtWallForAir(<D2Point_t> pt)
+{
+	var<MapCell_t> cell = GetMapCell(ToTablePoint(pt));
+
+	if (cell.Tile.TileMode == TileMode_e_WALL)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+function <boolean> IsPtWallForAir_XY(<double> x, <double> y)
+{
+	return IsPtWallForAir(CreateD2Point(x, y));
 }
 
 // ================================

@@ -113,18 +113,7 @@ gameLoop:
 			continue gameLoop;
 		}
 
-	movePlayerBlock:
-		{
-			if (PlayerAttack != null)
-			{
-				if (PlayerAttack())
-				{
-					break movePlayerBlock;
-				}
-				PlayerAttack = null;
-			}
-			ActPlayer();
-		}
+		ActPlayer();
 
 		@@_ÉJÉÅÉâà íuí≤êÆ(false);
 
@@ -520,7 +509,7 @@ function* <generatorForTask> @@_StartMotion()
 			dx += pt.X;
 			dy += pt.Y;
 
-			Draw(P_PlayerStand, dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
+			Draw(P_Player[2][0], dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
 		}
 
 		yield 1;
@@ -607,7 +596,7 @@ function* <generatorForTask> @@_GoalMotion()
 					break;
 				}
 
-				Draw(P_PlayerStand, x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
+				Draw(P_Player[2][0], x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
 
 				yield 1;
 			}

@@ -80,12 +80,6 @@ function <void> ActPlayer()
 		PlayerCrash = null;
 	}
 
-	if (DEBUG && GetKeyInput(84) == 1) // ? T 押下 -> 攻撃テスト
-	{
-		PlayerAttack = Supplier(CreateAttack_BDummy());
-		return; // HACK: このフレームのみ当たり判定無し問題 -- 1フレームなので看過する。様子見 @ 2022.7.31
-	}
-
 	// 入力
 	{
 		var<boolean> damageOrUID = 1 <= PlayerDamageFrame || UserInputDisabled;
@@ -112,11 +106,11 @@ function <void> ActPlayer()
 		{
 			dir8 = true;
 		}
-		if (!damageOrUID && 1 <= GetInput_B())
+		if (!damageOrUID && 1 <= GetInput_A())
 		{
 			slow = true;
 		}
-		if (!damageOrUID && 1 <= GetInput_A())
+		if (!damageOrUID && 1 <= GetInput_B())
 		{
 			attack = true;
 		}
@@ -252,7 +246,7 @@ damageBlock:
 				SE(S_Damaged);
 			}
 
-			D2Point_t speed = GetXYSpeed(PlayerFaceDirection, 5.0) * -1.0;
+			var<D2Point_t> speed = GetXYSpeed(PlayerFaceDirection, 5.0) * -1.0;
 
 			for (var<int> c = 0; c < 5; c++)
 			{
@@ -288,32 +282,25 @@ invincibleBlock:
 
 	// 位置矯正
 	{
-		var<double> ATARI_R = 10.0; // 壁との当たり判定・半径
-
-		var<double> NANAME_ATARI_SPAN = ATARI_R / Math.SQRT2;
 		var<double> SHIFT_SPAN = 0.333;
 		var<int> SHIFT_MAX = 100;
 
-		var<boolean> touch_4 = IsPtWall_XY(PlayerX - ATARI_R , PlayerY           );
-		var<boolean> touch_6 = IsPtWall_XY(PlayerX + ATARI_R , PlayerY           );
-		var<boolean> touch_8 = IsPtWall_XY(PlayerX           , PlayerY - ATARI_R );
-		var<boolean> touch_2 = IsPtWall_XY(PlayerX           , PlayerY + ATARI_R );
-
-		var<boolean> touch_1 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
-		var<boolean> touch_3 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
-		var<boolean> touch_7 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
-		var<boolean> touch_9 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
+		var<boolean[]> touch = @@_CheckTouch();
 
 		if (
-			touch_4 ||
-			touch_6 ||
-			touch_8 ||
-			touch_2 ||
+			// 縦横方向
+			//
+			touch[4] ||
+			touch[6] ||
+			touch[8] ||
+			touch[2] ||
 
-			touch_1 ||
-			touch_3 ||
-			touch_7 ||
-			touch_9
+			// 斜め方向
+			//
+			touch[1] ||
+			touch[3] ||
+			touch[7] ||
+			touch[9]
 			)
 		{
 			PlayerX = ToInt(PlayerX);
@@ -321,16 +308,13 @@ invincibleBlock:
 
 			for (var<int> sftCnt = 0; sftCnt < SHIFT_MAX; sftCnt++)
 			{
-				touch_4 = IsPtWall_XY(PlayerX - ATARI_R , PlayerY           );
-				touch_6 = IsPtWall_XY(PlayerX + ATARI_R , PlayerY           );
-				touch_8 = IsPtWall_XY(PlayerX           , PlayerY - ATARI_R );
-				touch_2 = IsPtWall_XY(PlayerX           , PlayerY + ATARI_R );
+				touch = @@_CheckTouch();
 
 				if (
-					touch_4 ||
-					touch_6 ||
-					touch_8 ||
-					touch_2
+					touch[4] ||
+					touch[6] ||
+					touch[8] ||
+					touch[2]
 					)
 				{
 					// noop
@@ -340,36 +324,33 @@ invincibleBlock:
 					break;
 				}
 
-				if (touch_4)
+				if (touch[4])
 				{
-					PlayerX += SHFIT_SPAN;
+					PlayerX += SHIFT_SPAN;
 				}
-				if (touch_6)
+				if (touch[6])
 				{
-					PlayerX -= SHFIT_SPAN;
+					PlayerX -= SHIFT_SPAN;
 				}
-				if (touch_8)
+				if (touch[8])
 				{
-					PlayerY += SHFIT_SPAN;
+					PlayerY += SHIFT_SPAN;
 				}
-				if (touch_2)
+				if (touch[2])
 				{
-					PlayerY -= SHFIT_SPAN;
+					PlayerY -= SHIFT_SPAN;
 				}
 			}
 
 			for (var<int> sftCnt = 0; sftCnt < SHIFT_MAX; sftCnt++)
 			{
-				touch_1 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
-				touch_3 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY + NANAME_ATARI_SPAN);
-				touch_7 = IsPtWall_XY(PlayerX - NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
-				touch_9 = IsPtWall_XY(PlayerX + NANAME_ATARI_SPAN, PlayerY - NANAME_ATARI_SPAN);
+				touch = @@_CheckTouch();
 
 				if (
-					touch_1 ||
-					touch_3 ||
-					touch_7 ||
-					touch_9
+					touch[1] ||
+					touch[3] ||
+					touch[7] ||
+					touch[9]
 					)
 				{
 					// noop
@@ -381,25 +362,25 @@ invincibleBlock:
 
 				// 壁から抜け出す処理なので NANAME_SHIFT_SPAN は使わないよ！
 
-				if (touch_1)
+				if (touch[1])
 				{
-					PlayerX += SHFIT_SPAN;
-					PlayerY -= SHFIT_SPAN;
+					PlayerX += SHIFT_SPAN;
+					PlayerY -= SHIFT_SPAN;
 				}
-				if (touch_3)
+				if (touch[3])
 				{
-					PlayerX -= SHFIT_SPAN;
-					PlayerY -= SHFIT_SPAN;
+					PlayerX -= SHIFT_SPAN;
+					PlayerY -= SHIFT_SPAN;
 				}
-				if (touch_7)
+				if (touch[7])
 				{
-					PlayerX += SHFIT_SPAN;
-					PlayerY += SHFIT_SPAN;
+					PlayerX += SHIFT_SPAN;
+					PlayerY += SHIFT_SPAN;
 				}
-				if (touch_9)
+				if (touch[9])
 				{
-					PlayerX -= SHFIT_SPAN;
-					PlayerY += SHFIT_SPAN;
+					PlayerX -= SHIFT_SPAN;
+					PlayerY += SHIFT_SPAN;
 				}
 			}
 
@@ -459,10 +440,53 @@ function <void> DrawPlayer()
 
 	if (1 <= PlayerMoveFrame)
 	{
-		koma = ToFix(PlayerDamageFrame / 5) % 4;
+		koma = ToFix(ProcFrame / 5) % 4;
 	}
 
-	var<Picture_t> picture = P_Player[PlayerFaceDirection][koma];
+	picture = P_Player[PlayerFaceDirection][koma];
 
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
+}
+
+// ----
+
+/*
+	壁との当たり判定
+*/
+function <boolean[]> @@_CheckTouch()
+{
+	var<double> x = PlayerX;
+	var<double> y = PlayerY;
+
+	y += 20.0;
+
+	var<double> R = 10.0;
+
+	var<boolean> touch_4 = IsPtWall_XY(x - R , y     );
+	var<boolean> touch_6 = IsPtWall_XY(x + R , y     );
+	var<boolean> touch_8 = IsPtWall_XY(x     , y - R );
+	var<boolean> touch_2 = IsPtWall_XY(x     , y + R );
+
+	var<double> N = R / Math.SQRT2;
+
+	var<boolean> touch_1 = IsPtWall_XY(x - N, y + N);
+	var<boolean> touch_3 = IsPtWall_XY(x + N, y + N);
+	var<boolean> touch_7 = IsPtWall_XY(x - N, y - N);
+	var<boolean> touch_9 = IsPtWall_XY(x + N, y - N);
+
+	var ret =
+	[
+		null,
+		touch_1,
+		touch_2,
+		touch_3,
+		touch_4,
+		null,
+		touch_6,
+		touch_7,
+		touch_8,
+		touch_9,
+	];
+
+	return ret;
 }

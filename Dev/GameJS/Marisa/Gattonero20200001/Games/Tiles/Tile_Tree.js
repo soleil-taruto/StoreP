@@ -54,43 +54,45 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 		tile.Mode = (mode_t ? 1 : 0) | (mode_b ? 2 : 0);
 	}
 
-	Draw(P_Tile_Grass, dx, dy);
+	Draw(P_Tile_Grass, dx, dy, 1.0, 0.0, 1.0);
 
 	if (tile.Mode == 0)
 	{
-		Draw(P_Tile_Tree_Error, dx, dy);
+		Draw(P_Tile_Tree_Error, dx, dy, 1.0, 0.0, 1.0);
 	}
 	if ((tile.Mode & 1) != 0)
 	{
 		if (lt_rb)
 		{
-			Draw(P_Tile_Tree_RB, dx, dy);
+			Draw(P_Tile_Tree_RB, dx, dy, 1.0, 0.0, 1.0);
 		}
 		else
 		{
-			Draw(P_Tile_Tree_LB, dx, dy);
+			Draw(P_Tile_Tree_LB, dx, dy, 1.0, 0.0, 1.0);
 		}
 	}
 	if ((tile.Mode & 2) != 0)
 	{
 		if (lt_rb)
 		{
-			Draw(P_Tile_Tree_LT, dx, dy);
+			Draw(P_Tile_Tree_LT, dx, dy, 1.0, 0.0, 1.0);
 		}
 		else
 		{
-			Draw(P_Tile_Tree_RT, dx, dy);
+			Draw(P_Tile_Tree_RT, dx, dy, 1.0, 0.0, 1.0);
 		}
 	}
 }
 
 function <boolean> @@_IsFriend2x2(<int> x, <int> y)
 {
-	return
+	var ret =
 		@@_IsFriend(x + 0, y + 0) &&
 		@@_IsFriend(x + 0, y + 1) &&
 		@@_IsFriend(x + 1, y + 0) &&
 		@@_IsFriend(x + 1, y + 1);
+
+	return ret;
 }
 
 function <boolean> @@_IsFriend(<int> x, <int> y)

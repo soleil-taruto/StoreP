@@ -23,16 +23,16 @@ function <void> PlayStageMusic(<int> mapIndex)
 
 var<Func Wall_t> @@_WallCreatorList =
 [
-	() => CreateWall_Simple(P_Wall0002),
-	() => CreateWall_SimpleDouble(P_Wall0001B, P_Wall0001F),
-	() => CreateWall_Simple(P_Wall0002),
-	() => CreateWall_Simple(P_Wall0003),
-	() => CreateWall_Simple(P_Wall0002),
-	() => CreateWall_Simple(P_Wall0003),
-	() => CreateWall_Simple(P_Wall0002),
-	() => CreateWall_Simple(P_Wall0003),
-	() => CreateWall_Simple(P_Wall0002),
-	() => CreateWall_Simple(P_Wall0003),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
+	() => CreateWall_None(),
 ];
 
 function <Wall_t> GetStageWall(<int> mapIndex)
