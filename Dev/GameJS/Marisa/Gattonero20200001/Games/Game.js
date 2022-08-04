@@ -113,7 +113,18 @@ gameLoop:
 			continue gameLoop;
 		}
 
-		ActPlayer();
+	movePlayerBlock:
+		{
+			if (PlayerAttack != null)
+			{
+				if (PlayerAttack())
+				{
+					break movePlayerBlock;
+				}
+				PlayerAttack = null;
+			}
+			ActPlayer();
+		}
 
 		@@_ÉJÉÅÉâà íuí≤êÆ(false);
 
