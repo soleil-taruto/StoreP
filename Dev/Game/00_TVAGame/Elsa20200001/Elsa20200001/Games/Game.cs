@@ -331,10 +331,9 @@ namespace Charlotte.Games
 						for (int c = 0; c < 5; c++)
 						{
 							{
-								int x = SCommon.ToInt(this.Player.X) / GameConsts.TILE_W;
-								int y = SCommon.ToInt(this.Player.Y) / GameConsts.TILE_H;
+								I2Point pt = GameCommon.ToTablePoint(this.Player.X, this.Player.Y);
 
-								if (this.Map.GetCell(x, y).Tile.GetKind() != Tile.Kind_e.SPACE) // ? 歩行可能な場所ではない -> これ以上ヒットバックさせない。
+								if (this.Map.GetCell(pt).Tile.GetKind() != Tile.Kind_e.SPACE) // ? 歩行可能な場所ではない -> これ以上ヒットバックさせない。
 									break;
 							}
 

@@ -24,7 +24,7 @@ var<int> TILE_H = 32;
 
 var<int> PLAYER_HP_MAX = 10;
 
-var<int> PLAYER_DAMAGE_FRAME_MAX = 40;
+var<int> PLAYER_DAMAGE_FRAME_MAX = 5;
 var<int> PLAYER_INVINCIBLE_FRAME_MAX = 60;
 
 /*

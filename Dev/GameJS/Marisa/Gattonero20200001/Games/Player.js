@@ -246,7 +246,7 @@ damageBlock:
 				SE(S_Damaged);
 			}
 
-			var<D2Point_t> speed = GetXYSpeed(PlayerFaceDirection, 5.0) * -1.0;
+			var<D2Point_t> speed = GetXYSpeed(PlayerFaceDirection, -5.0);
 
 			for (var<int> c = 0; c < 5; c++)
 			{
@@ -458,9 +458,9 @@ function <boolean[]> @@_CheckTouch()
 	var<double> x = PlayerX;
 	var<double> y = PlayerY;
 
-	y += 20.0;
+	y += 15.0;
 
-	var<double> R = 10.0;
+	var<double> R = 15.0;
 
 	var<boolean> touch_4 = IsPtWall_XY(x - R , y     );
 	var<boolean> touch_6 = IsPtWall_XY(x + R , y     );

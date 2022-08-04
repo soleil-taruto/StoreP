@@ -50,7 +50,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XAdd;
 		enemy.Y += enemy.YAdd;
 
-		if (IsPtWall_XY(enemy.X, enemy.Y))
+		if (IsPtWallForAir_XY(enemy.X, enemy.Y))
 		{
 			KillEnemy(enemy);
 			break;

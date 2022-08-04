@@ -36,26 +36,54 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 gameLoop:
 	for (; ; )
 	{
-		enemy.YAdd += 0.3; // 重力加速度
+		var<D2Point_t> accel = MakeXYSpeed(enemy.X, enemy.Y, PlayerX, PlayerY, 0.3);
 
-		enemy.YAdd = Math.min(enemy.YAdd, 8.0); // 落下最高速度
+		enemy.XAdd += accel.X;
+		enemy.YAdd += accel.Y;
+
+		// 加速度制限
+		{
+			var<double> ACCEL_MAX = 8.0;
+			var<double> accel = GetDistance(enemy.XAdd, enemy.YAdd);
+
+			if (ACCEL_MAX < accel)
+			{
+				var<double> m = ACCEL_MAX / accel;
+
+				enemy.XAdd *= m;
+				enemy.YAdd *= m;
+			}
+		}
 
 		enemy.X += enemy.XAdd;
 		enemy.Y += enemy.YAdd;
 
 		var<double> R = 20.0;
+		var<boolean> bounced = false;
 
-		if (IsPtWall_XY(enemy.X - R, enemy.Y))
+		if (IsPtWallForAir_XY(enemy.X - R, enemy.Y))
 		{
 			enemy.XAdd = Math.abs(enemy.XAdd);
+			bounced = true;
 		}
-		if (IsPtWall_XY(enemy.X + R, enemy.Y))
+		if (IsPtWallForAir_XY(enemy.X + R, enemy.Y))
 		{
 			enemy.XAdd = Math.abs(enemy.XAdd) * -1;
+			bounced = true;
 		}
-		if (IsPtWall_XY(enemy.X, enemy.Y + R))
+		if (IsPtWallForAir_XY(enemy.X, enemy.Y - R))
+		{
+			enemy.YAdd = Math.abs(enemy.YAdd);
+			bounced = true;
+		}
+		if (IsPtWallForAir_XY(enemy.X, enemy.Y + R))
 		{
 			enemy.YAdd = Math.abs(enemy.YAdd) * -1;
+			bounced = true;
+		}
+
+		if (bounced)
+		{
 			bouncedCount++;
 
 			if (5 <= bouncedCount) // バウンド回数上限

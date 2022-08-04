@@ -34,31 +34,31 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 
 	if (tile.Mode_LT == -1)
 	{
-		var<boolean> friend_4 = @@_IsFriend(x - 1, y);
-		var<boolean> friend_6 = @@_IsFriend(x + 1, y);
-		var<boolean> friend_8 = @@_IsFriend(x, y - 1);
-		var<boolean> friend_2 = @@_IsFriend(x, y + 1);
+		var<boolean> stranger_4 = !@@_IsFriend(x - 1, y);
+		var<boolean> stranger_6 = !@@_IsFriend(x + 1, y);
+		var<boolean> stranger_8 = !@@_IsFriend(x, y - 1);
+		var<boolean> stranger_2 = !@@_IsFriend(x, y + 1);
 
-		var<boolean> friend_1 = @@_IsFriend(x - 1, y + 1);
-		var<boolean> friend_3 = @@_IsFriend(x + 1, y + 1);
-		var<boolean> friend_7 = @@_IsFriend(x - 1, y - 1);
-		var<boolean> friend_9 = @@_IsFriend(x + 1, y - 1);
+		var<boolean> stranger_1 = !@@_IsFriend(x - 1, y + 1);
+		var<boolean> stranger_3 = !@@_IsFriend(x + 1, y + 1);
+		var<boolean> stranger_7 = !@@_IsFriend(x - 1, y - 1);
+		var<boolean> stranger_9 = !@@_IsFriend(x + 1, y - 1);
 
 		var<int> mode;
 
-		if (friend_4 && friend_8)
+		if (stranger_4 && stranger_8)
 		{
 			mode = 0;
 		}
-		else if (friend_4)
+		else if (stranger_4)
 		{
 			mode = 1;
 		}
-		else if (friend_8)
+		else if (stranger_8)
 		{
 			mode = 2;
 		}
-		else if (friend_7)
+		else if (stranger_7)
 		{
 			mode = 3;
 		}
@@ -68,19 +68,19 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 		}
 		tile.Mode_LT = mode;
 
-		if (friend_6 && friend_8)
+		if (stranger_6 && stranger_8)
 		{
 			mode = 0;
 		}
-		else if (friend_6)
+		else if (stranger_6)
 		{
 			mode = 1;
 		}
-		else if (friend_8)
+		else if (stranger_8)
 		{
 			mode = 2;
 		}
-		else if (friend_9)
+		else if (stranger_9)
 		{
 			mode = 3;
 		}
@@ -90,19 +90,19 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 		}
 		tile.Mode_RT = mode;
 
-		if (friend_4 && friend_2)
+		if (stranger_4 && stranger_2)
 		{
 			mode = 0;
 		}
-		else if (friend_4)
+		else if (stranger_4)
 		{
 			mode = 1;
 		}
-		else if (friend_2)
+		else if (stranger_2)
 		{
 			mode = 2;
 		}
-		else if (friend_1)
+		else if (stranger_1)
 		{
 			mode = 3;
 		}
@@ -112,19 +112,19 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 		}
 		tile.Mode_LB = mode;
 
-		if (friend_6 && friend_2)
+		if (stranger_6 && stranger_2)
 		{
 			mode = 0;
 		}
-		else if (friend_6)
+		else if (stranger_6)
 		{
 			mode = 1;
 		}
-		else if (friend_2)
+		else if (stranger_2)
 		{
 			mode = 2;
 		}
-		else if (friend_3)
+		else if (stranger_3)
 		{
 			mode = 3;
 		}
@@ -137,10 +137,12 @@ function <void> @@_Draw(<Tile_t> tile, <double> dx, <double> dy)
 
 	var<int> koma = ToFix(ProcFrame / 4) % 8;
 
-	Draw(P_Tile_Water[0][tile.Mode_LT * 2 + 0][koma], dx - TILE_W / 2.0, dy - TILE_H / 2.0, 1.0, 0.0, 1.0);
-	Draw(P_Tile_Water[1][tile.Mode_RT * 2 + 0][koma], dx + TILE_W / 2.0, dy - TILE_H / 2.0, 1.0, 0.0, 1.0);
-	Draw(P_Tile_Water[0][tile.Mode_LB * 2 + 1][koma], dx - TILE_W / 2.0, dy + TILE_H / 2.0, 1.0, 0.0, 1.0);
-	Draw(P_Tile_Water[1][tile.Mode_RB * 2 + 1][koma], dx + TILE_W / 2.0, dy + TILE_H / 2.0, 1.0, 0.0, 1.0);
+	Draw(P_Tile_Grass, dx, dy, 1.0, 0.0, 1.0);
+
+	Draw(P_Tile_Water[0][tile.Mode_LT * 2 + 0][koma], dx - TILE_W / 4.0, dy - TILE_H / 4.0, 1.0, 0.0, 1.0);
+	Draw(P_Tile_Water[1][tile.Mode_RT * 2 + 0][koma], dx + TILE_W / 4.0, dy - TILE_H / 4.0, 1.0, 0.0, 1.0);
+	Draw(P_Tile_Water[0][tile.Mode_LB * 2 + 1][koma], dx - TILE_W / 4.0, dy + TILE_H / 4.0, 1.0, 0.0, 1.0);
+	Draw(P_Tile_Water[1][tile.Mode_RB * 2 + 1][koma], dx + TILE_W / 4.0, dy + TILE_H / 4.0, 1.0, 0.0, 1.0);
 }
 
 function <boolean> @@_IsFriend(<int> x, <int> y)

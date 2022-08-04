@@ -96,10 +96,15 @@ function <void> LoadMap(<int> mapIndex)
 
 		for (var<int> y = 0; y < Map.H; y++)
 		{
+			@@_MapIndex = mapIndex;
 			@@_X = x;
 			@@_Y = y;
 
 			Map.Table[x].push(@@_CharToMapCell(@@_LineToChars(lines[y])[x]));
+
+			@@_MapIndex = -1;
+			@@_X = -1;
+			@@_Y = -1;
 		}
 	}
 }
@@ -169,6 +174,7 @@ function <string[]> @@_LineToChars(<stirng> line)
 	return dest;
 }
 
+var<int> @@_MapIndex = -1;
 var<int> @@_X = -1;
 var<int> @@_Y = -1;
 
@@ -214,7 +220,7 @@ function <MapCell_t> @@_CreateMapCell_T(<Tile_t> tile)
 
 function <MapCell_t> @@_CreateMapCell_E(<Func Enemy_t> f_createEnemy)
 {
-	return @@_CreateMapCell(CreateTile_Grass(), f_createEnemy);
+	return @@_CreateMapCell(GetDefaultTile(@@_MapIndex), f_createEnemy);
 }
 
 function <MapCell_t> @@_CreateMapCell(<Tile_t> tile, <Func Enemy_t> f_createEnemy)
