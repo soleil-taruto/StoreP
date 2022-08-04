@@ -18,12 +18,7 @@ namespace Charlotte.Games.Attacks
 		// -- この辺やっとけば良いんじゃないか的な
 		//
 		// ProcPlayer_移動();
-		// ProcPlayer_Fall();
-		//
-		// ProcPlayer_側面();
-		// ProcPlayer_脳天();
-		// ProcPlayer_接地();
-		//
+		// ProcPlayer_壁キャラ処理();
 		// ProcPlayer_Status();
 		// ProcPlayer_当たり判定();
 		//

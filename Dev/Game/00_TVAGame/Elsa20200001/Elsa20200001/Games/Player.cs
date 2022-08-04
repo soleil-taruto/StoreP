@@ -7,6 +7,7 @@ using Charlotte.Commons;
 using Charlotte.Games.Enemies;
 using Charlotte.Games.Shots;
 using Charlotte.Games.Shots.Tests;
+using Charlotte.Games.Attacks;
 
 namespace Charlotte.Games
 {
@@ -28,8 +29,30 @@ namespace Charlotte.Games
 
 		public ShotCatalog.武器_e 選択武器 = ShotCatalog.武器_e.B_NORMAL;
 
+		/// <summary>
+		/// プレイヤーの攻撃モーション
+		/// -- 攻撃(Attack)と言っても攻撃以外の利用(スライディング・梯子など)も想定する。
+		/// null の場合は無効
+		/// null ではない場合 Attack.EachFrame() が実行される代わりに、プレイヤーの入力・被弾処理などは実行されない。
+		/// </summary>
+		public Attack Attack = null;
+
+		/// <summary>
+		/// プレイヤー描画の代替タスクリスト
+		/// 空の場合は無効
+		/// 空ではない場合 Draw_EL.ExecuteAllTask() が実行される代わりに Draw() の主たる処理は実行されない。
+		/// --- プレイヤーの攻撃モーションから使用されることを想定する。
+		/// </summary>
+		public DDTaskList Draw_EL = new DDTaskList();
+
 		public void Draw()
 		{
+			if (1 <= this.Draw_EL.Count)
+			{
+				this.Draw_EL.ExecuteAllTask();
+				return;
+			}
+
 			int koma = 1;
 
 			if (1 <= this.MoveFrame)

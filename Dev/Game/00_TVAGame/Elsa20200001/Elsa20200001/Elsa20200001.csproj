@@ -95,6 +95,9 @@
     <Compile Include="GameCommons\DDTableMenu.cs" />
     <Compile Include="GameCommons\DDTouch.cs" />
     <Compile Include="GameProgressMasters\GameProgressMaster.cs" />
+    <Compile Include="Games\Attacks\Attack.cs" />
+    <Compile Include="Games\Attacks\AttackCommon.cs" />
+    <Compile Include="Games\Attacks\Tests\Attack_B0001.cs" />
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_B1001.cs" />

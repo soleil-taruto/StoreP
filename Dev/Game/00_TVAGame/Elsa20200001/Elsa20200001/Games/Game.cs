@@ -53,8 +53,8 @@ namespace Charlotte.Games
 
 		private bool CamSlideMode; // ? カメラ・スライド_モード中
 		private int CamSlideCount;
-		private int CamSlideX; // -1 ～ 1
-		private int CamSlideY; // -1 ～ 1
+		public int CamSlideX; // -1 ～ 1
+		public int CamSlideY; // -1 ～ 1
 
 		public int Frame;
 		public bool UserInputDisabled = false;
