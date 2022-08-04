@@ -56,6 +56,7 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		@@_Camera = CreateD2Point(0.0, 0.0);
 		Camera    = CreateD2Point(0.0, 0.0);
 		ClearAllTask(GameTasks);
+		ClearAllTask(PlayerDrawTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
 		GameRequestStageClear = false;
@@ -616,7 +617,6 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 		ResetPlayer();
 
 		ClearAllTask(GameTasks);
-		ClearAllTask(FrontTasks);
 		ClearAllTask(PlayerDrawTasks);
 
 		LoadEnemyOfMap();

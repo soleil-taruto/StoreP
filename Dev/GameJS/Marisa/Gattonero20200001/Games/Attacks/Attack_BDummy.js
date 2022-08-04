@@ -23,9 +23,11 @@ function* <generatorForTask> CreateAttack_BDummy()
 		AttackProcPlayer_WallProc();
 		AttackProcPlayer_Status();
 
+		var<double> plA = 1.0;
+
 		if (1 <= PlayerInvincibleFrame) // ? –³“GŽžŠÔ’†
 		{
-			// noop
+			plA = 0.5;
 		}
 		else
 		{
@@ -35,11 +37,11 @@ function* <generatorForTask> CreateAttack_BDummy()
 		AddTask(PlayerDrawTasks, function* <generatorForTask> ()
 		{
 			SetPrint(PlayerX - Camera.X - 90, PlayerY - Camera.Y - 40, 0);
-			SetColor("#ff00ff");
+			SetColor("#ffffff");
 			SetFSize(16);
 			PrintLine("Attack - BDummy ƒeƒXƒg");
 
-			Draw(P_Player[2][0], PlayerX - Camera.X, PlayerY - Camera.Y, 1.0, 0.0, 1.0);
+			Draw(P_Player[2][0], PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 		}());
 
 		yield 1;
