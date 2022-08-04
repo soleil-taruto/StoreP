@@ -616,6 +616,9 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 		ResetPlayer();
 
 		ClearAllTask(GameTasks);
+		ClearAllTask(FrontTasks);
+		ClearAllTask(PlayerDrawTasks);
+
 		LoadEnemyOfMap();
 		MoveToStartPtOfMap();
 	}

@@ -408,7 +408,15 @@ invincibleBlock:
 		}
 	}
 
-	PlayerShoot(); // 攻撃
+	// 攻撃
+	{
+		if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
+		{
+			GetShots().push(CreateShot_Normal(PlayerX, PlayerY, PlayerFaceDirection));
+
+			SE(S_Shoot);
+		}
+	}
 
 	// 当たり判定をセットする。
 	// -- ダメージ中・無敵時間中は null (当たり判定無し) をセットすること。
@@ -423,17 +431,9 @@ invincibleBlock:
 	{
 		// noop
 	}
-	else if (1 <= PlayerAirborneFrame)
-	{
-		PlayerCrash = CreateCrash_Circle(
-			PlayerX,
-			PlayerY,
-			10.0
-			);
-	}
 	else
 	{
-		PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(PlayerX, PlayerY, 20.0, 30.0));
+		PlayerCrash = CreateCrash_Circle(PlayerX, PlayerY, 10.0);
 	}
 }
 
@@ -455,84 +455,14 @@ function <void> DrawPlayer()
 		plA = 0.5;
 	}
 
-	if (1 <= PlayerDamageFrame)
+	var<int> koma = 0;
+
+	if (1 <= PlayerMoveFrame)
 	{
-		if (ToFix(PlayerDamageFrame / 6) % 2 == 0)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorEffectShockA : P_PlayerEffectShockA;
-		}
-		else
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorJumpDamage : P_PlayerJumpDamage;
-		}
+		koma = ToFix(PlayerDamageFrame / 5) % 4;
 	}
-	else if (1 <= PlayerAirborneFrame)
-	{
-		if (1 <= PlayerShootingFrame)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorJumpAttack : P_PlayerJumpAttack;
-		}
-		else
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
-		}
-	}
-	else if (1 <= PlayerMoveFrame)
-	{
-		var<int> koma = ToFix(ProcFrame / 6);
 
-		if (koma == 0)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorWaitStart : P_PlayerWaitStart;
-		}
-		else
-		{
-			var<Picture_t[]> pictureList;
-
-			if (1 <= PlayerShootingFrame)
-			{
-				pictureList = PlayerFacingLeft ? P_PlayerMirrorRunAttack : P_PlayerRunAttack;
-			}
-			else
-			{
-				pictureList = PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun;
-			}
-
-			koma--;
-			koma %= 4;
-
-			if (koma == 3)
-			{
-				koma = 1;
-			}
-
-			picture = pictureList[koma];
-		}
-	}
-	else
-	{
-		if (1 <= PlayerShootingFrame)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack;
-		}
-		else
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait;
-		}
-	}
+	var<Picture_t> picture = P_Player[PlayerFaceDirection][koma];
 
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
-}
-
-/*
-	プレイヤーによる攻撃を実行
-*/
-function <void> PlayerShoot(<double> x, <double> y, <boolean> facingLeft)
-{
-	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
-	{
-		GetShots().push(CreateShot_Normal(PlayerX, PlayerY, PlayerFaceDirection));
-
-		SE(S_Shoot);
-	}
 }

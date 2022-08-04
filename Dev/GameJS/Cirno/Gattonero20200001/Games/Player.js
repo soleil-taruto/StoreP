@@ -499,7 +499,26 @@ invincibleBlock:
 		}
 	}
 
-	PlayerShoot(); // 攻撃
+	// 攻撃
+	{
+		if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
+		{
+			if (1 <= PlayerUwamukiFrame)
+			{
+				var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
+
+				GetShots().push(shot);
+			}
+			else
+			{
+				var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
+
+				GetShots().push(shot);
+			}
+
+			SE(S_Shoot);
+		}
+	}
 
 	// 当たり判定をセットする。
 	// -- ダメージ中・無敵時間中は null (当たり判定無し) をセットすること。
@@ -576,28 +595,4 @@ function <void> DrawPlayer()
 	}
 
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
-}
-
-/*
-	プレイヤーによる攻撃を実行
-*/
-function <void> PlayerShoot(<double> x, <double> y, <boolean> facingLeft)
-{
-	if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
-	{
-		if (1 <= PlayerUwamukiFrame)
-		{
-			var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
-
-			GetShots().push(shot);
-		}
-		else
-		{
-			var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
-
-			GetShots().push(shot);
-		}
-
-		SE(S_Shoot);
-	}
 }

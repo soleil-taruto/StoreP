@@ -191,30 +191,6 @@ gameLoop:
 		}
 		if (@@_PrintAtariFlag)
 		{
-			var<double> dPlX = PlayerX - Camera.X;
-			var<double> dPlY = PlayerY - Camera.Y;
-
-			SetColor("#000000a0");
-			PrintRect(0, 0, Screen_W, Screen_H);
-			SetColor("#00ff0030");
-			PrintRect_LTRB(
-				dPlX - PLAYER_側面判定Pt_X,
-				dPlY - PLAYER_側面判定Pt_YT,
-				dPlX + PLAYER_側面判定Pt_X,
-				dPlY + PLAYER_側面判定Pt_YB
-				);
-			PrintRect_LTRB(
-				dPlX - PLAYER_脳天判定Pt_X,
-				dPlY - PLAYER_脳天判定Pt_Y,
-				dPlX + PLAYER_脳天判定Pt_X,
-				dPlY
-				);
-			PrintRect_LTRB(
-				dPlX - PLAYER_接地判定Pt_X,
-				dPlY,
-				dPlX + PLAYER_接地判定Pt_X,
-				dPlY + PLAYER_接地判定Pt_Y
-				);
 			SetColor("#ff0000a0");
 			DrawCrash(PlayerCrash);
 			SetColor("#ffffffa0");
@@ -524,66 +500,28 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_StartMotion()
 {
-	for (var<Scene_t> scene of CreateScene(20))
+	for (var<Scene_t> scene of CreateScene(60))
 	{
 		@@_カメラ位置調整(false);
 
 		@@_DrawWall();
 		@@_DrawMap();
 
-		yield 1;
-	}
-
-	var<double> destX = PlayerX;
-	var<double> destY = PlayerY;
-
-	destY -= 8; // 接地したとき上に押し出される距離
-
-	var<double> x = destX;
-	var<double> y = Math.min(destY - Screen_H / 2.0, Camera.Y);
-	var<double> yAdd = 3.0; // 初速度
-
-	for (; ; )
-	{
-		@@_カメラ位置調整(false);
-
-		y += yAdd;
-		yAdd += 1.0; // 加速
-
-		if (destY < y)
+		for (var<int> c = 0; c < 4; c++)
 		{
-			break;
+			var<double> dx = PlayerX - Camera.X;
+			var<double> dy = PlayerY - Camera.Y;
+
+			var<D2Point_t> pt = AngleToPoint(
+				scene.RemRate * scene.RemRate * 10.0 + (Math.PI / 2.0) * c,
+				scene.RemRate * scene.RemRate * 500.0
+				);
+
+			dx += pt.X;
+			dy += pt.Y;
+
+			Draw(P_PlayerStand, dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
 		}
-
-		@@_DrawWall();
-		@@_DrawMap();
-
-		Draw(P_PlayerTelepo01, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
-
-		yield 1;
-	}
-
-	y = destY;
-
-	for (var<int> c = 0; c < 9; c++)
-	{
-		@@_カメラ位置調整(false);
-
-		var<Picture_t> picture;
-
-		if (ToFix(c / 3) % 2 == 0)
-		{
-			picture = P_PlayerTelepo02;
-		}
-		else
-		{
-			picture = P_PlayerTelepo03;
-		}
-
-		@@_DrawWall();
-		@@_DrawMap();
-
-		Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}
@@ -627,6 +565,9 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 		ResetPlayer();
 
 		ClearAllTask(GameTasks);
+		ClearAllTask(FrontTasks);
+		ClearAllTask(PlayerDrawTasks);
+
 		LoadEnemyOfMap();
 		MoveToStartPtOfMap();
 	}
@@ -644,48 +585,39 @@ function* <generatorForTask> @@_GoalMotion()
 
 	SE(S_Clear);
 
-	var<double> x = PlayerX;
-	var<double> y = PlayerY;
-
-	for (var<int> c = 0; c < 9; c++)
+	for (var<int> c = 0; c < 50; c++)
 	{
-		var<Picture_t> picture;
-
-		if (ToFix(c / 3) % 2 == 0)
+		AddEffect(function* <generatorForTask> ()
 		{
-			picture = P_PlayerTelepo02;
-		}
-		else
-		{
-			picture = P_PlayerTelepo03;
-		}
+			var<double> x = PlayerX;
+			var<double> y = PlayerY;
+			var<D2Point_t> speed = AngleToPoint(Math.PI * 2.0 * GetRand1(), GetRand3(5.0, 15.0));
 
-		@@_DrawWall();
-		@@_DrawMap();
+			var<double> r = Math.PI * 2.0 * GetRand1();
+			var<double> rAdd = 0.3 * GetRand2();
 
-		Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
+			for (; ; )
+			{
+				x += speed.X;
+				y += speed.Y;
+				r += rAdd;
 
-		yield 1;
+				if (IsOutOfCamera(CreateD2Point(x, y), 50.0))
+				{
+					break;
+				}
+
+				Draw(P_PlayerStand, x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
+
+				yield 1;
+			}
+		}());
 	}
 
-	var<double> destX = x;
-	var<double> destY = Math.min(y - Screen_H / 2.0, Camera.Y);
-	var<double> yAdd = -3.0; // 初速度
-
-	for (; ; )
+	for (var<Scene_t> scene of CreateScene(60))
 	{
-		y += yAdd;
-		yAdd -= 1.0; // 加速
-
-		if (y < destY)
-		{
-			break;
-		}
-
 		@@_DrawWall();
 		@@_DrawMap();
-
-		Draw(P_PlayerTelepo01, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}

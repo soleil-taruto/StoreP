@@ -563,7 +563,32 @@ invincibleBlock:
 		}
 	}
 
-	PlayerShoot(); // 攻撃
+	// 攻撃
+	{
+		if (PlayerAttackFrame == 1)
+		{
+			if (1 <= PlayerAirborneFrame)
+			{
+				PlayerShoot(PlayerX + 28.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 8.0, PlayerFacingLeft);
+			}
+			else
+			{
+				PlayerShoot(PlayerX + 36.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 4.0, PlayerFacingLeft);
+			}
+
+			PlayerShootingFrame = 1;
+		}
+
+		if (1 <= PlayerShootingFrame)
+		{
+			PlayerShootingFrame++;
+
+			if (PLAYER_SHOOTING_FRAME_MAX < PlayerShootingFrame)
+			{
+				PlayerShootingFrame = 0;
+			}
+		}
+	}
 
 	// 当たり判定をセットする。
 	// -- ダメージ中・無敵時間中は null (当たり判定無し) をセットすること。
@@ -679,37 +704,13 @@ function <void> DrawPlayer()
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
 }
 
+// ----
+
 /*
-	プレイヤーによる攻撃を実行
+	プレイヤーの攻撃(ショット)を実行する。
+	-- *_Attack からも呼び出される。
 */
-function <void> PlayerShoot()
-{
-	if (PlayerAttackFrame == 1)
-	{
-		if (1 <= PlayerAirborneFrame)
-		{
-			@@_Shoot(PlayerX + 28.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 8.0, PlayerFacingLeft);
-		}
-		else
-		{
-			@@_Shoot(PlayerX + 36.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 4.0, PlayerFacingLeft);
-		}
-
-		PlayerShootingFrame = 1;
-	}
-
-	if (1 <= PlayerShootingFrame)
-	{
-		PlayerShootingFrame++;
-
-		if (PLAYER_SHOOTING_FRAME_MAX < PlayerShootingFrame)
-		{
-			PlayerShootingFrame = 0;
-		}
-	}
-}
-
-function <void> @@_Shoot(<double> x, <double> y, <boolean> facingLeft)
+function <void> PlayerShoot(<double> x, <double> y, <boolean> facingLeft)
 {
 	{
 		var<Shot_t> shot = CreateShot_Normal(x, y, facingLeft, false, false);
