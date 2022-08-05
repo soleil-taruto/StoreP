@@ -133,6 +133,7 @@ C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Draw.js(6) : GetPicture_W // 
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Draw.js(12) : GetPicture_H // ŠÖ”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Draw.js(18) : ClearScreen // ŠÖ”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Draw.js(38) : Draw // ŠÖ”
+C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Draw.js(43) : Draw2 // ŠÖ”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Effect.js(13) : AddEffect // ŠÖ”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Effect.js(18) : @ // ŠÖ”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Effect.js(38) : GetEffects // ŠÖ”
@@ -212,6 +213,7 @@ C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Resource_Picture.js(15) : P_D
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Resource_Picture.js(16) : P_WhiteBox // •Ï”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Resource_Picture.js(17) : P_WhiteCircle // •Ï”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Resource_Picture.js(21) : P_ExplodePiece // •Ï”
+C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\Resource_Picture.js(23) : P_Rope // •Ï”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // •Ï”
 C:\Dev\GameJS\Hammer\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ŠÖ”

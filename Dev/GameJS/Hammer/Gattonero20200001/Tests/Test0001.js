@@ -4,5 +4,5 @@
 
 function* <generatorForTask> Test01()
 {
-	// none
+	yield* GameMain();
 }
