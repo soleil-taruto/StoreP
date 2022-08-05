@@ -138,7 +138,10 @@ namespace Charlotte.Games
 			DDDraw.Reset();
 		}
 
-		public void Attack()
+		/// <summary>
+		/// 攻撃を行う。
+		/// </summary>
+		public void Fire()
 		{
 			// memo: 将来的に武器毎にコードが実装され、メソッドがでかくなると思われる。
 

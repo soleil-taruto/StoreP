@@ -82,9 +82,13 @@ namespace Charlotte.Games
 			DDDraw.Reset();
 		}
 
-		private bool Attack_Wave_左回転Sw = false;
+		private bool Fire_Wave_左回転Sw = false;
 
-		public void Attack()
+		/// <summary>
+		/// 攻撃を行う。
+		/// -- Attack から呼び出されるかもしれない。
+		/// </summary>
+		public void Fire()
 		{
 			// 将来的に武器毎にコードが実装され、メソッドがでかくなると思われる。
 
@@ -100,8 +104,8 @@ namespace Charlotte.Games
 				case ShotCatalog.武器_e.B_WAVE:
 					if (this.AttackFrame % 20 == 1)
 					{
-						Game.I.Shots.Add(new Shot_BWave(this.X, this.Y, this.FaceDirection, this.Attack_Wave_左回転Sw));
-						this.Attack_Wave_左回転Sw = !this.Attack_Wave_左回転Sw;
+						Game.I.Shots.Add(new Shot_BWave(this.X, this.Y, this.FaceDirection, this.Fire_Wave_左回転Sw));
+						this.Fire_Wave_左回転Sw = !this.Fire_Wave_左回転Sw;
 					}
 					break;
 

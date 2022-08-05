@@ -114,6 +114,9 @@ function <void> AttackProcPlayer_Move()
 		break;
 
 	case 5:
+		// —§‚¿~‚Ü‚Á‚½‚çÀ•W‚ğ®”‚É‹¸³
+		PlayerX = ToInt(PlayerX);
+		PlayerY = ToInt(PlayerY);
 		break;
 
 	default:

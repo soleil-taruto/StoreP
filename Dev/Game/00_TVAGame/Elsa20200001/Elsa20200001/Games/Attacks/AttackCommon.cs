@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Attacks
 {
@@ -31,174 +32,96 @@ namespace Charlotte.Games.Attacks
 
 		public static void ProcPlayer_移動()
 		{
+			ProcPlayer_移動(GameConsts.PLAYER_SPEED);
+		}
+
+		public static void ProcPlayer_移動(double speed)
+		{
 			if (CamSlide())
 				return;
 
-			double speed;
+			bool dir2 = 1 <= DDInput.DIR_2.GetInput();
+			bool dir4 = 1 <= DDInput.DIR_4.GetInput();
+			bool dir6 = 1 <= DDInput.DIR_6.GetInput();
+			bool dir8 = 1 <= DDInput.DIR_8.GetInput();
 
-			if (1 <= DDInput.R.GetInput())
-				speed = GameConsts.PLAYER_SLOW_SPEED;
+			int dir; // 1～9 == { 左下, 下, 右下, 左, 動かない, 右, 左上, 上, 右上 }
+
+			if (dir2 && dir4)
+				dir = 1;
+			else if (dir2 && dir6)
+				dir = 3;
+			else if (dir4 && dir8)
+				dir = 7;
+			else if (dir6 && dir8)
+				dir = 9;
+			else if (dir2)
+				dir = 2;
+			else if (dir4)
+				dir = 4;
+			else if (dir6)
+				dir = 6;
+			else if (dir8)
+				dir = 8;
 			else
-				speed = GameConsts.PLAYER_SPEED;
+				dir = 5;
 
-			// 攻撃中は左右の方向転換を抑止する。
+			//double speed = GameConsts.PLAYER_SPEED;
+			double nanameSpeed = speed / Consts.ROOT_OF_2;
 
-			if (1 <= DDInput.DIR_4.GetInput())
+			switch (dir)
 			{
-				Game.I.Player.X -= speed;
-				//Game.I.Player.FacingLeft = true; // 抑止
-			}
-			if (1 <= DDInput.DIR_6.GetInput())
-			{
-				Game.I.Player.X += speed;
-				//Game.I.Player.FacingLeft = false; // 抑止
+				case 2:
+					Game.I.Player.Y += speed;
+					break;
+
+				case 4:
+					Game.I.Player.X -= speed;
+					break;
+
+				case 6:
+					Game.I.Player.X += speed;
+					break;
+
+				case 8:
+					Game.I.Player.Y -= speed;
+					break;
+
+				case 1:
+					Game.I.Player.X -= nanameSpeed;
+					Game.I.Player.Y += nanameSpeed;
+					break;
+
+				case 3:
+					Game.I.Player.X += nanameSpeed;
+					Game.I.Player.Y += nanameSpeed;
+					break;
+
+				case 7:
+					Game.I.Player.X -= nanameSpeed;
+					Game.I.Player.Y -= nanameSpeed;
+					break;
+
+				case 9:
+					Game.I.Player.X += nanameSpeed;
+					Game.I.Player.Y -= nanameSpeed;
+					break;
+
+				case 5:
+					// 立ち止まったら座標を整数に矯正
+					Game.I.Player.X = SCommon.ToInt(Game.I.Player.X);
+					Game.I.Player.Y = SCommon.ToInt(Game.I.Player.Y);
+					break;
+
+				default:
+					throw null; // never
 			}
 		}
 
-		public static void ProcPlayer_Fall()
+		public static void ProcPlayer_壁キャラ処理()
 		{
-			if (1 <= Game.I.Player.JumpFrame) // ? ジャンプ中(だった)
-			{
-				if (DDInput.A.GetInput() <= 0) // ? ジャンプを中断・終了した。
-				{
-					Game.I.Player.JumpFrame = 0;
-
-					if (Game.I.Player.YSpeed < 0.0)
-						Game.I.Player.YSpeed /= 2.0;
-				}
-			}
-
-			// 重力による加速
-			Game.I.Player.YSpeed += GameConsts.PLAYER_GRAVITY;
-
-			// 自由落下の最高速度を超えないように矯正
-			DDUtils.Minim(ref Game.I.Player.YSpeed, GameConsts.PLAYER_FALL_SPEED_MAX);
-
-			// 自由落下
-			Game.I.Player.Y += Game.I.Player.YSpeed;
+			壁キャラ処理.Perform(ref Game.I.Player.X, ref Game.I.Player.Y, v => v.GetKind() != Tile.Kind_e.SPACE);
 		}
-
-		// ===============================
-		// ==== プレイヤー動作・接地系判定 ====
-		// ===============================
-
-		public static bool IsPlayer_側面()
-		{
-			return GetPlayer_側面() != 0;
-		}
-
-		public static int GetPlayer_側面()
-		{
-			bool touchSide_L =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_側面判定Pt_YT)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_側面判定Pt_YB)).Tile.IsWall();
-
-			bool touchSide_R =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_側面判定Pt_YT)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_側面判定Pt_YB)).Tile.IsWall();
-
-			return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
-		}
-
-		public static int GetPlayer_側面Sub()
-		{
-			bool touchSide_L =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall();
-
-			bool touchSide_R =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X, Game.I.Player.Y)).Tile.IsWall();
-
-			return (touchSide_L ? 1 : 0) | (touchSide_R ? 2 : 0);
-		}
-
-		public static bool IsPlayer_脳天()
-		{
-			bool touchCeiling_L =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_脳天判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
-
-			bool touchCeiling_M =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
-
-			bool touchCeiling_R =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_脳天判定Pt_X, Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y)).Tile.IsWall();
-
-			return (touchCeiling_L && touchCeiling_R) || touchCeiling_M;
-		}
-
-		public static bool IsPlayer_接地()
-		{
-			bool touchGround =
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X - GameConsts.PLAYER_接地判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y)).Tile.IsWall() ||
-				Game.I.Map.GetCell(GameCommon.ToTablePoint(Game.I.Player.X + GameConsts.PLAYER_接地判定Pt_X, Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y)).Tile.IsWall();
-
-			return touchGround;
-		}
-
-		// ===============================
-		// ==== プレイヤー動作・接地系処理 ====
-		// ===============================
-
-		public static bool ProcPlayer_側面()
-		{
-			int flag = GetPlayer_側面();
-
-			if (flag == 3) // 左右両方 -> 壁抜け防止のため再チェック
-			{
-				flag = GetPlayer_側面Sub();
-			}
-
-			if (flag == 3) // 左右両方
-			{
-				// noop
-			}
-			else if (flag == 1) // 左側面
-			{
-				Game.I.Player.X = GameCommon.ToTileCenterX(Game.I.Player.X - GameConsts.PLAYER_側面判定Pt_X) + GameConsts.TILE_W / 2 + GameConsts.PLAYER_側面判定Pt_X;
-			}
-			else if (flag == 2) // 右側面
-			{
-				Game.I.Player.X = GameCommon.ToTileCenterX(Game.I.Player.X + GameConsts.PLAYER_側面判定Pt_X) - GameConsts.TILE_W / 2 - GameConsts.PLAYER_側面判定Pt_X;
-			}
-			else if (flag == 0) // なし
-			{
-				// noop
-			}
-			else
-			{
-				throw null; // never
-			}
-			return flag != 0;
-		}
-
-		public static bool ProcPlayer_脳天()
-		{
-			bool ret = IsPlayer_脳天();
-
-			if (ret)
-			{
-				Game.I.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y - GameConsts.PLAYER_脳天判定Pt_Y) + GameConsts.TILE_H / 2 + GameConsts.PLAYER_脳天判定Pt_Y;
-				Game.I.Player.YSpeed = Math.Max(0.0, Game.I.Player.YSpeed);
-			}
-			return ret;
-		}
-
-		public static bool ProcPlayer_接地()
-		{
-			bool ret = IsPlayer_接地();
-
-			if (ret)
-			{
-				Game.I.Player.Y = GameCommon.ToTileCenterY(Game.I.Player.Y + GameConsts.PLAYER_接地判定Pt_Y) - GameConsts.TILE_H / 2 - GameConsts.PLAYER_接地判定Pt_Y;
-				Game.I.Player.YSpeed = Math.Min(0.0, Game.I.Player.YSpeed);
-			}
-			return ret;
-		}
-
-		// ============================
-		// ==== プレイヤー動作・その他 ====
-		// ============================
 
 		public static void ProcPlayer_Status()
 		{
@@ -221,9 +144,9 @@ namespace Charlotte.Games.Attacks
 				));
 		}
 
-		// =================================
-		// ==== プレイヤー動作系 (ここまで) ====
-		// =================================
+		// ====================================
+		// ==== プレイヤー動作・カメラ・スライド ====
+		// ====================================
 
 		private static bool CamSlideMode = false; // ? カメラ・スライド_モード中
 		private static int CamSlideCount;
@@ -273,5 +196,9 @@ namespace Charlotte.Games.Attacks
 			}
 			return CamSlideMode;
 		}
+
+		// =================================
+		// ==== プレイヤー動作系 (ここまで) ====
+		// =================================
 	}
 }

@@ -243,5 +243,14 @@ namespace Charlotte.Games
 			DDDraw.DrawEnd();
 			DDDraw.Reset();
 		}
+
+		/// <summary>
+		/// 攻撃を行う。
+		/// -- Attack から呼び出されるかもしれない。
+		/// </summary>
+		public void Fire()
+		{
+			// none
+		}
 	}
 }

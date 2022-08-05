@@ -50,12 +50,15 @@ namespace Charlotte.Games.Attacks.Tests
 				DDPicture picture = Ground.I.Picture2.GetPlayer(Game.I.Status.Chara).GetPicture(Game.I.Player.FaceDirection, 0);
 
 				DDDraw.SetTaskList(Game.I.Player.Draw_EL);
+				DDDraw.SetMosaic();
 				DDDraw.SetAlpha(plA);
-				DDDraw.DrawCenter(
+				DDDraw.DrawBegin(
 					picture,
 					Game.I.Player.X - DDGround.Camera.X,
 					Game.I.Player.Y - DDGround.Camera.Y - 12.0
 					);
+				DDDraw.DrawZoom(2.0);
+				DDDraw.DrawEnd();
 				DDDraw.Reset();
 
 				yield return true;

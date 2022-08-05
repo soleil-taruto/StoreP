@@ -9,6 +9,7 @@ using Charlotte.Games.Enemies;
 using Charlotte.Games.Tiles;
 using Charlotte.Games.Shots;
 using Charlotte.Games.Walls;
+using Charlotte.Games.Attacks.Tests;
 using Charlotte.LevelEditors;
 
 namespace Charlotte.Games
@@ -146,6 +147,19 @@ namespace Charlotte.Games
 					this.Frame = 0;
 				}
 
+				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_T) == 1) // Attack テスト
+				{
+					this.Player.Attack = new Attack_B0001();
+				}
+
+				if (this.Player.Attack != null) // プレイヤー攻撃中
+				{
+					if (this.Player.Attack.EachFrame()) // ? このプレイヤー攻撃を継続する。
+						goto endPlayer;
+
+					this.Player.Attack = null; // プレイヤー攻撃_終了
+				}
+
 				bool camSlide = false;
 
 				// プレイヤー入力・移動
@@ -188,13 +202,13 @@ namespace Charlotte.Games
 					if (Ground.I.FastReverseMode)
 						fast = !fast;
 
-					double speed = 3.0;
+					double speed = GameConsts.PLAYER_SPEED;
 
 					if (slow)
-						speed -= 1.0;
+						speed = GameConsts.PLAYER_SLOW_SPEED;
 
 					if (fast)
-						speed += 2.0;
+						speed = GameConsts.PLAYER_FAST_SPEED;
 
 					double nanameSpeed = speed / Consts.ROOT_OF_2;
 
@@ -386,7 +400,7 @@ namespace Charlotte.Games
 						this.Player.Crash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
 					}
 				}
-				//endPlayer:
+			endPlayer:
 
 				if (this.Player.X < 0.0) // ? マップの左側に出た。
 				{
@@ -416,9 +430,12 @@ namespace Charlotte.Games
 					this.カメラ位置調整(true);
 				}
 
-				if (1 <= this.Player.AttackFrame)
+				// プレイヤー攻撃
 				{
-					this.Player.Attack();
+					if (1 <= this.Player.AttackFrame)
+					{
+						this.Player.Fire();
+					}
 				}
 
 				// ====

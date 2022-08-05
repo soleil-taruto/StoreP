@@ -136,7 +136,7 @@ namespace Charlotte.Games
 					this.Frame = 0;
 				}
 
-				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_T) == 1) // Attack-テスト
+				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_T) == 1) // Attack テスト
 				{
 					this.Player.Attack = new Attack_B0001();
 				}
@@ -628,6 +628,8 @@ namespace Charlotte.Games
 				// プレイヤー攻撃
 				{
 					// none -- 00_SSAGame -> プレイヤー入力に攻撃処理有り。
+
+					Player.Fire(); // 形だけ..
 				}
 
 				// プレイヤー当たり判定をセットする。

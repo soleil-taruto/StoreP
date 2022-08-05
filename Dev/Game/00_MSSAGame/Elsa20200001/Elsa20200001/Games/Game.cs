@@ -477,7 +477,7 @@ namespace Charlotte.Games
 				{
 					if (1 <= this.Player.AttackFrame)
 					{
-						this.Player.Attack();
+						this.Player.Fire();
 					}
 				}
 
