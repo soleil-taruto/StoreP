@@ -115,6 +115,10 @@ gameLoop:
 
 	movePlayerBlock:
 		{
+			if (1 <= PlayerDamageFrame) // ”í’e‚µ‚½‚ç‘¦I—¹
+			{
+				PlayerAttack = null;
+			}
 			if (PlayerAttack != null)
 			{
 				if (PlayerAttack())

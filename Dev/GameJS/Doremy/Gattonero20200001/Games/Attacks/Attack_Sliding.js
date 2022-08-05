@@ -8,11 +8,6 @@ function* <generatorForTask> CreateAttack_Sliding()
 
 	for (var<int> frame = 0; ; frame++)
 	{
-		if (1 <= PlayerDamageFrame) // ”í’e‚µ‚½‚ç‘¦I—¹
-		{
-			break;
-		}
-
 		if (10 < frame) // ? Å’áŽ‘±ŽžŠÔŒo‰ß
 		{
 			if (AttackCheckPlayer_GetSide_Mode(4) != 3) // ? ‚±‚±‚Í—§‚¿ã‚ª‚ê‚éêŠ‚Å‚ ‚éB

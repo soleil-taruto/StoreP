@@ -12,11 +12,6 @@ function* <generatorForTask> CreateAttack_Ladder()
 
 	for (var<int> frame = 0; ; frame++)
 	{
-		if (1 <= PlayerDamageFrame) // 被弾したら即終了
-		{
-			break;
-		}
-
 		if (GetInput_8() <= 0 && 1 <= GetInput_A()) // ? 上ボタンを離して、ジャンプボタン押下
 		{
 			if (1 <= GetInput_2()) // ? 下ボタン押下 -> ジャンプしない。
