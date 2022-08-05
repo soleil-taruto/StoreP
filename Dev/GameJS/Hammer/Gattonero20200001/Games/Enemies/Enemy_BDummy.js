@@ -11,9 +11,6 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y)
 		Kind: EnemyKind_BDummy,
 		X: x,
 		Y: y,
-		HP: 1,
-		AttackPoint: 1,
-		HitDie: false,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
@@ -24,8 +21,6 @@ function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y)
 	};
 
 	ret.Draw = @@_Draw(ret);
-	ret.Damaged = @@_Damaged;
-	ret.Dead = @@_Dead;
 
 	return ret;
 }
@@ -36,7 +31,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	{
 		enemy.Y += 2.0;
 
-		if (Map.H * TILE_H < enemy.Y)
+		if (Screen_H < enemy.Y)
 		{
 			break;
 		}
@@ -48,14 +43,4 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		yield 1;
 	}
-}
-
-function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
-{
-	EnemyCommon_Damaged(enemy, damagePoint);
-}
-
-function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
-{
-	EnemyCommon_Dead(enemy, destroyed);
 }

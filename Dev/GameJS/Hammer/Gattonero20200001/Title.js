@@ -9,16 +9,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* MapSelectMenu();
-			LOGPOS();
-		},
-	},
-	{
-		Text: "ê›íË",
-		Pressed : function* ()
-		{
-			LOGPOS();
-			yield* SettingMain();
+			yield* GameMain();
 			LOGPOS();
 		},
 	},
@@ -51,7 +42,7 @@ function* <generatorForTask> TitleMain()
 	FreezeInput();
 	FreezeInputUntilRelease();
 
-	Play(M_Title);
+//	Play(M_Title);
 
 	for (; ; )
 	{
@@ -60,8 +51,8 @@ function* <generatorForTask> TitleMain()
 
 		SetColor("#000000");
 		SetPrint(30, 220, 0);
-		SetFSize(200);
-		PrintLine("Cirno");
+		SetFSize(120);
+		PrintLine("Hammer");
 
 		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
 
@@ -74,7 +65,7 @@ function* <generatorForTask> TitleMain()
 			SetCurtain();
 			FreezeInput();
 
-			Play(M_Title);
+//			Play(M_Title);
 		}
 		yield 1;
 	}
