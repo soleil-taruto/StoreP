@@ -11,7 +11,6 @@ function <Shot_t> CreateShot_BDummy(<doule> x, <double> y, <double> xAdd, <doubl
 		Kind: ShotKind_BDummy,
 		X: x,
 		Y: y,
-		AttackPoint: 1,
 		Crash: null,
 
 		// ‚±‚±‚©‚çŒÅ—L
