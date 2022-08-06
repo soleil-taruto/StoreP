@@ -51,15 +51,17 @@ function* <generatorForTask> TitleMain()
 	FreezeInput();
 	FreezeInputUntilRelease();
 
+	Play(M_Title);
+
 	for (; ; )
 	{
 		SetColor("#a0b0c0");
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(40, 320, 0);
-		SetFSize(96);
-		PrintLine("Shooting_v003");
+		SetPrint(50, 150, 0);
+		SetFSize(100);
+		PrintLine("Title");
 
 		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
 
@@ -71,6 +73,8 @@ function* <generatorForTask> TitleMain()
 
 			SetCurtain();
 			FreezeInput();
+
+			Play(M_Title);
 		}
 		yield 1;
 	}

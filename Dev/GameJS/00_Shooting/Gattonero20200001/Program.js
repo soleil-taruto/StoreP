@@ -70,8 +70,7 @@ function* <generatorForTask> @@_Main()
 	}
 }
 
-// –{”Ô—pƒƒCƒ“
 function* <generatorForTask> @@_Main2()
 {
-	yield* TitleMain();
+	yield* EntranceMain();
 }

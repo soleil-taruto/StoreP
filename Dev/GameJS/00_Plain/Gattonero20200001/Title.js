@@ -14,6 +14,15 @@ var @@_Buttons =
 		},
 	},
 	{
+		Text: "ê›íË",
+		Pressed : function* ()
+		{
+			LOGPOS();
+			yield* SettingMain();
+			LOGPOS();
+		},
+	},
+	{
 		Text: "Credit",
 		Pressed : function* ()
 		{
@@ -42,7 +51,7 @@ function* <generatorForTask> TitleMain()
 	FreezeInput();
 	FreezeInputUntilRelease();
 
-//	Play(M_Title);
+	Play(M_Title);
 
 	for (; ; )
 	{
@@ -65,7 +74,7 @@ function* <generatorForTask> TitleMain()
 			SetCurtain();
 			FreezeInput();
 
-//			Play(M_Title);
+			Play(M_Title);
 		}
 		yield 1;
 	}
