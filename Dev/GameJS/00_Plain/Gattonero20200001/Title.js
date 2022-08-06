@@ -9,7 +9,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* GameMain();
+			yield* MapSelectMenu();
 			LOGPOS();
 		},
 	},
@@ -59,9 +59,9 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 220, 0);
-		SetFSize(120);
-		PrintLine("Hammer");
+		SetPrint(50, 150, 0);
+		SetFSize(100);
+		PrintLine("Title");
 
 		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
 
