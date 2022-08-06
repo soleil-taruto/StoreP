@@ -13,12 +13,12 @@ function <void> @@_Loading()
 {
 	if (1 <= Loading)
 	{
-		@@_PrintLoading();
+		PrintGameLoading();
 		setTimeout(@@_Loading, 100);
 	}
 	else
 	{
-		@@_PrintLoaded();
+		PrintGameLoaded();
 		@@_Loaded();
 	}
 }
