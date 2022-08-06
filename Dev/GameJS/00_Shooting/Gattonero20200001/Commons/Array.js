@@ -128,7 +128,7 @@ function <T[]> GetTrailArray(<T[]> arr, <int> offset)
 */
 function <T[]> CloneArray(<T[]> arr)
 {
-	return GetSubArray(arr, 0, arr.length);
+	return GetTrailArray(arr, 0);
 }
 
 /*
@@ -169,6 +169,16 @@ function <void> RemoveFalse(<T[]> arr)
 	};
 
 	RemoveAll(arr, match);
+}
+
+/*
+	配列の要素を全て削除する。
+
+	arr: 配列
+*/
+function <void> ClearArray(<T[]> arr)
+{
+	arr.length = 0;
 }
 
 /*

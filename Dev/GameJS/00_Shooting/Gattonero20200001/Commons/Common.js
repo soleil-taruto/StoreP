@@ -57,6 +57,11 @@ function <boolean> IsOutOfScreen(<D2Point_t> pt, <double> margin)
 	return IsOut(pt, CreateD4Rect(0.0, 0.0, Screen_W, Screen_H), margin);
 }
 
+function <boolean> IsOutOfCamera(<D2Point_t> pt, <double> margin)
+{
+	return IsOut(pt, CreateD4Rect(Camera.X, Camera.Y, Screen_W, Screen_H), margin);
+}
+
 /*
 	始点から終点までの間の指定レートの位置を返す。
 
