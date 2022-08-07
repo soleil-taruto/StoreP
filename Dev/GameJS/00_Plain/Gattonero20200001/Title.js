@@ -63,7 +63,7 @@ function* <generatorForTask> TitleMain()
 		SetFSize(100);
 		PrintLine("Title");
 
-		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
+		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 500, 20, @@_Buttons.map(v => v.Text));
 
 		if (DSM_Desided)
 		{
