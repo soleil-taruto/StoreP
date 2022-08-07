@@ -88,7 +88,7 @@ function* <generatorForTask> @@_VolumeSetting(<string> name, <double> initVolume
 	{
 		if (frame % 60 == 0)
 		{
-			SE(ChooseOne([ S_Jump, S_Damaged, S_Dead ]));
+			SE(ChooseOne(S_テスト用));
 		}
 
 		if (GetMouseDown() == -1 || GetKeyInput(32) == 1)
@@ -234,7 +234,7 @@ gameLoop:
 		case 0:
 			ClearLocalStorageValue();
 			LoadLocalStorage();
-			SE(S_Dead);
+			SE(S_SaveDataRemoved);
 			break gameLoop;
 
 		case 1:
