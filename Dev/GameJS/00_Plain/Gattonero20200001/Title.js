@@ -9,7 +9,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* MapSelectMenu();
+			yield* GameProgressMaster();
 			LOGPOS();
 		},
 	},

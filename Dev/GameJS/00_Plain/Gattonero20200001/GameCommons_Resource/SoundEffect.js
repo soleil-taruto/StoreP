@@ -15,3 +15,12 @@ function <SE_t> @@_Load(<string> url)
 //var<SE_t> S_無音 = @@_Load(RESOURCE_General__muon_mp3); // デカいのでロードしない。
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
+
+var<SE_t[]> S_テスト用 =
+[
+	@@_Load(RESOURCE_General__muon_mp3),
+	@@_Load(RESOURCE_General__muon_mp3),
+	@@_Load(RESOURCE_General__muon_mp3),
+];
+
+var<SE_t> S_SaveDataRemoved = @@_Load(RESOURCE_General__muon_mp3);
