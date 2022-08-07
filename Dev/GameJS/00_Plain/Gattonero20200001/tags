@@ -211,8 +211,6 @@ C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\Resource_LoadSound.js(7) : 
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\Resource_LoadSound.js(14) : LoadSound // ä÷êî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(3) : SE_t // íËã`
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(15) : LoadSE // ä÷êî
-C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ä÷êî
-C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // ïœêî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ä÷êî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\SoundEffect.js(36) : @ // ä÷êî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons\SoundEffect.js(9) : SEVolume // ïœêî
@@ -236,7 +234,9 @@ C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ä
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ä÷êî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\Game.js(5) : GameMain // ä÷êî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\GameProgressMaster.js(5) : GameProgressMaster // ä÷êî
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\LocalStorage.js(44) : SaveLocalStorage // ä÷êî
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\LocalStorage.js(44) : SaveLocalStorage // ä÷êî
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\SimpleMenu.js(11) : DrawSimpleMenu // ä÷êî
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\SimpleMenu.js(9) : DSM_Desided // ïœêî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ä÷êî
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ä÷êî
