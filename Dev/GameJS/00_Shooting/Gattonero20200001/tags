@@ -211,8 +211,6 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Resource_LoadSound.js(7)
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Resource_LoadSound.js(14) : LoadSound // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(3) : SE_t // íËã`
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(15) : LoadSE // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\SoundEffect.js(36) : @ // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\SoundEffect.js(9) : SEVolume // ïœêî
@@ -276,8 +274,6 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(16) : GameMain // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(341) : GetEnemies // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(346) : GetShots // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(14) : Score // ïœêî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\LocalStorage.js(36) : SaveLocalStorage // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(57) : DrawPlayer // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(8) : PlayerX // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(9) : PlayerY // ïœêî
@@ -347,5 +343,9 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\Shot_BDummy.js(7) : Shot
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\Shot_Normal.js(7) : CreateShot_Normal // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\Shot_Normal.js(5) : ShotKind_Normal // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\ShotCommon.js(5) : ShotCommon_Dead // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\LocalStorage.js(44) : SaveLocalStorage // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(11) : DrawSimpleMenu // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(9) : DSM_Desided // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ä÷êî

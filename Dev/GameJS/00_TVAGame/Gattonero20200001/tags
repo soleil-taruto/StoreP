@@ -211,8 +211,6 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSound.js(7) 
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSound.js(14) : LoadSound // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(3) : SE_t // ’è‹`
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(15) : LoadSE // ŠÖ”
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SimpleMenu.js(9) : DSM_Desided // •Ï”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SoundEffect.js(36) : @ // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SoundEffect.js(9) : SEVolume // •Ï”
@@ -291,8 +289,6 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Game.js(42) : GameRequestReturn
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Game.js(47) : GameRequestStageClear // •Ï”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\GameProgressMaster.js(19) : MapSelectMenu // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\GameStatus.js(9) : CanPlayStageIndex // •Ï”
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\LocalStorage.js(48) : SaveLocalStorage // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Map.js(7) : MapCell_t // ’è‹`
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Map.js(19) : Map_t // ’è‹`
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Map.js(43) : GetMapCount // ŠÖ”
@@ -395,5 +391,9 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Walls\Wall_BDummy.js(7) : Creat
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Walls\Wall_BDummy.js(5) : WallKind_BDummy // •Ï”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Walls\Wall_None.js(7) : CreateWall_None // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Walls\Wall_None.js(5) : WallKind_None // •Ï”
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\LocalStorage.js(48) : SaveLocalStorage // ŠÖ”
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\SimpleMenu.js(9) : DSM_Desided // •Ï”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ŠÖ”
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ŠÖ”
