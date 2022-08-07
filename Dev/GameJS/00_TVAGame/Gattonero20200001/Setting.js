@@ -15,15 +15,16 @@ gameLoop:
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 50, 50);
-		SetFSize(20);
+		SetPrint(30, 60, 50);
+		SetFSize(30);
 		PrintLine("■設定");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
-			30,
-			100,
 			70,
+			100,
+			600,
+			30,
 			[
 				"音楽の音量",
 				"効果音の音量",
@@ -214,15 +215,16 @@ gameLoop:
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 50, 50);
-		SetFSize(20);
+		SetPrint(30, 60, 50);
+		SetFSize(30);
 		PrintLine("セーブデータを完全に消去します。宜しいですか？");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
-			30,
-			100,
 			70,
+			100,
+			600,
+			30,
 			[
 				"はい",
 				"いいえ",
