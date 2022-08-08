@@ -274,6 +274,7 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(16) : GameMain // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(341) : GetEnemies // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(346) : GetShots // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(14) : Score // •Ï”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\GameProgressMaster.js(5) : GameProgressMaster // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(57) : DrawPlayer // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(8) : PlayerX // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Player.js(9) : PlayerY // •Ï”
@@ -345,7 +346,7 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\Shot_Normal.js(5) : Shot
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\ShotCommon.js(5) : ShotCommon_Dead // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\LocalStorage.js(44) : SaveLocalStorage // ŠÖ”
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(11) : DrawSimpleMenu // ŠÖ”
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(9) : DSM_Desided // •Ï”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(25) : DrawSimpleMenu // ŠÖ”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(10) : DSM_Desided // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ŠÖ”
