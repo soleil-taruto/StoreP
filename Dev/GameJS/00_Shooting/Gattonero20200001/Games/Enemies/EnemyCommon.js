@@ -7,7 +7,7 @@ function <void> EnemyCommon_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	SE(S_EnemyDamaged);
 }
 
-function <void> EnemyCommon_Dead(<Enemy_t> enemy)
+function <void> EnemyCommon_Dead(<Enemy_t> enemy, <boolean> destroyed) // destroyed: ƒvƒŒƒCƒ„[“™(‚ÌUŒ‚s“®)‚É‚æ‚Á‚ÄŒ‚”j‚³‚ê‚½‚©
 {
 	if (IsEnemyTama(enemy)) // ? “G’e
 	{
@@ -66,6 +66,9 @@ function <boolean> IsEnemyItem(<Enemy_t> enemy)
 {
 	var ret =
 		enemy.Kind == EnemyKind_Item;
+//		enemy.Kind == EnemyKind_Item_0001 ||
+//		enemy.Kind == EnemyKind_Item_0002 ||
+//		enemy.Kind == EnemyKind_Item_0003;
 
 	return ret;
 }
@@ -77,6 +80,9 @@ function <boolean> IsEnemyTama(<Enemy_t> enemy)
 {
 	var ret =
 		enemy.Kind == EnemyKind_Tama;
+//		enemy.Kind == EnemyKind_Tama_0001 ||
+//		enemy.Kind == EnemyKind_Tama_0002 ||
+//		enemy.Kind == EnemyKind_Tama_0003;
 
 	return ret;
 }

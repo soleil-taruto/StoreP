@@ -8,6 +8,37 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
+// カメラ位置
+// -- (0, 0) 固定
+var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
+
+// ゲーム用タスク
+var<TaskManager_t> GameTasks = CreateTaskManager();
+
+// シナリオ・タスク
+var<generatorForTask> @@_ScenarioTask = null;
+
+// 背景タスク
+var<generatorForTask> @@_BackgroundTask = null;
+
+// 当たり判定を表示するフラグ (デバッグ・テスト用)
+var<boolean> @@_PrintAtariFlag = false;
+
+/*
+	ゲーム終了理由
+*/
+var<GameEndReason_e> GameEndReason = GameEndReason_e_RETURN_MENU;
+
+/*
+	ゲーム再スタート・リクエスト
+*/
+var<boolean> GameRequestRestartGame = false;
+
+/*
+	ゲーム終了リクエスト(タイトルへ戻る)
+*/
+var<boolean> GameRequestReturnToTitleMenu = false;
+
 /*
 	スコア
 */
@@ -15,36 +46,57 @@ var<int> Score = 0;
 
 function* <generatorForTask> GameMain()
 {
-	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収());
-
 	// reset
 	{
 		@@_Enemies = [];
 		@@_Shots = [];
 
-		PlayerX = FIELD_L + FIELD_W / 2;
-		PlayerY = FIELD_T + FIELD_H / 2;
-		PlayerBornFrame = 0;
-		PlayerInvincibleFrame = 0;
-		PlayerAttackLv = 1;
-		PlayerZankiNum = 3;
+		ClearAllTask(GameTasks);
+		@@_ScenarioTask = null;
+		@@_BackgroundTask = null;
+		GameEndReason = GameEndReason_e_RETURN_MENU;
+		GameRequestRestartGame = false;
+		GameRequestReturnToTitleMenu = false;
+
+		ResetPlayer();
 
 		Score = 0;
 		BackgroundPhase = 0;
 	}
 
+//	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収()); // メソッド版_廃止
+	AddTask(GameTasks, @@_T_ゴミ回収());
+
 	SetCurtain_FD(0, -1.0);
 	SetCurtain();
 	FreezeInput();
 
-	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
-	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
+	@@_ScenarioTask   = CreateScenarioTask();
+	@@_BackgroundTask = CreateBackgroundTask();
+
+	Play(M_Field);
 
 gameLoop:
 	for (; ; )
 	{
-		if (!f_scenarioTask())
+		if (GetInput_Pause() == 1) // ポーズ
 		{
+			yield* @@_PauseMenu();
+		}
+		if (GameRequestRestartGame)
+		{
+			GameEndReason = GameEndReason_e_RESTART_GAME;
+			break;
+		}
+		if (GameRequestReturnToTitleMenu)
+		{
+			GameEndReason = GameEndReason_e_RETURN_MENU;
+			break;
+		}
+
+		if (!NextVal(@@_ScenarioTask)) // ? シナリオ終了 -> ゲーム終了
+		{
+			GameEndReason = GameEndReason_e_GAME_CLEAR;
 			break;
 		}
 
@@ -54,14 +106,7 @@ gameLoop:
 
 		@@_DrawWall();
 
-		// 背景の描画
-		//
-		if (!f_backgroundTask())
-		{
-			error();
-		}
-
-		DrawPlayer(); // プレイヤーの描画
+		DrawPlayer(); // プレイヤーの行動と描画
 
 		// 敵の描画
 		//
@@ -103,7 +148,11 @@ gameLoop:
 
 		@@_DrawFront();
 
-		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		if (DEBUG && GetKeyInput(17) == 1) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		{
+			@@_PrintAtariFlag = !@@_PrintAtariFlag;
+		}
+		if (@@_PrintAtariFlag)
 		{
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
@@ -140,13 +189,14 @@ gameLoop:
 
 			for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
 			{
-				var<Shot_t> shot = @@_Shots[shotIndex];
-
-				if (shot.AttackPoint == -1) // ? 既に死亡
+				if (enemy.HP == 0) // ? 無敵
 				{
 					continue;
 				}
-				if (enemy.HP == 0) // ? 無敵 -> 自弾とは衝突しない。
+
+				var<Shot_t> shot = @@_Shots[shotIndex];
+
+				if (shot.AttackPoint == -1) // ? 既に死亡
 				{
 					continue;
 				}
@@ -160,7 +210,7 @@ gameLoop:
 
 					if (enemy.HP <= 0) // ? 死亡した。
 					{
-						KillEnemy(enemy);
+						KillEnemy_Destroyed(enemy, true);
 						break; // この敵は死亡したので、次の敵へ進む。
 					}
 
@@ -181,47 +231,17 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (enemy.Kind == EnemyKind_Item) // ? アイテム -> 取得
+				yield* @@_PlayerDead();
+
+				if (PlayerZankiNum < 1) // ? 残機ゼロ
 				{
-					var<EnemyItemType_e> itemType = GetEnemyItemType(enemy);
-
-					switch (itemType)
-					{
-					case EnemyItemType_e_POWER_UP:
-						PlayerAttackLv = Math.min(PlayerAttackLv + 1, PLAYER_ATTACK_LV_MAX);
-						break;
-
-					case EnemyItemType_e_ZANKI_UP:
-						PlayerZankiNum++;
-						break;
-
-					default:
-						error();
-					}
-
-					KillEnemy(enemy);
-					break; // この敵(アイテム)は死亡したので、次の敵へ進む。
+					GameEndReason = GameEndReason_e_GAME_OVER;
+					break gameLoop;
 				}
-				else if (
-					1 <= PlayerBornFrame || // ? 再登場中
-					1 <= PlayerInvincibleFrame // ? 無敵状態中
-					)
-				{
-					// 被弾しない。
-				}
-				else // ? それ以外(敵) -> 被弾
-				{
-					yield* @@_PlayerDead();
 
-					if (PlayerZankiNum < 1) // ? 残機ゼロ
-					{
-						break gameLoop;
-					}
-
-					PlayerZankiNum--;
-					PlayerBornFrame = 1;
-					break; // 被弾したので当たり判定終了
-				}
+				PlayerZankiNum--;
+				PlayerRebornFrame = 1;
+				break; // 被弾したので当たり判定終了
 			}
 		}
 
@@ -229,7 +249,7 @@ gameLoop:
 		// 当たり判定ここまで
 		// ====
 
-		f_ゴミ回収();
+//		f_ゴミ回収(); // メソッド版_廃止
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
@@ -246,44 +266,44 @@ gameLoop:
 		// ★★★ ゲームループの終わり ★★★
 	}
 
-	Fadeout_F(90);
-
-	for (var<Scene_t> scene of CreateScene(80)) // 余韻のような...
+	if (GameEndReason == GameEndReason_e_GAME_OVER)
 	{
-		@@_DrawWall();
+		Fadeout_F(90);
 
-		// 背景の描画
-		//
-		if (!f_backgroundTask())
+		for (var<Scene_t> scene of CreateScene(80))
 		{
-			error();
+			@@_DrawWall();
+			@@_DrawFront();
+
+			yield 1;
 		}
 
-		@@_DrawFront();
+		SetCurtain_FD(30, -1.0);
 
-		yield 1;
-	}
-
-	SetCurtain_FD(30, -1.0);
-
-	for (var<Scene_t> scene of CreateScene(40))
-	{
-		@@_DrawWall();
-
-		// 背景の描画
-		//
-		if (!f_backgroundTask())
+		for (var<Scene_t> scene of CreateScene(40))
 		{
-			error();
+			@@_DrawWall();
+			@@_DrawFront();
+
+			yield 1;
 		}
 
-		@@_DrawFront();
-
-		yield 1;
+		FreezeInput();
 	}
+	else
+	{
+		SetCurtain_FD(30, -1.0);
 
-	ClearAllEffect(); // 時限消滅ではないエフェクトを考慮して、クリアは必須とする。
-	FreezeInput();
+		for (var<Scene_t> scene of CreateScene(40))
+		{
+			@@_DrawWall();
+			@@_DrawFront();
+
+			yield 1;
+		}
+
+		FreezeInput();
+	}
 
 	// ★★★ end of GameMain() ★★★
 }
@@ -353,8 +373,10 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
-	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
+	if (!NextVal(@@_BackgroundTask)) // ? タスク終了 -> 想定外
+	{
+		error();
+	}
 }
 
 /*
@@ -401,7 +423,7 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_PlayerDead()
 {
-	var<generatorForTask[]> bk_effects = EjectEffects(); // エフェクト全て除去
+	ClearAllEffect();
 
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
@@ -410,8 +432,6 @@ function* <generatorForTask> @@_PlayerDead()
 	{
 		yield 1;
 	}
-
-	SetEffects(bk_effects); // エフェクト復元
 
 	// 敵クリア
 	//
@@ -439,4 +459,53 @@ function* <generatorForTask> @@_PlayerDead()
 	{
 		KillShot(shot);
 	}
+}
+
+/*
+	ポーズ画面
+*/
+function* <generatorForTask> @@_PauseMenu()
+{
+	var<int> selectIndex = 0;
+
+	FreezeInput();
+
+gameLoop:
+	for (; ; )
+	{
+		@@_DrawWall();
+
+		selectIndex = DrawSimpleMenu(
+			selectIndex,
+			50,
+			300,
+			600,
+			50,
+			[
+				"最初からやり直す",
+				"タイトルに戻る",
+				"ゲームに戻る",
+			]);
+
+		if (DSM_Desided)
+		switch (selectIndex)
+		{
+		case 0:
+			GameRequestRestartGame = true;
+			break gameLoop;
+
+		case 1:
+			GameRequestReturnToTitleMenu = true;
+			break gameLoop;
+
+		case 2:
+			break gameLoop;
+
+		default:
+			error(); // never
+		}
+		yield 1;
+	}
+	FreezeInput();
+	FreezeInputUntilRelease();
 }
