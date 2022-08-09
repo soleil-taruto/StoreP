@@ -32,7 +32,7 @@ var<GameEndReason_e> GameEndReason = GameEndReason_e_RETURN_MENU;
 /*
 	ゲーム再スタート・リクエスト
 */
-var<boolean> GameRequestRestart = false;
+var<boolean> GameRequestRestartGame = false;
 
 /*
 	ゲーム終了リクエスト(タイトルへ戻る)
@@ -55,7 +55,7 @@ function* <generatorForTask> GameMain()
 		@@_ScenarioTask = null;
 		@@_BackgroundTask = null;
 		GameEndReason = GameEndReason_e_RETURN_MENU;
-		GameRequestRestart = false;
+		GameRequestRestartGame = false;
 		GameRequestReturnToTitleMenu = false;
 
 		ResetPlayer();
@@ -80,7 +80,7 @@ gameLoop:
 		{
 			yield* @@_PauseMenu();
 		}
-		if (GameRequestRestart)
+		if (GameRequestRestartGame)
 		{
 			GameEndReason = GameEndReason_e_RESTART_GAME;
 			break;
@@ -232,6 +232,7 @@ gameLoop:
 
 				if (PlayerZankiNum < 1) // ? 残機ゼロ
 				{
+					GameEndReason = GameEndReason_e_GAME_OVER;
 					break gameLoop;
 				}
 
@@ -262,6 +263,19 @@ gameLoop:
 		// ★★★ ゲームループの終わり ★★★
 	}
 
+	if (GameEndReason == GameEndReason_e_GAME_OVER)
+	{
+		Fadeout_F(90);
+
+		for (var<Scene_t> scene of CreateScene(80))
+		{
+			@@_DrawWall();
+			@@_DrawFront();
+
+			yield 1;
+		}
+	}
+
 	SetCurtain_FD(30, -1.0);
 
 	for (var<Scene_t> scene of CreateScene(40))
@@ -274,6 +288,7 @@ gameLoop:
 
 	ClearAllEffect(); // 時限消滅ではないエフェクトを考慮して、クリアは必須とする。
 	FreezeInput();
+	FreezeInputUntilRelease();
 
 	// ★★★ end of GameMain() ★★★
 }
@@ -410,7 +425,7 @@ gameLoop:
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
-			100,
+			50,
 			200,
 			600,
 			50,
@@ -424,7 +439,7 @@ gameLoop:
 		switch (selectIndex)
 		{
 		case 0:
-			GameRequestRestart = true;
+			GameRequestRestartGame = true;
 			break gameLoop;
 
 		case 1:

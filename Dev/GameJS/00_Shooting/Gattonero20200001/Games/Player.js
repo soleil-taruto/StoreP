@@ -114,8 +114,8 @@ rebornBlock:
 		{
 			if (frame == 2) // èââÒÇÃÇ›
 			{
-				@@_Reborn_X = FIELD_L + FIELD_W / 2;
-				@@_Reborn_Y = FIELD_B + 100.0;
+				@@_Reborn_X = Screen_W / 2.0;
+				@@_Reborn_Y = Screen_H + 100.0;
 			}
 
 			@@_Reborn_X = Approach(@@_Reborn_X, PlayerX, 1.0 - rate * rate * rate);
