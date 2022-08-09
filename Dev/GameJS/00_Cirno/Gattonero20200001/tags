@@ -293,9 +293,9 @@ C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Effect.js(73) : Effect_Explode_S 
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Effect.js(85) : Effect_Explode_M // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Effect.js(97) : Effect_Explode_L // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Ending.js(5) : Ending // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(52) : GameMain // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(437) : GetEnemies // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(442) : GetShots // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(53) : GameMain // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(439) : GetEnemies // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(444) : GetShots // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(15) : Camera // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(18) : GameTasks // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Game.js(21) : FrontTasks // •Ï”
@@ -343,7 +343,7 @@ C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(95) : PlayerShitamukiFr
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(102) : PlayerAttackFrame // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(110) : PlayerAttack // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(19) : PlayStageMusic // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(38) : GetStageWallPicture // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(38) : GetStageWall // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\Attack_BDummy.js(5) : CreateAttack_BDummy // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(28) : AttackProcPlayer_Move // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(57) : AttackProcPlayer_Fall // ŠÖ”
@@ -403,6 +403,14 @@ C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Tiles\Tile_None.js(7) : CreateTil
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Tiles\Tile_None.js(5) : TileKind_None // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Tiles\Tile_Wall.js(7) : CreateTile_Wall // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Tiles\Tile_Wall.js(5) : TileKind_Wall // •Ï”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall.js(7) : Wall_t // ’è‹`
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall.js(19) : DrawWall // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall_BDummy.js(7) : CreateWall_BDummy // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall_BDummy.js(5) : WallKind_BDummy // •Ï”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall_Simple.js(7) : CreateWall_Simple // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall_Simple.js(5) : WallKind_Simple // •Ï”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall_SimpleDouble.js(7) : CreateWall_SimpleDouble // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Walls\Wall_SimpleDouble.js(5) : WallKind_SimpleDouble // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\GameTools\LocalStorage.js(48) : SaveLocalStorage // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\GameTools\SimpleMenu.js(25) : DrawSimpleMenu // ŠÖ”
