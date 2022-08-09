@@ -34,11 +34,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XAdd;
 		enemy.Y += enemy.YAdd;
 
-		if (IsOut(
-			CreateD2Point(enemy.X, enemy.Y),
-			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
-			50.0
-			))
+		if (IsOutOfScreen(CreateD2Point(enemy.X, enemy.Y), 50.0))
 		{
 			break;
 		}
@@ -56,7 +52,7 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	// noop
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

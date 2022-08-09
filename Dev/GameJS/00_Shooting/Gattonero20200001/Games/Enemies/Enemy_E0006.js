@@ -26,7 +26,7 @@ function <Enemy_t> CreateEnemy_E0006(<double> x, <double> y, <int> hp)
 
 function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 {
-	while (enemy.Y < FIELD_B && enemy.Y < PlayerY)
+	while (enemy.Y < Screen_H && enemy.Y < PlayerY)
 	{
 		enemy.Y += 5.0;
 
@@ -40,7 +40,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		xAdd *= -1;
 	}
 
-	while (FIELD_L < enemy.X && enemy.X < FIELD_R)
+	while (0.0 < enemy.X && enemy.X < Screen_W)
 	{
 		enemy.X += xAdd;
 
@@ -59,8 +59,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(600);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

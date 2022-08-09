@@ -22,7 +22,7 @@ function <Enemy_t> EnemyCommon_ToItemer(<Enemy_t> enemy, <EnemyItemType_e> itemT
 {
 	enemy.@@_ItemType = itemType;
 
-	AddEffect(@@_Each(enemy));
+	AddTask(GameTasks, @@_Each(enemy));
 
 	return enemy;
 }
@@ -53,11 +53,7 @@ function <void> @@_DropItem(<Enemy_t> enemy)
 	var<double> T_MGN = 100.0; // 画面外・上部マージン -- 画面上部に敵出現直後に撃破された場合を考慮
 
 	// ? 画面外 -> アイテムを落とさない。
-	if (IsOut(
-		CreateD2Point(enemy.X, enemy.Y),
-		CreateD4Rect(FIELD_L, FIELD_T - T_MGN, FIELD_W, FIELD_H + T_MGN),
-		0.0
-		))
+	if (IsOutOfScreen(CreateD2Point(enemy.X, enemy.Y), 0.0))
 	{
 		return;
 	}

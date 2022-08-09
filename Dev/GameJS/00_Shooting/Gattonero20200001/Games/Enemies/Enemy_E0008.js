@@ -59,22 +59,22 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		{
 			var<boolean> boundFlag = false;
 
-			if (enemy.X < FIELD_L)
+			if (enemy.X < 0.0)
 			{
 				speedXY.X = Math.abs(speedXY.X);
 				boundFlag = true;
 			}
-			if (FIELD_R < enemy.X)
+			if (Screen_W < enemy.X)
 			{
 				speedXY.X = Math.abs(speedXY.X) * -1;
 				boundFlag = true;
 			}
-			if (enemy.Y < FIELD_T)
+			if (enemy.Y < 0.0)
 			{
 				speedXY.Y = Math.abs(speedXY.Y);
 				boundFlag = true;
 			}
-			if (FIELD_B < enemy.Y)
+			if (Screen_H < enemy.Y)
 			{
 				speedXY.Y = Math.abs(speedXY.Y) * -1;
 				boundFlag = true;
@@ -82,8 +82,8 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 			if (boundFlag)
 			{
-				enemy.X = ToRange(enemy.X, FIELD_L, FIELD_R);
-				enemy.Y = ToRange(enemy.Y, FIELD_T, FIELD_B);
+				enemy.X = ToRange(enemy.X, 0.0, Screen_W);
+				enemy.Y = ToRange(enemy.Y, 0.0, Screen_H);
 
 				angle = GetAngle(speedXY.X, speedXY.Y);
 				boundCount++;
@@ -92,11 +92,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 
 		// ? âÊñ äOÇ…èoÇΩ -> èIóπ(éÄñSÇ≥ÇπÇÈ)
-		if (IsOut(
-			CreateD2Point(enemy.X, enemy.Y),
-			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
-			50.0
-			))
+		if (IsOutOfScreen(CreateD2Point(enemy.X, enemy.Y), 50.0))
 		{
 			break;
 		}
@@ -112,8 +108,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(800);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

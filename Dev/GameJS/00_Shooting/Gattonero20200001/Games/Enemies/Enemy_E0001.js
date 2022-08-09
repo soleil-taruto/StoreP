@@ -33,7 +33,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		{
 			var<double> X_ADD_ADD = 0.1;
 
-			if (FIELD_L + FIELD_W / 2 < enemy.X)
+			if (Screen_W / 2.0 < enemy.X)
 			{
 				enemy.XAdd -= X_ADD_ADD;
 			}
@@ -46,7 +46,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XAdd;
 		enemy.Y += 3.0;
 
-		if (FIELD_B + 50.0 < enemy.Y)
+		if (Screen_H + 50.0 < enemy.Y)
 		{
 			break;
 		}
@@ -62,8 +62,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(100);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

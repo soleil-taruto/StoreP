@@ -22,7 +22,7 @@ var<Func boolean> Task_02;
 
 var<double> Alpha = 1.0;
 
-function* <generatorForTask> BackgroundTask()
+function* <generatorForTask> CreateBackgroundTask()
 {
 	Task_01 = function() { return true; };
 	Task_02 = function() { return true; };
@@ -101,10 +101,10 @@ function* <generatorForTask> @@_Field(<Picture_t> picture, <double> speedMax)
 		for (var<int> x = 0; x < 7; x++)
 		for (var<int> y = 0;      ; y++)
 		{
-			var<double> dx = FIELD_L + 26.0 + x * 108.0;
-			var<double> dy = FIELD_T +    t + y * 108.0;
+			var<double> dx = 26.0 + x * 108.0;
+			var<double> dy = t    + y * 108.0;
 
-			if (FIELD_B + 54.0 < dy)
+			if (Screen_H + 54.0 < dy)
 			{
 				break;
 			}
@@ -147,13 +147,13 @@ function* <generatorForTask> @@_Boss(<Picture_t[]> pictures)
 		if (0.0 < md) { md -= 108.0; }
 		if (0.0 < hi) { hi -= 108.0; }
 
-		@@_DrawVertTiles(FIELD_L + 54,  lw, pictures[0]);
-		@@_DrawVertTiles(FIELD_L + 646, lw, pictures[0]);
-		@@_DrawVertTiles(FIELD_L + 148, md, pictures[1]);
-		@@_DrawVertTiles(FIELD_L + 552, md, pictures[1]);
-		@@_DrawVertTiles(FIELD_L + 242, hi, pictures[2]);
-		@@_DrawVertTiles(FIELD_L + 350, hi, pictures[2]);
-		@@_DrawVertTiles(FIELD_L + 458, hi, pictures[2]);
+		@@_DrawVertTiles(  54, lw, pictures[0]);
+		@@_DrawVertTiles( 646, lw, pictures[0]);
+		@@_DrawVertTiles( 148, md, pictures[1]);
+		@@_DrawVertTiles( 552, md, pictures[1]);
+		@@_DrawVertTiles( 242, hi, pictures[2]);
+		@@_DrawVertTiles( 350, hi, pictures[2]);
+		@@_DrawVertTiles( 458, hi, pictures[2]);
 
 		yield 1;
 	}
@@ -161,7 +161,7 @@ function* <generatorForTask> @@_Boss(<Picture_t[]> pictures)
 
 function <void> @@_DrawVertTiles(<double> dx, <double> t, <Picture_t> picture)
 {
-	for (var<double> dy = FIELD_T + t; dy < FIELD_B + 54.0; dy += 108.0)
+	for (var<double> dy = t; dy < Screen_W + 54.0; dy += 108.0)
 	{
 		Draw(picture, dx, dy, Alpha, 0.0, 1.0);
 	}
@@ -181,11 +181,11 @@ function* <generatorForTask> @@_Ending()
 			AddTask(tasks, function* <generatorForTask> ()
 			{
 				var<Picture_t> picture = ChooseOne([ P_Wall0001, P_Wall0002, P_Wall0003 ]);
-				var<double> dx = GetRand3(FIELD_L - 54.0, FIELD_R + 54.0);
-				var<double> dy = FIELD_B + 54.0;
+				var<double> dx = GetRand3(-54.0, Screen_W + 54.0);
+				var<double> dy = Screen_H + 54.0;
 				var<double> speed = GetRand3(3.0, 10.0);
 
-				while (FIELD_T - 54.0 < dy)
+				while (-54.0 < dy)
 				{
 					Draw(picture, dx, dy, Alpha * 0.5, 0.0, 1.0);
 
@@ -197,7 +197,7 @@ function* <generatorForTask> @@_Ending()
 		}
 
 		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(0.0, 0.0, 0.0, Alpha))));
-		PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
+		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
 		ExecuteAllTask(tasks);
 

@@ -43,18 +43,18 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.XAdd += enemy.XAddAdd * (underOfPlayer ? -1 : 1);
 		enemy.X += enemy.XAdd;
 
-		if (enemy.X < FIELD_L)
+		if (enemy.X < 0.0)
 		{
 			enemy.XAdd = Math.abs(enemy.XAdd);
 		}
-		if (FIELD_R < enemy.X)
+		if (Screen_W < enemy.X)
 		{
 			enemy.XAdd = Math.abs(enemy.XAdd) * -1;
 		}
 
 		enemy.Y += 5.5;
 
-		if (FIELD_B + 50.0 < enemy.Y)
+		if (Screen_H + 50.0 < enemy.Y)
 		{
 			break;
 		}
@@ -70,8 +70,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(400);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

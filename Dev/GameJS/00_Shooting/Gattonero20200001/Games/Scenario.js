@@ -29,7 +29,7 @@ function* <generatorForTask> @@_Test01()
 	{
 		if (GetRand1() < 0.2)
 		{
-			GetEnemies().push(CreateEnemy_BDummy(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+			GetEnemies().push(CreateEnemy_BDummy(GetRand3(0.0, Screen_W), 0.0, 10));
 		}
 
 		yield* Repeat(1, 20); // 20フレーム待つ。-- ウェイトはこの様に記述する。
@@ -44,35 +44,35 @@ function* <generatorForTask> @@_Test01()
 			switch(GetRand(8))
 			{
 			case 0:
-				GetEnemies().push(CreateEnemy_E0001(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0001(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 1:
-				GetEnemies().push(CreateEnemy_E0002(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0002(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 2:
-				GetEnemies().push(CreateEnemy_E0003(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0003(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 3:
-				GetEnemies().push(CreateEnemy_E0004(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0004(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 4:
-				GetEnemies().push(CreateEnemy_E0005(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0005(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 5:
-				GetEnemies().push(CreateEnemy_E0006(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0006(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 6:
-				GetEnemies().push(CreateEnemy_E0007(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0007(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 
 			case 7:
-				GetEnemies().push(CreateEnemy_E0008(GetRand3(FIELD_L, FIELD_R), 0.0, 10));
+				GetEnemies().push(CreateEnemy_E0008(GetRand3(0.0, Screen_W), 0.0, 10));
 				break;
 			}
 		}
@@ -111,7 +111,7 @@ function* <generatorForTask> @@_Test03()
 
 	Play(M_Stage01Boss);
 
-	GetEnemies().push(CreateEnemy_Boss01(FIELD_L + FIELD_W / 2, -100.0, 300));
+	GetEnemies().push(CreateEnemy_Boss01(Screen_W / 2.0, -100.0, 300));
 
 	for (; ; )
 	{

@@ -41,12 +41,19 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.YAdd += Y_ADD_ADD;
 		enemy.Y += enemy.YAdd;
 
-		if (FIELD_B < enemy.Y)
+		if (GetDistanceLessThan(enemy.X - PlayerX, enemy.Y - PlayerY, 100.0)) // アイテム取得
+		{
+			SE(S_PowerUp);
+
+			break;
+		}
+
+		if (Screen_H < enemy.Y)
 		{
 			break;
 		}
 
-		enemy.Crash = CreateCrash_Rect(CreateD4Rect_XYWH(enemy.X, enemy.Y, 200.0, 140.0));
+		enemy.Crash = null; // アイテムにつき当たり判定無し。
 
 		{
 			var<Picture_t> picture;
@@ -74,11 +81,7 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 
 function <void> @@_Dead(<Enemy_t> enemy)
 {
-	EnemyCommon_AddScore(50);
-//	EnemyCommon_Dead(enemy); // 敵ではないので、通常の敵_死亡イベントは適用しない。
-
-//	AddEffect_PlayerPowerUp(PlayerX, PlayerY); // TODO
-	SE(S_PowerUp);
+	// noop
 }
 
 function <EnemyItemType_e> GetEnemyItemType(<Enemy_t> enemy)

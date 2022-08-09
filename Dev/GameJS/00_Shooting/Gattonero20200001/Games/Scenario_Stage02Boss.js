@@ -13,7 +13,7 @@ function* <generatorForTask> Scenario_Stage02Boss()
 
 	yield* Wait(30);
 
-	GetEnemies().push(CreateEnemy_Boss02(FIELD_L + FIELD_W / 2, -100.0, 300));
+	GetEnemies().push(CreateEnemy_Boss02(Screen_W / 2.0, -100.0, 300));
 
 	for (; ; ) // ƒ{ƒX‚ª€‚Ê‚Ü‚Å‘Ò‚ÂB
 	{

@@ -56,11 +56,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.Y += speedXY.Y;
 
 		// ? âÊñ äOÇ…èoÇΩ -> èIóπ(éÄñSÇ≥ÇπÇÈ)
-		if (IsOut(
-			CreateD2Point(enemy.X, enemy.Y),
-			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
-			50.0
-			))
+		if (IsOutOfScreen(CreateD2Point(enemy.X, enemy.Y), 50.0))
 		{
 			break;
 		}
@@ -76,8 +72,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(700);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

@@ -44,7 +44,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		enemy.Y += enemy.YAdd;
 
-		if (FIELD_B + 50.0 < enemy.Y)
+		if (Screen_H + 50.0 < enemy.Y)
 		{
 			break;
 		}
@@ -60,8 +60,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(500);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

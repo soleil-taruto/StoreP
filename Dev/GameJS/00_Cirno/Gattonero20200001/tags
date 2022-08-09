@@ -357,10 +357,10 @@ C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(180) : At
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(196) : AttackProcPlayer_Status // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(209) : AttackProcPlayer_Atari // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(7) : Enemy_t // ’è‹`
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(57) : DrawEnemy // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(65) : EnemyDamaged // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(73) : KillEnemy // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(83) : KillEnemy_Destroyed // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(58) : DrawEnemy // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(66) : EnemyDamaged // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(74) : KillEnemy // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy.js(84) : KillEnemy_Destroyed // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy_AutoStageClear.js(7) : CreateEnemy_AutoStageClear // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy_AutoStageClear.js(5) : EnemyKind_AutoStageClear // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Enemies\Enemy_BDummy.js(7) : CreateEnemy_BDummy // ŠÖ”

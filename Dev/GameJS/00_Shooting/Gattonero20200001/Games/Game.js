@@ -384,22 +384,6 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(50, 100, 150)));
-	PrintRect(0, 0, FIELD_L, Screen_H);
-	PrintRect(0, 0, Screen_W, FIELD_T);
-	PrintRect(
-		0,
-		FIELD_B,
-		Screen_W,
-		Screen_H - FIELD_B
-		);
-	PrintRect(
-		FIELD_R,
-		0,
-		Screen_W - FIELD_R,
-		Screen_H
-		);
-
 	var<string> strPower;
 
 	switch (PlayerAttackLv)

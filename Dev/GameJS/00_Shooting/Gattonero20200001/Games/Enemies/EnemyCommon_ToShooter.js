@@ -22,7 +22,7 @@ function <Enemy_t> EnemyCommon_ToShooter(<Enemy_t> enemy)
 {
 	enemy.@@_ShooterFlag = true; // HACK: ïségóp
 
-	AddEffect(@@_Each(enemy));
+	AddTask(GameTasks, @@_Each(enemy));
 
 	return enemy;
 }

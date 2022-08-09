@@ -51,25 +51,25 @@ function* <generatorForTask> @@_Move(<Enemy_t> enemy)
 {
 	var<Func boolean> f_moveDest = Supplier(function* <generatorForTask> ()
 	{
-		enemy.DestX = FIELD_L + FIELD_W / 2;
-		enemy.DestY = FIELD_T + FIELD_H / 2;
+		enemy.DestX = Screen_W / 2;
+		enemy.DestY = Screen_H / 2;
 
 		yield* Wait(300);
 
 		for (; ; )
 		{
-			enemy.DestX = FIELD_L + 150.0;
-			enemy.DestY = FIELD_T + 150.0;
+			enemy.DestX = 150.0;
+			enemy.DestY = 150.0;
 
 			yield* Wait(300);
 
-			enemy.DestX = FIELD_L + 350.0;
-			enemy.DestY = FIELD_T + 550.0;
+			enemy.DestX = 350.0;
+			enemy.DestY = 550.0;
 
 			yield* Wait(300);
 
-			enemy.DestX = FIELD_L + 550.0;
-			enemy.DestY = FIELD_T + 150.0;
+			enemy.DestX = 550.0;
+			enemy.DestY = 150.0;
 
 			yield* Wait(300);
 		}
@@ -137,8 +137,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
 	EnemyCommon_AddScore(10000);
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }
