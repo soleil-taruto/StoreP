@@ -24,6 +24,8 @@ function <void> LoadLocalStorage()
 		PadInputIndex_B = StrToInt(data[c++]);
 		PadInputIndex_Pause = StrToInt(data[c++]);
 
+		HiScore = StrToInt(data[c++]);
+
 		// < SaveData
 	}
 	catch // ロードに失敗したらデフォルト値をセットする。
@@ -36,6 +38,8 @@ function <void> LoadLocalStorage()
 		PadInputIndex_A = 0;
 		PadInputIndex_B = 3;
 		PadInputIndex_Pause = 9;
+
+		HiScore = 0;
 
 		// < SaveData
 	}
@@ -53,6 +57,8 @@ function <void> SaveLocalStorage()
 	data.push("" + PadInputIndex_A);
 	data.push("" + PadInputIndex_B);
 	data.push("" + PadInputIndex_Pause);
+
+	data.push("" + HiScore);
 
 	// < SaveData
 

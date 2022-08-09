@@ -1,19 +1,17 @@
 /*
-	敵 - BDummy
-
-	★サンプルとしてキープ
+	敵 - BDummy ★サンプル
 */
 
 var<int> EnemyKind_BDummy = @(AUTO);
 
-function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y, <int> hp)
+function <Enemy_t> CreateEnemy_BDummy(<double> x, <double> y)
 {
 	var ret =
 	{
 		Kind: EnemyKind_BDummy,
 		X: x,
 		Y: y,
-		HP: hp,
+		HP: 10,
 		Crash: null,
 
 		// ここから固有
@@ -36,7 +34,7 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 	{
 		enemy.Y += 2.0;
 
-		if (FIELD_B < enemy.Y)
+		if (Screen_H < enemy.Y)
 		{
 			break;
 		}
@@ -54,7 +52,8 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	EnemyCommon_Damaged(enemy, damagePoint);
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_AddScore(100);
+	EnemyCommon_Dead(enemy, destroyed);
 }

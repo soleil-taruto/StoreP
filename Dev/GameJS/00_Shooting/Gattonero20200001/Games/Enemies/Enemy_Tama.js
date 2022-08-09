@@ -34,18 +34,14 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 		enemy.X += enemy.XAdd;
 		enemy.Y += enemy.YAdd;
 
-		if (IsOut(
-			CreateD2Point(enemy.X, enemy.Y),
-			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
-			50.0
-			))
+		if (IsOutOfScreen(CreateD2Point(enemy.X, enemy.Y), 50.0))
 		{
 			break;
 		}
 
 		enemy.Crash = CreateCrash_Circle(enemy.X, enemy.Y, 16.0);
 
-		Draw(P_Tama0001, enemy.X, enemy.Y, 1.0, frame / 13.0, 1.0);
+		Draw(P_Dummy, enemy.X, enemy.Y, 1.0, frame / 13.0, 1.0);
 
 		yield 1;
 	}
@@ -56,7 +52,7 @@ function <void> @@_Damaged(<Enemy_t> enemy, <int> damagePoint)
 	// noop
 }
 
-function <void> @@_Dead(<Enemy_t> enemy)
+function <void> @@_Dead(<Enemy_t> enemy, <boolean> destroyed)
 {
-	EnemyCommon_Dead(enemy);
+	EnemyCommon_Dead(enemy, destroyed);
 }

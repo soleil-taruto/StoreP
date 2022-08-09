@@ -8,6 +8,18 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
+// ゲーム用タスク
+var<TaskManager_t> GameTasks = CreateTaskManager();
+
+// シナリオ・タスク
+var<generatorForTask> @@_ScenarioTask = null;
+
+// 背景タスク
+var<generatorForTask> @@_BackgroundTask = null;
+
+// 当たり判定を表示するフラグ (デバッグ・テスト用)
+var<boolean> @@_PrintAtariFlag = false;
+
 /*
 	スコア
 */
@@ -15,35 +27,34 @@ var<int> Score = 0;
 
 function* <generatorForTask> GameMain()
 {
-	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収());
-
 	// reset
 	{
 		@@_Enemies = [];
 		@@_Shots = [];
 
-		PlayerX = FIELD_L + FIELD_W / 2;
-		PlayerY = FIELD_T + FIELD_H / 2;
-		PlayerBornFrame = 0;
-		PlayerInvincibleFrame = 0;
-		PlayerAttackLv = 1;
-		PlayerZankiNum = 3;
+		ClearAllTask(GameTasks);
+		@@_ScenarioTask = null;
+		@@_BackgroundTask = null;
+
+		ResetPlayer();
 
 		Score = 0;
-		BackgroundPhase = 0;
 	}
+
+//	var<Func boolean> f_ゴミ回収 = Supplier(@@_T_ゴミ回収()); // メソッド版_廃止
+	AddTask(GameTasks, @@_T_ゴミ回収());
 
 	SetCurtain_FD(0, -1.0);
 	SetCurtain();
 	FreezeInput();
 
-	var<Func boolean> f_scenarioTask   = Supplier(ScenarioTask());
-	var<Func boolean> f_backgroundTask = Supplier(BackgroundTask());
+	@@_ScenarioTask   = CreateScenarioTask();
+	@@_BackgroundTask = CreateBackgroundTask();
 
 gameLoop:
 	for (; ; )
 	{
-		if (!f_scenarioTask())
+		if (!NextVal(@@_ScenarioTask))
 		{
 			break;
 		}
@@ -54,14 +65,7 @@ gameLoop:
 
 		@@_DrawWall();
 
-		// 背景の描画
-		//
-		if (!f_backgroundTask())
-		{
-			error();
-		}
-
-		DrawPlayer(); // プレイヤーの描画
+		DrawPlayer(); // プレイヤーの行動と描画
 
 		// 敵の描画
 		//
@@ -103,7 +107,11 @@ gameLoop:
 
 		@@_DrawFront();
 
-		if (DEBUG && 1 <= GetKeyInput(17)) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		if (DEBUG && GetKeyInput(17) == 1) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
+		{
+			@@_PrintAtariFlag = !@@_PrintAtariFlag;
+		}
+		if (@@_PrintAtariFlag)
 		{
 			SetColor("#000000a0");
 			PrintRect(0, 0, Screen_W, Screen_H);
@@ -181,47 +189,16 @@ gameLoop:
 
 			if (IsCrashed(enemy.Crash, PlayerCrash)) // ? 衝突している。敵 vs 自機
 			{
-				if (enemy.Kind == EnemyKind_Item) // ? アイテム -> 取得
+				yield* @@_PlayerDead();
+
+				if (PlayerZankiNum < 1) // ? 残機ゼロ
 				{
-					var<EnemyItemType_e> itemType = GetEnemyItemType(enemy);
-
-					switch (itemType)
-					{
-					case EnemyItemType_e_POWER_UP:
-						PlayerAttackLv = Math.min(PlayerAttackLv + 1, PLAYER_ATTACK_LV_MAX);
-						break;
-
-					case EnemyItemType_e_ZANKI_UP:
-						PlayerZankiNum++;
-						break;
-
-					default:
-						error();
-					}
-
-					KillEnemy(enemy);
-					break; // この敵(アイテム)は死亡したので、次の敵へ進む。
+					break gameLoop;
 				}
-				else if (
-					1 <= PlayerBornFrame || // ? 再登場中
-					1 <= PlayerInvincibleFrame // ? 無敵状態中
-					)
-				{
-					// 被弾しない。
-				}
-				else // ? それ以外(敵) -> 被弾
-				{
-					yield* @@_PlayerDead();
 
-					if (PlayerZankiNum < 1) // ? 残機ゼロ
-					{
-						break gameLoop;
-					}
-
-					PlayerZankiNum--;
-					PlayerBornFrame = 1;
-					break; // 被弾したので当たり判定終了
-				}
+				PlayerZankiNum--;
+				PlayerRebornFrame = 1;
+				break; // 被弾したので当たり判定終了
 			}
 		}
 
@@ -229,7 +206,7 @@ gameLoop:
 		// 当たり判定ここまで
 		// ====
 
-		f_ゴミ回収();
+//		f_ゴミ回収(); // メソッド版_廃止
 
 		RemoveAll(@@_Enemies, function <boolean> (<Enemy_t> enemy)
 		{
@@ -251,14 +228,6 @@ gameLoop:
 	for (var<Scene_t> scene of CreateScene(80)) // 余韻のような...
 	{
 		@@_DrawWall();
-
-		// 背景の描画
-		//
-		if (!f_backgroundTask())
-		{
-			error();
-		}
-
 		@@_DrawFront();
 
 		yield 1;
@@ -269,14 +238,6 @@ gameLoop:
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
-
-		// 背景の描画
-		//
-		if (!f_backgroundTask())
-		{
-			error();
-		}
-
 		@@_DrawFront();
 
 		yield 1;
@@ -353,8 +314,10 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
-	SetColor(I3ColorToString(CreateI3Color(0, 0, 0)));
-	PrintRect(FIELD_L, FIELD_T, FIELD_W, FIELD_H);
+	if (!NextVal(@@_BackgroundTask)) // ? タスク終了 -> 想定外
+	{
+		error();
+	}
 }
 
 /*
@@ -362,38 +325,7 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(50, 100, 150)));
-	PrintRect(0, 0, FIELD_L, Screen_H);
-	PrintRect(0, 0, Screen_W, FIELD_T);
-	PrintRect(
-		0,
-		FIELD_B,
-		Screen_W,
-		Screen_H - FIELD_B
-		);
-	PrintRect(
-		FIELD_R,
-		0,
-		Screen_W - FIELD_R,
-		Screen_H
-		);
-
-	var<string> strPower;
-
-	switch (PlayerAttackLv)
-	{
-	case 1: strPower = "■□□"; break;
-	case 2: strPower = "■■□"; break;
-	case 3: strPower = "■■■"; break;
-
-	default:
-		error();
-	}
-
-	SetColor(I3ColorToString(CreateI3Color(255, 255, 255)));
-	SetPrint(10, 25, 0);
-	SetFSize(16);
-	PrintLine("Zanki: " + PlayerZankiNum + "　Power: " + strPower + "　Score: " + Score);
+	// none
 }
 
 /*

@@ -21,7 +21,7 @@ function <void> @(UNQN)_EACH()
 	{
 		var<generatorForTask> effect = @@_Effects[index];
 
-		if (effect.next().value) // ? true -> エフェクト継続
+		if (NextVal(effect)) // ? true -> エフェクト継続
 		{
 			// noop
 		}
