@@ -644,7 +644,7 @@ gameLoop:
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
-			100,
+			50,
 			200,
 			600,
 			50,

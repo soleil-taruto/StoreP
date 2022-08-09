@@ -17,9 +17,6 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 // ゲーム用タスク
 var<TaskManager_t> GameTasks = CreateTaskManager();
 
-// 前面タスク
-var<TaskManager_t> FrontTasks = CreateTaskManager();
-
 // プレイヤー描画タスク
 var<TaskManager_t> PlayerDrawTasks = CreateTaskManager();
 
@@ -48,7 +45,6 @@ var<boolean> GameRequestStageClear = false;
 
 var<int> @@_MapIndex = -1;
 var<boolean> @@_RequestRestart = false;
-var<Wall_t> @@_Wall = null;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
@@ -60,7 +56,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 		@@_Camera = CreateD2Point(0.0, 0.0);
 		Camera    = CreateD2Point(0.0, 0.0);
 		ClearAllTask(GameTasks);
-		ClearAllTask(FrontTasks);
 		ClearAllTask(PlayerDrawTasks);
 		GameEndReason = GameEndReason_e_STAGE_CLEAR;
 		GameRequestReturnToTitleMenu = false;
@@ -78,7 +73,6 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 	LoadMap(mapIndex);
 	LoadEnemyOfMap();
 	MoveToStartPtOfMap();
-	@@_Wall = GetStageWall(mapIndex);
 
 	SetCurtain();
 	FreezeInput();
@@ -451,11 +445,47 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
-	ClearAllTask(FrontTasks);
+	var<double> SLIDE_RATE = 0.1;
 
-	// ----
+	var<Picture_t> wallImg = GetStageWallPicture(@@_MapIndex);
+	var<int> wallImg_w = GetPicture_W(wallImg);
+	var<int> wallImg_h = GetPicture_H(wallImg);
 
-	DrawWall(@@_Wall);
+	var<int> cam_w = Map.W * TILE_W - Screen_W;
+	var<int> cam_h = Map.H * TILE_H - Screen_H;
+
+	var<double> slide_w = cam_w * SLIDE_RATE;
+	var<double> slide_h = cam_h * SLIDE_RATE;
+
+	var<double> wall_w = slide_w + Screen_W;
+	var<double> wall_h = slide_h + Screen_H;
+
+	var<D4Rect_t> wallRect = AdjustRectExterior(
+		CreateD2Size(wallImg_w, wallImg_h),
+		CreateD4Rect(0.0, 0.0, wall_w, wall_h)
+		);
+
+	var<double> x = cam_w == 0 ? 0.0 : Camera.X / cam_w;
+	var<double> y = cam_h == 0 ? 0.0 : Camera.Y / cam_h;
+
+	x *= slide_w;
+	y *= slide_h;
+
+	var<D4Rect_t> drRect = CreateD4Rect(
+		wallRect.L - x,
+		wallRect.T - y,
+		wallRect.W,
+		wallRect.H
+		);
+
+	var<double> dx = drRect.L + drRect.W / 2.0;
+	var<double> dy = drRect.T + drRect.H / 2.0;
+	var<double> dz = drRect.W / wallImg_w;
+//	var<double> dz = drRect.H / wallImg_h;
+
+	Draw(wallImg, dx, dy, 1.0, 0.0, dz);
+
+	DrawCurtain(-0.5);
 }
 
 /*
@@ -499,10 +529,6 @@ function <void> @@_DrawMap()
 */
 function <void> @@_DrawFront()
 {
-	ExecuteAllTask(FrontTasks);
-
-	// ----
-
 	var<int> HP_METER_L = 20;
 	var<int> HP_METER_T = 20;
 	var<int> HP_METER_W = 20;
@@ -528,66 +554,30 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_StartMotion()
 {
-	for (var<Scene_t> scene of CreateScene(20))
+	for (var<Scene_t> scene of CreateScene(60))
 	{
 		@@_カメラ位置調整(false);
 
 		@@_DrawWall();
 		@@_DrawMap();
 
-		yield 1;
-	}
-
-	var<double> destX = PlayerX;
-	var<double> destY = PlayerY;
-
-	destY -= 8; // 接地したとき上に押し出される距離
-
-	var<double> x = destX;
-	var<double> y = Math.min(destY - Screen_H / 2.0, Camera.Y);
-	var<double> yAdd = 3.0; // 初速度
-
-	for (; ; )
-	{
-		@@_カメラ位置調整(false);
-
-		y += yAdd;
-		yAdd += 1.0; // 加速
-
-		if (destY < y)
+		for (var<int> c = 0; c < 4; c++)
 		{
-			break;
+			var<double> dx = PlayerX - Camera.X;
+			var<double> dy = PlayerY - Camera.Y;
+
+			dy -= 14; // 接地したとき上に押し出される距離
+
+			var<D2Point_t> pt = AngleToPoint(
+				scene.RemRate * scene.RemRate * 10.0 + (Math.PI / 2.0) * c,
+				scene.RemRate * scene.RemRate * 500.0
+				);
+
+			dx += pt.X;
+			dy += pt.Y;
+
+			Draw(P_PlayerStand, dx, dy, 0.5, 0.0, 1.0 + scene.RemRate * 2.0);
 		}
-
-		@@_DrawWall();
-		@@_DrawMap();
-
-		Draw(P_PlayerTelepo01, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
-
-		yield 1;
-	}
-
-	y = destY;
-
-	for (var<int> c = 0; c < 9; c++)
-	{
-		@@_カメラ位置調整(false);
-
-		var<Picture_t> picture;
-
-		if (ToFix(c / 3) % 2 == 0)
-		{
-			picture = P_PlayerTelepo02;
-		}
-		else
-		{
-			picture = P_PlayerTelepo03;
-		}
-
-		@@_DrawWall();
-		@@_DrawMap();
-
-		Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}
@@ -631,7 +621,6 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 		ResetPlayer();
 
 		ClearAllTask(GameTasks);
-		ClearAllTask(FrontTasks);
 		ClearAllTask(PlayerDrawTasks);
 
 		LoadEnemyOfMap();
@@ -651,48 +640,39 @@ function* <generatorForTask> @@_GoalMotion()
 
 	SE(S_Clear);
 
-	var<double> x = PlayerX;
-	var<double> y = PlayerY;
-
-	for (var<int> c = 0; c < 9; c++)
+	for (var<int> c = 0; c < 50; c++)
 	{
-		var<Picture_t> picture;
-
-		if (ToFix(c / 3) % 2 == 0)
+		AddEffect(function* <generatorForTask> ()
 		{
-			picture = P_PlayerTelepo02;
-		}
-		else
-		{
-			picture = P_PlayerTelepo03;
-		}
+			var<double> x = PlayerX;
+			var<double> y = PlayerY;
+			var<D2Point_t> speed = AngleToPoint(Math.PI * 2.0 * GetRand1(), GetRand3(5.0, 15.0));
 
-		@@_DrawWall();
-		@@_DrawMap();
+			var<double> r = Math.PI * 2.0 * GetRand1();
+			var<double> rAdd = 0.3 * GetRand2();
 
-		Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
+			for (; ; )
+			{
+				x += speed.X;
+				y += speed.Y;
+				r += rAdd;
 
-		yield 1;
+				if (IsOutOfCamera(CreateD2Point(x, y), 50.0))
+				{
+					break;
+				}
+
+				Draw(P_PlayerStand, x - Camera.X, y - Camera.Y, 0.7, r, 2.0);
+
+				yield 1;
+			}
+		}());
 	}
 
-	var<double> destX = x;
-	var<double> destY = Math.min(y - Screen_H / 2.0, Camera.Y);
-	var<double> yAdd = -3.0; // 初速度
-
-	for (; ; )
+	for (var<Scene_t> scene of CreateScene(60))
 	{
-		y += yAdd;
-		yAdd -= 1.0; // 加速
-
-		if (y < destY)
-		{
-			break;
-		}
-
 		@@_DrawWall();
 		@@_DrawMap();
-
-		Draw(P_PlayerTelepo01, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
 
 		yield 1;
 	}
@@ -715,8 +695,8 @@ gameLoop:
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
-			100,
-			200,
+			50,
+			160,
 			600,
 			50,
 			[

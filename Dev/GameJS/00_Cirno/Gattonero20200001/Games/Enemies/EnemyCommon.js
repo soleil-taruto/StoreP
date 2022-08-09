@@ -40,7 +40,7 @@ function <boolean> IsEnemyItem(<Enemy_t> enemy)
 function <boolean> IsEnemyTama(<Enemy_t> enemy)
 {
 	var ret =
-		false;
+		enemy.Kind == EnemyKind_Tama;
 //		enemy.Kind == EnemyKind_Tama_0001 ||
 //		enemy.Kind == EnemyKind_Tama_0002 ||
 //		enemy.Kind == EnemyKind_Tama_0003;
@@ -54,7 +54,7 @@ function <boolean> IsEnemyTama(<Enemy_t> enemy)
 function <boolean> IsEnemyBoss(<Enemy_t> enemy)
 {
 	var ret =
-		false;
+		enemy.Kind == EnemyKind_Boss01;
 //		enemy.Kind == EnemyKind_Boss_0001 ||
 //		enemy.Kind == EnemyKind_Boss_0002 ||
 //		enemy.Kind == EnemyKind_Boss_0003;

@@ -185,34 +185,14 @@ function <MapCell_t> @@_CharToMapCell(<string> chr)
 	var<double> x = pt.X;
 	var<double> y = pt.Y;
 
-	var<Picture_t[]> fencePictures =
-	[
-		P_Dummy,
-		P_Tile_Fence1,
-		P_Tile_Fence2,
-		P_Tile_Fence3,
-		P_Tile_Fence4,
-		P_Tile_Fence5,
-		P_Tile_Fence6,
-		P_Tile_Fence7,
-		P_Tile_Fence8,
-		P_Tile_Fence9,
-	];
-
 	// タイル系
 	//
 	if (chr == "壁") return @@_CreateMapCell_T(CreateTile_BDummy()); // ★サンプル
 	if (chr == "　") return @@_CreateMapCell_T(CreateTile_None());
-	if (chr == "W1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B1));
-	if (chr == "W2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B2));
-	if (chr == "W3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B3));
-	if (chr == "W4") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_B4));
-	if (chr == "梯") return @@_CreateMapCell_T(CreateTile_Ladder());
-	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Brick_S));
-	if (chr == "芝") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Ground1));
-	if (chr == "地") return @@_CreateMapCell_T(CreateTile_Wall(P_Tile_Ground2));
-	if (chr == "煉") return @@_CreateMapCell_T(CreateTile_Brick(ix, iy, P_Tile_Brick_L1, P_Tile_Brick_L2, P_Tile_Brick_L3));
-	if (chr == "柵") return @@_CreateMapCell_T(CreateTile_Fence(ix, iy, fencePictures));
+	if (chr == "■") return @@_CreateMapCell_T(CreateTile_Wall(P_Tiles[0]));
+	if (chr == "W1") return @@_CreateMapCell_T(CreateTile_Wall(P_Tiles[1]));
+	if (chr == "W2") return @@_CreateMapCell_T(CreateTile_Wall(P_Tiles[2]));
+	if (chr == "W3") return @@_CreateMapCell_T(CreateTile_Wall(P_Tiles[3]));
 
 	// 敵系
 	//
@@ -288,7 +268,7 @@ function <MapCell_t> GetMapCell_XY(<int> x, <int> y)
 */
 function <boolean> IsWall(<I2Point_t> pt)
 {
-	return GetMapCell(pt).Tile.TileMode == TileMode_e_WALL;
+	return GetMapCell(pt).Tile.WallFlag;
 }
 
 function <boolean> IsWall_XY(<int> x, <int> y)
@@ -301,69 +281,12 @@ function <boolean> IsWall_XY(<int> x, <int> y)
 */
 function <boolean> IsPtWall(<D2Point_t> pt)
 {
-	return GetMapCell(ToTablePoint(pt)).Tile.TileMode == TileMode_e_WALL;
+	return GetMapCell(ToTablePoint(pt)).Tile.WallFlag;
 }
 
 function <boolean> IsPtWall_XY(<double> x, <double> y)
 {
 	return IsPtWall(CreateD2Point(x, y));
-}
-
-/*
-	指定位置(ドット単位・マップ上の座標)が地面であるか判定する。
-*/
-function <boolean> IsPtGround(<D2Point_t> pt)
-{
-	var<MapCell_t> cell = GetMapCell(ToTablePoint(pt));
-
-	if (
-		cell.Tile.TileMode == TileMode_e_LADDER ||
-		cell.Tile.TileMode == TileMode_e_CLOUD
-		)
-	{
-		var<I2Point_t> tablePt = ToTablePoint(pt);
-		tablePt.Y--;
-		var<MapCell_t> upperCell = GetMapCell(tablePt);
-
-		if (cell.Tile.TileMode == upperCell.Tile.TileMode) // ? 真上も同種のタイル
-		{
-			return false;
-		}
-
-		var<double> t = ToTileCenterY(pt.Y) - TILE_H / 2.0;
-
-		if (pt.Y < t + LADDER_TOP_GROUND_Y_SIZE)
-		{
-			return true;
-		}
-
-		return false;
-	}
-
-	if (cell.Tile.TileMode == TileMode_e_WALL)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-function <boolean> IsPtGround_XY(<double> x, <double> y)
-{
-	return IsPtGround(CreateD2Point(x, y));
-}
-
-/*
-	指定位置(ドット単位・マップ上の座標)が梯子であるか判定する。
-*/
-function <boolean> IsPtLadder(<D2Point_t> pt)
-{
-	return GetMapCell(ToTablePoint(pt)).Tile.TileMode == TileMode_e_LADDER;
-}
-
-function <boolean> IsPtLadder_XY(<double> x, <double> y)
-{
-	return IsPtLadder(CreateD2Point(x, y));
 }
 
 // ================================

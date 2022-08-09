@@ -35,7 +35,11 @@ function* <generatorForTask> @@_Draw(<Shot_t> shot)
 		shot.X += shot.XAdd;
 		shot.Y += shot.YAdd;
 
-		if (IsOutOfScreen(CreateD2Point(shot.X, shot.Y), 0.0))
+		if (IsOut(
+			CreateD2Point(shot.X, shot.Y),
+			CreateD4Rect(FIELD_L, FIELD_T, FIELD_W, FIELD_H),
+			0.0
+			))
 		{
 			break;
 		}

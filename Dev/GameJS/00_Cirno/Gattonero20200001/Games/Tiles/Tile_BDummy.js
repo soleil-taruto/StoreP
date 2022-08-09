@@ -9,7 +9,7 @@ function <Tile_t> CreateTile_BDummy()
 	var ret =
 	{
 		Kind: TileKind_BDummy,
-		TileMode: TileMode_e_SPACE,
+		WallFlag: true,
 
 		// ‚±‚±‚©‚çŒÅ—L
 

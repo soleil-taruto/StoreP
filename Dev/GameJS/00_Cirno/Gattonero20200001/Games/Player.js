@@ -112,8 +112,6 @@ var<Func boolean> PlayerAttack = null;
 var<boolean> @@_JumpLock = false;
 var<boolean> @@_MoveSlow = false;
 
-var<int> PlayerShootingFrame = 0;
-
 function <void> ResetPlayer()
 {
 	PlayerHP = PLAYER_HP_MAX;
@@ -135,7 +133,6 @@ function <void> ResetPlayer()
 	PlayerAttack = null;
 	@@_JumpLock = false;
 	@@_MoveSlow = false;
-	PlayerShootingFrame = 0;
 }
 
 /*
@@ -246,27 +243,14 @@ function <void> ActPlayer()
 			{
 				if (1 <= jump && jump < 事前入力時間 && !@@_JumpLock) // ? 接地状態からのジャンプが可能な状態
 				{
-					if (
-						shitamuki &&
-						PlayerAirborneFrame == 0 // スライディングは入力猶予無し
-						)
-					{
-						// ★ スライディング開始
+					// ★ ジャンプを開始した。
 
-						PlayerAttack = Supplier(CreateAttack_Sliding());
-						return;
-					}
-					else
-					{
-						// ★ ジャンプを開始した。
+					PlayerJumpFrame = 1;
+					PlayerJumpCount = 1;
 
-						PlayerJumpFrame = 1;
-						PlayerJumpCount = 1;
+					PlayerYSpeed = PLAYER_JUMP_SPEED;
 
-						PlayerYSpeed = PLAYER_JUMP_SPEED;
-
-						@@_JumpLock = true;
-					}
+					@@_JumpLock = true;
 				}
 				else
 				{
@@ -348,36 +332,6 @@ function <void> ActPlayer()
 		{
 			PlayerAttackFrame = 0;
 		}
-
-		// ★ 梯子
-		{
-			if (shitamuki)
-			{
-				if (
-					PlayerAirborneFrame == 0 &&
-					IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 0) == false &&
-					IsPtLadder_XY(PlayerX, PlayerY + TILE_H * 1)
-					)
-				{
-					// ★ 梯子を降り始める。
-
-					PlayerY = ToTileCenterY(PlayerY) + TILE_H / 2.0 - 10.0;
-					PlayerAttack = Supplier(CreateAttack_Ladder());
-					return;
-				}
-			}
-
-			if (uwamuki)
-			{
-				if (IsPtLadder_XY(PlayerX, PlayerY))
-				{
-					// ★ 梯子を登り始める。
-
-					PlayerAttack = Supplier(CreateAttack_Ladder());
-					return;
-				}
-			}
-		}
 	}
 
 damageBlock:
@@ -397,14 +351,9 @@ damageBlock:
 			if (frame == 2) // 初回のみ
 			{
 				SE(S_Damaged);
-				PlayerYSpeed = 0.0;
-			}
-			if (frame % 30 == 2)
-			{
-				AddEffect(Effect_ヒットバック(PlayerX, PlayerY - 50.0, PlayerFacingLeft));
 			}
 
-			PlayerX -= 1.0 * (PlayerFacingLeft ? -1 : 1);
+			PlayerX -= (1.0 - rate) * 9.0 * (PlayerFacingLeft ? -1 : 1);
 		}
 	}
 
@@ -438,11 +387,10 @@ invincibleBlock:
 			}
 			else
 			{
-				//*/
+				/*/
 				// 走り出し時に加速する。
 				{
-					speed = (PlayerMoveFrame + 0) / 1.0;
-//					speed = (PlayerMoveFrame + 1) / 2.0;
+					speed = (PlayerMoveFrame + 1) / 2.0;
 					speed = Math.min(speed, PLAYER_SPEED);
 				}
 				/*/
@@ -530,20 +478,8 @@ invincibleBlock:
 		}
 
 		var<boolean> touchGround =
-			IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
-			IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
-
-		if (!touchGround && PlayerAirborneFrame == 0) // ★ 接地時のみ接地判定を拡張する。
-		{
-			touchGround =
-				IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y) ||
-				IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY + PLAYER_接地判定Pt_Y);
-
-			// 壁面に立ってしまわないように
-			touchGround = touchGround &&
-				!IsPtGround_XY(PlayerX - PLAYER_接地判定Pt_X_接地時のみ, PlayerY) &&
-				!IsPtGround_XY(PlayerX + PLAYER_接地判定Pt_X_接地時のみ, PlayerY);
-		}
+			IsPtWall_XY(PlayerX - PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y) ||
+			IsPtWall_XY(PlayerX + PLAYER_接地判定Pt_X, PlayerY + PLAYER_接地判定Pt_Y);
 
 		// memo: @ 2022.7.11
 		// 上昇中(ジャンプ中)に接地判定が発生することがある。
@@ -565,28 +501,22 @@ invincibleBlock:
 
 	// 攻撃
 	{
-		if (PlayerAttackFrame == 1)
+		if (1 <= PlayerAttackFrame && ProcFrame % 4 == 0)
 		{
-			if (1 <= PlayerAirborneFrame)
+			if (1 <= PlayerUwamukiFrame)
 			{
-				PlayerShoot(PlayerX + 28.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 8.0, PlayerFacingLeft);
+				var<Shot_t> shot = CreateShot_Normal(PlayerX, PlayerY - 20.0, PlayerFacingLeft, true, false);
+
+				GetShots().push(shot);
 			}
 			else
 			{
-				PlayerShoot(PlayerX + 36.0 * (PlayerFacingLeft ? -1 : 1), PlayerY - 4.0, PlayerFacingLeft);
+				var<Shot_t> shot = CreateShot_Normal(PlayerX + 30.0 * (PlayerFacingLeft ? -1 : 1), PlayerY + 4.0, PlayerFacingLeft, false, false);
+
+				GetShots().push(shot);
 			}
 
-			PlayerShootingFrame = 1;
-		}
-
-		if (1 <= PlayerShootingFrame)
-		{
-			PlayerShootingFrame++;
-
-			if (PLAYER_SHOOTING_FRAME_MAX < PlayerShootingFrame)
-			{
-				PlayerShootingFrame = 0;
-			}
+			SE(S_Shoot);
 		}
 	}
 
@@ -603,17 +533,13 @@ invincibleBlock:
 	{
 		// noop
 	}
-	else if (1 <= PlayerAirborneFrame)
+	else
 	{
 		PlayerCrash = CreateCrash_Circle(
 			PlayerX,
 			PlayerY,
 			10.0
 			);
-	}
-	else
-	{
-		PlayerCrash = CreateCrash_Rect(CreateD4Rect_XYWH(PlayerX, PlayerY, 20.0, 30.0));
 	}
 }
 
@@ -635,88 +561,38 @@ function <void> DrawPlayer()
 		plA = 0.5;
 	}
 
-	if (1 <= PlayerDamageFrame)
+	if (1 <= PlayerAirborneFrame)
 	{
-		if (ToFix(PlayerDamageFrame / 6) % 2 == 0)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorEffectShockA : P_PlayerEffectShockA;
-		}
-		else
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorJumpDamage : P_PlayerJumpDamage;
-		}
-	}
-	else if (1 <= PlayerAirborneFrame)
-	{
-		if (1 <= PlayerShootingFrame)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorJumpAttack : P_PlayerJumpAttack;
-		}
-		else
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
-		}
+		picture = PlayerFacingLeft ? P_PlayerMirrorJump : P_PlayerJump;
 	}
 	else if (1 <= PlayerMoveFrame)
 	{
 		var<int> koma = ToFix(ProcFrame / 6);
 
-		if (koma == 0)
+		if (koma < 4)
 		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorWaitStart : P_PlayerWaitStart;
+			// none
 		}
 		else
 		{
-			var<Picture_t[]> pictureList;
-
-			if (1 <= PlayerShootingFrame)
-			{
-				pictureList = PlayerFacingLeft ? P_PlayerMirrorRunAttack : P_PlayerRunAttack;
-			}
-			else
-			{
-				pictureList = PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun;
-			}
-
-			koma--;
 			koma %= 4;
 
-			if (koma == 3)
+			if (koma == 0)
 			{
-				koma = 1;
+				koma = 2;
 			}
-
-			picture = pictureList[koma];
 		}
+
+		picture = (PlayerFacingLeft ? P_PlayerMirrorRun : P_PlayerRun)[koma];
+	}
+	else if (1 <= PlayerAttackFrame && PlayerUwamukiFrame == 0)
+	{
+		picture = PlayerFacingLeft ? P_PlayerMirrorAttack : P_PlayerAttack;
 	}
 	else
 	{
-		if (1 <= PlayerShootingFrame)
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorWaitAttack : P_PlayerWaitAttack;
-		}
-		else
-		{
-			picture = PlayerFacingLeft ? P_PlayerMirrorWait : P_PlayerWait;
-		}
+		picture = PlayerFacingLeft ? P_PlayerMirrorStand : P_PlayerStand;
 	}
 
 	Draw(picture, PlayerX - Camera.X, PlayerY - Camera.Y, plA, 0.0, 1.0);
-}
-
-// ----
-
-/*
-	プレイヤーの攻撃(ショット)を実行する。
-	-- *_Attack からも呼び出される。
-*/
-function <void> PlayerShoot(<double> x, <double> y, <boolean> facingLeft)
-{
-	{
-		var<Shot_t> shot = CreateShot_Normal(x, y, facingLeft, false, false);
-
-		GetShots().push(shot);
-	}
-
-	SE(S_Shoot);
 }

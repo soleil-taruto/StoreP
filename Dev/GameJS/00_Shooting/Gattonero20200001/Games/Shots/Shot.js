@@ -39,7 +39,7 @@
 */
 function <boolean> DrawShot(<Shot_t> shot) // ret: ? ê∂ë∂
 {
-	return NextVal(shot.Draw);
+	return shot.Draw.next().value;
 }
 
 /*

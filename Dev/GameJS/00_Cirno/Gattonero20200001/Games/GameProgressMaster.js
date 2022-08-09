@@ -122,11 +122,11 @@ function* <generatorForTask> GameProgressMaster()
 		{
 			selectIndex++;
 		}
-		if (GetInput_A() == 1)
+		if (IsPound(GetInput_A()))
 		{
 			mapIndex = selectIndex;
 		}
-		if (GetInput_B() == 1)
+		if (IsPound(GetInput_B()))
 		{
 			if (selectIndex == 0)
 			{

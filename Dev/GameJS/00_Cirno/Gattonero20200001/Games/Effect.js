@@ -58,6 +58,18 @@ function <void> AddEffect_Explode(<double> x, <double> y) // 汎用爆発
 	}
 }
 
+function* <generatorForTask> Effect_Jump(<double> x, <double> y)
+{
+	for (var<Scene_t> scene of CreateScene(8))
+	{
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(0.5, 0.5, 1.0, 1.0 - scene.Rate * 0.25))));
+
+		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 25.0);
+
+		yield 1;
+	}
+}
+
 function* <generatorForTask> Effect_Explode_S(<double> x, <double> y)
 {
 	for (var<Scene_t> scene of CreateScene(5))
@@ -91,43 +103,5 @@ function* <generatorForTask> Effect_Explode_L(<double> x, <double> y)
 		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 345.0);
 
 		yield 1;
-	}
-}
-
-function* <generatorForTask> Effect_Jump(<double> x, <double> y)
-{
-	for (var<Scene_t> scene of CreateScene(8))
-	{
-		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(0.5, 0.5, 1.0, 1.0 - scene.Rate * 0.25))));
-
-		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 25.0);
-
-		yield 1;
-	}
-}
-
-function* <generatorForTask> Effect_ヒットバック(<double> x, <double> y, <boolean> facingLeft)
-{
-	for (var<Picture_t> picture of (facingLeft ? P_PlayerMirrorEffectShockB : P_PlayerEffectShockB))
-	{
-		for (var<int> c = 0; c < 6; c++)
-		{
-			Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
-
-			yield 1;
-		}
-	}
-}
-
-function* <generatorForTask> Effect_Sliding(<double> x, <double> y, <boolean> facingLeft)
-{
-	for (var<Picture_t> picture of (facingLeft ? P_PlayerMirrorEffectSliding : P_PlayerEffectSliding))
-	{
-		for (var<int> c = 0; c < 4; c++)
-		{
-			Draw(picture, x - Camera.X, y - Camera.Y, 1.0, 0.0, 1.0);
-
-			yield 1;
-		}
 	}
 }
