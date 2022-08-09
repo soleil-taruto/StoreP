@@ -45,15 +45,3 @@ function <void> ClearAllEffect()
 {
 	@@_Effects = [];
 }
-
-function <generatorForTask[]> EjectEffects()
-{
-	var ret = @@_Effects;
-	@@_Effects = [];
-	return ret;
-}
-
-function <void> SetEffects(<generatorForTask[]> effects)
-{
-	@@_Effects = effects;
-}

@@ -135,7 +135,7 @@ rebornBlock:
 	{
 		if (1 <= GetInput_B() && ProcFrame % 4 == 0) // UŒ‚
 		{
-			GetShots().push(CreateShot_Normal(PlayerX, PlayerY, Math.PI * 1.5, 20.0));
+			GetShots().push(CreateShot_BDummy(PlayerX, PlayerY, 0.0, -20.0));
 
 			SE(S_PlayerShoot);
 		}
@@ -162,6 +162,8 @@ invincibleBlock:
 		// •`‰æ‚±‚±‚©‚ç
 
 		Draw(P_Player, PlayerX, PlayerY, 0.5, 0.0, 1.0);
+
+		return;
 	}
 
 	// “–‚½‚è”»’èƒZƒbƒg

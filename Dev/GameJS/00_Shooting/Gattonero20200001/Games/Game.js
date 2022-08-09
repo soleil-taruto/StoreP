@@ -8,6 +8,10 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
+// カメラ位置
+// -- (0, 0) 固定
+var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
+
 // ゲーム用タスク
 var<TaskManager_t> GameTasks = CreateTaskManager();
 
@@ -148,13 +152,14 @@ gameLoop:
 
 			for (var<int> shotIndex = 0; shotIndex < @@_Shots.length; shotIndex++)
 			{
-				var<Shot_t> shot = @@_Shots[shotIndex];
-
-				if (shot.AttackPoint == -1) // ? 既に死亡
+				if (enemy.HP == 0) // ? 無敵
 				{
 					continue;
 				}
-				if (enemy.HP == 0) // ? 無敵 -> 自弾とは衝突しない。
+
+				var<Shot_t> shot = @@_Shots[shotIndex];
+
+				if (shot.AttackPoint == -1) // ? 既に死亡
 				{
 					continue;
 				}
@@ -168,7 +173,7 @@ gameLoop:
 
 					if (enemy.HP <= 0) // ? 死亡した。
 					{
-						KillEnemy(enemy);
+						KillEnemy_Destroyed(enemy, true);
 						break; // この敵は死亡したので、次の敵へ進む。
 					}
 
@@ -333,7 +338,7 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_PlayerDead()
 {
-	var<generatorForTask[]> bk_effects = EjectEffects(); // エフェクト全て除去
+	ClearAllEffect();
 
 	SetColor("#ff000040");
 	PrintRect(0, 0, Screen_W, Screen_H);
@@ -343,23 +348,15 @@ function* <generatorForTask> @@_PlayerDead()
 		yield 1;
 	}
 
-	SetEffects(bk_effects); // エフェクト復元
-
 	// 敵クリア
 	//
 	for (var<Enemy_t> enemy of @@_Enemies)
 	{
-		// アイテムは除外
-		if (IsEnemyItem(enemy))
-		{
-			// noop
-		}
-		// ボスクラスの敵も除外
-		else if (IsEnemyBoss(enemy))
-		{
-			// noop
-		}
-		else
+		var<boolean> isItem = IsEnemyItem(enemy);
+		var<boolean> isTama = IsEnemyTama(enemy);
+		var<boolean> isBoss = IsEnemyBoss(enemy);
+
+		if (!isItem && !isBoss)
 		{
 			KillEnemy(enemy);
 		}

@@ -13,7 +13,7 @@ function <void> EnemyCommon_Dead(<Enemy_t> enemy, <boolean> destroyed) // destro
 	{
 		if (IsEnemyTama(enemy)) // ? “G’e
 		{
-			AddEffect_TamaExplode(enemy.X, enemy.Y);
+			AddEffect(Effect_Explode_S(enemy.X, enemy.Y));
 		}
 		else
 		{

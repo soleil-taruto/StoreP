@@ -34,7 +34,7 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 			for (var<Scene_t> scene of CreateScene(20))
 			{
 				Draw(
-					P_Star_S,
+					P_ExplodePiece,
 					pt.X,
 					pt.Y,
 					scene.RemRate,
@@ -58,46 +58,38 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 	}
 }
 
-function <void> AddEffect_ShotExplode(<double> x, <double> y)
+function* <generatorForTask> Effect_Explode_S(<double> x, <double> y)
 {
-	AddEffect(function* <generatorForTask> ()
+	for (var<Scene_t> scene of CreateScene(5))
 	{
-		var<double> rot = GetRand1() * Math.PI * 2;
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(0.0, 1.0, 1.0, 1.0 - scene.Rate * 0.5))));
 
-		for (var<Scene_t> scene of CreateScene(10))
-		{
-			Draw(
-				P_Shot0001,
-				x,
-				y,
-				scene.RemRate,
-				rot,
-				1.0 + 4.0 * scene.Rate
-				);
+		PrintCircle(x - Camera.X, y - Camera.Y, 3.0 + scene.Rate * 17.0);
 
-			yield 1;
-		}
-	}());
+		yield 1;
+	}
 }
 
-function <void> AddEffect_TamaExplode(<double> x, <double> y)
+function* <generatorForTask> Effect_Explode_M(<double> x, <double> y)
 {
-	AddEffect(function* <generatorForTask> ()
+	for (var<Scene_t> scene of CreateScene(10))
 	{
-		var<double> rot = GetRand1() * Math.PI * 2;
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(1.0, 0.75, 0.0, 1.0 - scene.Rate * 0.5))));
 
-		for (var<Scene_t> scene of CreateScene(10))
-		{
-			Draw(
-				P_Tama0001,
-				x,
-				y,
-				scene.RemRate,
-				rot,
-				1.0 + 4.0 * scene.Rate
-				);
+		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 25.0);
 
-			yield 1;
-		}
-	}());
+		yield 1;
+	}
+}
+
+function* <generatorForTask> Effect_Explode_L(<double> x, <double> y)
+{
+	for (var<Scene_t> scene of CreateScene(20))
+	{
+		SetColor(I4ColorToString(D4ColorToI4Color(CreateD4Color(1.0, 0.25, 1.0, 1.0 - scene.Rate * 0.25))));
+
+		PrintCircle(x - Camera.X, y - Camera.Y, 5.0 + scene.Rate * 345.0);
+
+		yield 1;
+	}
 }
