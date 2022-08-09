@@ -25,6 +25,21 @@ var<generatorForTask> @@_BackgroundTask = null;
 var<boolean> @@_PrintAtariFlag = false;
 
 /*
+	ゲーム終了理由
+*/
+var<GameEndReason_e> GameEndReason = GameEndReason_e_RETURN_MENU;
+
+/*
+	ゲーム再スタート・リクエスト
+*/
+var<boolean> GameRequestRestart = false;
+
+/*
+	ゲーム終了リクエスト(タイトルへ戻る)
+*/
+var<boolean> GameRequestReturnToTitleMenu = false;
+
+/*
 	スコア
 */
 var<int> Score = 0;
@@ -39,6 +54,9 @@ function* <generatorForTask> GameMain()
 		ClearAllTask(GameTasks);
 		@@_ScenarioTask = null;
 		@@_BackgroundTask = null;
+		GameEndReason = GameEndReason_e_RETURN_MENU;
+		GameRequestRestart = false;
+		GameRequestReturnToTitleMenu = false;
 
 		ResetPlayer();
 
@@ -58,8 +76,24 @@ function* <generatorForTask> GameMain()
 gameLoop:
 	for (; ; )
 	{
-		if (!NextVal(@@_ScenarioTask))
+		if (GetInput_Pause() == 1) // ポーズ
 		{
+			yield* @@_PauseMenu();
+		}
+		if (GameRequestRestart)
+		{
+			GameEndReason = GameEndReason_e_RESTART_GAME;
+			break;
+		}
+		if (GameRequestReturnToTitleMenu)
+		{
+			GameEndReason = GameEndReason_e_RETURN_MENU;
+			break;
+		}
+
+		if (!NextVal(@@_ScenarioTask)) // ? シナリオ終了 -> ゲーム終了
+		{
+			GameEndReason = GameEndReason_e_GAME_CLEAR;
 			break;
 		}
 
@@ -228,16 +262,6 @@ gameLoop:
 		// ★★★ ゲームループの終わり ★★★
 	}
 
-	Fadeout_F(90);
-
-	for (var<Scene_t> scene of CreateScene(80)) // 余韻のような...
-	{
-		@@_DrawWall();
-		@@_DrawFront();
-
-		yield 1;
-	}
-
 	SetCurtain_FD(30, -1.0);
 
 	for (var<Scene_t> scene of CreateScene(40))
@@ -368,4 +392,53 @@ function* <generatorForTask> @@_PlayerDead()
 	{
 		KillShot(shot);
 	}
+}
+
+/*
+	ポーズ画面
+*/
+function* <generatorForTask> @@_PauseMenu()
+{
+	var<int> selectIndex = 0;
+
+	FreezeInput();
+
+gameLoop:
+	for (; ; )
+	{
+		@@_DrawWall();
+
+		selectIndex = DrawSimpleMenu(
+			selectIndex,
+			100,
+			200,
+			600,
+			50,
+			[
+				"最初からやり直す",
+				"タイトルに戻る",
+				"ゲームに戻る",
+			]);
+
+		if (DSM_Desided)
+		switch (selectIndex)
+		{
+		case 0:
+			GameRequestRestart = true;
+			break gameLoop;
+
+		case 1:
+			GameRequestReturnToTitleMenu = true;
+			break gameLoop;
+
+		case 2:
+			break gameLoop;
+
+		default:
+			error(); // never
+		}
+		yield 1;
+	}
+	FreezeInput();
+	FreezeInputUntilRelease();
 }
