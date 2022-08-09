@@ -276,21 +276,33 @@ gameLoop:
 
 			yield 1;
 		}
+
+		SetCurtain_FD(30, -1.0);
+
+		for (var<Scene_t> scene of CreateScene(40))
+		{
+			@@_DrawWall();
+			@@_DrawFront();
+
+			yield 1;
+		}
+
+		FreezeInput();
 	}
-
-	SetCurtain_FD(30, -1.0);
-
-	for (var<Scene_t> scene of CreateScene(40))
+	else
 	{
-		@@_DrawWall();
-		@@_DrawFront();
+		SetCurtain_FD(30, -1.0);
 
-		yield 1;
+		for (var<Scene_t> scene of CreateScene(40))
+		{
+			@@_DrawWall();
+			@@_DrawFront();
+
+			yield 1;
+		}
+
+		FreezeInput();
 	}
-
-	ClearAllEffect(); // 時限消滅ではないエフェクトを考慮して、クリアは必須とする。
-	FreezeInput();
-	FreezeInputUntilRelease();
 
 	// ★★★ end of GameMain() ★★★
 }
@@ -428,7 +440,7 @@ gameLoop:
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			50,
-			200,
+			300,
 			600,
 			50,
 			[

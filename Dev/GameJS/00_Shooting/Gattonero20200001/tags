@@ -243,8 +243,8 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(61) : Effect_Explode
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(73) : Effect_Explode_M // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(85) : Effect_Explode_L // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(47) : GameMain // ŠÖ”
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(348) : GetEnemies // ŠÖ”
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(353) : GetShots // ŠÖ”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(360) : GetEnemies // ŠÖ”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(365) : GetShots // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(13) : Camera // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(16) : GameTasks // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(30) : GameEndReason // •Ï”
