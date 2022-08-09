@@ -2,7 +2,7 @@
 	シナリオ
 */
 
-function* <generatorForTask> ScenarioTask()
+function* <generatorForTask> CreateScenarioTask()
 {
 	if (DEBUG)
 	{
@@ -129,22 +129,33 @@ function* <generatorForTask> @@_Main()
 {
 	BackgroundPhase = 0;
 	yield* Scenario_Stage01();
+	@@_PostStage();
 
 	BackgroundPhase++;
 	yield* Scenario_Stage01Boss();
+	@@_PostStage();
 
 	BackgroundPhase++;
 	yield* Scenario_Stage02();
+	@@_PostStage();
 
 	BackgroundPhase++;
 	yield* Scenario_Stage02Boss();
+	@@_PostStage();
 
 	BackgroundPhase++;
 	yield* Scenario_Stage03();
+	@@_PostStage();
 
 	BackgroundPhase++;
 	yield* Scenario_Stage03Boss();
+	@@_PostStage();
 
 	BackgroundPhase++;
 	yield* Scenario_Ending();
+}
+
+function <void> @@_PostStage()
+{
+	SaveLocalStorage(); // ハイスコア更新
 }

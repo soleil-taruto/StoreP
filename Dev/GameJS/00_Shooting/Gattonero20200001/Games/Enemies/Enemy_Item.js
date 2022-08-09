@@ -43,8 +43,21 @@ function* <generatorForTask> @@_Draw(<Enemy_t> enemy)
 
 		if (GetDistanceLessThan(enemy.X - PlayerX, enemy.Y - PlayerY, 100.0)) // ƒAƒCƒeƒ€Žæ“¾
 		{
-			SE(S_PowerUp);
+			switch (enemy.ItemType)
+			{
+			case EnemyItemType_e_POWER_UP:
+				PlayerAttackLv = Math.min(PlayerAttackLv + 1, PLAYER_ATTACK_LV_MAX);
+				break;
 
+			case EnemyItemType_e_ZANKI_UP:
+				PlayerZankiNum++;
+				break;
+
+			default:
+				error();
+			}
+
+			SE(S_PowerUp);
 			break;
 		}
 

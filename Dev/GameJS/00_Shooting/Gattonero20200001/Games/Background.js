@@ -98,10 +98,10 @@ function* <generatorForTask> @@_Field(<Picture_t> picture, <double> speedMax)
 			t -= 108.0;
 		}
 
-		for (var<int> x = 0; x < 7; x++)
+		for (var<int> x = 0; x < 8; x++)
 		for (var<int> y = 0;      ; y++)
 		{
-			var<double> dx = 26.0 + x * 108.0;
+			var<double> dx = 22.0 + x * 108.0;
 			var<double> dy = t    + y * 108.0;
 
 			if (Screen_H + 54.0 < dy)
@@ -147,13 +147,14 @@ function* <generatorForTask> @@_Boss(<Picture_t[]> pictures)
 		if (0.0 < md) { md -= 108.0; }
 		if (0.0 < hi) { hi -= 108.0; }
 
-		@@_DrawVertTiles(  54, lw, pictures[0]);
-		@@_DrawVertTiles( 646, lw, pictures[0]);
-		@@_DrawVertTiles( 148, md, pictures[1]);
-		@@_DrawVertTiles( 552, md, pictures[1]);
-		@@_DrawVertTiles( 242, hi, pictures[2]);
-		@@_DrawVertTiles( 350, hi, pictures[2]);
-		@@_DrawVertTiles( 458, hi, pictures[2]);
+		@@_DrawVertTiles(54 + 99 * 0, lw, pictures[0]);
+		@@_DrawVertTiles(54 + 99 * 7, lw, pictures[0]);
+		@@_DrawVertTiles(54 + 99 * 1, md, pictures[1]);
+		@@_DrawVertTiles(54 + 99 * 6, md, pictures[1]);
+		@@_DrawVertTiles(54 + 99 * 2, hi, pictures[2]);
+		@@_DrawVertTiles(54 + 99 * 5, hi, pictures[2]);
+		@@_DrawVertTiles(54 + 99 * 3, hi, pictures[2]);
+		@@_DrawVertTiles(54 + 99 * 4, hi, pictures[2]);
 
 		yield 1;
 	}

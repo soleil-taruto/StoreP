@@ -8,7 +8,7 @@ function* <generatorForTask> Scenario_Ending()
 
 	yield* Wait(180);
 
-	AddEffect(function* <generatorForTask> ()
+	AddTask(GameTasks, function* <generatorForTask> ()
 	{
 		for (; ; )
 		{

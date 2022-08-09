@@ -74,8 +74,6 @@ function* <generatorForTask> GameMain()
 	@@_ScenarioTask   = CreateScenarioTask();
 	@@_BackgroundTask = CreateBackgroundTask();
 
-	Play(M_Field);
-
 gameLoop:
 	for (; ; )
 	{
@@ -146,6 +144,7 @@ gameLoop:
 			}
 		}
 
+		ExecuteAllTask(GameTasks);
 		@@_DrawFront();
 
 		if (DEBUG && GetKeyInput(17) == 1) // ? コントロール押下中 -> 当たり判定表示 (デバッグ用)
@@ -266,6 +265,8 @@ gameLoop:
 		// ★★★ ゲームループの終わり ★★★
 	}
 
+	SaveLocalStorage(); // ハイスコア更新
+
 	if (GameEndReason == GameEndReason_e_GAME_OVER)
 	{
 		Fadeout_F(90);
@@ -287,8 +288,6 @@ gameLoop:
 
 			yield 1;
 		}
-
-		FreezeInput();
 	}
 	else
 	{
@@ -301,9 +300,9 @@ gameLoop:
 
 			yield 1;
 		}
-
-		FreezeInput();
 	}
+
+	FreezeInput();
 
 	// ★★★ end of GameMain() ★★★
 }
@@ -462,7 +461,7 @@ gameLoop:
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			50,
-			300,
+			260,
 			600,
 			50,
 			[
