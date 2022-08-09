@@ -15,6 +15,9 @@ var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
 // ゲーム用タスク
 var<TaskManager_t> GameTasks = CreateTaskManager();
 
+// 前面タスク
+var<TaskManager_t> FrontTasks = CreateTaskManager();
+
 // シナリオ・タスク
 var<generatorForTask> @@_ScenarioTask = null;
 
@@ -52,6 +55,7 @@ function* <generatorForTask> GameMain()
 		@@_Shots = [];
 
 		ClearAllTask(GameTasks);
+		ClearAllTask(FrontTasks);
 		@@_ScenarioTask = null;
 		@@_BackgroundTask = null;
 		GameEndReason = GameEndReason_e_RETURN_MENU;
@@ -372,6 +376,10 @@ function <Shot_t[]> GetShots()
 */
 function <void> @@_DrawWall()
 {
+	ClearAllTask(FrontTasks);
+
+	// ----
+
 	if (!NextVal(@@_BackgroundTask)) // ? タスク終了 -> 想定外
 	{
 		error();
@@ -383,6 +391,10 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
+	ExecuteAllTask(FrontTasks);
+
+	// ----
+
 	var<string> strPower;
 
 	switch (PlayerAttackLv)
