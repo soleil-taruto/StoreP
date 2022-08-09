@@ -27,6 +27,7 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Array.js(140) : RemoveAll // 
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Array.js(164) : RemoveFalse // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Array.js(179) : ClearArray // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Array.js(187) : ToArray // ä÷êî
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Array.js(201) : NextVal // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Common.js(5) : Supplier // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Common.js(15) : Repeat // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Commons\Common.js(23) : Wait // ä÷êî
@@ -140,8 +141,6 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Effect.js(13) : AddEffect
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Effect.js(18) : @ // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Effect.js(38) : GetEffects // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Effect.js(44) : ClearAllEffect // ä÷êî
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Effect.js(49) : EjectEffects // ä÷êî
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Effect.js(56) : SetEffects // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\EG_Curtain.js(11) : SetCurtain // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\EG_Curtain.js(16) : SetCurtain_FD // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\EG_Curtain.js(33) : @ // ä÷êî
@@ -209,8 +208,8 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadPicture.js(7
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadPicture.js(14) : LoadPicture // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSound.js(7) : Sound_t // íËã`
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSound.js(14) : LoadSound // ä÷êî
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(3) : SE_t // íËã`
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(15) : LoadSE // ä÷êî
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(7) : SE_t // íËã`
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\Resource_LoadSoundEffect.js(19) : LoadSE // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SoundEffect.js(13) : SE // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SoundEffect.js(36) : @ // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameCommons\SoundEffect.js(9) : SEVolume // ïœêî
@@ -393,7 +392,7 @@ C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Walls\Wall_None.js(7) : CreateW
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Games\Walls\Wall_None.js(5) : WallKind_None // ïœêî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\LocalStorage.js(48) : SaveLocalStorage // ä÷êî
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\SimpleMenu.js(11) : DrawSimpleMenu // ä÷êî
-C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\SimpleMenu.js(9) : DSM_Desided // ïœêî
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\SimpleMenu.js(25) : DrawSimpleMenu // ä÷êî
+C:\Dev\GameJS\00_TVAGame\Gattonero20200001\GameTools\SimpleMenu.js(10) : DSM_Desided // ïœêî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ä÷êî
 C:\Dev\GameJS\00_TVAGame\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ä÷êî
