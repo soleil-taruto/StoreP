@@ -220,6 +220,7 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\TaskManager.js(29) : Get
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\TaskManager.js(34) : ClearAllTask // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons\TaskManager.js(39) : ExecuteAllTask // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons_Resource\Music.js(19) : M_Title // •Ï”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons_Resource\Music.js(20) : M_Field // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons_Resource\Picture.js(15) : P_Dummy // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons_Resource\Picture.js(16) : P_WhiteBox // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameCommons_Resource\Picture.js(17) : P_WhiteCircle // •Ï”
@@ -242,8 +243,8 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(61) : Effect_Explode
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(73) : Effect_Explode_M // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Effect.js(85) : Effect_Explode_L // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(47) : GameMain // ŠÖ”
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(346) : GetEnemies // ŠÖ”
-C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(351) : GetShots // ŠÖ”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(348) : GetEnemies // ŠÖ”
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(353) : GetShots // ŠÖ”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(13) : Camera // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(16) : GameTasks // •Ï”
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Game.js(30) : GameEndReason // •Ï”

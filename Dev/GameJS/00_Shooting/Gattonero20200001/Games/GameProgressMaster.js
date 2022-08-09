@@ -4,13 +4,9 @@
 
 function* <generatorForTask> GameProgressMaster()
 {
-	for (; ; )
+	do
 	{
 		yield* GameMain();
-
-		if (GameEndReason != GameEndReason_e_RESTART_GAME)
-		{
-			break;
-		}
 	}
+	while (GameEndReason == GameEndReason_e_RESTART_GAME);
 }

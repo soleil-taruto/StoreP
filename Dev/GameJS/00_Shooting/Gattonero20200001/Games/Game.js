@@ -73,6 +73,8 @@ function* <generatorForTask> GameMain()
 	@@_ScenarioTask   = CreateScenarioTask();
 	@@_BackgroundTask = CreateBackgroundTask();
 
+	Play(M_Field);
+
 gameLoop:
 	for (; ; )
 	{

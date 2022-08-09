@@ -16,4 +16,5 @@ function <Sound_t> @@_Load(<string> url)
 
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
-var<Sound_t> M_Title = @@_Load(RESOURCE_General__muon_mp3);
+var<Sound_t> M_Title = @@_Load(RESOURCE_DovaSyndrome__Hanabi_mp3);
+var<Sound_t> M_Field = @@_Load(RESOURCE_DovaSyndrome__Midnight_Street_mp3);
