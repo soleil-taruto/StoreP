@@ -9,7 +9,7 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			yield* MapSelectMenu();
+			yield* GameProgressMaster();
 			LOGPOS();
 		},
 	},
@@ -51,7 +51,7 @@ function* <generatorForTask> TitleMain()
 	FreezeInput();
 	FreezeInputUntilRelease();
 
-//	Play(M_Title); // 要クリックで拒否されるので、抑止
+	Play(M_Title);
 
 	for (; ; )
 	{
@@ -59,11 +59,11 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(80, 320, 0);
-		SetFSize(260);
-		PrintLine("HAKO");
+		SetPrint(50, 150, 0);
+		SetFSize(100);
+		PrintLine("Title");
 
-		selectIndex = DrawSimpleMenu(selectIndex, 100, Screen_H - 300, 70, @@_Buttons.map(v => v.Text));
+		selectIndex = DrawSimpleMenu(selectIndex, 70, Screen_H - 330, 600, 30, @@_Buttons.map(v => v.Text));
 
 		if (DSM_Desided)
 		{
@@ -74,7 +74,7 @@ function* <generatorForTask> TitleMain()
 			SetCurtain();
 			FreezeInput();
 
-//			Play(M_Title); // 要クリックで拒否されるので、抑止
+			Play(M_Title);
 		}
 		yield 1;
 	}

@@ -8,16 +8,18 @@ var<Enemy_t[]> @@_Enemies = [];
 // 自弾リスト
 var<Shot_t[]> @@_Shots = [];
 
-/*
-	メニューへ戻るボタンの位置
-*/
-var<int> @@_RETURN_MENU_L = Screen_W - 220;
-var<int> @@_RETURN_MENU_T = 20;
-var<int> @@_RETURN_MENU_W = 200;
-var<int> @@_RETURN_MENU_H = 60;
-
 var<GameEndReason_e> GameEndReason = GameEndReason_e_STAGE_CLEAR;
 var<int> GameLastPlayedStageIndex = 0;
+
+/*
+	ゲーム終了リクエスト(タイトルへ戻る)
+*/
+var<boolean> GameRequestReturnToTitleMenu = false;
+
+/*
+	ゲーム再スタート・リクエスト
+*/
+var<boolean> @@_RequestRestart = false;
 
 function* <generatorForTask> GameMain(<int> mapIndex)
 {
@@ -25,11 +27,13 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 
 	// reset
 	{
-		GameEndReason = GameEndReason_e_STAGE_CLEAR;
-		GameLastPlayedStageIndex = 0;
-
 		@@_Enemies = [];
 		@@_Shots = [];
+
+		GameEndReason = GameEndReason_e_STAGE_CLEAR;
+		GameLastPlayedStageIndex = 0;
+		GameRequestReturnToTitleMenu = false;
+		@@_RequestRestart = false;
 
 		ResetPlayer();
 	}
@@ -51,14 +55,20 @@ function* <generatorForTask> GameMain(<int> mapIndex)
 gameLoop:
 	for (; ; )
 	{
-		if (
-			GetMouseDown() == -1 &&
-			@@_RETURN_MENU_L < GetMouseX() && GetMouseX() < @@_RETURN_MENU_L + @@_RETURN_MENU_W &&
-			@@_RETURN_MENU_T < GetMouseY() && GetMouseY() < @@_RETURN_MENU_T + @@_RETURN_MENU_H
-			)
+		if (GetInput_Pause() == 1) // ポーズ
+		{
+			yield* @@_PauseMenu();
+		}
+		if (GameRequestReturnToTitleMenu)
 		{
 			GameEndReason = GameEndReason_e_RETURN_MENU;
 			break;
+		}
+		if (@@_RequestRestart)
+		{
+			yield* @@_DeadAndRestartMotion(true);
+
+			continue gameLoop;
 		}
 
 		// ====
@@ -210,7 +220,7 @@ gameLoop:
 				}
 				else
 				{
-					yield* @@_DeadAndRestartMotion();
+					yield* @@_DeadAndRestartMotion(false);
 
 					continue gameLoop;
 				}
@@ -396,13 +406,6 @@ function <void> @@_DrawFront()
 	SetFSize(16);
 	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
 	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");
-
-	SetColor("#ffffff");
-	PrintRect(@@_RETURN_MENU_L, @@_RETURN_MENU_T, @@_RETURN_MENU_W, @@_RETURN_MENU_H);
-	SetColor("#000000");
-	SetPrint(@@_RETURN_MENU_L + 15, @@_RETURN_MENU_T + 40, 0);
-	SetFSize(24);
-	PrintLine("メニューへ戻る");
 }
 
 /*
@@ -431,26 +434,35 @@ function* <generatorForTask> @@_StartMotion()
 
 /*
 	死亡＆再スタート・モーション
+
+	restartRequested: ? 再スタートの要求により実行された
 */
-function* <generatorForTask> @@_DeadAndRestartMotion()
+function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 {
-	SetColor("#ff000040");
-	PrintRect(0, 0, Screen_W, Screen_H);
-
-	SE(S_Crashed);
-
-	for (var<Scene_t> scene of CreateScene(30))
+	if (!restartRequested)
 	{
-		yield 1;
-	}
+		// 赤カーテン
+		SetColor("#ff000040");
+		PrintRect(0, 0, Screen_W, Screen_H);
 
-	AddEffect_Explode(PlayerX, PlayerY);
-	SE(S_Dead);
+		SE(S_Crashed);
+
+		for (var<Scene_t> scene of CreateScene(30))
+		{
+			yield 1;
+		}
+
+		AddEffect_Explode(PlayerX, PlayerY);
+		SE(S_Dead);
+	}
 
 	// リスタートのための処理
 	{
 		@@_Enemies = [];
 		@@_Shots = [];
+
+		GameRequestReturnToTitleMenu = false;
+		@@_RequestRestart = false;
 
 		ResetPlayer();
 
@@ -491,4 +503,53 @@ function* <generatorForTask> @@_GoalMotion()
 
 		yield 1;
 	}
+}
+
+/*
+	ポーズ画面
+*/
+function* <generatorForTask> @@_PauseMenu()
+{
+	var<int> selectIndex = 0;
+
+	FreezeInput();
+
+gameLoop:
+	for (; ; )
+	{
+		@@_DrawWall();
+
+		selectIndex = DrawSimpleMenu(
+			selectIndex,
+			50,
+			160,
+			600,
+			50,
+			[
+				"再スタート",
+				"タイトルに戻る",
+				"ゲームに戻る",
+			]);
+
+		if (DSM_Desided)
+		switch (selectIndex)
+		{
+		case 0:
+			@@_RequestRestart = true;
+			break gameLoop;
+
+		case 1:
+			GameRequestReturnToTitleMenu = true;
+			break gameLoop;
+
+		case 2:
+			break gameLoop;
+
+		default:
+			error(); // never
+		}
+		yield 1;
+	}
+	FreezeInput();
+	FreezeInputUntilRelease();
 }

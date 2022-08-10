@@ -19,19 +19,13 @@ function <SE_t> @@_Load(<string> url)
 var<SE_t> S_Jump    = @@_Load(RESOURCE_è¨êXïΩ__jump12_mp3);
 var<SE_t> S_Crashed = @@_Load(RESOURCE_è¨êXïΩ__question_mp3);
 var<SE_t> S_Dead    = @@_Load(RESOURCE_è¨êXïΩ__explosion05_mp3);
-var<SE_t> S_Clear   = @@_Load(RESOURCE_è¨êXïΩ__warp1_mp3);
-var<SE_t> S_Shoot   = @@_Load(RESOURCE_èoèàïsñæ__PlayerShoot_mp3);
-var<SE_t> S_Damaged = @@_Load(RESOURCE_è¨êXïΩ__damage5_mp3);
-var<SE_t> S_EnemyDamaged = @@_Load(RESOURCE_èoèàïsñæ__EnemyDamaged_mp3);
-var<SE_t> S_EnemyDead    = @@_Load(RESOURCE_è¨êXïΩ__explosion01_mp3);
-var<SE_t> S_BossDead     = @@_Load(RESOURCE_è¨êXïΩ__game_explosion2_mp3);
 
 // ----
 
 var<SE_t[]> S_ÉeÉXÉgóp =
 [
 	S_Jump,
-	S_Damaged,
+	S_Crashed,
 	S_Dead,
 ];
 

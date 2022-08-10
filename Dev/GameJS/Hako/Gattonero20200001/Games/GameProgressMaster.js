@@ -11,7 +11,7 @@ var<int> @@_PANEL_Y_GAP = 20;
 var<int> @@_PANEL_X_NUM = 4;
 var<int> @@_PANEL_Y_NUM = 4;
 
-function* <generatorForTask> MapSelectMenu()
+function* <generatorForTask> GameProgressMaster()
 {
 	var<int> selectX = 0;
 	var<int> selectY = 0;
