@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.GameCommons;
+using Charlotte.GameTools;
 using Charlotte.Novels;
 
 namespace Charlotte.Games
 {
 	public class SettingMenu : IDisposable
 	{
-		public DDSimpleMenu SimpleMenu;
+		public SimpleMenu SimpleMenu;
 		public Action<bool> SetDeepConfigEntered = flag => { };
 
 		// <---- prm

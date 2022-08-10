@@ -131,18 +131,6 @@ namespace Charlotte.GameTools
 			return selectIndex;
 		}
 
-		public class ButtonInfo
-		{
-			public DDInput.Button Button;
-			public string Name;
-
-			public ButtonInfo(DDInput.Button button, string name)
-			{
-				this.Button = button;
-				this.Name = name;
-			}
-		}
-
 		#region KeyInfos
 
 		private class KeyInfo
@@ -272,46 +260,21 @@ namespace Charlotte.GameTools
 
 		#endregion
 
+		public class ButtonInfo
+		{
+			public DDInput.Button Button;
+			public string Name;
+
+			public ButtonInfo(DDInput.Button button, string name)
+			{
+				this.Button = button;
+				this.Name = name;
+			}
+		}
+
 		public void PadConfig(bool keyMode = false)
 		{
-			ButtonInfo[] btnInfos = new ButtonInfo[]
-			{
-#if false // 例
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.A, "Ａボタン"),
-				new ButtonInfo(DDInput.B, "Ｂボタン"),
-				new ButtonInfo(DDInput.C, "Ｃボタン"),
-				//new ButtonInfo(DDInput.D, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.E, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.F, ""), // 使用しないボタン
-				new ButtonInfo(DDInput.L, "Ｌボタン"),
-				new ButtonInfo(DDInput.R, "Ｒボタン"),
-				//new ButtonInfo(DDInput.PAUSE, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.START, ""), // 使用しないボタン
-#else
-				// アプリ固有の設定 >
-
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.A, "ジャンプボタン／決定"),
-				new ButtonInfo(DDInput.B, "攻撃ボタン／キャンセル"),
-				//new ButtonInfo(DDInput.C, ""),
-				//new ButtonInfo(DDInput.D, ""),
-				//new ButtonInfo(DDInput.E, ""),
-				//new ButtonInfo(DDInput.F, ""),
-				new ButtonInfo(DDInput.L, "画面スライド／会話スキップ"),
-				new ButtonInfo(DDInput.R, "低速ボタン"),
-				new ButtonInfo(DDInput.PAUSE, "ポーズボタン"),
-				//new ButtonInfo(DDInput.START, ""),
-
-				// < アプリ固有の設定
-#endif
-			};
+			ButtonInfo[] btnInfos = AppConfig.GetSimpleMenuButtonInfos();
 
 			foreach (ButtonInfo btnInfo in btnInfos)
 				btnInfo.Button.Backup();

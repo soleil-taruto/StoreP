@@ -94,10 +94,10 @@ namespace Charlotte.GameCommons
 			DDInput.B.KeyId = DX.KEY_INPUT_X;
 			DDInput.C.KeyId = DX.KEY_INPUT_C;
 			DDInput.D.KeyId = DX.KEY_INPUT_V;
-			DDInput.E.KeyId = DX.KEY_INPUT_A;
-			DDInput.F.KeyId = DX.KEY_INPUT_S;
-			DDInput.L.KeyId = DX.KEY_INPUT_D;
-			DDInput.R.KeyId = DX.KEY_INPUT_F;
+			DDInput.E.KeyId = DX.KEY_INPUT_B;
+			DDInput.F.KeyId = DX.KEY_INPUT_N;
+			DDInput.L.KeyId = DX.KEY_INPUT_LCONTROL;
+			DDInput.R.KeyId = DX.KEY_INPUT_LSHIFT;
 			DDInput.PAUSE.KeyId = DX.KEY_INPUT_SPACE;
 			DDInput.START.KeyId = DX.KEY_INPUT_RETURN;
 

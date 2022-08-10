@@ -92,7 +92,9 @@
     <Compile Include="GameCommons\DDHash.cs" />
     <Compile Include="GameCommons\DDHashedData.cs" />
     <Compile Include="GameCommons\DDHashedResource.cs" />
-    <Compile Include="GameCommons\DDTableMenu.cs" />
+    <Compile Include="GameTools\AppConfig.cs" />
+    <Compile Include="GameTools\AppSaveDataUtils.cs" />
+    <Compile Include="GameTools\TableMenu.cs" />
     <Compile Include="GameCommons\DDTouch.cs" />
     <Compile Include="GameProgressMasters\GameProgressMaster.cs" />
     <Compile Include="Games\Attacks\Attack.cs" />
@@ -151,7 +153,7 @@
     <Compile Include="GameCommons\DDSceneUtils.cs" />
     <Compile Include="GameCommons\DDSE.cs" />
     <Compile Include="GameCommons\DDSEUtils.cs" />
-    <Compile Include="GameCommons\DDSimpleMenu.cs" />
+    <Compile Include="GameTools\SimpleMenu.cs" />
     <Compile Include="GameCommons\DDSound.cs" />
     <Compile Include="GameCommons\DDSoundUtils.cs" />
     <Compile Include="GameCommons\DDSubScreen.cs" />

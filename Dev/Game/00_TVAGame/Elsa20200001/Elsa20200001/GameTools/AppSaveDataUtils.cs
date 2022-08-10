@@ -18,6 +18,7 @@ namespace Charlotte.GameTools
 		/// <returns>このアプリ固有のセーブデータ</returns>
 		public static IEnumerable<string> GetAppLines()
 		{
+			yield return "" + (Ground.I.FastReverseMode ? 1 : 0);
 			yield return "" + Ground.I.NovelMessageSpeed;
 
 			foreach (Ground.P_SaveDataSlot saveDataSlot in Ground.I.SaveDataSlots)
@@ -37,6 +38,7 @@ namespace Charlotte.GameTools
 		{
 			int c = 0;
 
+			Ground.I.FastReverseMode = int.Parse(lines[c++]) != 0;
 			Ground.I.NovelMessageSpeed = int.Parse(lines[c++]);
 
 			foreach (Ground.P_SaveDataSlot saveDataSlot in Ground.I.SaveDataSlots)

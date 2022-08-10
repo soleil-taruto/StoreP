@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DxLibDLL;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
 
-namespace Charlotte.GameCommons
+namespace Charlotte.GameTools
 {
-	public class DDTableMenu
+	public class TableMenu
 	{
 		private int T; // 描画する Y-座標 Top
 		private int YStep;
@@ -15,7 +17,7 @@ namespace Charlotte.GameCommons
 		private int Selected_X = 0;
 		private int Selected_Y = 0;
 
-		public DDTableMenu(int t, int yStep, int fontSize, Action wallDrawer)
+		public TableMenu(int t, int yStep, int fontSize, Action wallDrawer)
 		{
 			this.T = t;
 			this.YStep = yStep;
