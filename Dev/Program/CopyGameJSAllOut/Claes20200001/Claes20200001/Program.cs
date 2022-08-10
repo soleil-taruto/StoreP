@@ -36,7 +36,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { @"C:\Dev\GameJS" }));
+			Main4(new ArgsReader(new string[] { @"C:\Dev\GameJS\HPStore" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -82,19 +82,14 @@ namespace Charlotte
 			foreach (string rDir in rDirs)
 			{
 				string rOutDir = Path.Combine(rDir, "out");
-				string htmlFile = Path.Combine(rOutDir, "Game.html");
+				string wDir = Path.Combine(this.DestRootDir, Path.GetFileName(rDir));
 
-				if (File.Exists(htmlFile))
-				{
-					string wDir = Path.Combine(this.DestRootDir, Path.GetFileName(rDir));
+				Console.WriteLine("< " + rOutDir);
+				Console.WriteLine("> " + wDir);
 
-					Console.WriteLine("< " + rOutDir);
-					Console.WriteLine("> " + wDir);
+				SCommon.CopyDir(rOutDir, wDir);
 
-					SCommon.CopyDir(rOutDir, wDir);
-
-					Console.WriteLine("done");
-				}
+				Console.WriteLine("done");
 			}
 			Console.WriteLine("OK!");
 		}
