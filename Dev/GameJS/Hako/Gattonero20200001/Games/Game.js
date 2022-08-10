@@ -519,12 +519,14 @@ gameLoop:
 	{
 		@@_DrawWall();
 
-		selectIndex = DrawSimpleMenu(
+		selectIndex = DrawSimpleMenu_CPNP(
 			selectIndex,
 			50,
 			160,
 			600,
 			50,
+			true,
+			true,
 			[
 				"再スタート",
 				"タイトルに戻る",

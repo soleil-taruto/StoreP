@@ -470,12 +470,14 @@ gameLoop:
 	{
 		@@_DrawWall();
 
-		selectIndex = DrawSimpleMenu(
+		selectIndex = DrawSimpleMenu_CPNP(
 			selectIndex,
 			50,
 			260,
 			600,
 			50,
+			true,
+			true,
 			[
 				"Å‰‚©‚ç‚â‚è’¼‚·",
 				"ƒ^ƒCƒgƒ‹‚É–ß‚é",

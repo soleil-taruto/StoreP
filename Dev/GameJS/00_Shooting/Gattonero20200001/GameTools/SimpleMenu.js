@@ -24,12 +24,18 @@ var<boolean> DSM_Desided = false;
 */
 function <int> DrawSimpleMenu(<int> selectIndex, <int> l, <int> t, <int> item_w, <int> margin, <string[]> items)
 {
+	return DrawSimpleMenu_CPNP(selectIndex, l, t, item_w, margin, false, false, items);
+}
+
+function <int> DrawSimpleMenu_CPNP(<int> selectIndex, <int> l, <int> t, <int> item_w, <int> margin, <boolean> cancelByPause, <boolean> noPound, <string[]> items)
+{
 	// reset
 	{
 		DSM_Desided = false;
 	}
 
-	if (GetMouseDown() == -1)
+	var<int> mouseIndex = -1;
+
 	{
 		var<double> mx = GetMouseX();
 		var<double> my = GetMouseY();
@@ -47,16 +53,25 @@ function <int> DrawSimpleMenu(<int> selectIndex, <int> l, <int> t, <int> item_w,
 				0.0
 				))
 			{
-				selectIndex = index;
-				DSM_Desided = true;
+				if (GetMouseDown() == -1)
+				{
+					selectIndex = index;
+					DSM_Desided = true;
+				}
+				else
+				{
+					mouseIndex = index;
+				}
+				break;
 			}
 		}
 	}
-	if (IsPound(GetInput_8()))
+
+	if (noPound ? GetInput_8() == 1 : IsPound(GetInput_8()))
 	{
 		selectIndex--;
 	}
-	if (IsPound(GetInput_2()))
+	if (noPound ? GetInput_2() == 1 : IsPound(GetInput_2()))
 	{
 		selectIndex++;
 	}
@@ -75,7 +90,7 @@ function <int> DrawSimpleMenu(<int> selectIndex, <int> l, <int> t, <int> item_w,
 			selectIndex = items.length - 1;
 		}
 	}
-	if (GetInput_Pause() == 1)
+	if (cancelByPause && GetInput_Pause() == 1)
 	{
 		DSM_Desided = true;
 		selectIndex = items.length - 1;
@@ -96,6 +111,12 @@ function <int> DrawSimpleMenu(<int> selectIndex, <int> l, <int> t, <int> item_w,
 			SetColor("#ffff00c0");
 			PrintRect(l + margin, t + margin + (@@_ITEM_H + margin) * index, item_w, @@_ITEM_H);
 			SetColor("#000000");
+		}
+		else if (index == mouseIndex)
+		{
+			SetColor("#ffffff40");
+			PrintRect(l + margin, t + margin + (@@_ITEM_H + margin) * index, item_w, @@_ITEM_H);
+			SetColor("#ffffff");
 		}
 		else
 		{

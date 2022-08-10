@@ -356,6 +356,7 @@ C:\Dev\GameJS\00_Shooting\Gattonero20200001\Games\Shots\ShotCommon.js(5) : ShotC
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\LocalStorage.js(48) : SaveLocalStorage // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(25) : DrawSimpleMenu // ä÷êî
+C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(30) : DrawSimpleMenu_CPNP // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\GameTools\SimpleMenu.js(10) : DSM_Desided // ïœêî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ä÷êî
 C:\Dev\GameJS\00_Shooting\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ä÷êî
