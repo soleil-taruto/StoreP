@@ -131,7 +131,7 @@ namespace Charlotte.GameTools
 			return selectIndex;
 		}
 
-		private class ButtonInfo
+		public class ButtonInfo
 		{
 			public DDInput.Button Button;
 			public string Name;

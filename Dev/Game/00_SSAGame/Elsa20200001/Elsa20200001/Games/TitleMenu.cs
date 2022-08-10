@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.GameTools;
 using Charlotte.Games.Tests;
 using Charlotte.Novels;
 
@@ -135,7 +136,7 @@ namespace Charlotte.Games
 
 		#endregion
 
-		private DDSimpleMenu SimpleMenu;
+		private SimpleMenu SimpleMenu;
 
 		public void Perform()
 		{
@@ -146,7 +147,7 @@ namespace Charlotte.Games
 
 			Ground.I.Music.Title.Play();
 
-			this.SimpleMenu = new DDSimpleMenu()
+			this.SimpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(64, 0, 0),
 				WallDrawer = this.DrawWall.Execute,
@@ -292,7 +293,7 @@ namespace Charlotte.Games
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(0, 128, 0),
 				WallDrawer = () =>

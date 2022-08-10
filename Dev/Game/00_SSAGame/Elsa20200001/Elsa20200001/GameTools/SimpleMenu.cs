@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
 
-namespace Charlotte.GameCommons
+namespace Charlotte.GameTools
 {
-	public class DDSimpleMenu
+	public class SimpleMenu
 	{
 		public I3Color? Color = null;
 		public I3Color? BorderColor = null;
@@ -17,11 +18,11 @@ namespace Charlotte.GameCommons
 
 		private bool MouseUsable;
 
-		public DDSimpleMenu()
+		public SimpleMenu()
 			: this(DDUtils.GetMouseDispMode())
 		{ }
 
-		public DDSimpleMenu(bool mouseUsable)
+		public SimpleMenu(bool mouseUsable)
 		{
 			this.MouseUsable = mouseUsable;
 		}
@@ -128,18 +129,6 @@ namespace Charlotte.GameCommons
 			DDEngine.FreezeInput();
 
 			return selectIndex;
-		}
-
-		private class ButtonInfo
-		{
-			public DDInput.Button Button;
-			public string Name;
-
-			public ButtonInfo(DDInput.Button button, string name)
-			{
-				this.Button = button;
-				this.Name = name;
-			}
 		}
 
 		#region KeyInfos
@@ -271,46 +260,21 @@ namespace Charlotte.GameCommons
 
 		#endregion
 
+		public class ButtonInfo
+		{
+			public DDInput.Button Button;
+			public string Name;
+
+			public ButtonInfo(DDInput.Button button, string name)
+			{
+				this.Button = button;
+				this.Name = name;
+			}
+		}
+
 		public void PadConfig(bool keyMode = false)
 		{
-			ButtonInfo[] btnInfos = new ButtonInfo[]
-			{
-#if false // 例
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.A, "Ａボタン"),
-				new ButtonInfo(DDInput.B, "Ｂボタン"),
-				new ButtonInfo(DDInput.C, "Ｃボタン"),
-				//new ButtonInfo(DDInput.D, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.E, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.F, ""), // 使用しないボタン
-				new ButtonInfo(DDInput.L, "Ｌボタン"),
-				new ButtonInfo(DDInput.R, "Ｒボタン"),
-				//new ButtonInfo(DDInput.PAUSE, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.START, ""), // 使用しないボタン
-#else
-				// アプリ固有の設定 >
-
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.A, "ジャンプボタン／決定"),
-				new ButtonInfo(DDInput.B, "弱攻撃／キャンセル"),
-				new ButtonInfo(DDInput.C, "中攻撃"),
-				new ButtonInfo(DDInput.D, "強攻撃"),
-				//new ButtonInfo(DDInput.E, ""),
-				//new ButtonInfo(DDInput.F, ""),
-				new ButtonInfo(DDInput.L, "画面スライド／会話スキップ"),
-				new ButtonInfo(DDInput.R, "低速ボタン"),
-				new ButtonInfo(DDInput.PAUSE, "ポーズボタン"),
-				//new ButtonInfo(DDInput.START, ""),
-
-				// < アプリ固有の設定
-#endif
-			};
+			ButtonInfo[] btnInfos = AppConfig.GetSimpleMenuButtonInfos();
 
 			foreach (ButtonInfo btnInfo in btnInfos)
 				btnInfo.Button.Backup();
