@@ -412,12 +412,13 @@ namespace Charlotte.GameCommons
 		}
 
 		/// <summary>
+		/// S字曲線
 		/// (0, 0), (0.5, 0.5), (1, 1) を通る曲線
-		/// x &lt; 0.5 の区間は加速(等加速)する。
-		/// x &gt; 0.5 の区間は減速(等加速)する。
+		/// x == ～0.5 の区間は加速(等加速)する。
+		/// x == 0.5～ の区間は減速(等加速)する。
 		/// </summary>
-		/// <param name="x"></param>
-		/// <returns></returns>
+		/// <param name="x">X軸の値</param>
+		/// <returns>Y軸の値</returns>
 		public static double SCurve(double x)
 		{
 			if (x < 0.5)

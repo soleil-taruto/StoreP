@@ -584,6 +584,14 @@ namespace Charlotte.Commons
 			return list.Take(index).Concat(list.Skip(index + count));
 		}
 
+		public static void AddRange<T>(List<T> dest, IEnumerable<T> listForAdd)
+		{
+			foreach (T element in listForAdd)
+			{
+				dest.Add(element);
+			}
+		}
+
 		private const int IO_TRY_MAX = 10;
 
 		public static void DeletePath(string path)
