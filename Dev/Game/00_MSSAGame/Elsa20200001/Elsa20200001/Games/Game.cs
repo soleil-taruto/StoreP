@@ -5,6 +5,7 @@ using System.Text;
 using DxLibDLL;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.GameTools;
 using Charlotte.Games.Enemies;
 using Charlotte.Games.Shots;
 using Charlotte.Games.Tiles;
@@ -1328,7 +1329,7 @@ namespace Charlotte.Games
 			DDMain.KeepMainScreen();
 			SCommon.Swap(ref DDGround.KeptMainScreen, ref EquipmentMenu_KeptMainScreen); // 使用後は Unload すること。
 
-			DDTableMenu tableMenu = new DDTableMenu(130, 50, 24, () =>
+			TableMenu tableMenu = new TableMenu(130, 50, 24, () =>
 			{
 				DDDraw.DrawSimple(EquipmentMenu_KeptMainScreen.ToPicture(), 0, 0);
 
@@ -1408,7 +1409,7 @@ namespace Charlotte.Games
 			//DDMain.KeepMainScreen();
 			//SCommon.Swap(ref DDGround.KeptMainScreen, ref Pause_KeptMainScreen); // 使用後は Unload すること。
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(0, 64, 128),
 				WallDrawer = () =>
@@ -1450,7 +1451,7 @@ namespace Charlotte.Games
 					case 0:
 						using (new SettingMenu()
 						{
-							SimpleMenu = new DDSimpleMenu()
+							SimpleMenu = new SimpleMenu()
 							{
 								BorderColor = new I3Color(0, 64, 128),
 								WallDrawer = () =>
@@ -1497,7 +1498,7 @@ namespace Charlotte.Games
 		{
 			DDMain.KeepMainScreen();
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(0, 128, 64),
 				WallDrawer = () =>

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Charlotte.GameCommons;
+using Charlotte.GameTools;
 
 namespace Charlotte.Games
 {
 	public class OmakeMenu : IDisposable
 	{
-		public DDSimpleMenu SimpleMenu;
+		public SimpleMenu SimpleMenu;
 
 		// <---- prm
 

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
 
-namespace Charlotte.GameCommons
+namespace Charlotte.GameTools
 {
-	public class DDSimpleMenu
+	public class SimpleMenu
 	{
 		public I3Color? Color = null;
 		public I3Color? BorderColor = null;
@@ -17,11 +18,11 @@ namespace Charlotte.GameCommons
 
 		private bool MouseUsable;
 
-		public DDSimpleMenu()
+		public SimpleMenu()
 			: this(DDUtils.GetMouseDispMode())
 		{ }
 
-		public DDSimpleMenu(bool mouseUsable)
+		public SimpleMenu(bool mouseUsable)
 		{
 			this.MouseUsable = mouseUsable;
 		}
@@ -572,6 +573,7 @@ namespace Charlotte.GameCommons
 					default:
 						throw new DDError();
 				}
+				//DDEngine.EachFrame(); // 不要
 			}
 		endLoop:
 			;

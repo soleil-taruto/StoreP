@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.GameTools;
 using Charlotte.Games.Tests;
 using Charlotte.Novels;
 
@@ -23,7 +24,7 @@ namespace Charlotte.Games
 			I = null;
 		}
 
-		private DDSimpleMenu SimpleMenu;
+		private SimpleMenu SimpleMenu;
 
 		public void Perform()
 		{
@@ -45,7 +46,7 @@ namespace Charlotte.Games
 
 			int selectIndex = 0;
 
-			this.SimpleMenu = new DDSimpleMenu()
+			this.SimpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(64, 0, 0),
 				WallDrawer = () =>
@@ -177,7 +178,7 @@ namespace Charlotte.Games
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(0, 128, 0),
 				WallDrawer = () =>
