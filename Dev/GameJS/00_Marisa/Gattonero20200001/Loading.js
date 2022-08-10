@@ -14,13 +14,16 @@ function <void> PrintGameLoading()
 		CanvasBox.style.width  = Screen_W;
 		CanvasBox.style.height = Screen_H;
 	}
-	CanvasBox.innerText = ((@@_LOADING_MAX - Loading) * 100.0 / @@_LOADING_MAX) + " PCT LOADED...";
+	CanvasBox.innerHTML =
+		"<div style='padding-top: " + ToFix(Screen_H / 2.0 - 10.0) + "px; text-align: center;'>" +
+		ToFix((@@_LOADING_MAX - Loading) * 1000000000.0 / @@_LOADING_MAX) + " PPB LOADED..." +
+		"</div>";
 }
 
 function <void> PrintGameLoaded()
 {
 	PrintGameLoading(); // force init
 
-	CanvasBox.innerText = "";
+	CanvasBox.innerHTML = "";
 	CanvasBox = null;
 }

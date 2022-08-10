@@ -3,7 +3,7 @@ C:\Dev\GameJS\00_Plain\Gattonero20200001\00_Consts.js(9) : Screen_H // •Ï”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Credit.js(5) : CreditMain // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Entrance.js(10) : EntranceMain // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Loading.js(7) : PrintGameLoading // ŠÖ”
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Loading.js(20) : PrintGameLoaded // ŠÖ”
+C:\Dev\GameJS\00_Plain\Gattonero20200001\Loading.js(23) : PrintGameLoaded // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Program.js(7) : Main // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Setting.js(5) : SettingMain // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Title.js(46) : TitleMain // ŠÖ”
@@ -236,6 +236,7 @@ C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\GameProgressMaster.js(5) : GamePr
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\LocalStorage.js(5) : LoadLocalStorage // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\LocalStorage.js(44) : SaveLocalStorage // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\SimpleMenu.js(25) : DrawSimpleMenu // ŠÖ”
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\SimpleMenu.js(30) : DrawSimpleMenu_CPNP // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameTools\SimpleMenu.js(10) : DSM_Desided // •Ï”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Tests\Test0001.js(5) : Test01 // ŠÖ”
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Tests\Test0001.js(13) : Test02 // ŠÖ”
