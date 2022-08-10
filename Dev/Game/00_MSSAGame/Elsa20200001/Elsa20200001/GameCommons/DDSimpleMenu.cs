@@ -37,7 +37,7 @@ namespace Charlotte.GameCommons
 				DDPrint.SetBorder(this.BorderColor.Value);
 		}
 
-		public int Perform(int x, int y, int yStep, int fontSize, string title, string[] items, int selectIndex, bool ポーズボタンでメニュー終了 = false, bool noPound = false)
+		public int Perform(int selectIndex, int x, int y, int yStep, int fontSize, string title, string[] items, bool ポーズボタンでメニュー終了 = false, bool noPound = false)
 		{
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
@@ -540,7 +540,7 @@ namespace Charlotte.GameCommons
 
 			for (; ; )
 			{
-				selectIndex = Perform(230, 13, 35, 24, "ウィンドウサイズ設定", items, selectIndex);
+				selectIndex = Perform(selectIndex, 230, 13, 35, 24, "ウィンドウサイズ設定", items);
 
 				switch (selectIndex)
 				{

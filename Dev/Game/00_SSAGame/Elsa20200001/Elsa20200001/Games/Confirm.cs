@@ -34,7 +34,7 @@ namespace Charlotte.Games
 				},
 			};
 
-			return simpleMenu.Perform(Text_L, Text_T, 40, 24, prompt, options, 0);
+			return simpleMenu.Perform(0, Text_L, Text_T, 40, 24, prompt, options);
 		}
 	}
 }

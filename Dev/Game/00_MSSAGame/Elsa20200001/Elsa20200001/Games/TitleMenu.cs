@@ -74,7 +74,7 @@ namespace Charlotte.Games
 
 			for (; ; )
 			{
-				selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "横スクロール アクション ゲーム(仮)", items, selectIndex);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "横スクロール アクション ゲーム(仮)", items);
 
 				bool cheatFlag;
 
@@ -153,6 +153,7 @@ namespace Charlotte.Games
 					default:
 						throw new DDError();
 				}
+				//DDEngine.EachFrame(); // 不要
 			}
 		endMenu:
 			DDMusicUtils.Fadeout();
@@ -195,7 +196,7 @@ namespace Charlotte.Games
 
 			for (; ; )
 			{
-				selectIndex = simpleMenu.Perform(18, 18, 32, 24, "ロード", items, selectIndex);
+				selectIndex = simpleMenu.Perform(selectIndex, 18, 18, 32, 24, "ロード", items);
 
 				if (selectIndex < GameConsts.SAVE_DATA_SLOT_NUM)
 				{
@@ -224,15 +225,13 @@ namespace Charlotte.Games
 		{
 			for (; ; )
 			{
-				int selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "開発デバッグ用メニュー", new string[]
+				int selectIndex = this.SimpleMenu.Perform(0, 40, 40, 40, 24, "開発デバッグ用メニュー", new string[]
 				{
 					"スタート",
 					"Game用テストメニュー",
 					"Game用テストメニュー.2",
 					"戻る",
-				},
-				0
-				);
+				});
 
 				switch (selectIndex)
 				{
@@ -281,6 +280,7 @@ namespace Charlotte.Games
 					default:
 						throw new DDError();
 				}
+				//DDEngine.EachFrame(); // 不要
 			}
 		endMenu:
 			;

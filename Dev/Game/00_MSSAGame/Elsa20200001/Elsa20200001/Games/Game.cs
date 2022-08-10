@@ -1429,6 +1429,7 @@ namespace Charlotte.Games
 			for (; ; )
 			{
 				selectIndex = simpleMenu.Perform(
+					selectIndex,
 					250,
 					180,
 					50,
@@ -1440,8 +1441,8 @@ namespace Charlotte.Games
 						"タイトルに戻る",
 						"戻る",
 					},
-					selectIndex,
-					true
+					true,
+					false // 武器メニューの配下であるため Pound でも良いと判断
 					);
 
 				switch (selectIndex)
@@ -1513,6 +1514,7 @@ namespace Charlotte.Games
 			for (; ; )
 			{
 				selectIndex = simpleMenu.Perform(
+					selectIndex,
 					40,
 					40,
 					40,
@@ -1525,7 +1527,6 @@ namespace Charlotte.Games
 						"当たり判定表示 [ 現在の設定：" + this.当たり判定表示 + " ]",
 						"ゲームに戻る",
 					},
-					selectIndex,
 					true,
 					true
 					);

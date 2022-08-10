@@ -45,7 +45,7 @@ namespace Charlotte.Games
 					"戻る",
 				};
 
-				selectIndex = this.SimpleMenu.Perform(40, 40, 40, 18, "おまけ", items, selectIndex);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 18, "おまけ", items);
 
 				this.SetDeepConfigEntered(true);
 
@@ -70,6 +70,8 @@ namespace Charlotte.Games
 						throw new DDError();
 				}
 				this.SetDeepConfigEntered(false);
+
+				//DDEngine.EachFrame(); // 不要
 			}
 		endMenu:
 			this.SetDeepConfigEntered(false);

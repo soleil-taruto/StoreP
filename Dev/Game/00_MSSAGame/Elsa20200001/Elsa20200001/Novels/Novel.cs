@@ -447,6 +447,7 @@ namespace Charlotte.Novels
 			for (; ; )
 			{
 				selectIndex = simpleMenu.Perform(
+					selectIndex,
 					100,
 					180,
 					50,
@@ -457,9 +458,7 @@ namespace Charlotte.Novels
 						"設定",
 						"タイトルに戻る",
 						"ゲームに戻る",
-					},
-					selectIndex
-					);
+					});
 
 				switch (selectIndex)
 				{

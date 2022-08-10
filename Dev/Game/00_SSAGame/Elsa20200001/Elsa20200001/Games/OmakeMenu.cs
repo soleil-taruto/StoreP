@@ -41,7 +41,7 @@ namespace Charlotte.Games
 					"戻る",
 				};
 
-				selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "おまけ", items, selectIndex);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "おまけ", items);
 
 				switch (selectIndex)
 				{
@@ -63,6 +63,7 @@ namespace Charlotte.Games
 					default:
 						throw new DDError();
 				}
+				//DDEngine.EachFrame(); // 不要
 			}
 		endMenu:
 			DDEngine.FreezeInput();
