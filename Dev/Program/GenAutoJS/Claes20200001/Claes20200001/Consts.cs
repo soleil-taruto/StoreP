@@ -7,6 +7,6 @@ namespace Charlotte
 {
 	public static class Consts
 	{
-		// none
+		public static readonly string[] IMAGE_EXTS = new string[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png", ".ico" };
 	}
 }

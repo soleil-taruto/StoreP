@@ -161,34 +161,27 @@ namespace Charlotte
 
 		private IEnumerable<string[]> GetFileInfoPairs(string file)
 		{
-			// ファイル種別：画像
+			string ext = Path.GetExtension(file)
+				.ToLower();
+
+			if (Consts.IMAGE_EXTS.Contains(ext)) // ? 画像ファイル
 			{
-				I2Size? size = null;
+				Image image = Image.FromFile(file);
 
-				try
-				{
-					using (Image image = Image.FromFile(file))
-					{
-						size = new I2Size(image.Width, image.Height);
-					}
-				}
-				catch
-				{
-					size = null;
-				}
+				yield return new string[] { "type", "\"image\"" };
+				yield return new string[] { "width", "" + image.Width };
+				yield return new string[] { "height", "" + image.Height };
 
-				if (size != null)
-				{
-					yield return new string[] { "type", "\"image\"" };
-					yield return new string[] { "width", "" + size.Value.W };
-					yield return new string[] { "height", "" + size.Value.H };
-					yield break;
-				}
+				image.Dispose();
+				image = null;
+
+				yield break;
 			}
 
-			// ファイル種別：その他
+			// その他のファイル
 			{
 				yield return new string[] { "type", "\"unknown\"" };
+				yield break;
 			}
 		}
 	}
