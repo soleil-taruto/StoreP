@@ -84,11 +84,13 @@ namespace Charlotte
 
 			string[] dirs = Directory
 				.GetDirectories(R_Dir, "*", SearchOption.AllDirectories)
+				.Where(v => IsTargetPath(v))
 				.OrderBy(SCommon.Comp)
 				.ToArray();
 
 			string[] files = Directory
 				.GetFiles(R_Dir, "*", SearchOption.AllDirectories)
+				.Where(v => IsTargetPath(v))
 				.OrderBy(SCommon.Comp)
 				.ToArray();
 
@@ -150,6 +152,19 @@ namespace Charlotte
 			yield return "];";
 			yield return "";
 			yield return "// _auto.js END";
+		}
+
+		private bool IsTargetPath(string path)
+		{
+			// '_' で始まるローカル名とその配下は除外する。
+			//
+			if (
+				path.StartsWith("_") ||
+				path.Contains("\\_")
+				)
+				return false;
+
+			return true;
 		}
 
 		private string ToJSPath(string path)
