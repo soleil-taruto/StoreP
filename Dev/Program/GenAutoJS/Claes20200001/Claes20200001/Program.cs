@@ -19,51 +19,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4();
-			}
-			SCommon.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			Main4();
-			SCommon.Pause();
-		}
-
-		private void Main4()
-		{
-			try
-			{
-				Main5();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-		}
-
-		private void Main5()
-		{
-			// -- choose one --
-
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -81,7 +36,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\temp" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -101,17 +56,140 @@ namespace Charlotte
 			{
 				ProcMain.WriteLog(ex);
 
-				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
 				//Console.ReadLine();
 			}
 		}
 
+		private string R_Dir;
+		private string W_File;
+
 		private void Main5(ArgsReader ar)
 		{
-			// TODO
+			R_Dir = SCommon.MakeFullPath(ar.NextArg());
+
+			ar.End();
+
+			if (!Directory.Exists(R_Dir))
+				throw new Exception("no R_Dir");
+
+			W_File = Path.Combine(R_Dir, "_auto.js");
+
+			ProcMain.WriteLog("< " + R_Dir);
+			ProcMain.WriteLog("> " + W_File);
+
+			File.WriteAllBytes(W_File, SCommon.EMPTY_BYTES); // 出力テスト＆クリア
+
+			string[] dirs = Directory
+				.GetDirectories(R_Dir, "*", SearchOption.AllDirectories)
+				.OrderBy(SCommon.Comp)
+				.ToArray();
+
+			string[] files = Directory
+				.GetFiles(R_Dir, "*", SearchOption.AllDirectories)
+				.OrderBy(SCommon.Comp)
+				.ToArray();
+
+			string[] lines = GetAutoJSLines(dirs, files)
+				.ToArray();
+
+			File.WriteAllLines(W_File, lines, Encoding.UTF8);
+
+			ProcMain.WriteLog("done");
 		}
-#endif
+
+		private IEnumerable<string> GetAutoJSLines(string[] dirs, string[] files)
+		{
+			yield return "// _auto.js Encoding=UTF-8";
+			yield return "";
+			yield return "let LS_DIRS =";
+			yield return "[";
+
+			foreach (string dir in dirs)
+			{
+				yield return "\t\"" + ToJSPath(dir) + "\",";
+			}
+			yield return "];";
+			yield return "";
+			yield return "let LS_FILES =";
+			yield return "[";
+
+			foreach (string file in files)
+			{
+				yield return "\t\"" + ToJSPath(file) + "\",";
+			}
+			yield return "];";
+			yield return "";
+			yield return "let LS_FILE_SIZE_LIST =";
+			yield return "[";
+
+			foreach (string file in files)
+			{
+				yield return "\t// " + ToJSPath(file);
+				yield return "\t" + new FileInfo(file).Length + ",";
+			}
+			yield return "];";
+			yield return "";
+			yield return "let LS_FILE_INFO_LIST =";
+			yield return "[";
+
+			foreach (string file in files)
+			{
+				yield return "\t// " + ToJSPath(file);
+				yield return "\t{";
+
+				foreach (string[] pair in GetFileInfoPairs(file))
+				{
+					yield return "\t\t" + pair[0] + ": " + pair[1] + ",";
+				}
+				yield return "\t},";
+				yield return "";
+			}
+			yield return "];";
+			yield return "";
+			yield return "// _auto.js END";
+		}
+
+		private string ToJSPath(string path)
+		{
+			path = SCommon.ChangeRoot(path, R_Dir);
+			path = path.Replace('\\', '/');
+			return path;
+		}
+
+		private IEnumerable<string[]> GetFileInfoPairs(string file)
+		{
+			// ファイル種別：画像
+			{
+				I2Size? size = null;
+
+				try
+				{
+					using (Image image = Image.FromFile(file))
+					{
+						size = new I2Size(image.Width, image.Height);
+					}
+				}
+				catch
+				{
+					size = null;
+				}
+
+				if (size != null)
+				{
+					yield return new string[] { "type", "\"image\"" };
+					yield return new string[] { "width", "" + size.Value.W };
+					yield return new string[] { "height", "" + size.Value.H };
+					yield break;
+				}
+			}
+
+			// ファイル種別：その他
+			{
+				yield return new string[] { "type", "\"unknown\"" };
+			}
+		}
 	}
 }
