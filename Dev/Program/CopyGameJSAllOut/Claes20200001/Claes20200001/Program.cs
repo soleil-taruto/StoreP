@@ -56,7 +56,7 @@ namespace Charlotte
 			{
 				ProcMain.WriteLog(ex);
 
-				//MessageBox.Show("" + ex, ProcMain.APP_TITLE + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("" + ex, Path.GetFileNameWithoutExtension(ProcMain.SelfFile) + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
 				//Console.ReadLine();
@@ -81,17 +81,57 @@ namespace Charlotte
 
 			foreach (string rDir in rDirs)
 			{
-				string rOutDir = Path.Combine(rDir, "out");
-				string wDir = Path.Combine(this.DestRootDir, Path.GetFileName(rDir));
+				string outDir = Path.Combine(rDir, "out");
 
-				Console.WriteLine("< " + rOutDir);
-				Console.WriteLine("> " + wDir);
+				if (Directory.Exists(outDir))
+				{
+					string archiveFile = GetOnlyOneArchiveFile(outDir);
 
-				SCommon.CopyDir(rOutDir, wDir);
+					if (archiveFile == null)
+					{
+						string wDir = Path.Combine(this.DestRootDir, Path.GetFileName(rDir));
 
-				Console.WriteLine("done");
+						Console.WriteLine("D");
+						Console.WriteLine("< " + outDir);
+						Console.WriteLine("> " + wDir);
+
+						SCommon.CopyDir(outDir, wDir);
+
+						Console.WriteLine("done");
+					}
+					else
+					{
+						string wFile = Path.Combine(this.DestRootDir, Path.GetFileName(archiveFile));
+
+						Console.WriteLine("F");
+						Console.WriteLine("< " + archiveFile);
+						Console.WriteLine("> " + wFile);
+
+						if (File.Exists(wFile))
+							throw new Exception("出力アーカイブ名が重複しています。");
+
+						File.Copy(archiveFile, wFile);
+
+						Console.WriteLine("done");
+					}
+				}
 			}
 			Console.WriteLine("OK!");
+		}
+
+		private string GetOnlyOneArchiveFile(string outDir)
+		{
+			string[] dirs = Directory.GetDirectories(outDir);
+			string[] files = Directory.GetFiles(outDir);
+
+			if (
+				dirs.Length == 0 &&
+				files.Length == 1 &&
+				SCommon.EqualsIgnoreCase(Path.GetExtension(files[0]), ".zip")
+				)
+				return files[0];
+
+			return null;
 		}
 	}
 }
