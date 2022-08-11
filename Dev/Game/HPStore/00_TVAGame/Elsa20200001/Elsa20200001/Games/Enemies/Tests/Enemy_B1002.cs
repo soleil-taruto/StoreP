@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.GameCommons;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
+using Charlotte.Games.Tiles;
 
 namespace Charlotte.Games.Enemies.Tests
 {
@@ -54,22 +55,22 @@ namespace Charlotte.Games.Enemies.Tests
 				const double R = 20.0;
 				bool bounced = false;
 
-				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X - R, this.Y)).Tile.GetKind() == Tiles.Tile.Kind_e.WALL)
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X - R, this.Y)).Tile.GetKind() == Tile.Kind_e.WALL)
 				{
 					this.XAdd = Math.Abs(this.XAdd);
 					bounced = true;
 				}
-				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X + R, this.Y)).Tile.GetKind() == Tiles.Tile.Kind_e.WALL)
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X + R, this.Y)).Tile.GetKind() == Tile.Kind_e.WALL)
 				{
 					this.XAdd = Math.Abs(this.XAdd) * -1;
 					bounced = true;
 				}
-				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y - R)).Tile.GetKind() == Tiles.Tile.Kind_e.WALL)
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y - R)).Tile.GetKind() == Tile.Kind_e.WALL)
 				{
 					this.YAdd = Math.Abs(this.YAdd);
 					bounced = true;
 				}
-				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y + R)).Tile.GetKind() == Tiles.Tile.Kind_e.WALL)
+				if (Game.I.Map.GetCell(GameCommon.ToTablePoint(this.X, this.Y + R)).Tile.GetKind() == Tile.Kind_e.WALL)
 				{
 					this.YAdd = Math.Abs(this.YAdd) * -1;
 					bounced = true;
