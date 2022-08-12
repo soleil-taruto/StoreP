@@ -26,17 +26,14 @@ function <void> ProcMain(<generatorForTask> appMain)
 	@@_AppMain = appMain;
 
 	Canvas = document.createElement("canvas");
-	Canvas.style.position = "fixed";
 	Canvas.width  = Screen_W;
 	Canvas.height = Screen_H;
 
-	CanvasBox = document.createElement("div");
-	CanvasBox.style.position = "fixed";
+	CanvasBox = document.getElementById("Gattonero20200001-CanvasBox");
+	CanvasBox.style.width  = Screen_W;
+	CanvasBox.style.height = Screen_H;
+	CanvasBox.innerHTML = "";
 	CanvasBox.appendChild(Canvas);
-	document.body.appendChild(CanvasBox);
-
-	AddResized(@@_Resized);
-	@@_Resized();
 
 	for (var<Action> event of @@_INIT_Events)
 	{

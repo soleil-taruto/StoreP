@@ -76,7 +76,8 @@ var @@_Buttons =
 		Pressed : function* ()
 		{
 			LOGPOS();
-			window.location.href = "..";
+			window.location.href = "/";
+//			window.location.href = "..";
 //			window.location.href = "https://www.google.com/";
 			LOGPOS();
 		},
