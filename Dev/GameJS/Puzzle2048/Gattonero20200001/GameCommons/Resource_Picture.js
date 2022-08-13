@@ -90,3 +90,12 @@ var<Picture_t[]> P_êîéöÉpÉlÉã =
 var<Picture_t> P_Gravity = @@_Load(RESOURCE_Picture__Gravity_png);
 
 var<Picture_t> P_Star_S = @@_Load(RESOURCE_Picture__åıÇÈêØ20_png);
+
+var<Picture_t> P_Button_W_Up     = @@_Load(RESOURCE_Button__W_Up_png);
+var<Picture_t> P_Button_W_Down   = @@_Load(RESOURCE_Button__W_Down_png);
+var<Picture_t> P_Button_H_Up     = @@_Load(RESOURCE_Button__H_Up_png);
+var<Picture_t> P_Button_H_Down   = @@_Load(RESOURCE_Button__H_Down_png);
+var<Picture_t> P_Button_NP_Up    = @@_Load(RESOURCE_Button__NP_Up_png);
+var<Picture_t> P_Button_NP_Down  = @@_Load(RESOURCE_Button__NP_Down_png);
+var<Picture_t> P_Button_Auto_CW  = @@_Load(RESOURCE_Button__Auto_CW_png);
+var<Picture_t> P_Button_Auto_CCW = @@_Load(RESOURCE_Button__Auto_CCW_png);

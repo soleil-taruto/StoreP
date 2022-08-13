@@ -664,24 +664,25 @@ function <boolean> @@_TryAddNewPanel() // ret: ? 設置完了
 */
 function <void> @@_DrawWall()
 {
-	SetColor("#c0b0a0");
+	SetColor("#e0e0e0");
 	PrintRect(0, 0, Screen_W, Screen_H);
 
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_1, "横幅▲", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_1, "高さ▲", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_1, "NP-Max▲", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_4, GameCfgBtn_T_1, "Auto(時計回)", AutoMode && !AutoMode_CCW);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_2, "横幅▼", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_2, "高さ▼", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_2, "NP-Max▼", false);
-	@@_DrawGaemCfgBtn(GameCfgBtn_L_4, GameCfgBtn_T_2, "Auto(反時計)", AutoMode && AutoMode_CCW);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_1, P_Button_W_Up     , !AutoMode);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_1, P_Button_H_Up     , !AutoMode);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_1, P_Button_NP_Up    , !AutoMode);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_4, GameCfgBtn_T_1, P_Button_Auto_CW  , !AutoMode || !AutoMode_CCW);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_1, GameCfgBtn_T_2, P_Button_W_Down   , !AutoMode);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_2, GameCfgBtn_T_2, P_Button_H_Down   , !AutoMode);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_3, GameCfgBtn_T_2, P_Button_NP_Down  , !AutoMode);
+	@@_DrawGaemCfgBtn(GameCfgBtn_L_4, GameCfgBtn_T_2, P_Button_Auto_CCW , !AutoMode || AutoMode_CCW);
 
-	SetColor("#a0b0c0");
+	SetColor("#f0f0f0");
 	PrintRect(GameArea_L, GameArea_T, GameArea_W, GameArea_H);
 
-	SetPrint(GameArea_L + 5, GameArea_T + 30, 0);
-	SetColor("#000000");
-	PrintLine("NP : 1 ～ " + Math.pow(2, NewPanelExponentLmt - 1));
+	SetPrint(GameArea_L + 10, GameArea_T + 35, 0);
+	SetFSize(25);
+	SetColor("#000080");
+	PrintLine("新しいブロックの数値 : 1 ～ " + Math.pow(2, NewPanelExponentLmt - 1));
 
 	// 枠線描画
 	{
@@ -749,14 +750,15 @@ function <void> @@_DrawWall()
 	}
 }
 
-function <void> @@_DrawGaemCfgBtn(<int> l, <int> t, <string> text, <boolean> activated)
+function <void> @@_DrawGaemCfgBtn(<int> l, <int> t, <Picture_t> picture, <boolean> activated)
 {
-	SetColor(activated ? "#ffff00" : "#ffffff");
-	PrintRect(l, t, GameCfgBtn_W, GameCfgBtn_H);
-	SetColor("#000000");
-	SetPrint(l + 30, t + 55, 0);
-	SetFSize(28);
-	PrintLine(text);
+	Draw(picture, l + GameCfgBtn_W / 2, t + GameCfgBtn_H / 2, 1.0, 0.0, 1.0);
+
+	if (!activated)
+	{
+		SetColor("#00000060");
+		PrintRect(l, t, GameCfgBtn_W, GameCfgBtn_H);
+	}
 }
 
 function <Panel_t[][]> Game_GetTable()

@@ -2,8 +2,6 @@
 	アプリケーション用メインモジュール
 */
 
-var<string> APP_IDENT = "{c9e92c41-52cf-44fe-8c46-b5139531e666}";
-
 setTimeout(Main, 0);
 
 function <void> Main()
@@ -75,5 +73,6 @@ function* <generatorForTask> @@_Main()
 // 本番用メイン
 function* <generatorForTask> @@_Main2()
 {
-	yield* TitleMain();
+	yield* GameMain();
+//	yield* TitleMain();
 }

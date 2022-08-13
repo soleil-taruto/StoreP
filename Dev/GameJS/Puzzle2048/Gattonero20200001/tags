@@ -1,6 +1,5 @@
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Credit.js(5) : CreditMain // ŠÖ”
-C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Program.js(9) : Main // ŠÖ”
-C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Program.js(5) : APP_IDENT // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Program.js(7) : Main // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Title.js(87) : TitleMain // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Commons\Array.js(5) : InsertElement // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Commons\Array.js(20) : AddElement // ŠÖ”
@@ -112,6 +111,14 @@ C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(17) :
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(21) : P_”šƒpƒlƒ‹ // •Ï”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(90) : P_Gravity // •Ï”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(92) : P_Star_S // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(94) : P_Button_W_Up // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(95) : P_Button_W_Down // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(96) : P_Button_H_Up // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(97) : P_Button_H_Down // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(98) : P_Button_NP_Up // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(99) : P_Button_NP_Down // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(100) : P_Button_Auto_CW // •Ï”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\Resource_Picture.js(101) : P_Button_Auto_CCW // •Ï”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\SoundEffect.js(7) : SE // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\GameCommons\SoundEffect.js(17) : @ // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\00_Consts.js(8) : GameCfgBtn_W // •Ï”
@@ -141,8 +148,8 @@ C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Effect.js(161) : AddEffect_Born
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(29) : TablePointToDrawPoint // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(43) : DrawPointToTablePoint // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(54) : GameMain // ŠÖ”
-C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(762) : Game_GetTable // ŠÖ”
-C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(767) : Game_SetTable // ŠÖ”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(764) : Game_GetTable // ŠÖ”
+C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(769) : Game_SetTable // ŠÖ”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(5) : AutoMode // •Ï”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(6) : AutoMode_CCW // •Ï”
 C:\Dev\GameJS\Puzzle2048\Gattonero20200001\Games\Game.js(8) : NewPanelExponentLmt // •Ï”
