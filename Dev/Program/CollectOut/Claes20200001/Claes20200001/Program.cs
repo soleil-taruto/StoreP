@@ -36,7 +36,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { @"C:\Dev\GameJS\HPStore" }));
+			Main4(new ArgsReader(new string[] { @"C:\Dev" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -63,71 +63,71 @@ namespace Charlotte
 			}
 		}
 
-		private string SrcRootDir;
-		private string DestRootDir;
+		private string OutputDir;
 
 		private void Main5(ArgsReader ar)
 		{
-			this.SrcRootDir = SCommon.MakeFullPath(ar.NextArg());
-			this.DestRootDir = SCommon.GetOutputDir();
+			string rDir = SCommon.MakeFullPath(ar.NextArg());
 
-			if (!Directory.Exists(this.SrcRootDir))
-				throw new Exception("no SrcRootDir");
+			if (!Directory.Exists(rDir))
+				throw new Exception("no rDir");
 
-			if (!Directory.Exists(this.DestRootDir))
-				throw new Exception("no DestRootDir");
+			this.OutputDir = SCommon.GetOutputDir();
 
-			string[] rDirs = Directory.GetDirectories(this.SrcRootDir);
+			Console.WriteLine("< " + rDir);
+			Console.WriteLine("> " + this.OutputDir);
 
-			foreach (string rDir in rDirs)
-			{
-				string outDir = Path.Combine(rDir, "out");
+			SearchOut(rDir);
 
-				if (Directory.Exists(outDir))
-				{
-					string archiveFile = GetOnlyOneArchiveFile(outDir);
-
-					if (archiveFile == null)
-					{
-						string wDir = Path.Combine(this.DestRootDir, Path.GetFileName(rDir));
-
-						Console.WriteLine("D");
-						Console.WriteLine("< " + outDir);
-						Console.WriteLine("> " + wDir);
-
-						SCommon.CopyDir(outDir, wDir);
-
-						Console.WriteLine("done");
-					}
-					else
-					{
-						string wFile = Path.Combine(this.DestRootDir, Path.GetFileName(archiveFile));
-
-						Console.WriteLine("F");
-						Console.WriteLine("< " + archiveFile);
-						Console.WriteLine("> " + wFile);
-
-						if (File.Exists(wFile))
-							throw new Exception("出力アーカイブ名が重複しています。");
-
-						File.Copy(archiveFile, wFile);
-
-						Console.WriteLine("done");
-					}
-				}
-			}
-			Console.WriteLine("OK!");
+			Console.WriteLine("done");
 		}
 
-		private string GetOnlyOneArchiveFile(string outDir)
+		private void SearchOut(string rDir)
 		{
-			string[] dirs = Directory.GetDirectories(outDir);
-			string[] files = Directory.GetFiles(outDir);
+			string outDir = Path.Combine(rDir, "out");
+
+			if (Directory.Exists(outDir))
+			{
+				CollectOut(rDir, outDir);
+			}
+			else // out ディレクトリが見つからない -> 更に配下を探しに行く。
+			{
+				foreach (string dir in Directory.GetDirectories(rDir))
+				{
+					SearchOut(dir);
+				}
+			}
+		}
+
+		private void CollectOut(string parentDir, string outDir)
+		{
+			string archiveFile = GetOnlyOneArchiveFile(outDir);
+
+			if (archiveFile == null)
+			{
+				SCommon.CopyDir(
+					outDir,
+					Path.Combine(this.OutputDir, Path.GetFileName(parentDir))
+					);
+			}
+			else
+			{
+				File.Copy(
+					archiveFile,
+					Path.Combine(this.OutputDir, Path.GetFileName(archiveFile))
+					);
+			}
+		}
+
+		private string GetOnlyOneArchiveFile(string targDir)
+		{
+			string[] dirs = Directory.GetDirectories(targDir);
+			string[] files = Directory.GetFiles(targDir);
 
 			if (
 				dirs.Length == 0 &&
 				files.Length == 1 &&
-				SCommon.EqualsIgnoreCase(Path.GetExtension(files[0]), ".zip")
+				files[0].ToLower().EndsWith(".zip")
 				)
 				return files[0];
 
