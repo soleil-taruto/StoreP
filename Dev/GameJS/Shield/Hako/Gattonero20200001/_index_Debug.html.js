@@ -19,7 +19,10 @@ window.onload = function()
 
 </script>
 </head>
-<body>
+<body style="
+	overscroll-behavior-y: none;
+	touch-action: manipulation;
+	">
 <center>
 <div id="Gattonero20200001-CanvasBox"></div>
 </center>
