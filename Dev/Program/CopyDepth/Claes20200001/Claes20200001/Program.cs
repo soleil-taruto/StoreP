@@ -19,51 +19,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4();
-			}
-			SCommon.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			Main4();
-			SCommon.Pause();
-		}
-
-		private void Main4()
-		{
-			try
-			{
-				Main5();
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
-			}
-		}
-
-		private void Main5()
-		{
-			// -- choose one --
-
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -81,7 +36,7 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { }));
+			Main4(new ArgsReader(new string[] { @"C:\home\HPGame", "2" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -110,8 +65,83 @@ namespace Charlotte
 
 		private void Main5(ArgsReader ar)
 		{
-			// TODO
+			string rDir = SCommon.MakeFullPath(ar.NextArg());
+			int depth = int.Parse(ar.NextArg());
+
+			ar.End();
+
+			if (!Directory.Exists(rDir))
+				throw new Exception("no rDir");
+
+			if (depth < 0 || SCommon.IMAX < depth)
+				throw new Exception("Bad depth");
+
+			string wLocalName = Path.GetFileName(rDir);
+
+			if (string.IsNullOrEmpty(wLocalName))
+				wLocalName = "_Root";
+
+			string wDir = Path.Combine(SCommon.GetOutputDir(), wLocalName);
+
+			Console.WriteLine("< " + rDir);
+			Console.WriteLine("> " + wDir);
+
+			CopyDepth(rDir, wDir, depth);
+
+			Console.WriteLine("done");
 		}
-#endif
+
+		private void CopyDepth(string rDir, string wDir, int depth)
+		{
+			SCommon.CreateDir(wDir);
+
+			if (1 <= depth) // ? コピーする深さ -> コピーする。
+			{
+				foreach (string dir in Directory.GetDirectories(rDir))
+					CopyDepth(dir, Path.Combine(wDir, Path.GetFileName(dir)), depth - 1);
+
+				foreach (string file in Directory.GetFiles(rDir))
+					File.Copy(file, Path.Combine(wDir, Path.GetFileName(file)));
+			}
+			else // ? コピーしない深さ -> ツリー情報ファイルを作成する。
+			{
+				string treeFile = Path.Combine(wDir, "_Tree.txt");
+				string[] treeFileData = MakeTreeFileData(rDir);
+
+				File.WriteAllLines(treeFile, treeFileData, Encoding.UTF8);
+			}
+		}
+
+		private string[] MakeTreeFileData(string targDir)
+		{
+			string[] paths = Directory.GetDirectories(targDir, "*", SearchOption.AllDirectories)
+				.Concat(Directory.GetFiles(targDir, "*", SearchOption.AllDirectories))
+				.OrderBy(SCommon.Comp)
+				.ToArray();
+
+			List<string> dest = new List<string>();
+
+			foreach (string path in paths)
+			{
+				dest.Add(SCommon.ChangeRoot(path, targDir));
+
+				if (Directory.Exists(path))
+				{
+					dest.Add("\t-> Directory");
+				}
+				else
+				{
+					FileInfo info = new FileInfo(path);
+
+					dest.Add(string.Format(
+						"\t-> File {0} / {1} / {2:#,0}"
+						, new SCommon.SimpleDateTime(info.CreationTime)
+						, new SCommon.SimpleDateTime(info.LastWriteTime)
+						, info.Length
+						));
+				}
+			}
+			return dest.ToArray();
+		}
 	}
 }
