@@ -25,13 +25,21 @@ function <void> ProcMain(<generatorForTask> appMain)
 {
 	@@_AppMain = appMain;
 
+	/*
+	memo:
+		Canvas.width, Canvas.height == スクリーン・サイズ
+		Canvas.style.width, Canvas.style.height == 表示上のサイズ
+	*/
+
 	Canvas = document.createElement("canvas");
 	Canvas.width  = Screen_W;
 	Canvas.height = Screen_H;
+	Canvas.style.width  = "calc(min(" + Screen_W + "px, 100%))";
+//	Canvas.style.height = Screen_H + "px";
 
 	CanvasBox = document.getElementById("Gattonero20200001-CanvasBox");
-	CanvasBox.style.width  = Screen_W;
-	CanvasBox.style.height = Screen_H;
+	CanvasBox.style.width  = "calc(min(" + Screen_W + "px, 100%))";
+//	CanvasBox.style.height = Screen_H + "px";
 	CanvasBox.innerHTML = "";
 	CanvasBox.appendChild(Canvas);
 

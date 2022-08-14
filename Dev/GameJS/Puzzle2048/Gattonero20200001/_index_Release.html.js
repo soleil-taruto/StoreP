@@ -25,6 +25,7 @@ window.onload = function()
 	">
 <center>
 <div id="Gattonero20200001-CanvasBox"></div>
+</center>
 
 <br/>
 
@@ -33,7 +34,7 @@ window.onload = function()
 <h1>概要</h1>
 <div>いわゆる 2048 パズルです。</div>
 <div>チェス盤のようなテーブルの上下左右をタップ（クリック）すると、</div>
-<div>タップした方向にブロックが吸い寄せられます。</div>
+<div>タップした方向にブロックが引き寄せられます。</div>
 <div>最後にタップした方向に表示される <strong>(G)</strong> は重力 (Gravity) を表します。</div>
 <div>タップする度に新しいブロックがランダムな位置に出現します。</div>
 
@@ -54,6 +55,5 @@ window.onload = function()
 <br/>
 <br/>
 
-</center>
 </body>
 </html>

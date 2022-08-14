@@ -13,10 +13,10 @@ var<Action[]> @@_EACH_Events = [ @(EACH) ];
 var<generatorForTask> @@_AppMain;
 
 // 描画先Canvasタグ
-var<Tag_Canvas> Canvas;
+var Canvas;
 
-// Canvasを入れておくDivタグ
-var<Tag_Div> CanvasBox;
+// 描画先Canvasを格納するDivタグ
+var CanvasBox;
 
 // ゲーム用メイン
 // appMain: アプリケーション側の処理
@@ -25,13 +25,21 @@ function <void> ProcMain(<generatorForTask> appMain)
 {
 	@@_AppMain = appMain;
 
+	/*
+	memo:
+		Canvas.width, Canvas.height == スクリーン・サイズ
+		Canvas.style.width, Canvas.style.height == 表示上のサイズ
+	*/
+
 	Canvas = document.createElement("canvas");
 	Canvas.width  = Screen_W;
 	Canvas.height = Screen_H;
+	Canvas.style.width  = "calc(min(" + Screen_W + "px, 100%))";
+//	Canvas.style.height = Screen_H + "px";
 
 	CanvasBox = document.getElementById("Gattonero20200001-CanvasBox");
-	CanvasBox.style.width  = Screen_W;
-	CanvasBox.style.height = Screen_H;
+	CanvasBox.style.width  = "calc(min(" + Screen_W + "px, 100%))";
+//	CanvasBox.style.height = Screen_H + "px";
 	CanvasBox.innerHTML = "";
 	CanvasBox.appendChild(Canvas);
 
@@ -42,6 +50,7 @@ function <void> ProcMain(<generatorForTask> appMain)
 		LOGPOS();
 	}
 
+//	LoadLocalStorage();
 	@@_Anime();
 }
 
@@ -79,7 +88,7 @@ var<int> @@_HzChaserTime = 0;
 var<int> ProcFrame = 0;
 
 // 描画先コンテキスト(描画先スクリーン)
-var<Context2d> Context = null;
+var Context = null;
 
 function <void> @@_Anime()
 {
