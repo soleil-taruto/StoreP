@@ -1,7 +1,7 @@
 C:\Dev\GameJS\00_Plain\Gattonero20200001\00_Consts.js(6) : Screen_W // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\00_Consts.js(9) : Screen_H // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Credit.js(5) : CreditMain // 関数
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Entrance.js(10) : EntranceMain // 関数
+C:\Dev\GameJS\00_Plain\Gattonero20200001\Entrance.js(5) : EntranceMain // 関数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Loading.js(7) : PrintGameLoading // 関数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Loading.js(23) : PrintGameLoaded // 関数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Program.js(7) : Main // 関数
@@ -223,7 +223,8 @@ C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Music.js(19) : M_T
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(15) : P_Dummy // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(16) : P_WhiteBox // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(17) : P_WhiteCircle // 変数
-C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(21) : P_ExplodePiece // 変数
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(21) : P_GameStartButton // 変数
+C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(22) : P_ExplodePiece // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\SoundEffect.js(19) : S_テスト用 // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\SoundEffect.js(26) : S_SaveDataRemoved // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\00_Consts.js(5) : GameEndReason_e // 定義
