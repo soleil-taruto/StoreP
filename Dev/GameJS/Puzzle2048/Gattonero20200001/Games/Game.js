@@ -682,7 +682,7 @@ function <void> @@_DrawWall()
 	SetPrint(GameArea_L + 10, GameArea_T + 35, 0);
 	SetFSize(25);
 	SetColor("#000080");
-	PrintLine("新しいブロックの数値 : 1 ～ " + Math.pow(2, NewPanelExponentLmt - 1));
+	PrintLine("新しいブロックの番号 : 1 ～ " + Math.pow(2, NewPanelExponentLmt - 1));
 
 	// 枠線描画
 	{
