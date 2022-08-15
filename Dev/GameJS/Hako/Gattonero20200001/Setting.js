@@ -2,6 +2,12 @@
 	設定
 */
 
+function <void> @@_DrawWall()
+{
+	DrawTitleBackground();
+	DrawCurtain(-0.5);
+}
+
 function* <generatorForTask> SettingMain()
 {
 	var<int> selectIndex = 0;
@@ -11,19 +17,18 @@ function* <generatorForTask> SettingMain()
 gameLoop:
 	for (; ; )
 	{
-		SetColor("#a0b0c0");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		@@_DrawWall();
 
-		SetColor("#000000");
-		SetPrint(30, 60, 50);
-		SetFSize(30);
-		PrintLine("■設定");
+		SetColor("#ffffff");
+		SetPrint(90, 110, 50);
+		SetFSize(60);
+		PrintLine("設定");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			70,
-			100,
-			600,
+			170,
+			700,
 			30,
 			[
 				"音楽の音量",
@@ -135,11 +140,10 @@ function* <generatorForTask> @@_VolumeSetting(<string> name, <double> initVolume
 			volumeChanged(volume / 100.0);
 		}
 
-		SetColor("#a0b0c0");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		@@_DrawWall();
 
-		SetColor("#000000");
-		SetPrint(30, 50, 50);
+		SetColor("#ffffff");
+		SetPrint(150, 280, 50);
 		SetFSize(20);
 		PrintLine(name + "の音量設定 ( 現在の音量 = " + volume + " )");
 		PrintLine("上・右ボタン　⇒　音量を上げる");
@@ -174,11 +178,10 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 			break;
 		}
 
-		SetColor("#a0b0c0");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		@@_DrawWall();
 
-		SetColor("#000000");
-		SetPrint(30, 50, 50);
+		SetColor("#ffffff");
+		SetPrint(150, 350, 50);
 		SetFSize(20);
 		PrintLine("ゲームパッドの" + name + "ボタン設定");
 		PrintLine("割り当てるボタンを押して下さい。");
@@ -211,19 +214,18 @@ function* <generatorForTask> @@_RemoveSaveData()
 gameLoop:
 	for (; ; )
 	{
-		SetColor("#a0b0c0");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		@@_DrawWall();
 
-		SetColor("#000000");
-		SetPrint(30, 60, 50);
+		SetColor("#ffffff");
+		SetPrint(100, 300, 50);
 		SetFSize(30);
 		PrintLine("セーブデータを完全に消去します。宜しいですか？");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			70,
-			100,
-			600,
+			350,
+			700,
 			30,
 			[
 				"はい",
