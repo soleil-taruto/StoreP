@@ -4,30 +4,34 @@
 
 function* <generatorForTask> Ending()
 {
-	var<int> INP_ST_FRM = 60
+	var<int> INP_ST_FRM = 120;
 
 	SetCurtain();
 	FreezeInput();
 
 	Play(M_Ending);
 
+	var<double> a_dest = 1.0;
+	var<double> a = 0.0;
+
 	for (var<int> frame = 0; ; frame++)
 	{
-		if (INP_ST_FRM < frame && GetInput_A() == 1)
+		if (INP_ST_FRM < frame && GetMouseDown() == -1 || GetInput_A() == 1 || GetInput_B() == 1)
 		{
 			break;
 		}
 
-		SetColor("#404080");
-		PrintRect(0.0, 0.0, Screen_W, Screen_H);
+		a = Approach(a, a_dest, 0.992);
 
-		Draw(P_EndingString, Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
+		DrawEndingBackground();
+		Draw(P_EndingString, Screen_W / 2, Screen_H / 2, a, 0.0, 1.0);
 
 		if (INP_ST_FRM < frame)
 		{
-			SetPrint(20, 600, 200);
-			SetFSize(24);
-			PrintLine("Ａボタンを押して下さい。");
+			SetColor("#ffffff");
+			SetPrint(Screen_W - 580, Screen_H - 30, 0);
+			SetFSize(20);
+			PrintLine("Ａ・Ｂボタンまたは画面をクリックするとタイトルに戻ります");
 		}
 
 		yield 1;
@@ -37,8 +41,7 @@ function* <generatorForTask> Ending()
 
 	for (var<Scene_t> scene of CreateScene(40))
 	{
-		SetColor("#404080");
-		PrintRect(0.0, 0.0, Screen_W, Screen_H);
+		DrawEndingBackground();
 
 		yield 1;
 	}

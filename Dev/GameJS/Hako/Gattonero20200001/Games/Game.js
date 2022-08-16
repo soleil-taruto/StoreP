@@ -515,10 +515,10 @@ gameLoop:
 
 		selectIndex = DrawSimpleMenu_CPNP(
 			selectIndex,
-			50,
-			160,
+			0,
+			250,
 			700,
-			50,
+			100,
 			true,
 			true,
 			[
