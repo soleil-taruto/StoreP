@@ -22,7 +22,7 @@ function* <generatorForTask> CreditMain()
 	}
 
 	lines.push("");
-	lines.push("Ａ・Ｂボタンまたは画面をクリックするとタイトルに戻ります");
+	lines.push("Ｚ・Ｘキーまたは画面をクリックするとタイトルに戻ります");
 
 	var<int> MARGIN_L = 30;
 	var<int> MARGIN_B = 30;

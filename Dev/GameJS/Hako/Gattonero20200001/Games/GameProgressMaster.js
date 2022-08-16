@@ -171,9 +171,9 @@ function* <generatorForTask> GameProgressMaster()
 		}
 
 		SetColor("#ffffff");
-		SetPrint(Screen_W - 360, Screen_H - 15, 0);
+		SetPrint(Screen_W - 450, Screen_H - 15, 0);
 		SetFSize(20);
-		PrintLine("Ｂボタンを押すとタイトルに戻ります");
+		PrintLine("カーソル：選択　Ｚ：決定　Ｘ：タイトルに戻る");
 
 		yield 1;
 	}

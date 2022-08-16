@@ -31,7 +31,7 @@ function* <generatorForTask> Ending()
 			SetColor("#ffffff");
 			SetPrint(Screen_W - 580, Screen_H - 30, 0);
 			SetFSize(20);
-			PrintLine("Ａ・Ｂボタンまたは画面をクリックするとタイトルに戻ります");
+			PrintLine("Ｚ・Ｘキーまたは画面をクリックするとタイトルに戻ります");
 		}
 
 		yield 1;

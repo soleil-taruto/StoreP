@@ -58,9 +58,9 @@ function* <generatorForTask> @@_Main()
 		// -- choose one --
 
 //		yield* Test01(); // 各ステージをプレイ
-		yield* Test02(); // エンディング
+//		yield* Test02(); // エンディング
 //		yield* Test03();
-//		yield* @@_Main2();
+		yield* @@_Main2();
 
 		// --
 	}
