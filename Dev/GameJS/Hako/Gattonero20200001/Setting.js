@@ -217,14 +217,14 @@ gameLoop:
 		@@_DrawWall();
 
 		SetColor("#ffffff");
-		SetPrint(100, 300, 50);
-		SetFSize(30);
+		SetPrint(100, 330, 50);
+		SetFSize(20);
 		PrintLine("セーブデータを完全に消去します。宜しいですか？");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			70,
-			350,
+			380,
 			700,
 			30,
 			[

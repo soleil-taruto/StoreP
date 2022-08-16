@@ -16,7 +16,8 @@ function* <generatorForTask> Ending()
 
 	for (var<int> frame = 0; ; frame++)
 	{
-		if (INP_ST_FRM < frame && GetMouseDown() == -1 || GetInput_A() == 1 || GetInput_B() == 1)
+		if (INP_ST_FRM < frame)
+		if (GetMouseDown() == -1 || GetInput_A() == 1 || GetInput_B() == 1)
 		{
 			break;
 		}
