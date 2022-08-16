@@ -15,22 +15,22 @@ gameLoop:
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 60, 50);
-		SetFSize(30);
-		PrintLine("■設定");
+		SetPrint(70, 170, 50);
+		SetFSize(40);
+		PrintLine("設定");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			70,
-			100,
+			200,
 			600,
 			30,
 			[
 				"音楽の音量",
 				"効果音の音量",
-				"ゲームパッドのＡボタンの割り当て",
-				"ゲームパッドのＢボタンの割り当て",
-				"ゲームパッドのポーズボタンの割り当て",
+				"ゲームパッド：Ｚキーの割り当て変更",
+				"ゲームパッド：Ｘキーの割り当て変更",
+				"ゲームパッド：スペースキーの割り当て変更",
 				"データの消去",
 				"戻る",
 			]);
@@ -56,15 +56,15 @@ gameLoop:
 			break;
 
 		case 2:
-			yield* @@_PadSetting("Ａ", index => PadInputIndex_A = index);
+			yield* @@_PadSetting("Ｚ", index => PadInputIndex_A = index);
 			break;
 
 		case 3:
-			yield* @@_PadSetting("Ｂ", index => PadInputIndex_B = index);
+			yield* @@_PadSetting("Ｘ", index => PadInputIndex_B = index);
 			break;
 
 		case 4:
-			yield* @@_PadSetting("ポーズ", index => PadInputIndex_Pause = index);
+			yield* @@_PadSetting("スペース", index => PadInputIndex_Pause = index);
 			break;
 
 		case 5:
@@ -139,13 +139,13 @@ function* <generatorForTask> @@_VolumeSetting(<string> name, <double> initVolume
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 50, 50);
+		SetPrint(100, 280, 50);
 		SetFSize(20);
 		PrintLine(name + "の音量設定 ( 現在の音量 = " + volume + " )");
-		PrintLine("上・右ボタン　⇒　音量を上げる");
-		PrintLine("下・左ボタン　⇒　音量を上げる");
-		PrintLine("Ｂボタン　　　⇒　初期値に戻す");
-		PrintLine("Ａボタン　　　⇒　戻る");
+		PrintLine("上・右キー　⇒　音量を上げる");
+		PrintLine("下・左キー　⇒　音量を上げる");
+		PrintLine("Ｘキー　　　⇒　初期値に戻す");
+		PrintLine("Ｚキー　　　⇒　戻る");
 		PrintLine("メニューに戻るにはスペースキーまたは画面をクリックして下さい。");
 
 		yield 1;
@@ -178,10 +178,10 @@ function* <generatorForTask> @@_PadSetting(<string> name, <Action int> a_setBtn)
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 50, 50);
+		SetPrint(100, 360, 50);
 		SetFSize(20);
-		PrintLine("ゲームパッドの" + name + "ボタン設定");
-		PrintLine("割り当てるボタンを押して下さい。");
+		PrintLine("ゲームパッドの「" + name + "キー」設定");
+		PrintLine("「" + name + "キー」を割り当てるボタンを押して下さい。");
 		PrintLine("キャンセルするにはスペースキーまたは画面をクリックして下さい。");
 
 		yield 1;
@@ -215,14 +215,14 @@ gameLoop:
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(30, 60, 50);
-		SetFSize(30);
+		SetPrint(100, 320, 50);
+		SetFSize(20);
 		PrintLine("セーブデータを完全に消去します。宜しいですか？");
 
 		selectIndex = DrawSimpleMenu(
 			selectIndex,
 			70,
-			100,
+			350,
 			600,
 			30,
 			[

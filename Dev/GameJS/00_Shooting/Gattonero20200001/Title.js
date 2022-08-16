@@ -60,11 +60,11 @@ function* <generatorForTask> TitleMain()
 		PrintRect(0, 0, Screen_W, Screen_H);
 
 		SetColor("#000000");
-		SetPrint(50, 150, 0);
+		SetPrint(50, 250, 0);
 		SetFSize(100);
 		PrintLine("Title");
 
-		selectIndex = DrawSimpleMenu(selectIndex, 70, Screen_H - 330, 600, 30, @@_Buttons.map(v => v.Text));
+		selectIndex = DrawSimpleMenu(selectIndex, 70, 440, 600, 30, @@_Buttons.map(v => v.Text));
 
 		if (DSM_Desided)
 		{

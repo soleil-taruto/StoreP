@@ -20,6 +20,7 @@ var<Picture_t> P_WhiteCircle = @@_Load(RESOURCE_General__WhiteCircle_png);
 
 var<Picture_t> P_GameStartButton = @@_Load(RESOURCE_Picture__GameStartButton_png);
 var<Picture_t> P_ExplodePiece = @@_Load(RESOURCE_Picture__åıÇÈêØ20_png);
+var<Picture_t> P_EndingString = @@_Load(RESOURCE_Picture__EndingString_png);
 var<Picture_t> P_Player = @@_Load(RESOURCE_Picture__Player_png);
 var<Picture_t> P_Shot0001 = @@_Load(RESOURCE_Picture__Shot0001_png);
 var<Picture_t> P_Tama0001 = @@_Load(RESOURCE_Picture__Tama0001_png);

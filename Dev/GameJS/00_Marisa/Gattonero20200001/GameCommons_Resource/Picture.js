@@ -20,6 +20,7 @@ var<Picture_t> P_WhiteCircle = @@_Load(RESOURCE_General__WhiteCircle_png);
 
 var<Picture_t> P_GameStartButton = @@_Load(RESOURCE_Picture__GameStartButton_png);
 var<Picture_t> P_ExplodePiece = @@_Load(RESOURCE_Picture__åıÇÈêØ20_png);
+var<Picture_t> P_EndingString = @@_Load(RESOURCE_Picture__EndingString_png);
 var<Picture_t> P_Goal = @@_Load(RESOURCE_Picture__Goal_png);
 
 // ==========

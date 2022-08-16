@@ -26,6 +26,10 @@ function* <generatorForTask> EntranceMain()
 
 		// キー・ボタン押下
 		if (
+			GetInput_2() == 1 ||
+			GetInput_4() == 1 ||
+			GetInput_6() == 1 ||
+			GetInput_8() == 1 ||
 			GetInput_A() == 1 ||
 			GetInput_B() == 1 ||
 			GetInput_Pause() == 1
