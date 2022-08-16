@@ -17,6 +17,11 @@ var @@_Status = {};
 function <void> @@_A_KeyDown(e)
 {
 	@@_Status["" + e.keyCode] = true;
+
+	if (37 <= e.keyCode && e.keyCode <= 40) // ? カーソルキー -> 画面スクロール阻止のため動作キャンセルする。
+	{
+		e.preventDefault();
+	}
 }
 
 function <void> @@_A_KeyUp(e)
