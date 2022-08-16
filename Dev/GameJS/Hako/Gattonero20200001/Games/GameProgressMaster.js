@@ -21,6 +21,9 @@ function* <generatorForTask> GameProgressMaster()
 
 	Play(M_Title);
 
+	var<double> curtain_wl_dest = -0.5;
+	var<double> curtain_wl = 0.0;
+
 	for (; ; )
 	{
 		if (DEBUG && GetKeyInput(85) == 1) // ? U -> 全ステージ開放 -- (デバッグ用)
@@ -120,10 +123,12 @@ function* <generatorForTask> GameProgressMaster()
 		selectY += @@_PANEL_Y_NUM;
 		selectY %= @@_PANEL_Y_NUM;
 
+		curtain_wl = Approach(curtain_wl, curtain_wl_dest, 0.99);
+
 		// 描画ここから
 
-		SetColor("#004060");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		DrawTitleBackground();
+		DrawCurtain(curtain_wl);
 
 		var<int> index = 1;
 
@@ -137,24 +142,25 @@ function* <generatorForTask> GameProgressMaster()
 			{
 				if (canPlayIndex < index)
 				{
-					SetColor("#808000");
+					SetColor("#808000c0");
 				}
 				else
 				{
-					SetColor("#ffff00");
+					SetColor("#ffff00e0");
 				}
 			}
 			else
 			{
 				if (canPlayIndex < index)
 				{
-					SetColor("#808080");
+					SetColor("#808080c0");
 				}
 				else
 				{
-					SetColor("#ffffff");
+					SetColor("#ffffffe0");
 				}
 			}
+
 			PrintRect(l, t, @@_PANEL_W, @@_PANEL_H);
 			SetColor("#000000");
 			SetPrint(l + 45, t + 110, 0);
@@ -177,7 +183,7 @@ function* <generatorForTask> GameProgressMaster()
 
 function* <generatorForTask> @@_Game(<int> startMapIndex)
 {
-	// Leave MapSelectMenu()
+	// Leave from menu
 	{
 		FreezeInput();
 		Fadeout();
@@ -202,7 +208,7 @@ gameBlock:
 		yield* Ending();
 	}
 
-	// Enter MapSelectMenu()
+	// Return to menu
 	{
 		SetCurtain();
 		FreezeInput();

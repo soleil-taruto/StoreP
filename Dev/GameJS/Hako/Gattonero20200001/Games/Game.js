@@ -369,7 +369,7 @@ function <void> @@_DrawWall()
 */
 function <void> @@_DrawFront()
 {
-	SetColor(I3ColorToString(CreateI3Color(40, 30, 20)));
+	SetColor(I3ColorToString(CreateI3Color(40, 40, 20)));
 	PrintRect(
 		0,
 		0,
@@ -382,7 +382,7 @@ function <void> @@_DrawFront()
 		Screen_W - FIELD_R,
 		Screen_H
 		);
-	SetColor(I3ColorToString(CreateI3Color(80, 60, 40)));
+	SetColor(I3ColorToString(CreateI3Color(80, 80, 40)));
 	PrintRect(
 		0,
 		0,
@@ -400,12 +400,6 @@ function <void> @@_DrawFront()
 	SetPrint(20, 80, 0);
 	SetFSize(80);
 	PrintLine("STAGE " + Map.Index);
-
-	SetColor("#ffffff");
-	SetPrint(20, Screen_H - 65, 40);
-	SetFSize(16);
-	PrintLine("操作方法：　左右キー＝移動　下キー＝穴に落ちる　Ａボタン＝ジャンプ　Ｂボタン＝低速移動");
-	PrintLine("キーボード：　方向キー＝カーソルキー・テンキー2468・HJKL　ABボタン＝ZXキー");
 }
 
 /*
@@ -523,7 +517,7 @@ gameLoop:
 			selectIndex,
 			50,
 			160,
-			600,
+			700,
 			50,
 			true,
 			true,

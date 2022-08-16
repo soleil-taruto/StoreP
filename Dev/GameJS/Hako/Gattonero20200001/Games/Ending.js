@@ -21,10 +21,7 @@ function* <generatorForTask> Ending()
 		SetColor("#404080");
 		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
-		SetColor("#ffffff");
-		SetPrint(60, 350, 200);
-		SetFSize(130);
-		PrintLine("エンディング");
+		Draw(P_EndingString, Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
 
 		if (INP_ST_FRM < frame)
 		{

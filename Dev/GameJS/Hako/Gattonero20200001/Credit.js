@@ -5,27 +5,34 @@
 function* <generatorForTask> CreditMain()
 {
 	var<string[]> credits = [ @(CRDT) ];
-	var<int> yStep;
 
 	if (credits.length == 0)
 	{
 		credits = [ "none", "" ];
 	}
 
-	if (credits.length / 2 < 12)
+	var<string[]> lines = [];
+
+	lines.push("■素材 (文字コード順・敬称略)");
+	lines.push("");
+
+	for (var<int> index = 0; index < credits.length; index += 2)
 	{
-		yStep = 50;
-	}
-	else if (credits.length / 2 < 18)
-	{
-		yStep = 36;
-	}
-	else
-	{
-		yStep = 24;
+		lines.push(credits[index] + "　" + credits[index + 1]);
 	}
 
+	lines.push("");
+	lines.push("Ａ・Ｂボタンまたは画面をクリックするとタイトルに戻ります");
+
+	var<int> MARGIN_L = 30;
+	var<int> MARGIN_B = 30;
+
+	var<int> yStep = ToFix((Screen_H - MARGIN_B) / lines.length);
+
 	FreezeInput();
+
+	var<double> w_dest = ToInt(Screen_W * 0.7);
+	var<double> w = 0.0;
 
 	for (; ; )
 	{
@@ -34,23 +41,21 @@ function* <generatorForTask> CreditMain()
 			break;
 		}
 
-		SetColor("#000040");
-		PrintRect(0, 0, Screen_W, Screen_H);
+		w = Approach(w, w_dest, 0.93);
 
-		SetColor("#a0ffff");
-		SetPrint(30, 50, yStep);
+		DrawTitleBackground();
+
+		SetColor("#00000080");
+		PrintRect(0, 0, w, Screen_H);
+
+		SetColor("#ffffff");
+		SetPrint(MARGIN_L, yStep, yStep);
 		SetFSize(20);
-		PrintLine("■素材 (文字コード順・敬称略)");
-		PrintLine("");
 
-		for (var<int> index = 0; index < credits.length; index += 2)
+		for (var<string> line of lines)
 		{
-			PrintLine(credits[index] + "　" + credits[index + 1]);
+			PrintLine(line);
 		}
-
-		SetPrint(Screen_W - 580, Screen_H - 30, 0);
-		SetFSize(20);
-		PrintLine("Ａ・Ｂボタンまたは画面をクリックするとタイトルに戻ります");
 
 		yield 1;
 	}
