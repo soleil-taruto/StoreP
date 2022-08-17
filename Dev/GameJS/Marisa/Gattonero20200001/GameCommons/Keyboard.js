@@ -18,7 +18,7 @@ function <void> @@_A_KeyDown(e)
 {
 	@@_Status["" + e.keyCode] = true;
 
-	if (37 <= e.keyCode && e.keyCode <= 40) // ? カーソルキー -> 画面スクロール阻止のため動作キャンセルする。
+	if ((37 <= e.keyCode && e.keyCode <= 40) || e.keyCode == 32) // ? カーソルキー || スペースキー -> 画面スクロール阻止のため動作キャンセルする。
 	{
 		e.preventDefault();
 	}
