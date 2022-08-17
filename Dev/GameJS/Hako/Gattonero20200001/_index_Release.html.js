@@ -80,7 +80,7 @@ window.onload = function()
 	</tr>
 	<tr>
 		<td>カーソル下 , テンキー2 , S</td>
-		<td>下選択・穴へ降りる</td>
+		<td>下選択・下へ降りる</td>
 	</tr>
 	<tr>
 	</tr>
