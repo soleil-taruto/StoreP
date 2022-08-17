@@ -118,6 +118,11 @@ namespace Charlotte
 
 		private void CollectOut(string parentDir, string outDir)
 		{
+			if (IsEmptyDir(outDir))
+			{
+				return;
+			}
+
 			string archiveFile = GetOnlyOneArchiveFile(outDir);
 
 			if (archiveFile == null)
@@ -134,6 +139,20 @@ namespace Charlotte
 					Path.Combine(this.OutputDir, Path.GetFileName(archiveFile))
 					);
 			}
+		}
+
+		private bool IsEmptyDir(string targDir)
+		{
+			string[] dirs = Directory.GetDirectories(targDir);
+			string[] files = Directory.GetFiles(targDir);
+
+			if (
+				dirs.Length == 0 &&
+				files.Length == 0
+				)
+				return true;
+
+			return false;
 		}
 
 		private string GetOnlyOneArchiveFile(string targDir)
@@ -171,6 +190,18 @@ namespace Charlotte
 
 				SCommon.Merge(rPaths, wPaths, CompDistribute, only1, both1, both2, only2);
 
+				foreach (string str in both1)
+					Console.WriteLine("*< " + str);
+
+				foreach (string str in both2)
+					Console.WriteLine("*> " + str);
+
+				foreach (string str in only1)
+					Console.WriteLine("/< " + str);
+
+				foreach (string str in only2)
+					Console.WriteLine("/> " + str);
+
 				if (only1.Count != 0)
 					throw new Exception("未配信のプロジェクト：" + only1[0]);
 
@@ -197,14 +228,8 @@ namespace Charlotte
 				Console.WriteLine("W " + wPath);
 				Console.WriteLine("> " + destPath);
 
-				/*
 				SCommon.DeletePath(wPath);
-
-				if (Directory.Exists(rPath))
-					SCommon.CopyDir(rPath, destPath);
-				else
-					File.Copy(rPath, destPath);
-				 * */
+				SCommon.CopyPath(rPath, destPath);
 
 				Console.WriteLine("done");
 			}
