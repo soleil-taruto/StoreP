@@ -19,6 +19,8 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
+		private bool OpenOutputDirIfNeeded = true;
+
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -29,7 +31,11 @@ namespace Charlotte
 			{
 				Main4(ar);
 			}
-			SCommon.OpenOutputDirIfCreated();
+
+			if (OpenOutputDirIfNeeded)
+			{
+				SCommon.OpenOutputDirIfCreated();
+			}
 		}
 
 		private void Main3()
@@ -173,6 +179,8 @@ namespace Charlotte
 		private void Distribute()
 		{
 			Console.WriteLine("Distribute-ST");
+
+			OpenOutputDirIfNeeded = false;
 
 			string[] rPaths = Directory.GetDirectories(this.OutputDir)
 				.Concat(Directory.GetFiles(this.OutputDir, "*.zip"))
