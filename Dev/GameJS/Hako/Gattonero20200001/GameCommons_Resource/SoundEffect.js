@@ -19,6 +19,8 @@ function <SE_t> @@_Load(<string> url)
 var<SE_t> S_Jump    = @@_Load(RESOURCE_è¨êXïΩ__jump12_mp3);
 var<SE_t> S_Crashed = @@_Load(RESOURCE_è¨êXïΩ__question_mp3);
 var<SE_t> S_Dead    = @@_Load(RESOURCE_è¨êXïΩ__explosion05_mp3);
+var<SE_t> S_Start   = @@_Load(RESOURCE_è¨êXïΩ__strange_wave_mp3);
+var<SE_t> S_Goal    = @@_Load(RESOURCE_è¨êXïΩ__warp1_mp3);
 
 // ----
 

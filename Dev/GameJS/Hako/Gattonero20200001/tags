@@ -240,8 +240,10 @@ C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\Picture.js(32) : P_End
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(19) : S_Jump // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(20) : S_Crashed // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(21) : S_Dead // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(25) : S_テスト用 // 変数
-C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(32) : S_SaveDataRemoved // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(22) : S_Start // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(23) : S_Goal // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(27) : S_テスト用 // 変数
+C:\Dev\GameJS\Hako\Gattonero20200001\GameCommons_Resource\SoundEffect.js(34) : S_SaveDataRemoved // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\00_Consts.js(75) : GameEndReason_e // 定義
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\00_Consts.js(8) : FIELD_L // 変数
 C:\Dev\GameJS\Hako\Gattonero20200001\Games\00_Consts.js(9) : FIELD_T // 変数

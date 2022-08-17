@@ -407,6 +407,8 @@ function <void> @@_DrawFront()
 */
 function* <generatorForTask> @@_StartMotion()
 {
+	SE(S_Start);
+
 	for (var<Scene_t> scene of CreateScene(40))
 	{
 		@@_DrawWall();
@@ -448,6 +450,13 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 
 		AddEffect_Explode(PlayerX, PlayerY);
 		SE(S_Dead);
+
+		for (var<Scene_t> scene of CreateScene(30))
+		{
+			@@_DrawWall();
+
+			yield 1;
+		}
 	}
 
 	// リスタートのための処理
@@ -479,6 +488,8 @@ function* <generatorForTask> @@_GoalMotion()
 	{
 		yield 1;
 	}
+
+	SE(S_Goal);
 
 	for (var<Scene_t> scene of CreateScene(40))
 	{
@@ -516,9 +527,9 @@ gameLoop:
 		selectIndex = DrawSimpleMenu_CPNP(
 			selectIndex,
 			0,
-			250,
-			700,
-			100,
+			220,
+			760,
+			70,
 			true,
 			true,
 			[

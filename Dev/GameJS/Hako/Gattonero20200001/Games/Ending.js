@@ -6,10 +6,15 @@ function* <generatorForTask> Ending()
 {
 	var<int> INP_ST_FRM = 120;
 
+	Play(M_Ending);
+
+	for (var<int> frame = 0; frame < 60; frame++)
+	{
+		yield 1;
+	}
+
 	SetCurtain();
 	FreezeInput();
-
-	Play(M_Ending);
 
 	var<double> a_dest = 1.0;
 	var<double> a = 0.0;
