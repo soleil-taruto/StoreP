@@ -64,6 +64,7 @@ namespace Charlotte
 		}
 
 		private string OutputDir;
+		private string[] DistributeDirs;
 
 		private void Main5(ArgsReader ar)
 		{
@@ -72,6 +73,19 @@ namespace Charlotte
 			if (!Directory.Exists(rDir))
 				throw new Exception("no rDir");
 
+			if (ar.ArgIs("/D"))
+			{
+				this.DistributeDirs = ar.TrailArgs().Select(v => SCommon.MakeFullPath(v)).ToArray();
+
+				if (this.DistributeDirs.Length < 1)
+					throw new Exception("no DistributeDirs");
+
+				foreach (string dir in this.DistributeDirs)
+					if (!Directory.Exists(dir))
+						throw new Exception("no DistributeDir: " + dir);
+			}
+			ar.End();
+
 			this.OutputDir = SCommon.GetOutputDir();
 
 			Console.WriteLine("< " + rDir);
@@ -79,7 +93,10 @@ namespace Charlotte
 
 			SearchOut(rDir);
 
-			Console.WriteLine("done");
+			if (this.DistributeDirs != null)
+				this.Distribute();
+
+			Console.WriteLine("done!");
 		}
 
 		private void SearchOut(string rDir)
@@ -132,6 +149,95 @@ namespace Charlotte
 				return files[0];
 
 			return null;
+		}
+
+		private void Distribute()
+		{
+			Console.WriteLine("Distribute-ST");
+
+			string[] rPaths = Directory.GetDirectories(this.OutputDir)
+				.Concat(Directory.GetFiles(this.OutputDir, "*.zip"))
+				.ToArray();
+
+			string[] wPaths = SCommon.Concat(this.DistributeDirs.Select(v => Directory.GetDirectories(v)
+				.Concat(Directory.GetFiles(v, "*.zip"))))
+				.ToArray();
+
+			{
+				List<string> only1 = new List<string>();
+				List<string> both1 = new List<string>();
+				List<string> both2 = new List<string>();
+				List<string> only2 = new List<string>();
+
+				SCommon.Merge(rPaths, wPaths, CompDistribute, only1, both1, both2, only2);
+
+				if (only1.Count != 0)
+					throw new Exception("未配信のプロジェクト：" + only1[0]);
+
+				if (only2.Count != 0)
+					throw new Exception("廃止されたプロジェクト：" + only2[0]);
+			}
+
+			if (SCommon.HasSame(rPaths, CompDistribute))
+				throw new Exception("配信元のプロジェクトの重複");
+
+			if (SCommon.HasSame(wPaths, CompDistribute))
+				throw new Exception("配信先のプロジェクトの重複");
+
+			int count = rPaths.Length;
+			//int count = wPaths.Length; // どっちでも良い。
+
+			for (int index = 0; index < count; index++)
+			{
+				string rPath = rPaths[index];
+				string wPath = wPaths[index];
+				string destPath = Path.Combine(Path.GetDirectoryName(wPath), Path.GetFileName(rPath));
+
+				Console.WriteLine("< " + rPath);
+				Console.WriteLine("W " + wPath);
+				Console.WriteLine("> " + destPath);
+
+				/*
+				SCommon.DeletePath(wPath);
+
+				if (Directory.Exists(rPath))
+					SCommon.CopyDir(rPath, destPath);
+				else
+					File.Copy(rPath, destPath);
+				 * */
+
+				Console.WriteLine("done");
+			}
+
+			Console.WriteLine("Distribute-ED");
+		}
+
+		private int CompDistribute(string a, string b)
+		{
+			a = CompDistributeFilter(a);
+			b = CompDistributeFilter(b);
+
+			return SCommon.CompIgnoreCase(a, b);
+		}
+
+		private string CompDistributeFilter(string path)
+		{
+			string name = Path.GetFileName(path);
+
+			// Resolve version number
+			{
+				string fmt = name;
+
+				foreach (char chr in SCommon.DECIMAL)
+					fmt = fmt.Replace(chr, '9');
+
+				if (SCommon.EndsWithIgnoreCase(fmt, "_v9999-999-99999.zip"))
+				{
+					name = name.Substring(0, name.Length - 20) + "_v9999-999-99999.zip";
+				}
+			}
+
+			return name;
 		}
 	}
 }
