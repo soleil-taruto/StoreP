@@ -42,7 +42,8 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			Main4(new ArgsReader(new string[] { @"C:\Dev" }));
+			//Main4(new ArgsReader(new string[] { @"C:\Dev" }));
+			Main4(new ArgsReader(new string[] { @"C:\Dev", "/D", @"C:\temp" }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
@@ -176,11 +177,15 @@ namespace Charlotte
 			return null;
 		}
 
+		/// <summary>
+		/// 配布
+		/// </summary>
 		private void Distribute()
 		{
-			Console.WriteLine("Distribute-ST");
-
+			Console.WriteLine("配布を行うので回収先フォルダは開きません。");
 			OpenOutputDirIfNeeded = false;
+
+			Console.WriteLine("Distribute-ST");
 
 			string[] rPaths = Directory.GetDirectories(this.OutputDir)
 				.Concat(Directory.GetFiles(this.OutputDir, "*.zip"))
@@ -218,10 +223,10 @@ namespace Charlotte
 			}
 
 			if (SCommon.HasSame(rPaths, CompDistribute))
-				throw new Exception("配信元のプロジェクトの重複");
+				throw new Exception("配布元のプロジェクトの重複");
 
 			if (SCommon.HasSame(wPaths, CompDistribute))
-				throw new Exception("配信先のプロジェクトの重複");
+				throw new Exception("配布先のプロジェクトの重複");
 
 			int count = rPaths.Length;
 			//int count = wPaths.Length; // どっちでも良い。
