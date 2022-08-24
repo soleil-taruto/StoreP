@@ -326,9 +326,9 @@ C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Player.js(48) : PlayerMoveFrame 
 C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Player.js(55) : PlayerAttackFrame // •Ï”
 C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Player.js(63) : PlayerAttack // •Ï”
 C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Player_WallProc.js(5) : PlayerWallProc // ŠÖ”
-C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\StageInfos.js(19) : PlayStageMusic // ŠÖ”
-C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\StageInfos.js(38) : GetStageWall // ŠÖ”
-C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\StageInfos.js(57) : GetDefaultTile // ŠÖ”
+C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\StageInfos.js(28) : PlayStageMusic // ŠÖ”
+C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\StageInfos.js(47) : GetStageWall // ŠÖ”
+C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\StageInfos.js(66) : GetDefaultTile // ŠÖ”
 C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Attacks\Attack_BDummy.js(5) : CreateAttack_BDummy // ŠÖ”
 C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Attacks\AttackCommon.js(23) : AttackProcPlayer_Move // ŠÖ”
 C:\Dev\GameJS\00_Marisa\Gattonero20200001\Games\Attacks\AttackCommon.js(130) : AttackProcPlayer_WallProc // ŠÖ”

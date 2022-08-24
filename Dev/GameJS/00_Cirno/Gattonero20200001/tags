@@ -344,8 +344,8 @@ C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(88) : PlayerUwamukiFram
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(95) : PlayerShitamukiFrame // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(102) : PlayerAttackFrame // •Ï”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Player.js(110) : PlayerAttack // •Ï”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(19) : PlayStageMusic // ŠÖ”
-C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(38) : GetStageWall // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(28) : PlayStageMusic // ŠÖ”
+C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\StageInfos.js(47) : GetStageWall // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\Attack_BDummy.js(5) : CreateAttack_BDummy // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(28) : AttackProcPlayer_Move // ŠÖ”
 C:\Dev\GameJS\00_Cirno\Gattonero20200001\Games\Attacks\AttackCommon.js(57) : AttackProcPlayer_Fall // ŠÖ”
