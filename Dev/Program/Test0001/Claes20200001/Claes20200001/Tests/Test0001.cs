@@ -18,12 +18,26 @@ namespace Charlotte.Tests
 
 			for (; ; )
 			{
-				string[] encl = SCommon.ParseEnclosed(text, ":image=http://stackprobe.ccsp.mydns.jp", "]");
+				string[] encl = SCommon.ParseEnclosed(text, "[http://stackprobe.ccsp.mydns.jp", "]");
 
 				if (encl == null)
 					break;
 
-				string url = "http://stackprobe.ccsp.mydns.jp" + encl[2];
+				Action skip = () =>
+				{
+					dest += encl[0] + encl[1] + encl[2] + encl[3];
+					text = encl[4];
+				};
+
+				int start = encl[2].IndexOf(":image=http://stackprobe.ccsp.mydns.jp");
+
+				if (start == -1) // ? イメージじゃないっぽい。
+				{
+					skip();
+					continue;
+				}
+
+				string url = encl[2].Substring(start + 7);
 				url = url.Replace(":58946", "");
 				string mediaType = URLToMediaType(url);
 				byte[] data;
@@ -38,7 +52,7 @@ namespace Charlotte.Tests
 
 				string dataUrl = "data:" + mediaType + ";base64," + SCommon.Base64.I.Encode(data);
 
-				dest += encl[0] + ":image=" + dataUrl + "]";
+				dest += encl[0] + "><img src=\"" + dataUrl + "\"/><";
 				text = encl[4];
 			}
 			dest += text;
