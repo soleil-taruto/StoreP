@@ -62,7 +62,7 @@ function* <generatorForTask> TitleMain()
 		SetColor("#000000");
 		SetPrint(50, 150, 0);
 		SetFSize(100);
-		PrintLine("Title");
+		PrintLine("Doremy");
 
 		selectIndex = DrawSimpleMenu(selectIndex, 70, 280, 600, 30, @@_Buttons.map(v => v.Text));
 

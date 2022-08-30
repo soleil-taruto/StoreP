@@ -8,8 +8,8 @@ var<int> @@_PANEL_W = 200;
 var<int> @@_PANEL_H = 120;
 var<int> @@_PANEL_X_GAP = 30;
 var<int> @@_PANEL_Y_GAP = 20;
-var<int> @@_PANEL_X_NUM = 2;
-var<int> @@_PANEL_Y_NUM = 2;
+var<int> @@_PANEL_X_NUM = 3;
+var<int> @@_PANEL_Y_NUM = 3;
 
 var<int> @@_RETURN_BUTTON_L = 50;
 var<int> @@_RETURN_BUTTON_T = 480;
