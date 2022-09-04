@@ -35,7 +35,7 @@ namespace Charlotte.Tests
 
 			SCommon.ToThrowPrint(() => es.Insert(7, "xxx"));
 			SCommon.ToThrowPrint(() => es.Remove(6));
-			SCommon.ToThrowPrint(() => es.Remove(5, 1));
+			SCommon.ToThrowPrint(() => es.Remove(5, 2));
 		}
 	}
 }
