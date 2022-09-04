@@ -381,15 +381,17 @@ $chrListFuncs
 		{
 			ProcMain.WriteLog("RenameEx-ST");
 
-			EditableString text = new EditableString(SCommon.LinesToText(this.JSLines));
-			CrossStringDictionary wordFilter = new CrossStringDictionary();
+			string text = SCommon.LinesToText(this.JSLines);
 
-			text.Add(" "); // 番兵設置
+			text += " "; // 番兵設置
+
+			StringSpliceSequencer sss = new StringSpliceSequencer(text);
+			CrossStringDictionary wordFilter = new CrossStringDictionary();
 
 			foreach (string word in JSResource.予約語リスト)
 				wordFilter.Add(word, word);
 
-			for (int index = 0; index < text.Count; )
+			for (int index = 0; index < text.Length; )
 			{
 				// ? 文字列の開始
 				if (text[index] == '"')
@@ -458,8 +460,8 @@ $chrListFuncs
 						}
 						else // ? 予約語ではない。既知の置き換え
 						{
-							text.Replace(index, end - index, destWord);
-							index += destWord.Length;
+							sss.Splice(index, end - index, destWord);
+							index = end;
 						}
 					}
 					else // ? 未知の置き換え
@@ -468,14 +470,15 @@ $chrListFuncs
 
 						wordFilter.Add(word, destWord);
 
-						text.Replace(index, end - index, destWord);
-						index += destWord.Length;
+						sss.Splice(index, end - index, destWord);
+						index = end;
 					}
 					continue;
 				}
 				index++;
 			}
-			this.JSLines = SCommon.TextToLines(text.ToString()).ToList();
+			text = sss.GetString();
+			this.JSLines = SCommon.TextToLines(text).ToList();
 			ProcMain.WriteLog("RenameEx-ED");
 		}
 
