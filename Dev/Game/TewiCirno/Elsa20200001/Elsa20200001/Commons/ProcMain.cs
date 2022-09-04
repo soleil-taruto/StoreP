@@ -70,7 +70,7 @@ namespace Charlotte.Commons
 
 			using (SHA512 sha512 = SHA512.Create())
 			{
-				string s = APP_IDENT + GetPETimeDateStamp(SelfFile).ToString();
+				string s = APP_IDENT + GetPETimeDateStamp().ToString();
 				byte[] b = Encoding.UTF8.GetBytes(s);
 				byte[] bh = sha512.ComputeHash(b);
 				string h = string.Join("", bh.Select(bChr => bChr.ToString("x02")));
@@ -298,17 +298,17 @@ namespace Charlotte.Commons
 
 		private static uint? PETimeDateStamp = null;
 
-		public static uint GetPETimeDateStamp(string file)
+		public static uint GetPETimeDateStamp()
 		{
 			if (PETimeDateStamp == null)
-				PETimeDateStamp = GetPETimeDateStamp_Main(file);
+				PETimeDateStamp = GetPETimeDateStamp_Main();
 
 			return PETimeDateStamp.Value;
 		}
 
-		private static uint GetPETimeDateStamp_Main(string file)
+		private static uint GetPETimeDateStamp_Main()
 		{
-			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
+			using (FileStream reader = new FileStream(SelfFile, FileMode.Open, FileAccess.Read))
 			{
 				if (F_ReadByte(reader) != 'M') throw null;
 				if (F_ReadByte(reader) != 'Z') throw null;
