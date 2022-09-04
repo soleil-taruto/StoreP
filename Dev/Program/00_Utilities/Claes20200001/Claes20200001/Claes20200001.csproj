@@ -81,6 +81,7 @@
     <Compile Include="Utilities\BitList.cs" />
     <Compile Include="Utilities\Canvas.cs" />
     <Compile Include="Utilities\CtrCipher.cs" />
+    <Compile Include="Utilities\EditableString.cs" />
     <Compile Include="Utilities\FileCipher.cs" />
     <Compile Include="Utilities\HTTPClient.cs" />
     <Compile Include="Utilities\JsonNode.cs" />
