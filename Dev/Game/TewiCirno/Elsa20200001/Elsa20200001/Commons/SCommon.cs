@@ -2119,6 +2119,9 @@ namespace Charlotte.Commons
 				this.Chars = (SCommon.ALPHA + SCommon.alpha + SCommon.DECIMAL + "+/").ToArray();
 				this.CharMap = new byte[(int)char.MaxValue + 1];
 
+				for (int index = 0; index <= (int)char.MaxValue; index++)
+					this.CharMap[index] = 0xff;
+
 				for (int index = 0; index < 64; index++)
 					this.CharMap[this.Chars[index]] = (byte)index;
 
@@ -2188,29 +2191,20 @@ namespace Charlotte.Commons
 			/// <summary>
 			/// Base64を元のバイト列に変換します。
 			/// 対応フォーマット：
-			/// -- Base64 Encode -- 但し改行を含まないこと。パディング無しでも良い。
+			/// -- Base64 Encode -- パディング無しでも良い。余計な空白・改行が含まれていても良い。
 			/// -- Base64 URL Encode
 			/// </summary>
 			/// <param name="src">Base64</param>
 			/// <returns>元のバイト列</returns>
 			public byte[] Decode(string src)
 			{
-				while (src.Length % 4 != 0)
-					src += CHAR_PADDING;
-
-				int destSize = (src.Length / 4) * 3;
-
-				if (destSize != 0)
+				// パディング除去
+				// 空白・改行などの不要な文字を除去する。
 				{
-					if (src[src.Length - 2] == CHAR_PADDING)
-					{
-						destSize -= 2;
-					}
-					else if (src[src.Length - 1] == CHAR_PADDING)
-					{
-						destSize--;
-					}
+					src = new string(src.Where(v => this.CharMap[(int)v] != 0xff).ToArray());
 				}
+
+				int destSize = (int)(((long)src.Length * 3) / 4);
 				byte[] dest = new byte[destSize];
 				int writer = 0;
 				int index = 0;
