@@ -296,7 +296,17 @@ namespace Charlotte.Commons
 			}
 		}
 
-		private static uint GetPETimeDateStamp(string file)
+		private static uint? PETimeDateStamp = null;
+
+		public static uint GetPETimeDateStamp(string file)
+		{
+			if (PETimeDateStamp == null)
+				PETimeDateStamp = GetPETimeDateStamp_Main(file);
+
+			return PETimeDateStamp.Value;
+		}
+
+		private static uint GetPETimeDateStamp_Main(string file)
 		{
 			using (FileStream reader = new FileStream(file, FileMode.Open, FileAccess.Read))
 			{
