@@ -70,7 +70,7 @@ namespace Charlotte.Commons
 
 			using (SHA512 sha512 = SHA512.Create())
 			{
-				string s = APP_IDENT + GetPETimeDateStamp(SelfFile).ToString();
+				string s = APP_IDENT + GetPETimeDateStamp().ToString();
 				byte[] b = Encoding.UTF8.GetBytes(s);
 				byte[] bh = sha512.ComputeHash(b);
 				string h = string.Join("", bh.Select(bChr => bChr.ToString("x02")));
