@@ -14,14 +14,23 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
-			for (int testcnt = 0; testcnt < 10000; testcnt++)
-			{
-				Test01_a();
-			}
+			Test01_a(10, 1000);
+			Test01_a(100, 100);
+			Test01_a(1000, 10);
+
 			Console.WriteLine("OK!");
 		}
 
-		private void Test01_a()
+		public void Test01_a(int testDataScale, int testCount)
+		{
+			for (int testcnt = 0; testcnt < testCount; testcnt++)
+			{
+				Test01_b(testDataScale);
+			}
+			Console.WriteLine("OK");
+		}
+
+		private void Test01_b(int testDataScale)
 		{
 			string[] words = new string[]
 			{
@@ -33,7 +42,7 @@ namespace Charlotte.Tests
 				"Tonkotsu",
 			};
 
-			string src = string.Join("", Enumerable.Range(0, SCommon.CRandom.GetInt(100)).Select(dummy => SCommon.CRandom.ChooseOne(words)));
+			string src = string.Join("", Enumerable.Range(0, SCommon.CRandom.GetInt(testDataScale)).Select(dummy => SCommon.CRandom.ChooseOne(words)));
 			string word1 = SCommon.CRandom.ChooseOne(words);
 			string word2 = SCommon.CRandom.ChooseOne(words);
 
@@ -63,19 +72,34 @@ namespace Charlotte.Tests
 
 		public void Test02()
 		{
-			for (int testcnt = 0; testcnt < 10000; testcnt++)
-			{
-				Test02_a();
-			}
+			Test02_a(100, 10000);
+			Test02_a(300, 3000);
+			Test02_a(1000, 1000);
+			Test02_a(3000, 300);
+			Test02_a(10000, 100);
+
 			Console.WriteLine("OK!");
 		}
 
-		private void Test02_a()
+		public void Test02_a(int testDataScale, int testCount)
 		{
-			char[] SRC_CHARS = SCommon.HALF.ToArray();
+			for (int testcnt = 0; testcnt < testCount; testcnt++)
+			{
+				Test02_b(testDataScale, testDataScale);
+				Test02_b(testDataScale, testDataScale / 3);
+				Test02_b(testDataScale, testDataScale / 10);
+			}
+			Console.WriteLine("OK");
+		}
+
+		private void Test02_b(int testDataScale, int subTestDataScale)
+		{
+			if (subTestDataScale < 2) throw null; // 2bs
+
+			char[] TEST_CHARS = SCommon.HALF.ToArray();
 			string src = new string(Enumerable
-				.Range(0, SCommon.CRandom.GetInt(100))
-				.Select(dummy => SCommon.CRandom.ChooseOne(SRC_CHARS))
+				.Range(0, SCommon.CRandom.GetInt(testDataScale))
+				.Select(dummy => SCommon.CRandom.ChooseOne(TEST_CHARS))
 				.ToArray());
 
 			string ans1 = src;
@@ -88,19 +112,19 @@ namespace Charlotte.Tests
 
 			for (; ; )
 			{
-				int span = SCommon.CRandom.GetInt(30);
+				int span = SCommon.CRandom.GetInt(subTestDataScale);
 
 				index1 += span;
 				index2 += span;
 
-				int removeLength = SCommon.CRandom.GetInt(30);
+				int removeLength = SCommon.CRandom.GetInt(subTestDataScale);
 
 				if (ans1.Length < index1 + removeLength)
 					break;
 
 				string newPart = new string(Enumerable
-					.Range(0, SCommon.CRandom.GetInt(30))
-					.Select(dummy => SCommon.CRandom.ChooseOne(SRC_CHARS))
+					.Range(0, SCommon.CRandom.GetInt(subTestDataScale))
+					.Select(dummy => SCommon.CRandom.ChooseOne(TEST_CHARS))
 					.ToArray());
 
 				ans1 = ans1.Substring(0, index1) + newPart + ans1.Substring(index1 + removeLength);
