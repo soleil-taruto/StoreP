@@ -88,6 +88,13 @@ namespace Charlotte.Utilities
 			_chars.RemoveRange(index, count);
 		}
 
+		public void Replace(int index, int count, string str)
+		{
+			this.CheckRange(index, count);
+			_chars.RemoveRange(index, count);
+			_chars.InsertRange(index, str);
+		}
+
 		public string Substring(int index, int count)
 		{
 			this.CheckRange(index, count);

@@ -77,6 +77,7 @@
     <Compile Include="Tests\Test0005.cs" />
     <Compile Include="Tests\Test0006.cs" />
     <Compile Include="Tests\Test0007.cs" />
+    <Compile Include="Tests\Test0008.cs" />
     <Compile Include="Utilities\AESCipher.cs" />
     <Compile Include="Utilities\BitList.cs" />
     <Compile Include="Utilities\Canvas.cs" />
