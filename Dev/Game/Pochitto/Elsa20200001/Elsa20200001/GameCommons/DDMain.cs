@@ -193,7 +193,7 @@ namespace Charlotte.GameCommons
 		public static void SetMainWindowTitle()
 		{
 			string revision = GetRevision(
-				new SCommon.SimpleDateTime(SCommon.TimeStampToSec.ToSec(19700101090000) + ProcMain.GetPETimeDateStamp())
+				new SCommon.SimpleDateTime(SCommon.TimeStampToSec.ToSec(19700101090000) + ProcMain.GetPETimeDateStamp(ProcMain.SelfFile))
 				);
 
 			DX.SetMainWindowText(DDDatStrings.Title + " / " + revision);
