@@ -7,6 +7,9 @@ using Charlotte.Utilities;
 
 namespace Charlotte.Tests
 {
+	/// <summary>
+	/// EditableString.cs テスト
+	/// </summary>
 	public class Test0008
 	{
 		public void Test01()

@@ -66,7 +66,8 @@ namespace Charlotte
 			//new Test0006().Test02(); // JapaneseDate
 			//new Test0006().Test03(); // JapaneseDate
 			//new Test0007().Test01(); // BitList
-			new Test0008().Test01(); // EditableString
+			//new Test0008().Test01(); // EditableString
+			new Test0009().Test01(); // StringSpliceSequencer
 
 			// --
 		}
