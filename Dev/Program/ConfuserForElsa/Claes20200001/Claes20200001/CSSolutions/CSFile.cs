@@ -604,8 +604,8 @@ namespace Charlotte.CSSolutions
 
 			return
 				"SAM_a_" +
-				SCommon.CRandom.GetUInt64().ToString("D20") + "_" +
-				SCommon.CRandom.GetUInt64().ToString("D20") +
+				SCommon.CRandom.GetULong().ToString("D20") + "_" +
+				SCommon.CRandom.GetULong().ToString("D20") +
 				"_z";
 		}
 
@@ -944,8 +944,8 @@ namespace Charlotte.CSSolutions
 
 			return
 				"SLS2_a_" +
-				SCommon.CRandom.GetUInt64().ToString("D20") + "_" +
-				SCommon.CRandom.GetUInt64().ToString("D20") +
+				SCommon.CRandom.GetULong().ToString("D20") + "_" +
+				SCommon.CRandom.GetULong().ToString("D20") +
 				"_z";
 		}
 
@@ -1265,8 +1265,8 @@ namespace Charlotte.CSSolutions
 
 			return
 				"ADM_a_" +
-				SCommon.CRandom.GetUInt64().ToString("D20") + "_" +
-				SCommon.CRandom.GetUInt64().ToString("D20") +
+				SCommon.CRandom.GetULong().ToString("D20") + "_" +
+				SCommon.CRandom.GetULong().ToString("D20") +
 				"_z";
 		}
 
