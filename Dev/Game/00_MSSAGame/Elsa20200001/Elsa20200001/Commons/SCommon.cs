@@ -2020,9 +2020,13 @@ namespace Charlotte.Commons
 
 		public static void Batch(IList<string> commands, string workingDir = "", StartProcessWindowStyle_e winStyle = StartProcessWindowStyle_e.INVISIBLE)
 		{
+			// Batch-名は何でも良い。
+			// 折角なので何かの時のためにタスマネから目視で発見・判別し易い名前にしておく。
+			const string BATCH_NAME = "ChocolateCupCakeRecipe.bat";
+
 			using (WorkingDir wd = new WorkingDir())
 			{
-				string batFile = wd.GetPath("Angelica.bat");
+				string batFile = wd.GetPath(BATCH_NAME);
 
 				File.WriteAllLines(batFile, commands, ENCODING_SJIS);
 
