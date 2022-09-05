@@ -39,7 +39,7 @@ namespace Charlotte.Tests
 				"Syoyu",
 				"Hakata",
 				"Sapporo",
-				"Tonkotsu",
+				"Kitakata",
 			};
 
 			string src = string.Join("", Enumerable.Range(0, SCommon.CRandom.GetInt(testDataScale)).Select(dummy => SCommon.CRandom.ChooseOne(words)));
