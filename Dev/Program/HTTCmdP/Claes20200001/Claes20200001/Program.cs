@@ -156,6 +156,12 @@ namespace Charlotte
 
 								continue;
 							}
+							if (ar.ArgIs("/B"))
+							{
+								Common.BatchServiceCredentials = ar.NextArg();
+								ProcMain.WriteLog("BatchServiceCredentials: " + Common.BatchServiceCredentials);
+								continue;
+							}
 							break;
 						}
 					}
