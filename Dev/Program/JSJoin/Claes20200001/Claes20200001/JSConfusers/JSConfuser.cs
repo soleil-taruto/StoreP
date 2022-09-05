@@ -386,10 +386,10 @@ $chrListFuncs
 			text += " "; // 番兵設置
 
 			StringSpliceSequencer sss = new StringSpliceSequencer(text);
-			CrossStringDictionary wordFilter = new CrossStringDictionary();
+			CrossDictionary knownWordPairs = new CrossDictionary();
 
 			foreach (string word in JSResource.予約語リスト)
-				wordFilter.Add(word, word);
+				knownWordPairs.Add(word, word);
 
 			for (int index = 0; index < text.Length; )
 			{
@@ -434,9 +434,9 @@ $chrListFuncs
 					{
 						index = end;
 					}
-					else if (wordFilter.ContainsKey(word))
+					else if (knownWordPairs.ContainsKey(word))
 					{
-						string destWord = wordFilter[word];
+						string destWord = knownWordPairs[word];
 
 						if (word == destWord) // ? 予約語である。
 						{
@@ -466,9 +466,9 @@ $chrListFuncs
 					}
 					else // ? 未知の置き換え
 					{
-						string destWord = JSCommon.CreateNewIdent(v => !wordFilter.ContainsValue(v));
+						string destWord = JSCommon.CreateNewIdent(v => !knownWordPairs.ContainsValue(v));
 
-						wordFilter.Add(word, destWord);
+						knownWordPairs.Add(word, destWord);
 
 						sss.Splice(index, end - index, destWord);
 						index = end;

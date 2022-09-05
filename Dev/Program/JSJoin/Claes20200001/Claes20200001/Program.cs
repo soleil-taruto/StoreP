@@ -168,7 +168,7 @@ namespace Charlotte
 				SCommon.CreateDir(resDir);
 			}
 			HashSet<string> resNames = new HashSet<string>();
-			UniqueFilter<string> resFileNameGen = new UniqueFilter<string>(() => SCommon.CRandom.GetInt(100000000).ToString("D8"));
+			UniqueIssuer resFileNameGen = new UniqueIssuer(() => SCommon.CRandom.GetInt(100000000).ToString("D8"));
 
 			foreach (string file in this.ResourceFiles)
 			{
