@@ -36,7 +36,6 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			//Main4(new ArgsReader(new string[] { @"C:\Dev\Template\Games\Dungeon\Elsa20200001\Elsa20200001.sln", @"C:\temp" }));
 			new Test0001().Test01(); // 難読化テスト
 			//new Test0002().Test01(); // 似非英語名の長さの頻度分布
 			//new Test0002().Test02(); // 使われない単語がどれくらいあるか
