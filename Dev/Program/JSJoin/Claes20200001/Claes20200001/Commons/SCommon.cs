@@ -1937,7 +1937,7 @@ namespace Charlotte.Commons
 		{
 			using (WorkingDir wd = new WorkingDir())
 			{
-				string batFile = wd.GetPath("a.bat");
+				string batFile = wd.GetPath("Angelica.bat");
 
 				File.WriteAllLines(batFile, commands, ENCODING_SJIS);
 
