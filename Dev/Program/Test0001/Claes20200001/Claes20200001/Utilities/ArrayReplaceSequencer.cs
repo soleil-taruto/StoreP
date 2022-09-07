@@ -23,20 +23,6 @@ namespace Charlotte.Utilities
 					return this.Start + this.RemoveLength;
 				}
 			}
-
-			public static int OrderComp(RangeInfo a, RangeInfo b)
-			{
-				int ret = a.Start - b.Start;
-				if (ret != 0)
-					return ret;
-
-				ret = a.RemoveLength - b.RemoveLength;
-				if (ret != 0)
-					return ret;
-
-				ret = a.Serial - b.Serial;
-				return ret;
-			}
 		}
 
 		private List<RangeInfo> Ranges = new List<RangeInfo>();
@@ -66,7 +52,23 @@ namespace Charlotte.Utilities
 			if (srcArr == null)
 				throw new ArgumentException("Bad source array");
 
-			this.Ranges.Sort(RangeInfo.OrderComp);
+			// 置き換える範囲を先頭に近い方から順に並べ替える。
+			// 同じ位置(削除する長さ=0)の場合は、追加された順とする。
+			// -- 例えば .Add(100, 0, PART_1) -> .Add(100, 0, PART_2) の順で実行された場合 100 の位置に PART_1 + PART_2 が挿入される。
+			this.Ranges.Sort((a, b) =>
+			{
+				int ret = a.Start - b.Start;
+
+				if (ret != 0)
+					return ret;
+
+				ret = a.RemoveLength - b.RemoveLength;
+
+				if (ret != 0)
+					return ret;
+
+				return a.Serial - b.Serial;
+			});
 
 			foreach (RangeInfo range in this.Ranges)
 			{
