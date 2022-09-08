@@ -10,14 +10,14 @@ namespace Charlotte.Utilities
 {
 	public static class GitCommandUtils
 	{
-		private static string _getProgram = null;
+		private static string _gitProgram = null;
 
 		public static string GetGitProgram()
 		{
-			if (_getProgram == null)
-				_getProgram = GetGitProgram_Main();
+			if (_gitProgram == null)
+				_gitProgram = GetGitProgram_Main();
 
-			return _getProgram;
+			return _gitProgram;
 		}
 
 		private static string GetGitProgram_Main()

@@ -71,6 +71,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Test0001.cs" />
+    <Compile Include="Utilities\DirCompressUtils.cs" />
     <Compile Include="Utilities\GitCommandUtils.cs" />
   </ItemGroup>
   <ItemGroup />
