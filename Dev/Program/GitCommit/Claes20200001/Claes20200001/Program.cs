@@ -106,11 +106,11 @@ namespace Charlotte
 			if (!Directory.Exists(dir))
 				throw new Exception("no dir: " + dir);
 
-			if (!Directory.Exists(Path.Combine(dir, ".git")))
-				throw new Exception("no .git: " + dir);
+			if (!Directory.Exists(Path.Combine(dir, Consts.DOT_GIT)))
+				throw new Exception("no .git");
 
-			if (!File.Exists(Path.Combine(dir, ".gitattributes")))
-				throw new Exception("no .gitattributes: " + dir);
+			if (!File.Exists(Path.Combine(dir, Consts.DOT_GIT_ATTRIBUTES)))
+				throw new Exception("no .gitattributes");
 
 			if (string.IsNullOrEmpty(commitComment))
 				throw new Exception("no commitComment");

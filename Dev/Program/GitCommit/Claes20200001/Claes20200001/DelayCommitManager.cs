@@ -166,7 +166,7 @@ namespace Charlotte
 
 			string storedDir = storedDirs[0];
 
-			if (Directory.Exists(storedDir))
+			if (!Directory.Exists(storedDir))
 				throw new Exception("no storedDir");
 
 			foreach (string subDir in Directory.GetDirectories(dir))
@@ -185,11 +185,17 @@ namespace Charlotte
 			}
 			foreach (string subDir in Directory.GetDirectories(storedDir))
 			{
-				SCommon.CopyDir(subDir, Path.Combine(dir, Path.GetFileName(subDir)));
+				if (SCommon.EqualsIgnoreCase(Path.GetFileName(subDir), Consts.DOT_GIT))
+					throw new Exception("Bad DOT_GIT");
+
+				Directory.Move(subDir, Path.Combine(dir, Path.GetFileName(subDir)));
 			}
 			foreach (string file in Directory.GetFiles(storedDir))
 			{
-				File.Copy(file, Path.Combine(dir, Path.GetFileName(file)));
+				if (SCommon.EqualsIgnoreCase(Path.GetFileName(file), Consts.DOT_GIT_ATTRIBUTES))
+					throw new Exception("Bad DOT_GIT_ATTRIBUTES");
+
+				File.Move(file, Path.Combine(dir, Path.GetFileName(file)));
 			}
 			SCommon.DeletePath(storedDir);
 		}
