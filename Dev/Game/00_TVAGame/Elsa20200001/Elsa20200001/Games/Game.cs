@@ -43,6 +43,7 @@ namespace Charlotte.Games
 			public bool DIR_6 = false;
 			public bool DIR_8 = false;
 			public bool Fast = false;
+			public bool Slow = false;
 			public bool Attack = false;
 			//public bool 武器切り替え = false; // 直接 this.Player.選択武器 を変更した方が早い
 		}
@@ -198,10 +199,12 @@ namespace Charlotte.Games
 
 					bool fast =
 						!damageOrUID && 1 <= DDInput.R.GetInput() || this.PlayerHacker.Fast;
+					bool slow =
+						!damageOrUID && 1 <= DDInput.A.GetInput() || this.PlayerHacker.Slow;
 					bool attack =
 						!damageOrUID && 1 <= DDInput.B.GetInput() || this.PlayerHacker.Attack;
 					bool changeWeapon =
-						!damageOrUID && DDInput.A.GetInput() == 1;
+						!damageOrUID && DDInput.C.GetInput() == 1;
 
 					if (Ground.I.FastReverseMode)
 						fast = !fast;
@@ -209,7 +212,10 @@ namespace Charlotte.Games
 					double speed = GameConsts.PLAYER_SPEED;
 
 					if (fast)
-						speed = GameConsts.PLAYER_FAST_SPEED;
+						speed *= GameConsts.PLAYER_FAST_SPEED_RATE;
+
+					if (slow)
+						speed *= GameConsts.PLAYER_SLOW_SPEED_RATE;
 
 					double nanameSpeed = speed / Consts.ROOT_OF_2;
 
@@ -257,7 +263,7 @@ namespace Charlotte.Games
 						default:
 							throw null; // never
 					}
-					if (dir != 5 && !attack)
+					if (dir != 5 && !slow && !attack)
 						this.Player.FaceDirection = dir;
 
 					if (dir != 5)
