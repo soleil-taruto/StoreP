@@ -67,12 +67,30 @@ namespace Charlotte
 
 		private void Main5(ArgsReader ar)
 		{
+			int dailyLimitCount = SCommon.IMAX;
+
+			if (ar.ArgIs("/L"))
+			{
+				dailyLimitCount = int.Parse(ar.NextArg());
+
+				if (dailyLimitCount < 1 || SCommon.IMAX < dailyLimitCount)
+					throw new Exception("Bad dailyLimitCount");
+			}
 			string commitComment = ar.NextArg();
 			string dir = ar.NextArg();
 
 			ar.End();
 
-			Commit(dir, commitComment);
+			DelayCommitManager dcm = new DelayCommitManager();
+
+			dcm.Store(dir);
+
+			while (1 <= dcm.GetStoredCount() && dcm.GetTodayCommitCount() < dailyLimitCount)
+			{
+				dcm.Restore(dir);
+				Commit(dir, commitComment);
+				dcm.IncrementCommitCount();
+			}
 		}
 
 		/// <summary>

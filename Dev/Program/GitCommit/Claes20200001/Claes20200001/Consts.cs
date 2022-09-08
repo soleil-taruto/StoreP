@@ -7,6 +7,7 @@ namespace Charlotte
 {
 	public static class Consts
 	{
-		// none
+		public const string DOT_GIT = ".git";
+		public const string DOT_GIT_ATTRIBUTES = ".gitattributes";
 	}
 }
