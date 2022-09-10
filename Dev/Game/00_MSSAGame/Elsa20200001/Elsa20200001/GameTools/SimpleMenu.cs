@@ -38,8 +38,10 @@ namespace Charlotte.GameTools
 				DDPrint.SetBorder(this.BorderColor.Value);
 		}
 
-		public int Perform(int selectIndex, int x, int y, int yStep, int fontSize, string title, string[] items, bool ポーズボタンでメニュー終了 = false, bool noPound = false)
+		public int Perform(int selectIndex, int x, int y, int yStep, int fontSize, string title, string[] items, bool cancelByPause = false, bool noPound = false)
 		{
+			// タイトル無しにするには title == "" とし、空のタイトル位置を考慮した x, y を指定すること。
+
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
 
@@ -65,7 +67,7 @@ namespace Charlotte.GameTools
 					}
 				}
 
-				if (ポーズボタンでメニュー終了 && DDInput.PAUSE.GetInput() == 1)
+				if (cancelByPause && DDInput.PAUSE.GetInput() == 1)
 				{
 					selectIndex = items.Length - 1;
 					break;
@@ -115,15 +117,12 @@ namespace Charlotte.GameTools
 				//DDPrint.Print("[M:" + (this.MouseUsable ? "E" : "D") + "]");
 
 				DDPrint.SetPrint(x, y, yStep, fontSize);
-				//DDPrint.SetPrint(16, 16, 32); // old
 				DDPrint.PrintLine(title);
 
 				for (int c = 0; c < items.Length; c++)
 				{
 					DDPrint.PrintLine(string.Format("[{0}] {1}", selectIndex == c ? ">" : " ", items[c]));
 				}
-				DDPrint.Reset();
-
 				DDEngine.EachFrame();
 			}
 			DDEngine.FreezeInput();

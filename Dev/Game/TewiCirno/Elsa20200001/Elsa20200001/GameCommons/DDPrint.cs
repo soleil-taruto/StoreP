@@ -53,6 +53,7 @@ namespace Charlotte.GameCommons
 
 		/// <summary>
 		/// 開発デバッグ用文字列描画準備
+		/// XY-位置は最初の文字の左上座標
 		/// </summary>
 		/// <param name="x">X-位置</param>
 		/// <param name="y">Y-位置</param>
@@ -69,6 +70,7 @@ namespace Charlotte.GameCommons
 
 		/// <summary>
 		/// ゲーム画面用文字列描画準備
+		/// XY-位置は最初の文字の左上座標
 		/// </summary>
 		/// <param name="x">X-位置</param>
 		/// <param name="y">Y-位置</param>

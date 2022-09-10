@@ -40,7 +40,7 @@ namespace Charlotte.GameTools
 
 		public int Perform(int selectIndex, int x, int y, int yStep, int fontSize, string title, string[] items, bool cancelByPause = false, bool noPound = false)
 		{
-			bool noTitle = string.IsNullOrEmpty(title);
+			// タイトル無しにするには title == "" とし、空のタイトル位置を考慮した x, y を指定すること。
 
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
@@ -49,7 +49,7 @@ namespace Charlotte.GameTools
 			{
 				if (this.MouseUsable)
 				{
-					int musSelIdxY = DDMouse.Y - (noTitle ? y : y + yStep);
+					int musSelIdxY = DDMouse.Y - (y + yStep);
 					int musSelIdx = musSelIdxY / yStep;
 
 					DDUtils.ToRange(ref musSelIdx, 0, items.Length - 1);
@@ -104,7 +104,7 @@ namespace Charlotte.GameTools
 				if (this.MouseUsable && chgsel)
 				{
 					DDMouse.X = 0;
-					DDMouse.Y = (noTitle ? y : y + yStep) + selectIndex * yStep + yStep / 2;
+					DDMouse.Y = y + (selectIndex + 1) * yStep + yStep / 2;
 
 					DDMouse.PosChanged();
 				}
@@ -117,11 +117,8 @@ namespace Charlotte.GameTools
 				//DDPrint.Print("[M:" + (this.MouseUsable ? "E" : "D") + "]");
 
 				DDPrint.SetPrint(x, y, yStep, fontSize);
+				DDPrint.PrintLine(title);
 
-				if (!noTitle)
-				{
-					DDPrint.PrintLine(title);
-				}
 				for (int c = 0; c < items.Length; c++)
 				{
 					DDPrint.PrintLine(string.Format("[{0}] {1}", selectIndex == c ? ">" : " ", items[c]));
