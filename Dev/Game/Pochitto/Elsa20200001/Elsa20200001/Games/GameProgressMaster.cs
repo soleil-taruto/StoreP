@@ -25,11 +25,6 @@ namespace Charlotte.Games
 
 		public void StartGame()
 		{
-			using (new Novel())
-			{
-				Novel.I.Status.Scenario = new Scenario("Start");
-				Novel.I.Perform();
-			}
 			using (new WorldGameMaster())
 			{
 				WorldGameMaster.I.World = new World("Start");

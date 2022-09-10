@@ -75,7 +75,7 @@ namespace Charlotte.Games
 
 			for (; ; )
 			{
-				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "横スクロール アクション ゲーム(仮)", items);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "", items);
 
 				bool cheatFlag;
 
