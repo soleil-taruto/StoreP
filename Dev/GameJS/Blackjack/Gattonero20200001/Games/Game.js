@@ -4,6 +4,9 @@
 
 function* <generatorForTask> GameMain()
 {
+	FreezeInput();
+	ClearAllActor();
+
 	for (; ; )
 	{
 		if (GetInput_A() == 1)
@@ -19,6 +22,9 @@ function* <generatorForTask> GameMain()
 		SetFSize(20);
 		PrintLine("‚`ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆI—¹...");
 
+		ExecuteAllActor();
+
 		yield 1;
 	}
+	FreezeInput();
 }
