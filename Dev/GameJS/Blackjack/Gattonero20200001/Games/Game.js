@@ -17,11 +17,6 @@ function* <generatorForTask> GameMain()
 		SetColor("#000000");
 		PrintRect(0.0, 0.0, Screen_W, Screen_H);
 
-		SetColor("#00ff00");
-		SetPrint(20, 40, 0);
-		SetFSize(20);
-		PrintLine("‚`ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆI—¹...");
-
 		ExecuteAllActor();
 
 		yield 1;
