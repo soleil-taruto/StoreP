@@ -14,6 +14,16 @@ function <void> AddActor(<Actor_t> actor)
 	@@_Actors.push(actor);
 }
 
+function <void> KillActor(<Actor_t> actor)
+{
+	if (!actor)
+	{
+		error();
+	}
+
+	actor.Killed = true;
+}
+
 function <void> ClearAllActor()
 {
 	@@_Actors = [];
@@ -25,7 +35,7 @@ function <void> ExecuteAllActor()
 	{
 		var<Actor_t> actor = @@_Actors[index];
 
-		if (!NextVal(actor.Draw()))
+		if (actor.Killed || !NextVal(actor.Draw))
 		{
 			@@_Actors[index] = null;
 		}

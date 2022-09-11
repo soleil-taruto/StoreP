@@ -4,13 +4,20 @@
 
 function* <generatorForTask> Test01()
 {
-	yield* GameMain(0); // テスト用ステージ
-//	yield* GameMain(1);
-//	yield* GameMain(2);
-//	yield* GameMain(3);
-}
+	ClearAllActor();
 
-function* <generatorForTask> Test02()
-{
-	yield* Ending();
+	var<Actor_t> card = CreateActor_Trump(Screen_W / 2.0, Screen_H / 2.0, 1, 1, false);
+
+	AddActor(card);
+
+	for (; ; )
+	{
+		ClearScreen();
+
+		SetTrumpReversed(card, ToFix(ProcFrame / 120) % 2 == 1);
+
+		ExecuteAllActor();
+
+		yield 1;
+	}
 }

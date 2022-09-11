@@ -19,6 +19,8 @@
 	// 偽を返すとこのアクターを破棄する。
 	//
 	<generatorForTask> Draw
+
+	<boolean> Killed // 死亡フラグ
 }
 
 @(ASTR)/
