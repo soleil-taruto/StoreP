@@ -91,6 +91,10 @@ namespace Charlotte
 		public DDPicture Tile_E = DDPictureLoaders.Standard(@"dat\FSM\TileE.png");
 		public DDPicture Tile_Dummy = DDPictureLoaders.Standard(@"dat\Tile\DummyTile.png");
 
+		public DDPicture Enemy_TrumpBack = DDPictureLoaders.Standard(@"dat\TrumpBack.png");
+		public DDPicture Enemy_TrumpFrame = DDPictureLoaders.Standard(@"dat\TrumpFrame.png");
+		public DDPicture Enemy_TrumpS01 = DDPictureLoaders.Standard(@"dat\TrumpS01.png");
+
 		public DDPicture Enemy_神奈子 = DDPictureLoaders.Standard(@"dat\きつね仮\yukkuri-kanako.png");
 
 		// ノベルパート用システム画像

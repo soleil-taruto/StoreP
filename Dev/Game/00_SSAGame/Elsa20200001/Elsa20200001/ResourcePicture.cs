@@ -112,6 +112,10 @@ namespace Charlotte
 
 		public DDPicture Enemy_B0003 = DDPictureLoaders.Standard(@"dat\Enemy_B0003.png");
 
+		public DDPicture Enemy_TrumpBack = DDPictureLoaders.Standard(@"dat\TrumpBack.png");
+		public DDPicture Enemy_TrumpFrame = DDPictureLoaders.Standard(@"dat\TrumpFrame.png");
+		public DDPicture Enemy_TrumpS01 = DDPictureLoaders.Standard(@"dat\TrumpS01.png");
+
 		public DDPicture Enemy_神奈子 = DDPictureLoaders.Standard(@"dat\きつね仮\yukkuri-kanako.png"); // 1000x1000 resized png
 
 		// ノベルパート用システム画像

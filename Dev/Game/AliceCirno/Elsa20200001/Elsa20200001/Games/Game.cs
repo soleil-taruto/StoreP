@@ -1203,6 +1203,11 @@ namespace Charlotte.Games
 
 		private void ReloadEnemies()
 		{
+			// 敵をクリアする前にちゃんと殺しておく。
+			// -- 敵の死亡をモニタして終了(自滅)するタスクのため -- 例：Enemy_B1001.E_AttackTask
+			foreach (Enemy enemy in this.Enemies.Iterate())
+				enemy.DeadFlag = true;
+
 			this.Enemies.Clear();
 
 			for (int x = 0; x < this.Map.W; x++)
