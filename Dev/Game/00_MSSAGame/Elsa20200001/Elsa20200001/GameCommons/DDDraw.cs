@@ -357,12 +357,18 @@ namespace Charlotte.GameCommons
 		public static void DrawRect_LTRB(DDPicture picture, double l, double t, double r, double b)
 		{
 			if (
-				l < -(double)SCommon.IMAX || (double)SCommon.IMAX - 1.0 < l ||
-				t < -(double)SCommon.IMAX || (double)SCommon.IMAX - 1.0 < t ||
-				r < l + 1.0 || (double)SCommon.IMAX < r ||
-				b < t + 1.0 || (double)SCommon.IMAX < b
+				l < -(double)SCommon.IMAX || (double)SCommon.IMAX < l ||
+				t < -(double)SCommon.IMAX || (double)SCommon.IMAX < t ||
+				r < l || (double)SCommon.IMAX < r ||
+				b < t || (double)SCommon.IMAX < b
 				)
 				throw new DDError();
+
+			if (
+				r < l + 1.0 ||
+				b < t + 1.0
+				)
+				return; // 細すぎるので描画しない。
 
 			RectInfo layout = new RectInfo()
 			{

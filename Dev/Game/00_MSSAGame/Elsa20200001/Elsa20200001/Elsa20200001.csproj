@@ -76,6 +76,7 @@
     <Compile Include="GameCommons\DDHash.cs" />
     <Compile Include="GameCommons\DDHashedData.cs" />
     <Compile Include="GameCommons\DDHashedResource.cs" />
+    <Compile Include="Games\Enemies\Tests\Enemy_BTrump.cs" />
     <Compile Include="GameTools\AppConfig.cs" />
     <Compile Include="GameTools\AppSaveDataUtils.cs" />
     <Compile Include="GameTools\TableMenu.cs" />
