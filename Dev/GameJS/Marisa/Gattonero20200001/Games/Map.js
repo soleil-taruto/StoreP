@@ -113,13 +113,6 @@ function <void> LoadMap(<int> mapIndex)
 //
 function <void> LoadEnemyOfMap()
 {
-	// 敵をクリアする前にちゃんと殺しておく。
-	// -- 敵の死亡をモニタして終了(自滅)するタスクのため。
-	for (var<Enemy_t> enemy of GetEnemies())
-	{
-		enemy.HP = -1;
-	}
-
 	ClearArray(GetEnemies());
 
 	for (var<int> x = 0; x < Map.W; x++)
