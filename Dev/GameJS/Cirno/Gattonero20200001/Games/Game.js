@@ -588,13 +588,13 @@ function* <generatorForTask> @@_DeadAndRestartMotion(<boolean> restartRequested)
 
 	// 再スタートのための処理
 	{
-		@@_Enemies = [];
+//		@@_Enemies = [];
 		@@_Shots = [];
 		@@_RequestRestart = false;
 
 		ResetPlayer();
 
-		ClearAllTask(GameTasks);
+//		ClearAllTask(GameTasks);
 		ClearAllTask(FrontTasks);
 		ClearAllTask(PlayerDrawTasks);
 
