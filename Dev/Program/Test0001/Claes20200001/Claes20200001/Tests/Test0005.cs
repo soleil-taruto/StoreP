@@ -50,7 +50,7 @@ namespace Charlotte.Tests
 		{
 			if (gameStatus.Parts.Length == 0)
 			{
-				// 直前の消し込みが最後だったので、ターンが回ってきた方が勝ち...でいいんだよな？
+				// 直前の消しが最後だった(相手の負けな)ので、棒が無い状態でターンが回ってきたら勝ちで良いはず。
 
 				if (gameStatus.TurnWho == Player_e.Alice)
 				{
