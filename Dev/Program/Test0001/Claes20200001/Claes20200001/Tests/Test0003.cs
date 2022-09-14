@@ -20,9 +20,12 @@ namespace Charlotte.Tests
 
 		private void Test01_a(int testCount, int nMax)
 		{
+			Test01_a2(testCount, nMax, 7);
 			Test01_a2(testCount, nMax, 10);
 			Test01_a2(testCount, nMax, 100);
+			Test01_a2(testCount, nMax, 103);
 			Test01_a2(testCount, nMax, 1000);
+			Test01_a2(testCount, nMax, 1003);
 		}
 
 		private void Test01_a2(int testCount, int nMax, int mMax)
@@ -45,20 +48,65 @@ namespace Charlotte.Tests
 
 		private string Test01_b1(int[] aArr, int m)
 		{
-			Dictionary<int, int> counters = new Dictionary<int, int>();
+			aArr = aArr.ToArray(); // 複製
+			int n = aArr.Length;
+			int n_ = 0;
+			int i;
 
-			foreach (int a in aArr)
+			Array.Sort(aArr, SCommon.Comp);
+
+			IntList aa = new IntList()
 			{
-				if (counters.ContainsKey(a))
+				Inner = aArr.ToList(),
+			};
+
+			for (i = 0; i < n; i++)
+			{
+				if (n_ == 0 || aa[n_ - 1] != aa[i])
 				{
-					counters[a]++;
+					aa[n_++] = aa[i];
 				}
 				else
 				{
-					counters.Add(a, 1);
+					n_--;
 				}
 			}
-			return counters.Values.Any(v => v % 2 == 1) ? "Alice" : "Bob";
+			n = n_;
+
+			if (m % 2 != 0)
+			{
+				return n != 0 ? "Alice" : "Bob";
+			}
+			for (i = 0; i < n; i++)
+			{
+				if (aa[i + n / 2] - aa[i] != m / 2)
+				{
+					return "Alice";
+				}
+			}
+			return n % 4 != 0 ? "Alice" : "Bob";
+		}
+
+		private class IntList
+		{
+			public List<int> Inner = new List<int>();
+
+			public int this[int index]
+			{
+				get
+				{
+					if (index < 0) throw null;
+					if (this.Inner.Count <= index) return 0;
+					return this.Inner[index];
+				}
+
+				set
+				{
+					if (index < 0) throw null;
+					while (this.Inner.Count <= index) this.Inner.Add(0);
+					this.Inner[index] = value;
+				}
+			}
 		}
 
 		private string Test01_b2(int[] aArr, int m)
