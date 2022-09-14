@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Commons;
 
 namespace Charlotte.Tests
 {
@@ -49,13 +50,29 @@ namespace Charlotte.Tests
 		{
 			if (gameStatus.Parts.Length == 0)
 			{
+				// 直前の消し込みが最後だったので、ターンが回ってきた方が勝ち...でいいんだよな？
+
 				if (gameStatus.TurnWho == Player_e.Alice)
 				{
-					return Player_e.Bob;
+					return Player_e.Alice;
 				}
 				else
 				{
-					return Player_e.Alice;
+					return Player_e.Bob;
+				}
+			}
+
+			string cacheStrParts = GetCacheStrParts(gameStatus.Parts);
+
+			if (CacheTurnWhoIsWinner.ContainsKey(cacheStrParts))
+			{
+				if (CacheTurnWhoIsWinner[cacheStrParts])
+				{
+					return gameStatus.TurnWho;
+				}
+				else
+				{
+					return gameStatus.TurnWho == Player_e.Alice ? Player_e.Bob : Player_e.Alice;
 				}
 			}
 
@@ -97,12 +114,41 @@ namespace Charlotte.Tests
 
 			if (gameStatus.TurnWho == Player_e.Alice)
 			{
-				return canAliceWin ? Player_e.Alice : Player_e.Bob;
+				if (canAliceWin)
+				{
+					CacheTurnWhoIsWinner.Add(cacheStrParts, true);
+					return Player_e.Alice;
+				}
+				else
+				{
+					CacheTurnWhoIsWinner.Add(cacheStrParts, false);
+					return Player_e.Bob;
+				}
 			}
 			else
 			{
-				return canBobWin ? Player_e.Bob : Player_e.Alice;
+				if (canBobWin)
+				{
+					CacheTurnWhoIsWinner.Add(cacheStrParts, true);
+					return Player_e.Bob;
+				}
+				else
+				{
+					CacheTurnWhoIsWinner.Add(cacheStrParts, false);
+					return Player_e.Alice;
+				}
 			}
+		}
+
+		private Dictionary<string, bool> CacheTurnWhoIsWinner = SCommon.CreateDictionary<bool>();
+
+		private string GetCacheStrParts(int[] parts)
+		{
+			parts = parts.Where(v => 1 <= v).ToArray(); // Clone + ゼロ除去
+
+			Array.Sort(parts, SCommon.Comp);
+
+			return string.Join("_", parts);
 		}
 	}
 }
