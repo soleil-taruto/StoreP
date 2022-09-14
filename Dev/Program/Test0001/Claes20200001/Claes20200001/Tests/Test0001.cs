@@ -67,10 +67,16 @@ namespace Charlotte.Tests
 
 		private int GetGCD(int a, int b)
 		{
-			if (b == 0)
-				return a;
+			for (; ; )
+			{
+				int t = a % b;
 
-			return GetGCD(b, a % b);
+				if (t == 0)
+					return b;
+
+				a = b;
+				b = t;
+			}
 		}
 
 		private int Test01_b2(int[] aArr)
