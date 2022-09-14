@@ -13,7 +13,7 @@ namespace Charlotte.Tests
 			Test01_a(10000, 2);
 			Test01_a(1000, 3);
 			Test01_a(100, 4);
-			//Test01_a(10, 5);
+			Test01_a(10, 5);
 
 			Console.WriteLine("OK!");
 		}
@@ -30,6 +30,8 @@ namespace Charlotte.Tests
 
 		private void Test01_a2(int testCount, int nMax, int mMax)
 		{
+			Console.WriteLine(string.Join(", ", testCount, nMax, mMax));
+
 			for (int testcnt = 0; testcnt < testCount; testcnt++)
 			{
 				int n = SCommon.CRandom.GetRange(1, nMax);
@@ -48,17 +50,12 @@ namespace Charlotte.Tests
 
 		private string Test01_b1(int[] aArr, int m)
 		{
-			aArr = aArr.ToArray(); // 複製
-			int n = aArr.Length;
+			int[] aa = aArr.ToArray(); // 複製
+			int n = aa.Length;
 			int n_ = 0;
 			int i;
 
-			Array.Sort(aArr, SCommon.Comp);
-
-			IntList aa = new IntList()
-			{
-				Inner = aArr.ToList(),
-			};
+			Array.Sort(aa, SCommon.Comp);
 
 			for (i = 0; i < n; i++)
 			{
@@ -77,7 +74,7 @@ namespace Charlotte.Tests
 			{
 				return n != 0 ? "Alice" : "Bob";
 			}
-			for (i = 0; i < n; i++)
+			for (i = 0; i < n / 2; i++)
 			{
 				if (aa[i + n / 2] - aa[i] != m / 2)
 				{
@@ -85,28 +82,6 @@ namespace Charlotte.Tests
 				}
 			}
 			return n % 4 != 0 ? "Alice" : "Bob";
-		}
-
-		private class IntList
-		{
-			public List<int> Inner = new List<int>();
-
-			public int this[int index]
-			{
-				get
-				{
-					if (index < 0) throw null;
-					if (this.Inner.Count <= index) return 0;
-					return this.Inner[index];
-				}
-
-				set
-				{
-					if (index < 0) throw null;
-					while (this.Inner.Count <= index) this.Inner.Add(0);
-					this.Inner[index] = value;
-				}
-			}
 		}
 
 		private string Test01_b2(int[] aArr, int m)
