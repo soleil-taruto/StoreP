@@ -21,6 +21,39 @@ namespace Charlotte.Tests
 			Test01_a(Enumerable.Range(1, 9).ToArray());
 		}
 
+		public void Test02()
+		{
+			Test01_a(new int[] { 3, 5, 7 });
+		}
+
+		public void Test03()
+		{
+			const int BAR_FIRST = 1;
+			const int BAR_LAST = 10;
+
+			for (int a = BAR_FIRST; a <= BAR_LAST; a++)
+			{
+				for (int b = a; b <= BAR_LAST; b++)
+				{
+					for (int c = b; c <= BAR_LAST; c++)
+					{
+						GameStatusInfo gameStatus = new GameStatusInfo()
+						{
+							TurnWho = Player_e.Alice,
+							Parts = new int[] { a, b, c },
+						};
+
+						Player_e winner = Judge(gameStatus);
+
+						if (winner == Player_e.Bob)
+						{
+							Console.WriteLine(string.Join(", ", a, b, c));
+						}
+					}
+				}
+			}
+		}
+
 		private void Test01_a(int[] parts)
 		{
 			GameStatusInfo gameStatus = new GameStatusInfo()
