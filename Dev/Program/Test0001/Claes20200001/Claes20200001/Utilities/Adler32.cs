@@ -9,7 +9,7 @@ namespace Charlotte.Utilities
 	{
 		private const uint MODULO = 65521;
 
-		public static uint ComputeHash(byte[] data)
+		public static uint ComputeHash(IEnumerable<byte> data)
 		{
 			uint a = 1;
 			uint b = 0;
