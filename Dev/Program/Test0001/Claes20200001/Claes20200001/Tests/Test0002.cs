@@ -49,12 +49,13 @@ namespace Charlotte.Tests
 
 			for (int index = 0; index < src.Length; index++)
 			{
-				int[] nextDest = SCommon.InsertRange(dest, dest.Length, new int[] { src[index] }).ToArray();
-				int[] nextSrc = SCommon.RemoveRange(src, index, 1).ToArray();
-
-				// old
-				//int[] nextDest = dest.Concat(new int[] { src[index] }).ToArray();
-				//int[] nextSrc = src.Take(index).Concat(src.Skip(index + 1)).ToArray();
+#if true
+				int[] nextDest = SCommon.E_AddRange(dest, new int[] { src[index] }).ToArray();
+				int[] nextSrc = SCommon.E_RemoveRange(src, index, 1).ToArray();
+#else // old same
+				int[] nextDest = dest.Concat(new int[] { src[index] }).ToArray();
+				int[] nextSrc = src.Take(index).Concat(src.Skip(index + 1)).ToArray();
+#endif
 
 				if (2 <= nextDest.Length)
 					if (nextDest[nextDest.Length - 2] + nextDest[nextDest.Length - 1] < K) // ? 隣接する要素の和が K より小さい -> 条件不一致
