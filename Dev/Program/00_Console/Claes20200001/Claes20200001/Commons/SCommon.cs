@@ -1491,6 +1491,7 @@ namespace Charlotte.Commons
 			return GetSHA512(writePart =>
 			{
 				SCommon.ReadToEnd(reader, writePart);
+				//SCommon.ReadToEnd(reader, (buff, offset, count) => writePart(buff, offset, count)); // old
 			});
 		}
 
