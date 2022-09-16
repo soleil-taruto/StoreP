@@ -14,6 +14,8 @@ namespace Charlotte.Tests
 			Test01_a(2, 2);
 			Test01_a(3, 2);
 			Test01_a(3, 3);
+			//Test01_a(4, 3); // 重すぎ
+			//Test01_a(4, 4); // 重すぎ
 		}
 
 		private void Test01_a(int w, int h)
@@ -31,6 +33,8 @@ namespace Charlotte.Tests
 			Test02_a(2, 2);
 			Test02_a(3, 2);
 			Test02_a(3, 3);
+			//Test02_a(4, 3); // 重すぎ
+			//Test02_a(4, 4); // 重すぎ
 		}
 
 		private void Test02_a(int w, int h)
@@ -46,6 +50,31 @@ namespace Charlotte.Tests
 				ProcMain.WriteLog(testcnt + " --> " + table.SolveRoute.Count);
 			}
 			ProcMain.WriteLog("done");
+		}
+
+		public void Test03()
+		{
+			double maxMillis = 0.0;
+			int maxSolveRouteCount = 0;
+
+			for (int testcnt = 0; testcnt < 100; testcnt++)
+			{
+				Console.WriteLine("testcnt: " + testcnt);
+
+				TableInfo table = new TableInfo(3, 3);
+				table.Shuffle();
+
+				DateTime stTm = DateTime.Now;
+				table = Solve(table);
+				DateTime edTm = DateTime.Now;
+				double millis = (edTm - stTm).TotalSeconds;
+
+				maxMillis = Math.Max(maxMillis, millis);
+				maxSolveRouteCount = Math.Max(maxSolveRouteCount, table.SolveRoute.Count);
+
+				Console.WriteLine(maxMillis.ToString("F3"));
+				Console.WriteLine(maxSolveRouteCount);
+			}
 		}
 
 		private class TableInfo
@@ -74,8 +103,10 @@ namespace Charlotte.Tests
 			/// </summary>
 			public I2Point SpacePos;
 
-			private TableInfo()
-			{ }
+			/// <summary>
+			/// 解法(操作履歴)
+			/// </summary>
+			public List<int> SolveRoute = new List<int>();
 
 			public TableInfo(int w, int h)
 			{
@@ -99,6 +130,31 @@ namespace Charlotte.Tests
 				this.Cells[w - 1, h - 1] = 0;
 
 				this.SpacePos = new I2Point(w - 1, h - 1);
+			}
+
+			private TableInfo()
+			{ }
+
+			public TableInfo GetClone()
+			{
+				TableInfo dest = new TableInfo();
+
+				dest.W = this.W;
+				dest.H = this.H;
+				dest.Cells = new int[this.W, this.H];
+				dest.SpacePos = this.SpacePos;
+				dest.SolveRoute = new List<int>();
+
+				for (int y = 0; y < this.H; y++)
+				{
+					for (int x = 0; x < this.W; x++)
+					{
+						dest.Cells[x, y] = this.Cells[x, y];
+					}
+				}
+				dest.SolveRoute.AddRange(this.SolveRoute);
+
+				return dest;
 			}
 
 			public void Shuffle()
@@ -183,30 +239,6 @@ namespace Charlotte.Tests
 				}
 				return true;
 			}
-
-			public TableInfo GetClone()
-			{
-				TableInfo dest = new TableInfo();
-
-				dest.W = this.W;
-				dest.H = this.H;
-				dest.Cells = new int[this.W, this.H];
-				dest.SpacePos = this.SpacePos;
-				dest.SolveRoute = new List<int>();
-
-				for (int y = 0; y < this.H; y++)
-				{
-					for (int x = 0; x < this.W; x++)
-					{
-						dest.Cells[x, y] = this.Cells[x, y];
-					}
-				}
-				dest.SolveRoute.AddRange(this.SolveRoute);
-
-				return dest;
-			}
-
-			public List<int> SolveRoute = new List<int>();
 		}
 
 		private TableInfo Solve(TableInfo table)
