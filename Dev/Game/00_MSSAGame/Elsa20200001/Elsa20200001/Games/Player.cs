@@ -150,6 +150,8 @@ namespace Charlotte.Games
 
 			switch (this.武器)
 			{
+				#region テスト用
+
 				case ShotCatalog.武器_e.B_NORMAL:
 					if (this.AttackFrame % 6 == 1)
 					{
@@ -218,7 +220,7 @@ namespace Charlotte.Games
 					}
 					break;
 
-				// ここまでテスト用
+				#endregion
 
 				case ShotCatalog.武器_e.NORMAL:
 					if (this.AttackFrame % 6 == 1)

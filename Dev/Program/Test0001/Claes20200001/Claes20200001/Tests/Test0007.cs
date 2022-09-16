@@ -72,9 +72,19 @@ namespace Charlotte.Tests
 
 		private class RangeInfo
 		{
+			/// <summary>
+			/// 開始位置(この位置の要素を含む)
+			/// </summary>
 			public int Start;
+
+			/// <summary>
+			/// 終了位置(この位置の要素を含まない)
+			/// </summary>
 			public int End;
 
+			/// <summary>
+			/// 範囲内の要素の個数
+			/// </summary>
 			public int Count
 			{
 				get
