@@ -16,6 +16,7 @@ namespace Charlotte.Tests
 			Test01_a(3, 3);
 			//Test01_a(4, 3); // 重すぎ
 			//Test01_a(4, 4); // 重すぎ
+			Test01_a(4, 2);
 		}
 
 		private void Test01_a(int w, int h)
@@ -35,6 +36,7 @@ namespace Charlotte.Tests
 			Test02_a(3, 3);
 			//Test02_a(4, 3); // 重すぎ
 			//Test02_a(4, 4); // 重すぎ
+			Test02_a(4, 2);
 		}
 
 		private void Test02_a(int w, int h)
@@ -54,14 +56,21 @@ namespace Charlotte.Tests
 
 		public void Test03()
 		{
+			Test03_a(3, 3);
+			Test03_a(4, 2);
+		}
+
+		private void Test03_a(int w, int h)
+		{
 			double maxMillis = 0.0;
 			int maxSolveRouteCount = 0;
 
-			for (int testcnt = 0; testcnt < 100; testcnt++)
+			for (int testcnt = 0; testcnt < 79; testcnt++)
 			{
-				Console.WriteLine("testcnt: " + testcnt);
+				Console.Write(".");
+				//Console.WriteLine("testcnt: " + testcnt);
 
-				TableInfo table = new TableInfo(3, 3);
+				TableInfo table = new TableInfo(w, h);
 				table.Shuffle();
 
 				DateTime stTm = DateTime.Now;
@@ -72,9 +81,14 @@ namespace Charlotte.Tests
 				maxMillis = Math.Max(maxMillis, millis);
 				maxSolveRouteCount = Math.Max(maxSolveRouteCount, table.SolveRoute.Count);
 
-				Console.WriteLine(maxMillis.ToString("F3"));
-				Console.WriteLine(maxSolveRouteCount);
+				//Console.WriteLine(maxMillis.ToString("F3"));
+				//Console.WriteLine(maxSolveRouteCount);
 			}
+			Console.WriteLine("");
+
+			Console.WriteLine(w + ", " + h + " ->");
+			Console.WriteLine(maxMillis.ToString("F3"));
+			Console.WriteLine(maxSolveRouteCount);
 		}
 
 		private class TableInfo
