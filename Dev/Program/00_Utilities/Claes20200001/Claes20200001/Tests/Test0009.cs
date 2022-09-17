@@ -6,6 +6,9 @@ using Charlotte.Utilities;
 
 namespace Charlotte.Tests
 {
+	/// <summary>
+	/// Adler32.cs テスト
+	/// </summary>
 	public class Test0009
 	{
 		public void Test01()
