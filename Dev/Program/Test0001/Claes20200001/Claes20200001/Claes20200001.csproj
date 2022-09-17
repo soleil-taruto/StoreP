@@ -74,6 +74,7 @@
     <Compile Include="Tests\Test0002.cs" />
     <Compile Include="Tests\Test0003.cs" />
     <Compile Include="Tests\Test0004.cs" />
+    <Compile Include="Tests\Test0005.cs" />
     <Compile Include="Utilities\BitList.cs" />
     <Compile Include="Utilities\MillerRabin.cs" />
   </ItemGroup>
