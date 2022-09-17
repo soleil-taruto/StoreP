@@ -98,9 +98,33 @@ namespace Charlotte.Utilities
 			return a;
 		}
 
-		private static ulong ModMul64(ulong a, ulong b, ulong m)
+		private static ulong ModMul64(ulong b, ulong e, ulong m)
 		{
-			throw new NotImplementedException();
+			ulong a = 0;
+
+			for (; 1 <= e; e >>= 1)
+			{
+				if ((e & 1) != 0)
+					a = ModAdd64(a, b, m);
+
+				b = ModAdd64(b, b, m);
+			}
+			return a;
+		}
+
+		private static ulong ModAdd64(ulong a, ulong b, ulong m)
+		{
+			const ulong MA = (1UL << 63) - 0;
+			const ulong MB = (1UL << 63) - 1;
+
+			ulong r = (ulong.MaxValue % m + 1) % m;
+
+			while (ulong.MaxValue - a < b)
+			{
+				a = (((a & MB) + (b & MB)) & MB) | (a & b & MA);
+				b = r;
+			}
+			return (a + b) % m;
 		}
 	}
 }
