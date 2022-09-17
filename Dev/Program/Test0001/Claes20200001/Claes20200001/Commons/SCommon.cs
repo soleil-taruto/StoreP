@@ -1760,9 +1760,14 @@ namespace Charlotte.Commons
 
 		public static bool HasSame<T>(IList<T> list, Comparison<T> comp)
 		{
+			return HasSame(list, (a, b) => comp(a, b) == 0);
+		}
+
+		public static bool HasSame<T>(IList<T> list, Func<T, T, bool> match)
+		{
 			for (int r = 1; r < list.Count; r++)
 				for (int l = 0; l < r; l++)
-					if (comp(list[l], list[r]) == 0)
+					if (match(list[l], list[r]))
 						return true;
 
 			return false;
