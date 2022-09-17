@@ -60,7 +60,7 @@ namespace Charlotte.Tests
 
 			long best = -1;
 
-			ChooseDifferentThree(3, (index1, index2, index3) =>
+			ChooseDifferentThreeAllOrder(3, (index1, index2, index3) =>
 			{
 				long value = long.Parse(string.Join("", sCards[index1], sCards[index2], sCards[index3]));
 
@@ -75,7 +75,7 @@ namespace Charlotte.Tests
 		{
 			long best = -1;
 
-			ChooseDifferentThree(cards.Length, (index1, index2, index3) =>
+			ChooseDifferentThreeAllOrder(cards.Length, (index1, index2, index3) =>
 			{
 				string str = string.Format("{0}{1}{2}", cards[index1], cards[index2], cards[index3]);
 				long value = long.Parse(str);
@@ -87,7 +87,7 @@ namespace Charlotte.Tests
 			return best;
 		}
 
-		private void ChooseDifferentThree(int count, Action<int, int, int> routine)
+		private void ChooseDifferentThreeAllOrder(int count, Action<int, int, int> routine)
 		{
 			for (int index1 = 0; index1 < count; index1++)
 			{
