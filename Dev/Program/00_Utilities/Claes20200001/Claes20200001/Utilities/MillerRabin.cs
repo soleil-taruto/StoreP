@@ -7,6 +7,13 @@ namespace Charlotte.Utilities
 {
 	public static class MillerRabin
 	{
+		/// <summary>
+		/// ミラーラビン素数判定法によって 0 以上 2^64 未満の整数が素数であるか判定する。
+		/// 入力値の大きさに対して「確実に判定するために必要なテスト値」を全てテストしているので、
+		/// このメソッドによる判定結果は常に正しい。
+		/// </summary>
+		/// <param name="n">判定する整数</param>
+		/// <returns>判定結果</returns>
 		public static bool IsPrime(ulong n)
 		{
 			if (n <= 61)
