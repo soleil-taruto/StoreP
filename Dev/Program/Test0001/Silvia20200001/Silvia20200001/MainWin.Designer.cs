@@ -33,6 +33,7 @@
 			this.MainTimer = new System.Windows.Forms.Timer(this.components);
 			this.Btn0001 = new System.Windows.Forms.Button();
 			this.L0001 = new System.Windows.Forms.Label();
+			this.CloseButtonBlockedLabel = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// MainTimer
@@ -58,11 +59,26 @@
 			this.L0001.TabIndex = 1;
 			this.L0001.Text = "0";
 			// 
+			// CloseButtonBlockedLabel
+			// 
+			this.CloseButtonBlockedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.CloseButtonBlockedLabel.AutoSize = true;
+			this.CloseButtonBlockedLabel.BackColor = System.Drawing.Color.Yellow;
+			this.CloseButtonBlockedLabel.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+			this.CloseButtonBlockedLabel.ForeColor = System.Drawing.Color.Red;
+			this.CloseButtonBlockedLabel.Location = new System.Drawing.Point(203, 0);
+			this.CloseButtonBlockedLabel.Name = "CloseButtonBlockedLabel";
+			this.CloseButtonBlockedLabel.Size = new System.Drawing.Size(181, 20);
+			this.CloseButtonBlockedLabel.TabIndex = 2;
+			this.CloseButtonBlockedLabel.Text = "Blocking [X] and ALT+F4";
+			this.CloseButtonBlockedLabel.Visible = false;
+			// 
 			// MainWin
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 261);
+			this.ClientSize = new System.Drawing.Size(384, 261);
+			this.Controls.Add(this.CloseButtonBlockedLabel);
 			this.Controls.Add(this.L0001);
 			this.Controls.Add(this.Btn0001);
 			this.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -83,6 +99,7 @@
 		private System.Windows.Forms.Timer MainTimer;
 		private System.Windows.Forms.Button Btn0001;
 		private System.Windows.Forms.Label L0001;
+		private System.Windows.Forms.Label CloseButtonBlockedLabel;
 
 	}
 }
