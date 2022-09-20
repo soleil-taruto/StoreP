@@ -12,8 +12,8 @@ namespace Charlotte
 		public static void Perform(Form f)
 		{
 			AntiDefaultContextMenu(f);
-			AntiMessageOutOfWindow(f);
-			AntiWindowOutOfScreen(f);
+			ResolveMessageOutOfWindow(f);
+			ResolveWindowOutOfScreen(f);
 		}
 
 		private static void AntiDefaultContextMenu(Form f)
@@ -41,7 +41,7 @@ namespace Charlotte
 			}
 		}
 
-		private static void AntiMessageOutOfWindow(Form f)
+		private static void ResolveMessageOutOfWindow(Form f)
 		{
 			int w = GetAllControl(f)
 				.Where(v => v is Label)
@@ -58,7 +58,7 @@ namespace Charlotte
 			}
 		}
 
-		private static void AntiWindowOutOfScreen(Form f)
+		private static void ResolveWindowOutOfScreen(Form f)
 		{
 			I2Point winCenter = new I2Point((f.Left + f.Right) / 2, (f.Top + f.Bottom) / 2);
 
