@@ -69,7 +69,7 @@ namespace Charlotte.Tests
 		public void Test02()
 		{
 			ulong PRIMES_RANGE_MIN = 18446744073709550000;
-			ulong PRIMES_RANGE_MAX = 18446744073709551614; // ULONG_MAX - 1
+			ulong PRIMES_RANGE_MAX = 18446744073709551615; // ULONG_MAX
 
 			// PRIMES_RANGE_MIN 以上 PRIMES_RANGE_MAX 以下の範囲の素数一覧
 			// -- by Prime4096 @ 2022.9.17
@@ -115,7 +115,7 @@ namespace Charlotte.Tests
 				18446744073709551557,
 			};
 
-			for (ulong n = PRIMES_RANGE_MIN; n <= PRIMES_RANGE_MAX; n++)
+			for (ulong n = PRIMES_RANGE_MIN; ; n++)
 			{
 				bool ans1 = MillerRabin.IsPrime(n);
 				bool ans2 = PRIMES.Contains(n);
@@ -124,10 +124,10 @@ namespace Charlotte.Tests
 
 				if (ans1 != ans2)
 					throw null;
-			}
 
-			if (MillerRabin.IsPrime(ulong.MaxValue)) // ULONG_MAX は素数ではないはず。
-				throw null;
+				if (n == PRIMES_RANGE_MAX)
+					break;
+			}
 
 			Console.WriteLine("OK!");
 		}

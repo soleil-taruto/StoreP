@@ -60,7 +60,7 @@ namespace Charlotte.Tests
 			byte[] decData2;
 
 			using (WorkingDir wd = new WorkingDir())
-			using (FileCipher transformer = new FileCipher(rawKey))
+			using (RingCipherFile transformer = new RingCipherFile(rawKey))
 			{
 				string file = wd.MakePath();
 				File.WriteAllBytes(file, testData);

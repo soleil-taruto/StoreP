@@ -8,10 +8,7 @@ using Charlotte.Commons;
 
 namespace Charlotte.Utilities
 {
-	/// <summary>
-	/// RingCipher.cs と同じ方式でファイルの暗号化・復号を行う。
-	/// </summary>
-	public class FileCipher : IDisposable
+	public class RingCipherFile : IDisposable
 	{
 		private AESCipher[] Transformers;
 
@@ -35,7 +32,7 @@ namespace Charlotte.Utilities
 		/// -- ...
 		/// </summary>
 		/// <param name="rawKey">鍵</param>
-		public FileCipher(byte[] rawKey)
+		public RingCipherFile(byte[] rawKey)
 		{
 			if (
 				rawKey == null ||
@@ -81,7 +78,7 @@ namespace Charlotte.Utilities
 			ProcMain.WriteLog("ファイルの暗号化を開始しました。");
 
 			if (
-				file == null ||
+				string.IsNullOrEmpty(file) ||
 				!File.Exists(file)
 				)
 				throw new ArgumentException();
@@ -108,7 +105,7 @@ namespace Charlotte.Utilities
 			ProcMain.WriteLog("ファイルの復号を開始しました。");
 
 			if (
-				file == null ||
+				string.IsNullOrEmpty(file) ||
 				!File.Exists(file)
 				)
 				throw new ArgumentException();
