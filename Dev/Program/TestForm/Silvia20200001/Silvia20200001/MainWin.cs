@@ -47,35 +47,26 @@ namespace Charlotte
 
 		private void MainWin_Shown(object sender, EventArgs e)
 		{
-			this.Idling = true;
 			this.MainTimer.Enabled = true;
-
 			PostShown.Perform(this);
 		}
 
 		private void CloseWindow()
 		{
-			this.Idling = false;
 			this.MainTimer.Enabled = false;
-
 			this.Close();
 		}
 
-		private bool Idling;
-
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (!this.Idling)
-				return;
-
 			this.Counter.Text = "" + (ulong.Parse(this.Counter.Text) + 1);
 		}
 
 		private void PauseBtn_Click(object sender, EventArgs e)
 		{
-			this.Idling = false;
+			this.MainTimer.Enabled = false;
 			MessageBox.Show("Pause");
-			this.Idling = true;
+			this.MainTimer.Enabled = true;
 		}
 
 		private void CloseBtn_Click(object sender, EventArgs e)
@@ -86,7 +77,7 @@ namespace Charlotte
 
 		private void FiveSecBtn_Click(object sender, EventArgs e)
 		{
-			this.Idling = false;
+			this.MainTimer.Enabled = false;
 			this.Visible = false;
 
 			using (ProcessingDlg f = new ProcessingDlg())
@@ -94,7 +85,7 @@ namespace Charlotte
 				f.ShowDialog();
 			}
 
-			this.Idling = true;
+			this.MainTimer.Enabled = true;
 			this.Visible = true;
 		}
 	}

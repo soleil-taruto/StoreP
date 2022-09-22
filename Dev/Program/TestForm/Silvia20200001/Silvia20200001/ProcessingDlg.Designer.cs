@@ -42,12 +42,11 @@
 			// 
 			// ProgressBar
 			// 
-			this.ProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.ProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.ProgressBar.Location = new System.Drawing.Point(12, 68);
+			this.ProgressBar.Location = new System.Drawing.Point(12, 99);
 			this.ProgressBar.Name = "ProgressBar";
-			this.ProgressBar.Size = new System.Drawing.Size(560, 181);
+			this.ProgressBar.Size = new System.Drawing.Size(560, 50);
 			this.ProgressBar.TabIndex = 2;
 			// 
 			// StartBtn
@@ -77,7 +76,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(584, 261);
+			this.ClientSize = new System.Drawing.Size(584, 161);
 			this.Controls.Add(this.BlockAltF4Message);
 			this.Controls.Add(this.StartBtn);
 			this.Controls.Add(this.ProgressBar);

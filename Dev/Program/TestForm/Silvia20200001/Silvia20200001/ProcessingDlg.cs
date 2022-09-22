@@ -45,8 +45,6 @@ namespace Charlotte
 		private void ProcessingDlg_Shown(object sender, EventArgs e)
 		{
 			this.MainTimer.Enabled = true;
-			this.Idling = true;
-
 			PostShown.Perform(this);
 		}
 
@@ -62,18 +60,11 @@ namespace Charlotte
 			}
 
 			this.MainTimer.Enabled = false;
-			this.Idling = false;
-
 			this.Close();
 		}
 
-		private bool Idling;
-
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
-			if (!this.Idling)
-				return;
-
 			if (1 <= this.BlockAltF4MessageKeepCountDown)
 			{
 				this.BlockAltF4MessageKeepCountDown--;
@@ -85,7 +76,13 @@ namespace Charlotte
 			if (this.ProgressPct != -1)
 			{
 				this.ProgressPct = Math.Min(100, this.ProgressPct + 2);
-				this.ProgressBar.Value = this.ProgressPct;
+
+				{
+					int value = (this.ProgressPct / 20) * 20;
+
+					if (this.ProgressBar.Value != value)
+						this.ProgressBar.Value = value;
+				}
 
 				if (this.ProgressPct == 100)
 				{
