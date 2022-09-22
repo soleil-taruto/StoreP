@@ -9,7 +9,7 @@ using Charlotte.Utilities;
 namespace Charlotte.Tests
 {
 	/// <summary>
-	/// FileCipher.cs テスト
+	/// RingCipherFile.cs テスト
 	/// </summary>
 	public class Test0003
 	{

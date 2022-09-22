@@ -81,6 +81,9 @@
     <Compile Include="Tests\Test0009.cs" />
     <Compile Include="Tests\Test0010.cs" />
     <Compile Include="Tests\Test0011.cs" />
+    <Compile Include="Tests\Test0012.cs" />
+    <Compile Include="Tests\Test0013.cs" />
+    <Compile Include="Tests\Test0014.cs" />
     <Compile Include="Utilities\Adler32.cs" />
     <Compile Include="Utilities\AESCipher.cs" />
     <Compile Include="Utilities\BitList.cs" />
