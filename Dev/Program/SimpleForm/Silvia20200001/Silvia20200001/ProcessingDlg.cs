@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Permissions;
 using System.Windows.Forms;
+using Charlotte.Commons;
 
 namespace Charlotte
 {
@@ -44,7 +45,7 @@ namespace Charlotte
 
 		private void ProcessingDlg_Shown(object sender, EventArgs e)
 		{
-			this.MainTimer.Enabled = true;
+			this.Busyness = 0;
 			PostShown.Perform(this);
 		}
 
@@ -59,12 +60,17 @@ namespace Charlotte
 				return;
 			}
 
-			this.MainTimer.Enabled = false;
+			this.Busyness = SCommon.IMAX;
 			this.Close();
 		}
 
+		private int Busyness = SCommon.IMAX;
+
 		private void MainTimer_Tick(object sender, EventArgs e)
 		{
+			if (1 <= this.Busyness)
+				return;
+
 			if (1 <= this.BlockAltF4MessageKeepCountDown)
 			{
 				this.BlockAltF4MessageKeepCountDown--;

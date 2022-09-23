@@ -38,6 +38,7 @@
 			// 
 			// MainTimer
 			// 
+			this.MainTimer.Enabled = true;
 			this.MainTimer.Tick += new System.EventHandler(this.MainTimer_Tick);
 			// 
 			// ProgressBar
