@@ -58,6 +58,7 @@ namespace Charlotte
 
 			this.Busyness = SCommon.IMAX;
 			this.Close();
+			return;
 		}
 
 		private int Busyness = SCommon.IMAX;
