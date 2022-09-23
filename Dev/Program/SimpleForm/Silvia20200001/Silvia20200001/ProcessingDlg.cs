@@ -53,6 +53,9 @@ namespace Charlotte
 
 		private void CloseWindow()
 		{
+			if (1 <= this.Busyness)
+				return;
+
 			if (this.ProgressPct != -1)
 			{
 				this.BlockAltF4Message.Visible = true;
