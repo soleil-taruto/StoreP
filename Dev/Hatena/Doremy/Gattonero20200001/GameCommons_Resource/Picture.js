@@ -19,7 +19,7 @@ var<Picture_t> P_WhiteCircle = @@_Load(RESOURCE_General__WhiteCircle_png);
 // ★ここまで固定 -- 持ち回り_共通 -- サンプルとしてキープ
 
 var<Picture_t> P_GameStartButton = @@_Load(RESOURCE_Picture__GameStartButton_png);
-var<Picture_t> P_ExplodePiece = @@_Load(RESOURCE_Picture__光る星20_png);
+var<Picture_t> P_ExplodePiece = @@_Load(RESOURCE_Picture__Star20_png);
 var<Picture_t> P_EndingString = @@_Load(RESOURCE_Picture__EndingString_png);
 var<Picture_t> P_Goal = @@_Load(RESOURCE_Picture__Goal_png);
 
@@ -189,10 +189,10 @@ var<Picture_t> P_Tile_Fence9 = @@_Load(RESOURCE_ロックマン風__Tile__stage02_chip
 // タイル End
 // ==========
 
-var<Picture_t> P_Wall0001B = @@_Load(RESOURCE_素材Good__Wall_0001B_png);
-var<Picture_t> P_Wall0001F = @@_Load(RESOURCE_素材Good__Wall_0001F_png);
-var<Picture_t> P_Wall0002  = @@_Load(RESOURCE_素材Good__Wall_0002_png);
-var<Picture_t> P_Wall0003  = @@_Load(RESOURCE_素材Good__Wall_0003_png);
+var<Picture_t> P_Wall0001B = @@_Load(RESOURCE_SozaiGood__Wall_0001B_png);
+var<Picture_t> P_Wall0001F = @@_Load(RESOURCE_SozaiGood__Wall_0001F_png);
+var<Picture_t> P_Wall0002  = @@_Load(RESOURCE_SozaiGood__Wall_0002_png);
+var<Picture_t> P_Wall0003  = @@_Load(RESOURCE_SozaiGood__Wall_0003_png);
 
 var<Picture_t> P_Enemy_Frog = @@_Load(RESOURCE_Picture__Frog_png);
 var<Picture_t> P_Enemy_Houdai = @@_Load(RESOURCE_Picture__Houdai_png);
