@@ -50,7 +50,7 @@ namespace Charlotte.GameCommons
 		private static int P_X;
 		private static int P_Y;
 
-		public static void SetPrint(int x = 0, int y = 0, int yStep = 32, int dummy = 0)
+		public static void SetPrint(int x = 0, int y = 0, int yStep = 32)
 		{
 			P_BaseX = x;
 			P_BaseY = y;

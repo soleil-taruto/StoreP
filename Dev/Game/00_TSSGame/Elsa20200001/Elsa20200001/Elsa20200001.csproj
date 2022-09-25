@@ -134,6 +134,9 @@
     <Compile Include="GameCommons\DDSceneUtils.cs" />
     <Compile Include="GameCommons\DDSE.cs" />
     <Compile Include="GameCommons\DDSEUtils.cs" />
+    <Compile Include="GameTools\AppConfig.cs" />
+    <Compile Include="GameTools\AppSaveDataUtils.cs" />
+    <Compile Include="GameTools\SimpleMenu.cs" />
     <Compile Include="GameCommons\DDSound.cs" />
     <Compile Include="GameCommons\DDSoundUtils.cs" />
     <Compile Include="GameCommons\DDSubScreen.cs" />
@@ -152,10 +155,6 @@
     <Compile Include="Games\GameConsts.cs" />
     <Compile Include="Games\Tests\GameTestMenu.cs" />
     <Compile Include="Games\Tests\GameTestSubMenu.cs" />
-    <Compile Include="GameTools\AppConfig.cs" />
-    <Compile Include="GameTools\AppSaveDataUtils.cs" />
-    <Compile Include="GameTools\SimpleMenu.cs" />
-    <Compile Include="GameTools\TableMenu.cs" />
     <Compile Include="LiteStatusDlg.cs">
       <SubType>Form</SubType>
     </Compile>

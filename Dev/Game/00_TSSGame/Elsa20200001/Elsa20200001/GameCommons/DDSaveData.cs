@@ -80,7 +80,7 @@ namespace Charlotte.GameCommons
 				//lines.Add("Donut3-SaveData"); // Dummy
 				//lines.Add("Donut3-SaveData"); // Dummy
 
-				lines.AddRange(AppSaveDataUtils.GetAppLines());
+				SCommon.E_AddRange(lines, AppSaveDataUtils.GetAppLines());
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -167,10 +167,10 @@ namespace Charlotte.GameCommons
 			Load_Delay = () =>
 			{
 				lines = DDUtils.Split(blocks[bc++]);
-				c = 0;
 
 				try // アプリ固有のセーブデータ
 				{
+					//c = 0;
 					//DDUtils.Noop(lines[c++]); // Dummy
 					//DDUtils.Noop(lines[c++]); // Dummy
 					//DDUtils.Noop(lines[c++]); // Dummy

@@ -315,43 +315,7 @@ namespace Charlotte.GameTools
 
 		public void PadConfig(bool keyMode = false)
 		{
-			ButtonInfo[] btnInfos = new ButtonInfo[]
-			{
-#if false // 例
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.A, "Ａボタン"),
-				new ButtonInfo(DDInput.B, "Ｂボタン"),
-				new ButtonInfo(DDInput.C, "Ｃボタン"),
-				//new ButtonInfo(DDInput.D, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.E, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.F, ""), // 使用しないボタン
-				new ButtonInfo(DDInput.L, "Ｌボタン"),
-				new ButtonInfo(DDInput.R, "Ｒボタン"),
-				//new ButtonInfo(DDInput.PAUSE, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.START, ""), // 使用しないボタン
-#else
-				// アプリ固有の設定 >
-
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.A, "決定"),
-				new ButtonInfo(DDInput.B, "キャンセル"),
-				//new ButtonInfo(DDInput.C, ""),
-				//new ButtonInfo(DDInput.E, ""),
-				//new ButtonInfo(DDInput.F, ""),
-				new ButtonInfo(DDInput.L, "メッセージ・スキップ"),
-				//new ButtonInfo(DDInput.R, ""),
-				//new ButtonInfo(DDInput.PAUSE, ""),
-				//new ButtonInfo(DDInput.START, ""),
-
-				// < アプリ固有の設定
-#endif
-			};
+			ButtonInfo[] btnInfos = AppConfig.GetSimpleMenuButtonInfos();
 
 			foreach (ButtonInfo btnInfo in btnInfos)
 				btnInfo.Button.Backup();
