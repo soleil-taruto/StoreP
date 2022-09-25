@@ -17,13 +17,17 @@ namespace Charlotte.Tests
 			Test01_a(1000000, 1000000);
 			Test01_a(100000, 5000000000); // == UINT_MAX * 1.164*
 			Test01_a(10000, 9000000000000); // == UINT_MAX * 2095.47579*
+			Test01_a(1000, 1000000000000000); // == ULONG_MAX * 0.0000542*
+			Test01_a(300, 100000000000000000); // == ULONG_MAX * 0.00542*
 
 			Console.WriteLine("OK!");
 		}
 
 		private void Test01_a(int testCount, ulong scale)
 		{
-			int countOfNumPrime = 0;
+			Console.WriteLine(testCount + ", " + scale); // cout
+
+			int countOfPrime = 0;
 
 			for (int testcnt = 0; testcnt < testCount; testcnt++)
 			{
@@ -36,9 +40,9 @@ namespace Charlotte.Tests
 					throw null;
 
 				if (ans1)
-					countOfNumPrime++;
+					countOfPrime++;
 			}
-			Console.WriteLine("OK " + countOfNumPrime);
+			Console.WriteLine("OK " + countOfPrime);
 		}
 
 		private bool Test01_b1(ulong n)
