@@ -27,7 +27,7 @@ namespace Charlotte.GameTools
 			this.MouseUsable = mouseUsable;
 		}
 
-		private void ResetPrint()
+		private void PrepForPrint()
 		{
 			DDPrint.Reset();
 
@@ -110,9 +110,9 @@ namespace Charlotte.GameTools
 				}
 
 				this.WallDrawer();
-				this.ResetPrint();
+				this.PrepForPrint();
 
-				// old
+				// マウス有効・無効を表示
 				//DDPrint.SetPrint(DDConsts.Screen_W - 45, 2);
 				//DDPrint.Print("[M:" + (this.MouseUsable ? "E" : "D") + "]");
 
@@ -123,6 +123,8 @@ namespace Charlotte.GameTools
 				{
 					DDPrint.PrintLine(string.Format("[{0}] {1}", selectIndex == c ? ">" : " ", items[c]));
 				}
+				DDPrint.Reset();
+
 				DDEngine.EachFrame();
 			}
 			DDEngine.FreezeInput();
@@ -328,7 +330,7 @@ namespace Charlotte.GameTools
 						//endInput:
 
 						this.WallDrawer();
-						this.ResetPrint();
+						this.PrepForPrint();
 						DDPrint.SetPrint(20, 20, 40, 20);
 						DDPrint.PrintLine("キーボードのキー設定");
 
@@ -357,7 +359,7 @@ namespace Charlotte.GameTools
 						DDPrint.SetColor(new I3Color(255, 255, 0));
 						DDPrint.SetBorder(new I3Color(100, 50, 0));
 						DDPrint.PrintLine("画面を右クリックするとキャンセルします。");
-						this.ResetPrint();
+						DDPrint.Reset();
 
 						DDEngine.EachFrame();
 					}
@@ -405,7 +407,7 @@ namespace Charlotte.GameTools
 					endInput:
 
 						this.WallDrawer();
-						this.ResetPrint();
+						this.PrepForPrint();
 						DDPrint.SetPrint(20, 20, 40, 20);
 						DDPrint.PrintLine("ゲームパッドのボタン設定");
 
@@ -443,7 +445,7 @@ namespace Charlotte.GameTools
 						else
 							DDPrint.PrintLine("スペースキーを押すとキャンセルします。");
 
-						this.ResetPrint();
+						DDPrint.Reset();
 
 						DDEngine.EachFrame();
 					}
@@ -630,7 +632,7 @@ namespace Charlotte.GameTools
 				}
 
 				this.WallDrawer();
-				this.ResetPrint();
+				this.PrepForPrint();
 
 				DDPrint.SetPrint(40, 40, 40);
 				DDPrint.PrintLine(title);

@@ -45,6 +45,9 @@ namespace Charlotte.Games
 			};
 
 			int selectIndex = 0;
+			double stress = 0.0;
+			double bureStress = 0.0;
+			bool deepMenuEntered = false;
 
 			this.SimpleMenu = new SimpleMenu()
 			{
@@ -69,13 +72,48 @@ namespace Charlotte.Games
 					DDDraw.DrawEnd();
 					DDDraw.Reset();
 
-					DDCurtain.DrawCurtain(-0.4);
+					if (deepMenuEntered)
+					{
+						DDCurtain.DrawCurtain(-0.4);
+					}
+					else
+					{
+						DDDraw.SetAlpha(0.4 * stress);
+						DDDraw.SetBright(0, 0, 0);
+						DDDraw.DrawRect(Ground.I.Picture.WhiteBox, 0, 0, 295 * stress, DDConsts.Screen_H);
+						DDDraw.Reset();
+
+						picture = Ground.I.Picture.TitleString;
+
+						double titleStringX = 210;
+						double titleStringY = 80;
+
+						titleStringX += 20.0 * DDUtils.Random.GetReal2() * bureStress;
+						titleStringY += 20.0 * DDUtils.Random.GetReal2() * bureStress;
+
+						DDDraw.SetBright(1.0, 0.7, 0.3);
+						DDDraw.DrawCenter(picture,
+							titleStringX + 10 - 40.0 * (1.0 - stress),
+							titleStringY + 10
+							);
+						DDDraw.Reset();
+						DDDraw.DrawCenter(picture,
+							titleStringX - 20.0 * (1.0 - stress),
+							titleStringY
+							);
+
+						if (DDUtils.Random.GetReal1() < 0.001)
+							bureStress = 1.0;
+
+						DDUtils.Approach(ref stress, 1.0, 0.92);
+						DDUtils.Approach(ref bureStress, 0.0, 0.9);
+					}
 				},
 			};
 
 			for (; ; )
 			{
-				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "", items);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 280, 40, 24, "", items);
 
 				bool cheatFlag;
 
@@ -91,7 +129,9 @@ namespace Charlotte.Games
 					case 0:
 						if (DDConfig.LOG_ENABLED && cheatFlag)
 						{
+							deepMenuEntered = true;
 							this.CheatMainMenu();
+							deepMenuEntered = false;
 						}
 						else
 						{
@@ -125,8 +165,9 @@ namespace Charlotte.Games
 					case 2:
 						using (new OmakeMenu())
 						{
-							OmakeMenu.I.SimpleMenu = this.SimpleMenu;
+							deepMenuEntered = true;
 							OmakeMenu.I.Perform();
+							deepMenuEntered = false;
 						}
 						break;
 
@@ -134,7 +175,10 @@ namespace Charlotte.Games
 						using (new SettingMenu())
 						{
 							SettingMenu.I.SimpleMenu = this.SimpleMenu;
+
+							deepMenuEntered = true;
 							SettingMenu.I.Perform();
+							deepMenuEntered = false;
 						}
 						break;
 
@@ -170,12 +214,17 @@ namespace Charlotte.Games
 
 			SimpleMenu simpleMenu = new SimpleMenu()
 			{
-				BorderColor = new I3Color(0, 128, 0),
+				BorderColor = new I3Color(0, 0, 64),
 				WallDrawer = () =>
 				{
-					DDDraw.SetBright(new I3Color(64, 64, 128));
-					DDDraw.DrawRect(Ground.I.Picture.WhiteBox, 0, 0, DDConsts.Screen_W, DDConsts.Screen_H);
-					DDDraw.Reset();
+					DDPicture picture = Ground.I.Picture.LoadBack;
+
+					DDDraw.DrawRect(
+						picture,
+						DDUtils.AdjustRectExterior(picture.GetSize().ToD2Size(), new D4Rect(0, 0, DDConsts.Screen_W, DDConsts.Screen_H))
+						);
+
+					DDCurtain.DrawCurtain(-0.4);
 				},
 			};
 

@@ -99,22 +99,22 @@ namespace Charlotte
 		public DDPicture Wall_B0005 = DDPictureLoaders.Standard(@"dat\素材Good\Wall_B0005.png");
 		public DDPicture Wall_B0006 = DDPictureLoaders.Standard(@"dat\素材Good\Wall_B0006.png");
 
-		public DDPicture Enemy_B0001_01 = DDPictureLoaders.Standard(@"dat\Enemy_B0001_01.png");
-		public DDPicture Enemy_B0001_02 = DDPictureLoaders.Standard(@"dat\Enemy_B0001_02.png");
-		public DDPicture Enemy_B0001_03 = DDPictureLoaders.Standard(@"dat\Enemy_B0001_03.png");
-		public DDPicture Enemy_B0001_04 = DDPictureLoaders.Standard(@"dat\Enemy_B0001_04.png");
+		public DDPicture Enemy_B0001_01 = DDPictureLoaders.Standard(@"dat\Picture\Enemy_B0001_01.png");
+		public DDPicture Enemy_B0001_02 = DDPictureLoaders.Standard(@"dat\Picture\Enemy_B0001_02.png");
+		public DDPicture Enemy_B0001_03 = DDPictureLoaders.Standard(@"dat\Picture\Enemy_B0001_03.png");
+		public DDPicture Enemy_B0001_04 = DDPictureLoaders.Standard(@"dat\Picture\Enemy_B0001_04.png");
 
-		public DDPicture Enemy_B0002_01 = DDPictureLoaders.Standard(@"dat\Enemy_B0002_01.png");
-		public DDPicture Enemy_B0002_02 = DDPictureLoaders.Standard(@"dat\Enemy_B0002_02.png");
+		public DDPicture Enemy_B0002_01 = DDPictureLoaders.Standard(@"dat\Picture\Enemy_B0002_01.png");
+		public DDPicture Enemy_B0002_02 = DDPictureLoaders.Standard(@"dat\Picture\Enemy_B0002_02.png");
 
-		public DDPicture Enemy_TrumpBack = DDPictureLoaders.Standard(@"dat\TrumpBack.png");
-		public DDPicture Enemy_TrumpFrame = DDPictureLoaders.Standard(@"dat\TrumpFrame.png");
-		public DDPicture Enemy_TrumpS01 = DDPictureLoaders.Standard(@"dat\TrumpS01.png");
+		public DDPicture Enemy_TrumpBack = DDPictureLoaders.Standard(@"dat\Picture\TrumpBack.png");
+		public DDPicture Enemy_TrumpFrame = DDPictureLoaders.Standard(@"dat\Picture\TrumpFrame.png");
+		public DDPicture Enemy_TrumpS01 = DDPictureLoaders.Standard(@"dat\Picture\TrumpS01.png");
 
-		//public DDPicture Enemy_神奈子 = DDPictureLoaders.Reduct(@"dat\きつね仮\yukkuri-kanako.png", 4); // 4000x4000 -> 1000x1000
-		public DDPicture Enemy_神奈子 = DDPictureLoaders.Standard(@"dat\きつね仮\yukkuri-kanako.png"); // 1000x1000 resized png
+		public DDPicture Enemy_神奈子 = DDPictureLoaders.Standard(@"dat\きつね仮\yukkuri-kanako.png");
 
 		public DDPicture Title = DDPictureLoaders.Standard(@"dat\素材Good\Title.png");
+		public DDPicture LoadBack = DDPictureLoaders.Standard(@"dat\素材Good\LoadBack.png");
 		public DDPicture EnemyKilled = DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\pipo-btleffect048.png");
 		public DDPicture FireBall = DDPictureLoaders.Standard(@"dat\ぴぽや倉庫\pipo-btleffect120g.png");
 
@@ -135,5 +135,7 @@ namespace Charlotte
 		public DDPicture MessageFrame_Save2 = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\空想曲線\Messageframe_29\material\03 system_button\save2.png");
 		public DDPicture MessageFrame_Skip = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\空想曲線\Messageframe_29\material\03 system_button\skip.png");
 		public DDPicture MessageFrame_Skip2 = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\空想曲線\Messageframe_29\material\03 system_button\skip2.png");
+
+		public DDPicture TitleString = DDPictureLoaders.Standard(@"dat\Title.png");
 	}
 }

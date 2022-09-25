@@ -48,7 +48,7 @@ namespace Charlotte.Games
 
 			for (; ; )
 			{
-				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "設定", items);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 120, 40, 24, "設定", items);
 
 				switch (selectIndex)
 				{
