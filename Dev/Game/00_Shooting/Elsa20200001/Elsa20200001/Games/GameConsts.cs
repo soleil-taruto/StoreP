@@ -18,5 +18,7 @@ namespace Charlotte.Games
 
 		public const int DEFAULT_ZANKI = 5;
 		public const int DEFAULT_ZAN_BOMB = 3;
+
+		public const int ATTACK_LEVEL_MAX = 3;
 	}
 }

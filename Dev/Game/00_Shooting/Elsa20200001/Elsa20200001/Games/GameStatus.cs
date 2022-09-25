@@ -18,6 +18,12 @@ namespace Charlotte.Games
 		public int Zanki = GameConsts.DEFAULT_ZANKI;
 		public int ZanBomb = GameConsts.DEFAULT_ZAN_BOMB;
 
+		// 攻撃レベル
+		// 初期値：0
+		// 値域：0 ～ GameConsts.ATTACK_LEVEL_MAX
+		//
+		public int AttackLevel = 0;
+
 		// <---- prm
 	}
 }

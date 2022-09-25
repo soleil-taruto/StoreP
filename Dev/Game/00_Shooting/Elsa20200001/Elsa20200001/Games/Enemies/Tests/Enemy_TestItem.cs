@@ -75,7 +75,7 @@ namespace Charlotte.Games.Enemies.Tests
 					break;
 
 				case 効用_e.POWER_UP_WEAPON:
-					Game.I.Player.AttackLevel = Math.Min(Game.I.Player.AttackLevel + 1, Player.ATTACK_LEVEL_MAX);
+					Game.I.Status.AttackLevel = Math.Min(Game.I.Status.AttackLevel + 1, GameConsts.ATTACK_LEVEL_MAX);
 					break;
 
 				default:

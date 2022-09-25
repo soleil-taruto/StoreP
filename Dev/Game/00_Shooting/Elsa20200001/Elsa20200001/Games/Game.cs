@@ -136,11 +136,11 @@ namespace Charlotte.Games
 
 					if (1 <= DDInput.A.GetInput()) // 低速ボタン押下中
 					{
-						speed = (double)this.Player.SpeedLevel;
+						speed = 3.0;
 					}
 					else
 					{
-						speed = (double)(this.Player.SpeedLevel * 2);
+						speed = 6.0;
 					}
 
 					this.Player.X += xa * speed;
@@ -153,20 +153,10 @@ namespace Charlotte.Games
 					{
 						this.Player.Fire();
 					}
-					if (!deadOrRebornOrUID && DDInput.E.GetInput() == 1) // ボム_ボタン押下
+					if (!deadOrRebornOrUID && DDInput.C.GetInput() == 1) // ボム_ボタン押下
 					{
 						this.Player.Bomb();
 					}
-
-					if (DDInput.C.GetInput() == 1)
-					{
-						this.Player.SpeedLevel--;
-					}
-					if (DDInput.D.GetInput() == 1)
-					{
-						this.Player.SpeedLevel++;
-					}
-					DDUtils.ToRange(ref this.Player.SpeedLevel, Player.SPEED_LEVEL_MIN, Player.SPEED_LEVEL_MAX);
 				}
 
 				if (1 <= this.Player.DeadFrame) // プレイヤー死亡中の処理
@@ -181,7 +171,7 @@ namespace Charlotte.Games
 						this.システム的な敵クリア();
 
 						this.Status.Zanki--;
-						this.Player.AttackLevel = Math.Max(0, this.Player.AttackLevel - 1);
+						this.Status.AttackLevel = Math.Max(0, this.Status.AttackLevel - 1);
 						this.Player.RebornFrame = 1;
 						goto endDead;
 					}

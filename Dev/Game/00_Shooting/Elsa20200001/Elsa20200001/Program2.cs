@@ -57,7 +57,7 @@ namespace Charlotte
 						" ",
 						Game.I == null ? "-" : "" + Game.I.Status.Zanki,
 						Game.I == null ? "-" : "" + Game.I.Status.ZanBomb,
-						Game.I == null ? "-" : "" + Game.I.Player.SpeedLevel,
+						Game.I == null ? "-" : "" + Game.I.Status.AttackLevel,
 
 						// デバッグ表示する情報をここへ追加..
 

@@ -14,27 +14,14 @@ namespace Charlotte.Games
 	/// </summary>
 	public class Player
 	{
-		public const int SPEED_LEVEL_MIN = 1;
-		public const int SPEED_LEVEL_DEF = 3;
-		public const int SPEED_LEVEL_MAX = 5;
-
-		public const int ATTACK_LEVEL_MAX = 3;
-
 		public double X;
 		public double Y;
 		public double Reborn_X;
 		public double Reborn_Y;
 		public DDCrash Crash;
-		public int SpeedLevel = SPEED_LEVEL_DEF;
 		public int DeadFrame = 0; // 0 == 無効, 1～ == 死亡中
 		public int RebornFrame = 0; // 0 == 無効, 1～ == 登場中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
-
-		// 攻撃レベル
-		// 初期：0
-		// 範囲：0 ～ ATTACK_LEVEL_MAX
-		//
-		public int AttackLevel = 0;
 
 		public void Draw()
 		{
@@ -72,7 +59,7 @@ namespace Charlotte.Games
 
 			if (Game.I.Frame % 6 == 0)
 			{
-				switch (this.AttackLevel)
+				switch (Game.I.Status.AttackLevel)
 				{
 					case 0:
 						Game.I.Shots.Add(new Shot_Test0001(this.X + 38.0, this.Y));
