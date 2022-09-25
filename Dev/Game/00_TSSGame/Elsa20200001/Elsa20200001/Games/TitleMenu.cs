@@ -5,6 +5,7 @@ using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Tests;
+using Charlotte.GameTools;
 
 namespace Charlotte.Games
 {
@@ -22,7 +23,7 @@ namespace Charlotte.Games
 			I = null;
 		}
 
-		private DDSimpleMenu SimpleMenu;
+		private SimpleMenu SimpleMenu;
 
 		#region DrawWall
 
@@ -186,7 +187,7 @@ namespace Charlotte.Games
 
 			Ground.I.Music.Title.Play();
 
-			this.SimpleMenu = new DDSimpleMenu();
+			this.SimpleMenu = new SimpleMenu();
 			this.SimpleMenu.Color = new I3Color(255, 255, 128);
 			this.SimpleMenu.BorderColor = new I3Color(0, 0, 100);
 			this.SimpleMenu.WallDrawer = this.DrawWall.Execute;

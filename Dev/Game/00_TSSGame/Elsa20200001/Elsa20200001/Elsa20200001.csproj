@@ -79,7 +79,6 @@
     <Compile Include="GameCommons\DDHashedResource.cs" />
     <Compile Include="GameCommons\DDTask.cs" />
     <Compile Include="GameCommons\DDTouch.cs" />
-    <Compile Include="GameProgressMasters\GameProgressMaster.cs" />
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\GameCommon.cs" />
     <Compile Include="Commons\ArgsReader.cs" />
@@ -135,7 +134,6 @@
     <Compile Include="GameCommons\DDSceneUtils.cs" />
     <Compile Include="GameCommons\DDSE.cs" />
     <Compile Include="GameCommons\DDSEUtils.cs" />
-    <Compile Include="GameCommons\DDSimpleMenu.cs" />
     <Compile Include="GameCommons\DDSound.cs" />
     <Compile Include="GameCommons\DDSoundUtils.cs" />
     <Compile Include="GameCommons\DDSubScreen.cs" />
@@ -154,6 +152,10 @@
     <Compile Include="Games\GameConsts.cs" />
     <Compile Include="Games\Tests\GameTestMenu.cs" />
     <Compile Include="Games\Tests\GameTestSubMenu.cs" />
+    <Compile Include="GameTools\AppConfig.cs" />
+    <Compile Include="GameTools\AppSaveDataUtils.cs" />
+    <Compile Include="GameTools\SimpleMenu.cs" />
+    <Compile Include="GameTools\TableMenu.cs" />
     <Compile Include="LiteStatusDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,9 +232,7 @@
   <ItemGroup>
     <Content Include="game_app.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="★ここはGameBaseです！\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>

@@ -6,6 +6,7 @@ using DxLibDLL;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
 using Charlotte.Games.Surfaces;
+using Charlotte.GameTools;
 
 namespace Charlotte.Games
 {
@@ -488,7 +489,7 @@ namespace Charlotte.Games
 		{
 			this.SystemMenu_ReturnToTitleMenu = false; // reset
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				Color = new I3Color(255, 255, 255),
 				BorderColor = new I3Color(0, 64, 0),

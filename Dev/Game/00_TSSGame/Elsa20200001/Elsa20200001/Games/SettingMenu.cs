@@ -5,6 +5,7 @@ using System.Text;
 using DxLibDLL;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.GameTools;
 
 namespace Charlotte.Games
 {
@@ -623,9 +624,9 @@ namespace Charlotte.Games
 				Func<string, string> w = s => Common.FirstNotEmpty(s, "割り当てナシ");
 
 				if (キー設定Flag)
-					getSetting = btn => w(string.Join(" , ", btn.KeyIds.Select(keyId => DDSimpleMenu.GetKeyName(keyId))));
+					getSetting = btn => w(string.Join(" , ", btn.KeyIds.Select(keyId => SimpleMenu.GetKeyName(keyId))));
 				else
-					getSetting = btn => w(string.Join(" , ", btn.BtnIds.Select(btnId => DDSimpleMenu.GetPadButtonName(btnId))));
+					getSetting = btn => w(string.Join(" , ", btn.BtnIds.Select(btnId => SimpleMenu.GetPadButtonName(btnId))));
 			}
 
 			this.DrawButton(300, y + 25, Ground.I.Picture.SettingButton_変更, true);
@@ -739,7 +740,7 @@ namespace Charlotte.Games
 			{
 				int pressKeyId = -1;
 
-				foreach (int keyId in DDSimpleMenu.GetAllKeyId())
+				foreach (int keyId in SimpleMenu.GetAllKeyId())
 					if (DDKey.GetInput(keyId) == 1)
 						pressKeyId = keyId;
 

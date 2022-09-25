@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Charlotte.Commons;
+using Charlotte.GameTools;
 
 namespace Charlotte.GameCommons
 {
@@ -79,15 +80,7 @@ namespace Charlotte.GameCommons
 				//lines.Add("Donut3-SaveData"); // Dummy
 				//lines.Add("Donut3-SaveData"); // Dummy
 
-				lines.Add("" + Ground.I.MessageSpeed);
-				lines.Add("" + Ground.I.MessageWindow_A_Pct);
-
-				foreach (SaveDataSlot saveDataSlot in Ground.I.SaveDataSlots)
-				{
-					lines.Add(saveDataSlot.Serialize());
-				}
-
-				// 新しい項目をここへ追加...
+				lines.AddRange(AppSaveDataUtils.GetAppLines());
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -182,15 +175,7 @@ namespace Charlotte.GameCommons
 					//DDUtils.Noop(lines[c++]); // Dummy
 					//DDUtils.Noop(lines[c++]); // Dummy
 
-					Ground.I.MessageSpeed = int.Parse(lines[c++]);
-					Ground.I.MessageWindow_A_Pct = int.Parse(lines[c++]);
-
-					for (int index = 0; index < Consts.SAVE_DATA_SLOT_NUM; index++)
-					{
-						Ground.I.SaveDataSlots[index].Deserialize(lines[c++]);
-					}
-
-					// 新しい項目をここへ追加...
+					AppSaveDataUtils.UngetAppLines(lines);
 				}
 				catch (Exception e)
 				{
