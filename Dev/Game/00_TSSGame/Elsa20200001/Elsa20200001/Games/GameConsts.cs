@@ -7,7 +7,14 @@ namespace Charlotte.Games
 {
 	public class GameConsts
 	{
-		// ---- 主要な待ち時間 ----
+		/// <summary>
+		/// セーブデータ・スロット数
+		/// </summary>
+		public const int SAVE_DATA_SLOT_NUM = 100;
+
+		// ====
+		// 主要な待ち時間_ここから
+		// ====
 
 		/// <summary>
 		/// 短めの入力抑止時間(フレーム数)
@@ -31,7 +38,9 @@ namespace Charlotte.Games
 		/// </summary>
 		public const int AUTO_NEXT_PAGE_INTERVAL = 180;
 
-		// ----
+		// ====
+		// 主要な待ち時間_ここまで
+		// ====
 
 		public const string DUMMY_SCENARIO_NAME = "Tests/ダミーシナリオ";
 		public const string FIRST_SCENARIO_NAME = "0001_スタートシナリオ";

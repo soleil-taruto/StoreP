@@ -44,19 +44,23 @@ namespace Charlotte.GameCommons
 
 		// < Extra
 
+		private const int DEFAULT_FONT_SIZE = 32;
+
 		private static int P_BaseX;
 		private static int P_BaseY;
 		private static int P_YStep;
 		private static int P_X;
 		private static int P_Y;
+		private static int P_FontSize = DEFAULT_FONT_SIZE;
 
-		public static void SetPrint(int x = 0, int y = 0, int yStep = 32)
+		public static void SetPrint(int x, int y, int yStep, int fontSize = DEFAULT_FONT_SIZE)
 		{
 			P_BaseX = x;
 			P_BaseY = y;
 			P_YStep = yStep;
 			P_X = 0;
 			P_Y = 0;
+			P_FontSize = fontSize;
 		}
 
 		public static void PrintRet()
@@ -65,11 +69,11 @@ namespace Charlotte.GameCommons
 			P_Y += P_YStep;
 		}
 
-		private static DDFont _font
+		private static DDFont Font
 		{
 			get
 			{
-				return DDFontUtils.GetFont("Kゴシック", 32);
+				return DDFontUtils.GetFont("Kゴシック", P_FontSize);
 			}
 		}
 
@@ -80,9 +84,9 @@ namespace Charlotte.GameCommons
 			// 0.5 == 中央寄せ
 			// 1.0 == 左寄せ (最後の文字の右側面が x になる)
 
-			x -= SCommon.ToInt(DDFontUtils.GetDrawStringWidth(line, _font) * centeringRate);
+			x -= SCommon.ToInt(DDFontUtils.GetDrawStringWidth(line, Font) * centeringRate);
 
-			DDFontUtils.DrawString(x, y, line, _font, false, color);
+			DDFontUtils.DrawString(x, y, line, Font, false, color);
 		}
 
 		private static void Print_Main(string line, int x, int y, double centeringRate)
@@ -128,7 +132,7 @@ namespace Charlotte.GameCommons
 			}
 
 			//int w = DX.GetDrawStringWidth(line, SCommon.ENCODING_SJIS.GetByteCount(line));
-			int w = DX.GetDrawStringWidthToHandle(line, SCommon.ENCODING_SJIS.GetByteCount(line), _font.GetHandle(), 0);
+			int w = DX.GetDrawStringWidthToHandle(line, SCommon.ENCODING_SJIS.GetByteCount(line), Font.GetHandle(), 0);
 
 			if (w < 0 || SCommon.IMAX < w)
 				throw new DDError();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.Games;
 
 namespace Charlotte
 {
@@ -31,7 +32,7 @@ namespace Charlotte
 		{
 			return SCommon.Serializer.I.Join(new string[]
 			{
-				Common.WrapNullOrString(this.SerializedGameStatus),
+				GameCommon.WrapNullOrString(this.SerializedGameStatus),
 				"" + this.SavedTime.ToTimeStamp(),
 				SCommon.Base64.I.Encode(this.Thumbnail.Entity),
 			});
@@ -42,7 +43,7 @@ namespace Charlotte
 			string[] lines = SCommon.Serializer.I.Split(value);
 			int c = 0;
 
-			this.SerializedGameStatus = Common.UnwrapNullOrString(lines[c++]);
+			this.SerializedGameStatus = GameCommon.UnwrapNullOrString(lines[c++]);
 			this.SavedTime = SCommon.SimpleDateTime.FromTimeStamp(long.Parse(lines[c++]));
 			this.Thumbnail = new DDHashedData(SCommon.Base64.I.Decode(lines[c++]));
 		}

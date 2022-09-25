@@ -306,7 +306,7 @@ namespace Charlotte.Games
 				DDEngine.EachFrame();
 			}
 		endMenu:
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))
@@ -335,7 +335,7 @@ namespace Charlotte.Games
 			{
 				selectIndex = this.SimpleMenu.Perform("コンテニュー", items, selectIndex);
 
-				if (selectIndex < Consts.SAVE_DATA_SLOT_NUM)
+				if (selectIndex < GameConsts.SAVE_DATA_SLOT_NUM)
 				{
 					if (Ground.I.SaveDataSlots[selectIndex].SerializedGameStatus != null) // ロードする。
 					{
@@ -516,7 +516,7 @@ namespace Charlotte.Games
 
 		private void LeaveTitleMenu()
 		{
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))

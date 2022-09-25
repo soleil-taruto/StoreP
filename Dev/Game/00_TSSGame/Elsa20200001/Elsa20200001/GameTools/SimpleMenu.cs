@@ -103,7 +103,7 @@ namespace Charlotte.GameTools
 				if (this.BorderColor != null)
 					DDPrint.SetBorder(this.BorderColor.Value);
 
-				DDPrint.SetPrint(DDConsts.Screen_W - 80, 4);
+				DDPrint.SetPrint(DDConsts.Screen_W - 80, 4, 40);
 				DDPrint.Print("[M:" + (this.MouseUsable ? "E" : "D") + "]");
 
 				DDPrint.SetPrint(this.X, this.Y, this.YStep);

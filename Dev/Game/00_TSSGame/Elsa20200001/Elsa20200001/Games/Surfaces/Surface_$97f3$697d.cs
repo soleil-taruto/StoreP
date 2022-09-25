@@ -53,7 +53,7 @@ namespace Charlotte.Games.Surfaces
 		private void MusicFileChanged()
 		{
 			if (this.MusicFile == null)
-				DDMusicUtils.Fade();
+				DDMusicUtils.Fadeout();
 			else
 				DDCCResource.GetMusic(this.MusicFile).Play();
 		}
@@ -62,7 +62,7 @@ namespace Charlotte.Games.Surfaces
 		{
 			return new string[]
 			{
-				Common.WrapNullOrString(this.MusicFile),
+				GameCommon.WrapNullOrString(this.MusicFile),
 			};
 		}
 
@@ -70,7 +70,7 @@ namespace Charlotte.Games.Surfaces
 		{
 			int c = 0;
 
-			this.MusicFile = Common.UnwrapNullOrString(lines[c++]);
+			this.MusicFile = GameCommon.UnwrapNullOrString(lines[c++]);
 			this.MusicFileChanged();
 		}
 	}

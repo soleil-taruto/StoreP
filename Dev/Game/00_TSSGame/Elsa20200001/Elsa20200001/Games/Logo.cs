@@ -28,7 +28,7 @@ namespace Charlotte.Games
 			{
 				DDGround.EL.Keep(300, () =>
 				{
-					DDPrint.SetPrint(100, DDConsts.Screen_H - 40);
+					DDPrint.SetPrint(100, DDConsts.Screen_H - 40, 40);
 					DDPrint.Print("これはクローズドテスト版です。仮リソース・実装されていない機能を含みます。(このメッセージは数秒で消えます)");
 				});
 			}

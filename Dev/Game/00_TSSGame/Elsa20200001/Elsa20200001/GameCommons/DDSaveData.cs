@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Charlotte.Commons;
+using Charlotte.Games;
 using Charlotte.GameTools;
 
 namespace Charlotte.GameCommons
@@ -67,7 +68,7 @@ namespace Charlotte.GameCommons
 
 				lines.Add("" + (DDGround.RO_MouseDispMode ? 1 : 0));
 
-				// 新しい項目をここへ追加...
+				// D3SaveData_新しい項目をここへ追加...
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -157,7 +158,7 @@ namespace Charlotte.GameCommons
 
 				DDGround.RO_MouseDispMode = int.Parse(lines[c++]) != 0;
 
-				// 新しい項目をここへ追加...
+				// D3SaveData_新しい項目をここへ追加...
 			}
 			catch (Exception e)
 			{

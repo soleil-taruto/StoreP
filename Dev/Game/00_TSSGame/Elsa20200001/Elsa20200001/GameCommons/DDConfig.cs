@@ -21,7 +21,7 @@ namespace Charlotte.GameCommons
 		public static bool LOG_ENABLED = true;
 		public static string ApplicationLogSaveDirectory = @"C:\temp";
 
-		// 新しい項目をここへ追加...
+		// Config_新しい項目をここへ追加...
 
 		// < 設定項目
 
@@ -49,7 +49,7 @@ namespace Charlotte.GameCommons
 			LOG_ENABLED = int.Parse(lines[c++]) != 0;
 			ApplicationLogSaveDirectory = lines[c++];
 
-			// 新しい項目をここへ追加...
+			// Config_新しい項目をここへ追加...
 
 			// < 設定項目
 		}

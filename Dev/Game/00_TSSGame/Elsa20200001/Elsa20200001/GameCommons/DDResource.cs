@@ -135,7 +135,7 @@ namespace Charlotte.GameCommons
 		{
 			if (ReleaseMode)
 			{
-				file = file.Replace("/", "\\");
+				file = file.Replace('/', '\\');
 
 				return LoadFile(File2ResInfo[file]);
 			}

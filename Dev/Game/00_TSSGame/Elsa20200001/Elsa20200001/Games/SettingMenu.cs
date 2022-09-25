@@ -533,10 +533,10 @@ namespace Charlotte.Games
 			DDCrash drawedCrash = DDDraw.DrawGetCrash();
 			DDDraw.DrawEnd();
 
-			DDPrint.SetPrint(x - Ground.I.Picture.TrackBar.Get_W() / 2 - lwLabel.Length * 32, y - 15);
+			DDPrint.SetPrint(x - Ground.I.Picture.TrackBar.Get_W() / 2 - lwLabel.Length * 32, y - 15, 40);
 			DDPrint.Print(lwLabel);
 
-			DDPrint.SetPrint(x + Ground.I.Picture.TrackBar.Get_W() / 2, y - 15);
+			DDPrint.SetPrint(x + Ground.I.Picture.TrackBar.Get_W() / 2, y - 15, 40);
 			DDPrint.Print(hiLabel);
 
 			double span = Ground.I.Picture.TrackBar.Get_W() - Ground.I.Picture.TrackBar_つまみ.Get_W();
@@ -621,7 +621,7 @@ namespace Charlotte.Games
 			Func<DDInput.Button, string> getSetting;
 
 			{
-				Func<string, string> w = s => Common.FirstNotEmpty(s, "割り当てナシ");
+				Func<string, string> w = s => !string.IsNullOrEmpty(s) ? s : "割り当てナシ";
 
 				if (キー設定Flag)
 					getSetting = btn => w(string.Join(" , ", btn.KeyIds.Select(keyId => SimpleMenu.GetKeyName(keyId))));

@@ -7,6 +7,14 @@ namespace Charlotte.Games
 {
 	public static class GameCommon
 	{
-		// none
+		public static string WrapNullOrString(string str)
+		{
+			throw new NotImplementedException();
+		}
+
+		public static string UnwrapNullOrString(string str)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -23,6 +23,8 @@ namespace Charlotte.GameCommons
 		{
 			public int Status = 0;
 
+			// ★★★ ボタン・キー押下は 1 マウス押下は -1 で判定する。
+			//
 			public int GetInput()
 			{
 				return 1 <= DDEngine.FreezeInputFrame ? 0 : this.Status;

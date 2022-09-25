@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Games;
 
 namespace Charlotte.GameTools
 {
@@ -41,7 +42,7 @@ namespace Charlotte.GameTools
 			Ground.I.MessageSpeed = int.Parse(lines[c++]);
 			Ground.I.MessageWindow_A_Pct = int.Parse(lines[c++]);
 
-			for (int index = 0; index < Consts.SAVE_DATA_SLOT_NUM; index++)
+			for (int index = 0; index < GameConsts.SAVE_DATA_SLOT_NUM; index++)
 			{
 				Ground.I.SaveDataSlots[index].Deserialize(lines[c++]);
 			}

@@ -161,11 +161,11 @@ namespace Charlotte.Games
 						DDDraw.DrawCenter(DDHashedResource.GetPicture(sdSlot.Thumbnail), slotX, slotY);
 
 						DDPrint.SetBorder(new I3Color(0, 0, 150));
-						DDPrint.SetPrint(slotX - 140, slotY - 145);
+						DDPrint.SetPrint(slotX - 140, slotY - 145, 40);
 						DDPrint.Print("" + (sdSlotIndex + 1));
 
 						DDPrint.SetBorder(new I3Color(0, 0, 150));
-						DDPrint.SetPrint(slotX - 150, slotY + 120);
+						DDPrint.SetPrint(slotX - 150, slotY + 120, 40);
 						DDPrint.Print(sdSlot.SavedTime.Year == 1 ?
 							"----/--/--(--)--:--"
 							//"----/--/-- --:--:--"
