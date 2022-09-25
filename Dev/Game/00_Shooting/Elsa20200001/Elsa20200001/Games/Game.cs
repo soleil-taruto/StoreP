@@ -48,12 +48,14 @@ namespace Charlotte.Games
 		public Player Player = new Player();
 		public int Frame;
 		public bool UserInputDisabled = false;
-
 		public bool RequestReturnToTitleMenu = false;
+
+		public DDTaskList Tasks = new DDTaskList();
 
 		public void Perform()
 		{
-			Func<bool> f_ゴミ回収 = SCommon.Supplier(this.E_ゴミ回収());
+			//Func<bool> f_ゴミ回収 = SCommon.Supplier(this.E_ゴミ回収()); // メソッド版_廃止
+			this.Tasks.Add(SCommon.Supplier(this.E_ゴミ回収()));
 
 			DDUtils.Random = new DDRandom(1u); // 電源パターン確保のため
 
@@ -78,14 +80,14 @@ namespace Charlotte.Games
 			for (this.Frame = 0; ; this.Frame++)
 			{
 				// memo: スクリプトの途中で Game.I.Script = scriptNew; として別のスクリプトに遷移して良い。
-				// 但し、スクリプトを差し替えた後で yield return (1以上); を行うこと。
+				// 但し、スクリプトを差し替えた後で yield return true; を 1 回以上行うこと。
 				// スクリプトを差し替えて列挙が終了すると this.Script.EachFrame() == false となるため、ゲームループを break; してしまう。
-				// yield return 1; としておけば this.Script.EachFrame() == true となり、次の this.Script.EachFrame()で新しいスクリプトが開始される。
+				// yield return true; としておけば this.Script.EachFrame() == true となり、次の this.Script.EachFrame()で新しいスクリプトが開始される。
 				//
 				if (!this.Script.EachFrame())
 					break;
 
-				if (!this.UserInputDisabled && DDInput.PAUSE.GetInput() == 1) // ポーズ
+				if (!this.UserInputDisabled && DDInput.PAUSE.GetInput() == 1)
 				{
 					DDMusicUtils.Pause();
 					this.Pause();
@@ -100,7 +102,8 @@ namespace Charlotte.Games
 				{
 					break;
 				}
-				if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_RETURN) == 1)
+				if (DDConfig.LOG_ENABLED && DDInput.START.GetInput() == 1)
+				//if (DDConfig.LOG_ENABLED && DDKey.GetInput(DX.KEY_INPUT_RETURN) == 1)
 				{
 					this.DebugPause();
 				}
@@ -148,7 +151,7 @@ namespace Charlotte.Games
 
 					if (!deadOrRebornOrUID && 1 <= DDInput.B.GetInput()) // 攻撃ボタン押下中
 					{
-						this.Player.Shoot();
+						this.Player.Fire();
 					}
 					if (!deadOrRebornOrUID && DDInput.E.GetInput() == 1) // ボム_ボタン押下
 					{
@@ -166,7 +169,6 @@ namespace Charlotte.Games
 					DDUtils.ToRange(ref this.Player.SpeedLevel, Player.SPEED_LEVEL_MIN, Player.SPEED_LEVEL_MAX);
 				}
 
-				//startDead:
 				if (1 <= this.Player.DeadFrame) // プレイヤー死亡中の処理
 				{
 					if (GameConsts.PLAYER_DEAD_FRAME_MAX < ++this.Player.DeadFrame)
@@ -208,8 +210,7 @@ namespace Charlotte.Games
 				}
 			endDead:
 
-				//startReborn:
-				if (1 <= this.Player.RebornFrame) // プレイヤー登場中の処理
+				if (1 <= this.Player.RebornFrame) // プレイヤー再登場中の処理
 				{
 					if (GameConsts.PLAYER_REBORN_FRAME_MAX < ++this.Player.RebornFrame)
 					{
@@ -232,7 +233,6 @@ namespace Charlotte.Games
 				}
 			endReborn:
 
-				//startInvincible:
 				if (1 <= this.Player.InvincibleFrame) // プレイヤー無敵時間中の処理
 				{
 					if (GameConsts.PLAYER_INVINCIBLE_FRAME_MAX < ++this.Player.InvincibleFrame)
@@ -249,7 +249,28 @@ namespace Charlotte.Games
 				}
 			endInvincible:
 
-				DDCrash plCrash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
+				// プレイヤー当たり判定をセットする。
+				// -- プレイヤー死亡中・再登場中・無敵時間中など、当たり判定無しの場合は DDCrashUtils.None をセットすること。
+				{
+					this.Player.Crash = DDCrashUtils.None(); // reset
+
+					if (1 <= this.Player.DeadFrame) // ? プレイヤー死亡中
+					{
+						// noop
+					}
+					else if (1 <= this.Player.RebornFrame) // ? プレイヤー再登場中
+					{
+						// noop
+					}
+					else if (1 <= this.Player.InvincibleFrame) // ? プレイヤー無敵時間中
+					{
+						// noop
+					}
+					else
+					{
+						this.Player.Crash = DDCrashUtils.Point(new D2Point(this.Player.X, this.Player.Y));
+					}
+				}
 
 				// ====
 				// 描画ここから
@@ -269,18 +290,24 @@ namespace Charlotte.Games
 
 					this.Player.Draw();
 
-					// memo: DeadFlag をチェックするのは「当たり判定」から
-
 					foreach (Enemy enemy in this.Enemies.Iterate())
 					{
+						if (enemy.DeadFlag) // ? 敵：既に死亡
+							continue;
+
 						enemy.Crash = DDCrashUtils.None(); // reset
 						enemy.Draw();
 					}
 					foreach (Shot shot in this.Shots.Iterate())
 					{
+						if (shot.DeadFlag) // ? 自弾：既に死亡
+							continue;
+
 						shot.Crash = DDCrashUtils.None(); // reset
 						shot.Draw();
 					}
+
+					this.Tasks.ExecuteAllTask();
 
 					if (DDConfig.LOG_ENABLED && 1 <= DDInput.R.GetInput()) // 当たり判定表示(チート)
 					{
@@ -288,7 +315,7 @@ namespace Charlotte.Games
 
 						const double A = 0.7;
 
-						DDCrashView.Draw(new DDCrash[] { plCrash }, new I3Color(255, 0, 0), 1.0);
+						DDCrashView.Draw(new DDCrash[] { this.Player.Crash }, new I3Color(255, 0, 0), 1.0);
 						DDCrashView.Draw(this.Enemies.Iterate().Select(v => v.Crash), new I3Color(255, 255, 255), A);
 						DDCrashView.Draw(this.Shots.Iterate().Select(v => v.Crash), new I3Color(0, 255, 255), A);
 					}
@@ -357,7 +384,7 @@ namespace Charlotte.Games
 						this.Player.InvincibleFrame == 0 && // ? プレイヤー無敵時間中ではない。
 						!enemy.DeadFlag && // ? 敵：生存
 						!DDUtils.IsOutOfScreen(new D2Point(enemy.X, enemy.Y)) && // ? 画面内の敵である。
-						DDCrashUtils.IsCrashed(enemy.Crash, plCrash) // ? 衝突
+						DDCrashUtils.IsCrashed(enemy.Crash, this.Player.Crash) // ? 衝突
 						)
 					{
 						// ★ 自機_被弾ここから
@@ -384,7 +411,7 @@ namespace Charlotte.Games
 					}
 				}
 
-				f_ゴミ回収();
+				//f_ゴミ回収(); // メソッド版_廃止
 
 				this.Walls.RemoveAll(v => v.DeadFlag);
 				this.Enemies.RemoveAll(v => v.DeadFlag);
@@ -451,7 +478,7 @@ namespace Charlotte.Games
 
 		private bool Pause_ReturnToTitleMenu = false;
 
-		private static DDSubScreen Pause_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H);
+		private static DDSubScreen Pause_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		/// <summary>
 		/// ポーズメニュー
@@ -459,7 +486,7 @@ namespace Charlotte.Games
 		private void Pause()
 		{
 			DDMain.KeepMainScreen();
-			SCommon.Swap(ref DDGround.KeptMainScreen, ref Pause_KeptMainScreen);
+			SCommon.Swap(ref DDGround.KeptMainScreen, ref Pause_KeptMainScreen); // 使用後は Unload すること。
 
 			SimpleMenu simpleMenu = new SimpleMenu()
 			{
@@ -536,6 +563,7 @@ namespace Charlotte.Games
 			}
 		endLoop:
 			DDEngine.FreezeInput();
+			Pause_KeptMainScreen.Unload();
 
 			// 寧ろやりにくい
 			//DDInput.A.FreezeInputUntilRelease = true;

@@ -53,7 +53,7 @@ namespace Charlotte
 		private static DDHashedData GetDefaultThumbnail()
 		{
 			if (_defaultThumbnail == null)
-				_defaultThumbnail = new DDHashedData(DDResource.Load(@"dat\SaveData_DefaultThumbnail.png"));
+				_defaultThumbnail = new DDHashedData(DDResource.Load(@"dat\Picture\SaveData_DefaultThumbnail.png"));
 
 			return _defaultThumbnail;
 		}

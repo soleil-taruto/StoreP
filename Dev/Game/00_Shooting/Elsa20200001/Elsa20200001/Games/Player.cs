@@ -18,23 +18,23 @@ namespace Charlotte.Games
 		public const int SPEED_LEVEL_DEF = 3;
 		public const int SPEED_LEVEL_MAX = 5;
 
-		// 攻撃レベル
-		// 初期：0
-		// 範囲：0 ～ ATTACK_LEVEL_MAX
-		//
 		public const int ATTACK_LEVEL_MAX = 3;
 
 		public double X;
 		public double Y;
 		public double Reborn_X;
 		public double Reborn_Y;
-
+		public DDCrash Crash;
 		public int SpeedLevel = SPEED_LEVEL_DEF;
-		public int AttackLevel = 0;
-
 		public int DeadFrame = 0; // 0 == 無効, 1～ == 死亡中
 		public int RebornFrame = 0; // 0 == 無効, 1～ == 登場中
 		public int InvincibleFrame = 0; // 0 == 無効, 1～ == 無敵時間中
+
+		// 攻撃レベル
+		// 初期：0
+		// 範囲：0 ～ ATTACK_LEVEL_MAX
+		//
+		public int AttackLevel = 0;
 
 		public void Draw()
 		{
@@ -63,12 +63,12 @@ namespace Charlotte.Games
 			DDDraw.DrawCenter(Ground.I.Picture.Player, this.X, this.Y);
 		}
 
-		public void Shoot()
+		/// <summary>
+		/// 攻撃を行う。
+		/// </summary>
+		public void Fire()
 		{
-			// memo:
-			// 武器の種類が増えた場合、このメソッド内で分岐してこのメソッド内で処理してしまって良いと思う。
-			// 下手にクラスに分けると却って面倒臭いことになりそうなので、、
-			// とは言え、状況次第で臨機応変に検討すること。
+			// memo: 将来的に武器毎にコードが実装され、メソッドがでかくなると思われる。
 
 			if (Game.I.Frame % 6 == 0)
 			{

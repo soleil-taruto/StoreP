@@ -18,7 +18,7 @@ namespace Charlotte
 
 		public DDPicture Copyright = DDPictureLoaders.Standard(@"dat\Logo\Copyright.png");
 
-		public DDPicture Background = DDPictureLoaders.Standard(@"dat\Background.png");
+		public DDPicture Background = DDPictureLoaders.Standard(@"dat\Picture\Background.png");
 
 		public DDPicture Boss0001 = DDPictureLoaders.Standard(@"dat\Game\Boss0001.png");
 		public DDPicture Boss0002 = DDPictureLoaders.Standard(@"dat\Game\Boss0002.png");
