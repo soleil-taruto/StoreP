@@ -82,7 +82,7 @@ namespace Charlotte.GameCommons
 					return;
 
 				if (1 <= fadeFrameMax)
-					Fade(fadeFrameMax, 0.0, CurrDestVolume);
+					Fadeout(fadeFrameMax);
 				else
 					Stop();
 			}
@@ -98,9 +98,14 @@ namespace Charlotte.GameCommons
 			CurrDestVolume = volume;
 		}
 
-		public static void Fade(int frameMax = 30, double destVolume = 0.0)
+		public static void Fadeout(int frameMax = 30)
 		{
-			Fade(frameMax, destVolume, CurrDestVolume);
+			Fade(frameMax, 0.0);
+		}
+
+		public static void Fade(int frameMax, double destVolumeRate)
+		{
+			Fade(frameMax, destVolumeRate, CurrDestVolume);
 		}
 
 		public static void Fade(int frameMax, double destVolumeRate, double startVolumeRate)
@@ -188,13 +193,7 @@ namespace Charlotte.GameCommons
 		/// </summary>
 		public static void UnloadLocally()
 		{
-#if true
 			UnloadLocally(music => true);
-#else // old same
-			foreach (DDMusic music in Musics)
-				if (music.Locally)
-					music.Sound.Unload();
-#endif
 		}
 
 		public static void UnloadLocally(Predicate<DDMusic> match)

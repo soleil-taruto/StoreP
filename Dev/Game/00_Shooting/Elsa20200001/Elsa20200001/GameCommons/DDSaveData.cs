@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using Charlotte.Commons;
 using Charlotte.Games;
+using Charlotte.GameTools;
 
 namespace Charlotte.GameCommons
 {
@@ -67,7 +68,7 @@ namespace Charlotte.GameCommons
 
 				lines.Add("" + (DDGround.RO_MouseDispMode ? 1 : 0));
 
-				// 新しい項目をここへ追加...
+				// D3SaveData_新しい項目をここへ追加...
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -80,9 +81,7 @@ namespace Charlotte.GameCommons
 				//lines.Add("Donut3-SaveData"); // Dummy
 				//lines.Add("Donut3-SaveData"); // Dummy
 
-				lines.Add("" + Ground.I.NovelMessageSpeed);
-
-				// 新しい項目をここへ追加...
+				SCommon.E_AddRange(lines, AppSaveDataUtils.GetAppLines());
 
 				blocks.Add(DDUtils.SplitableJoin(lines.ToArray()));
 			}
@@ -159,7 +158,7 @@ namespace Charlotte.GameCommons
 
 				DDGround.RO_MouseDispMode = int.Parse(lines[c++]) != 0;
 
-				// 新しい項目をここへ追加...
+				// D3SaveData_新しい項目をここへ追加...
 			}
 			catch (Exception e)
 			{
@@ -169,17 +168,15 @@ namespace Charlotte.GameCommons
 			Load_Delay = () =>
 			{
 				lines = DDUtils.Split(blocks[bc++]);
-				c = 0;
 
 				try // アプリ固有のセーブデータ
 				{
+					//c = 0;
 					//DDUtils.Noop(lines[c++]); // Dummy
 					//DDUtils.Noop(lines[c++]); // Dummy
 					//DDUtils.Noop(lines[c++]); // Dummy
 
-					Ground.I.NovelMessageSpeed = int.Parse(lines[c++]);
-
-					// 新しい項目をここへ追加...
+					AppSaveDataUtils.UngetAppLines(lines);
 				}
 				catch (Exception e)
 				{

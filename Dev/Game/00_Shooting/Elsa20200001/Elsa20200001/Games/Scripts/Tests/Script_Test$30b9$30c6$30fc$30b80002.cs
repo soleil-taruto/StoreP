@@ -15,17 +15,12 @@ namespace Charlotte.Games.Scripts.Tests
 	{
 		protected override IEnumerable<bool> E_EachFrame()
 		{
-			return DDUtils.Scripter(this.E_EachFrame2());
-		}
-
-		private IEnumerable<int> E_EachFrame2()
-		{
 			DDRandom rand = new DDRandom(2);
 			DDRandom rand_Sub = new DDRandom(102);
 
 			Ground.I.Music.Stage_02.Play();
 			Game.I.Walls.Add(new Wall_Test0001());
-			yield return 100;
+			foreach (var relay in Enumerable.Repeat(true, 100)) yield return relay;
 
 			foreach (DDScene scene in DDSceneUtils.Create((1 * 60 + 23) * 60))
 			{
@@ -39,42 +34,42 @@ namespace Charlotte.Games.Scripts.Tests
 					return false;
 				});
 
-				if (rand.Single() < scene.Rate * 0.1)
+				if (rand.GetReal1() < scene.Rate * 0.1)
 				{
-					if (rand.Single() < 0.1)
+					if (rand.GetReal1() < 0.1)
 					{
 						Enemy_TestItem.効用_e 効用;
 
-						if (rand_Sub.Single() < 0.1)
+						if (rand_Sub.GetReal1() < 0.1)
 							効用 = Enemy_TestItem.効用_e.ZANKI_UP;
-						else if (rand_Sub.Single() < 0.2)
+						else if (rand_Sub.GetReal1() < 0.2)
 							効用 = Enemy_TestItem.効用_e.BOMB_ADD;
 						else
 							効用 = Enemy_TestItem.効用_e.POWER_UP_WEAPON;
 
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.Single() * GameConsts.FIELD_H).AddKilled(enemy =>
+						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H).AddKilled(enemy =>
 						{
 							Game.I.Enemies.Add(new Enemy_TestItem(enemy.X, enemy.Y, 効用));
 						}
 						));
 					}
-					else if (rand.Single() < 0.3)
+					else if (rand.GetReal1() < 0.3)
 					{
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.Single() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H));
 					}
 					else
 					{
-						Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.Single() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H));
 					}
 				}
-				yield return 1;
+				yield return true;
 			}
 
 			Game.I.システム的な敵クリア();
-			yield return 120;
+			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 			Ground.I.Music.Boss_02.Play();
 			Game.I.Walls.Add(new Wall_Test0002());
-			yield return 120;
+			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 
 			{
 				Enemy boss = new Enemy_Testボス0002();
@@ -93,17 +88,17 @@ namespace Charlotte.Games.Scripts.Tests
 						return false;
 					});
 
-					yield return 1;
+					yield return true;
 				}
 			}
 
-			yield return 120;
-			DDMusicUtils.Fade();
-			yield return 120;
+			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
+			DDMusicUtils.Fadeout();
+			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 
 			Game.I.Script = new Script_Testステージ0003(); // 次のステージ
 
-			yield return 1; // Script を差し替えた場合、最後に 1 以上を返す。-- 理由は Script.E_EachFrame に記述
+			yield return true; // Script を差し替えた場合、最後に 1 回以上 true を返す。-- 理由は Script.E_EachFrame に記述
 		}
 	}
 }

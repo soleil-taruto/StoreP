@@ -14,17 +14,19 @@ namespace Charlotte.GameCommons
 
 			// <---- prm
 
-			public bool FreezeInputUntilRelease = false;
+			private bool FreezeInputUntilReleaseFlag = false;
 			public int Status = 0;
 
+			// ★★★ ボタン・キー押下は 1 マウス押下は -1 で判定する。
+			//
 			public int GetInput()
 			{
-				if (this.FreezeInputUntilRelease)
+				if (this.FreezeInputUntilReleaseFlag)
 				{
-					if (1 <= this.Status)
+					if (this.Status != 0)
 						return 0;
 
-					this.FreezeInputUntilRelease = false;
+					this.FreezeInputUntilReleaseFlag = false;
 				}
 				return 1 <= DDEngine.FreezeInputFrame ? 0 : this.Status;
 			}
@@ -32,6 +34,11 @@ namespace Charlotte.GameCommons
 			public bool IsPound()
 			{
 				return DDUtils.IsPound(this.GetInput());
+			}
+
+			public void FreezeInputUntilRelease()
+			{
+				this.FreezeInputUntilReleaseFlag = true;
 			}
 
 			private int[] BackupData = null;

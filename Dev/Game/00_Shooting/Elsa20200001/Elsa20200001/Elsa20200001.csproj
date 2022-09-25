@@ -89,19 +89,13 @@
     <Compile Include="Commons\SCommon.cs" />
     <Compile Include="Commons\WorkingDir.cs" />
     <Compile Include="Consts.cs" />
-    <Compile Include="GameCommons\DDHash.cs" />
-    <Compile Include="GameCommons\DDHashedData.cs" />
-    <Compile Include="GameCommons\DDHashedResource.cs" />
-    <Compile Include="GameCommons\DDTableMenu.cs" />
-    <Compile Include="GameCommons\DDTouch.cs" />
-    <Compile Include="GameProgressMasters\GameProgressMaster.cs" />
-    <Compile Include="Games\Confirm.cs" />
-    <Compile Include="Games\Enemies\EnemyCommon.cs" />
-    <Compile Include="Games\GameCommon.cs" />
-    <Compile Include="Games\GameConsts.cs" />
+    <Compile Include="GameCommons\DDCCResource.cs" />
     <Compile Include="GameCommons\DDCoffeeBreak.cs" />
     <Compile Include="GameCommons\DDConfig.cs" />
     <Compile Include="GameCommons\DDConsts.cs" />
+    <Compile Include="GameCommons\DDCrash.cs" />
+    <Compile Include="GameCommons\DDCrashUtils.cs" />
+    <Compile Include="GameCommons\DDCrashView.cs" />
     <Compile Include="GameCommons\DDCurtain.cs" />
     <Compile Include="GameCommons\DDDatStrings.cs" />
     <Compile Include="GameCommons\DDDerivations.cs" />
@@ -113,6 +107,9 @@
     <Compile Include="GameCommons\DDFontRegister.cs" />
     <Compile Include="GameCommons\DDFontUtils.cs" />
     <Compile Include="GameCommons\DDGround.cs" />
+    <Compile Include="GameCommons\DDHash.cs" />
+    <Compile Include="GameCommons\DDHashedData.cs" />
+    <Compile Include="GameCommons\DDHashedResource.cs" />
     <Compile Include="GameCommons\DDInput.cs" />
     <Compile Include="GameCommons\DDJammer.cs" />
     <Compile Include="GameCommons\DDKey.cs" />
@@ -125,7 +122,7 @@
     <Compile Include="GameCommons\DDPad.cs" />
     <Compile Include="GameCommons\DDPicture.cs" />
     <Compile Include="GameCommons\DDPictureLoaders.cs" />
-    <Compile Include="GameCommons\DDPictureLoaders2.cs" />
+    <Compile Include="GameCommons\DDPictureLoadersNNUL.cs" />
     <Compile Include="GameCommons\DDPictureLoaderUtils.cs" />
     <Compile Include="GameCommons\DDPictureUtils.cs" />
     <Compile Include="GameCommons\DDPrint.cs" />
@@ -136,7 +133,6 @@
     <Compile Include="GameCommons\DDSceneUtils.cs" />
     <Compile Include="GameCommons\DDSE.cs" />
     <Compile Include="GameCommons\DDSEUtils.cs" />
-    <Compile Include="GameCommons\DDSimpleMenu.cs" />
     <Compile Include="GameCommons\DDSound.cs" />
     <Compile Include="GameCommons\DDSoundUtils.cs" />
     <Compile Include="GameCommons\DDSubScreen.cs" />
@@ -144,13 +140,15 @@
     <Compile Include="GameCommons\DDSystem.cs" />
     <Compile Include="GameCommons\DDTask.cs" />
     <Compile Include="GameCommons\DDTaskList.cs" />
+    <Compile Include="GameCommons\DDTouch.cs" />
     <Compile Include="GameCommons\DDUtils.cs" />
     <Compile Include="GameCommons\DDWin32.cs" />
     <Compile Include="GameCommons\MaskGZDataUtils\MaskGZDataEng.cs" />
-    <Compile Include="GameCommons\DDCCResource.cs" />
-    <Compile Include="GameCommons\DDCrash.cs" />
-    <Compile Include="GameCommons\DDCrashUtils.cs" />
-    <Compile Include="GameCommons\DDCrashView.cs" />
+    <Compile Include="Games\GameProgressMaster.cs" />
+    <Compile Include="Games\Confirm.cs" />
+    <Compile Include="Games\Enemies\EnemyCommon.cs" />
+    <Compile Include="Games\GameCommon.cs" />
+    <Compile Include="Games\GameConsts.cs" />
     <Compile Include="Games\Effects.cs" />
     <Compile Include="Games\Enemies\Enemy.cs" />
     <Compile Include="Games\Enemies\Tests\Enemy_Test0001.cs" />
@@ -190,6 +188,10 @@
     <Compile Include="Games\Walls\Tests\Wall_Test0004.cs" />
     <Compile Include="Games\Walls\Wall_Dark.cs" />
     <Compile Include="Games\ぼかし効果.cs" />
+    <Compile Include="GameTools\AppConfig.cs" />
+    <Compile Include="GameTools\AppSaveDataUtils.cs" />
+    <Compile Include="GameTools\SimpleMenu.cs" />
+    <Compile Include="GameTools\TableMenu.cs" />
     <Compile Include="Ground.cs" />
     <Compile Include="LiteStatusDlg.cs">
       <SubType>Form</SubType>
@@ -262,9 +264,7 @@
   <ItemGroup>
     <Content Include="game_app.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="★ここはGameBaseです！\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
       <Visible>False</Visible>

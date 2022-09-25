@@ -479,6 +479,16 @@ namespace Charlotte.Commons
 			throw getError();
 		}
 
+		// memo: 2022.6.27
+		//
+		// 列挙の入れ子：
+		// foreach (var relay in 内部の列挙メソッド()) yield return relay;
+		// という記述で対応する。
+		//
+		// 待ち：
+		// foreach (var relay in Enumerable.Repeat(true, 待ちフレーム数)) yield return relay;
+		// という記述で対応する。
+
 		/// <summary>
 		/// 列挙をゲッターメソッドでラップします。
 		/// 例：{ A, B, C } -> 呼び出し毎に右の順で戻り値を返す { A, B, C, default(T), default(T), default(T), ... }
@@ -504,7 +514,7 @@ namespace Charlotte.Commons
 			};
 		}
 
-		// memo: list を変更するので IList<T> list にはできないよ！
+		// memo: list の長さを変更するので IList<T> list にはできないよ！
 		//
 		public static T DesertElement<T>(List<T> list, int index)
 		{
@@ -520,15 +530,59 @@ namespace Charlotte.Commons
 
 		public static T FastDesertElement<T>(List<T> list, int index)
 		{
-			T ret = UnaddElement(list);
+			T ret;
 
-			if (index < list.Count)
+			if (index == list.Count - 1) // ? 終端の要素
 			{
-				T ret2 = list[index];
-				list[index] = ret;
-				ret = ret2;
+				ret = UnaddElement(list);
+			}
+			else
+			{
+				ret = list[index];
+				list[index] = UnaddElement(list);
 			}
 			return ret;
+		}
+
+		public static T RefElement<T>(IList<T> list, int index, T defval)
+		{
+			if (index < list.Count)
+			{
+				return list[index];
+			}
+			else
+			{
+				return defval;
+			}
+		}
+
+		public static IEnumerable<T> E_RemoveRange<T>(IEnumerable<T> list, int index, int count)
+		{
+			if (
+				list == null ||
+				index < 0 || list.Count() < index ||
+				count < 0 || list.Count() - index < count
+				)
+				throw new ArgumentException();
+
+			return list.Take(index).Concat(list.Skip(index + count));
+		}
+
+		public static IEnumerable<T> E_InsertRange<T>(IEnumerable<T> list, int index, IEnumerable<T> listForInsert)
+		{
+			if (
+				list == null ||
+				listForInsert == null ||
+				index < 0 || list.Count() < index
+				)
+				throw new ArgumentException();
+
+			return list.Take(index).Concat(listForInsert).Concat(list.Skip(index));
+		}
+
+		public static IEnumerable<T> E_AddRange<T>(IEnumerable<T> list, IEnumerable<T> listForAdd)
+		{
+			return SCommon.E_InsertRange(list, list.Count(), listForAdd);
 		}
 
 		private const int IO_TRY_MAX = 10;
@@ -631,6 +685,22 @@ namespace Charlotte.Commons
 
 			foreach (string file in Directory.GetFiles(rDir))
 				File.Copy(file, Path.Combine(wDir, Path.GetFileName(file)));
+		}
+
+		public static void CopyPath(string rPath, string wPath)
+		{
+			if (Directory.Exists(rPath))
+			{
+				SCommon.CopyDir(rPath, wPath);
+			}
+			else if (File.Exists(rPath))
+			{
+				File.Copy(rPath, wPath);
+			}
+			else
+			{
+				throw new Exception("コピー元パスが存在しません。");
+			}
 		}
 
 		public static string EraseExt(string path)
@@ -1492,7 +1562,8 @@ namespace Charlotte.Commons
 		{
 			return GetSHA512(writePart =>
 			{
-				SCommon.ReadToEnd(reader, (buff, offset, count) => writePart(buff, offset, count));
+				SCommon.ReadToEnd(reader, writePart);
+				//SCommon.ReadToEnd(reader, (buff, offset, count) => writePart(buff, offset, count)); // old
 			});
 		}
 
@@ -1774,9 +1845,14 @@ namespace Charlotte.Commons
 
 		public static bool HasSame<T>(IList<T> list, Comparison<T> comp)
 		{
+			return HasSame(list, (a, b) => comp(a, b) == 0);
+		}
+
+		public static bool HasSame<T>(IList<T> list, Func<T, T, bool> match)
+		{
 			for (int r = 1; r < list.Count; r++)
 				for (int l = 0; l < r; l++)
-					if (comp(list[l], list[r]) == 0)
+					if (match(list[l], list[r]))
 						return true;
 
 			return false;
@@ -1943,9 +2019,13 @@ namespace Charlotte.Commons
 
 		public static void Batch(IList<string> commands, string workingDir = "", StartProcessWindowStyle_e winStyle = StartProcessWindowStyle_e.INVISIBLE)
 		{
+			// Batch-名は何でも良い。
+			// 折角なので何かの時のためにタスマネから目視で発見・判別し易い名前にしておく。
+			const string BATCH_NAME = "ChocolateCupCakeRecipe.bat";
+
 			using (WorkingDir wd = new WorkingDir())
 			{
-				string batFile = wd.GetPath("a.bat");
+				string batFile = wd.GetPath(BATCH_NAME);
 
 				File.WriteAllLines(batFile, commands, ENCODING_SJIS);
 
@@ -2042,6 +2122,9 @@ namespace Charlotte.Commons
 				this.Chars = (SCommon.ALPHA + SCommon.alpha + SCommon.DECIMAL + "+/").ToArray();
 				this.CharMap = new byte[(int)char.MaxValue + 1];
 
+				for (int index = 0; index <= (int)char.MaxValue; index++)
+					this.CharMap[index] = 0xff;
+
 				for (int index = 0; index < 64; index++)
 					this.CharMap[this.Chars[index]] = (byte)index;
 
@@ -2111,29 +2194,20 @@ namespace Charlotte.Commons
 			/// <summary>
 			/// Base64を元のバイト列に変換します。
 			/// 対応フォーマット：
-			/// -- Base64 Encode -- 但し改行を含まないこと。パディング無しでも良い。
+			/// -- Base64 Encode -- パディング無しでも良い。余計な空白・改行が含まれていても良い。
 			/// -- Base64 URL Encode
 			/// </summary>
 			/// <param name="src">Base64</param>
 			/// <returns>元のバイト列</returns>
 			public byte[] Decode(string src)
 			{
-				while (src.Length % 4 != 0)
-					src += CHAR_PADDING;
-
-				int destSize = (src.Length / 4) * 3;
-
-				if (destSize != 0)
+				// パディング除去
+				// 空白・改行などの不要な文字を除去する。
 				{
-					if (src[src.Length - 2] == CHAR_PADDING)
-					{
-						destSize -= 2;
-					}
-					else if (src[src.Length - 1] == CHAR_PADDING)
-					{
-						destSize--;
-					}
+					src = new string(src.Where(v => this.CharMap[(int)v] != 0xff).ToArray());
 				}
+
+				int destSize = (int)(((long)src.Length * 3) / 4);
 				byte[] dest = new byte[destSize];
 				int writer = 0;
 				int index = 0;
@@ -2586,8 +2660,70 @@ namespace Charlotte.Commons
 
 		public static void ToThrowPrint(Action routine)
 		{
-			Console.WriteLine(ToThrow(routine));
-			Console.WriteLine("★★★想定された例外のため処理を続行します。");
+			Console.WriteLine("想定された例外：" + ToThrow(routine).Message);
+		}
+
+		#region GetOutputDir
+
+		// memo:
+		// 慣習的に C:\1, C:\2, C:\3, ... C:\999 をテンポラリ・暗黙の出力先として使用している。
+		// https://github.com/stackprobe/Factory/blob/master/DevTools/zz.bat -- 定期的に全削除する運用 -- 際限なく溜まらない想定
+		// あくまで個人的な慣習なので、使用する際は注意すること。
+
+		private static string GOD_Dir;
+
+		public static string GetOutputDir()
+		{
+			if (GOD_Dir == null)
+				GOD_Dir = GetOutputDir_Main();
+
+			return GOD_Dir;
+		}
+
+		private static string GetOutputDir_Main()
+		{
+			for (int c = 1; c <= 999; c++)
+			{
+				string dir = "C:\\" + c;
+
+				if (
+					!Directory.Exists(dir) &&
+					!File.Exists(dir)
+					)
+				{
+					SCommon.CreateDir(dir);
+					return dir;
+				}
+			}
+			throw new Exception("C:\\1 ～ 999 は使用できません。");
+		}
+
+		public static void OpenOutputDir()
+		{
+			SCommon.Batch(new string[] { "START " + GetOutputDir() });
+		}
+
+		public static void OpenOutputDirIfCreated()
+		{
+			if (GOD_Dir != null)
+			{
+				OpenOutputDir();
+			}
+		}
+
+		private static int NOP_Count = 0;
+
+		public static string NextOutputPath()
+		{
+			return Path.Combine(GetOutputDir(), (++NOP_Count).ToString("D4"));
+		}
+
+		#endregion
+
+		public static void Pause()
+		{
+			Console.WriteLine("Press ENTER key.");
+			Console.ReadLine();
 		}
 	}
 }

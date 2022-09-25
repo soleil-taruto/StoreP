@@ -9,7 +9,7 @@ using Charlotte.Games;
 using Charlotte.Games.Scripts.Tests;
 using Charlotte.Games.Scripts;
 
-namespace Charlotte.GameProgressMasters
+namespace Charlotte.Games
 {
 	public class GameProgressMaster : IDisposable
 	{
@@ -25,7 +25,7 @@ namespace Charlotte.GameProgressMasters
 			I = null;
 		}
 
-		public void Perform()
+		public void StartGame()
 		{
 			using (new Game())
 			{
@@ -34,7 +34,7 @@ namespace Charlotte.GameProgressMasters
 			}
 		}
 
-		public void Perform_コンテニュー(Script script)
+		public void ContinueGame(Script script)
 		{
 			using (new Game())
 			{

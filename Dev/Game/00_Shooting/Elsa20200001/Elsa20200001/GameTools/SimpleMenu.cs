@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
 
-namespace Charlotte.GameCommons
+namespace Charlotte.GameTools
 {
-	public class DDSimpleMenu
+	public class SimpleMenu
 	{
 		public I3Color? Color = null;
 		public I3Color? BorderColor = null;
@@ -17,16 +18,16 @@ namespace Charlotte.GameCommons
 
 		private bool MouseUsable;
 
-		public DDSimpleMenu()
+		public SimpleMenu()
 			: this(DDUtils.GetMouseDispMode())
 		{ }
 
-		public DDSimpleMenu(bool mouseUsable)
+		public SimpleMenu(bool mouseUsable)
 		{
 			this.MouseUsable = mouseUsable;
 		}
 
-		private void ResetPrint()
+		private void PrepForPrint()
 		{
 			DDPrint.Reset();
 
@@ -37,15 +38,15 @@ namespace Charlotte.GameCommons
 				DDPrint.SetBorder(this.BorderColor.Value);
 		}
 
-		public int Perform(int x, int y, int yStep, int fontSize, string title, string[] items, int selectIndex, bool ポーズボタンでメニュー終了 = false, bool noPound = false)
+		public int Perform(int selectIndex, int x, int y, int yStep, int fontSize, string title, string[] items, bool cancelByPause = false, bool noPound = false)
 		{
+			// タイトル無しにするには title == "" とし、空のタイトル位置を考慮した x, y を指定すること。
+
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
 
 			for (; ; )
 			{
-				// ★★★ キー押下は 1 マウス押下は -1 で判定する。
-
 				if (this.MouseUsable)
 				{
 					int musSelIdxY = DDMouse.Y - (y + yStep);
@@ -66,7 +67,7 @@ namespace Charlotte.GameCommons
 					}
 				}
 
-				if (ポーズボタンでメニュー終了 && DDInput.PAUSE.GetInput() == 1)
+				if (cancelByPause && DDInput.PAUSE.GetInput() == 1)
 				{
 					selectIndex = items.Length - 1;
 					break;
@@ -109,14 +110,13 @@ namespace Charlotte.GameCommons
 				}
 
 				this.WallDrawer();
-				this.ResetPrint();
+				this.PrepForPrint();
 
-				// old
+				// マウス有効・無効を表示
 				//DDPrint.SetPrint(DDConsts.Screen_W - 45, 2);
 				//DDPrint.Print("[M:" + (this.MouseUsable ? "E" : "D") + "]");
 
 				DDPrint.SetPrint(x, y, yStep, fontSize);
-				//DDPrint.SetPrint(16, 16, 32); // old
 				DDPrint.PrintLine(title);
 
 				for (int c = 0; c < items.Length; c++)
@@ -130,18 +130,6 @@ namespace Charlotte.GameCommons
 			DDEngine.FreezeInput();
 
 			return selectIndex;
-		}
-
-		private class ButtonInfo
-		{
-			public DDInput.Button Button;
-			public string Name;
-
-			public ButtonInfo(DDInput.Button button, string name)
-			{
-				this.Button = button;
-				this.Name = name;
-			}
 		}
 
 		#region KeyInfos
@@ -273,46 +261,21 @@ namespace Charlotte.GameCommons
 
 		#endregion
 
+		public class ButtonInfo
+		{
+			public DDInput.Button Button;
+			public string Name;
+
+			public ButtonInfo(DDInput.Button button, string name)
+			{
+				this.Button = button;
+				this.Name = name;
+			}
+		}
+
 		public void PadConfig(bool keyMode = false)
 		{
-			ButtonInfo[] btnInfos = new ButtonInfo[]
-			{
-#if false // 例
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.A, "Ａボタン"),
-				new ButtonInfo(DDInput.B, "Ｂボタン"),
-				new ButtonInfo(DDInput.C, "Ｃボタン"),
-				//new ButtonInfo(DDInput.D, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.E, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.F, ""), // 使用しないボタン
-				new ButtonInfo(DDInput.L, "Ｌボタン"),
-				new ButtonInfo(DDInput.R, "Ｒボタン"),
-				//new ButtonInfo(DDInput.PAUSE, ""), // 使用しないボタン
-				//new ButtonInfo(DDInput.START, ""), // 使用しないボタン
-#else
-				// アプリ固有の設定 >
-
-				new ButtonInfo(DDInput.DIR_8, "上"),
-				new ButtonInfo(DDInput.DIR_2, "下"),
-				new ButtonInfo(DDInput.DIR_4, "左"),
-				new ButtonInfo(DDInput.DIR_6, "右"),
-				new ButtonInfo(DDInput.A, "低速／決定"),
-				new ButtonInfo(DDInput.B, "ショット／キャンセル"),
-				new ButtonInfo(DDInput.C, "速度を下げる"),
-				new ButtonInfo(DDInput.D, "速度を上げる"),
-				new ButtonInfo(DDInput.E, "ボム"),
-				//new ButtonInfo(DDInput.F, ""),
-				new ButtonInfo(DDInput.L, "会話スキップ"),
-				new ButtonInfo(DDInput.R, "当たり判定表示(チート)"),
-				new ButtonInfo(DDInput.PAUSE, "ポーズボタン"),
-				//new ButtonInfo(DDInput.START, ""),
-
-				// < アプリ固有の設定
-#endif
-			};
+			ButtonInfo[] btnInfos = AppConfig.GetSimpleMenuButtonInfos();
 
 			foreach (ButtonInfo btnInfo in btnInfos)
 				btnInfo.Button.Backup();
@@ -367,7 +330,7 @@ namespace Charlotte.GameCommons
 						//endInput:
 
 						this.WallDrawer();
-						this.ResetPrint();
+						this.PrepForPrint();
 						DDPrint.SetPrint(20, 20, 40, 20);
 						DDPrint.PrintLine("キーボードのキー設定");
 
@@ -396,7 +359,7 @@ namespace Charlotte.GameCommons
 						DDPrint.SetColor(new I3Color(255, 255, 0));
 						DDPrint.SetBorder(new I3Color(100, 50, 0));
 						DDPrint.PrintLine("画面を右クリックするとキャンセルします。");
-						this.ResetPrint();
+						DDPrint.Reset();
 
 						DDEngine.EachFrame();
 					}
@@ -444,7 +407,7 @@ namespace Charlotte.GameCommons
 					endInput:
 
 						this.WallDrawer();
-						this.ResetPrint();
+						this.PrepForPrint();
 						DDPrint.SetPrint(20, 20, 40, 20);
 						DDPrint.PrintLine("ゲームパッドのボタン設定");
 
@@ -482,7 +445,7 @@ namespace Charlotte.GameCommons
 						else
 							DDPrint.PrintLine("スペースキーを押すとキャンセルします。");
 
-						this.ResetPrint();
+						DDPrint.Reset();
 
 						DDEngine.EachFrame();
 					}
@@ -542,7 +505,7 @@ namespace Charlotte.GameCommons
 
 			for (; ; )
 			{
-				selectIndex = Perform(230, 13, 35, 24, "ウィンドウサイズ設定", items, selectIndex);
+				selectIndex = Perform(selectIndex, 230, 13, 35, 24, "ウィンドウサイズ設定", items);
 
 				switch (selectIndex)
 				{
@@ -574,6 +537,7 @@ namespace Charlotte.GameCommons
 					default:
 						throw new DDError();
 				}
+				//DDEngine.EachFrame(); // 不要
 			}
 		endLoop:
 			;
@@ -668,7 +632,7 @@ namespace Charlotte.GameCommons
 				}
 
 				this.WallDrawer();
-				this.ResetPrint();
+				this.PrepForPrint();
 
 				DDPrint.SetPrint(40, 40, 40);
 				DDPrint.PrintLine(title);

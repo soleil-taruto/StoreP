@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
-using Charlotte.GameProgressMasters;
+using Charlotte.GameTools;
 using Charlotte.Games.Scripts;
 using Charlotte.Games.Scripts.Tests;
 using Charlotte.Novels;
@@ -74,16 +74,16 @@ namespace Charlotte.Games
 					{
 						DDUtils.Approach(ref this.PutRate, 0.6, 0.999);
 
-						if (DDUtils.Random.Single() < this.PutRate)
+						if (DDUtils.Random.GetReal1() < this.PutRate)
 						{
-							double r = DDUtils.AToBRate(this.RMin, this.RMax, DDUtils.Random.Single());
+							double r = DDUtils.AToBRate(this.RMin, this.RMax, DDUtils.Random.GetReal1());
 
 							this.Snows.Add(new SnowInfo()
 							{
-								X = DDUtils.Random.Single() * DDConsts.Screen_W,
+								X = DDUtils.Random.GetReal1() * DDConsts.Screen_W,
 								Y = -10.0,
 								R = r,
-								XAdd = DDUtils.Random.Single() * -3.0,
+								XAdd = DDUtils.Random.GetReal1() * -3.0,
 								YAdd = r * 1.5,
 							}
 							.Task
@@ -148,7 +148,7 @@ namespace Charlotte.Games
 							DDUtils.Approach(ref this.PutRate, TARGET_PUT_RATE, PR_APPROACHING_RATE);
 
 							for (int y = 0; y < DDConsts.Screen_H; y += PIC.Get_H())
-								if (DDUtils.Random.Single() < this.PutRate)
+								if (DDUtils.Random.GetReal1() < this.PutRate)
 									this.Tiles.Add(new TileTask() { PIC = PIC, X = DDConsts.Screen_W - slide, Y = y }.Task);
 						}
 						this.Tiles.ExecuteAllTask();
@@ -196,7 +196,7 @@ namespace Charlotte.Games
 							DDUtils.Approach(ref this.PutRate, TARGET_PUT_RATE, PR_APPROACHING_RATE);
 
 							for (int y = 0; y < DDConsts.Screen_H; y += PIC.Get_H())
-								if (DDUtils.Random.Single() < this.PutRate)
+								if (DDUtils.Random.GetReal1() < this.PutRate)
 									this.Tiles.Add(new TileTask() { PIC = PIC, X = DDConsts.Screen_W - slide, Y = y }.Task);
 						}
 						this.Tiles.ExecuteAllTask();
@@ -244,7 +244,7 @@ namespace Charlotte.Games
 							DDUtils.Approach(ref this.PutRate, TARGET_PUT_RATE, PR_APPROACHING_RATE);
 
 							for (int y = 0; y < DDConsts.Screen_H; y += PIC.Get_H())
-								if (DDUtils.Random.Single() < this.PutRate)
+								if (DDUtils.Random.GetReal1() < this.PutRate)
 									this.Tiles.Add(new TileTask() { PIC = PIC, X = DDConsts.Screen_W - slide, Y = y }.Task);
 						}
 						this.Tiles.ExecuteAllTask();
@@ -275,7 +275,7 @@ namespace Charlotte.Games
 
 		#endregion
 
-		private DDSimpleMenu SimpleMenu;
+		private SimpleMenu SimpleMenu;
 
 		public void Perform()
 		{
@@ -296,14 +296,14 @@ namespace Charlotte.Games
 
 			int selectIndex = 0;
 
-			this.SimpleMenu = new DDSimpleMenu();
+			this.SimpleMenu = new SimpleMenu();
 
 			this.SimpleMenu.BorderColor = new I3Color(0, 64, 128);
 			this.SimpleMenu.WallDrawer = this.背景.Execute;
 
 			for (; ; )
 			{
-				selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "シューティング ゲーム(仮)", items, selectIndex);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, 40, 40, 40, 24, "シューティング ゲーム(仮)", items);
 
 				bool cheatFlag;
 
@@ -327,7 +327,7 @@ namespace Charlotte.Games
 
 							using (new GameProgressMaster())
 							{
-								GameProgressMaster.I.Perform();
+								GameProgressMaster.I.StartGame();
 							}
 							this.ReturnTitleMenu();
 						}
@@ -335,15 +335,13 @@ namespace Charlotte.Games
 
 					case 1:
 						{
-							selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "コンテニュー", new string[]
+							selectIndex = this.SimpleMenu.Perform(0, 40, 40, 40, 24, "コンテニュー", new string[]
 							{
 								"ステージ 1",
 								"ステージ 2",
 								"ステージ 3",
 								"戻る",
-							},
-							0
-							);
+							});
 
 							Script script;
 
@@ -364,7 +362,7 @@ namespace Charlotte.Games
 
 								using (new GameProgressMaster())
 								{
-									GameProgressMaster.I.Perform_コンテニュー(script);
+									GameProgressMaster.I.ContinueGame(script);
 								}
 								this.ReturnTitleMenu();
 							}
@@ -389,7 +387,7 @@ namespace Charlotte.Games
 				}
 			}
 		endMenu:
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))
@@ -405,14 +403,12 @@ namespace Charlotte.Games
 		{
 			for (; ; )
 			{
-				int selectIndex = this.SimpleMenu.Perform(40, 40, 40, 24, "開発デバッグ用メニュー", new string[]
+				int selectIndex = this.SimpleMenu.Perform(0, 40, 40, 40, 24, "開発デバッグ用メニュー", new string[]
 				{
 					"スタート_Script_Testステージ0001",
 					"ノベルパート_テスト0001",
 					"戻る",
-				},
-				0
-				);
+				});
 
 				switch (selectIndex)
 				{
@@ -455,7 +451,7 @@ namespace Charlotte.Games
 
 		private void LeaveTitleMenu()
 		{
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))

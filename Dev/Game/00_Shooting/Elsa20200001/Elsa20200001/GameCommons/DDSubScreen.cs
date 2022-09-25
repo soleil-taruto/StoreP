@@ -86,7 +86,7 @@ namespace Charlotte.GameCommons
 		public DDPicture ToPicture()
 		{
 			if (this.Picture == null)
-				this.Picture = DDPictureLoaders2.Wrapper(this);
+				this.Picture = DDPictureLoadersNNUL.Wrapper(this);
 
 			return this.Picture;
 		}

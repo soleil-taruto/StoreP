@@ -15,82 +15,77 @@ namespace Charlotte.Games.Scripts.Tests
 	{
 		protected override IEnumerable<bool> E_EachFrame()
 		{
-			return DDUtils.Scripter(this.E_EachFrame2());
-		}
-
-		private IEnumerable<int> E_EachFrame2()
-		{
 			DDRandom rand = new DDRandom(1);
 
 			Ground.I.Music.Stage_01.Play();
 
 			Game.I.Walls.Add(new Wall_Dark());
 			Game.I.Walls.Add(new Wall_Test0003());
-			yield return 100;
+			foreach (var relay in Enumerable.Repeat(true, 100)) yield return relay;
 
 			for (int c = 0; c < 3; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 1));
-				yield return 120;
+				foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 			}
 			Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 1)
 				.AddKilled(enemy => Game.I.Enemies.Add(new Enemy_TestItem(enemy.X, enemy.Y, Enemy_TestItem.効用_e.POWER_UP_WEAPON)))
 				);
-			yield return 120;
+			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 			Game.I.Walls.Add(new Wall_Test0004());
-			yield return 100;
+			foreach (var relay in Enumerable.Repeat(true, 100)) yield return relay;
 
 			for (int c = 0; c < 3; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 3));
-				yield return 120;
+				foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 			}
 			for (int c = 0; c < 10; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 2));
-				yield return 30;
+				foreach (var relay in Enumerable.Repeat(true, 30)) yield return relay;
 			}
 			for (int c = 0; c < 10; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 1));
 				Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 3));
-				yield return 30;
+				foreach (var relay in Enumerable.Repeat(true, 30)) yield return relay;
 			}
 			for (int c = 0; c < 30; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.GetInt(GameConsts.FIELD_H)));
-				yield return 10;
+				foreach (var relay in Enumerable.Repeat(true, 10)) yield return relay;
 			}
 			for (int c = 0; c < 60; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.GetInt(GameConsts.FIELD_H)));
-				yield return 5;
+				foreach (var relay in Enumerable.Repeat(true, 5)) yield return relay;
 			}
 			for (int c = 0; c < 120; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.GetInt(GameConsts.FIELD_H)));
-				yield return 2;
+				foreach (var relay in Enumerable.Repeat(true, 2)) yield return relay;
 			}
-			yield return 100;
+			foreach (var relay in Enumerable.Repeat(true, 100)) yield return relay;
 
 			for (int c = 0; c < 3; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 1));
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 4 * 3));
-				yield return 120;
+				foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
 			}
-			yield return 200;
+			foreach (var relay in Enumerable.Repeat(true, 200)) yield return relay;
 
 			for (int c = 0; c < 3; c++)
 			{
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 6 * 1));
-				yield return 30;
+				foreach (var relay in Enumerable.Repeat(true, 30)) yield return relay;
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 6 * 3));
-				yield return 30;
+				foreach (var relay in Enumerable.Repeat(true, 30)) yield return relay;
 				Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, GameConsts.FIELD_H / 6 * 5));
-				yield return 60;
+				foreach (var relay in Enumerable.Repeat(true, 60)) yield return relay;
 			}
-			yield return 300;
+			foreach (var relay in Enumerable.Repeat(true, 300)) yield return relay;
 
 			// ---- ここからボス ----
 
@@ -99,7 +94,7 @@ namespace Charlotte.Games.Scripts.Tests
 			Game.I.Enemies.Add(new Enemy_Testボス0001());
 
 			for (; ; )
-				yield return 1; // 以降何もしない。
+				yield return true; // 以降何もしない。
 		}
 	}
 }

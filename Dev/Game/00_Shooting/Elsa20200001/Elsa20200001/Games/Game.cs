@@ -11,6 +11,7 @@ using Charlotte.Games.Scripts;
 using Charlotte.Games.Scripts.Tests;
 using Charlotte.Games.Shots;
 using Charlotte.Games.Walls;
+using Charlotte.GameTools;
 
 namespace Charlotte.Games
 {
@@ -396,7 +397,7 @@ namespace Charlotte.Games
 
 			DDMain.KeepMainScreen();
 
-			DDMusicUtils.Fade();
+			DDMusicUtils.Fadeout();
 			DDCurtain.SetCurtain(30, -1.0);
 
 			foreach (DDScene scene in DDSceneUtils.Create(40))
@@ -460,7 +461,7 @@ namespace Charlotte.Games
 			DDMain.KeepMainScreen();
 			SCommon.Swap(ref DDGround.KeptMainScreen, ref Pause_KeptMainScreen);
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(0, 64, 128),
 				WallDrawer = () =>
@@ -481,6 +482,7 @@ namespace Charlotte.Games
 			for (; ; )
 			{
 				selectIndex = simpleMenu.Perform(
+					selectIndex,
 					100,
 					180,
 					50,
@@ -492,7 +494,6 @@ namespace Charlotte.Games
 						"タイトルに戻る",
 						"ゲームに戻る",
 					},
-					selectIndex,
 					true,
 					true
 					);
@@ -502,7 +503,7 @@ namespace Charlotte.Games
 					case 0:
 						using (new SettingMenu()
 						{
-							SimpleMenu = new DDSimpleMenu()
+							SimpleMenu = new SimpleMenu()
 							{
 								BorderColor = new I3Color(0, 64, 128),
 								WallDrawer = () =>
@@ -548,7 +549,7 @@ namespace Charlotte.Games
 		{
 			DDMain.KeepMainScreen();
 
-			DDSimpleMenu simpleMenu = new DDSimpleMenu()
+			SimpleMenu simpleMenu = new SimpleMenu()
 			{
 				BorderColor = new I3Color(0, 128, 64),
 				WallDrawer = () =>
@@ -565,6 +566,7 @@ namespace Charlotte.Games
 			for (; ; )
 			{
 				selectIndex = simpleMenu.Perform(
+					selectIndex,
 					40,
 					40,
 					40,
@@ -577,7 +579,6 @@ namespace Charlotte.Games
 						"----",
 						"ゲームに戻る",
 					},
-					selectIndex,
 					true,
 					true
 					);
