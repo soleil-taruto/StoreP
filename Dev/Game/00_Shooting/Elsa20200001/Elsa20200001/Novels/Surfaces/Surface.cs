@@ -148,6 +148,9 @@ namespace Charlotte.Novels.Surfaces
 		/// </summary>
 		/// <param name="command">コマンド名</param>
 		/// <param name="arguments">コマンド引数列</param>
-		protected abstract void Invoke_02(string command, params string[] arguments);
+		protected virtual void Invoke_02(string command, params string[] arguments)
+		{
+			throw new DDError();
+		}
 	}
 }

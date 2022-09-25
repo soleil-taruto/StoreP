@@ -17,7 +17,7 @@ namespace Charlotte.Novels
 
 		// <---- prm
 
-		public bool ReturnToTitleMenu = false;
+		public bool RequestReturnToTitleMenu = false;
 
 		// <---- ret
 
@@ -77,8 +77,6 @@ namespace Charlotte.Novels
 			for (; ; )
 			{
 				bool nextPageFlag = false;
-
-				// ★★★ キー押下は 1 マウス押下は -1 で判定する。
 
 				// 入力：シナリオを進める。(マウスホイール)
 				if (DDMouse.Rot < 0)
@@ -187,9 +185,8 @@ namespace Charlotte.Novels
 						default:
 							throw null; // never
 					}
-					if (this.SystemMenu_ReturnToTitleMenu)
+					if (this.RequestReturnToTitleMenu)
 					{
-						this.ReturnToTitleMenu = true;
 						break;
 					}
 				}
@@ -279,7 +276,7 @@ namespace Charlotte.Novels
 			if (this.SortSurfaces == null)
 				this.SortSurfaces = SCommon.Supplier(this.E_SortSurfaces());
 
-			for (int c = 0; c < 10; c++)
+			for (int c = 0; c < 10; c++) // rough limit
 				this.SortSurfaces();
 
 			foreach (Surface surface in Novel.I.Status.Surfaces) // キャラクタ・オブジェクト・壁紙
@@ -295,12 +292,9 @@ namespace Charlotte.Novels
 			{
 				for (int index = 1; index < this.Status.Surfaces.Count; index++)
 				{
-					if (0 < SS_Comp(this.Status.Surfaces[index - 1], this.Status.Surfaces[index]))
+					if (0 < Comp_SurfaceZOrder(this.Status.Surfaces[index - 1], this.Status.Surfaces[index]))
 					{
 						SCommon.Swap(this.Status.Surfaces, index - 1, index);
-
-						if (1 < index)
-							index--;
 					}
 					yield return true;
 				}
@@ -315,7 +309,7 @@ namespace Charlotte.Novels
 		/// <param name="a">左のサーフェス</param>
 		/// <param name="b">右のサーフェス</param>
 		/// <returns>比較結果</returns>
-		private static int SS_Comp(Surface a, Surface b)
+		private static int Comp_SurfaceZOrder(Surface a, Surface b)
 		{
 			int ret = a.Z - b.Z;
 			if (ret != 0)
@@ -425,9 +419,7 @@ namespace Charlotte.Novels
 			Surface_Select.Hide = false; // restore
 		}
 
-		private bool SystemMenu_ReturnToTitleMenu = false;
-
-		private static DDSubScreen SystemMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H);
+		private static DDSubScreen SystemMenu_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		/// <summary>
 		/// システムメニュー画面
@@ -435,9 +427,7 @@ namespace Charlotte.Novels
 		private void SystemMenu()
 		{
 			DDMain.KeepMainScreen();
-			SCommon.Swap(ref DDGround.KeptMainScreen, ref SystemMenu_KeptMainScreen);
-
-			this.SystemMenu_ReturnToTitleMenu = false; // reset
+			SCommon.Swap(ref DDGround.KeptMainScreen, ref SystemMenu_KeptMainScreen); // 使用後は Unload すること。
 
 			SimpleMenu simpleMenu = new SimpleMenu()
 			{
@@ -494,7 +484,7 @@ namespace Charlotte.Novels
 					case 1:
 						if (new Confirm().Perform("タイトル画面に戻ります。", "はい", "いいえ") == 0)
 						{
-							this.SystemMenu_ReturnToTitleMenu = true;
+							this.RequestReturnToTitleMenu = true;
 							goto endLoop;
 						}
 						break;
@@ -509,6 +499,7 @@ namespace Charlotte.Novels
 			}
 		endLoop:
 			DDEngine.FreezeInput(NovelConsts.LONG_INPUT_SLEEP);
+			SystemMenu_KeptMainScreen.Unload();
 		}
 	}
 }

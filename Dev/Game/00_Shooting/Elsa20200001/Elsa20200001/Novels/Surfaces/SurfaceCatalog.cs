@@ -7,7 +7,7 @@ using Charlotte.GameCommons;
 
 namespace Charlotte.Novels.Surfaces
 {
-	public static class SurfaceCreator
+	public static class SurfaceCatalog
 	{
 		private class Info
 		{
