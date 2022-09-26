@@ -317,163 +317,16 @@ namespace Charlotte.Games
 			DDEngine.FreezeInput();
 		}
 
-		private SaveDataSlot LoadGame()
-		{
-			SaveDataSlot saveDataSlot = null;
-
-			DDCurtain.SetCurtain();
-			DDEngine.FreezeInput();
-
-			string[] items = Ground.I.SaveDataSlots.Select(v =>
-				v.SavedTime.Year == 1 ?
-				"----" :
-				"[" + v.SavedTime.ToString() + "]").Concat(new string[] { "戻る" }).ToArray();
-
-			int selectIndex = 0;
-
-			for (; ; )
-			{
-				selectIndex = this.SimpleMenu.Perform("コンテニュー", items, selectIndex);
-
-				if (selectIndex < GameConsts.SAVE_DATA_SLOT_NUM)
-				{
-					if (Ground.I.SaveDataSlots[selectIndex].SerializedGameStatus != null) // ロードする。
-					{
-						if (new Confirm().Perform("スロット " + (selectIndex + 1) + " のデータをロードします。", "はい", "いいえ") == 0)
-						{
-							saveDataSlot = Ground.I.SaveDataSlots[selectIndex];
-							break;
-						}
-					}
-				}
-				else // [戻る]
-				{
-					break;
-				}
-			}
-			DDEngine.FreezeInput();
-
-			return saveDataSlot;
-		}
-
-		private void Setting()
-		{
-			DDCurtain.SetCurtain();
-			DDEngine.FreezeInput();
-
-			string[] items = new string[]
-			{
-				"ゲームパッドのボタン設定",
-				"キーボードのキー設定",
-				"ウィンドウサイズ変更",
-				"ＢＧＭ音量",
-				"ＳＥ音量",
-				"メッセージ表示速度",
-				"メッセージウィンドウ不透明度",
-				"戻る",
-			};
-
-			DDSE[] seSamples = new DDSE[]
-			{
-				Ground.I.SE.Poka01,
-			};
-
-			int selectIndex = 0;
-
-			for (; ; )
-			{
-				selectIndex = this.SimpleMenu.Perform("設定メニュー", items, selectIndex);
-
-				switch (selectIndex)
-				{
-					case 0:
-						this.SimpleMenu.PadConfig();
-						break;
-
-					case 1:
-						this.SimpleMenu.PadConfig(true);
-						break;
-
-					case 2:
-						this.SimpleMenu.WindowSizeConfig();
-						break;
-
-					case 3:
-						this.SimpleMenu.VolumeConfig("ＢＧＭ音量", DDGround.MusicVolume, 0, 100, 1, 10, volume =>
-						{
-							DDGround.MusicVolume = volume;
-							DDMusicUtils.UpdateVolume();
-						},
-						() => { }
-						);
-						break;
-
-					case 4:
-						this.SimpleMenu.VolumeConfig("ＳＥ音量", DDGround.SEVolume, 0, 100, 1, 10, volume =>
-						{
-							DDGround.SEVolume = volume;
-							//DDSEUtils.UpdateVolume(); // old
-
-							foreach (DDSE se in seSamples) // サンプルのみ音量更新
-								se.UpdateVolume();
-						},
-						() =>
-						{
-							DDUtils.Random.ChooseOne(seSamples).Play();
-						}
-						);
-						DDSEUtils.UpdateVolume(); // 全音量更新
-						break;
-
-					case 5:
-						this.SimpleMenu.IntVolumeConfig(
-							"メッセージ表示速度",
-							Ground.I.MessageSpeed,
-							GameConsts.MESSAGE_SPEED_MIN,
-							GameConsts.MESSAGE_SPEED_MAX,
-							1,
-							2,
-							speed => Ground.I.MessageSpeed = speed,
-							() => { }
-							);
-						break;
-
-					case 6:
-						this.SimpleMenu.IntVolumeConfig(
-							"メッセージウィンドウ不透明度",
-							Ground.I.MessageWindow_A_Pct,
-							0,
-							100,
-							1,
-							10,
-							pct => Ground.I.MessageWindow_A_Pct = pct,
-							() => { }
-							);
-						break;
-
-					case 7:
-						goto endMenu;
-
-					default:
-						throw new DDError();
-				}
-			}
-		endMenu:
-			DDEngine.FreezeInput();
-		}
-
 		private void CheatMainMenu()
 		{
 			for (; ; )
 			{
-				int selectIndex = this.SimpleMenu.Perform("開発デバッグ用メニュー", new string[]
+				int selectIndex = this.SimpleMenu.Perform(0, "開発デバッグ用メニュー", new string[]
 				{
 					"スタート",
 					"Game用テストメニュー",
 					"戻る",
-				},
-				0
-				);
+				});
 
 				switch (selectIndex)
 				{

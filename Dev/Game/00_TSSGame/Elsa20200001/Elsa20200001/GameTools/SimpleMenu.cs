@@ -30,7 +30,7 @@ namespace Charlotte.GameTools
 			this.MouseUsable = mouseUsable;
 		}
 
-		public int Perform(string title, string[] items, int selectIndex)
+		public int Perform(int selectIndex, string title, string[] items)
 		{
 			DDCurtain.SetCurtain();
 			DDEngine.FreezeInput();
@@ -570,7 +570,7 @@ namespace Charlotte.GameTools
 
 			for (; ; )
 			{
-				selectIndex = Perform("ウィンドウサイズ設定", items, selectIndex);
+				selectIndex = Perform(selectIndex, "ウィンドウサイズ設定", items);
 
 				switch (selectIndex)
 				{

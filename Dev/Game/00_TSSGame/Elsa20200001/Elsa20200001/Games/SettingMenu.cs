@@ -64,11 +64,7 @@ namespace Charlotte.Games
 
 		private void 基本設定()
 		{
-			DDSE[] seSamples = new DDSE[]
-			{
-				Ground.I.SE.Poka01,
-				Ground.I.SE.Poka02,
-			};
+			DDSE[] seSamples = Ground.I.SE.テスト用s;
 
 			DDEngine.FreezeInput();
 

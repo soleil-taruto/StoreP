@@ -53,7 +53,12 @@ namespace Charlotte.GameCommons
 		private static int P_Y;
 		private static int P_FontSize = DEFAULT_FONT_SIZE;
 
-		public static void SetPrint(int x, int y, int yStep, int fontSize = DEFAULT_FONT_SIZE)
+		public static void SetPrint(int x, int y, int yStep)
+		{
+			SetPrint(x, y, yStep, DEFAULT_FONT_SIZE);
+		}
+
+		public static void SetPrint(int x, int y, int yStep, int fontSize) // 難読化のため、デフォルト引数をオーバーロードの引数に指定する。
 		{
 			P_BaseX = x;
 			P_BaseY = y;

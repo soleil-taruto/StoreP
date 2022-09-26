@@ -35,8 +35,6 @@ namespace Charlotte.GameTools
 				//new SimpleMenu.ButtonInfo(DDInput.PAUSE, ""), // 使用しないボタン
 				//new SimpleMenu.ButtonInfo(DDInput.START, ""), // 使用しないボタン
 #else
-				// アプリ固有の設定 >
-
 				new SimpleMenu.ButtonInfo(DDInput.DIR_2, "下"),
 				new SimpleMenu.ButtonInfo(DDInput.DIR_4, "左"),
 				new SimpleMenu.ButtonInfo(DDInput.DIR_6, "右"),
@@ -50,8 +48,6 @@ namespace Charlotte.GameTools
 				//new SimpleMenu.ButtonInfo(DDInput.R, ""),
 				//new SimpleMenu.ButtonInfo(DDInput.PAUSE, ""),
 				//new SimpleMenu.ButtonInfo(DDInput.START, ""),
-
-				// < アプリ固有の設定
 #endif
 			};
 

@@ -35,8 +35,6 @@ namespace Charlotte.GameTools
 				//new SimpleMenu.ButtonInfo(DDInput.PAUSE, ""), // 使用しないボタン
 				//new SimpleMenu.ButtonInfo(DDInput.START, ""), // 使用しないボタン
 #else
-				// アプリ固有の設定 >
-
 				new SimpleMenu.ButtonInfo(DDInput.DIR_8, "上"),
 				new SimpleMenu.ButtonInfo(DDInput.DIR_2, "下"),
 				new SimpleMenu.ButtonInfo(DDInput.DIR_4, "左"),
@@ -51,8 +49,6 @@ namespace Charlotte.GameTools
 				new SimpleMenu.ButtonInfo(DDInput.R, "当たり判定表示(チート)"),
 				new SimpleMenu.ButtonInfo(DDInput.PAUSE, "ポーズボタン"),
 				//new SimpleMenu.ButtonInfo(DDInput.START, ""),
-
-				// < アプリ固有の設定
 #endif
 			};
 

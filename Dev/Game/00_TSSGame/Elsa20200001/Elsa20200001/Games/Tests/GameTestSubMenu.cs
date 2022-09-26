@@ -46,7 +46,7 @@ namespace Charlotte.Games.Tests
 					"戻る",
 				};
 
-				selectIndex = this.SimpleMenu.Perform("Game用テスト(サブ)メニュー", items, selectIndex);
+				selectIndex = this.SimpleMenu.Perform(selectIndex, "Game用テスト(サブ)メニュー", items);
 
 				switch (selectIndex)
 				{

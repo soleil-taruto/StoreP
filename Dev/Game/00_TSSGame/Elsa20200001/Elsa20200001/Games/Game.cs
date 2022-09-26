@@ -518,15 +518,14 @@ namespace Charlotte.Games
 			for (; ; )
 			{
 				selectIndex = simpleMenu.Perform(
+					selectIndex,
 					"システムメニュー",
 					new string[]
 					{
 						"設定",
 						"タイトルに戻る",
 						"ゲームに戻る",
-					},
-					selectIndex
-					);
+					});
 
 				switch (selectIndex)
 				{

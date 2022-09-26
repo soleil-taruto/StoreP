@@ -10,8 +10,11 @@ namespace Charlotte
 	{
 		//public DDSE Muon = new DDSE(@"dat\General\muon.wav"); // ★サンプルとしてキープ
 
-		public DDSE Poka01 = new DDSE(@"dat\フリー素材\小森平\sfxrse\01pickup\poka01.mp3");
-		public DDSE Poka02 = new DDSE(@"dat\フリー素材\小森平\sfxrse\01pickup\poka02.mp3");
+		public DDSE[] テスト用s = new DDSE[]
+		{
+			new DDSE(@"dat\フリー素材\小森平\sfxrse\01pickup\poka01.mp3"),
+			new DDSE(@"dat\フリー素材\小森平\sfxrse\01pickup\poka02.mp3"),
+		};
 
 		public ResourceSE()
 		{
