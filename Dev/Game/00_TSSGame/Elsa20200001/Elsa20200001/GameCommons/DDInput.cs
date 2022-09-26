@@ -14,17 +14,17 @@ namespace Charlotte.GameCommons
 
 			// <---- prm
 
-			public bool FreezeInputUntilRelease = false;
+			public bool FreezeInputUntilReleaseFlag = false;
 			public int Status = 0;
 
 			public int GetInput()
 			{
-				if (this.FreezeInputUntilRelease)
+				if (this.FreezeInputUntilReleaseFlag)
 				{
 					if (1 <= this.Status)
 						return 0;
 
-					this.FreezeInputUntilRelease = false;
+					this.FreezeInputUntilReleaseFlag = false;
 				}
 				return 1 <= DDEngine.FreezeInputFrame ? 0 : this.Status;
 			}

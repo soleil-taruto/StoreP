@@ -28,7 +28,7 @@ namespace Charlotte.Games
 
 					Game.I.Status.Surfaces.RemoveAll(v => v.InstanceName == instanceName);
 
-					Surface surface = SurfaceCreator.Create(typeName, instanceName);
+					Surface surface = SurfaceCatalog.Create(typeName, instanceName);
 
 					Game.I.Status.Surfaces.Add(surface);
 				}

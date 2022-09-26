@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Charlotte.GameCommons;
 using Charlotte.Commons;
+using Charlotte.GameCommons;
 
 namespace Charlotte.Games.Walls
 {
-	public class WallCommon
+	public static class WallCommon
 	{
 		// none
 	}

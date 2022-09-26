@@ -107,7 +107,7 @@ namespace Charlotte.Games
 				string instanceName = lines2[c2++];
 				string value2 = lines2[c2++];
 
-				Surface surface = SurfaceCreator.Create(typeName, instanceName);
+				Surface surface = SurfaceCatalog.Create(typeName, instanceName);
 				surface.Deserialize(value2);
 				return surface;
 			})

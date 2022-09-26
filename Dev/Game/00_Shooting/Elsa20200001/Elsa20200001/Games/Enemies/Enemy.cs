@@ -141,9 +141,6 @@ namespace Charlotte.Games.Enemies
 		private void Killed()
 		{
 			this.P_Killed();
-
-			foreach (Action<Enemy> a_killed in this.A_KilledList)
-				a_killed(this);
 		}
 
 		/// <summary>
@@ -152,23 +149,6 @@ namespace Charlotte.Games.Enemies
 		protected virtual void P_Killed()
 		{
 			EnemyCommon.Killed(this);
-		}
-
-		/// <summary>
-		/// 追加された死亡イベント・リスト
-		/// </summary>
-		private List<Action<Enemy>> A_KilledList = new List<Action<Enemy>>();
-
-		/// <summary>
-		/// 死亡イベントの追加
-		/// コンストラクタ呼び出しとの併用を考慮して、このインスタンスを返す。
-		/// </summary>
-		/// <param name="a_killed">死亡イベント</param>
-		/// <returns>このインスタンス</returns>
-		public Enemy AddKilled(Action<Enemy> a_killed)
-		{
-			this.A_KilledList.Add(a_killed);
-			return this;
 		}
 	}
 }

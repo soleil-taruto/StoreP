@@ -20,7 +20,9 @@ namespace Charlotte.Games.Scripts.Tests
 
 			Ground.I.Music.Stage_02.Play();
 			Game.I.Walls.Add(new Wall_Test0001());
-			foreach (var relay in Enumerable.Repeat(true, 100)) yield return relay;
+
+			foreach (var relay in Enumerable.Repeat(true, 100))
+				yield return relay;
 
 			foreach (DDScene scene in DDSceneUtils.Create((1 * 60 + 23) * 60))
 			{
@@ -47,11 +49,11 @@ namespace Charlotte.Games.Scripts.Tests
 						else
 							効用 = Enemy_TestItem.効用_e.POWER_UP_WEAPON;
 
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H).AddKilled(enemy =>
-						{
-							Game.I.Enemies.Add(new Enemy_TestItem(enemy.X, enemy.Y, 効用));
-						}
-						));
+						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H));
+						EnemyCommon_Tests.AddKillEvent(
+							Game.I.Enemies[Game.I.Enemies.Count - 1],
+							enemy => Game.I.Enemies.Add(new Enemy_TestItem(enemy.X, enemy.Y, 効用))
+							);
 					}
 					else if (rand.GetReal1() < 0.3)
 					{
@@ -66,10 +68,15 @@ namespace Charlotte.Games.Scripts.Tests
 			}
 
 			Game.I.システム的な敵クリア();
-			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
+
+			foreach (var relay in Enumerable.Repeat(true, 120))
+				yield return relay;
+
 			Ground.I.Music.Boss_02.Play();
 			Game.I.Walls.Add(new Wall_Test0002());
-			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
+
+			foreach (var relay in Enumerable.Repeat(true, 120))
+				yield return relay;
 
 			{
 				Enemy boss = new Enemy_Testボス0002();
@@ -92,9 +99,13 @@ namespace Charlotte.Games.Scripts.Tests
 				}
 			}
 
-			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
+			foreach (var relay in Enumerable.Repeat(true, 120))
+				yield return relay;
+
 			DDMusicUtils.Fadeout();
-			foreach (var relay in Enumerable.Repeat(true, 120)) yield return relay;
+
+			foreach (var relay in Enumerable.Repeat(true, 120))
+				yield return relay;
 
 			Game.I.Script = new Script_Testステージ0003(); // 次のステージ
 

@@ -170,7 +170,7 @@
     <Compile Include="Games\ScenarioPage.cs" />
     <Compile Include="Games\SettingMenu.cs" />
     <Compile Include="Games\Surfaces\Surface.cs" />
-    <Compile Include="Games\Surfaces\SurfaceCreator.cs" />
+    <Compile Include="Games\Surfaces\SurfaceCatalog.cs" />
     <Compile Include="Games\Surfaces\Surface_MessageWindow.cs" />
     <Compile Include="Games\Surfaces\Surface_Select.cs" />
     <Compile Include="Games\Surfaces\Surface_System.cs" />

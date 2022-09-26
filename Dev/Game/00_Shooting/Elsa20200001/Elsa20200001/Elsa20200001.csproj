@@ -144,6 +144,7 @@
     <Compile Include="GameCommons\DDUtils.cs" />
     <Compile Include="GameCommons\DDWin32.cs" />
     <Compile Include="GameCommons\MaskGZDataUtils\MaskGZDataEng.cs" />
+    <Compile Include="Games\Enemies\Tests\EnemyCommon_Tests.cs" />
     <Compile Include="Games\GameProgressMaster.cs" />
     <Compile Include="Games\Confirm.cs" />
     <Compile Include="Games\Enemies\EnemyCommon.cs" />
