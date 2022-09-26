@@ -85,8 +85,8 @@ namespace Charlotte.Games
 
 						picture = Ground.I.Picture.TitleString;
 
-						double titleStringX = 210;
-						double titleStringY = 80;
+						double titleStringX = 270;
+						double titleStringY = 60;
 
 						titleStringX += 20.0 * DDUtils.Random.GetReal2() * bureStress;
 						titleStringY += 20.0 * DDUtils.Random.GetReal2() * bureStress;
