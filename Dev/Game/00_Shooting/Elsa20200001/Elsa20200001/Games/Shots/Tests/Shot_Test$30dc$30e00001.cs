@@ -26,7 +26,7 @@ namespace Charlotte.Games.Shots.Tests
 					return false;
 				});
 
-				this.Crash = DDCrashUtils.Rect(new D4Rect(0, 0, GameConsts.FIELD_W, GameConsts.FIELD_H));
+				this.Crash = DDCrashUtils.Rect(new D4Rect(0, 0, DDConsts.Screen_W, DDConsts.Screen_H));
 
 				yield return true;
 			}

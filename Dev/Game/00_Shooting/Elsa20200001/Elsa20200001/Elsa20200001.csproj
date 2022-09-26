@@ -144,6 +144,7 @@
     <Compile Include="GameCommons\DDUtils.cs" />
     <Compile Include="GameCommons\DDWin32.cs" />
     <Compile Include="GameCommons\MaskGZDataUtils\MaskGZDataEng.cs" />
+    <Compile Include="Games\Enemies\EnemyCatalog.cs" />
     <Compile Include="Games\Enemies\Tests\EnemyCommon_Tests.cs" />
     <Compile Include="Games\GameProgressMaster.cs" />
     <Compile Include="Games\Confirm.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Games\Logo.cs" />
     <Compile Include="Games\Player.cs" />
     <Compile Include="Games\Scripts\Script.cs" />
+    <Compile Include="Games\Scripts\ScriptCatalog.cs" />
     <Compile Include="Games\Scripts\ScriptCommon.cs" />
     <Compile Include="Games\Scripts\Tests\Script_Testステージ0002.cs" />
     <Compile Include="Games\Scripts\Tests\Script_Testステージ0003.cs" />
@@ -177,11 +179,13 @@
     <Compile Include="Games\Scripts\Tests\Script_Testステージ0001.cs" />
     <Compile Include="Games\SettingMenu.cs" />
     <Compile Include="Games\Shots\Shot.cs" />
+    <Compile Include="Games\Shots\ShotCatalog.cs" />
     <Compile Include="Games\Shots\ShotCommon.cs" />
     <Compile Include="Games\Shots\Tests\Shot_Test0001.cs" />
     <Compile Include="Games\Shots\Tests\Shot_Testボム0001.cs" />
     <Compile Include="Games\TitleMenu.cs" />
     <Compile Include="Games\Walls\Wall.cs" />
+    <Compile Include="Games\Walls\WallCatalog.cs" />
     <Compile Include="Games\Walls\WallCommon.cs" />
     <Compile Include="Games\Walls\Tests\Wall_Test0001.cs" />
     <Compile Include="Games\Walls\Tests\Wall_Test0002.cs" />

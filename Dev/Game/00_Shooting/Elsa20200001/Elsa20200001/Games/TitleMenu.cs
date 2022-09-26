@@ -335,13 +335,16 @@ namespace Charlotte.Games
 
 					case 1:
 						{
-							selectIndex = this.SimpleMenu.Perform(0, 40, 40, 40, 24, "コンテニュー", new string[]
-							{
-								"ステージ 1",
-								"ステージ 2",
-								"ステージ 3",
-								"戻る",
-							});
+							string[] continueMenuItems = Enumerable
+								.Range(1, Ground.I.CanContinueStageNumber)
+								.Select(v => "ステージ " + v)
+								.Concat(new string[] { "戻る" })
+								.ToArray();
+
+							selectIndex = this.SimpleMenu.Perform(0, 40, 40, 40, 24, "コンテニュー", continueMenuItems);
+
+							if (selectIndex == continueMenuItems.Length - 1) // ? 戻る
+								break;
 
 							Script script;
 
@@ -350,22 +353,17 @@ namespace Charlotte.Games
 								case 0: script = new Script_Testステージ0001(); break;
 								case 1: script = new Script_Testステージ0002(); break;
 								case 2: script = new Script_Testステージ0003(); break;
-								case 3: script = null; break;
 
 								default:
 									throw null; // never
 							}
+							this.LeaveTitleMenu();
 
-							if (script != null)
+							using (new GameProgressMaster())
 							{
-								this.LeaveTitleMenu();
-
-								using (new GameProgressMaster())
-								{
-									GameProgressMaster.I.ContinueGame(script);
-								}
-								this.ReturnTitleMenu();
+								GameProgressMaster.I.ContinueGame(script);
 							}
+							this.ReturnTitleMenu();
 						}
 						break;
 
@@ -399,6 +397,8 @@ namespace Charlotte.Games
 			DDEngine.FreezeInput();
 		}
 
+		#region CheatMainMenu
+
 		private void CheatMainMenu()
 		{
 			for (; ; )
@@ -407,6 +407,8 @@ namespace Charlotte.Games
 				{
 					"スタート_Script_Testステージ0001",
 					"ノベルパート_テスト0001",
+					"ノベルパート_Start",
+					"ノベルパート_Ending",
 					"戻る",
 				});
 
@@ -439,6 +441,32 @@ namespace Charlotte.Games
 						break;
 
 					case 2:
+						{
+							this.LeaveTitleMenu();
+
+							using (new Novel())
+							{
+								Novel.I.Status.Scenario = new Scenario("Start");
+								Novel.I.Perform();
+							}
+							this.ReturnTitleMenu();
+						}
+						break;
+
+					case 3:
+						{
+							this.LeaveTitleMenu();
+
+							using (new Novel())
+							{
+								Novel.I.Status.Scenario = new Scenario("Ending");
+								Novel.I.Perform();
+							}
+							this.ReturnTitleMenu();
+						}
+						break;
+
+					case 4:
 						goto endMenu;
 
 					default:
@@ -448,6 +476,8 @@ namespace Charlotte.Games
 		endMenu:
 			;
 		}
+
+		#endregion
 
 		private void LeaveTitleMenu()
 		{

@@ -23,7 +23,7 @@ namespace Charlotte.Games.Scripts.Tests
 				foreach (DDScene scene in DDSceneUtils.Create(10))
 				{
 					Game.I.Enemies.Add(new Enemy_Test0001(
-						GameConsts.FIELD_W + 50.0,
+						DDConsts.Screen_W + 50.0,
 						100.0 + scene.Rate * 200.0
 						));
 
@@ -37,8 +37,8 @@ namespace Charlotte.Games.Scripts.Tests
 				foreach (DDScene scene in DDSceneUtils.Create(10))
 				{
 					Game.I.Enemies.Add(new Enemy_Test0001(
-						GameConsts.FIELD_W + 50.0,
-						GameConsts.FIELD_H - 100.0 - scene.Rate * 200.0
+						DDConsts.Screen_W + 50.0,
+						DDConsts.Screen_H - 100.0 - scene.Rate * 200.0
 						));
 
 					for (int c = 0; c < 20; c++)
@@ -53,8 +53,8 @@ namespace Charlotte.Games.Scripts.Tests
 				foreach (DDScene scene in DDSceneUtils.Create(20))
 				{
 					Game.I.Enemies.Add(new Enemy_Test0001(
-						GameConsts.FIELD_W + 50.0,
-						GameConsts.FIELD_H * DDUtils.Random.GetReal1()
+						DDConsts.Screen_W + 50.0,
+						DDConsts.Screen_H * DDUtils.Random.GetReal1()
 						));
 
 					for (int c = 0; c < 10; c++)
@@ -67,8 +67,8 @@ namespace Charlotte.Games.Scripts.Tests
 				foreach (DDScene scene in DDSceneUtils.Create(20))
 				{
 					Game.I.Enemies.Add(new Enemy_Test0001(
-						GameConsts.FIELD_W + 50.0,
-						GameConsts.FIELD_H * DDUtils.Random.GetReal1()
+						DDConsts.Screen_W + 50.0,
+						DDConsts.Screen_H * DDUtils.Random.GetReal1()
 						));
 
 					for (int c = 0; c < 10; c++)

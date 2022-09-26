@@ -8,6 +8,7 @@ using Charlotte.GameCommons;
 using Charlotte.Games;
 using Charlotte.Games.Scripts.Tests;
 using Charlotte.Games.Scripts;
+using Charlotte.Novels;
 
 namespace Charlotte.Games
 {
@@ -27,6 +28,11 @@ namespace Charlotte.Games
 
 		public void StartGame()
 		{
+			using (new Novel())
+			{
+				Novel.I.Status.Scenario = new Scenario("Start");
+				Novel.I.Perform();
+			}
 			using (new Game())
 			{
 				Game.I.Script = new Script_Testステージ0001();

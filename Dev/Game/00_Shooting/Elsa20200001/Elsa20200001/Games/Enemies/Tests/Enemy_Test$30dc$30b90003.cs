@@ -13,18 +13,19 @@ namespace Charlotte.Games.Enemies.Tests
 	public class Enemy_Testボス0003 : Enemy
 	{
 		public Enemy_Testボス0003()
-			: base(GameConsts.FIELD_W + 96.0, GameConsts.FIELD_H / 2.0, 1500, Kind_e.ボス)
+			: base(DDConsts.Screen_W + 96.0, DDConsts.Screen_H / 2.0, 1500, Kind_e.ボス)
 		{ }
 
 		protected override IEnumerable<bool> E_Draw()
 		{
-			Func<bool> f_移動 = SCommon.Supplier(this.移動());
-			Func<bool> f_攻撃 = SCommon.Supplier(this.攻撃());
+			DDTaskList tasks = new DDTaskList();
+
+			tasks.Add(SCommon.Supplier(this.移動()));
+			tasks.Add(SCommon.Supplier(this.攻撃()));
 
 			for (; ; )
 			{
-				f_移動();
-				f_攻撃();
+				tasks.ExecuteAllTask(); // 移動もあるので、最初に実行しておく。
 
 				DDDraw.DrawCenter(Ground.I.Picture.Boss0003, this.X, this.Y);
 

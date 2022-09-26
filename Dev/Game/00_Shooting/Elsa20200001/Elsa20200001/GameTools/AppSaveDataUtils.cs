@@ -19,6 +19,7 @@ namespace Charlotte.GameTools
 		public static IEnumerable<string> GetAppLines()
 		{
 			yield return "" + Ground.I.NovelMessageSpeed;
+			yield return "" + Ground.I.CanContinueStageNumber;
 		}
 
 		/// <summary>
@@ -33,6 +34,7 @@ namespace Charlotte.GameTools
 			int c = 0;
 
 			Ground.I.NovelMessageSpeed = int.Parse(lines[c++]);
+			Ground.I.CanContinueStageNumber = int.Parse(lines[c++]);
 		}
 	}
 }

@@ -24,24 +24,13 @@ namespace Charlotte.Games
 
 		public static Game I;
 
-		public DDSubScreen Field;
-		public DDSubScreen Field_Last;
-
 		public Game()
 		{
 			I = this;
-
-			this.Field = new DDSubScreen(GameConsts.FIELD_W, GameConsts.FIELD_H);
-			this.Field_Last = new DDSubScreen(GameConsts.FIELD_W, GameConsts.FIELD_H);
 		}
 
 		public void Dispose()
 		{
-			this.Field.Dispose();
-			this.Field = null;
-			this.Field_Last.Dispose();
-			this.Field_Last = null;
-
 			I = null;
 		}
 
@@ -59,8 +48,8 @@ namespace Charlotte.Games
 
 			DDUtils.Random = new DDRandom(1u); // 電源パターン確保のため
 
-			this.Player.X = GameConsts.FIELD_W / 4;
-			this.Player.Y = GameConsts.FIELD_H / 2;
+			this.Player.X = DDConsts.Screen_W / 4;
+			this.Player.Y = DDConsts.Screen_H / 2;
 
 			// ★★★★★ *****PSH (<-このパターンで検索できるようにしておく)
 			// プレイヤー・ステータス反映(ステージ開始時)
@@ -146,8 +135,8 @@ namespace Charlotte.Games
 					this.Player.X += xa * speed;
 					this.Player.Y += ya * speed;
 
-					DDUtils.ToRange(ref this.Player.X, 0.0, GameConsts.FIELD_W);
-					DDUtils.ToRange(ref this.Player.Y, 0.0, GameConsts.FIELD_H);
+					DDUtils.ToRange(ref this.Player.X, 0.0, DDConsts.Screen_W);
+					DDUtils.ToRange(ref this.Player.Y, 0.0, DDConsts.Screen_H);
 
 					if (!deadOrRebornOrUID && 1 <= DDInput.B.GetInput()) // 攻撃ボタン押下中
 					{
@@ -216,7 +205,7 @@ namespace Charlotte.Games
 					if (frame == 2) // init
 					{
 						this.Player.Reborn_X = -50.0;
-						this.Player.Reborn_Y = GameConsts.FIELD_H / 2.0;
+						this.Player.Reborn_Y = DDConsts.Screen_H / 2.0;
 					}
 					DDUtils.Approach(ref this.Player.Reborn_X, this.Player.X, 0.9 - 0.3 * rate);
 					DDUtils.Approach(ref this.Player.Reborn_Y, this.Player.Y, 0.9 - 0.3 * rate);
@@ -266,52 +255,40 @@ namespace Charlotte.Games
 				// 描画ここから
 				// ====
 
-				// Swap
+				foreach (Wall wall in this.Walls.Iterate())
+					wall.Draw();
+
+				this.Player.Draw();
+
+				foreach (Enemy enemy in this.Enemies.Iterate())
 				{
-					DDSubScreen tmp = this.Field;
-					this.Field = this.Field_Last;
-					this.Field_Last = tmp;
+					if (enemy.DeadFlag) // ? 敵：既に死亡
+						continue;
+
+					enemy.Crash = DDCrashUtils.None(); // reset
+					enemy.Draw();
+				}
+				foreach (Shot shot in this.Shots.Iterate())
+				{
+					if (shot.DeadFlag) // ? 自弾：既に死亡
+						continue;
+
+					shot.Crash = DDCrashUtils.None(); // reset
+					shot.Draw();
 				}
 
-				using (this.Field.Section())
+				this.Tasks.ExecuteAllTask();
+
+				if (DDConfig.LOG_ENABLED && 1 <= DDInput.R.GetInput()) // 当たり判定表示(チート)
 				{
-					foreach (Wall wall in this.Walls.Iterate())
-						wall.Draw();
+					DDCurtain.DrawCurtain(-0.7);
 
-					this.Player.Draw();
+					const double A = 0.7;
 
-					foreach (Enemy enemy in this.Enemies.Iterate())
-					{
-						if (enemy.DeadFlag) // ? 敵：既に死亡
-							continue;
-
-						enemy.Crash = DDCrashUtils.None(); // reset
-						enemy.Draw();
-					}
-					foreach (Shot shot in this.Shots.Iterate())
-					{
-						if (shot.DeadFlag) // ? 自弾：既に死亡
-							continue;
-
-						shot.Crash = DDCrashUtils.None(); // reset
-						shot.Draw();
-					}
-
-					this.Tasks.ExecuteAllTask();
-
-					if (DDConfig.LOG_ENABLED && 1 <= DDInput.R.GetInput()) // 当たり判定表示(チート)
-					{
-						DDCurtain.DrawCurtain(-0.7);
-
-						const double A = 0.7;
-
-						DDCrashView.Draw(new DDCrash[] { this.Player.Crash }, new I3Color(255, 0, 0), 1.0);
-						DDCrashView.Draw(this.Enemies.Iterate().Select(v => v.Crash), new I3Color(255, 255, 255), A);
-						DDCrashView.Draw(this.Shots.Iterate().Select(v => v.Crash), new I3Color(0, 255, 255), A);
-					}
+					DDCrashView.Draw(new DDCrash[] { this.Player.Crash }, new I3Color(255, 0, 0), 1.0);
+					DDCrashView.Draw(this.Enemies.Iterate().Select(v => v.Crash), new I3Color(255, 255, 255), A);
+					DDCrashView.Draw(this.Shots.Iterate().Select(v => v.Crash), new I3Color(0, 255, 255), A);
 				}
-				DDDraw.DrawSimple(Ground.I.Picture.Background, 0, 0);
-				DDDraw.DrawSimple(this.Field.ToPicture(), GameConsts.FIELD_L, GameConsts.FIELD_T);
 
 				// ====
 				// 描画ここまで
@@ -341,25 +318,36 @@ namespace Charlotte.Games
 							{
 								// ★ 敵_被弾ここから
 
+								int damagePoint = Math.Min(enemy.HP, shot.AttackPoint);
+
 								enemy.HP -= shot.AttackPoint;
 
-								if (!shot.敵を貫通する) // 自弾の攻撃力と敵のHPを相殺
+								if (shot.敵を貫通する)
+								{
+									// noop
+								}
+								else // ? 敵を貫通しない -> 自弾の攻撃力と敵のHPを相殺
 								{
 									if (0 <= enemy.HP) // ? 丁度削りきった || 削りきれなかった -> 攻撃力を使い果たしたので、ショットは消滅
+									{
+										shot.AttackPoint = 0; // 攻撃力を使い果たした。
 										shot.Kill();
+									}
 									else
-										shot.AttackPoint = -enemy.HP; // 過剰に削った分を残りの攻撃力として反映
+									{
+										shot.AttackPoint = -enemy.HP; // 過剰に削った分を残りの攻撃力として還元
+									}
 								}
 
 								if (1 <= enemy.HP) // ? まだ生存している。
 								{
-									enemy.Damaged();
+									enemy.Damaged(shot, damagePoint);
 								}
 								else // ? 撃破した。
 								{
 									enemy.HP = 0; // 過剰に削られた分を正す。
-									enemy.Kill();
-									break; // この敵は死亡したので、この敵について以降の当たり判定は不要
+									enemy.Kill(true);
+									goto nextEnemy; // この敵は死亡したので、この敵について以降の当たり判定は不要
 								}
 
 								// ★ 敵_被弾ここまで
@@ -383,6 +371,9 @@ namespace Charlotte.Games
 
 						// ★ 自機_被弾ここまで
 					}
+
+				nextEnemy:
+					;
 				}
 
 				// ====
@@ -643,8 +634,8 @@ namespace Charlotte.Games
 			const int MGN_FIELD_NUM = 3;
 
 			return
-				x < -GameConsts.FIELD_W * MGN_FIELD_NUM || GameConsts.FIELD_W * (1 + MGN_FIELD_NUM) < x ||
-				y < -GameConsts.FIELD_H * MGN_FIELD_NUM || GameConsts.FIELD_H * (1 + MGN_FIELD_NUM) < y;
+				x < -DDConsts.Screen_W * MGN_FIELD_NUM || DDConsts.Screen_W * (1 + MGN_FIELD_NUM) < x ||
+				y < -DDConsts.Screen_H * MGN_FIELD_NUM || DDConsts.Screen_H * (1 + MGN_FIELD_NUM) < y;
 		}
 
 		public void システム的な敵クリア()

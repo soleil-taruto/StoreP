@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Charlotte.Commons;
 using Charlotte.GameCommons;
+using Charlotte.Games.Shots;
 
 namespace Charlotte.Games.Enemies.Tests
 {
@@ -33,12 +34,12 @@ namespace Charlotte.Games.Enemies.Tests
 			}
 		}
 
-		protected override void P_Damaged()
+		protected override void P_Damaged(Shot shot, int damagePoint)
 		{
 			// noop
 		}
 
-		protected override void P_Killed()
+		protected override void P_Killed(bool destroyed)
 		{
 			// noop
 		}

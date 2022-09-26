@@ -8,6 +8,7 @@ using Charlotte.Games.Enemies;
 using Charlotte.Games.Enemies.Tests;
 using Charlotte.Games.Walls;
 using Charlotte.Games.Walls.Tests;
+using Charlotte.Novels;
 
 namespace Charlotte.Games.Scripts.Tests
 {
@@ -28,7 +29,7 @@ namespace Charlotte.Games.Scripts.Tests
 			{
 				DDGround.EL.Add(() =>
 				{
-					DDPrint.SetDebug(GameConsts.FIELD_W - 180, 0);
+					DDPrint.SetDebug(DDConsts.Screen_W - 180, 0);
 					DDPrint.SetBorder(new I3Color(0, 0, 0));
 					DDPrint.Print(scene.Numer + " / " + scene.Denom + " = " + scene.Rate.ToString("F3"));
 					DDPrint.Reset();
@@ -49,7 +50,7 @@ namespace Charlotte.Games.Scripts.Tests
 						else
 							効用 = Enemy_TestItem.効用_e.POWER_UP_WEAPON;
 
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0002(DDConsts.Screen_W + 50, rand.GetReal1() * DDConsts.Screen_H));
 						EnemyCommon_Tests.AddKillEvent(
 							Game.I.Enemies[Game.I.Enemies.Count - 1],
 							enemy => Game.I.Enemies.Add(new Enemy_TestItem(enemy.X, enemy.Y, 効用))
@@ -57,11 +58,11 @@ namespace Charlotte.Games.Scripts.Tests
 					}
 					else if (rand.GetReal1() < 0.3)
 					{
-						Game.I.Enemies.Add(new Enemy_Test0002(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0002(DDConsts.Screen_W + 50, rand.GetReal1() * DDConsts.Screen_H));
 					}
 					else
 					{
-						Game.I.Enemies.Add(new Enemy_Test0001(GameConsts.FIELD_W + 50, rand.GetReal1() * GameConsts.FIELD_H));
+						Game.I.Enemies.Add(new Enemy_Test0001(DDConsts.Screen_W + 50, rand.GetReal1() * DDConsts.Screen_H));
 					}
 				}
 				yield return true;
@@ -87,7 +88,7 @@ namespace Charlotte.Games.Scripts.Tests
 				{
 					DDGround.EL.Add(() =>
 					{
-						DDPrint.SetDebug(GameConsts.FIELD_W - 140, 0);
+						DDPrint.SetDebug(DDConsts.Screen_W - 140, 0);
 						DDPrint.SetBorder(new I3Color(0, 0, 0));
 						DDPrint.Print("BOSS_HP = " + boss.HP);
 						DDPrint.Reset();
@@ -113,6 +114,12 @@ namespace Charlotte.Games.Scripts.Tests
 
 			foreach (var relay in Enumerable.Repeat(true, 40))
 				yield return relay;
+
+			using (new Novel())
+			{
+				Novel.I.Status.Scenario = new Scenario("Ending");
+				Novel.I.Perform();
+			}
 		}
 	}
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using DxLibDLL;
 using Charlotte.Commons;
-using Charlotte.Games;
 
 namespace Charlotte.GameCommons
 {
@@ -364,11 +363,6 @@ namespace Charlotte.GameCommons
 		public static bool IsOutOfCamera(D2Point pt, double margin = 0.0)
 		{
 			return IsOut(pt, new D4Rect(DDGround.Camera.X, DDGround.Camera.Y, DDConsts.Screen_W, DDConsts.Screen_H), margin);
-		}
-
-		public static bool IsOutOfField(D2Point pt, double margin = 0.0)
-		{
-			return IsOut(pt, new D4Rect(GameConsts.FIELD_L, GameConsts.FIELD_T, GameConsts.FIELD_W, GameConsts.FIELD_H), margin);
 		}
 
 		public static void UpdateInput(ref int counter, bool status)

@@ -18,8 +18,6 @@ namespace Charlotte
 
 		public DDPicture Copyright = DDPictureLoaders.Standard(@"dat\Logo\Copyright.png");
 
-		public DDPicture Background = DDPictureLoaders.Standard(@"dat\Picture\Background.png");
-
 		public DDPicture Boss0001 = DDPictureLoaders.Standard(@"dat\Game\Boss0001.png");
 		public DDPicture Boss0002 = DDPictureLoaders.Standard(@"dat\Game\Boss0002.png");
 		public DDPicture Boss0003 = DDPictureLoaders.Standard(@"dat\Game\Boss0003.png");
@@ -29,9 +27,9 @@ namespace Charlotte
 		public DDPicture Shot0001 = DDPictureLoaders.Standard(@"dat\Game\Shot0001.png");
 		public DDPicture Tama0001 = DDPictureLoaders.Standard(@"dat\Game\Tama0001.png");
 
-		public DDPicture Wall0001 = DDPictureLoaders.Standard(@"dat\Wall\Wall0001.png");
-		public DDPicture Wall0002 = DDPictureLoaders.Standard(@"dat\Wall\Wall0002.png");
-		public DDPicture Wall0003 = DDPictureLoaders.Standard(@"dat\Wall\Wall0003.png");
+		public DDPicture Wall0001 = DDPictureLoaders.Standard(@"dat\Picture\Wall0001.png");
+		public DDPicture Wall0002 = DDPictureLoaders.Standard(@"dat\Picture\Wall0002.png");
+		public DDPicture Wall0003 = DDPictureLoaders.Standard(@"dat\Picture\Wall0003.png");
 
 		// ノベルパート用システム画像
 		public DDPicture MessageFrame_Message = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\空想曲線\Messageframe_29\material\01 message\message.png");
@@ -56,5 +54,10 @@ namespace Charlotte
 
 		public DDPicture 弦巻マキ01 = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\からい\ゆかマキ制服\maki01.png"); // 仮
 		public DDPicture 弦巻マキ02 = DDPictureLoaders.Standard(@"dat\Novel\フリー素材\からい\ゆかマキ制服\maki02.png"); // 仮
+
+		public ResourcePicture()
+		{
+			// none
+		}
 	}
 }

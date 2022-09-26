@@ -29,7 +29,7 @@ namespace Charlotte.Games.Enemies.Tests
 				yield return true;
 			}
 
-			if (DDUtils.IsOutOfField(new D2Point(enemy.X, enemy.Y), 100.0)) // ? 画面外 -> 退場と見なし何もしない。
+			if (DDUtils.IsOutOfScreen(new D2Point(enemy.X, enemy.Y), 100.0)) // ? 画面外 -> 退場と見なし何もしない。
 				yield break;
 
 			reaction(enemy); // イベント実行

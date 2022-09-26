@@ -25,7 +25,7 @@ namespace Charlotte
 
 		public ResourceMusic()
 		{
-			//this.Dummy.Volume = 0.1; // 非推奨 // ★サンプルとしてキープ
+			// none
 		}
 	}
 }

@@ -86,6 +86,7 @@ namespace Charlotte.Games
 					default:
 						throw null; // never
 				}
+				Ground.I.SE.PlayerShoot.Play();
 			}
 		}
 
