@@ -19,9 +19,6 @@ namespace Charlotte
 			ProcMain.CUIMain(new Program().Main2);
 		}
 
-		// 以下様式統一のため用途別に好きな方を使ってね -- ★要削除
-
-#if true // 主にデバッガで実行するテスト用プログラム -- ★不要なら要削除
 		private void Main2(ArgsReader ar)
 		{
 			if (ProcMain.DEBUG)
@@ -57,61 +54,41 @@ namespace Charlotte
 		{
 			// -- choose one --
 
-			new Test0001().Test01();
-			//new Test0002().Test01();
-			//new Test0003().Test01();
-
-			// --
-		}
-#else // 主に実行ファイルにして使う/コマンド引数有り -- ★不要なら要削除
-		private void Main2(ArgsReader ar)
-		{
-			if (ProcMain.DEBUG)
-			{
-				Main3();
-			}
-			else
-			{
-				Main4(ar);
-			}
-			SCommon.OpenOutputDirIfCreated();
-		}
-
-		private void Main3()
-		{
-			// -- choose one --
-
-			Main4(new ArgsReader(new string[] { }));
 			//new Test0001().Test01();
 			//new Test0002().Test01();
 			//new Test0003().Test01();
+			//Main_20210421();
+			Main_20210422();
 
 			// --
-
-			SCommon.Pause();
 		}
 
-		private void Main4(ArgsReader ar)
+		/// <summary>
+		/// ボタン作成テスト
+		/// 2021.4.21 Doremy-用を再現した。
+		/// </summary>
+		private void Main_20210421()
 		{
-			try
-			{
-				Main5(ar);
-			}
-			catch (Exception ex)
-			{
-				ProcMain.WriteLog(ex);
+			I4Color color = new I4Color(255, 64, 64, 255);
 
-				//MessageBox.Show("" + ex, Path.GetFileNameWithoutExtension(ProcMain.SelfFile) + " / エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-				//Console.WriteLine("Press ENTER key. (エラーによりプログラムを終了します)");
-				//Console.ReadLine();
-			}
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "ゲームスタート", 60);
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "コンテニュー", 180);
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "設定", 675);
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "終了", 675);
 		}
 
-		private void Main5(ArgsReader ar)
+		/// <summary>
+		/// ボタン作成テスト
+		/// 2021.4.21 SSAGame-用を再現した。
+		/// </summary>
+		private void Main_20210422()
 		{
-			// TODO
+			I4Color color = new I4Color(233, 255, 33, 255);
+
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "ゲームスタート", 60);
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "コンテニュー", 180);
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "設定", 675);
+			MakePictures.MakeButton(12, 2400, 480, color, 180, "終了", 675);
 		}
-#endif
 	}
 }
