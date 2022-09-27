@@ -50,6 +50,38 @@ namespace Charlotte.Tests
 			return true;
 		}
 
+#if true
+		private IEnumerable<bool> Test01_a2()
+		{
+			Func<int> e = () => 1;
+
+			for (int value = 2; ; value++)
+			{
+				bool ret = e() == 1;
+
+				if (ret)
+					e = Both(e, SCommon.Supplier(Eratosthenes(value)));
+
+				yield return ret;
+			}
+		}
+
+		private Func<int> Both(Func<int> e1, Func<int> e2)
+		{
+			return () => e1() & e2();
+		}
+
+		private IEnumerable<int> Eratosthenes(int value)
+		{
+			foreach (int n in Gaps(value))
+			{
+				for (int i = 0; i < n; i++)
+					yield return 1;
+
+				yield return 0;
+			}
+		}
+#else // old same
 		private IEnumerable<bool> Test01_a2()
 		{
 			Func<bool> e = () => true;
@@ -88,6 +120,7 @@ namespace Charlotte.Tests
 				yield return false;
 			}
 		}
+#endif
 
 		private IEnumerable<int> Gaps(int value)
 		{
