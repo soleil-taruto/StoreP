@@ -33,19 +33,33 @@ namespace Charlotte.Games
 				Novel.I.Status.Scenario = new Scenario("Start");
 				Novel.I.Perform();
 			}
-			using (new Game())
+			for (; ; )
 			{
-				Game.I.Script = new Script_Testステージ0001();
-				Game.I.Perform();
+				using (new Game())
+				{
+					Game.I.Script = new Script_Testステージ0001();
+					Game.I.Perform();
+
+					if (Game.I.EndReason == Game.EndReason_e.RestartGame)
+						continue;
+				}
+				break;
 			}
 		}
 
-		public void ContinueGame(Script script)
+		public void ContinueGame(Func<Script> getScript)
 		{
-			using (new Game())
+			for (; ; )
 			{
-				Game.I.Script = script;
-				Game.I.Perform();
+				using (new Game())
+				{
+					Game.I.Script = getScript();
+					Game.I.Perform();
+
+					if (Game.I.EndReason == Game.EndReason_e.RestartGame)
+						continue;
+				}
+				break;
 			}
 		}
 	}

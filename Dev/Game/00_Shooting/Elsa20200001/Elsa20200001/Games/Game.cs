@@ -22,6 +22,16 @@ namespace Charlotte.Games
 
 		// <---- prm
 
+		public enum EndReason_e
+		{
+			ReturnToTitleMenu = 1,
+			RestartGame,
+		}
+
+		public EndReason_e EndReason = EndReason_e.ReturnToTitleMenu;
+
+		// <---- ret
+
 		public static Game I;
 
 		public Game()
@@ -82,7 +92,7 @@ namespace Charlotte.Games
 					DDMusicUtils.Pause();
 					this.Pause();
 
-					if (this.Pause_ReturnToTitleMenu)
+					if (this.RequestReturnToTitleMenu)
 					{
 						break;
 					}
@@ -465,8 +475,6 @@ namespace Charlotte.Games
 		public DDList<Enemy> Enemies = new DDList<Enemy>();
 		public DDList<Shot> Shots = new DDList<Shot>();
 
-		private bool Pause_ReturnToTitleMenu = false;
-
 		private static DDSubScreen Pause_KeptMainScreen = new DDSubScreen(DDConsts.Screen_W, DDConsts.Screen_H); // 使用後は Unload すること。
 
 		/// <summary>
@@ -484,9 +492,11 @@ namespace Charlotte.Games
 				{
 					DDDraw.DrawSimple(Pause_KeptMainScreen.ToPicture(), 0, 0);
 
+					int BACK_H = 300;
+
 					DDDraw.SetAlpha(0.5);
 					DDDraw.SetBright(0, 0, 0);
-					DDDraw.DrawRect(Ground.I.Picture.WhiteBox, 0, DDConsts.Screen_H / 4, DDConsts.Screen_W, DDConsts.Screen_H / 2);
+					DDDraw.DrawRect(Ground.I.Picture.WhiteBox, 0, (DDConsts.Screen_H - BACK_H) / 2, DDConsts.Screen_W, BACK_H);
 					DDDraw.Reset();
 				},
 			};
@@ -500,13 +510,14 @@ namespace Charlotte.Games
 				selectIndex = simpleMenu.Perform(
 					selectIndex,
 					100,
-					180,
+					155,
 					50,
 					24,
 					"システムメニュー",
 					new string[]
 					{
 						"設定",
+						"最初からやり直す",
 						"タイトルに戻る",
 						"ゲームに戻る",
 					},
@@ -535,14 +546,23 @@ namespace Charlotte.Games
 						break;
 
 					case 1:
-						if (new Confirm() { BorderColor = new I3Color(0, 0, 200), }.Perform("タイトル画面に戻ります。", "はい", "いいえ") == 0)
+						if (new Confirm() { BorderColor = new I3Color(200, 0, 0) }.Perform("開始ステージからやり直します。", "はい", "いいえ") == 0)
 						{
-							this.Pause_ReturnToTitleMenu = true;
+							this.EndReason = EndReason_e.RestartGame;
+							this.RequestReturnToTitleMenu = true;
 							goto endLoop;
 						}
 						break;
 
 					case 2:
+						if (new Confirm() { BorderColor = new I3Color(0, 0, 200) }.Perform("タイトル画面に戻ります。", "はい", "いいえ") == 0)
+						{
+							this.RequestReturnToTitleMenu = true;
+							goto endLoop;
+						}
+						break;
+
+					case 3:
 						goto endLoop;
 
 					default:

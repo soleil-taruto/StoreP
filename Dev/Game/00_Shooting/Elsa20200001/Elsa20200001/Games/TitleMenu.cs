@@ -346,13 +346,13 @@ namespace Charlotte.Games
 							if (selectIndex == continueMenuItems.Length - 1) // ? 戻る
 								break;
 
-							Script script;
+							Func<Script> getScript;
 
 							switch (selectIndex)
 							{
-								case 0: script = new Script_Testステージ0001(); break;
-								case 1: script = new Script_Testステージ0002(); break;
-								case 2: script = new Script_Testステージ0003(); break;
+								case 0: getScript = () => new Script_Testステージ0001(); break;
+								case 1: getScript = () => new Script_Testステージ0002(); break;
+								case 2: getScript = () => new Script_Testステージ0003(); break;
 
 								default:
 									throw null; // never
@@ -361,7 +361,7 @@ namespace Charlotte.Games
 
 							using (new GameProgressMaster())
 							{
-								GameProgressMaster.I.ContinueGame(script);
+								GameProgressMaster.I.ContinueGame(getScript);
 							}
 							this.ReturnTitleMenu();
 						}
