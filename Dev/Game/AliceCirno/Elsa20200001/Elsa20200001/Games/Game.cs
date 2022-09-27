@@ -63,6 +63,7 @@ namespace Charlotte.Games
 		public bool RequestReturnToTitleMenu = false;
 
 		public DDTaskList Tasks = new DDTaskList();
+		public DDActionList FrontActions = new DDActionList(true);
 
 		public void Perform()
 		{
@@ -467,6 +468,7 @@ namespace Charlotte.Games
 				}
 
 				this.Tasks.ExecuteAllTask();
+				this.FrontActions.ExecuteAllAction();
 				this.DrawFront();
 
 				if (this.当たり判定表示)

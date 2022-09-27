@@ -90,6 +90,7 @@
     <Compile Include="Commons\SCommon.cs" />
     <Compile Include="Commons\WorkingDir.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="GameCommons\DDActionList.cs" />
     <Compile Include="GameCommons\DDHash.cs" />
     <Compile Include="GameCommons\DDHashedData.cs" />
     <Compile Include="GameCommons\DDHashedResource.cs" />

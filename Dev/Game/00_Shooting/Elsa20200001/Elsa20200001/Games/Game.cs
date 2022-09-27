@@ -40,6 +40,7 @@ namespace Charlotte.Games
 		public bool RequestReturnToTitleMenu = false;
 
 		public DDTaskList Tasks = new DDTaskList();
+		public DDActionList FrontActions = new DDActionList(true);
 
 		public void Perform()
 		{
@@ -278,6 +279,8 @@ namespace Charlotte.Games
 				}
 
 				this.Tasks.ExecuteAllTask();
+				this.FrontActions.ExecuteAllAction();
+				this.DrawFront();
 
 				if (DDConfig.LOG_ENABLED && 1 <= DDInput.R.GetInput()) // 当たり判定表示(チート)
 				{
@@ -447,6 +450,11 @@ namespace Charlotte.Games
 				}
 				yield return true; // ループ内で1度も実行されない場合を想定
 			}
+		}
+
+		private void DrawFront()
+		{
+			// none -- ステータスなどを表示する。
 		}
 
 		// Walls:
