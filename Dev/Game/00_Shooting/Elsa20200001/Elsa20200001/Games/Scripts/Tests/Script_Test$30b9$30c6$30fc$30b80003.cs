@@ -115,11 +115,7 @@ namespace Charlotte.Games.Scripts.Tests
 			foreach (var relay in Enumerable.Repeat(true, 40))
 				yield return relay;
 
-			using (new Novel())
-			{
-				Novel.I.Status.Scenario = new Scenario("Ending");
-				Novel.I.Perform();
-			}
+			Game.I.EndReason = Game.EndReason_e.AllStageCleared;
 		}
 	}
 }

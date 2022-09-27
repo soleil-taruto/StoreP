@@ -33,33 +33,35 @@ namespace Charlotte.Games
 				Novel.I.Status.Scenario = new Scenario("Start");
 				Novel.I.Perform();
 			}
-			for (; ; )
-			{
-				using (new Game())
-				{
-					Game.I.Script = new Script_Testステージ0001();
-					Game.I.Perform();
-
-					if (Game.I.EndReason == Game.EndReason_e.RestartGame)
-						continue;
-				}
-				break;
-			}
+			this.GameMain(() => new Script_Testステージ0001());
 		}
 
 		public void ContinueGame(Func<Script> getScript)
 		{
-			for (; ; )
-			{
-				using (new Game())
-				{
-					Game.I.Script = getScript();
-					Game.I.Perform();
+			this.GameMain(getScript);
+		}
 
-					if (Game.I.EndReason == Game.EndReason_e.RestartGame)
-						continue;
+		private void GameMain(Func<Script> getScript)
+		{
+			Game.EndReason_e endReason;
+
+		startGame:
+			using (new Game())
+			{
+				Game.I.Script = getScript();
+				Game.I.Perform();
+				endReason = Game.I.EndReason;
+			}
+			if (endReason == Game.EndReason_e.RestartGame)
+				goto startGame;
+
+			if (endReason == Game.EndReason_e.AllStageCleared)
+			{
+				using (new Novel())
+				{
+					Novel.I.Status.Scenario = new Scenario("Ending");
+					Novel.I.Perform();
 				}
-				break;
 			}
 		}
 	}

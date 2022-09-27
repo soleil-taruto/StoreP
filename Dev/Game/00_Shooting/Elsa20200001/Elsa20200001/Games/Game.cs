@@ -26,6 +26,7 @@ namespace Charlotte.Games
 		{
 			ReturnToTitleMenu = 1,
 			RestartGame,
+			AllStageCleared,
 		}
 
 		public EndReason_e EndReason = EndReason_e.ReturnToTitleMenu;
