@@ -261,6 +261,8 @@ namespace Charlotte.Games
 			return saveDataSlot;
 		}
 
+		#region CheatMainMenu
+
 		private void CheatMainMenu()
 		{
 			for (; ; )
@@ -325,6 +327,8 @@ namespace Charlotte.Games
 		endMenu:
 			;
 		}
+
+		#endregion
 
 		private void LeaveTitleMenu()
 		{

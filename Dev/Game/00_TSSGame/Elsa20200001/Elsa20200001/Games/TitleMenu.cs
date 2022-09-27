@@ -317,6 +317,8 @@ namespace Charlotte.Games
 			DDEngine.FreezeInput();
 		}
 
+		#region CheatMainMenu
+
 		private void CheatMainMenu()
 		{
 			for (; ; )
@@ -366,6 +368,8 @@ namespace Charlotte.Games
 		endMenu:
 			;
 		}
+
+		#endregion
 
 		private void LeaveTitleMenu()
 		{
