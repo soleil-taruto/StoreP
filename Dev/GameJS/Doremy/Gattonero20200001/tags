@@ -127,6 +127,12 @@ C:\Dev\GameJS\Doremy\Gattonero20200001\Commons\Types.js(53) : Image // 定義
 C:\Dev\GameJS\Doremy\Gattonero20200001\Commons\Types.js(54) : Gamepad // 定義
 C:\Dev\GameJS\Doremy\Gattonero20200001\Commons\Types.js(55) : GamepadButton // 定義
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\00_Consts.js(9) : DEFAULT_VOLUME // 変数
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\ActionList.js(7) : ActionList_t // 定義
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\ActionList.js(16) : CreateActionList // 関数
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\ActionList.js(43) : AddAction // 関数
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\ActionList.js(50) : GetActionCount // 関数
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\ActionList.js(57) : ClearAllAction // 関数
+C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\ActionList.js(64) : ExecuteAllAction // 関数
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Crash.js(7) : Crash_t // 定義
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Crash.js(19) : CreateCrash_Point // 関数
 C:\Dev\GameJS\Doremy\Gattonero20200001\GameCommons\Crash.js(25) : CreateCrash_Circle // 関数
@@ -356,7 +362,7 @@ C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(439) : GetEnemies // 関数
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(444) : GetShots // 関数
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(15) : Camera // 変数
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(18) : GameTasks // 変数
-C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(21) : FrontTasks // 変数
+C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(21) : FrontActions // 変数
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(24) : PlayerDrawTasks // 変数
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(32) : GameEndReason // 変数
 C:\Dev\GameJS\Doremy\Gattonero20200001\Games\Game.js(37) : UserInputDisabled // 変数
