@@ -32,6 +32,9 @@ namespace Charlotte.Games
 			{
 				Novel.I.Status.Scenario = new Scenario("Start");
 				Novel.I.Perform();
+
+				if (Novel.I.RequestReturnToTitleMenu)
+					return;
 			}
 			this.GameMain(() => new Script_Testステージ0001());
 		}
@@ -45,15 +48,16 @@ namespace Charlotte.Games
 		{
 			Game.EndReason_e endReason;
 
-		startGame:
-			using (new Game())
+			do
 			{
-				Game.I.Script = getScript();
-				Game.I.Perform();
-				endReason = Game.I.EndReason;
+				using (new Game())
+				{
+					Game.I.Script = getScript();
+					Game.I.Perform();
+					endReason = Game.I.EndReason;
+				}
 			}
-			if (endReason == Game.EndReason_e.RestartGame)
-				goto startGame;
+			while (endReason == Game.EndReason_e.RestartGame);
 
 			if (endReason == Game.EndReason_e.AllStageCleared)
 			{
@@ -61,6 +65,9 @@ namespace Charlotte.Games
 				{
 					Novel.I.Status.Scenario = new Scenario("Ending");
 					Novel.I.Perform();
+
+					if (Novel.I.RequestReturnToTitleMenu)
+						return;
 				}
 			}
 		}

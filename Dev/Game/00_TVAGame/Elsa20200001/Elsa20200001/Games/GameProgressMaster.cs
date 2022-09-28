@@ -29,6 +29,9 @@ namespace Charlotte.Games
 			{
 				Novel.I.Status.Scenario = new Scenario("Start");
 				Novel.I.Perform();
+
+				if (Novel.I.RequestReturnToTitleMenu)
+					return;
 			}
 			using (new WorldGameMaster())
 			{
