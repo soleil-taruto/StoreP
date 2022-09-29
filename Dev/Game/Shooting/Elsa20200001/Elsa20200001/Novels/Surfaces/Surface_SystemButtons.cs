@@ -85,7 +85,7 @@ namespace Charlotte.Novels.Surfaces
 				}
 				Novel.I.SelectedSystemButtonIndex = selSysBtnIdx;
 
-				// 隠しているなら選択出来ない。
+				// 隠しているなら選択できない。
 				if (Hide)
 					Novel.I.SelectedSystemButtonIndex = -1;
 

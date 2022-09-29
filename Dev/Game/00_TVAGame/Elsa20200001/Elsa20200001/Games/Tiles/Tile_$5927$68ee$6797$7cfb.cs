@@ -20,7 +20,7 @@ namespace Charlotte.Games.Tiles
 		/// <param name="単独_l">「単独」画像の左上(X-座標)</param>
 		/// <param name="単独_t">「単独」画像の左上(Y-座標)</param>
 		/// <param name="groundPicture">地面の画像</param>
-		/// <param name="単独セルPicture">密集・単独を使用出来ないマップセル用の画像</param>
+		/// <param name="単独セルPicture">密集・単独を使用できないマップセル用の画像</param>
 		public Tile_大森林系(DDPicture[,] pictbl, int 密集_l, int 密集_t, int 単独_l, int 単独_t, DDPicture groundPicture, DDPicture 単独セルPicture)
 		{
 			_draw = new DrawTask()

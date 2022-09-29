@@ -147,7 +147,7 @@ namespace Charlotte.Games.Surfaces
 					}
 				}
 
-				// 隠しているなら選択出来ない。
+				// 隠しているなら選択できない。
 				if (Hide)
 					foreach (OptionInfo option in this.Options)
 						option.MouseFocused = false;

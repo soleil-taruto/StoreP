@@ -88,7 +88,7 @@ namespace Charlotte.Games.Surfaces
 				}
 				Game.I.SelectedSystemButtonIndex = selSysBtnIdx;
 
-				// 隠しているなら選択出来ない。
+				// 隠しているなら選択できない。
 				if (Hide)
 					Game.I.SelectedSystemButtonIndex = -1;
 

@@ -544,7 +544,7 @@ function <boolean> @@_Fusion() // ret: ? 融合した。
 			0 <= ny && ny < Field_YNum &&
 			@@_Table[nx][ny] != null &&
 			@@_Table[nx][ny].Exponent == @@_Table[x][y].Exponent &&
-			@@_Table[nx][ny].Exponent + 1 < P_数字パネル.length && // ? これ以上融合出来ない。(これより大きいパネルが無い)
+			@@_Table[nx][ny].Exponent + 1 < P_数字パネル.length && // ? これ以上融合できない。(これより大きいパネルが無い)
 			@@_F_NotExistInXYPairs(xyPairs, x, y) &&
 			@@_F_NotExistInXYPairs(xyPairs, nx, ny)
 			)

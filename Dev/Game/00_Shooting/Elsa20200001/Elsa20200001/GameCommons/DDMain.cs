@@ -60,7 +60,7 @@ namespace Charlotte.GameCommons
 			{
 				I2Point mousePt = DDWin32.GetMousePosition();
 				I4Rect[] monitors = DDWin32.GetAllMonitor();
-				I4Rect activeMonitor = monitors[0]; // マウス位置のモニタを特定出来ない場合のモニタ
+				I4Rect activeMonitor = monitors[0]; // マウス位置のモニタを特定できない場合のモニタ
 
 				foreach (I4Rect monitor in monitors)
 				{

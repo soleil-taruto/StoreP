@@ -177,7 +177,7 @@ namespace Charlotte.Games
 						shitamuki = true;
 					}
 
-					// 入力抑止中であるか否かに関わらず左右の入力は受け付ける様にする。
+					// 入力抑止中であるか否かに関わらず左右の入力は受け付けるようにする。
 					int freezeInputFrameBackup = DDEngine.FreezeInputFrame;
 					DDEngine.FreezeInputFrame = 0;
 
