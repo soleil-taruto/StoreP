@@ -9,8 +9,11 @@ namespace Charlotte.Tests
 {
 	public class Test0008
 	{
-		private const string TARGET_DIR_01 = @"C:\temp\20220918_DevBin";
-		private const string TARGET_DIR_02 = @"C:\Chest\20220919_DevBin";
+		private const string TARGET_DIR_01 = @"C:\temp\dummy-01";
+		private const string TARGET_DIR_02 = @"C:\temp\dummy-02";
+
+		//private const string TARGET_DIR_01 = @"C:\temp\20220918_DevBin";
+		//private const string TARGET_DIR_02 = @"C:\Chest\20220919_DevBin";
 
 		public void Test01()
 		{
@@ -48,9 +51,6 @@ namespace Charlotte.Tests
 				{
 					Console.WriteLine(file); // cout
 
-					if (fileData_01.Length != fileData_02.Length) // ? ファイルの長さ不一致
-						throw null;
-
 					CheckDiff(fileData_01, fileData_02);
 				}
 			}
@@ -69,39 +69,63 @@ namespace Charlotte.Tests
 		private byte[] PART_A_02 = SCommon.Hex.ToBytes("e381a7e3818d");
 		private byte[] PART_B_01 = SCommon.Hex.ToBytes("8f6f9788");
 		private byte[] PART_B_02 = SCommon.Hex.ToBytes("82c582ab");
+		private byte[] PART_C_01 = SCommon.Hex.ToBytes("e6a798");
+		private byte[] PART_C_02 = SCommon.Hex.ToBytes("e38288e38186");
 
 		private void CheckDiff(byte[] fileData_01, byte[] fileData_02)
 		{
-			for (int index = 0; index < fileData_01.Length; )
+			int index_01 = 0;
+			int index_02 = 0;
+
+			while (index_01 < fileData_01.Length && index_02 < fileData_02.Length)
 			{
-				if (fileData_01[index] != fileData_02[index])
+				if (fileData_01[index_01] != fileData_02[index_02])
 				{
 					if (
-						IsPartMatch(fileData_01, index, PART_A_01) &&
-						IsPartMatch(fileData_02, index, PART_A_02)
+						IsPartMatch(fileData_01, index_01, PART_A_01) &&
+						IsPartMatch(fileData_02, index_02, PART_A_02)
 						)
 					{
 						Console.WriteLine("FIND-A");
 
-						index += PART_A_01.Length;
+						index_01 += PART_A_01.Length;
+						index_02 += PART_A_02.Length;
 						continue;
 					}
 
 					if (
-						IsPartMatch(fileData_01, index, PART_B_01) &&
-						IsPartMatch(fileData_02, index, PART_B_02)
+						IsPartMatch(fileData_01, index_01, PART_B_01) &&
+						IsPartMatch(fileData_02, index_02, PART_B_02)
 						)
 					{
 						Console.WriteLine("FIND-B");
 
-						index += PART_B_01.Length;
+						index_01 += PART_B_01.Length;
+						index_02 += PART_B_02.Length;
+						continue;
+					}
+
+					if (
+						IsPartMatch(fileData_01, index_01, PART_C_01) &&
+						IsPartMatch(fileData_02, index_02, PART_C_02)
+						)
+					{
+						Console.WriteLine("FIND-C");
+
+						index_01 += PART_C_01.Length;
+						index_02 += PART_C_02.Length;
 						continue;
 					}
 
 					throw null;
 				}
-				index++;
+
+				index_01++;
+				index_02++;
 			}
+
+			if (fileData_01.Length != index_01) throw null;
+			if (fileData_02.Length != index_02) throw null;
 		}
 
 		private bool IsPartMatch(byte[] fileData, int offset, byte[] expectPtn)
