@@ -9,13 +9,9 @@ function* <generatorForTask> GameMain()
 
 	for (; ; )
 	{
-		if (GetInput_A() == 1)
-		{
-			break;
-		}
-
-		SetColor("#000000");
-		PrintRect(0.0, 0.0, Screen_W, Screen_H);
+		// TODO
+		// TODO
+		// TODO
 
 		ExecuteAllActor();
 

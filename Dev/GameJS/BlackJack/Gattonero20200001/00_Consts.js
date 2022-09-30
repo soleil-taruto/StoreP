@@ -6,4 +6,4 @@
 var<int> Screen_W = 400;
 
 // ‰æ–Ê‚Ì‚‚³
-var<int> Screen_H = 600;
+var<int> Screen_H = 800;

@@ -2,7 +2,11 @@
 	íËêî
 */
 
-/// GameEndReason_e
+// none
+
+/// Suit_e
 //
-var<int> GameEndReason_e_STAGE_CLEAR = @(AUTO);
-var<int> GameEndReason_e_RETURN_MENU = @(AUTO);
+var Suit_e_SPADE = 1;
+var Suit_e_HEART = 2;
+var Suit_e_DIA   = 3;
+var Suit_e_CLUB  = 4;

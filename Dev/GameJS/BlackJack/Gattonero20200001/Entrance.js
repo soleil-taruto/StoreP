@@ -48,5 +48,5 @@ function* <generatorForTask> EntranceMain()
 
 	FreezeInput();
 
-	yield* TitleMain();
+	yield* GameMain();
 }

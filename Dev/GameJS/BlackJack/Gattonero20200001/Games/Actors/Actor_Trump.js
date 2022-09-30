@@ -10,7 +10,7 @@ var<int> ActorKind_Trump = @(AUTO);
 	number: ŠG•¿‚Ì”š, 1 ` 13
 	reversed: — •Ô‚Á‚Ä‚¢‚é‚©
 */
-function <Actor_t> CreateActor_Trump(<double> x, <double> y, <int> suit, <int> number, <boolean> reversed)
+function <Actor_t> CreateActor_Trump(<double> x, <double> y, <Suit_e> suit, <int> number, <boolean> reversed)
 {
 	var ret =
 	{
@@ -23,8 +23,8 @@ function <Actor_t> CreateActor_Trump(<double> x, <double> y, <int> suit, <int> n
 		<double> Dest_X: x,
 		<double> Dest_Y: y,
 
-		<int> Suit: suit,     // 1 ` 4  == ŠG•¿‚ÌƒX[ƒg
-		<int> Number: number, // 1 ` 13 == ŠG•¿‚Ì”š
+		<Suit_e> Suit: suit,  // ŠG•¿‚ÌƒX[ƒg
+		<int> Number: number, // ŠG•¿‚Ì”š (1`13)
 		<boolean> Reversed: reversed,
 		<generatorForTask> SpecialDraw: ToGenerator([]),
 	};

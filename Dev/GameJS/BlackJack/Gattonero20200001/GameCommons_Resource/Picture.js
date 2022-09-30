@@ -23,7 +23,7 @@ var<Picture_t> P_ExplodePiece = @@_Load(RESOURCE_Picture__光る星20_png);
 
 /*
 	トランプの絵柄
-	添字：[1 ～ 4 == スート][1 ～ 13 == 数字]
+	添字：[スート (Suit_e) ][数字 (1～13) ]
 */
 var<Picture_t[][]> P_Trump =
 [
