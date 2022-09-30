@@ -7,15 +7,25 @@ function* <generatorForTask> GameMain()
 	FreezeInput();
 	ClearAllActor();
 
+	var<Actor_t> card = CreateActor_Trump(Screen_W / 2.0, Screen_H / 2.0, 1, 1, false);
+	var<boolean> reversed = false;
+
+	AddActor(card);
+
 	for (; ; )
 	{
-		if (GetInput_A() == 1)
+		ClearScreen();
+
+		if (GetInput_Pause() == 1)
 		{
 			break;
 		}
 
-		SetColor("#000000");
-		PrintRect(0.0, 0.0, Screen_W, Screen_H);
+		if (GetMouseDown() == -1)
+		{
+			reversed = !reversed;
+			SetTrumpReversed(card, reversed);
+		}
 
 		ExecuteAllActor();
 
