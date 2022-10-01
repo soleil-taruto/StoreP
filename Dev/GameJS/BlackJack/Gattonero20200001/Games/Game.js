@@ -34,7 +34,8 @@ function* <generatorForTask> GameMain()
 			var<D4Rect_t> upperArea  = CreateD4Rect(0,    0, Screen_W, 200);
 			var<D4Rect_t> dealerArea = CreateD4Rect(0,  200, Screen_W, 600);
 			var<D4Rect_t> playerArea = CreateD4Rect(0,  800, Screen_W, 600);
-			var<D4Rect_t> underArea  = CreateD4Rect(0, 1400, Screen_W, 200);
+			var<D4Rect_t> underLArea = CreateD4Rect(0, 1400, Screen_W / 2, 200);
+			var<D4Rect_t> underRArea = CreateD4Rect(Screen_W / 2, 1400, Screen_W / 2, 200);
 
 			if (!IsOut(musPt, upperArea, 0.0))
 			{
@@ -110,16 +111,15 @@ function* <generatorForTask> GameMain()
 					@@_PlayerCards = [];
 				}
 			}
-			if (!IsOut(musPt, underArea, 0.0))
+			if (!IsOut(musPt, underLArea, 0.0))
 			{
 				@@_BackgroundMode = (@@_BackgroundMode + 1) % 4;
 			}
-		}
-
-		if (GetInput_Pause() == 1)
-		{
-			AddTask(GameTasks, @@_E_ReverseAllCard(@@_DealerCards));
-			AddTask(GameTasks, @@_E_ReverseAllCard(@@_PlayerCards));
+			if (!IsOut(musPt, underRArea, 0.0))
+			{
+				AddTask(GameTasks, @@_E_ReverseAllCard(@@_DealerCards));
+				AddTask(GameTasks, @@_E_ReverseAllCard(@@_PlayerCards));
+			}
 		}
 
 		// •`‰æ‚±‚±‚©‚ç
