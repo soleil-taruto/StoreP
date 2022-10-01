@@ -3,10 +3,10 @@
 */
 
 // ‰æ–Ê‚Ì•
-var<int> Screen_W = 2400;
+var<int> Screen_W = 1200;
 
 // ‰æ–Ê‚Ì‚‚³
-var<int> Screen_H = 3200;
+var<int> Screen_H = 1600;
 
 // ƒ^ƒO‚Ì•
 var<int> Canvas_W = 600;

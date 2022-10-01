@@ -11,6 +11,7 @@ function <Actor_t> CreateActor_BDummy(<double> x, <double> y)
 		Kind: ActorKind_BDummy,
 		X: x,
 		Y: y,
+		Crash: null,
 		Killed: false,
 
 		// ‚±‚±‚©‚çŒÅ—L

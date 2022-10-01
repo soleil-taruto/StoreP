@@ -58,9 +58,23 @@ namespace Charlotte
 			//new Test0002().Test01();
 			//new Test0003().Test01();
 			//Main_20210421();
-			Main_20210422();
+			//Main_20210422();
+			Main_20221001();
 
 			// --
+		}
+
+		private void Main_20221001()
+		{
+			int scale = 6;
+			int w = 1800;
+			int h = 600;
+			I4Color color = new I4Color(255, 255, 64, 255);
+			int fontSize = 250;
+
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "BET+", 80);
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "BET-", 160);
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "START", 0);
 		}
 
 		/// <summary>

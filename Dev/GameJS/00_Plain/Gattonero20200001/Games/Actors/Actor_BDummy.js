@@ -11,6 +11,7 @@ function <Actor_t> CreateActor_BDummy(<double> x, <double> y)
 		Kind: ActorKind_BDummy,
 		X: x,
 		Y: y,
+		Crash: null,
 		Killed: false,
 
 		// ‚±‚±‚©‚çŒÅ—L
@@ -37,6 +38,8 @@ function* <generatorForTask> @@_Draw(<Actor_t> actor)
 		}
 
 		Draw(P_Dummy, actor.X - Camera.X, actor.Y - Camera.Y, 1.0, 0.0, 1.0);
+
+		// HACK: “–‚½‚è”»’è
 
 		yield 1;
 	}

@@ -17,6 +17,8 @@ function <Actor_t> CreateActor_Trump(<double> x, <double> y, <Suit_e> suit, <int
 		Kind: ActorKind_Trump,
 		X: x,
 		Y: y,
+		Crash: null,
+		Killed: false,
 
 		// ‚±‚±‚©‚çŒÅ—L
 
@@ -40,8 +42,8 @@ function* <generatorForTask> @@_Draw(<Actor_t> actor)
 {
 	for (; ; )
 	{
-		actor.X = Approach(actor.X, actor.Dest_X, 0.97);
-		actor.Y = Approach(actor.Y, actor.Dest_Y, 0.97);
+		actor.X = Approach(actor.X, actor.Dest_X, 0.93);
+		actor.Y = Approach(actor.Y, actor.Dest_Y, 0.93);
 
 		if (!NextVal(actor.SpecialDraw))
 		{
@@ -67,6 +69,11 @@ function <void> SetTrumpDest(<Actor_t> actor, <double> x, <double> y)
 	actor.Dest_Y = y;
 }
 
+function <boolean> IsTrumpReversed(<Actor_t> actor)
+{
+	return actor.Reversed;
+}
+
 function <void> SetTrumpReversed(<Actor_t> actor, <boolean> reversed)
 {
 	if (actor.Reversed ? !reversed : reversed)
@@ -78,7 +85,7 @@ function <void> SetTrumpReversed(<Actor_t> actor, <boolean> reversed)
 
 function* <generatorForTask> @@_Turn(<Actor_t> actor, <boolean> reversed)
 {
-	for (var<Scene_t> scene of CreateScene(60))
+	for (var<Scene_t> scene of CreateScene(30))
 	{
 		var<double> wRate = Math.cos(scene.Rate * Math.PI);
 		var<boolean> b = reversed;

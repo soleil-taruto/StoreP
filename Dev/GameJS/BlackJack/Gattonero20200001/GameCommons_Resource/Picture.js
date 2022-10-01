@@ -103,5 +103,13 @@ var<Picture_t[][]> P_Trump =
 ];
 
 var<Picture_t> P_TrumpFrame = @@_Load(RESOURCE_Trump__Frame_png);
-var<Picture_t> P_TrumpBack = @@_Load(RESOURCE_Trump__Back01_png);
+var<Picture_t> P_TrumpBack  = @@_Load(RESOURCE_Trump__Back01_png);
 var<Picture_t> P_TrumpJoker = @@_Load(RESOURCE_Trump__Joker_png);
+
+var<Picture_t> P_ButtonBetUp   = @@_Load(RESOURCE_Picture__BetUp_png);
+var<Picture_t> P_ButtonBetDown = @@_Load(RESOURCE_Picture__BetDown_png);
+var<Picture_t> P_ButtonStart   = @@_Load(RESOURCE_Picture__Start_png);
+
+var<Picture_t> P_Bunny      = @@_Load(RESOURCE_Picture__bunny_top300_png);
+var<Picture_t> P_Bunny_H_01 = @@_Load(RESOURCE_Picture__bunny_h_01_jpg);
+var<Picture_t> P_Bunny_H_02 = @@_Load(RESOURCE_Picture__bunny_h_02_jpg);
