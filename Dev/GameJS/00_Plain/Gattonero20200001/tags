@@ -233,9 +233,6 @@ C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(106) : 
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\Picture.js(107) : P_TrumpJoker // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\SoundEffect.js(19) : S_テスト用 // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\GameCommons_Resource\SoundEffect.js(26) : S_SaveDataRemoved // 変数
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\00_Consts.js(5) : GameEndReason_e // 定義
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\00_Consts.js(7) : GameEndReason_e_STAGE_CLEAR // 変数
-C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\00_Consts.js(8) : GameEndReason_e_RETURN_MENU // 変数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // 関数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // 関数
 C:\Dev\GameJS\00_Plain\Gattonero20200001\Games\Game.js(5) : GameMain // 関数

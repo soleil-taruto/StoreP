@@ -9,7 +9,7 @@ var<Action[]> @@_INIT_Events = [ @(INIT) ];
 var<Action[]> @@_EACH_Events = [ @(EACH) ];
 
 // アプリケーション側の処理
-// ジェネレータ関数であること。
+// ジェネレータであること。
 var<generatorForTask> @@_AppMain;
 
 // 描画先Canvasタグ
@@ -20,7 +20,7 @@ var CanvasBox;
 
 // ゲーム用メイン
 // appMain: アプリケーション側の処理
-// -- ジェネレータ関数であること。
+// -- ジェネレータであること。
 function <void> ProcMain(<generatorForTask> appMain)
 {
 	@@_AppMain = appMain;
@@ -34,12 +34,12 @@ function <void> ProcMain(<generatorForTask> appMain)
 	Canvas = document.createElement("canvas");
 	Canvas.width  = Screen_W;
 	Canvas.height = Screen_H;
-	Canvas.style.width  = "calc(min(" + Screen_W + "px, 100%))";
+	Canvas.style.width  = "calc(min(" + Canvas_W + "px, 100%))";
 //	Canvas.style.height = Screen_H + "px";
 	Canvas.style.height = "";
 
 	CanvasBox = document.getElementById("Gattonero20200001-CanvasBox");
-	CanvasBox.style.width  = "calc(min(" + Screen_W + "px, 100%))";
+	CanvasBox.style.width  = "calc(min(" + Canvas_W + "px, 100%))";
 //	CanvasBox.style.height = Screen_H + "px";
 	CanvasBox.style.height = "";
 	CanvasBox.innerHTML = "";

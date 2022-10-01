@@ -3,7 +3,13 @@
 */
 
 // 画面の幅
-var<int> Screen_W = 400;
+var<int> Screen_W = 2400;
 
 // 画面の高さ
-var<int> Screen_H = 800;
+var<int> Screen_H = 3200;
+
+// タグの幅
+var<int> Canvas_W = 600;
+
+// タグの高さ
+var<int> Canvas_H = 800;

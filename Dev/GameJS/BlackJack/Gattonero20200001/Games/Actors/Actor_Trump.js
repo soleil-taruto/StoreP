@@ -6,8 +6,8 @@ var<int> ActorKind_Trump = @(AUTO);
 
 /*
 	(x, y): 初期位置
-	suit: 絵柄のスート, 1 ～ 4 (並びはスハダクラブ)
-	number: 絵柄の数字, 1 ～ 13
+	suit: 絵柄のスート
+	number: 絵柄の数字 (1～13)
 	reversed: 裏返っているか
 */
 function <Actor_t> CreateActor_Trump(<double> x, <double> y, <Suit_e> suit, <int> number, <boolean> reversed)
@@ -34,6 +34,8 @@ function <Actor_t> CreateActor_Trump(<double> x, <double> y, <Suit_e> suit, <int
 	return ret;
 }
 
+var<double> @@_PICTURE_Z = 1.0;
+
 function* <generatorForTask> @@_Draw(<Actor_t> actor)
 {
 	for (; ; )
@@ -43,15 +45,15 @@ function* <generatorForTask> @@_Draw(<Actor_t> actor)
 
 		if (!NextVal(actor.SpecialDraw))
 		{
-			Draw(P_TrumpFrame, actor.X, actor.Y, 1.0, 0.0, 1.0);
+			Draw(P_TrumpFrame, actor.X, actor.Y, 1.0, 0.0, @@_PICTURE_Z);
 
-			if (actor.Reversed)
+			if (!actor.Reversed)
 			{
-				Draw(P_Trump[actor.Suit][actor.Number], actor.X, actor.Y, 1.0, 0.0, 1.0);
+				Draw(P_Trump[actor.Suit][actor.Number], actor.X, actor.Y, 1.0, 0.0, @@_PICTURE_Z);
 			}
 			else
 			{
-				Draw(P_TrumpBack, actor.X, actor.Y, 1.0, 0.0, 1.0);
+				Draw(P_TrumpBack, actor.X, actor.Y, 1.0, 0.0, @@_PICTURE_Z);
 			}
 		}
 
@@ -79,7 +81,7 @@ function* <generatorForTask> @@_Turn(<Actor_t> actor, <boolean> reversed)
 	for (var<Scene_t> scene of CreateScene(60))
 	{
 		var<double> wRate = Math.cos(scene.Rate * Math.PI);
-		var<boolean> b = !reversed;
+		var<boolean> b = reversed;
 
 		if (wRate < 0.0)
 		{
@@ -89,15 +91,15 @@ function* <generatorForTask> @@_Turn(<Actor_t> actor, <boolean> reversed)
 
 		if (MICRO < wRate)
 		{
-			Draw2(P_TrumpFrame, actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+			Draw2(P_TrumpFrame, actor.X, actor.Y, 1.0, 0.0, wRate, @@_PICTURE_Z);
 
 			if (b)
 			{
-				Draw2(P_Trump[actor.Suit][actor.Number], actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+				Draw2(P_Trump[actor.Suit][actor.Number], actor.X, actor.Y, 1.0, 0.0, wRate, @@_PICTURE_Z);
 			}
 			else
 			{
-				Draw2(P_TrumpBack, actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+				Draw2(P_TrumpBack, actor.X, actor.Y, 1.0, 0.0, wRate, @@_PICTURE_Z);
 			}
 		}
 
