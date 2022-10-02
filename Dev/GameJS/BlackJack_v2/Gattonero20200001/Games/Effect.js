@@ -31,7 +31,7 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 			var<double> rot = GetRand1() * Math.PI * 2;
 			var<double> rotAdd = GetRand2() * 0.1;
 
-			for (var<Scene_t> scene of CreateScene(20))
+			for (var<Scene_t> scene of CreateScene(40))
 			{
 				Draw(
 					P_ExplodePiece,

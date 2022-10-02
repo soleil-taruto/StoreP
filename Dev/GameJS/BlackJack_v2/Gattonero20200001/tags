@@ -256,8 +256,9 @@ C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\00_Consts.js(11) : Suit_e_DIA
 C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\00_Consts.js(12) : Suit_e_CLUB // •Ï”
 C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Effect.js(13) : Effect_Dummy // ŠÖ”
 C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Effect.js(23) : AddEffect_Explode // ŠÖ”
-C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Game.js(10) : GameMain // ŠÖ”
-C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Game.js(5) : GameTasks // •Ï”
+C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Game.js(14) : GameMain // ŠÖ”
+C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Game.js(6) : Camera // •Ï”
+C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Game.js(9) : GameTasks // •Ï”
 C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Actors\Actor.js(7) : Actor_t // ’è‹`
 C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Actors\Actor.js(33) : DrawActor // ŠÖ”
 C:\Dev\GameJS\BlackJack_v2\Gattonero20200001\Games\Actors\Actor_BDummy.js(7) : CreateActor_BDummy // ŠÖ”

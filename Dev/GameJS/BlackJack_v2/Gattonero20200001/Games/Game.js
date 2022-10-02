@@ -2,6 +2,10 @@
 	ゲーム・メイン
 */
 
+// カメラ位置(整数)
+var<D2Point_t> Camera = CreateD2Point(0.0, 0.0);
+
+// ゲーム用タスク
 var<TaskManager_t> GameTasks = CreateTaskManager();
 
 var<int> @@_Credit = 1000;
@@ -34,11 +38,24 @@ function* <generatorForTask> GameMain()
 
 		// ----
 
+		@@_DealerDamage = 0;
+
 		for (; ; )
 		{
 			yield* @@_PlayerTurnMain();
 			yield* @@_DealerTurnMain();
 			yield* @@_BattleResultMain();
+
+			if (@@_DealerDamage < 0)
+			{
+				break;
+			}
+			else if (@@_DEALER_DAMAGE_MAX <= @@_DealerDamage)
+			{
+				yield* @@_GohoubiMain();
+
+				break;
+			}
 		}
 	}
 	FreezeInput();
@@ -142,6 +159,15 @@ var<Actor[]> @@_StockCards = [];
 var<Actor[]> @@_DealerCards = [];
 var<Actor[]> @@_PlayerCards = [];
 
+var<int> @@_DEALER_DAMAGE_MAX = 14;
+
+/*
+	ディーラーのダメージ
+	初期値：0
+	値域：-1 ～ @@_DEALER_DAMAGE_MAX
+*/
+var<int> @@_DealerDamage = 0;
+
 function* <generatorForTask> @@_PlayerTurnMain()
 {
 	FreezeInput();
@@ -206,6 +232,11 @@ function* <generatorForTask> @@_PlayerTurnMain()
 				AddActor(card);
 				AddDelay(GameTasks, 50, () => SetTrumpReversed(card, false));
 			}
+
+			if (GetMouseY() < 200) // ★★★ デバッグ用 ★★★
+			{
+				@@_DealerDamage = @@_DEALER_DAMAGE_MAX - 1;
+			}
 		}
 
 		// 描画ここから
@@ -214,6 +245,7 @@ function* <generatorForTask> @@_PlayerTurnMain()
 		{
 			error();
 		}
+		@@_DrawHeader();
 
 		var<string> strCardsScores = cardsScores.join("/");
 
@@ -272,6 +304,7 @@ function* <generatorForTask> @@_DealerTurnMain()
 		{
 			error();
 		}
+		@@_DrawHeader();
 
 		// ディーラーのスコア
 		{
@@ -371,6 +404,39 @@ function* <generatorForTask> @@_BattleResultMain()
 		}
 	}
 
+	var<int> beforeDealerDamage = @@_DealerDamage;
+
+	switch (winner)
+	{
+	case 0: break;
+	case 1: @@_DealerDamage--; break;
+	case 2: @@_DealerDamage++; break;
+
+	default:
+		error(); // never
+	}
+
+	{
+		var<int> i = -1;
+
+		if (winner == 1 && 0 <= @@_DealerDamage)
+		{
+			i = @@_DealerDamage;
+		}
+		else if (winner == 2)
+		{
+			i = beforeDealerDamage;
+		}
+
+		if (i != -1)
+		{
+			var<int> x = i % 7;
+			var<int> y = ToFix(i / 7);
+
+			AddEffect_Explode(870 + x * 40, 70 + y * 40);
+		}
+	}
+
 	for (; ; )
 	{
 		if (GetMouseDown() == -1)
@@ -387,6 +453,7 @@ function* <generatorForTask> @@_BattleResultMain()
 		{
 			error();
 		}
+		@@_DrawHeader();
 
 		// ディーラーのスコア
 		{
@@ -397,7 +464,8 @@ function* <generatorForTask> @@_BattleResultMain()
 
 			if (1 <= cardsScores.length)
 			{
-				strCardsScores = cardsScores.join("/");
+//				strCardsScores = cardsScores.join("/");
+				strCardsScores = cardsScores[cardsScores.length - 1] + "";
 			}
 			else
 			{
@@ -429,7 +497,8 @@ function* <generatorForTask> @@_BattleResultMain()
 
 			if (1 <= cardsScores.length)
 			{
-				strCardsScores = cardsScores.join("/");
+//				strCardsScores = cardsScores.join("/");
+				strCardsScores = cardsScores[cardsScores.length - 1] + "";
 			}
 			else
 			{
@@ -557,5 +626,97 @@ function <void> @@_ExeuntCards(<Actor_t[]> cards)
 
 		AddDelay(GameTasks, delayFrame, () => SetTrumpDest(card, -300, card.Y));
 		AddDelay(GameTasks, delayFrame + 100, () => KillActor(card));
+	}
+}
+
+function <void> @@_DrawHeader()
+{
+	var<string> meter = "";
+
+	for (var<int> i = 0; i < @@_DEALER_DAMAGE_MAX; i++)
+	{
+		meter += i < @@_DealerDamage ? "■" : "□";
+	}
+
+	SetColor("#40408080");
+	PrintRect(50, 50, Screen_W - 100, 120);
+
+	SetColor("#ffffff");
+	SetFSize(40);
+	SetPrint(70, 100, 50);
+	PrintLine("CREDIT: " + @@_Credit);
+	PrintLine("BET: " + @@_Bet);
+
+	SetColor("#ffffff");
+	SetFSize(40);
+	SetPrint(620, 100, 50);
+	PrintLine("ディーラー");
+
+	SetColor("#ffffff");
+	SetFSize(40);
+	SetPrint(850, 100, 50);
+	PrintLine(meter.substring(0, 7));
+	PrintLine(meter.substring(7));
+}
+
+function* <generatorForTask> @@_GohoubiMain()
+{
+	for (var<Scene_t> scene of CreateScene(30))
+	{
+		if (!@@_DrawBattleBackground())
+		{
+			error();
+		}
+
+		Draw(P_Bunny_H_01, Screen_W / 2, Screen_H / 2, 0.5 * scene.Rate, scene.RemRate * -0.2, 1.2);
+		Draw(P_Bunny_H_01, Screen_W / 2, Screen_H / 2, 0.5 * scene.Rate, scene.RemRate *  0.2, 1.2);
+
+		yield 1;
+	}
+
+	for (; ; )
+	{
+		if (GetMouseDown() == -1)
+		{
+			if (HoveredPicture == P_ButtonContinue)
+			{
+				break;
+			}
+			if (HoveredPicture == P_ButtonX)
+			{
+				FreezeInput();
+
+				for (; ; )
+				{
+					if (GetMouseDown() == -1)
+					{
+						break;
+					}
+					Draw(P_Bunny_H_01, Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.2);
+					yield 1;
+				}
+				FreezeInput();
+			}
+		}
+
+		Draw(P_Bunny_H_01, Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.2);
+
+		Draw(P_ButtonContinue, 200, 1500, 1.0, 0.0, 1.0);
+		Draw(P_ButtonX, 1000, 1500, 1.0, 0.0, 1.0);
+
+		yield 1;
+	}
+
+	for (var<Scene_t> scene of CreateScene(30))
+	{
+		if (!@@_DrawBattleBackground())
+		{
+			error();
+		}
+
+		Draw(P_Bunny_H_01, Screen_W / 2, Screen_H / 2, 0.5 * scene.RemRate, scene.Rate * -0.3, 1.2);
+		Draw(P_Bunny_H_01, Screen_W / 2, Screen_H / 2, 0.5 * scene.RemRate, scene.Rate *  0.3, 1.2);
+
+		yield 1;
 	}
 }
