@@ -75,6 +75,17 @@ namespace Charlotte
 			MakePictures.MakeButton(scale, w, h, color, fontSize, "BET+", 80);
 			MakePictures.MakeButton(scale, w, h, color, fontSize, "BET-", 160);
 			MakePictures.MakeButton(scale, w, h, color, fontSize, "START", 0);
+
+			color = new I4Color(255, 128, 64, 255);
+
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "STAND", -30);
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "HIT", 220);
+
+			color = new I4Color(128, 255, 64, 255);
+
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "X", 440);
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "NEXT", 80);
+			MakePictures.MakeButton(scale, w, h, color, fontSize, "C-100", 30);
 		}
 
 		/// <summary>
