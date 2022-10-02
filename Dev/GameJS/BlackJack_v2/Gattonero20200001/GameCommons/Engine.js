@@ -86,5 +86,9 @@ function <void> @@_Anime()
 		@@_HzChaserTime += 16;
 		ProcFrame++;
 	}
+	else
+	{
+		LOGPOS();
+	}
 	requestAnimationFrame(@@_Anime);
 }

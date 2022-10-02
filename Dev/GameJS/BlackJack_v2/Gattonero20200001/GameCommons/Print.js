@@ -104,3 +104,13 @@ function <void> PrintLine(<string> line)
 	Context.fillText(line, @@_X, @@_Y);
 	@@_Y += @@_YStep;
 }
+
+/*
+	•¶š—ñ‚ğ•`‰æ‚µ‚½‚Æ‚«‚Ì•‚ğæ“¾‚·‚éB
+	line: •¶š—ñ
+	ret: •¶š—ñ‚Ì•
+*/
+function <double> GetPrintLineWidth(<string> line)
+{
+	return Context.measureText(line).width;
+}
