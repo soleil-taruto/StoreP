@@ -98,12 +98,12 @@ function <void> @@_DrawBar(<double> zureRate, <I3Color_t> backColor)
 function <void> @@_DrawBar2(<double> zureRate, <I3Color_t> backColor, <int> barIndex)
 {
 	var<double> wave = Math.sin(
-		barIndex * 0.11 * ProcFrame +
+		barIndex * 0.11 * ProcFrame * AToBRate(0.01, 1.0, zureRate) +
 		barIndex * 0.31
 		);
 
-	var<double> h = 300.0 * (0.2 + 0.8 * (1.0 - zureRate));
-	var<double> y = Screen_H / 2 + 600.0 * wave * zureRate;
+	var<double> h = 300.0 * AToBRate(0.2, 1.0, 1.0 - zureRate);
+	var<double> y = Screen_H / 2 + 600.0 * wave * AToBRate(0.05, 1.0, zureRate);
 
 	SetColor(I4ColorToString(I3ColorToI4Color(backColor, 32)));
 	PrintRect(0, y - h / 2, Screen_W, h);
