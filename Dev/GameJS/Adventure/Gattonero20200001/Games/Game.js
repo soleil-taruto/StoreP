@@ -14,6 +14,26 @@ function* <generatorForTask> GameMain()
 	ClearAllActor();
 	ClearAllTask(GameTasks);
 
+	// test
+	var<Picture_t> pBgList =
+	[
+		P_Bg_PCé∫,
+		P_Bg_òLâ∫,
+		P_Bg_ã≥é∫L,
+		P_Bg_ã≥é∫M,
+		P_Bg_ã≥é∫R,
+		P_Bg_ã≥é∫ãÛ,
+		P_Bg_çZé…ó†,
+		P_Bg_çZñÂ,
+		P_Bg_å∫ä÷,
+		P_Bg_äKíi,
+		P_Bg_äKíiè„,
+	];
+	var<int> pBgPos = 0;
+
+	// test
+	var<Jikantai_e> jikantai = Jikantai_e_ASAHIRU;
+
 	for (; ; )
 	{
 		ClearScreen();
@@ -23,7 +43,23 @@ function* <generatorForTask> GameMain()
 			break;
 		}
 
-		Draw(P_Bg_PCé∫[Jikantai_e_YUUGATA], Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
+		if (GetMouseDown() == -1)
+		{
+			if (Screen_W / 2 > GetMouseX())
+			{
+				pBgPos++;
+				pBgPos %= pBgList.length;
+			}
+			else
+			{
+				jikantai++;
+				jikantai %= 4;
+			}
+		}
+
+		Draw(pBgList[pBgPos][jikantai], Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
+
+//		Draw(P_Bg_PCé∫[Jikantai_e_YUUGATA], Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
 
 		ExecuteAllActor();
 		ExecuteAllTask(GameTasks);
