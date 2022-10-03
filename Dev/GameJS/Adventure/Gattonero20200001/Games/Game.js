@@ -12,6 +12,7 @@ function* <generatorForTask> GameMain()
 {
 	FreezeInput();
 	ClearAllActor();
+	ClearAllTask(GameTasks);
 
 	for (; ; )
 	{
@@ -22,10 +23,13 @@ function* <generatorForTask> GameMain()
 			break;
 		}
 
+		Draw(P_Bg_PCŽº[Jikantai_e_YUUGATA], Screen_W / 2, Screen_H / 2, 1.0, 0.0, 1.0);
+
 		ExecuteAllActor();
 		ExecuteAllTask(GameTasks);
 		yield 1;
 	}
 	FreezeInput();
 	ClearAllActor();
+	ClearAllTask(GameTasks);
 }

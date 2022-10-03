@@ -60,6 +60,7 @@ function* <generatorForTask> GameMain()
 	}
 	FreezeInput();
 	ClearAllActor();
+	ClearAllTask(GameTasks);
 }
 
 function* <generatorForTask> @@_BetMain()
