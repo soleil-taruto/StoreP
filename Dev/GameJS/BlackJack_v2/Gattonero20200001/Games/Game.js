@@ -437,6 +437,35 @@ function* <generatorForTask> @@_BattleResultMain()
 		}
 	}
 
+	{
+		var<string> strResult;
+		var<I3Color_t> backColor;
+
+		switch (winner)
+		{
+		case 0:
+			strResult = "DRAW";
+			backColor = CreateI3Color(80, 80, 80);
+			break;
+
+		case 1:
+			strResult = "YOU LOSE";
+			backColor = CreateI3Color(0, 160, 160);
+			break;
+
+		case 2:
+			strResult = "YOU WIN";
+			backColor = CreateI3Color(160, 160, 0);
+			break;
+
+		default:
+			error(); // never
+		}
+
+		Effect_BattleResult_DeadFlag = false;
+		AddEffect(Effect_BattleResult(strResult, backColor));
+	}
+
 	for (; ; )
 	{
 		if (GetMouseDown() == -1)
@@ -534,6 +563,8 @@ function* <generatorForTask> @@_BattleResultMain()
 
 	@@_DealerCards = [];
 	@@_PlayerCards = [];
+
+	Effect_BattleResult_DeadFlag = true;
 }
 
 function* <generatorForTask> @@_E_DrawBattleBackground()

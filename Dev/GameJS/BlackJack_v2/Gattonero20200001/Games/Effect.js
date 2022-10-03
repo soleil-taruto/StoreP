@@ -57,3 +57,54 @@ function <void> AddEffect_Explode(<double> x, <double> y) // ”Ä—p”š”­
 		}());
 	}
 }
+
+var<boolean> Effect_BattleResult_DeadFlag = false;
+
+function* <generatorForTask> Effect_BattleResult(<string> strResult, <I3Color_t> backColor)
+{
+	for (var<Scene_t> scene of CreateScene(30))
+	{
+		@@_DrawBar(scene.RemRate, backColor);
+
+		yield 1;
+	}
+	while (!Effect_BattleResult_DeadFlag)
+	{
+		@@_DrawBar(0.0, backColor);
+
+		SetColor("#ffffff");
+		SetFSize(160);
+		SetPrint(ToFix((Screen_W - GetPrintLineWidth(strResult)) / 2), Screen_H / 2 + 60, 0);
+		PrintLine(strResult);
+
+		yield 1;
+	}
+	for (var<Scene_t> scene of CreateScene(30))
+	{
+		@@_DrawBar(scene.Rate, backColor);
+
+		yield 1;
+	}
+}
+
+function <void> @@_DrawBar(<double> zureRate, <I3Color_t> backColor)
+{
+	for (var<int> index = 0; index < 10; index++)
+	{
+		@@_DrawBar2(zureRate, backColor, index);
+	}
+}
+
+function <void> @@_DrawBar2(<double> zureRate, <I3Color_t> backColor, <int> barIndex)
+{
+	var<double> wave = Math.sin(
+		barIndex * 0.11 * ProcFrame +
+		barIndex * 0.31
+		);
+
+	var<double> h = 300.0 * (0.2 + 0.8 * (1.0 - zureRate));
+	var<double> y = Screen_H / 2 + 600.0 * wave * zureRate;
+
+	SetColor(I4ColorToString(I3ColorToI4Color(backColor, 32)));
+	PrintRect(0, y - h / 2, Screen_W, h);
+}
