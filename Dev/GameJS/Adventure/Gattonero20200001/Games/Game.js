@@ -13,9 +13,8 @@ function* <generatorForTask> GameMain()
 	FreezeInput();
 	ClearAllActor();
 
-	var<Actor_t> card = CreateActor_Trump(Screen_W / 2.0, Screen_H / 2.0, 1, 1, false);
-	var<boolean> reversed = false;
-
+	var<Actor_t> card = CreateActor_Trump(Screen_W + 300, -300, 1, 1, false);
+	SetTrumpDest(card, Screen_W / 2.0, Screen_H / 2.0);
 	AddActor(card);
 
 	for (; ; )
@@ -29,13 +28,13 @@ function* <generatorForTask> GameMain()
 
 		if (GetMouseDown() == -1)
 		{
-			reversed = !reversed;
-			SetTrumpReversed(card, reversed);
+			SetTrumpReversed(card, !IsTrumpReversed(card));
 		}
 
 		ExecuteAllActor();
-
+		ExecuteAllTask(GameTasks);
 		yield 1;
 	}
 	FreezeInput();
+	ClearAllActor();
 }

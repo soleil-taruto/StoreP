@@ -39,8 +39,6 @@ function* <generatorForTask> @@_Draw(<Actor_t> actor)
 
 		Draw(P_Dummy, actor.X - Camera.X, actor.Y - Camera.Y, 1.0, 0.0, 1.0);
 
-		// HACK: “–‚½‚è”»’è
-
 		yield 1;
 	}
 }

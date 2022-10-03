@@ -1,16 +1,10 @@
 /*
-	アクター - Trump (トランプのカード)
+	アクター - トランプのジョーカー
 */
 
 var<int> ActorKind_Trump = @(AUTO);
 
-/*
-	(x, y): 初期位置
-	suit: 絵柄のスート
-	number: 絵柄の数字 (1～13)
-	reversed: 裏返っているか
-*/
-function <Actor_t> CreateActor_Trump(<double> x, <double> y, <int> suit, <int> number, <boolean> reversed)
+function <Actor_t> CreateActor_Trump(<double> x, <double> y, <boolean> reversed)
 {
 	var ret =
 	{
@@ -25,8 +19,6 @@ function <Actor_t> CreateActor_Trump(<double> x, <double> y, <int> suit, <int> n
 		<double> Dest_X: x,
 		<double> Dest_Y: y,
 
-		<int> Suit: suit,     // 1 ～ 4  == 絵柄のスート
-		<int> Number: number, // 1 ～ 13 == 絵柄の数字
 		<boolean> Reversed: reversed,
 		<generatorForTask> SpecialDraw: ToGenerator([]),
 	};
@@ -45,19 +37,21 @@ function* <generatorForTask> @@_Draw(<Actor_t> actor)
 
 		if (!NextVal(actor.SpecialDraw))
 		{
-			Draw(P_TrumpFrame, actor.X, actor.Y, 1.0, 0.0, 1.0);
+			var<Picture_t> picture_01 = P_TrumpFrame;
+			var<Picture_t> picture_02;
 
 			if (!actor.Reversed)
 			{
-				Draw(P_Trump[actor.Suit][actor.Number], actor.X, actor.Y, 1.0, 0.0, 1.0);
+				picture_02 = P_TrumpJoker;
 			}
 			else
 			{
-				Draw(P_TrumpBack, actor.X, actor.Y, 1.0, 0.0, 1.0);
+				picture_02 = P_TrumpBack;
 			}
-		}
 
-		// HACK: 当たり判定
+			Draw(picture_01, actor.X, actor.Y, 1.0, 0.0, 1.0);
+			Draw(picture_02, actor.X, actor.Y, 1.0, 0.0, 1.0);
+		}
 
 		yield 1;
 	}
@@ -67,6 +61,11 @@ function <void> SetTrumpDest(<Actor_t> actor, <double> x, <double> y)
 {
 	actor.Dest_X = x;
 	actor.Dest_Y = y;
+}
+
+function <boolean> IsTrumpReversed(<Actor_t> actor)
+{
+	return actor.Reversed;
 }
 
 function <void> SetTrumpReversed(<Actor_t> actor, <boolean> reversed)
@@ -93,16 +92,20 @@ function* <generatorForTask> @@_Turn(<Actor_t> actor, <boolean> reversed)
 
 		if (MICRO < wRate)
 		{
-			Draw2(P_TrumpFrame, actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+			var<Picture_t> picture_01 = P_TrumpFrame;
+			var<Picture_t> picture_02;
 
 			if (b)
 			{
-				Draw2(P_Trump[actor.Suit][actor.Number], actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+				picture_02 = P_TrumpJoker;
 			}
 			else
 			{
-				Draw2(P_TrumpBack, actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+				picture_02 = P_TrumpBack;
 			}
+
+			Draw2(picture_01, actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
+			Draw2(picture_02, actor.X, actor.Y, 1.0, 0.0, wRate, 1.0);
 		}
 
 		yield 1;

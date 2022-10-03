@@ -20,8 +20,6 @@
 	//
 	<generatorForTask> Draw
 
-	<Crash_t> Crash // 今フレームの当たり判定置き場, null で初期化すること。null == 当たり判定無し
-
 	<boolean> Killed // 死亡フラグ
 }
 
