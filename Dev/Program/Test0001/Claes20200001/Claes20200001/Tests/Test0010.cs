@@ -26,7 +26,7 @@ namespace Charlotte.Tests
 			Another,
 		}
 
-		private Player_e GetWinner(IList<int> rows)
+		private Player_e GetWinner(IList<int> rows) // rows: 各行の(連続する)棒の本数 , ret: 自分(Player_e.Me)を手番とした場合のこの局面における勝者
 		{
 			if (rows.Count == 0) // 直前に相手が消した棒が最後なら、相手の負け。
 			{
@@ -62,11 +62,11 @@ namespace Charlotte.Tests
 
 						next.Sort((a, b) => a - b); // 昇順にソートする。
 
-						if (GetWinner(next) == Player_e.Another) // 次の局面以降において自分の勝ちが確定するなら...
+						if (GetWinner(next) == Player_e.Another) // 次の局面以降において自分の勝ちが確定するなら ...
 						{
 							WinnerCache.Add(strRows, Player_e.Me); // この局面における勝者を記憶
 
-							return Player_e.Me; // ...勝者は自分
+							return Player_e.Me; // ... 勝者は自分
 						}
 					}
 				}
