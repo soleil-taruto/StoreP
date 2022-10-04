@@ -28,16 +28,16 @@ namespace Charlotte.Tests
 
 		private Player_e GetWinner(IList<int> rows)
 		{
+			if (rows.Count == 0) // 直前に相手が消した棒が最後なら、相手の負け。
+			{
+				return Player_e.Me; // つまり勝者は自分
+			}
+
 			string strRows = RowsToString(rows);
 
 			if (WinnerCache.ContainsKey(strRows)) // 既知の局面なら、既知の勝者を返す。
 			{
 				return WinnerCache[strRows];
-			}
-
-			if (rows.Count == 0) // もう消せる棒が無ければ、手番のプレイヤの負け。
-			{
-				return Player_e.Another; // つまり勝者は相手側
 			}
 
 			for (int i = 0; i < rows.Count; i++) // 全ての行について
