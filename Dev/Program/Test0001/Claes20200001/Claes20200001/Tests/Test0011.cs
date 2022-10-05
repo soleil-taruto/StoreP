@@ -161,5 +161,98 @@ namespace Charlotte.Tests
 			}
 			return (a + b) % m;
 		}
+
+		// ----
+		// ----
+		// ----
+
+		private uint GetRandUInt()
+		{
+			byte[] data = new byte[4];
+			uint value = 0;
+
+			Csprng.GetBytes(data);
+
+			foreach (byte b in data)
+			{
+				value <<= 8;
+				value |= b;
+			}
+			return value;
+		}
+
+		private int GetRandInt(int modulo)
+		{
+			return (int)(GetRandUInt() % (uint)modulo);
+		}
+
+		private IEnumerable<int> GetRandIntList()
+		{
+			int count = GetRandInt(10000);
+			int limit = GetRandInt(10000) + 1;
+
+			for (int index = 0; index < count; index++)
+				yield return GetRandInt(limit);
+		}
+
+		public void Test05()
+		{
+			for (int testcnt = 0; testcnt < 30; testcnt++)
+			{
+				int[] arr1 = GetRandIntList().ToArray();
+				int[] arr2 = arr1.ToArray(); // Cloning
+
+				Array.Sort(arr1, (a, b) => a - b);
+
+				CombSort(arr2, (a, b) => a - b);
+
+				for (int index = 0; index < arr1.Length; index++)
+					if (arr1[index] != arr2[index])
+						throw null;
+
+				Console.WriteLine("OK");
+			}
+			Console.WriteLine("OK!");
+		}
+
+		public void CombSort<T>(IList<T> list, Comparison<T> comp)
+		{
+			for (int h = list.Count; ; ) // comb sort
+			{
+				h = (int)(h / 1.3);
+
+				//if (h < 2) // 本来はこちら
+				if (h < 7) // このあたりが良いらしい。
+					break;
+
+				for (int index = h; index < list.Count; index++)
+				{
+					if (comp(list[index - h], list[index]) > 0) // 逆順か
+					{
+						// 入れ替え
+						T tmp = list[index - h];
+						list[index - h] = list[index];
+						list[index] = tmp;
+					}
+				}
+			}
+			for (int h = 1; h < list.Count; h++) // gnome sort
+			{
+				for (int index = h; 0 < index; index--)
+				{
+					if (comp(list[index - 1], list[index]) > 0) // 逆順か
+					{
+						// 入れ替え
+						T tmp = list[index - 1];
+						list[index - 1] = list[index];
+						list[index] = tmp;
+					}
+					else // 正順か
+					{
+						break;
+					}
+				}
+			}
+		}
 	}
 }
