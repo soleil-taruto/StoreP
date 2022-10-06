@@ -8,7 +8,8 @@ namespace Charlotte.Tests
 {
 	public class Test0012
 	{
-		private const string TARGET_DIR = @"C:\Dev";
+		private const string TARGET_DIR = @"C:\temp";
+		//private const string TARGET_DIR = @"C:\Dev";
 
 		public void Test01()
 		{
