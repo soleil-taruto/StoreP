@@ -11,18 +11,18 @@ namespace Charlotte.Tests
 	{
 		public void Test01()
 		{
-			Func<int> s = SCommon.Supplier(Test01_a());
+			Func<ulong> s = SCommon.Supplier(Test01_a());
 
-			for (int i = 0; i < 46; i++)
+			for (int i = 0; i < 93; i++)
 			{
 				Console.WriteLine(s());
 			}
 		}
 
-		private IEnumerable<int> Test01_a()
+		private IEnumerable<ulong> Test01_a()
 		{
-			int a = 1;
-			int b = 0;
+			ulong a = 1;
+			ulong b = 0;
 
 			for (; ; )
 			{
