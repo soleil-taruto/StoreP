@@ -29,8 +29,6 @@ namespace Charlotte.GameTools
 
 		private void PrepForPrint()
 		{
-			DDPrint.Reset();
-
 			if (this.Color != null)
 				DDPrint.SetColor(this.Color.Value);
 

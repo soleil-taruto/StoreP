@@ -30,6 +30,15 @@ namespace Charlotte.GameTools
 			this.MouseUsable = mouseUsable;
 		}
 
+		private void PrepForPrint()
+		{
+			if (this.Color != null)
+				DDPrint.SetColor(this.Color.Value);
+
+			if (this.BorderColor != null)
+				DDPrint.SetBorder(this.BorderColor.Value);
+		}
+
 		public int Perform(int selectIndex, string title, string[] items)
 		{
 			DDCurtain.SetCurtain();
@@ -96,12 +105,7 @@ namespace Charlotte.GameTools
 				}
 
 				this.WallDrawer();
-
-				if (this.Color != null)
-					DDPrint.SetColor(this.Color.Value);
-
-				if (this.BorderColor != null)
-					DDPrint.SetBorder(this.BorderColor.Value);
+				this.PrepForPrint();
 
 				DDPrint.SetPrint(DDConsts.Screen_W - 80, 4, 40);
 				DDPrint.Print("[M:" + (this.MouseUsable ? "E" : "D") + "]");
@@ -392,12 +396,7 @@ namespace Charlotte.GameTools
 					endInput:
 
 						this.WallDrawer();
-
-						if (this.Color != null)
-							DDPrint.SetColor(this.Color.Value);
-
-						if (this.BorderColor != null)
-							DDPrint.SetBorder(this.BorderColor.Value);
+						this.PrepForPrint();
 
 						DDPrint.SetPrint(this.X, this.Y, this.YStep);
 						//DDPrint.SetPrint(16, 16, 32); // old
@@ -470,12 +469,7 @@ namespace Charlotte.GameTools
 					endInput:
 
 						this.WallDrawer();
-
-						if (this.Color != null)
-							DDPrint.SetColor(this.Color.Value);
-
-						if (this.BorderColor != null)
-							DDPrint.SetBorder(this.BorderColor.Value);
+						this.PrepForPrint();
 
 						DDPrint.SetPrint(this.X, this.Y, this.YStep);
 						//DDPrint.SetPrint(16, 16, 32); // old
@@ -668,12 +662,7 @@ namespace Charlotte.GameTools
 				}
 
 				this.WallDrawer();
-
-				if (this.Color != null)
-					DDPrint.SetColor(this.Color.Value);
-
-				if (this.BorderColor != null)
-					DDPrint.SetBorder(this.BorderColor.Value);
+				this.PrepForPrint();
 
 				DDPrint.SetPrint(this.X, this.Y, this.YStep);
 				DDPrint.PrintLine(title);
