@@ -54,7 +54,7 @@ namespace Charlotte.GameCommons
 
 		// ボタンの初期化 --> DDGround.INIT()
 		// ボタンの保存・読み込み --> DDSaveData.Save(), DDSaveData.Load()
-		// ボタンの設定 --> DDSimpleMenu.PadConfig()
+		// ボタンの設定 --> SimpleMenu.PadConfig()
 
 		public static Button DIR_2 = new Button();
 		public static Button DIR_4 = new Button();
