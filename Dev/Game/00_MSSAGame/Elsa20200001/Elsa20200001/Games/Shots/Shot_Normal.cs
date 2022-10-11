@@ -23,10 +23,14 @@ namespace Charlotte.Games.Shots
 		{
 			for (; ; )
 			{
+#if true
+				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
+#else // for Pochimetto
 				if (this.UwamukiFlag)
 					this.Y -= 12.0;
 				else
 					this.X += 12.0 * (this.FacingLeft ? -1 : 1);
+#endif
 
 				if (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y))) // カメラから出たら消滅する。
 					break;

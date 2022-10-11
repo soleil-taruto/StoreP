@@ -88,7 +88,8 @@ namespace Charlotte.Games
 
 			// 攻撃中 >
 
-			if (1 <= this.AttackFrame && this.UwamukiFrame == 0)
+			if (1 <= this.AttackFrame)
+			//if (1 <= this.AttackFrame && this.UwamukiFrame == 0) // for Pochimetto
 			{
 				picture = Ground.I.Picture.PlayerAttack;
 
@@ -228,10 +229,14 @@ namespace Charlotte.Games
 						double x = this.X;
 						double y = this.Y;
 
+#if true
+						x += 30.0 * (this.FacingLeft ? -1 : 1);
+#else // for Pochimetto
 						if (1 <= this.UwamukiFrame)
 							y -= 35.0;
 						else
 							x += 30.0 * (this.FacingLeft ? -1 : 1);
+#endif
 
 						if (1 <= this.ShagamiFrame)
 							y += Y_ADD_SHAGAMI;
