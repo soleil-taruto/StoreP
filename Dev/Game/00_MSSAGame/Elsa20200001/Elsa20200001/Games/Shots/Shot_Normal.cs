@@ -10,18 +10,23 @@ namespace Charlotte.Games.Shots
 	public class Shot_Normal : Shot
 	{
 		private bool FacingLeft;
+		private bool UwamukiFlag;
 
-		public Shot_Normal(double x, double y, bool facingLeft)
+		public Shot_Normal(double x, double y, bool facingLeft, bool uwamukiFlag)
 			: base(x, y, 1, false)
 		{
 			this.FacingLeft = facingLeft;
+			this.UwamukiFlag = uwamukiFlag;
 		}
 
 		protected override IEnumerable<bool> E_Draw()
 		{
 			for (; ; )
 			{
-				this.X += 8.0 * (this.FacingLeft ? -1 : 1);
+				if (this.UwamukiFlag)
+					this.Y -= 12.0;
+				else
+					this.X += 12.0 * (this.FacingLeft ? -1 : 1);
 
 				if (DDUtils.IsOutOfCamera(new D2Point(this.X, this.Y))) // カメラから出たら消滅する。
 					break;
