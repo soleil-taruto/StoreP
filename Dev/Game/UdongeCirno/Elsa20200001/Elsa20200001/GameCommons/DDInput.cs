@@ -71,12 +71,12 @@ namespace Charlotte.GameCommons
 		public static Button PAUSE = new Button();
 		public static Button START = new Button();
 
-		private static void MixInput(Button button)
+		private static void MixInput(Button button, bool oppositeInput = false)
 		{
 			bool keyDown = button.KeyIds.Any(keyId => keyId != -1 && 1 <= DDKey.GetInput(keyId));
 			bool btnDown = button.BtnIds.Any(btnId => btnId != -1 && 1 <= DDPad.GetInput(DDGround.PrimaryPadId, btnId));
 
-			DDUtils.UpdateInput(ref button.Status, keyDown || btnDown);
+			DDUtils.UpdateInput(ref button.Status, !oppositeInput && (keyDown || btnDown));
 		}
 
 		public static void EachFrame()
@@ -86,8 +86,8 @@ namespace Charlotte.GameCommons
 
 			MixInput(DIR_2);
 			MixInput(DIR_4);
-			MixInput(DIR_6);
-			MixInput(DIR_8);
+			MixInput(DIR_6, 1 <= DIR_4.Status);
+			MixInput(DIR_8, 1 <= DIR_2.Status);
 			MixInput(A);
 			MixInput(B);
 			MixInput(C);
