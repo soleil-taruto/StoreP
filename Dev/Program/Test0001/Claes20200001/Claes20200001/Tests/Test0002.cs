@@ -66,7 +66,7 @@ namespace Charlotte.Tests
 				DateTime t = new DateTime(2022, 1, 1, 12, 0, 0);
 				t -= TimeSpan.FromSeconds(s);
 
-				Console.WriteLine(t);
+				Console.WriteLine(t.ToString("yyyy/MM/dd HH:mm:ss.fff"));
 			}
 		}
 
@@ -83,6 +83,78 @@ namespace Charlotte.Tests
 			double m1 = m;
 
 			for (int t = 0; t < 3600; t++)
+			{
+				m += 1.0 / s;
+				s += sps;
+			}
+			double m2 = m;
+
+			return m2 / m1;
+		}
+
+		public void Test03()
+		{
+			Test03_a(1);
+			Test03_a(3);
+			Test03_a(10);
+			Test03_a(30);
+			Test03_a(100);
+			Test03_a(300);
+			Test03_a(1000);
+			Test03_a(3000);
+			Test03_a(10000);
+			Test03_a(30000);
+		}
+
+		public void Test03_a(int secDenom)
+		{
+			double l = 0.0;
+			double r = 0.001;
+
+			for (int c = 0; c < 100; c++)
+			{
+				double m = (l + r) / 2;
+				double rate = Test03_b(m, secDenom);
+
+				if (1.5 < rate)
+				{
+					l = m;
+				}
+				else
+				{
+					r = m;
+				}
+				Console.Write(".");
+			}
+			Console.WriteLine("");
+
+			{
+				double m = (l + r) / 2;
+				double s = 1.0 / m;
+				s /= secDenom;
+
+				Console.WriteLine(s.ToString("F9"));
+
+				DateTime t = new DateTime(2022, 1, 1, 12, 0, 0);
+				t -= TimeSpan.FromSeconds(s);
+
+				Console.WriteLine(secDenom + " --> " + t.ToString("yyyy/MM/dd HH:mm:ss.fff"));
+			}
+		}
+
+		private double Test03_b(double sps, int secDenom)
+		{
+			double m = 0;
+			double s = 1.0;
+
+			for (int t = 0; t < 3600 * secDenom; t++)
+			{
+				m += 1.0 / s;
+				s += sps;
+			}
+			double m1 = m;
+
+			for (int t = 0; t < 3600 * secDenom; t++)
 			{
 				m += 1.0 / s;
 				s += sps;
