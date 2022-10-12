@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Charlotte.Commons;
 
 namespace Charlotte.Tests
 {
@@ -162,6 +163,57 @@ namespace Charlotte.Tests
 			double m2 = m;
 
 			return m2 / m1;
+		}
+
+		public void Test04()
+		{
+			double l = 0.0;
+			double r = 1.0;
+
+			for (int c = 0; c < 30; c++)
+			{
+				double m = (l + r) / 2;
+				double rate = Test04_a(m, 1800);
+
+				if (rate < 0.95)
+				{
+					l = m;
+				}
+				else
+				{
+					r = m;
+				}
+				Console.Write(".");
+			}
+			Console.WriteLine("");
+
+			{
+				double m = (l + r) / 2;
+				double rate = Test04_a(m, 600);
+
+				Console.WriteLine(rate.ToString("F9"));
+			}
+		}
+
+		private double Test04_a(double sps, int sec)
+		{
+			const int TEST_COUNT = 10000;
+			int p = 0;
+
+			for (int testcnt = 0; testcnt < TEST_COUNT; testcnt++)
+			{
+				for (int t = 0; t < sec; t++)
+				{
+					double rand = (double)SCommon.CRandom.GetUInt() / uint.MaxValue;
+
+					if (rand < sps)
+					{
+						p++;
+						break;
+					}
+				}
+			}
+			return (double)p / TEST_COUNT;
 		}
 	}
 }
