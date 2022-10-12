@@ -13,10 +13,7 @@ namespace Charlotte.Tests
 		private const double SNOW_PER_MILLIS_EXPECT_HI = 1.0;
 		private const int SNOW_PER_MILLIS_BIN_SEARCH_MAX = 50;
 		private const int MILLIS_PER_HOUR = 3600000;
-		private const int BASE_TIME_H = 12;
-		private const int BASE_TIME_M = 0;
-		private const int BASE_TIME_S = 0;
-		//private static readonly TimeSpan BASE_TIME = new TimeSpan(BASE_TIME_H, BASE_TIME_M, BASE_TIME_S);
+		private static readonly TimeSpan BASE_TIME = new TimeSpan(12, 0, 0);
 
 		public void Test01()
 		{
@@ -42,8 +39,7 @@ namespace Charlotte.Tests
 				double m = (l + r) / 2;
 				double millis = SNOW_INIT / m;
 
-				TimeSpan t = new TimeSpan(BASE_TIME_H, BASE_TIME_M, BASE_TIME_S);
-				t -= TimeSpan.FromMilliseconds(millis);
+				TimeSpan t = BASE_TIME - TimeSpan.FromMilliseconds(millis);
 
 				Console.WriteLine(t.ToString("hh\\:mm\\:ss\\.fff"));
 			}
