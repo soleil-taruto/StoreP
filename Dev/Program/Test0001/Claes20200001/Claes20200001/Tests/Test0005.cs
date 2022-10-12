@@ -44,7 +44,10 @@ namespace Charlotte.Tests
 			{
 				for (int a = 0; a < b; a++)
 				{
-					int aPoint = SCommon.CRandom.GetInt(3) * 5;
+					int aPoint = Math.Max(
+						SCommon.CRandom.GetInt(3) * 5,
+						SCommon.CRandom.GetInt(3) * 5
+						);
 					int bPoint = 10 - aPoint;
 
 					game.Players[a].Points[b] = aPoint;
