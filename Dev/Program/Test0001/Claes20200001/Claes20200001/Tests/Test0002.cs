@@ -167,13 +167,25 @@ namespace Charlotte.Tests
 
 		public void Test04()
 		{
+			const int TEST_COUNT = 10;
+			double total = 0.0;
+
+			for (int testcnt = 0; testcnt < TEST_COUNT; testcnt++)
+			{
+				total += Test04_a();
+			}
+			Console.WriteLine((total / TEST_COUNT).ToString("F9"));
+		}
+
+		public double Test04_a()
+		{
 			double l = 0.0;
 			double r = 1.0;
 
 			for (int c = 0; c < 30; c++)
 			{
 				double m = (l + r) / 2;
-				double rate = Test04_a(m, 1800);
+				double rate = Test04_b(m, 1800);
 
 				if (rate < 0.95)
 				{
@@ -189,14 +201,18 @@ namespace Charlotte.Tests
 
 			{
 				double m = (l + r) / 2;
-				double rate = Test04_a(m, 600);
+				double rate = Test04_b(m, 600);
 
 				Console.WriteLine(rate.ToString("F9"));
+
+				return rate;
 			}
 		}
 
-		private double Test04_a(double sps, int sec)
+		private double Test04_b(double sps, int sec)
 		{
+			//const int TEST_COUNT = 100;
+			//const int TEST_COUNT = 1000;
 			const int TEST_COUNT = 10000;
 			int p = 0;
 
