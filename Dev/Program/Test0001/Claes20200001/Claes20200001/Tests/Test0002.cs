@@ -182,7 +182,7 @@ namespace Charlotte.Tests
 			double l = 0.0;
 			double r = 1.0;
 
-			for (int c = 0; c < 30; c++)
+			for (int c = 0; c < 20; c++)
 			{
 				double m = (l + r) / 2;
 				double rate = Test04_b(m, 1800);
@@ -220,9 +220,7 @@ namespace Charlotte.Tests
 			{
 				for (int t = 0; t < sec; t++)
 				{
-					double rand = (double)SCommon.CRandom.GetUInt() / uint.MaxValue;
-
-					if (rand < sps)
+					if (SCommon.CRandom.GetReal1() < sps)
 					{
 						p++;
 						break;
